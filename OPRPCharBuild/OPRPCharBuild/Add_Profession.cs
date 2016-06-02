@@ -13,6 +13,9 @@ namespace OPRPCharBuild
 	public partial class Add_Profession : Form
 	{
 		private bool button_clicked;
+		private bool red_name;
+		private bool red_desc;
+		private bool red_bon;
 
 		private struct Professions
 		{
@@ -105,8 +108,27 @@ namespace OPRPCharBuild
 
 		private void button1_Click(object sender, EventArgs e) {
 			// Only want the appropriate changes to be made, so we add a bool
-			this.Close();
-			button_clicked = true;
+			if (string.IsNullOrWhiteSpace(comboBox1.Text) ||
+				string.IsNullOrWhiteSpace(richTextBox1_Desc.Text) ||
+				(string.IsNullOrWhiteSpace(richTextBox2_Primary.Text) && checkBox1.Enabled)) {
+				if (string.IsNullOrWhiteSpace(comboBox1.Text)) {
+					comboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+					red_name = true;
+				}
+				if (string.IsNullOrWhiteSpace(richTextBox1_Desc.Text)) {
+					richTextBox1_Desc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+					red_desc = true;
+				}
+				if ((string.IsNullOrWhiteSpace(richTextBox2_Primary.Text) && checkBox1.Enabled)) {
+					richTextBox2_Primary.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+					red_bon = true;
+				}
+				MessageBox.Show("Please do not enter in a blank Profession.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else {
+				this.Close();
+				button_clicked = true;
+			}
 		}
 
 		public void NewDialog(ref ListView Main_Form) {
@@ -162,6 +184,18 @@ namespace OPRPCharBuild
 			if (!checkBox1.Checked) {
 				richTextBox2_Primary.Clear();
 			}
+			// To clear the possible red background
+			if (red_name) {
+				comboBox1.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+				red_name = false;
+			}
+		}
+
+		private void comboBox1_TextUpdate(object sender, EventArgs e) {
+			if (red_name) {
+				comboBox1.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+				red_name = false;
+			}
 		}
 
 		private void checkBox1_CheckedChanged(object sender, EventArgs e) {
@@ -174,6 +208,20 @@ namespace OPRPCharBuild
 			else {
 				richTextBox2_Primary.Enabled = false;
 				richTextBox2_Primary.Clear();
+			}
+		}
+
+		private void richTextBox1_Desc_TextChanged(object sender, EventArgs e) {
+			if (red_desc) {
+				richTextBox1_Desc.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+				red_desc = false;
+			}
+		}
+
+		private void richTextBox2_Primary_TextChanged(object sender, EventArgs e) {
+			if (red_bon) {
+				richTextBox2_Primary.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+				red_bon = false;
 			}
 		}
 	}

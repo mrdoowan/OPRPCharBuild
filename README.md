@@ -6,6 +6,16 @@ Overview
 
 SoonTM
 
+Credits
+-------
+
+Based on OPRP usernames
+
+* Developer: Solo
+* Base Idea: VackTavish for his original OPRP Character Calculator
+* Beta Testers: Drift, Rayne, Masa, Linx, Bright, Cevian, Davy Jones, Arche, Spunky
+* Icon: Masa
+
 Version History
 ---------------
 

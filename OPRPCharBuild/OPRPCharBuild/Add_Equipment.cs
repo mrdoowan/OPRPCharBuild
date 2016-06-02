@@ -13,16 +13,40 @@ namespace OPRPCharBuild
 	public partial class Add_Equipment : Form
 	{
 		private bool button_clicked;
+		private bool red_textbox;
+		private bool red_richbox;
 
 		public Add_Equipment() {
 			InitializeComponent();
 			button_clicked = false;
+			red_textbox = false;
+			red_richbox = false;
 		}
 
 		private void button1_Click(object sender, EventArgs e) {
 			// Only want the appropriate changes to be made, so we add a bool
-			this.Close();
-			button_clicked = true;
+			if (string.IsNullOrWhiteSpace(richTextBox1.Text) ||
+				string.IsNullOrWhiteSpace(textBox1.Text)) {
+				if (string.IsNullOrWhiteSpace(richTextBox1.Text) && string.IsNullOrWhiteSpace(textBox1.Text)) {
+					textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+					richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+					red_textbox = true;
+					red_richbox = true;
+				}
+				else if (string.IsNullOrWhiteSpace(richTextBox1.Text)) {
+					richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+					red_richbox = true;
+				}
+				else if (string.IsNullOrWhiteSpace(textBox1.Text)) {
+					textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+					red_textbox = true;
+				}
+				MessageBox.Show("Please do not enter in a blank Equipment.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else {
+				this.Close();
+				button_clicked = true;
+			}
 		}
 
 		private void Add_ListItem(ref ListView Main_Form) {
@@ -66,6 +90,20 @@ namespace OPRPCharBuild
 		public void Edit_Item(ref ListView Main_Form) {
 			this.Text = "Edit Item";
 			Edit_ListItem(ref Main_Form);
+		}
+
+		private void textBox1_TextChanged(object sender, EventArgs e) {
+			if (red_textbox) {
+				this.textBox1.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+				red_textbox = false;
+			}
+		}
+
+		private void richTextBox1_TextChanged(object sender, EventArgs e) {
+			if (red_richbox) {
+				this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+				red_richbox = false;
+			}
 		}
 	}
 }

@@ -36,6 +36,16 @@ namespace OPRPCharBuild
 			richTextBox_Template.Text = help;
 		}
 
+		// Make it less tedious for me.
+		private string Make_NA(string data) {
+			if (string.IsNullOrWhiteSpace(data)) {
+				return "N/A";
+			}
+			else {
+				return data;
+			}
+		}
+
 		// ---------------------------------------------------------------------------
 		public void Basic_Generate(string name, string nick, int age, string gender, string race, string aff, string bounty, string rank,
 			string comm, string threat, string pos, ListBox achieve, ListView profs) {
@@ -48,7 +58,7 @@ namespace OPRPCharBuild
 			template.Write('\n');
 			template.Write("[center][big][big][i][font=Century Gothic]Basic Character Information[/font][/i][/big][/big][/center]\n");
 			template.Write("[b]Name:[/b] " + name + '\n');
-			template.Write("[b]Nickname:[/b] " + nick + '\n');
+			template.Write("[b]Nickname:[/b] " + Make_NA(nick) + '\n');
 			template.Write("[b]Age:[/b] " + age + '\n');
 			template.Write("[b]Gender:[/b] " + gender + '\n');
 			template.Write("[b]Race:[/b] " + race + '\n');
@@ -62,7 +72,7 @@ namespace OPRPCharBuild
 			else {
 				template.Write("[b]Threat:[/b] " + threat + '\n');
 			}
-			template.Write("[b]Position:[/b] " + pos + '\n');
+			template.Write("[b]Position:[/b] " + Make_NA(pos) + '\n');
 			template.Write("[b]Achievements:[/b][list]");
 			if (achieve.Items.Count == 0) {
 				template.Write("[*]None");
@@ -92,7 +102,9 @@ namespace OPRPCharBuild
 			template.Write("[b]Weight:[/b] " + weight + '\n');
 			template.Write("[b]Hair:[/b] " + hair + '\n');
 			template.Write("[b]Eyes:[/b] " + eye + '\n');
+			template.Write('\n');
 			template.Write("[b]Clothing/Accessories:[/b] " + clothing + '\n');
+			template.Write('\n');
 			template.Write("[b]General Appearance:[/b] " + appear + '\n');
 			template.Write('\n');
 			template.Write("[spoiler][img");
@@ -227,9 +239,9 @@ namespace OPRPCharBuild
 					template.Write("[/table]\n");
 				}
 			}
-			template.Write("[quote=Devil Fruit][b]Devil Fruit Name:[/b] " + DF_name + '\n');
-			template.Write("[b]Devil Fruit Type:[/b] " + DF_type + '\n');
-			template.Write("[b]Devil Fruit Ability:[/b] " + DF_desc + "[/quote]\n");
+			template.Write("[quote=Devil Fruit][b]Devil Fruit Name:[/b] " + Make_NA(DF_name) + '\n');
+			template.Write("[b]Devil Fruit Type:[/b] " + Make_NA(DF_type) + '\n');
+			template.Write("[b]Devil Fruit Ability:[/b] " + Make_NA(DF_desc) + "[/quote]\n");
 			template.Write('\n');
 		}
 		// ---------------------------------------------------------------------------
@@ -275,6 +287,7 @@ namespace OPRPCharBuild
 					i++;
 				}
 				template.Write("[/table]");
+				template.Write('\n');
 			}
 		}
 
@@ -284,7 +297,7 @@ namespace OPRPCharBuild
 			template.Write('\n');
 			template.Write("[spoiler]Edit Log goes here[/spoiler]\n");
 			template.Write('\n');
-			template.Write("[small]This Character Template was created by the OPRP Character Builder " + version + '\n');
+			template.Write("[small]This Character Template was created by the OPRP Character Builder v" + version + '\n');
 			template.Write("Calculations should be done correctly if not bugged or changed by the user.[/small]");
 			// Transfer entire stream into readable textbox
 			richTextBox_Template.Text = template.ToString();

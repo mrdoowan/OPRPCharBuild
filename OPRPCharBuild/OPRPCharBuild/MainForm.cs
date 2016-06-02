@@ -23,7 +23,7 @@ namespace OPRPCharBuild
 		// PUBLIC / PRIVATE MEMBER FUNCTIONS AND VARIABLES
 		// --------------------------------------------------------------------------------------------
 
-		public string version = "V1.0.0.1 (BETA)";
+		public string version = "1.0.0.1 (BETA)";
 		Traits traits = new Traits();           // For enumerations of traits
 		Project project = new Project();        // State of save file
 
@@ -632,7 +632,7 @@ namespace OPRPCharBuild
 
 			this.Text = "OPRP Character Builder";
 			label_Title.Text = "OPRP Character Builder";
-			label1.Text = "OPRP Character Builder " + version + " designed by Solo";
+			label1.Text = "OPRP Character Builder v" + version + " designed by Solo";
 
 			// ListView1 is Professions
 			listView_Prof.View = View.Details;
@@ -890,7 +890,7 @@ namespace OPRPCharBuild
 			Update_Total_RegTP(); // For Tech multiplier
 		}
 
-		private void numericUpDown3_SDEarned_ValueChanged(object sender, EventArgs e) {
+		private void numericUpDown_SDEarned_ValueChanged(object sender, EventArgs e) {
 			// We have to adjust the max value of SD Earned into AP.
 			numericUpDown_SDintoStats.Maximum = numericUpDown_SDEarned.Value;
 			numericUpDown_SDintoStats.Value = numericUpDown_SDEarned.Value;
@@ -899,19 +899,19 @@ namespace OPRPCharBuild
 			Update_Total_RegTP();
 		}
 
-		private void numericUpDown4_SDintoStats_ValueChanged(object sender, EventArgs e) {
+		private void numericUpDown_SDintoStats_ValueChanged(object sender, EventArgs e) {
 			Update_Stat_Points();
 			Update_SD_Remaining();
 		}
 
-		private void textBox16_StatPoints_TextChanged(object sender, EventArgs e) {
+		private void textBox_StatPoints_TextChanged(object sender, EventArgs e) {
 			Update_Used_for_Stats();
 			// Also set the maximum value of Used for Fortune = Stat Points / 4
 			numericUpDown_UsedForFort.Maximum = Int32.Parse(textBox_StatPoints.Text) / 4;
 			Update_Fortune();
 		}
 
-		private void numericUpDown5_UsedForFort_ValueChanged(object sender, EventArgs e) {
+		private void numericUpDown_UsedForFort_ValueChanged(object sender, EventArgs e) {
 			// Turn current value into divisible by 5.
 			int val = (int)numericUpDown_UsedForFort.Value;
 			val = (val / 5) * 5;
@@ -920,32 +920,32 @@ namespace OPRPCharBuild
 			Update_Fortune();
 		}
 
-		private void numericUpDown6_StrengthBase_ValueChanged(object sender, EventArgs e) {
+		private void numericUpDown_StrengthBase_ValueChanged(object sender, EventArgs e) {
 			Update_Strength_Final();
 			Update_BaseStats_Check();
 		}
 
-		private void numericUpDown7_SpeedBase_ValueChanged(object sender, EventArgs e) {
+		private void numericUpDown_SpeedBase_ValueChanged(object sender, EventArgs e) {
 			Update_Speed_Final();
 			Update_BaseStats_Check();
 		}
 
-		private void numericUpDown8_StaminaBase_ValueChanged(object sender, EventArgs e) {
+		private void numericUpDown_StaminaBase_ValueChanged(object sender, EventArgs e) {
 			Update_Stamina_Final();
 			Update_BaseStats_Check();
 		}
 
-		private void numericUpDown9_AccuracyBase_ValueChanged(object sender, EventArgs e) {
+		private void numericUpDown_AccuracyBase_ValueChanged(object sender, EventArgs e) {
 			Update_Accuracy_Final();
 			Update_BaseStats_Check();
 		}
 
-		private void textBox18_Fortune_TextChanged(object sender, EventArgs e) {
+		private void textBox_Fortune_TextChanged(object sender, EventArgs e) {
 			Update_Total_RegTP();
 			Update_SpTrait_Table_Values();
 		}
 
-		private void textBox17_UsedForStats_TextChanged(object sender, EventArgs e) {
+		private void textBox_UsedForStats_TextChanged(object sender, EventArgs e) {
 			Update_BaseStats_Check();
 		}
 
@@ -1595,6 +1595,5 @@ namespace OPRPCharBuild
 		}
 
 		#endregion
-
 	}
 }

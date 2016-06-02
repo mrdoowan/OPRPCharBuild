@@ -57,6 +57,7 @@
 			this.richTextBox1_Desc.Size = new System.Drawing.Size(435, 116);
 			this.richTextBox1_Desc.TabIndex = 8;
 			this.richTextBox1_Desc.Text = "";
+			this.richTextBox1_Desc.TextChanged += new System.EventHandler(this.richTextBox1_Desc_TextChanged);
 			// 
 			// label2
 			// 
@@ -100,6 +101,7 @@
 			this.comboBox1.Size = new System.Drawing.Size(147, 24);
 			this.comboBox1.TabIndex = 10;
 			this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+			this.comboBox1.TextUpdate += new System.EventHandler(this.comboBox1_TextUpdate);
 			// 
 			// checkBox1
 			// 
@@ -134,6 +136,7 @@
 			this.richTextBox2_Primary.Size = new System.Drawing.Size(435, 106);
 			this.richTextBox2_Primary.TabIndex = 13;
 			this.richTextBox2_Primary.Text = "";
+			this.richTextBox2_Primary.TextChanged += new System.EventHandler(this.richTextBox2_Primary_TextChanged);
 			// 
 			// label4
 			// 
