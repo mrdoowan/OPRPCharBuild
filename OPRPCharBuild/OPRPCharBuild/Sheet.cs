@@ -11,6 +11,8 @@ using System.IO;
 
 namespace OPRPCharBuild
 {
+	// Also put Help Document in here as well.
+
 	public partial class Sheet : Form
 	{
 
@@ -23,6 +25,17 @@ namespace OPRPCharBuild
 		private void button_Close_Click(object sender, EventArgs e) {
 			this.Close();
 		}
+
+		public void Set_Help_Form() {
+			this.Text = "Help";
+			label_Title.Text = "Help Documentation";
+			label1.Visible = false;
+
+			string help = "Write stuff here\n";
+
+			richTextBox_Template.Text = help;
+		}
+
 		// ---------------------------------------------------------------------------
 		public void Basic_Generate(string name, string nick, int age, string gender, string race, string aff, string bounty, string rank,
 			string comm, string threat, string pos, ListBox achieve, ListView profs) {

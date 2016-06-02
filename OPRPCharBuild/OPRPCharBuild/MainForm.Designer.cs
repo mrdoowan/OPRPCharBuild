@@ -882,11 +882,11 @@
 			// 
 			this.label16.AutoSize = true;
 			this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label16.Location = new System.Drawing.Point(333, 60);
+			this.label16.Location = new System.Drawing.Point(328, 60);
 			this.label16.Name = "label16";
-			this.label16.Size = new System.Drawing.Size(28, 13);
+			this.label16.Size = new System.Drawing.Size(33, 13);
 			this.label16.TabIndex = 6;
-			this.label16.Text = "Eye:";
+			this.label16.Text = "Eyes:";
 			// 
 			// label15
 			// 

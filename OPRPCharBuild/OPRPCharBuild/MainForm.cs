@@ -23,7 +23,7 @@ namespace OPRPCharBuild
 		// PUBLIC / PRIVATE MEMBER FUNCTIONS AND VARIABLES
 		// --------------------------------------------------------------------------------------------
 
-		public string version = "V1.0.0.0 (BETA)";
+		public string version = "V1.0.0.1 (BETA)";
 		Traits traits = new Traits();           // For enumerations of traits
 		Project project = new Project();        // State of save file
 
@@ -208,8 +208,8 @@ namespace OPRPCharBuild
 		private void Update_Fortune() {
 			string calc = "(";
 			// First Stat Points / 4
-			int fortune = Int32.Parse(textBox_StatPoints.Text) / 4;
-			calc += textBox_StatPoints.Text + " / 4";
+			int fortune = Int32.Parse(textBox_UsedForStats.Text) / 4;
+			calc += textBox_UsedForStats.Text + " / 4";
 			// Then Fortune from Used for Fortune
 			int used_for = (int)numericUpDown_UsedForFort.Value / 5 * 3;
 			if (used_for > 0) {

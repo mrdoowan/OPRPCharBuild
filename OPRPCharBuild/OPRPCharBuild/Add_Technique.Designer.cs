@@ -300,6 +300,7 @@
 			this.comboBox_Range.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox_Range.FormattingEnabled = true;
 			this.comboBox_Range.Items.AddRange(new object[] {
+            "Self",
             "Melee",
             "Short",
             "Medium",
