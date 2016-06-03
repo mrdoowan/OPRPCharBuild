@@ -1,3 +1,5 @@
+v1.0.0.4 - 6/3/2016
+- Version check tested and good.
 v1.0.0.3 - 6/3/2016
 - Weaponry and Items is now a Table in the Template Sheet
 - Primary profession is always listed as first in the Template Sheet

@@ -26,7 +26,7 @@ namespace OPRPCharBuild
 		// PUBLIC / PRIVATE MEMBER FUNCTIONS AND VARIABLES
 		// --------------------------------------------------------------------------------------------
 
-		public const string version = "1.0.0.0";
+		public const string version = "1.0.0.4";
 		private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
 		Traits traits = new Traits();           // For enumerations of traits
 		Project project = new Project();        // State of save file
@@ -120,7 +120,7 @@ namespace OPRPCharBuild
 				if (latest <= current) {
 					return;
 				}
-				if (MessageBox.Show("An update to v" + latest.ToString() + " is available. Would you like to download the newest version?", "New Version", 
+				if (MessageBox.Show("An update to v" + version_page + " is available. Would you like to download the newest version?", "New Version", 
 					MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
 					Process.Start(website);
 					upgrading = true; // Temporary until we implement a convenient save feature
