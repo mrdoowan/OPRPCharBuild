@@ -30,12 +30,16 @@
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.button_DownProf = new System.Windows.Forms.Button();
 			this.button_ProfEdit = new System.Windows.Forms.Button();
+			this.button_UpProf = new System.Windows.Forms.Button();
 			this.button_ProfDelete = new System.Windows.Forms.Button();
 			this.button_ProfAdd = new System.Windows.Forms.Button();
 			this.listView_Prof = new System.Windows.Forms.ListView();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.button_DownAchieve = new System.Windows.Forms.Button();
 			this.button_AchieveEdit = new System.Windows.Forms.Button();
+			this.button_UpAchieve = new System.Windows.Forms.Button();
 			this.button_AchieveAdd = new System.Windows.Forms.Button();
 			this.button_AchieveDelete = new System.Windows.Forms.Button();
 			this.listBox_Achieve = new System.Windows.Forms.ListBox();
@@ -103,6 +107,10 @@
 			this.label50 = new System.Windows.Forms.Label();
 			this.textBox_DFName = new System.Windows.Forms.TextBox();
 			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.button_DownItem = new System.Windows.Forms.Button();
+			this.button_UpItem = new System.Windows.Forms.Button();
+			this.button_DownWeapon = new System.Windows.Forms.Button();
+			this.button_UpWeapon = new System.Windows.Forms.Button();
 			this.button_ItemsEdit = new System.Windows.Forms.Button();
 			this.button_WeaponEdit = new System.Windows.Forms.Button();
 			this.listView_Items = new System.Windows.Forms.ListView();
@@ -182,6 +190,8 @@
 			this.listView_Traits = new System.Windows.Forms.ListView();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.groupBox11 = new System.Windows.Forms.GroupBox();
+			this.button_DownTech = new System.Windows.Forms.Button();
+			this.button_UpTech = new System.Windows.Forms.Button();
 			this.label_SpTrait_Warning = new System.Windows.Forms.Label();
 			this.textBox_SpTPTotal = new System.Windows.Forms.TextBox();
 			this.label45 = new System.Windows.Forms.Label();
@@ -289,7 +299,9 @@
 			// 
 			// groupBox3
 			// 
+			this.groupBox3.Controls.Add(this.button_DownProf);
 			this.groupBox3.Controls.Add(this.button_ProfEdit);
+			this.groupBox3.Controls.Add(this.button_UpProf);
 			this.groupBox3.Controls.Add(this.button_ProfDelete);
 			this.groupBox3.Controls.Add(this.button_ProfAdd);
 			this.groupBox3.Controls.Add(this.listView_Prof);
@@ -301,6 +313,16 @@
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Professions";
 			// 
+			// button_DownProf
+			// 
+			this.button_DownProf.Image = ((System.Drawing.Image)(resources.GetObject("button_DownProf.Image")));
+			this.button_DownProf.Location = new System.Drawing.Point(587, 54);
+			this.button_DownProf.Name = "button_DownProf";
+			this.button_DownProf.Size = new System.Drawing.Size(26, 26);
+			this.button_DownProf.TabIndex = 13;
+			this.button_DownProf.UseVisualStyleBackColor = true;
+			this.button_DownProf.Click += new System.EventHandler(this.button_DownProf_Click);
+			// 
 			// button_ProfEdit
 			// 
 			this.button_ProfEdit.Location = new System.Drawing.Point(457, 175);
@@ -310,6 +332,16 @@
 			this.button_ProfEdit.Text = "Edit";
 			this.button_ProfEdit.UseVisualStyleBackColor = true;
 			this.button_ProfEdit.Click += new System.EventHandler(this.button_ProfEdit_Click);
+			// 
+			// button_UpProf
+			// 
+			this.button_UpProf.Image = ((System.Drawing.Image)(resources.GetObject("button_UpProf.Image")));
+			this.button_UpProf.Location = new System.Drawing.Point(587, 22);
+			this.button_UpProf.Name = "button_UpProf";
+			this.button_UpProf.Size = new System.Drawing.Size(26, 26);
+			this.button_UpProf.TabIndex = 12;
+			this.button_UpProf.UseVisualStyleBackColor = true;
+			this.button_UpProf.Click += new System.EventHandler(this.button_UpProf_Click);
 			// 
 			// button_ProfDelete
 			// 
@@ -341,13 +373,15 @@
 			this.listView_Prof.Location = new System.Drawing.Point(6, 22);
 			this.listView_Prof.MultiSelect = false;
 			this.listView_Prof.Name = "listView_Prof";
-			this.listView_Prof.Size = new System.Drawing.Size(607, 147);
+			this.listView_Prof.Size = new System.Drawing.Size(575, 147);
 			this.listView_Prof.TabIndex = 0;
 			this.listView_Prof.UseCompatibleStateImageBehavior = false;
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.button_DownAchieve);
 			this.groupBox2.Controls.Add(this.button_AchieveEdit);
+			this.groupBox2.Controls.Add(this.button_UpAchieve);
 			this.groupBox2.Controls.Add(this.button_AchieveAdd);
 			this.groupBox2.Controls.Add(this.button_AchieveDelete);
 			this.groupBox2.Controls.Add(this.listBox_Achieve);
@@ -359,6 +393,16 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Achievements";
 			// 
+			// button_DownAchieve
+			// 
+			this.button_DownAchieve.Image = ((System.Drawing.Image)(resources.GetObject("button_DownAchieve.Image")));
+			this.button_DownAchieve.Location = new System.Drawing.Point(587, 54);
+			this.button_DownAchieve.Name = "button_DownAchieve";
+			this.button_DownAchieve.Size = new System.Drawing.Size(26, 26);
+			this.button_DownAchieve.TabIndex = 11;
+			this.button_DownAchieve.UseVisualStyleBackColor = true;
+			this.button_DownAchieve.Click += new System.EventHandler(this.button_DownAchieve_Click);
+			// 
 			// button_AchieveEdit
 			// 
 			this.button_AchieveEdit.Location = new System.Drawing.Point(457, 132);
@@ -368,6 +412,16 @@
 			this.button_AchieveEdit.Text = "Edit";
 			this.button_AchieveEdit.UseVisualStyleBackColor = true;
 			this.button_AchieveEdit.Click += new System.EventHandler(this.button_AchieveEdit_Click);
+			// 
+			// button_UpAchieve
+			// 
+			this.button_UpAchieve.Image = ((System.Drawing.Image)(resources.GetObject("button_UpAchieve.Image")));
+			this.button_UpAchieve.Location = new System.Drawing.Point(587, 22);
+			this.button_UpAchieve.Name = "button_UpAchieve";
+			this.button_UpAchieve.Size = new System.Drawing.Size(26, 26);
+			this.button_UpAchieve.TabIndex = 10;
+			this.button_UpAchieve.UseVisualStyleBackColor = true;
+			this.button_UpAchieve.Click += new System.EventHandler(this.button_UpAchieve_Click);
 			// 
 			// button_AchieveAdd
 			// 
@@ -395,7 +449,7 @@
 			this.listBox_Achieve.ItemHeight = 16;
 			this.listBox_Achieve.Location = new System.Drawing.Point(6, 22);
 			this.listBox_Achieve.Name = "listBox_Achieve";
-			this.listBox_Achieve.Size = new System.Drawing.Size(607, 100);
+			this.listBox_Achieve.Size = new System.Drawing.Size(575, 100);
 			this.listBox_Achieve.TabIndex = 0;
 			// 
 			// groupBox1
@@ -1134,6 +1188,10 @@
 			// 
 			// groupBox7
 			// 
+			this.groupBox7.Controls.Add(this.button_DownItem);
+			this.groupBox7.Controls.Add(this.button_UpItem);
+			this.groupBox7.Controls.Add(this.button_DownWeapon);
+			this.groupBox7.Controls.Add(this.button_UpWeapon);
 			this.groupBox7.Controls.Add(this.button_ItemsEdit);
 			this.groupBox7.Controls.Add(this.button_WeaponEdit);
 			this.groupBox7.Controls.Add(this.listView_Items);
@@ -1155,6 +1213,46 @@
 			this.groupBox7.TabIndex = 2;
 			this.groupBox7.TabStop = false;
 			this.groupBox7.Text = "Fighting Methods and Equipment";
+			// 
+			// button_DownItem
+			// 
+			this.button_DownItem.Image = ((System.Drawing.Image)(resources.GetObject("button_DownItem.Image")));
+			this.button_DownItem.Location = new System.Drawing.Point(587, 353);
+			this.button_DownItem.Name = "button_DownItem";
+			this.button_DownItem.Size = new System.Drawing.Size(26, 26);
+			this.button_DownItem.TabIndex = 22;
+			this.button_DownItem.UseVisualStyleBackColor = true;
+			this.button_DownItem.Click += new System.EventHandler(this.button_DownItem_Click);
+			// 
+			// button_UpItem
+			// 
+			this.button_UpItem.Image = ((System.Drawing.Image)(resources.GetObject("button_UpItem.Image")));
+			this.button_UpItem.Location = new System.Drawing.Point(587, 321);
+			this.button_UpItem.Name = "button_UpItem";
+			this.button_UpItem.Size = new System.Drawing.Size(26, 26);
+			this.button_UpItem.TabIndex = 21;
+			this.button_UpItem.UseVisualStyleBackColor = true;
+			this.button_UpItem.Click += new System.EventHandler(this.button_UpItem_Click);
+			// 
+			// button_DownWeapon
+			// 
+			this.button_DownWeapon.Image = ((System.Drawing.Image)(resources.GetObject("button_DownWeapon.Image")));
+			this.button_DownWeapon.Location = new System.Drawing.Point(587, 183);
+			this.button_DownWeapon.Name = "button_DownWeapon";
+			this.button_DownWeapon.Size = new System.Drawing.Size(26, 26);
+			this.button_DownWeapon.TabIndex = 20;
+			this.button_DownWeapon.UseVisualStyleBackColor = true;
+			this.button_DownWeapon.Click += new System.EventHandler(this.button_DownWeapon_Click);
+			// 
+			// button_UpWeapon
+			// 
+			this.button_UpWeapon.Image = ((System.Drawing.Image)(resources.GetObject("button_UpWeapon.Image")));
+			this.button_UpWeapon.Location = new System.Drawing.Point(587, 151);
+			this.button_UpWeapon.Name = "button_UpWeapon";
+			this.button_UpWeapon.Size = new System.Drawing.Size(26, 26);
+			this.button_UpWeapon.TabIndex = 19;
+			this.button_UpWeapon.UseVisualStyleBackColor = true;
+			this.button_UpWeapon.Click += new System.EventHandler(this.button_UpWeapon_Click);
 			// 
 			// button_ItemsEdit
 			// 
@@ -1186,7 +1284,7 @@
 			this.listView_Items.Location = new System.Drawing.Point(71, 321);
 			this.listView_Items.MultiSelect = false;
 			this.listView_Items.Name = "listView_Items";
-			this.listView_Items.Size = new System.Drawing.Size(543, 137);
+			this.listView_Items.Size = new System.Drawing.Size(510, 137);
 			this.listView_Items.TabIndex = 16;
 			this.listView_Items.UseCompatibleStateImageBehavior = false;
 			// 
@@ -1200,7 +1298,7 @@
 			this.listView_Weaponry.Location = new System.Drawing.Point(71, 151);
 			this.listView_Weaponry.MultiSelect = false;
 			this.listView_Weaponry.Name = "listView_Weaponry";
-			this.listView_Weaponry.Size = new System.Drawing.Size(542, 130);
+			this.listView_Weaponry.Size = new System.Drawing.Size(510, 130);
 			this.listView_Weaponry.TabIndex = 15;
 			this.listView_Weaponry.UseCompatibleStateImageBehavior = false;
 			// 
@@ -1927,7 +2025,7 @@
 			// 
 			this.label58_TraitsCurrent.AutoSize = true;
 			this.label58_TraitsCurrent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label58_TraitsCurrent.Location = new System.Drawing.Point(6, 219);
+			this.label58_TraitsCurrent.Location = new System.Drawing.Point(112, 219);
 			this.label58_TraitsCurrent.Name = "label58_TraitsCurrent";
 			this.label58_TraitsCurrent.Size = new System.Drawing.Size(305, 13);
 			this.label58_TraitsCurrent.TabIndex = 21;
@@ -2203,6 +2301,8 @@
 			// 
 			// groupBox11
 			// 
+			this.groupBox11.Controls.Add(this.button_DownTech);
+			this.groupBox11.Controls.Add(this.button_UpTech);
 			this.groupBox11.Controls.Add(this.label_SpTrait_Warning);
 			this.groupBox11.Controls.Add(this.textBox_SpTPTotal);
 			this.groupBox11.Controls.Add(this.label45);
@@ -2226,6 +2326,26 @@
 			this.groupBox11.TabIndex = 3;
 			this.groupBox11.TabStop = false;
 			this.groupBox11.Text = "Techniques";
+			// 
+			// button_DownTech
+			// 
+			this.button_DownTech.Image = ((System.Drawing.Image)(resources.GetObject("button_DownTech.Image")));
+			this.button_DownTech.Location = new System.Drawing.Point(587, 233);
+			this.button_DownTech.Name = "button_DownTech";
+			this.button_DownTech.Size = new System.Drawing.Size(26, 26);
+			this.button_DownTech.TabIndex = 38;
+			this.button_DownTech.UseVisualStyleBackColor = true;
+			this.button_DownTech.Click += new System.EventHandler(this.button_DownTech_Click);
+			// 
+			// button_UpTech
+			// 
+			this.button_UpTech.Image = ((System.Drawing.Image)(resources.GetObject("button_UpTech.Image")));
+			this.button_UpTech.Location = new System.Drawing.Point(587, 201);
+			this.button_UpTech.Name = "button_UpTech";
+			this.button_UpTech.Size = new System.Drawing.Size(26, 26);
+			this.button_UpTech.TabIndex = 37;
+			this.button_UpTech.UseVisualStyleBackColor = true;
+			this.button_UpTech.Click += new System.EventHandler(this.button_UpTech_Click);
 			// 
 			// label_SpTrait_Warning
 			// 
@@ -2303,10 +2423,11 @@
 			this.listView_Techniques.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
 			this.listView_Techniques.FullRowSelect = true;
 			this.listView_Techniques.GridLines = true;
+			this.listView_Techniques.HideSelection = false;
 			this.listView_Techniques.Location = new System.Drawing.Point(6, 201);
 			this.listView_Techniques.MultiSelect = false;
 			this.listView_Techniques.Name = "listView_Techniques";
-			this.listView_Techniques.Size = new System.Drawing.Size(607, 230);
+			this.listView_Techniques.Size = new System.Drawing.Size(575, 230);
 			this.listView_Techniques.TabIndex = 29;
 			this.listView_Techniques.UseCompatibleStateImageBehavior = false;
 			// 
@@ -2767,6 +2888,16 @@
 		private System.Windows.Forms.CheckedListBox checkedListBox1_AP;
 		private System.Windows.Forms.Label label80;
 		private System.Windows.Forms.Label label81;
+		private System.Windows.Forms.Button button_DownProf;
+		private System.Windows.Forms.Button button_UpProf;
+		private System.Windows.Forms.Button button_DownAchieve;
+		private System.Windows.Forms.Button button_UpAchieve;
+		private System.Windows.Forms.Button button_DownItem;
+		private System.Windows.Forms.Button button_UpItem;
+		private System.Windows.Forms.Button button_DownWeapon;
+		private System.Windows.Forms.Button button_UpWeapon;
+		private System.Windows.Forms.Button button_DownTech;
+		private System.Windows.Forms.Button button_UpTech;
 	}
 }
 

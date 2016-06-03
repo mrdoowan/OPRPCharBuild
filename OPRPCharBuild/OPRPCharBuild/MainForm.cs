@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using System.Net;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace OPRPCharBuild
 {
@@ -23,9 +26,11 @@ namespace OPRPCharBuild
 		// PUBLIC / PRIVATE MEMBER FUNCTIONS AND VARIABLES
 		// --------------------------------------------------------------------------------------------
 
-		public string version = "1.0.0.1 (BETA)";
+		public const string version = "1.0.0.0";
+		private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
 		Traits traits = new Traits();           // For enumerations of traits
 		Project project = new Project();        // State of save file
+		private bool upgrading = false;
 
 		#region General Functions
 
@@ -68,6 +73,62 @@ namespace OPRPCharBuild
 				spec = name.Substring(spec_index + 1, length);
 				// Replace the name of spec with "SPEC"
 				name = name.Replace(spec, "SPEC");
+			}
+		}
+
+		// To move up or down the item
+		private void Move_List_Item(ref ListView list, string direction) {
+			int curr_ind = list.SelectedItems[0].Index;
+			if (curr_ind < 0) {
+				return;
+			}
+			else {
+				ListViewItem item = list.Items[curr_ind];
+				if (direction == "Up") {
+					if (curr_ind > 0) {
+						list.Items.RemoveAt(curr_ind);
+						list.Items.Insert(curr_ind - 1, item);
+						// Maintain selection
+						list.Items[curr_ind - 1].Selected = true;
+					}
+				}
+				else if (direction == "Down") {
+					if (curr_ind < list.Items.Count - 1) {
+						list.Items.RemoveAt(curr_ind);
+						list.Items.Insert(curr_ind + 1, item);
+						// Maintain selection
+						list.Items[curr_ind + 1].Selected = true;
+					}
+				}
+				else {
+					MessageBox.Show("There is a bug with this button!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				}
+			}
+		}
+
+		// Really don't want to use Microsoft's Click-Once application at this point, so I'll just
+		// implement my own version.
+		private void Check_Update() {
+			try {
+				int current = Int32.Parse(version.Replace(".", ""));
+				// Get latest version from site
+				string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " " + System.Environment.OSVersion;
+				WebClient wc = new WebClient();
+				wc.Headers.Add("Content-Type", header_msg);
+				string version_page = wc.DownloadString("https://raw.githubusercontent.com/mrdoowan/OPRPCharBuild/master/CurrentVer.txt");
+				int latest = Int32.Parse(version_page.Replace(".", ""));
+				if (latest <= current) {
+					return;
+				}
+				if (MessageBox.Show("An update to v" + latest.ToString() + " is available. Would you like to download the newest version?", "New Version", 
+					MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
+					Process.Start(website);
+					upgrading = true; // Temporary until we implement a convenient save feature
+					Application.Exit();
+				}
+			}
+			catch (Exception e) {
+				MessageBox.Show("Error in checking for an update.\nReason: " + e.Message, "OPRP Char Builder", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			}
 		}
 
@@ -634,6 +695,9 @@ namespace OPRPCharBuild
 			label_Title.Text = "OPRP Character Builder";
 			label1.Text = "OPRP Character Builder v" + version + " designed by Solo";
 
+			// Check for updates
+			Check_Update();
+
 			// ListView1 is Professions
 			listView_Prof.View = View.Details;
 			listView_Prof.FullRowSelect = true;
@@ -694,6 +758,7 @@ namespace OPRPCharBuild
 
 			listView_Items.Columns.Add("Name", 100);
 			listView_Items.Columns.Add("Description", 500);
+
 		}
 
 		// --------------------------------------------------------------------------------------------
@@ -757,6 +822,30 @@ namespace OPRPCharBuild
 			}
 		}
 
+		private void MoveListBoxItem(int direction) {
+			// Check selected item
+			if (listBox_Achieve.SelectedItem == null || listBox_Achieve.SelectedIndex < 0) {
+				return;
+			}
+			int newIndex = listBox_Achieve.SelectedIndex + direction;
+			// Check bounds
+			if (newIndex < 0 || newIndex >= listBox_Achieve.Items.Count) {
+				return;
+			}
+			object selected = listBox_Achieve.SelectedItem;
+			listBox_Achieve.Items.Remove(selected);
+			listBox_Achieve.Items.Insert(newIndex, selected);
+			listBox_Achieve.SetSelected(newIndex, true);
+		}
+
+		private void button_UpAchieve_Click(object sender, EventArgs e) {
+			MoveListBoxItem(-1);
+		}
+
+		private void button_DownAchieve_Click(object sender, EventArgs e) {
+			MoveListBoxItem(1);
+		}
+
 		private void button4_ProfAdd_Click(object sender, EventArgs e) {
 			// Profession "Add" button from the MainForm
 			Add_Profession ProfessionWin = new Add_Profession();
@@ -776,6 +865,14 @@ namespace OPRPCharBuild
 			// Profession "Delete" button from the MainForm
 			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
 			Delete_ListViewItem(ref listView_Prof);
+		}
+
+		private void button_UpProf_Click(object sender, EventArgs e) {
+			Move_List_Item(ref listView_Prof, "Up");
+		}
+
+		private void button_DownProf_Click(object sender, EventArgs e) {
+			Move_List_Item(ref listView_Prof, "Down");
 		}
 
 		// To deselect the ListBox
@@ -838,7 +935,7 @@ namespace OPRPCharBuild
 		// "COMBAT & STATS" Tab
 		// --------------------------------------------------------------------------------------------
 
-		#region Stats Tab
+		#region Combat & Stats Tab
 
 		private void button6_WeaponAdd_Click(object sender, EventArgs e) {
 			// Weapon "Add" button from the MainForm
@@ -861,6 +958,14 @@ namespace OPRPCharBuild
 			Delete_ListViewItem(ref listView_Weaponry);
 		}
 
+		private void button_UpWeapon_Click(object sender, EventArgs e) {
+			Move_List_Item(ref listView_Weaponry, "Up");
+		}
+
+		private void button_DownWeapon_Click(object sender, EventArgs e) {
+			Move_List_Item(ref listView_Weaponry, "Down");
+		}
+
 		private void button8_ItemsAdd_Click(object sender, EventArgs e) {
 			// Item "Add" button from the MainForm
 			Add_Equipment EquipmentWin = new Add_Equipment();
@@ -880,6 +985,14 @@ namespace OPRPCharBuild
 			// Item "Delete" button from the MainForm
 			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
 			Delete_ListViewItem(ref listView_Items);
+		}
+
+		private void button_UpItem_Click(object sender, EventArgs e) {
+			Move_List_Item(ref listView_Items, "Up");
+		}
+
+		private void button_DownItem_Click(object sender, EventArgs e) {
+			Move_List_Item(ref listView_Items, "Down");
 		}
 
 		private void checkedListBox1_AP_SelectedIndexChanged(object sender, EventArgs e) {
@@ -1169,6 +1282,14 @@ namespace OPRPCharBuild
 			Update_SpTrait_Table_Values();
 			Update_SpTrait_Warning();
 			Update_Used_RegTP();
+		}
+
+		private void button_UpTech_Click(object sender, EventArgs e) {
+			Move_List_Item(ref listView_Techniques, "Up");
+		}
+
+		private void button_DownTech_Click(object sender, EventArgs e) {
+			Move_List_Item(ref listView_Techniques, "Down");
 		}
 
 		#endregion
@@ -1582,18 +1703,21 @@ namespace OPRPCharBuild
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
 			// Check to save before closing the program
-			DialogResult result = new DialogResult();
-			result = DialogResult.No;
-			result = MessageBox.Show("Save changes before closing the tool?", "Save Changes",
-				MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-			if (result == DialogResult.Yes) {
-				saveCharacter();
-			}
-			else if (result == DialogResult.Cancel) {
-				e.Cancel = true;
+			if (!upgrading) {
+				DialogResult result = new DialogResult();
+				result = DialogResult.No;
+				result = MessageBox.Show("Save changes before closing the tool?", "Save Changes",
+					MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+				if (result == DialogResult.Yes) {
+					saveCharacter();
+				}
+				else if (result == DialogResult.Cancel) {
+					e.Cancel = true;
+				}
 			}
 		}
 
 		#endregion
+
 	}
 }

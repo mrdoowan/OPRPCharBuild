@@ -1,12 +1,17 @@
-V1.0.0.2 - 6/2/2016
+v1.0.0.3 - 6/3/2016
+- Weaponry and Items is now a Table in the Template Sheet
+- Primary profession is always listed as first in the Template Sheet
+- Users are allowed to freely order items in ALL of the Lists
+- Implemented a simple version check
+v1.0.0.2 - 6/2/2016
 - Remind the user to fill missing required information before adding onto a List. Mark the background as red to inform the user what they have to fill in (Not done for Techniques yet)
 - Put Stats as its own tab.
 - Add a newline between "Clothing" and "Appearance"
 - Age min (7) and max (70) set.
 - N/A for "Nickname" and "Devil Fruit" if left blank.
-V1.0.0.1 - 6/1/2016
+v1.0.0.1 - 6/1/2016
 - Fixed a math error where "Stat Points" was used to calculate Fortune, not "Used for Stats"
 - Added "Self" to the Combo Box for "Range" when adding Techniques.
 - "Eye" changed to "Eyes" in Physical Appearance.
-V1.0.0.0 - 6/1/2016
+v1.0.0.0 - 6/1/2016
 - Beta Released

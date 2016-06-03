@@ -110,7 +110,7 @@ namespace OPRPCharBuild
 			// Only want the appropriate changes to be made, so we add a bool
 			if (string.IsNullOrWhiteSpace(comboBox1.Text) ||
 				string.IsNullOrWhiteSpace(richTextBox1_Desc.Text) ||
-				(string.IsNullOrWhiteSpace(richTextBox2_Primary.Text) && checkBox1.Enabled)) {
+				(string.IsNullOrWhiteSpace(richTextBox2_Primary.Text) && checkBox1.Checked)) {
 				if (string.IsNullOrWhiteSpace(comboBox1.Text)) {
 					comboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
 					red_name = true;

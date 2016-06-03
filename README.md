@@ -1,10 +1,10 @@
-# OPRPCharBuild
-OPRP Character Builder http://s1.zetaboards.com/One_Piece_RP/index/
+# OPRP Character Builder
 
-Overview
---------
+This is a tool written in C# for Windows 7/8/8.1/10 using .NET Framework 4.5
 
-SoonTM
+One Piece RP has some of the most sophisticated rules in forum role-playing. However, complex rules can lead to difficulty in making characters. 
+
+This reliable and efficient tool helps automate a lot of the data input. It helps calculate and keep track of many numbers so that the user does not have to do everything in their head. 
 
 Credits
 -------
@@ -19,4 +19,6 @@ Based on OPRP usernames
 Version History
 ---------------
 
-SoonTM
+### v1.0.0.0 (BETA)
+
+* "Closed" Beta released!

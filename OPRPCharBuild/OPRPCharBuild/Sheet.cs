@@ -84,14 +84,23 @@ namespace OPRPCharBuild
 			}
 			template.Write("[/list]\n");
 			template.Write("[b]Profession:[/b][list]");
+			// Write primary first.
 			foreach (ListViewItem prof in profs.Items) {
-				template.Write("[*][b][u]" + prof.SubItems[0].Text + "[/u] - [i]");
-				template.Write(prof.SubItems[1].Text + "[/i]:[/b] ");
-				template.Write(prof.SubItems[2].Text);
 				if (prof.SubItems[1].Text == "Primary") {
+					template.Write("[*][b][u]" + prof.SubItems[0].Text + "[/u] - [i]");
+					template.Write(prof.SubItems[1].Text + "[/i]:[/b] ");
+					template.Write(prof.SubItems[2].Text);
 					template.Write(" [i]" + prof.SubItems[3].Text + "[/i]\n");
 				}
 			}
+			// Then secondary
+			foreach (ListViewItem prof in profs.Items) {
+				if (prof.SubItems[1].Text == "Secondary") {
+					template.Write("[*][b][u]" + prof.SubItems[0].Text + "[/u] - [i]");
+					template.Write(prof.SubItems[1].Text + "[/i]:[/b] ");
+					template.Write(prof.SubItems[2].Text + '\n');
+				}
+            }
 			template.Write("[/list]\n");
 		}
 		// ---------------------------------------------------------------------------
@@ -126,26 +135,30 @@ namespace OPRPCharBuild
 			template.Write("[big][big][center][i][font=Century Gothic]Abilities and Possessions[/font][/i][/center][/big][/big]\n");
 			template.Write("[b]Combat:[/b] " + combat + '\n');
 			template.Write('\n');
-			template.Write("[b]Weaponry:[/b][list]");
+			template.Write("[table=2, Weaponry]");
 			if (weapons.Items.Count == 0) {
-				template.Write("[*]None");
+				template.Write("[b]None[/b][c](DESCRIPTION)");
 			}
 			else {
+				int i = 0; // Just for the first index
 				foreach (ListViewItem weapon in weapons.Items) {
-					template.Write("[*][b]" + weapon.SubItems[0].Text + ": [/b]" + weapon.SubItems[1].Text + '\n');
+					if (i > 0) {
+						template.Write("[c]");
+					}
+					template.Write("[b]" + weapon.SubItems[0].Text + "[/b]\n[c]" + weapon.SubItems[1].Text + '\n');
 				}
 			}
-			template.Write("[/list]\n");
-			template.Write("[b]Items:[/b][list]");
+			template.Write("[/table]\n");
+			template.Write("[table=2, Items]");
 			if (items.Items.Count == 0) {
-				template.Write("[*]None");
+				template.Write("[b]None[/b][c](DESCRIPTION)");
 			}
 			else {
 				foreach (ListViewItem item in items.Items) {
-					template.Write("[*][b]" + item.SubItems[0].Text + ": [/b]" + item.SubItems[1].Text + '\n');
+					template.Write("[b]" + item.SubItems[0].Text + "[/b]\n[c]" + item.SubItems[1].Text + '\n');
 				}
 			}
-			template.Write("[/list]\n");
+			template.Write("[/table]\n");
 			template.Write("[b]Beli:[/b] " + beli + '\n');
 			template.Write('\n');
 		}
@@ -286,7 +299,7 @@ namespace OPRPCharBuild
 					template.Write("[u]Description:[/u] " + Tech.SubItems[14].Text + '\n');
 					i++;
 				}
-				template.Write("[/table]");
+				template.Write("[/table]\n");
 				template.Write('\n');
 			}
 		}
