@@ -1,5 +1,12 @@
+v1.0.0.5 - 6/6/2016
+- Technique Form GUI completely revamped
+- Stats is now customizable from all 4 types
+- TP "Note" (formerly TP Message) is now editable
+- Branching calculations are now done correctly with Reg TP used
+- There is now a "List of Effects" you can add for Techniques (without calculations)
+- Remind the user to fill missing required information before adding a Tech. Inform user through MessageBox.
 v1.0.0.4 - 6/3/2016
-- Version check tested and good.
+- Version check tested and good
 v1.0.0.3 - 6/3/2016
 - Weaponry and Items is now a Table in the Template Sheet
 - Primary profession is always listed as first in the Template Sheet
@@ -7,13 +14,13 @@ v1.0.0.3 - 6/3/2016
 - Implemented a simple version check
 v1.0.0.2 - 6/2/2016
 - Remind the user to fill missing required information before adding onto a List. Mark the background as red to inform the user what they have to fill in (Not done for Techniques yet)
-- Put Stats as its own tab.
+- Put Stats as its own tab
 - Add a newline between "Clothing" and "Appearance"
-- Age min (7) and max (70) set.
-- N/A for "Nickname" and "Devil Fruit" if left blank.
+- Age min (7) and max (70) set
+- N/A for "Nickname" and "Devil Fruit" if left blank
 v1.0.0.1 - 6/1/2016
 - Fixed a math error where "Stat Points" was used to calculate Fortune, not "Used for Stats"
-- Added "Self" to the Combo Box for "Range" when adding Techniques.
-- "Eye" changed to "Eyes" in Physical Appearance.
+- Added "Self" to the Combo Box for "Range" when adding Techniques
+- "Eye" changed to "Eyes" in Physical Appearance
 v1.0.0.0 - 6/1/2016
 - Beta Released

@@ -56,14 +56,14 @@ namespace OPRPCharBuild
 			public string sp_TP;
 			public string sp_trait;
 			public string rank_trait;
-			public string sig;
 			public string branched;
 			public string branch_TP;
 			public string type;
 			public string range;
-			public string power;
 			public string stats;
-			public string TP_msg;
+			public string power;
+			public string effect;
+			public string TP_note;
 			public string desc;
 		}
 
@@ -245,14 +245,14 @@ namespace OPRPCharBuild
 				tech.sp_TP = eachitem.SubItems[3].Text;
 				tech.sp_trait = eachitem.SubItems[4].Text;
 				tech.rank_trait = eachitem.SubItems[5].Text;
-				tech.sig = eachitem.SubItems[6].Text;
-				tech.branched = eachitem.SubItems[7].Text;
-				tech.branch_TP = eachitem.SubItems[8].Text;
-				tech.type = eachitem.SubItems[9].Text;
-				tech.range = eachitem.SubItems[10].Text;
+				tech.branched = eachitem.SubItems[6].Text;
+				tech.branch_TP = eachitem.SubItems[7].Text;
+				tech.type = eachitem.SubItems[8].Text;
+				tech.range = eachitem.SubItems[9].Text;
+				tech.stats = eachitem.SubItems[10].Text;
 				tech.power = eachitem.SubItems[11].Text;
-				tech.stats = eachitem.SubItems[12].Text;
-				tech.TP_msg = eachitem.SubItems[13].Text;
+				tech.effect = eachitem.SubItems[12].Text;
+				tech.TP_note = eachitem.SubItems[13].Text;
 				tech.desc = eachitem.SubItems[14].Text;
 				techniques.Add(tech);
 			}
@@ -372,14 +372,14 @@ namespace OPRPCharBuild
 				item.SubItems.Add(techniques[i].sp_TP);
 				item.SubItems.Add(techniques[i].sp_trait);
 				item.SubItems.Add(techniques[i].rank_trait);
-				item.SubItems.Add(techniques[i].sig);
 				item.SubItems.Add(techniques[i].branched);
 				item.SubItems.Add(techniques[i].branch_TP);
 				item.SubItems.Add(techniques[i].type);
 				item.SubItems.Add(techniques[i].range);
-				item.SubItems.Add(techniques[i].power);
 				item.SubItems.Add(techniques[i].stats);
-				item.SubItems.Add(techniques[i].TP_msg);
+				item.SubItems.Add(techniques[i].power);
+				item.SubItems.Add(techniques[i].effect);
+				item.SubItems.Add(techniques[i].TP_note);
 				item.SubItems.Add(techniques[i].desc);
 				_techList.Items.Add(item);
 			}

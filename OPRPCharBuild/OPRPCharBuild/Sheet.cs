@@ -146,6 +146,7 @@ namespace OPRPCharBuild
 						template.Write("[c]");
 					}
 					template.Write("[b]" + weapon.SubItems[0].Text + "[/b]\n[c]" + weapon.SubItems[1].Text + '\n');
+					i++;
 				}
 			}
 			template.Write("[/table]\n");
@@ -154,8 +155,13 @@ namespace OPRPCharBuild
 				template.Write("[b]None[/b][c](DESCRIPTION)");
 			}
 			else {
+				int i = 0; // Just for the first index
 				foreach (ListViewItem item in items.Items) {
+					if (i > 0) {
+						template.Write("[c]");
+					}
 					template.Write("[b]" + item.SubItems[0].Text + "[/b]\n[c]" + item.SubItems[1].Text + '\n');
+					i++;
 				}
 			}
 			template.Write("[/table]\n");
@@ -271,8 +277,10 @@ namespace OPRPCharBuild
 				template.Write("[/list]");
 			}
 			template.Write('\n');
+			template.Write('\n');
 			template.Write("[table=2, Techniques]");
 			if (Int32.Parse(usedRegTP) == 0 && Int32.Parse(usedSpTP) == 0) {
+				// This is a zero Technique option
 				template.Write("[b]TECHNIQUE NAME[/b] (#)\n");
 				template.Write("[u]Type:[/u] \n");
 				template.Write("[u]Range:[/u] \n");
@@ -288,13 +296,23 @@ namespace OPRPCharBuild
 					}
 					template.Write("[b]" + Tech.SubItems[0].Text + "[/b]"); // Name
 					template.Write(" (" + Tech.SubItems[1].Text + ")\n");   // Rank
-					template.Write("[u]Type:[/u] " + Tech.SubItems[9].Text + '\n'); // Type
-					template.Write("[u]Range:[/u] " + Tech.SubItems[10].Text + '\n');// Range
+					template.Write("[u]Type:[/u] " + Tech.SubItems[8].Text + '\n'); // Type
+					template.Write("[u]Range:[/u] " + Tech.SubItems[9].Text + '\n');// Range
 					template.Write("[u]Power:[/u] " + Tech.SubItems[11].Text + '\n');// Power
-					template.Write("[u]Stats:[/u] " + Tech.SubItems[12].Text + '\n');// Stats
+					template.Write("[u]Stats:[/u] " + Tech.SubItems[10].Text + '\n');// Stats
 					template.Write("[c]");
 					if (!string.IsNullOrWhiteSpace(Tech.SubItems[13].Text)) {
-						template.Write("[center][u]" + Tech.SubItems[13].Text + "[/u][/center]\n");
+						// TP Note on top
+						template.Write("[u]TP Note:[/u] " + Tech.SubItems[13].Text + '\n');
+					}
+					if (!string.IsNullOrWhiteSpace(Tech.SubItems[12].Text)) {
+						// Effects on bottom
+						template.Write("[u]Effects:[/u] " + Tech.SubItems[12].Text + '\n');
+					}
+					if (!string.IsNullOrWhiteSpace(Tech.SubItems[13].Text) ||
+						!string.IsNullOrWhiteSpace(Tech.SubItems[12].Text)) {
+						template.Write('\n');
+						template.Write("[hr]\n");
 					}
 					template.Write("[u]Description:[/u] " + Tech.SubItems[14].Text + '\n');
 					i++;

@@ -26,7 +26,7 @@ namespace OPRPCharBuild
 		// PUBLIC / PRIVATE MEMBER FUNCTIONS AND VARIABLES
 		// --------------------------------------------------------------------------------------------
 
-		public const string version = "1.0.0.4";
+		public const string version = "1.0.0.5";
 		private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
 		Traits traits = new Traits();           // For enumerations of traits
 		Project project = new Project();        // State of save file
@@ -615,14 +615,18 @@ namespace OPRPCharBuild
 			// Update values inside the table based on Techniques or Fortune edited.
 			// Nest loop this.
 			foreach (ListViewItem Sp_Trait in listView_SpTP.Items) {
-				string name = Sp_Trait.SubItems[0].Text;
-				Traits.Trait_Name ID_Sp = traits.get_TraitID(name);
+				string name1 = Sp_Trait.SubItems[0].Text;
+				string trash = "";
+				Trait_Name_From_ListView(ref name1, ref trash);
+				Traits.Trait_Name ID_Sp = traits.get_TraitID(name1);
 				int used = 0;
 				foreach (ListViewItem Tech in listView_Techniques.Items) {
-					string tech = Tech.SubItems[4].Text;
-					Traits.Trait_Name ID_Tech = traits.get_TraitID(tech);
+					// Column 4 is Special Trait
+					string tech_trait = Tech.SubItems[4].Text;
+					Trait_Name_From_ListView(ref tech_trait, ref trash);
+					Traits.Trait_Name ID_Tech = traits.get_TraitID(tech_trait);
 					if (ID_Sp == ID_Tech) {
-						used += Int32.Parse(Tech.SubItems[3].Text);
+						used += Int32.Parse(Tech.SubItems[3].Text); // Column 3 is Sp. TP
 					}
 				}
 				Sp_Trait.SubItems[1].Text = used.ToString();
@@ -644,14 +648,17 @@ namespace OPRPCharBuild
 			bool yes_msg = false; // Initialize
 			foreach (ListViewItem Tech in listView_Techniques.Items) {
 				// Search in Technique Table for the special trait
-				string sp_name = Tech.SubItems[4].Text;
+				string sp_name = Tech.SubItems[4].Text; // Column 4 is Sp. Trait
+				string trash = "";
+				Trait_Name_From_ListView(ref sp_name, ref trash);
 				if (string.IsNullOrEmpty(sp_name)) {
 					// That means there is a Special Trait
 					bool break_loop = false;
 					Traits.Trait_Name Sp_ID = traits.get_TraitID(sp_name);
 					foreach (ListViewItem Sp_Trait in listView_SpTP.Items) {
 						// For the tech's Special Trait, check the Sp Trait table
-						string trait = Sp_Trait.SubItems[0].Text;
+						string trait = Sp_Trait.SubItems[0].Text;   // Column 0 is name
+						Trait_Name_From_ListView(ref trait, ref trash);
 						Traits.Trait_Name Trait_ID = traits.get_TraitID(trait);
 						if (Sp_ID == Trait_ID) {
 							// If the Sp Trait is in the table, we're good.
@@ -734,15 +741,15 @@ namespace OPRPCharBuild
 			listView_Techniques.Columns.Add("Reg TP", 50);          // 2
 			listView_Techniques.Columns.Add("Sp. TP", 50);          // 3
 			listView_Techniques.Columns.Add("Sp. Trait", 75);       // 4
-			listView_Techniques.Columns.Add("Rank Trait", 65);      // 5
-			listView_Techniques.Columns.Add("Sig", 40);             // 6
-			listView_Techniques.Columns.Add("Branched From", 100);  // 7
-			listView_Techniques.Columns.Add("TP Branched", 50);     // 8
-			listView_Techniques.Columns.Add("Type", 75);            // 9
-			listView_Techniques.Columns.Add("Range", 75);           // 10
+			listView_Techniques.Columns.Add("Rank Trait", 75);      // 5
+			listView_Techniques.Columns.Add("Branched From", 100);  // 6
+			listView_Techniques.Columns.Add("TP Branched", 50);     // 7
+			listView_Techniques.Columns.Add("Type", 75);            // 8
+			listView_Techniques.Columns.Add("Range", 75);           // 9
+			listView_Techniques.Columns.Add("Stats", 75);           // 10
 			listView_Techniques.Columns.Add("Power", 50);           // 11
-			listView_Techniques.Columns.Add("Stats", 75);           // 12
-			listView_Techniques.Columns.Add("TP Usage Msg", 100);   // 13
+			listView_Techniques.Columns.Add("Effects", 100);        // 12
+			listView_Techniques.Columns.Add("TP Note", 100);		// 13
 			listView_Techniques.Columns.Add("Description", 200);    // 14
 
 			// ListView5 is Weaponry Table
@@ -1475,7 +1482,10 @@ namespace OPRPCharBuild
 			Update_AP_Count();
 			Update_Used_RegTP();
 			foreach (ListViewItem eachitem in listView_Traits.Items) {
-				Traits.Trait_Name ID = traits.get_TraitID(eachitem.SubItems[0].Text);
+				string name = eachitem.SubItems[0].Text;
+				string trash = "";
+				Trait_Name_From_ListView(ref name, ref trash);
+				Traits.Trait_Name ID = traits.get_TraitID(name);
 				Update_SpTrait_Table_Traits(ID);
 			}
 			Update_SpTrait_Table_Values();
