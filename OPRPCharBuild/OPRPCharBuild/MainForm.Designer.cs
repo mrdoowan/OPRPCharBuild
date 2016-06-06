@@ -25,6 +25,7 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.label_Title = new System.Windows.Forms.Label();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -107,6 +108,7 @@
 			this.label50 = new System.Windows.Forms.Label();
 			this.textBox_DFName = new System.Windows.Forms.TextBox();
 			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.button_Standardize = new System.Windows.Forms.Button();
 			this.button_DownItem = new System.Windows.Forms.Button();
 			this.button_UpItem = new System.Windows.Forms.Button();
 			this.button_DownWeapon = new System.Windows.Forms.Button();
@@ -222,6 +224,8 @@
 			this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.toolTip_Standardize = new System.Windows.Forms.ToolTip(this.components);
+			this.button_TechBranch = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1188,6 +1192,7 @@
 			// 
 			// groupBox7
 			// 
+			this.groupBox7.Controls.Add(this.button_Standardize);
 			this.groupBox7.Controls.Add(this.button_DownItem);
 			this.groupBox7.Controls.Add(this.button_UpItem);
 			this.groupBox7.Controls.Add(this.button_DownWeapon);
@@ -1213,6 +1218,18 @@
 			this.groupBox7.TabIndex = 2;
 			this.groupBox7.TabStop = false;
 			this.groupBox7.Text = "Fighting Methods and Equipment";
+			// 
+			// button_Standardize
+			// 
+			this.button_Standardize.Location = new System.Drawing.Point(206, 482);
+			this.button_Standardize.Name = "button_Standardize";
+			this.button_Standardize.Size = new System.Drawing.Size(92, 23);
+			this.button_Standardize.TabIndex = 23;
+			this.button_Standardize.Text = "Standardize";
+			this.toolTip_Standardize.SetToolTip(this.button_Standardize, "Press this if you are scooping to calculate an undeducted Beli Standardized value" +
+        "");
+			this.button_Standardize.UseVisualStyleBackColor = true;
+			this.button_Standardize.Click += new System.EventHandler(this.button_Standardize_Click);
 			// 
 			// button_DownItem
 			// 
@@ -1306,7 +1323,7 @@
 			// 
 			this.textBox_Beli.Location = new System.Drawing.Point(70, 482);
 			this.textBox_Beli.Name = "textBox_Beli";
-			this.textBox_Beli.Size = new System.Drawing.Size(150, 23);
+			this.textBox_Beli.Size = new System.Drawing.Size(121, 23);
 			this.textBox_Beli.TabIndex = 14;
 			this.textBox_Beli.Text = "500,000";
 			// 
@@ -2301,6 +2318,7 @@
 			// 
 			// groupBox11
 			// 
+			this.groupBox11.Controls.Add(this.button_TechBranch);
 			this.groupBox11.Controls.Add(this.button_DownTech);
 			this.groupBox11.Controls.Add(this.button_UpTech);
 			this.groupBox11.Controls.Add(this.label_SpTrait_Warning);
@@ -2408,7 +2426,7 @@
 			// 
 			// button_TechAdd
 			// 
-			this.button_TechAdd.Location = new System.Drawing.Point(376, 437);
+			this.button_TechAdd.Location = new System.Drawing.Point(295, 437);
 			this.button_TechAdd.Name = "button_TechAdd";
 			this.button_TechAdd.Size = new System.Drawing.Size(75, 23);
 			this.button_TechAdd.TabIndex = 31;
@@ -2631,6 +2649,16 @@
 			this.menuStrip1.Size = new System.Drawing.Size(684, 24);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip1";
+			// 
+			// button_TechBranch
+			// 
+			this.button_TechBranch.Location = new System.Drawing.Point(376, 437);
+			this.button_TechBranch.Name = "button_TechBranch";
+			this.button_TechBranch.Size = new System.Drawing.Size(75, 23);
+			this.button_TechBranch.TabIndex = 39;
+			this.button_TechBranch.Text = "Branch";
+			this.button_TechBranch.UseVisualStyleBackColor = true;
+			this.button_TechBranch.Click += new System.EventHandler(this.button_TechBranch_Click);
 			// 
 			// MainForm
 			// 
@@ -2898,6 +2926,9 @@
 		private System.Windows.Forms.Button button_UpWeapon;
 		private System.Windows.Forms.Button button_DownTech;
 		private System.Windows.Forms.Button button_UpTech;
+		private System.Windows.Forms.ToolTip toolTip_Standardize;
+		private System.Windows.Forms.Button button_Standardize;
+		private System.Windows.Forms.Button button_TechBranch;
 	}
 }
 

@@ -4,7 +4,7 @@ This is a tool written in C# for Windows 7/8/8.1/10 using .NET Framework 4.5
 
 One Piece RP has some of the most sophisticated rules in forum role-playing. However, complex rules can lead to difficulty in making characters. 
 
-This reliable and efficient tool helps automate a lot of the data input. It helps calculate and keep track of many numbers so that the user does not have to do everything in their head. 
+This reliable and efficient tool helps automate a lot of the data input. It helps calculate and keep track of many numbers so that the user does not have to do everything in their head. After all the inputs, the tool will allow the user to generate a Character Template sheet based on what they input.
 
 Credits
 -------

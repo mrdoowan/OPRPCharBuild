@@ -36,7 +36,7 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.textBox_TechBranched = new System.Windows.Forms.TextBox();
 			this.label5 = new System.Windows.Forms.Label();
-			this.numericUpDown_PointsBranch = new System.Windows.Forms.NumericUpDown();
+			this.numericUpDown_RankBranch = new System.Windows.Forms.NumericUpDown();
 			this.label6 = new System.Windows.Forms.Label();
 			this.numericUpDown_RegTP = new System.Windows.Forms.NumericUpDown();
 			this.label7 = new System.Windows.Forms.Label();
@@ -62,28 +62,28 @@
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.checkBox_MinusAcc = new System.Windows.Forms.CheckBox();
+			this.checkBox_PlusAcc = new System.Windows.Forms.CheckBox();
+			this.checkBox_MinusSta = new System.Windows.Forms.CheckBox();
+			this.checkBox_PlusSta = new System.Windows.Forms.CheckBox();
+			this.checkBox_MinusSpe = new System.Windows.Forms.CheckBox();
+			this.checkBox_PlusSpe = new System.Windows.Forms.CheckBox();
+			this.checkBox_MinusStr = new System.Windows.Forms.CheckBox();
+			this.checkBox_PlusStr = new System.Windows.Forms.CheckBox();
 			this.numericUpDown_Acc = new System.Windows.Forms.NumericUpDown();
 			this.numericUpDown_Sta = new System.Windows.Forms.NumericUpDown();
 			this.numericUpDown_Spe = new System.Windows.Forms.NumericUpDown();
 			this.label19 = new System.Windows.Forms.Label();
-			this.radioButton_MinusAcc = new System.Windows.Forms.RadioButton();
-			this.radioButton_PlusAcc = new System.Windows.Forms.RadioButton();
 			this.label14 = new System.Windows.Forms.Label();
-			this.radioButton_MinusSta = new System.Windows.Forms.RadioButton();
-			this.radioButton_PlusSta = new System.Windows.Forms.RadioButton();
 			this.label13 = new System.Windows.Forms.Label();
-			this.radioButton_MinusSpe = new System.Windows.Forms.RadioButton();
-			this.radioButton_PlusSpe = new System.Windows.Forms.RadioButton();
 			this.label8 = new System.Windows.Forms.Label();
-			this.radioButton_MinusStr = new System.Windows.Forms.RadioButton();
-			this.radioButton_PlusStr = new System.Windows.Forms.RadioButton();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.label17 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.textBox_Effects = new System.Windows.Forms.TextBox();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_PointsBranch)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SpTP)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Power)).BeginInit();
@@ -162,8 +162,6 @@
 			// 
 			this.comboBox_AffectRank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox_AffectRank.FormattingEnabled = true;
-			this.comboBox_AffectRank.Items.AddRange(new object[] {
-            ""});
 			this.comboBox_AffectRank.Location = new System.Drawing.Point(276, 44);
 			this.comboBox_AffectRank.Name = "comboBox_AffectRank";
 			this.comboBox_AffectRank.Size = new System.Drawing.Size(153, 21);
@@ -205,25 +203,25 @@
 			// 
 			this.label5.AutoSize = true;
 			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label5.Location = new System.Drawing.Point(93, 20);
+			this.label5.Location = new System.Drawing.Point(99, 20);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(88, 13);
+			this.label5.Size = new System.Drawing.Size(125, 13);
 			this.label5.TabIndex = 37;
-			this.label5.Text = "Points Branched:";
+			this.label5.Text = "Rank of Branched Tech:";
 			// 
-			// numericUpDown_PointsBranch
+			// numericUpDown_RankBranch
 			// 
-			this.numericUpDown_PointsBranch.Enabled = false;
-			this.numericUpDown_PointsBranch.Location = new System.Drawing.Point(187, 18);
-			this.numericUpDown_PointsBranch.Maximum = new decimal(new int[] {
+			this.numericUpDown_RankBranch.Enabled = false;
+			this.numericUpDown_RankBranch.Location = new System.Drawing.Point(230, 18);
+			this.numericUpDown_RankBranch.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-			this.numericUpDown_PointsBranch.Name = "numericUpDown_PointsBranch";
-			this.numericUpDown_PointsBranch.Size = new System.Drawing.Size(42, 20);
-			this.numericUpDown_PointsBranch.TabIndex = 38;
-			this.numericUpDown_PointsBranch.ValueChanged += new System.EventHandler(this.numericUpDown_PointsBranch_ValueChanged);
+			this.numericUpDown_RankBranch.Name = "numericUpDown_RankBranch";
+			this.numericUpDown_RankBranch.Size = new System.Drawing.Size(42, 20);
+			this.numericUpDown_RankBranch.TabIndex = 38;
+			this.numericUpDown_RankBranch.ValueChanged += new System.EventHandler(this.numericUpDown_RankBranch_ValueChanged);
 			// 
 			// label6
 			// 
@@ -289,8 +287,6 @@
 			this.comboBox_SpTrait.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox_SpTrait.Enabled = false;
 			this.comboBox_SpTrait.FormattingEnabled = true;
-			this.comboBox_SpTrait.Items.AddRange(new object[] {
-            ""});
 			this.comboBox_SpTrait.Location = new System.Drawing.Point(276, 71);
 			this.comboBox_SpTrait.Name = "comboBox_SpTrait";
 			this.comboBox_SpTrait.Size = new System.Drawing.Size(153, 21);
@@ -310,7 +306,6 @@
 			// 
 			// comboBox_Type
 			// 
-			this.comboBox_Type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox_Type.FormattingEnabled = true;
 			this.comboBox_Type.Items.AddRange(new object[] {
             "Offensive",
@@ -323,7 +318,6 @@
 			// 
 			// comboBox_Range
 			// 
-			this.comboBox_Range.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox_Range.FormattingEnabled = true;
 			this.comboBox_Range.Items.AddRange(new object[] {
             "Self",
@@ -512,7 +506,7 @@
 			this.groupBox2.Controls.Add(this.label4);
 			this.groupBox2.Controls.Add(this.textBox_TechBranched);
 			this.groupBox2.Controls.Add(this.label5);
-			this.groupBox2.Controls.Add(this.numericUpDown_PointsBranch);
+			this.groupBox2.Controls.Add(this.numericUpDown_RankBranch);
 			this.groupBox2.Location = new System.Drawing.Point(12, 143);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(435, 73);
@@ -522,21 +516,21 @@
 			// 
 			// groupBox3
 			// 
+			this.groupBox3.Controls.Add(this.checkBox_MinusAcc);
+			this.groupBox3.Controls.Add(this.checkBox_PlusAcc);
+			this.groupBox3.Controls.Add(this.checkBox_MinusSta);
+			this.groupBox3.Controls.Add(this.checkBox_PlusSta);
+			this.groupBox3.Controls.Add(this.checkBox_MinusSpe);
+			this.groupBox3.Controls.Add(this.checkBox_PlusSpe);
+			this.groupBox3.Controls.Add(this.checkBox_MinusStr);
+			this.groupBox3.Controls.Add(this.checkBox_PlusStr);
 			this.groupBox3.Controls.Add(this.numericUpDown_Acc);
 			this.groupBox3.Controls.Add(this.numericUpDown_Sta);
 			this.groupBox3.Controls.Add(this.numericUpDown_Spe);
 			this.groupBox3.Controls.Add(this.label19);
-			this.groupBox3.Controls.Add(this.radioButton_MinusAcc);
-			this.groupBox3.Controls.Add(this.radioButton_PlusAcc);
 			this.groupBox3.Controls.Add(this.label14);
-			this.groupBox3.Controls.Add(this.radioButton_MinusSta);
-			this.groupBox3.Controls.Add(this.radioButton_PlusSta);
 			this.groupBox3.Controls.Add(this.label13);
-			this.groupBox3.Controls.Add(this.radioButton_MinusSpe);
-			this.groupBox3.Controls.Add(this.radioButton_PlusSpe);
 			this.groupBox3.Controls.Add(this.label8);
-			this.groupBox3.Controls.Add(this.radioButton_MinusStr);
-			this.groupBox3.Controls.Add(this.radioButton_PlusStr);
 			this.groupBox3.Controls.Add(this.label9);
 			this.groupBox3.Controls.Add(this.comboBox_Type);
 			this.groupBox3.Controls.Add(this.label10);
@@ -549,6 +543,94 @@
 			this.groupBox3.TabIndex = 71;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Miscellaneous";
+			// 
+			// checkBox_MinusAcc
+			// 
+			this.checkBox_MinusAcc.AutoSize = true;
+			this.checkBox_MinusAcc.Location = new System.Drawing.Point(264, 99);
+			this.checkBox_MinusAcc.Name = "checkBox_MinusAcc";
+			this.checkBox_MinusAcc.Size = new System.Drawing.Size(29, 17);
+			this.checkBox_MinusAcc.TabIndex = 99;
+			this.checkBox_MinusAcc.Text = "-";
+			this.checkBox_MinusAcc.UseVisualStyleBackColor = true;
+			this.checkBox_MinusAcc.CheckedChanged += new System.EventHandler(this.checkBox_MinusAcc_CheckedChanged);
+			// 
+			// checkBox_PlusAcc
+			// 
+			this.checkBox_PlusAcc.AutoSize = true;
+			this.checkBox_PlusAcc.Location = new System.Drawing.Point(231, 99);
+			this.checkBox_PlusAcc.Name = "checkBox_PlusAcc";
+			this.checkBox_PlusAcc.Size = new System.Drawing.Size(32, 17);
+			this.checkBox_PlusAcc.TabIndex = 98;
+			this.checkBox_PlusAcc.Text = "+";
+			this.checkBox_PlusAcc.UseVisualStyleBackColor = true;
+			this.checkBox_PlusAcc.CheckedChanged += new System.EventHandler(this.checkBox_PlusAcc_CheckedChanged);
+			// 
+			// checkBox_MinusSta
+			// 
+			this.checkBox_MinusSta.AutoSize = true;
+			this.checkBox_MinusSta.Location = new System.Drawing.Point(82, 99);
+			this.checkBox_MinusSta.Name = "checkBox_MinusSta";
+			this.checkBox_MinusSta.Size = new System.Drawing.Size(29, 17);
+			this.checkBox_MinusSta.TabIndex = 97;
+			this.checkBox_MinusSta.Text = "-";
+			this.checkBox_MinusSta.UseVisualStyleBackColor = true;
+			this.checkBox_MinusSta.CheckedChanged += new System.EventHandler(this.checkBox_MinusSta_CheckedChanged);
+			// 
+			// checkBox_PlusSta
+			// 
+			this.checkBox_PlusSta.AutoSize = true;
+			this.checkBox_PlusSta.Location = new System.Drawing.Point(49, 99);
+			this.checkBox_PlusSta.Name = "checkBox_PlusSta";
+			this.checkBox_PlusSta.Size = new System.Drawing.Size(32, 17);
+			this.checkBox_PlusSta.TabIndex = 96;
+			this.checkBox_PlusSta.Text = "+";
+			this.checkBox_PlusSta.UseVisualStyleBackColor = true;
+			this.checkBox_PlusSta.CheckedChanged += new System.EventHandler(this.checkBox_PlusSta_CheckedChanged);
+			// 
+			// checkBox_MinusSpe
+			// 
+			this.checkBox_MinusSpe.AutoSize = true;
+			this.checkBox_MinusSpe.Location = new System.Drawing.Point(264, 66);
+			this.checkBox_MinusSpe.Name = "checkBox_MinusSpe";
+			this.checkBox_MinusSpe.Size = new System.Drawing.Size(29, 17);
+			this.checkBox_MinusSpe.TabIndex = 95;
+			this.checkBox_MinusSpe.Text = "-";
+			this.checkBox_MinusSpe.UseVisualStyleBackColor = true;
+			this.checkBox_MinusSpe.CheckedChanged += new System.EventHandler(this.checkBox_MinusSpe_CheckedChanged);
+			// 
+			// checkBox_PlusSpe
+			// 
+			this.checkBox_PlusSpe.AutoSize = true;
+			this.checkBox_PlusSpe.Location = new System.Drawing.Point(231, 66);
+			this.checkBox_PlusSpe.Name = "checkBox_PlusSpe";
+			this.checkBox_PlusSpe.Size = new System.Drawing.Size(32, 17);
+			this.checkBox_PlusSpe.TabIndex = 94;
+			this.checkBox_PlusSpe.Text = "+";
+			this.checkBox_PlusSpe.UseVisualStyleBackColor = true;
+			this.checkBox_PlusSpe.CheckedChanged += new System.EventHandler(this.checkBox_PlusSpe_CheckedChanged);
+			// 
+			// checkBox_MinusStr
+			// 
+			this.checkBox_MinusStr.AutoSize = true;
+			this.checkBox_MinusStr.Location = new System.Drawing.Point(82, 66);
+			this.checkBox_MinusStr.Name = "checkBox_MinusStr";
+			this.checkBox_MinusStr.Size = new System.Drawing.Size(29, 17);
+			this.checkBox_MinusStr.TabIndex = 93;
+			this.checkBox_MinusStr.Text = "-";
+			this.checkBox_MinusStr.UseVisualStyleBackColor = true;
+			this.checkBox_MinusStr.CheckedChanged += new System.EventHandler(this.checkBox_MinusStr_CheckedChanged);
+			// 
+			// checkBox_PlusStr
+			// 
+			this.checkBox_PlusStr.AutoSize = true;
+			this.checkBox_PlusStr.Location = new System.Drawing.Point(49, 66);
+			this.checkBox_PlusStr.Name = "checkBox_PlusStr";
+			this.checkBox_PlusStr.Size = new System.Drawing.Size(32, 17);
+			this.checkBox_PlusStr.TabIndex = 92;
+			this.checkBox_PlusStr.Text = "+";
+			this.checkBox_PlusStr.UseVisualStyleBackColor = true;
+			this.checkBox_PlusStr.CheckedChanged += new System.EventHandler(this.checkBox_PlusStr_CheckedChanged);
 			// 
 			// numericUpDown_Acc
 			// 
@@ -628,30 +710,6 @@
 			this.label19.TabIndex = 88;
 			this.label19.Text = "Acc";
 			// 
-			// radioButton_MinusAcc
-			// 
-			this.radioButton_MinusAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.radioButton_MinusAcc.Location = new System.Drawing.Point(265, 98);
-			this.radioButton_MinusAcc.Name = "radioButton_MinusAcc";
-			this.radioButton_MinusAcc.Size = new System.Drawing.Size(31, 17);
-			this.radioButton_MinusAcc.TabIndex = 87;
-			this.radioButton_MinusAcc.TabStop = true;
-			this.radioButton_MinusAcc.Text = "-";
-			this.radioButton_MinusAcc.UseVisualStyleBackColor = true;
-			this.radioButton_MinusAcc.CheckedChanged += new System.EventHandler(this.radioButton_MinusAcc_CheckedChanged);
-			// 
-			// radioButton_PlusAcc
-			// 
-			this.radioButton_PlusAcc.AutoSize = true;
-			this.radioButton_PlusAcc.Location = new System.Drawing.Point(231, 98);
-			this.radioButton_PlusAcc.Name = "radioButton_PlusAcc";
-			this.radioButton_PlusAcc.Size = new System.Drawing.Size(31, 17);
-			this.radioButton_PlusAcc.TabIndex = 86;
-			this.radioButton_PlusAcc.TabStop = true;
-			this.radioButton_PlusAcc.Text = "+";
-			this.radioButton_PlusAcc.UseVisualStyleBackColor = true;
-			this.radioButton_PlusAcc.CheckedChanged += new System.EventHandler(this.radioButton_PlusAcc_CheckedChanged);
-			// 
 			// label14
 			// 
 			this.label14.AutoSize = true;
@@ -660,30 +718,6 @@
 			this.label14.Size = new System.Drawing.Size(23, 13);
 			this.label14.TabIndex = 84;
 			this.label14.Text = "Sta";
-			// 
-			// radioButton_MinusSta
-			// 
-			this.radioButton_MinusSta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.radioButton_MinusSta.Location = new System.Drawing.Point(83, 98);
-			this.radioButton_MinusSta.Name = "radioButton_MinusSta";
-			this.radioButton_MinusSta.Size = new System.Drawing.Size(31, 17);
-			this.radioButton_MinusSta.TabIndex = 83;
-			this.radioButton_MinusSta.TabStop = true;
-			this.radioButton_MinusSta.Text = "-";
-			this.radioButton_MinusSta.UseVisualStyleBackColor = true;
-			this.radioButton_MinusSta.CheckedChanged += new System.EventHandler(this.radioButton_MinusSta_CheckedChanged);
-			// 
-			// radioButton_PlusSta
-			// 
-			this.radioButton_PlusSta.AutoSize = true;
-			this.radioButton_PlusSta.Location = new System.Drawing.Point(49, 98);
-			this.radioButton_PlusSta.Name = "radioButton_PlusSta";
-			this.radioButton_PlusSta.Size = new System.Drawing.Size(31, 17);
-			this.radioButton_PlusSta.TabIndex = 82;
-			this.radioButton_PlusSta.TabStop = true;
-			this.radioButton_PlusSta.Text = "+";
-			this.radioButton_PlusSta.UseVisualStyleBackColor = true;
-			this.radioButton_PlusSta.CheckedChanged += new System.EventHandler(this.radioButton_PlusSta_CheckedChanged);
 			// 
 			// label13
 			// 
@@ -694,30 +728,6 @@
 			this.label13.TabIndex = 80;
 			this.label13.Text = "Spe";
 			// 
-			// radioButton_MinusSpe
-			// 
-			this.radioButton_MinusSpe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.radioButton_MinusSpe.Location = new System.Drawing.Point(265, 65);
-			this.radioButton_MinusSpe.Name = "radioButton_MinusSpe";
-			this.radioButton_MinusSpe.Size = new System.Drawing.Size(31, 17);
-			this.radioButton_MinusSpe.TabIndex = 79;
-			this.radioButton_MinusSpe.TabStop = true;
-			this.radioButton_MinusSpe.Text = "-";
-			this.radioButton_MinusSpe.UseVisualStyleBackColor = true;
-			this.radioButton_MinusSpe.CheckedChanged += new System.EventHandler(this.radioButton_MinusSpe_CheckedChanged);
-			// 
-			// radioButton_PlusSpe
-			// 
-			this.radioButton_PlusSpe.AutoSize = true;
-			this.radioButton_PlusSpe.Location = new System.Drawing.Point(231, 65);
-			this.radioButton_PlusSpe.Name = "radioButton_PlusSpe";
-			this.radioButton_PlusSpe.Size = new System.Drawing.Size(31, 17);
-			this.radioButton_PlusSpe.TabIndex = 78;
-			this.radioButton_PlusSpe.TabStop = true;
-			this.radioButton_PlusSpe.Text = "+";
-			this.radioButton_PlusSpe.UseVisualStyleBackColor = true;
-			this.radioButton_PlusSpe.CheckedChanged += new System.EventHandler(this.radioButton_PlusSpe_CheckedChanged);
-			// 
 			// label8
 			// 
 			this.label8.AutoSize = true;
@@ -726,30 +736,6 @@
 			this.label8.Size = new System.Drawing.Size(20, 13);
 			this.label8.TabIndex = 76;
 			this.label8.Text = "Str";
-			// 
-			// radioButton_MinusStr
-			// 
-			this.radioButton_MinusStr.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.radioButton_MinusStr.Location = new System.Drawing.Point(83, 65);
-			this.radioButton_MinusStr.Name = "radioButton_MinusStr";
-			this.radioButton_MinusStr.Size = new System.Drawing.Size(31, 17);
-			this.radioButton_MinusStr.TabIndex = 75;
-			this.radioButton_MinusStr.TabStop = true;
-			this.radioButton_MinusStr.Text = "-";
-			this.radioButton_MinusStr.UseVisualStyleBackColor = true;
-			this.radioButton_MinusStr.CheckedChanged += new System.EventHandler(this.radioButton_MinusStr_CheckedChanged);
-			// 
-			// radioButton_PlusStr
-			// 
-			this.radioButton_PlusStr.AutoSize = true;
-			this.radioButton_PlusStr.Location = new System.Drawing.Point(49, 65);
-			this.radioButton_PlusStr.Name = "radioButton_PlusStr";
-			this.radioButton_PlusStr.Size = new System.Drawing.Size(31, 17);
-			this.radioButton_PlusStr.TabIndex = 74;
-			this.radioButton_PlusStr.TabStop = true;
-			this.radioButton_PlusStr.Text = "+";
-			this.radioButton_PlusStr.UseVisualStyleBackColor = true;
-			this.radioButton_PlusStr.CheckedChanged += new System.EventHandler(this.radioButton_PlusStr_CheckedChanged);
 			// 
 			// groupBox4
 			// 
@@ -772,7 +758,7 @@
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(343, 15);
 			this.label17.TabIndex = 75;
-			this.label17.Text = "[i.e. Displacement (8), Armaments Haki (8)]";
+			this.label17.Text = "i.e. +0 Displacement, +8 Gatling, +8 Armaments Haki";
 			this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label3
@@ -827,7 +813,7 @@
 			this.Text = "Technique Creator";
 			this.Load += new System.EventHandler(this.Add_Technique_Load);
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_PointsBranch)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SpTP)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Power)).EndInit();
@@ -862,7 +848,7 @@
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.TextBox textBox_TechBranched;
 		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.NumericUpDown numericUpDown_PointsBranch;
+		private System.Windows.Forms.NumericUpDown numericUpDown_RankBranch;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.NumericUpDown numericUpDown_RegTP;
 		private System.Windows.Forms.Label label7;
@@ -893,20 +879,20 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox textBox_Effects;
 		private System.Windows.Forms.GroupBox groupBox5;
-		private System.Windows.Forms.RadioButton radioButton_MinusStr;
-		private System.Windows.Forms.RadioButton radioButton_PlusStr;
 		private System.Windows.Forms.NumericUpDown numericUpDown_Acc;
 		private System.Windows.Forms.NumericUpDown numericUpDown_Sta;
 		private System.Windows.Forms.NumericUpDown numericUpDown_Spe;
 		private System.Windows.Forms.Label label19;
-		private System.Windows.Forms.RadioButton radioButton_MinusAcc;
-		private System.Windows.Forms.RadioButton radioButton_PlusAcc;
 		private System.Windows.Forms.Label label14;
-		private System.Windows.Forms.RadioButton radioButton_MinusSta;
-		private System.Windows.Forms.RadioButton radioButton_PlusSta;
 		private System.Windows.Forms.Label label13;
-		private System.Windows.Forms.RadioButton radioButton_MinusSpe;
-		private System.Windows.Forms.RadioButton radioButton_PlusSpe;
 		private System.Windows.Forms.Label label8;
+		private System.Windows.Forms.CheckBox checkBox_MinusAcc;
+		private System.Windows.Forms.CheckBox checkBox_PlusAcc;
+		private System.Windows.Forms.CheckBox checkBox_MinusSta;
+		private System.Windows.Forms.CheckBox checkBox_PlusSta;
+		private System.Windows.Forms.CheckBox checkBox_MinusSpe;
+		private System.Windows.Forms.CheckBox checkBox_PlusSpe;
+		private System.Windows.Forms.CheckBox checkBox_MinusStr;
+		private System.Windows.Forms.CheckBox checkBox_PlusStr;
 	}
 }

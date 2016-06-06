@@ -26,11 +26,13 @@ namespace OPRPCharBuild
 		// PUBLIC / PRIVATE MEMBER FUNCTIONS AND VARIABLES
 		// --------------------------------------------------------------------------------------------
 
-		public const string version = "1.0.0.5";
+		public const string version = "1.0.0.6";
+		public const string vers_type = " (BETA)";
 		private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
 		Traits traits = new Traits();           // For enumerations of traits
 		Project project = new Project();        // State of save file
-		private bool upgrading = false;
+		private bool upgrading = false;			// If older .oprp files won't work, warn when upgrading.
+		private const bool upgrade_warn = false;
 
 		#region General Functions
 
@@ -122,9 +124,19 @@ namespace OPRPCharBuild
 				}
 				if (MessageBox.Show("An update to v" + version_page + " is available. Would you like to download the newest version?", "New Version", 
 					MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
-					Process.Start(website);
-					upgrading = true; // Temporary until we implement a convenient save feature
-					Application.Exit();
+					if (!upgrade_warn) {
+						MessageBox.Show(".oprp files from this version may only partially restore data in the newer version.\n " + 
+							"Please make sure you save all previous work in a separate text editor.", 
+							"Reminder", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+						Process.Start(website);
+					}
+					else {
+						#pragma warning disable CS0162 // Unreachable code detected
+						upgrading = true; // Temporary until we implement a convenient save feature
+						#pragma warning restore CS0162 // Unreachable code detected
+						Process.Start(website);
+						Application.Exit();
+					}
 				}
 			}
 			catch (Exception e) {
@@ -324,8 +336,8 @@ namespace OPRPCharBuild
 			}
 			else {
 				// Maxes out at base stat 75
-				base_stat += (int)(75 * (multiplier - 1.0));
-				calc += " + 75 * " + (multiplier - 1.0);
+				base_stat += 15;
+				calc += " + 15";
 			}
 		}
 
@@ -484,13 +496,13 @@ namespace OPRPCharBuild
 			// Now check if we have any traits that add to this.
 			if (Contains_Trait_AtIndex(Traits.Trait_Name.TECH_MAST, listView_Traits) != -1) {
 				// Increase by 100% of Fortune
-				total += (fortune * 2);
-				calc += " + " + fortune + " * 2";
+				total += fortune;
+				calc += " + " + fortune;
 			}
 			else if (Contains_Trait_AtIndex(Traits.Trait_Name.TECH_ADEPT, listView_Traits) != -1) {
 				// Increase by 40% of Fortune
-				total += (int)((double)fortune * 1.4);
-				calc += " + " + fortune + " * 1.4";
+				total += (int)((double)fortune * 0.4);
+				calc += " + " + fortune + " * 0.4";
 			}
 			// Update properly.
 			textBox_RegTPTotal.Text = total.ToString();
@@ -651,7 +663,7 @@ namespace OPRPCharBuild
 				string sp_name = Tech.SubItems[4].Text; // Column 4 is Sp. Trait
 				string trash = "";
 				Trait_Name_From_ListView(ref sp_name, ref trash);
-				if (string.IsNullOrEmpty(sp_name)) {
+				if (!string.IsNullOrEmpty(sp_name)) {
 					// That means there is a Special Trait
 					bool break_loop = false;
 					Traits.Trait_Name Sp_ID = traits.get_TraitID(sp_name);
@@ -700,7 +712,7 @@ namespace OPRPCharBuild
 
 			this.Text = "OPRP Character Builder";
 			label_Title.Text = "OPRP Character Builder";
-			label1.Text = "OPRP Character Builder v" + version + " designed by Solo";
+			label1.Text = "OPRP Character Builder v" + version + vers_type + " designed by Solo";
 
 			// Check for updates
 			Check_Update();
@@ -1002,6 +1014,75 @@ namespace OPRPCharBuild
 			Move_List_Item(ref listView_Items, "Down");
 		}
 
+		private string Commas_To_Value(uint beli) {
+			string val = beli.ToString();
+			for (int i = val.Length - 3; i > 0; i -= 3) {
+				// Inserting from right to left
+				val = val.Insert(i, ",");
+			}
+			return val;
+		}
+
+		private void button_Standardize_Click(object sender, EventArgs e) {
+			DialogResult result = new DialogResult();
+			result = DialogResult.Yes;
+			result = MessageBox.Show("Is your character scooping in the Blues?", "Beli Standardization", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+			if (result != DialogResult.Cancel) {
+				int SD = (int)numericUpDown_SDEarned.Value;
+				uint beli = 500000;
+				string message = "You have " + SD + " SD earned. Calculations:\n+ 500,000 (Starting Beli)";
+				if (SD <= 50) {
+					beli += (uint)(250000 * SD);
+					message += "\n+ " + Commas_To_Value((uint)(250000 * SD)) + " (250,000/SD for first 50)";
+				}
+				else {
+					beli += 250000 * 50;
+					message += "\n+ " + Commas_To_Value((uint)(250000 * 50)) + " (250,000/SD for first 50)";
+				}
+				SD -= 50;
+				if (result == DialogResult.No) {
+					// In the GL, it's 500,000 per SD
+					if (SD > 0) {
+						beli += (uint)(500000 * SD);
+						message += "\n+ " + Commas_To_Value((uint)(500000 * SD)) + " (500,000/SD in GL)";
+					}
+				}
+				else {
+					// In the Blues, it's 500,000 per SD
+					if (SD > 0) {
+						beli += (uint)(250000 * SD);
+						message += "\n+ " + Commas_To_Value((uint)(250000 * SD)) + " (250,000/SD in GL)";
+					}
+				}
+				// Apply beli trait / professional boosts (do not stack)
+				bool perc_20 = false;
+				// Look for Traits bonus of 20%
+				foreach (ListViewItem eachitem in listView_Traits.Items) {
+					if (eachitem.SubItems[0].Text == "Pickpocket" || eachitem.SubItems[0].Text == "Tough Bargainer") {
+						beli = (uint)(beli * 1.2);
+						message += "\n+ " + Commas_To_Value((uint)(beli * 0.2)) + " (20% beli Trait Bonus)";
+						perc_20 = true;
+						break;
+					}
+				}
+				if (!perc_20) {
+					// Look for Thief primary bonus of 10%
+					foreach (ListViewItem eachitem in listView_Prof.Items) {
+						if (eachitem.SubItems[0].Text == "Thief" && eachitem.SubItems[1].Text == "Primary") {
+							beli = (uint)(beli * 1.1);
+							message += "\n+ " + Commas_To_Value((uint)(beli * 0.1)) + " (10% beli Thief Primary)";
+							break;
+						}
+					}
+				}
+				// Show calculations
+				string final_beli = Commas_To_Value(beli);
+				message += "\n= " + final_beli + " (FINAL undeducted Value)";
+				MessageBox.Show(message, "Beli Standardized");
+				textBox_Beli.Text = final_beli;
+			}
+		}
+
 		private void checkedListBox1_AP_SelectedIndexChanged(object sender, EventArgs e) {
 			// To keep track of AP
 			Update_AP_Count();
@@ -1265,7 +1346,17 @@ namespace OPRPCharBuild
 			// Technique "Add" button from the MainForm
 			int max_rank = Int32.Parse(textBox_Fortune.Text) / 2;
 			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP);
-			TechniqueWin.NewDialog(ref listView_Techniques);
+			TechniqueWin.NewDialog(ref listView_Techniques, false);
+			// Update functions go below
+			Update_SpTrait_Table_Values();
+			Update_Used_RegTP();
+		}
+
+		private void button_TechBranch_Click(object sender, EventArgs e) {
+			// Technique "Duplicate" button from the MainForm
+			int max_rank = Int32.Parse(textBox_Fortune.Text) / 2;
+			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP);
+			TechniqueWin.NewDialog(ref listView_Techniques, true);
 			// Update functions go below
 			Update_SpTrait_Table_Values();
 			Update_Used_RegTP();
@@ -1503,6 +1594,7 @@ namespace OPRPCharBuild
 				MessageBox.Show("Failed to serialize.\nReason: " + e.Message);
 			}
 			finally {
+				MessageBox.Show(project.filename + " successfully saved!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				fs.Close();
 			}
 		}
@@ -1510,7 +1602,7 @@ namespace OPRPCharBuild
 		private void newCharacter() {
 			DialogResult result = new DialogResult();
 			result = DialogResult.No;
-			result = MessageBox.Show("Save changes before making a New Character?", "Make New Project",
+			result = MessageBox.Show("Save your current work before making a New Character?", "Make New Project",
 				MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 			if (result == DialogResult.Yes) {
 				saveCharacter();
@@ -1552,7 +1644,7 @@ namespace OPRPCharBuild
 		private void openCharacter() {
 			DialogResult result = new DialogResult();
 			result = DialogResult.No;
-			result = MessageBox.Show("Save changes before opening a Character?", "Open Project",
+			result = MessageBox.Show("Save your current work before opening a Character?", "Open Project",
 				MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 			if (result == DialogResult.Yes) {
 				saveCharacter();
@@ -1572,6 +1664,9 @@ namespace OPRPCharBuild
 						finally {
 							fs.Close();
 						}
+						// Holy moly you need to update the save location or else you lose work.
+						project.location = dlgFileOpen.FileName;
+						project.filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
 						loadProjectToForm();
 						this.Text = project.filename;
 					}
@@ -1666,7 +1761,7 @@ namespace OPRPCharBuild
 					listView_Techniques,
 					listView_SpTP
 					);
-				sheet.Complete_Template_Generate(version);
+				sheet.Complete_Template_Generate(version, vers_type);
 				sheet.ShowDialog();
 			}
 		}

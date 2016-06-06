@@ -1,3 +1,10 @@
+v1.0.0.6 - 6/6/2016
+- Bugs fixed on Technique Forms.
+- Fixed calculations on Total Reg TP
+- Beli Standardization (an undeducted version) implemented
+- Fixed a bug where Opening a file doesn't save it later on.
+- Added a "Branch" Technique feature
+- Small QoL changes that makes the tool easier and more comprehensive.
 v1.0.0.5 - 6/6/2016
 - Technique Form GUI completely revamped
 - Stats is now customizable from all 4 types

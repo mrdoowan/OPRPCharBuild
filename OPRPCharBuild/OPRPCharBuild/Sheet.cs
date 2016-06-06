@@ -126,6 +126,7 @@ namespace OPRPCharBuild
 			template.Write("[b]Personality:[/b] " + person + '\n');
 			template.Write('\n');
 			template.Write("[b]Hometown:[/b] " + island + ", " + region + '\n');
+			template.Write('\n');
 			template.Write("[b]History:[/b] " + history + '\n');
 			template.Write('\n');
 			template.Write('\n');
@@ -322,14 +323,14 @@ namespace OPRPCharBuild
 			}
 		}
 
-		public void Complete_Template_Generate(string version) {
+		public void Complete_Template_Generate(string version, string vers_type) {
 			template.Write("[center][big][big][i][font=Century Gothic]Development History[/font][/i][/big][/big][/center]\n");
 			template.Write("[b]Gains/Losses:[/b] \n");
 			template.Write('\n');
 			template.Write("[spoiler]Edit Log goes here[/spoiler]\n");
 			template.Write('\n');
-			template.Write("[small]This Character Template was created by the OPRP Character Builder v" + version + '\n');
-			template.Write("Calculations should be done correctly if not bugged or changed by the user.[/small]");
+			template.Write("[small]This Character Template was created by the OPRP Character Builder v" + version + vers_type + '\n');
+			template.Write("Calculations should be done correctly if not bugged or changed by [me][/small]");
 			// Transfer entire stream into readable textbox
 			richTextBox_Template.Text = template.ToString();
 			// Reset/Clear Stringwriter
