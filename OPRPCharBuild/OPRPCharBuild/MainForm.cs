@@ -26,7 +26,7 @@ namespace OPRPCharBuild
 		// PUBLIC / PRIVATE MEMBER FUNCTIONS AND VARIABLES
 		// --------------------------------------------------------------------------------------------
 
-		public const string version = "1.0.0.6";
+		public const string version = "1.0.0.7";
 		public const string vers_type = " (BETA)";
 		private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
 		Traits traits = new Traits();           // For enumerations of traits
@@ -336,8 +336,23 @@ namespace OPRPCharBuild
 			}
 			else {
 				// Maxes out at base stat 75
-				base_stat += 15;
-				calc += " + 15";
+				// And for some reason I can't do arithmetic operations with two doubles or
+				// it screws up by like 9 decimal places >_>
+				if (multiplier == 1.2) {
+					multiplier = 0.2;
+				}
+				else if (multiplier == 1.4) {
+					multiplier = 0.4;
+				}
+				else if (multiplier == 1.6) {
+					multiplier = 0.6;
+				}
+				else {
+					MessageBox.Show("Stat Multipliers screwed up.", "Error");
+				}
+				int base_75 = (int)(75 * multiplier); 
+				base_stat += base_75;
+				calc += " + " + base_75;
 			}
 		}
 

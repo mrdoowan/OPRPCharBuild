@@ -1,3 +1,5 @@
+v1.0.0.7 - 6/6/2016
+- Minor bug fix on adding Stat bonuses after base stat 75.
 v1.0.0.6 - 6/6/2016
 - Bugs fixed on Technique Forms.
 - Fixed calculations on Total Reg TP
