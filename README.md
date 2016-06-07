@@ -22,3 +22,14 @@ Version History
 ### v1.0.0.0 (BETA)
 
 * "Closed" Beta released!
+
+### v1.0.1.0 
+
+* Initial Version released! 
+* Bug fixes and many QoL changes 
+* Adding Techniques overhauled. Added textbox for Effects and allowing "TP Note" to be edited. A "Branch" button is added for easier Branching. 
+* Now checks if there is a newer version ready. 
+* Beli can now be Standardized to an undeducted value. 
+* Template Sheet generation fixed and slightly altered. 
+* Anything in a List can now be ordered freely by the user. 
+* Help Documentation added. 

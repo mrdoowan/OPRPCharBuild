@@ -45,6 +45,7 @@
 			this.richTextBox_Template.Size = new System.Drawing.Size(510, 623);
 			this.richTextBox_Template.TabIndex = 0;
 			this.richTextBox_Template.Text = "";
+			this.richTextBox_Template.MouseClick += new System.Windows.Forms.MouseEventHandler(this.richTextBox_Template_MouseClick);
 			// 
 			// label_Title
 			// 
@@ -74,12 +75,12 @@
 			// 
 			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-			this.label1.Location = new System.Drawing.Point(71, 672);
+			this.label1.Location = new System.Drawing.Point(27, 672);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(345, 25);
+			this.label1.Size = new System.Drawing.Size(389, 25);
 			this.label1.TabIndex = 6;
-			this.label1.Text = "Click on the box and press Ctrl + A to copy and paste";
-			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.label1.Text = "Reminder: This template only serves as a Base Foundation";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// Sheet
 			// 

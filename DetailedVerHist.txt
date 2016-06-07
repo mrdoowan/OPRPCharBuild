@@ -1,3 +1,8 @@
+v1.0.1.0 - 6/7/2016
+- Official Full Release
+- Help documentation added
+- Proper URL links established
+- Small note added when generating sheets
 v1.0.0.8 - 6/7/2016
 - Small bug fix with image links on the Sheet
 - Added some exception handling, particularly when not entering anything for "Spec"

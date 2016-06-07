@@ -127,21 +127,14 @@ namespace OPRPCharBuild
 				if (latest <= current) {
 					return;
 				}
-				if (MessageBox.Show("An update to v" + version_page + " is available. Would you like to download the newest version?", "New Version", 
+				if (MessageBox.Show("An update to v" + version_page + " is available. Would you like to close this application and download the newest version?", "New Version",
 					MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
-					if (!upgrade_warn) {
-						MessageBox.Show(".oprp files from this version may only partially restore data in the newer version.\n " + 
-							"Please make sure you save all previous work in a separate text editor.", 
-							"Reminder", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-						Process.Start(website);
-					}
-					else {
-						#pragma warning disable CS0162 // Unreachable code detected
-						upgrading = true; // Temporary until we implement a convenient save feature
-						#pragma warning restore CS0162 // Unreachable code detected
-						Process.Start(website);
-						Application.Exit();
-					}
+					MessageBox.Show(".oprp files from this and older versions may only partially restore data in the newer version.\n " +
+						"Please make sure you save all previous work in a separate text editor.",
+						"Reminder", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					Process.Start(website);
+					Application.Exit();
+
 				}
 			}
 			catch (Exception e) {
@@ -1824,7 +1817,9 @@ namespace OPRPCharBuild
 		}
 
 		private void helpDocumentToolStripMenuItem_Click(object sender, EventArgs e) {
-			MessageBox.Show("Coming Soon!", "Lolnah");
+			Sheet help = new Sheet();
+			help.Set_Help_Form();
+			help.Show();
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
