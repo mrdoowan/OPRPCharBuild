@@ -26,8 +26,8 @@ namespace OPRPCharBuild
 		// PUBLIC / PRIVATE MEMBER FUNCTIONS AND VARIABLES
 		// --------------------------------------------------------------------------------------------
 
-		public const string version = "1.0.0.7";
-		public const string vers_type = " (BETA)";
+		public const string version = "1.0.1.0";
+		public const string vers_type = "";
 		private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
 		Traits traits = new Traits();           // For enumerations of traits
 		Project project = new Project();        // State of save file
@@ -67,14 +67,19 @@ namespace OPRPCharBuild
 		// Returns the Trait_Name with [SPEC] if specification is involved.
 		// Variable "spec" is modified for being placed in the TextBox
 		private void Trait_Name_From_ListView(ref string spec, ref string name) {
-			int spec_index = name.IndexOf('[');
-			if (spec_index != -1) {
-				// That means there is a Specification
-				int end_spec = name.IndexOf(']');
-				int length = end_spec - spec_index - 1;
-				spec = name.Substring(spec_index + 1, length);
-				// Replace the name of spec with "SPEC"
-				name = name.Replace(spec, "SPEC");
+			try {
+				int spec_index = name.IndexOf('[');
+				if (spec_index != -1) {
+					// That means there is a Specification
+					int end_spec = name.IndexOf(']');
+					int length = end_spec - spec_index - 1;
+					spec = name.Substring(spec_index + 1, length);
+					// Replace the name of spec with "SPEC"
+					name = name.Replace(spec, "SPEC");
+				}
+			}
+			catch (Exception e) {
+				MessageBox.Show("An exception was handled!\nReason: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -1221,9 +1226,10 @@ namespace OPRPCharBuild
 
 		private bool Traits_Not_Filled() {
 			// Checks if the Name, Type, or Description is filled in.
-			return (string.IsNullOrWhiteSpace(comboBox_TraitName.Text) |
-				string.IsNullOrWhiteSpace(comboBox_TraitType.Text) |
-				string.IsNullOrWhiteSpace(richTextBox_TraitDesc.Text));
+			return (string.IsNullOrWhiteSpace(comboBox_TraitName.Text) ||
+				string.IsNullOrWhiteSpace(comboBox_TraitType.Text) ||
+				string.IsNullOrWhiteSpace(richTextBox_TraitDesc.Text) ||
+				(textBox_TraitSpec.Enabled && string.IsNullOrWhiteSpace(textBox_TraitSpec.Text)));
 		}
 
 		private void Clear_Trait_Info() {

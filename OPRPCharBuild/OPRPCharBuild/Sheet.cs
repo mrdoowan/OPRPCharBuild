@@ -118,7 +118,7 @@ namespace OPRPCharBuild
 			template.Write('\n');
 			template.Write("[spoiler][img");
 			if (!full_res) {
-				template.Write('=' + imgWidth + ',' + imgHeight);
+				template.Write("=" + imgWidth.ToString() + "," + imgHeight.ToString());
 			}
 			template.Write(']' + url + "[/img][/spoiler]\n");
 			template.Write('\n');
