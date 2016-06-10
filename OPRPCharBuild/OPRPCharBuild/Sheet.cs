@@ -325,8 +325,8 @@ namespace OPRPCharBuild
 			template.Write("[b]Advancement Points:[/b] " + AP_num);
 			if (AP_num != 0) {
 				template.Write("[list]");
-				foreach (CheckBox checkedAP in AP.CheckedItems) {
-					template.Write("[*]" + checkedAP.Text + '\n');
+				foreach (string checkedAP in AP.CheckedItems) {
+					template.Write("[*]" + checkedAP + '\n');
 				}
 				template.Write("[/list]");
 			}

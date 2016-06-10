@@ -1,3 +1,7 @@
+v1.0.1.2 - 6/10/2016
+- Flagged numbers red if used TP goes over Total.
+- Fixed a bug when AP was checked and a sheet was generated, an exception would be flagged.
+- Flagged the new Project2 format as serializable
 v1.0.1.1 - 6/9/2016
 - Made an incomplete function that imports an older version to the newer version
 - Doesn't require you to save when Generating a sheet

@@ -13,6 +13,7 @@ using System.Runtime.Serialization;
 // MOST CURRENT VERSION: v1.0.2.0
 namespace OPRPCharBuild
 {
+	[Serializable()]
 	public class Project2
 	{
 		// Default constructor
