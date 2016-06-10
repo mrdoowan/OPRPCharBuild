@@ -2256,6 +2256,7 @@
 			this.textBox_SpTPUsed.Size = new System.Drawing.Size(32, 23);
 			this.textBox_SpTPUsed.TabIndex = 33;
 			this.textBox_SpTPUsed.Text = "0";
+			this.textBox_SpTPUsed.TextChanged += new System.EventHandler(this.textBox_SpTPUsed_TextChanged);
 			// 
 			// button_TechEdit
 			// 
@@ -2369,12 +2370,14 @@
 			// 
 			// textBox_RegTPUsed
 			// 
+			this.textBox_RegTPUsed.BackColor = System.Drawing.SystemColors.Control;
 			this.textBox_RegTPUsed.Location = new System.Drawing.Point(208, 29);
 			this.textBox_RegTPUsed.Name = "textBox_RegTPUsed";
 			this.textBox_RegTPUsed.ReadOnly = true;
 			this.textBox_RegTPUsed.Size = new System.Drawing.Size(32, 23);
 			this.textBox_RegTPUsed.TabIndex = 1;
 			this.textBox_RegTPUsed.Text = "0";
+			this.textBox_RegTPUsed.TextChanged += new System.EventHandler(this.textBox_RegTPUsed_TextChanged);
 			// 
 			// label61
 			// 
@@ -2515,7 +2518,7 @@
 			// olderVersionToolStripMenuItem
 			// 
 			this.olderVersionToolStripMenuItem.Name = "olderVersionToolStripMenuItem";
-			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
 			this.olderVersionToolStripMenuItem.Text = "Older Version";
 			this.olderVersionToolStripMenuItem.Click += new System.EventHandler(this.olderVersionToolStripMenuItem_Click);
 			// 

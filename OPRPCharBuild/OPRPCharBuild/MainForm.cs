@@ -625,6 +625,15 @@ namespace OPRPCharBuild
 			}
 			Update_Used_SpTP();
 			Update_Total_SpTP();
+			// After update of those values, we will then check to see if Used > Total
+			foreach (ListViewItem Sp_Trait in listView_SpTP.Items) {
+				if (int.Parse(Sp_Trait.SubItems[1].Text) > int.Parse(Sp_Trait.SubItems[2].Text)) {
+					Sp_Trait.SubItems[1].BackColor = Color.FromArgb(255, 128, 128);
+				}
+				else {
+					Sp_Trait.SubItems[1].BackColor = SystemColors.Control;
+				}
+			}
 			// Used when Fortune is updated.
 			// Used when a Trait is added.
 			// Used when a Trait is edited
@@ -1320,6 +1329,24 @@ namespace OPRPCharBuild
 
 		private void button_DownTech_Click(object sender, EventArgs e) {
 			Move_List_Item(ref listView_Techniques, "Down");
+		}
+
+		private void textBox_RegTPUsed_TextChanged(object sender, EventArgs e) {
+			if (int.Parse(textBox_RegTPUsed.Text) > int.Parse(textBox_RegTPTotal.Text)) {
+				textBox_RegTPUsed.BackColor = Color.FromArgb(255, 128, 128);
+			}
+			else {
+				textBox_RegTPUsed.BackColor = SystemColors.Control;
+			}
+		}
+
+		private void textBox_SpTPUsed_TextChanged(object sender, EventArgs e) {
+			if (int.Parse(textBox_SpTPUsed.Text) > int.Parse(textBox_SpTPTotal.Text)) {
+				textBox_SpTPUsed.BackColor = Color.FromArgb(255, 128, 128);
+			}
+			else {
+				textBox_SpTPUsed.BackColor = SystemColors.Control;
+			}
 		}
 
 		#endregion
