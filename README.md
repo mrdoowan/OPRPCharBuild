@@ -19,10 +19,6 @@ Based on OPRP usernames
 Version History
 ---------------
 
-### v1.0.0.0 (BETA)
-
-* "Closed" Beta released!
-
 ### v1.0.1.0 
 
 * Initial Version released! 
@@ -33,3 +29,7 @@ Version History
 * Template Sheet generation fixed and slightly altered. 
 * Anything in a List can now be ordered freely by the user. 
 * Help Documentation added. 
+
+### v1.0.0.0 (BETA)
+
+* "Closed" Beta released!

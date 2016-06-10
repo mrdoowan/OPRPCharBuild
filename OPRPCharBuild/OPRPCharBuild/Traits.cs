@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 // Used to hold Enumeration of Traits and how many Traits the user has.
 
@@ -251,6 +252,48 @@ namespace OPRPCharBuild
 			else {
 				return Trait_Name.CUSTOM;
 			}
+		}
+
+		// Specifically used if there's a Specification in trait name
+		// Modifies variable "name" that contains the Trait_Name with [SPEC] if specification is involved.
+		// Returns the variable "spec" for Specification
+		// Use this soon as universal function
+		public string Trait_Name_From_ListView(ref string name) {
+			try {
+				string spec = "";
+				int spec_index = name.IndexOf('[');
+				if (spec_index != -1) {
+					// That means there is a Specification
+					int end_spec = name.IndexOf(']');
+					int length = end_spec - spec_index - 1;
+					spec = name.Substring(spec_index + 1, length);
+					// Replace the name of spec with "SPEC"
+					name = name.Replace(spec, "SPEC");
+				}
+				return spec;
+			}
+			catch (Exception e) {
+				MessageBox.Show("An exception was handled!\nReason: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return null;
+			}
+		}
+
+		// Function used to find a Trait in a ListView and return what Index/Column it's at.
+		// Returns -1 if not found.
+		// Use this soon as universal function
+		public int Contains_Trait_AtIndex(Trait_Name ID, ListView listview) {
+			int index = 0;
+			foreach (ListViewItem eachItem in listview.Items) {
+				string name = eachItem.SubItems[0].Text;
+				// SubItems[0] always contains the Trait name
+				// Need to check if this is a SPEC trait.
+				Trait_Name_From_ListView(ref name);
+				if (get_TraitID(name) == ID) {
+					return index;
+				}
+				index++;
+			}
+			return -1;
 		}
 
 		// Based on name of the Trait, we initialize everything for the box.

@@ -95,6 +95,12 @@
     <Compile Include="Add_Technique.Designer.cs">
       <DependentUpon>Add_Technique.cs</DependentUpon>
     </Compile>
+    <Compile Include="Add_Trait.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Add_Trait.Designer.cs">
+      <DependentUpon>Add_Trait.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Add_Technique.resx">
       <DependentUpon>Add_Technique.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Add_Trait.resx">
+      <DependentUpon>Add_Trait.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

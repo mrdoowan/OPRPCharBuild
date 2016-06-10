@@ -33,6 +33,7 @@ namespace OPRPCharBuild
 
 			string help = "--------------- One Piece RP Character Builder Tool\n";
 			help += "--------------- Updated as of 6/7/2016\n";
+			help += "--------------- For v1.0.1.0\n";
 			help += '\n';
 			help += "It is heavily preferred you copy and paste this Documentation into a separate Text Editor and Ctrl + F many of its features\n";
 			help += '\n';
@@ -163,9 +164,7 @@ namespace OPRPCharBuild
 			help += '\n';
 			help += "Copyright (C)2016 Solo\n";
 			help += "This tool is open-sourced, found here: https://github.com/mrdoowan/OPRPCharBuild \n";
-			help += "You can modify under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version\n";
-
-
+			help += "You can modify under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version\n";
 
 			richTextBox_Template.Text = help;
 		}
@@ -198,12 +197,21 @@ namespace OPRPCharBuild
 			template.Write("[b]Race:[/b] " + race + '\n');
 			template.Write("[b]Affiliation:[/b] " + aff + '\n');
 			if (aff == "Pirate") {
+				if (string.IsNullOrWhiteSpace(bounty)) {
+					bounty = "0";
+				}
 				template.Write("[b]Bounty:[/b] " + bounty + '\n');
 			}
 			else if (aff == "Marine") {
+				if (string.IsNullOrWhiteSpace(comm)) {
+					comm = "0";
+				}
 				template.Write("[b]Rank (Commendations):[/b] " + rank + " (" + comm + ")\n");
 			}
 			else {
+				if (string.IsNullOrWhiteSpace(threat)) {
+					threat = "0";
+				}
 				template.Write("[b]Threat:[/b] " + threat + '\n');
 			}
 			template.Write("[b]Position:[/b] " + Make_NA(pos) + '\n');
@@ -238,8 +246,7 @@ namespace OPRPCharBuild
 			template.Write("[/list]\n");
 		}
 		// ---------------------------------------------------------------------------
-		public void Physical_Background_Generate(string height, string weight, string hair, string eye, string clothing, string appear, bool full_res, string url,
-			int imgWidth, int imgHeight, string person, string island, string region, string history) {
+		public void Physical_Background_Generate(string height, string weight, string hair, string eye, string clothing, string appear, ListView images, string person,	    string island, string region, string history) {
 			template.Write("[center][i][big][big][font=Century Gothic]Physical Appearance[/font][/big][/big][/i][/center]\n");
 			template.Write("[b]Height:[/b] " + height + '\n');
 			template.Write("[b]Weight:[/b] " + weight + '\n');
@@ -250,11 +257,19 @@ namespace OPRPCharBuild
 			template.Write('\n');
 			template.Write("[b]General Appearance:[/b] " + appear + '\n');
 			template.Write('\n');
-			template.Write("[spoiler][img");
-			if (!full_res) {
-				template.Write("=" + imgWidth.ToString() + "," + imgHeight.ToString());
+			if (images.Items.Count > 0) {
+				foreach (ListViewItem img in images.Items) {
+					template.Write("[spoiler");
+					if (string.IsNullOrWhiteSpace(img.SubItems[0].Text)) {
+						template.Write("=" + img.SubItems[0].Text);
+					}
+					template.Write("][img");
+					if (img.SubItems[2].Text == "No") {
+						template.Write("=" + img.SubItems[3].ToString() + "," + img.SubItems[4].ToString());
+					}
+					template.Write(']' + img.SubItems[1].Text + "[/img][/spoiler]\n");
+				}
 			}
-			template.Write(']' + url + "[/img][/spoiler]\n");
 			template.Write('\n');
 			template.Write("[center][big][big][i][font=Century Gothic]The Character[/font][/i][/big][/big][/center]\n");
 			template.Write("[b]Personality:[/b] " + person + '\n');
@@ -322,22 +337,22 @@ namespace OPRPCharBuild
 			template.Write("[list][*][i]Used for Stats:[/i] " + used_stat + '\n');
 			template.Write("[*][i]Used for Fortune:[/i] " + used_fort + '\n');
 			template.Write("[list][*][i]Strength:[/i] " + str_fin);
-			if (str_base != Int32.Parse(str_fin)) {
+			if (str_base != int.Parse(str_fin)) {
 				template.Write(' ' + str_calc);
 			}
 			template.Write('\n');
 			template.Write("[*][i]Speed:[/i] " + spe_fin);
-			if (spe_base != Int32.Parse(spe_fin)) {
+			if (spe_base != int.Parse(spe_fin)) {
 				template.Write(' ' + spe_calc);
 			}
 			template.Write('\n');
 			template.Write("[*][i]Stamina:[/i] " + sta_fin);
-			if (sta_base != Int32.Parse(sta_fin)) {
+			if (sta_base != int.Parse(sta_fin)) {
 				template.Write(' ' + sta_calc);
 			}
 			template.Write('\n');
 			template.Write("[*][i]Accuracy:[/i] " + acc_fin);
-			if (acc_base != Int32.Parse(acc_fin)) {
+			if (acc_base != int.Parse(acc_fin)) {
 				template.Write(' ' + acc_calc);
 			}
 			template.Write('\n');
@@ -353,7 +368,7 @@ namespace OPRPCharBuild
 				if (trait.SubItems[1].Text == "Professional") {
 					// Belongs in professional
 					string desc = "[b]" + trait.SubItems[0].Text + " (" + trait.SubItems[3].Text + " Trait";
-					if (Int32.Parse(trait.SubItems[3].Text) > 1) {
+					if (int.Parse(trait.SubItems[3].Text) > 1) {
 						desc += "s";
 					}
 					desc += ") -[/b] " + trait.SubItems[4].Text;
@@ -362,18 +377,18 @@ namespace OPRPCharBuild
 				else {
 					// Traits using both General/Professional would be in "General"
 					string desc = "[b]" + trait.SubItems[0].Text + " (" + trait.SubItems[2].Text + " Trait";
-					if (Int32.Parse(trait.SubItems[2].Text) > 1) {
+					if (int.Parse(trait.SubItems[2].Text) > 1) {
 						desc += "s";
 					}
-					if (Int32.Parse(trait.SubItems[3].Text) > 0) {
+					if (int.Parse(trait.SubItems[3].Text) > 0) {
 						// There's a professional trait too.
 						desc += ", " + trait.SubItems[3].Text + " Professional";
 					}
 					desc += ") -[/b] " + trait.SubItems[4].Text;
 					gen.Add(desc);
 				}
-				gen_num += Int32.Parse(trait.SubItems[2].Text);
-				prof_num += Int32.Parse(trait.SubItems[3].Text);
+				gen_num += int.Parse(trait.SubItems[2].Text);
+				prof_num += int.Parse(trait.SubItems[3].Text);
 			}
 			template.Write("[table][b]Traits:[/b] " + gen_num + " General, " + prof_num + " Professional[/table]");
 			template.Write("[table=2][b][u]General[/u][/b][c]");
@@ -403,7 +418,7 @@ namespace OPRPCharBuild
 			template.Write("[center][big][big][i][font=Century Gothic]Techniques[/font][/i][/big][/big][/center]\n");
 			template.Write("[b]Used/Total Regular Technique Points:[/b] " + usedRegTP + '/' + totRegTP + ' ' + regTPCalc + '\n');
 			template.Write("[b]Used/Total Special Technique Points:[/b] " + usedSpTP + '/' + totSpTP);
-			if (Int32.Parse(totSpTP) > 0) {
+			if (int.Parse(totSpTP) > 0) {
 				template.Write("[list]");
 				foreach (ListViewItem SpTrait in SpTraits.Items) {
 					template.Write("[*]" + SpTrait.SubItems[0].Text + ": ");
@@ -414,7 +429,7 @@ namespace OPRPCharBuild
 			template.Write('\n');
 			template.Write('\n');
 			template.Write("[table=2, Techniques]");
-			if (Int32.Parse(usedRegTP) == 0 && Int32.Parse(usedSpTP) == 0) {
+			if (int.Parse(usedRegTP) == 0 && int.Parse(usedSpTP) == 0) {
 				// This is a zero Technique option
 				template.Write("[b]TECHNIQUE NAME[/b] (#)\n");
 				template.Write("[u]Type:[/u] \n");
@@ -463,7 +478,7 @@ namespace OPRPCharBuild
 			template.Write('\n');
 			template.Write("[spoiler]Edit Log goes here[/spoiler]\n");
 			template.Write('\n');
-			template.Write("[small]This Character Template was created by the OPRP Character Builder v" + version + vers_type + '\n');
+			template.Write("[small]This Character Template was created by the [url=http://s1.zetaboards.com/One_Piece_RP/topic/6060583/1/]OPRP Character Builder[/url] v" + version + vers_type + '\n');
 			template.Write("Calculations should be done correctly if not bugged or changed by [me][/small]");
 			// Transfer entire stream into readable textbox
 			richTextBox_Template.Text = template.ToString();

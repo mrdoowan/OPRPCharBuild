@@ -69,12 +69,21 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.button_ImageEdit = new System.Windows.Forms.Button();
+			this.button_ImageDelete = new System.Windows.Forms.Button();
+			this.button_ImageAdd = new System.Windows.Forms.Button();
+			this.textBox_ImageLabel = new System.Windows.Forms.TextBox();
+			this.label31 = new System.Windows.Forms.Label();
+			this.label30 = new System.Windows.Forms.Label();
+			this.button_ImageDown = new System.Windows.Forms.Button();
+			this.button_ImageUp = new System.Windows.Forms.Button();
+			this.listView_Images = new System.Windows.Forms.ListView();
 			this.numericUpDown_Height = new System.Windows.Forms.NumericUpDown();
 			this.numericUpDown_Width = new System.Windows.Forms.NumericUpDown();
 			this.checkBox_FullRes = new System.Windows.Forms.CheckBox();
 			this.label21 = new System.Windows.Forms.Label();
 			this.label20 = new System.Windows.Forms.Label();
-			this.textBox_Image = new System.Windows.Forms.TextBox();
+			this.textBox_ImageURL = new System.Windows.Forms.TextBox();
 			this.label19 = new System.Windows.Forms.Label();
 			this.richTextBox_GeneralAppear = new System.Windows.Forms.RichTextBox();
 			this.label18 = new System.Windows.Forms.Label();
@@ -170,28 +179,16 @@
 			this.label81 = new System.Windows.Forms.Label();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
 			this.groupBox10 = new System.Windows.Forms.GroupBox();
+			this.button_TraitOrder = new System.Windows.Forms.Button();
 			this.button_TraitsEdit = new System.Windows.Forms.Button();
-			this.label65 = new System.Windows.Forms.Label();
-			this.textBox_TraitSpec = new System.Windows.Forms.TextBox();
-			this.label60 = new System.Windows.Forms.Label();
 			this.label59_TraitsCalc = new System.Windows.Forms.Label();
 			this.label58_TraitsCurrent = new System.Windows.Forms.Label();
-			this.button_TraitClear = new System.Windows.Forms.Button();
-			this.richTextBox_TraitDesc = new System.Windows.Forms.RichTextBox();
-			this.label57 = new System.Windows.Forms.Label();
-			this.numericUpDown_TraitProf = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDown_TraitGen = new System.Windows.Forms.NumericUpDown();
-			this.label56 = new System.Windows.Forms.Label();
-			this.label55 = new System.Windows.Forms.Label();
-			this.comboBox_TraitType = new System.Windows.Forms.ComboBox();
-			this.label54 = new System.Windows.Forms.Label();
-			this.comboBox_TraitName = new System.Windows.Forms.ComboBox();
-			this.label53 = new System.Windows.Forms.Label();
 			this.button_TraitsDelete = new System.Windows.Forms.Button();
 			this.button_TraitAdd = new System.Windows.Forms.Button();
 			this.listView_Traits = new System.Windows.Forms.ListView();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.groupBox11 = new System.Windows.Forms.GroupBox();
+			this.button_TechBranch = new System.Windows.Forms.Button();
 			this.button_DownTech = new System.Windows.Forms.Button();
 			this.button_UpTech = new System.Windows.Forms.Button();
 			this.label_SpTrait_Warning = new System.Windows.Forms.Label();
@@ -224,8 +221,9 @@
 			this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.olderVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolTip_Standardize = new System.Windows.Forms.ToolTip(this.components);
-			this.button_TechBranch = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -253,8 +251,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SDEarned)).BeginInit();
 			this.tabPage5.SuspendLayout();
 			this.groupBox10.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_TraitProf)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_TraitGen)).BeginInit();
 			this.tabPage6.SuspendLayout();
 			this.groupBox11.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
@@ -731,6 +727,7 @@
 			// 
 			// tabPage2
 			// 
+			this.tabPage2.AutoScroll = true;
 			this.tabPage2.Controls.Add(this.groupBox5);
 			this.tabPage2.Controls.Add(this.groupBox4);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -744,12 +741,21 @@
 			// 
 			// groupBox5
 			// 
+			this.groupBox5.Controls.Add(this.button_ImageEdit);
+			this.groupBox5.Controls.Add(this.button_ImageDelete);
+			this.groupBox5.Controls.Add(this.button_ImageAdd);
+			this.groupBox5.Controls.Add(this.textBox_ImageLabel);
+			this.groupBox5.Controls.Add(this.label31);
+			this.groupBox5.Controls.Add(this.label30);
+			this.groupBox5.Controls.Add(this.button_ImageDown);
+			this.groupBox5.Controls.Add(this.button_ImageUp);
+			this.groupBox5.Controls.Add(this.listView_Images);
 			this.groupBox5.Controls.Add(this.numericUpDown_Height);
 			this.groupBox5.Controls.Add(this.numericUpDown_Width);
 			this.groupBox5.Controls.Add(this.checkBox_FullRes);
 			this.groupBox5.Controls.Add(this.label21);
 			this.groupBox5.Controls.Add(this.label20);
-			this.groupBox5.Controls.Add(this.textBox_Image);
+			this.groupBox5.Controls.Add(this.textBox_ImageURL);
 			this.groupBox5.Controls.Add(this.label19);
 			this.groupBox5.Controls.Add(this.richTextBox_GeneralAppear);
 			this.groupBox5.Controls.Add(this.label18);
@@ -758,15 +764,106 @@
 			this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
 			this.groupBox5.Location = new System.Drawing.Point(6, 169);
 			this.groupBox5.Name = "groupBox5";
-			this.groupBox5.Size = new System.Drawing.Size(619, 306);
+			this.groupBox5.Size = new System.Drawing.Size(619, 468);
 			this.groupBox5.TabIndex = 2;
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Appearance";
 			// 
+			// button_ImageEdit
+			// 
+			this.button_ImageEdit.Location = new System.Drawing.Point(462, 429);
+			this.button_ImageEdit.Name = "button_ImageEdit";
+			this.button_ImageEdit.Size = new System.Drawing.Size(67, 23);
+			this.button_ImageEdit.TabIndex = 29;
+			this.button_ImageEdit.Text = "Edit";
+			this.button_ImageEdit.UseVisualStyleBackColor = true;
+			this.button_ImageEdit.Click += new System.EventHandler(this.button_ImageEdit_Click);
+			// 
+			// button_ImageDelete
+			// 
+			this.button_ImageDelete.Location = new System.Drawing.Point(535, 429);
+			this.button_ImageDelete.Name = "button_ImageDelete";
+			this.button_ImageDelete.Size = new System.Drawing.Size(67, 23);
+			this.button_ImageDelete.TabIndex = 28;
+			this.button_ImageDelete.Text = "Delete";
+			this.button_ImageDelete.UseVisualStyleBackColor = true;
+			this.button_ImageDelete.Click += new System.EventHandler(this.button_ImageDelete_Click);
+			// 
+			// button_ImageAdd
+			// 
+			this.button_ImageAdd.Location = new System.Drawing.Point(389, 429);
+			this.button_ImageAdd.Name = "button_ImageAdd";
+			this.button_ImageAdd.Size = new System.Drawing.Size(67, 23);
+			this.button_ImageAdd.TabIndex = 27;
+			this.button_ImageAdd.Text = "Add";
+			this.button_ImageAdd.UseVisualStyleBackColor = true;
+			this.button_ImageAdd.Click += new System.EventHandler(this.button_ImageAdd_Click);
+			// 
+			// textBox_ImageLabel
+			// 
+			this.textBox_ImageLabel.Location = new System.Drawing.Point(387, 396);
+			this.textBox_ImageLabel.Name = "textBox_ImageLabel";
+			this.textBox_ImageLabel.Size = new System.Drawing.Size(215, 23);
+			this.textBox_ImageLabel.TabIndex = 25;
+			// 
+			// label31
+			// 
+			this.label31.AutoSize = true;
+			this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label31.Location = new System.Drawing.Point(345, 401);
+			this.label31.Name = "label31";
+			this.label31.Size = new System.Drawing.Size(36, 13);
+			this.label31.TabIndex = 26;
+			this.label31.Text = "Label:";
+			// 
+			// label30
+			// 
+			this.label30.AutoSize = true;
+			this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label30.Location = new System.Drawing.Point(78, 244);
+			this.label30.Name = "label30";
+			this.label30.Size = new System.Drawing.Size(44, 13);
+			this.label30.TabIndex = 24;
+			this.label30.Text = "Images:";
+			// 
+			// button_ImageDown
+			// 
+			this.button_ImageDown.Image = ((System.Drawing.Image)(resources.GetObject("button_ImageDown.Image")));
+			this.button_ImageDown.Location = new System.Drawing.Point(93, 298);
+			this.button_ImageDown.Name = "button_ImageDown";
+			this.button_ImageDown.Size = new System.Drawing.Size(26, 26);
+			this.button_ImageDown.TabIndex = 23;
+			this.button_ImageDown.UseVisualStyleBackColor = true;
+			this.button_ImageDown.Click += new System.EventHandler(this.button_ImageDown_Click);
+			// 
+			// button_ImageUp
+			// 
+			this.button_ImageUp.Image = ((System.Drawing.Image)(resources.GetObject("button_ImageUp.Image")));
+			this.button_ImageUp.Location = new System.Drawing.Point(93, 266);
+			this.button_ImageUp.Name = "button_ImageUp";
+			this.button_ImageUp.Size = new System.Drawing.Size(26, 26);
+			this.button_ImageUp.TabIndex = 22;
+			this.button_ImageUp.UseVisualStyleBackColor = true;
+			this.button_ImageUp.Click += new System.EventHandler(this.button_ImageUp_Click);
+			// 
+			// listView_Images
+			// 
+			this.listView_Images.AllowColumnReorder = true;
+			this.listView_Images.AutoArrange = false;
+			this.listView_Images.FullRowSelect = true;
+			this.listView_Images.GridLines = true;
+			this.listView_Images.LabelWrap = false;
+			this.listView_Images.Location = new System.Drawing.Point(128, 244);
+			this.listView_Images.MultiSelect = false;
+			this.listView_Images.Name = "listView_Images";
+			this.listView_Images.Size = new System.Drawing.Size(474, 146);
+			this.listView_Images.TabIndex = 21;
+			this.listView_Images.UseCompatibleStateImageBehavior = false;
+			// 
 			// numericUpDown_Height
 			// 
 			this.numericUpDown_Height.Enabled = false;
-			this.numericUpDown_Height.Location = new System.Drawing.Point(286, 278);
+			this.numericUpDown_Height.Location = new System.Drawing.Point(286, 430);
 			this.numericUpDown_Height.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -789,7 +886,7 @@
 			// numericUpDown_Width
 			// 
 			this.numericUpDown_Width.Enabled = false;
-			this.numericUpDown_Width.Location = new System.Drawing.Point(180, 278);
+			this.numericUpDown_Width.Location = new System.Drawing.Point(180, 430);
 			this.numericUpDown_Width.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -815,7 +912,7 @@
 			this.checkBox_FullRes.Checked = true;
 			this.checkBox_FullRes.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.checkBox_FullRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.checkBox_FullRes.Location = new System.Drawing.Point(30, 281);
+			this.checkBox_FullRes.Location = new System.Drawing.Point(30, 433);
 			this.checkBox_FullRes.Name = "checkBox_FullRes";
 			this.checkBox_FullRes.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.checkBox_FullRes.Size = new System.Drawing.Size(95, 17);
@@ -828,7 +925,7 @@
 			// 
 			this.label21.AutoSize = true;
 			this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label21.Location = new System.Drawing.Point(239, 282);
+			this.label21.Location = new System.Drawing.Point(239, 434);
 			this.label21.Name = "label21";
 			this.label21.Size = new System.Drawing.Size(41, 13);
 			this.label21.TabIndex = 17;
@@ -838,24 +935,24 @@
 			// 
 			this.label20.AutoSize = true;
 			this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label20.Location = new System.Drawing.Point(136, 282);
+			this.label20.Location = new System.Drawing.Point(136, 434);
 			this.label20.Name = "label20";
 			this.label20.Size = new System.Drawing.Size(38, 13);
 			this.label20.TabIndex = 11;
 			this.label20.Text = "Width:";
 			// 
-			// textBox_Image
+			// textBox_ImageURL
 			// 
-			this.textBox_Image.Location = new System.Drawing.Point(128, 244);
-			this.textBox_Image.Name = "textBox_Image";
-			this.textBox_Image.Size = new System.Drawing.Size(474, 23);
-			this.textBox_Image.TabIndex = 11;
+			this.textBox_ImageURL.Location = new System.Drawing.Point(128, 396);
+			this.textBox_ImageURL.Name = "textBox_ImageURL";
+			this.textBox_ImageURL.Size = new System.Drawing.Size(211, 23);
+			this.textBox_ImageURL.TabIndex = 11;
 			// 
 			// label19
 			// 
 			this.label19.AutoSize = true;
 			this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label19.Location = new System.Drawing.Point(58, 249);
+			this.label19.Location = new System.Drawing.Point(58, 401);
 			this.label19.Name = "label19";
 			this.label19.Size = new System.Drawing.Size(64, 13);
 			this.label19.TabIndex = 14;
@@ -1492,7 +1589,7 @@
 			this.label_FortuneCalc.Name = "label_FortuneCalc";
 			this.label_FortuneCalc.Size = new System.Drawing.Size(42, 13);
 			this.label_FortuneCalc.TabIndex = 51;
-			this.label_FortuneCalc.Text = "(32 / 4)";
+			this.label_FortuneCalc.Text = "[32 / 4]";
 			// 
 			// label_GenerateCheck
 			// 
@@ -1512,7 +1609,7 @@
 			this.label_AccuracyCalc.Name = "label_AccuracyCalc";
 			this.label_AccuracyCalc.Size = new System.Drawing.Size(19, 13);
 			this.label_AccuracyCalc.TabIndex = 50;
-			this.label_AccuracyCalc.Text = "(1)";
+			this.label_AccuracyCalc.Text = "[1]";
 			// 
 			// label_StaminaCalc
 			// 
@@ -1522,7 +1619,7 @@
 			this.label_StaminaCalc.Name = "label_StaminaCalc";
 			this.label_StaminaCalc.Size = new System.Drawing.Size(19, 13);
 			this.label_StaminaCalc.TabIndex = 49;
-			this.label_StaminaCalc.Text = "(1)";
+			this.label_StaminaCalc.Text = "[1]";
 			// 
 			// label_SpeedCalc
 			// 
@@ -1532,7 +1629,7 @@
 			this.label_SpeedCalc.Name = "label_SpeedCalc";
 			this.label_SpeedCalc.Size = new System.Drawing.Size(19, 13);
 			this.label_SpeedCalc.TabIndex = 48;
-			this.label_SpeedCalc.Text = "(1)";
+			this.label_SpeedCalc.Text = "[1]";
 			// 
 			// label_StrengthCalc
 			// 
@@ -1542,7 +1639,7 @@
 			this.label_StrengthCalc.Name = "label_StrengthCalc";
 			this.label_StrengthCalc.Size = new System.Drawing.Size(19, 13);
 			this.label_StrengthCalc.TabIndex = 47;
-			this.label_StrengthCalc.Text = "(1)";
+			this.label_StrengthCalc.Text = "[1]";
 			// 
 			// label63
 			// 
@@ -1829,7 +1926,7 @@
 			this.label_SDtoSPCalculations.Name = "label_SDtoSPCalculations";
 			this.label_SDtoSPCalculations.Size = new System.Drawing.Size(43, 13);
 			this.label_SDtoSPCalculations.TabIndex = 24;
-			this.label_SDtoSPCalculations.Text = "(32 + 0)";
+			this.label_SDtoSPCalculations.Text = "[32 + 0]";
 			// 
 			// textBox_StatPoints
 			// 
@@ -1961,23 +2058,10 @@
 			// 
 			// groupBox10
 			// 
+			this.groupBox10.Controls.Add(this.button_TraitOrder);
 			this.groupBox10.Controls.Add(this.button_TraitsEdit);
-			this.groupBox10.Controls.Add(this.label65);
-			this.groupBox10.Controls.Add(this.textBox_TraitSpec);
-			this.groupBox10.Controls.Add(this.label60);
 			this.groupBox10.Controls.Add(this.label59_TraitsCalc);
 			this.groupBox10.Controls.Add(this.label58_TraitsCurrent);
-			this.groupBox10.Controls.Add(this.button_TraitClear);
-			this.groupBox10.Controls.Add(this.richTextBox_TraitDesc);
-			this.groupBox10.Controls.Add(this.label57);
-			this.groupBox10.Controls.Add(this.numericUpDown_TraitProf);
-			this.groupBox10.Controls.Add(this.numericUpDown_TraitGen);
-			this.groupBox10.Controls.Add(this.label56);
-			this.groupBox10.Controls.Add(this.label55);
-			this.groupBox10.Controls.Add(this.comboBox_TraitType);
-			this.groupBox10.Controls.Add(this.label54);
-			this.groupBox10.Controls.Add(this.comboBox_TraitName);
-			this.groupBox10.Controls.Add(this.label53);
 			this.groupBox10.Controls.Add(this.button_TraitsDelete);
 			this.groupBox10.Controls.Add(this.button_TraitAdd);
 			this.groupBox10.Controls.Add(this.listView_Traits);
@@ -1989,9 +2073,19 @@
 			this.groupBox10.TabStop = false;
 			this.groupBox10.Text = "Traits";
 			// 
+			// button_TraitOrder
+			// 
+			this.button_TraitOrder.Location = new System.Drawing.Point(6, 327);
+			this.button_TraitOrder.Name = "button_TraitOrder";
+			this.button_TraitOrder.Size = new System.Drawing.Size(75, 23);
+			this.button_TraitOrder.TabIndex = 27;
+			this.button_TraitOrder.Text = "Order";
+			this.button_TraitOrder.UseVisualStyleBackColor = true;
+			this.button_TraitOrder.Click += new System.EventHandler(this.button_TraitOrder_Click);
+			// 
 			// button_TraitsEdit
 			// 
-			this.button_TraitsEdit.Location = new System.Drawing.Point(457, 219);
+			this.button_TraitsEdit.Location = new System.Drawing.Point(457, 327);
 			this.button_TraitsEdit.Name = "button_TraitsEdit";
 			this.button_TraitsEdit.Size = new System.Drawing.Size(75, 23);
 			this.button_TraitsEdit.TabIndex = 26;
@@ -1999,280 +2093,29 @@
 			this.button_TraitsEdit.UseVisualStyleBackColor = true;
 			this.button_TraitsEdit.Click += new System.EventHandler(this.button_TraitsEdit_Click);
 			// 
-			// label65
-			// 
-			this.label65.AutoSize = true;
-			this.label65.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label65.Location = new System.Drawing.Point(6, 445);
-			this.label65.Name = "label65";
-			this.label65.Size = new System.Drawing.Size(340, 13);
-			this.label65.TabIndex = 25;
-			this.label65.Text = "NOTE: Custom Traits / Names will NOT affect the sheet\'s calculations.";
-			// 
-			// textBox_TraitSpec
-			// 
-			this.textBox_TraitSpec.Enabled = false;
-			this.textBox_TraitSpec.Location = new System.Drawing.Point(83, 287);
-			this.textBox_TraitSpec.Name = "textBox_TraitSpec";
-			this.textBox_TraitSpec.Size = new System.Drawing.Size(346, 23);
-			this.textBox_TraitSpec.TabIndex = 24;
-			// 
-			// label60
-			// 
-			this.label60.AutoSize = true;
-			this.label60.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label60.Location = new System.Drawing.Point(6, 292);
-			this.label60.Name = "label60";
-			this.label60.Size = new System.Drawing.Size(71, 13);
-			this.label60.TabIndex = 23;
-			this.label60.Text = "Specification:";
-			// 
 			// label59_TraitsCalc
 			// 
 			this.label59_TraitsCalc.AutoSize = true;
-			this.label59_TraitsCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label59_TraitsCalc.Location = new System.Drawing.Point(6, 235);
+			this.label59_TraitsCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label59_TraitsCalc.Location = new System.Drawing.Point(230, 379);
 			this.label59_TraitsCalc.Name = "label59_TraitsCalc";
-			this.label59_TraitsCalc.Size = new System.Drawing.Size(411, 13);
+			this.label59_TraitsCalc.Size = new System.Drawing.Size(383, 16);
 			this.label59_TraitsCalc.TabIndex = 22;
-			this.label59_TraitsCalc.Text = "Based on SD Earned and AP, your cap is 3 General Trait(s) and 1 Professional Trai" +
-    "t(s)";
+			this.label59_TraitsCalc.Text = "Your current cap is 3 General Trait(s) and 1 Professional Trait(s)";
 			// 
 			// label58_TraitsCurrent
 			// 
 			this.label58_TraitsCurrent.AutoSize = true;
-			this.label58_TraitsCurrent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label58_TraitsCurrent.Location = new System.Drawing.Point(112, 219);
+			this.label58_TraitsCurrent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label58_TraitsCurrent.Location = new System.Drawing.Point(230, 363);
 			this.label58_TraitsCurrent.Name = "label58_TraitsCurrent";
-			this.label58_TraitsCurrent.Size = new System.Drawing.Size(305, 13);
+			this.label58_TraitsCurrent.Size = new System.Drawing.Size(383, 16);
 			this.label58_TraitsCurrent.TabIndex = 21;
 			this.label58_TraitsCurrent.Text = "You currently have 0 General Trait(s) and 0 Professional Trait(s)";
 			// 
-			// button_TraitClear
-			// 
-			this.button_TraitClear.Location = new System.Drawing.Point(457, 440);
-			this.button_TraitClear.Name = "button_TraitClear";
-			this.button_TraitClear.Size = new System.Drawing.Size(75, 23);
-			this.button_TraitClear.TabIndex = 19;
-			this.button_TraitClear.Text = "Clear";
-			this.button_TraitClear.UseVisualStyleBackColor = true;
-			this.button_TraitClear.Click += new System.EventHandler(this.button12_TraitClear_Click);
-			// 
-			// richTextBox_TraitDesc
-			// 
-			this.richTextBox_TraitDesc.Location = new System.Drawing.Point(75, 320);
-			this.richTextBox_TraitDesc.Name = "richTextBox_TraitDesc";
-			this.richTextBox_TraitDesc.Size = new System.Drawing.Size(538, 114);
-			this.richTextBox_TraitDesc.TabIndex = 18;
-			this.richTextBox_TraitDesc.Text = "";
-			// 
-			// label57
-			// 
-			this.label57.AutoSize = true;
-			this.label57.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label57.Location = new System.Drawing.Point(6, 320);
-			this.label57.Name = "label57";
-			this.label57.Size = new System.Drawing.Size(63, 13);
-			this.label57.TabIndex = 17;
-			this.label57.Text = "Description:";
-			// 
-			// numericUpDown_TraitProf
-			// 
-			this.numericUpDown_TraitProf.Enabled = false;
-			this.numericUpDown_TraitProf.Location = new System.Drawing.Point(558, 288);
-			this.numericUpDown_TraitProf.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-			this.numericUpDown_TraitProf.Name = "numericUpDown_TraitProf";
-			this.numericUpDown_TraitProf.Size = new System.Drawing.Size(31, 23);
-			this.numericUpDown_TraitProf.TabIndex = 14;
-			// 
-			// numericUpDown_TraitGen
-			// 
-			this.numericUpDown_TraitGen.Enabled = false;
-			this.numericUpDown_TraitGen.Location = new System.Drawing.Point(558, 258);
-			this.numericUpDown_TraitGen.Maximum = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-			this.numericUpDown_TraitGen.Name = "numericUpDown_TraitGen";
-			this.numericUpDown_TraitGen.Size = new System.Drawing.Size(31, 23);
-			this.numericUpDown_TraitGen.TabIndex = 13;
-			// 
-			// label56
-			// 
-			this.label56.AutoSize = true;
-			this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label56.Location = new System.Drawing.Point(463, 292);
-			this.label56.Name = "label56";
-			this.label56.Size = new System.Drawing.Size(89, 13);
-			this.label56.TabIndex = 12;
-			this.label56.Text = "# of Professional:";
-			// 
-			// label55
-			// 
-			this.label55.AutoSize = true;
-			this.label55.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label55.Location = new System.Drawing.Point(483, 262);
-			this.label55.Name = "label55";
-			this.label55.Size = new System.Drawing.Size(69, 13);
-			this.label55.TabIndex = 11;
-			this.label55.Text = "# of General:";
-			// 
-			// comboBox_TraitType
-			// 
-			this.comboBox_TraitType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBox_TraitType.FormattingEnabled = true;
-			this.comboBox_TraitType.Items.AddRange(new object[] {
-            "",
-            "General",
-            "Professional",
-            "General / Professional"});
-			this.comboBox_TraitType.Location = new System.Drawing.Point(325, 255);
-			this.comboBox_TraitType.Name = "comboBox_TraitType";
-			this.comboBox_TraitType.Size = new System.Drawing.Size(152, 24);
-			this.comboBox_TraitType.TabIndex = 10;
-			this.comboBox_TraitType.SelectedIndexChanged += new System.EventHandler(this.comboBox7_TraitType_SelectedIndexChanged);
-			// 
-			// label54
-			// 
-			this.label54.AutoSize = true;
-			this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label54.Location = new System.Drawing.Point(285, 260);
-			this.label54.Name = "label54";
-			this.label54.Size = new System.Drawing.Size(34, 13);
-			this.label54.TabIndex = 9;
-			this.label54.Text = "Type:";
-			// 
-			// comboBox_TraitName
-			// 
-			this.comboBox_TraitName.DropDownHeight = 150;
-			this.comboBox_TraitName.FormattingEnabled = true;
-			this.comboBox_TraitName.IntegralHeight = false;
-			this.comboBox_TraitName.Items.AddRange(new object[] {
-            "\'Tis But A Scratch!",
-            "[SPEC] Mastery",
-            "Advanced [SPEC] Class Mastery",
-            "Advanced [SPEC] Mastery",
-            "Advanced Cyborg",
-            "Advanced Stance Mastery",
-            "Anatomical Strike",
-            "Ansatsuken",
-            "Anti-Stealth",
-            "Anti-Weapon Specialist",
-            "Art of Stealth",
-            "Awakened Haki",
-            "Baking Bad",
-            "Basic Cyborg",
-            "Bear Stamina",
-            "Beast Handler",
-            "Born Leader",
-            "Brilliant Mind",
-            "Civilian Lawyer",
-            "Combat Cuisine",
-            "Conquering King Haki",
-            "Cooking Fighter",
-            "Critical Hit",
-            "Crowd Control",
-            "Cybertronic Genius",
-            "Dazzling Performer [SPEC]",
-            "Disciplined Haki",
-            "Dwarf",
-            "Escape Artist",
-            "Fate of the Cunning",
-            "Fate of the Emperor",
-            "Fate of the Mighty",
-            "Fate of the Strong",
-            "Fate of the Swift",
-            "Fate of the Whimsical",
-            "Fishman [SPEC]",
-            "Flawless Accuracy",
-            "Food of Warriors",
-            "Forge Furnace",
-            "Forging Master",
-            "Form and Function",
-            "From the Shadows",
-            "Funky Body",
-            "Giant Stamina",
-            "Grandmaster [SPEC]",
-            "Great Speed",
-            "Haggler of the Sea",
-            "Hammer of Rage",
-            "Hardened Fighter",
-            "Horticultural Warfare",
-            "In-Training",
-            "Jack of All Trades",
-            "John of All Trades",
-            "Keen Accuracy",
-            "Lamp, Oil, Rope",
-            "Life Return",
-            "Ludicrous Speed",
-            "Mad Scientist",
-            "Mammoth Stamina",
-            "Master of Misdirection",
-            "Medical Malpractice",
-            "Mentally Fortified",
-            "Merfolk",
-            "Mighty Strength",
-            "Monster Strength",
-            "Natural Armour",
-            "New World Cyborg",
-            "Performance Assistant",
-            "Pickpocket",
-            "Poison Killer",
-            "Powerful Speaker",
-            "Prop Performance",
-            "Quickstrike",
-            "Rare Find",
-            "Rokushiki Master",
-            "Rokushiki Savant",
-            "Siege Warfare",
-            "Signature Technique [SPEC]",
-            "Skill in Upgrades",
-            "Skilled Use of Medicines",
-            "Sleight of Hand",
-            "Sonic Speed",
-            "Specific Devil Fruit",
-            "Stance Mastery",
-            "Strong Spirit",
-            "Super Sense",
-            "Super Strength",
-            "Superb Accuracy",
-            "Technical Mastery",
-            "Technically Adept",
-            "That Extra Special Ingredient",
-            "Top Gun",
-            "Tough as Nails",
-            "Tough Bargainer",
-            "Training of the Kitchen",
-            "Treasure Hunter",
-            "Uncivil Engineering",
-            "Weak Point Sighted",
-            "Weathermancy"});
-			this.comboBox_TraitName.Location = new System.Drawing.Point(50, 257);
-			this.comboBox_TraitName.Name = "comboBox_TraitName";
-			this.comboBox_TraitName.Size = new System.Drawing.Size(226, 24);
-			this.comboBox_TraitName.Sorted = true;
-			this.comboBox_TraitName.TabIndex = 8;
-			this.comboBox_TraitName.SelectedIndexChanged += new System.EventHandler(this.comboBox6_TraitName_SelectedIndexChanged);
-			this.comboBox_TraitName.SelectionChangeCommitted += new System.EventHandler(this.comboBox6_TraitName_SelectionChangeCommitted);
-			// 
-			// label53
-			// 
-			this.label53.AutoSize = true;
-			this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label53.Location = new System.Drawing.Point(6, 260);
-			this.label53.Name = "label53";
-			this.label53.Size = new System.Drawing.Size(38, 13);
-			this.label53.TabIndex = 4;
-			this.label53.Text = "Name:";
-			// 
 			// button_TraitsDelete
 			// 
-			this.button_TraitsDelete.Location = new System.Drawing.Point(538, 219);
+			this.button_TraitsDelete.Location = new System.Drawing.Point(538, 327);
 			this.button_TraitsDelete.Name = "button_TraitsDelete";
 			this.button_TraitsDelete.Size = new System.Drawing.Size(75, 23);
 			this.button_TraitsDelete.TabIndex = 3;
@@ -2282,7 +2125,7 @@
 			// 
 			// button_TraitAdd
 			// 
-			this.button_TraitAdd.Location = new System.Drawing.Point(538, 440);
+			this.button_TraitAdd.Location = new System.Drawing.Point(376, 327);
 			this.button_TraitAdd.Name = "button_TraitAdd";
 			this.button_TraitAdd.Size = new System.Drawing.Size(75, 23);
 			this.button_TraitAdd.TabIndex = 3;
@@ -2300,7 +2143,7 @@
 			this.listView_Traits.Location = new System.Drawing.Point(6, 22);
 			this.listView_Traits.MultiSelect = false;
 			this.listView_Traits.Name = "listView_Traits";
-			this.listView_Traits.Size = new System.Drawing.Size(607, 191);
+			this.listView_Traits.Size = new System.Drawing.Size(607, 299);
 			this.listView_Traits.TabIndex = 0;
 			this.listView_Traits.UseCompatibleStateImageBehavior = false;
 			// 
@@ -2344,6 +2187,16 @@
 			this.groupBox11.TabIndex = 3;
 			this.groupBox11.TabStop = false;
 			this.groupBox11.Text = "Techniques";
+			// 
+			// button_TechBranch
+			// 
+			this.button_TechBranch.Location = new System.Drawing.Point(376, 437);
+			this.button_TechBranch.Name = "button_TechBranch";
+			this.button_TechBranch.Size = new System.Drawing.Size(75, 23);
+			this.button_TechBranch.TabIndex = 39;
+			this.button_TechBranch.Text = "Branch";
+			this.button_TechBranch.UseVisualStyleBackColor = true;
+			this.button_TechBranch.Click += new System.EventHandler(this.button_TechBranch_Click);
 			// 
 			// button_DownTech
 			// 
@@ -2493,7 +2346,7 @@
 			this.label_RegTPCalc.Name = "label_RegTPCalc";
 			this.label_RegTPCalc.Size = new System.Drawing.Size(35, 13);
 			this.label_RegTPCalc.TabIndex = 25;
-			this.label_RegTPCalc.Text = "(8 * 2)";
+			this.label_RegTPCalc.Text = "[8 * 2]";
 			// 
 			// textBox_RegTPTotal
 			// 
@@ -2643,22 +2496,28 @@
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.helpToolStripMenuItem1});
+            this.helpToolStripMenuItem1,
+            this.importToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Size = new System.Drawing.Size(684, 24);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
-			// button_TechBranch
+			// importToolStripMenuItem
 			// 
-			this.button_TechBranch.Location = new System.Drawing.Point(376, 437);
-			this.button_TechBranch.Name = "button_TechBranch";
-			this.button_TechBranch.Size = new System.Drawing.Size(75, 23);
-			this.button_TechBranch.TabIndex = 39;
-			this.button_TechBranch.Text = "Branch";
-			this.button_TechBranch.UseVisualStyleBackColor = true;
-			this.button_TechBranch.Click += new System.EventHandler(this.button_TechBranch_Click);
+			this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.olderVersionToolStripMenuItem});
+			this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+			this.importToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+			this.importToolStripMenuItem.Text = "Import";
+			// 
+			// olderVersionToolStripMenuItem
+			// 
+			this.olderVersionToolStripMenuItem.Name = "olderVersionToolStripMenuItem";
+			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+			this.olderVersionToolStripMenuItem.Text = "Older Version";
+			this.olderVersionToolStripMenuItem.Click += new System.EventHandler(this.olderVersionToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
@@ -2716,8 +2575,6 @@
 			this.tabPage5.ResumeLayout(false);
 			this.groupBox10.ResumeLayout(false);
 			this.groupBox10.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_TraitProf)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_TraitGen)).EndInit();
 			this.tabPage6.ResumeLayout(false);
 			this.groupBox11.ResumeLayout(false);
 			this.groupBox11.PerformLayout();
@@ -2782,7 +2639,7 @@
 		private System.Windows.Forms.Label label15;
 		private System.Windows.Forms.Label label13;
 		private System.Windows.Forms.Label label14;
-		private System.Windows.Forms.TextBox textBox_Image;
+		private System.Windows.Forms.TextBox textBox_ImageURL;
 		private System.Windows.Forms.Label label19;
 		private System.Windows.Forms.RichTextBox richTextBox_GeneralAppear;
 		private System.Windows.Forms.Label label18;
@@ -2822,21 +2679,8 @@
 		private System.Windows.Forms.Button button_TraitsDelete;
 		private System.Windows.Forms.Button button_TraitAdd;
 		private System.Windows.Forms.ListView listView_Traits;
-		private System.Windows.Forms.ComboBox comboBox_TraitType;
-		private System.Windows.Forms.Label label54;
-		private System.Windows.Forms.ComboBox comboBox_TraitName;
-		private System.Windows.Forms.Label label53;
-		private System.Windows.Forms.RichTextBox richTextBox_TraitDesc;
-		private System.Windows.Forms.Label label57;
-		private System.Windows.Forms.NumericUpDown numericUpDown_TraitProf;
-		private System.Windows.Forms.NumericUpDown numericUpDown_TraitGen;
-		private System.Windows.Forms.Label label56;
-		private System.Windows.Forms.Label label55;
-		private System.Windows.Forms.Button button_TraitClear;
 		private System.Windows.Forms.Label label59_TraitsCalc;
 		private System.Windows.Forms.Label label58_TraitsCurrent;
-		private System.Windows.Forms.TextBox textBox_TraitSpec;
-		private System.Windows.Forms.Label label60;
 		private System.Windows.Forms.GroupBox groupBox11;
 		private System.Windows.Forms.ListView listView_SpTP;
 		private System.Windows.Forms.Label label64;
@@ -2845,7 +2689,6 @@
 		private System.Windows.Forms.Label label62;
 		private System.Windows.Forms.TextBox textBox_RegTPUsed;
 		private System.Windows.Forms.Label label61;
-		private System.Windows.Forms.Label label65;
 		private System.Windows.Forms.Button button_TechDelete;
 		private System.Windows.Forms.Button button_TechAdd;
 		private System.Windows.Forms.ListView listView_Techniques;
@@ -2929,6 +2772,18 @@
 		private System.Windows.Forms.ToolTip toolTip_Standardize;
 		private System.Windows.Forms.Button button_Standardize;
 		private System.Windows.Forms.Button button_TechBranch;
+		private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem olderVersionToolStripMenuItem;
+		private System.Windows.Forms.Button button_ImageDelete;
+		private System.Windows.Forms.Button button_ImageAdd;
+		private System.Windows.Forms.TextBox textBox_ImageLabel;
+		private System.Windows.Forms.Label label31;
+		private System.Windows.Forms.Label label30;
+		private System.Windows.Forms.Button button_ImageDown;
+		private System.Windows.Forms.Button button_ImageUp;
+		private System.Windows.Forms.ListView listView_Images;
+		private System.Windows.Forms.Button button_ImageEdit;
+		private System.Windows.Forms.Button button_TraitOrder;
 	}
 }
 

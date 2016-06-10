@@ -1,3 +1,12 @@
+v1.0.1.1 - 6/9/2016
+- Made an incomplete function that imports an older version to the newer version
+- Doesn't require you to save when Generating a sheet
+- Users can now use more than one image for their character
+- License updated to GNU AGPLv3
+- Traits is now added from a new Window form
+- Fixed a bug where resetting the form would screw up the min value of "Age"
+- Cleaned up massive spaghetti code that used to contain repeating functions "Trait_Name_From_ListView" and "Contains_Trait_AtIndex"
+- Updated visual on calculations: Brackets look better
 v1.0.1.0 - 6/7/2016
 - Official Full Release
 - Help documentation added

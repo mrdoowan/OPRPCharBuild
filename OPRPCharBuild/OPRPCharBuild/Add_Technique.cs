@@ -9,7 +9,7 @@ namespace OPRPCharBuild
 		private int max_rank;
 		private ListView traits_list;
 		private ListView SpTraits_list;
-		Traits trait_ref;
+		Traits traits_ref = new Traits();
 		// Used when editing Dialogue for comboBox SpTrait and Rank Trait
 		private string edit_SpTrait;
 		private string edit_RankTrait;
@@ -17,7 +17,6 @@ namespace OPRPCharBuild
 		public Add_Technique(int MaxRank, ListView t_list, ListView Sp_list) {
 			InitializeComponent();
 			button_clicked = false;
-			trait_ref = new Traits();
 			max_rank = MaxRank;
 			traits_list = t_list;
 			SpTraits_list = Sp_list;
@@ -32,7 +31,7 @@ namespace OPRPCharBuild
 					Copy_Data_To_Form(Main_Form);
 					textBox_Name.Clear();
 					ListViewItem sel_item = Main_Form.SelectedItems[0];
-					int rank = Int32.Parse(sel_item.SubItems[1].Text);
+					int rank = int.Parse(sel_item.SubItems[1].Text);
 					checkBox_Branched.Checked = true;
                     numericUpDown_Rank.Value = rank + 1;
 					textBox_TechBranched.Text = sel_item.SubItems[0].Text;
@@ -140,16 +139,15 @@ namespace OPRPCharBuild
 			ListViewItem sel_item = Main_Form.SelectedItems[0];
 			// With the above, we want to temporarily store a variable
 			textBox_Name.Text = sel_item.SubItems[0].Text;                      // Column 0: Tech Name
-			numericUpDown_Rank.Value = Int32.Parse(sel_item.SubItems[1].Text);  // Column 1: Rank
-			numericUpDown_RegTP.Value = Int32.Parse(sel_item.SubItems[2].Text); // Column 2: Reg TP
-			numericUpDown_SpTP.Value = Int32.Parse(sel_item.SubItems[3].Text);  // Column 3: Sp. TP
+			numericUpDown_Rank.Value = int.Parse(sel_item.SubItems[1].Text);  // Column 1: Rank
+			numericUpDown_RegTP.Value = int.Parse(sel_item.SubItems[2].Text); // Column 2: Reg TP
+			numericUpDown_SpTP.Value = int.Parse(sel_item.SubItems[3].Text);  // Column 3: Sp. TP
 			edit_SpTrait = sel_item.SubItems[4].Text;                           // Column 4: Sp. Trait (Need items initialized FIRST)
 			edit_RankTrait = sel_item.SubItems[5].Text;                         // Column 5: Rank Trait (Need items initialized FIRST)
 																				// Columns 4 and 5 are done in Add_Technique_Load
-			string trash = "";
 			string tech = sel_item.SubItems[5].Text;
-			Trait_Name_From_ListView(ref trash, ref tech);
-			if (trait_ref.get_TraitID(tech) == Traits.Trait_Name.SIG_TECH) { // Sig Tech
+			traits_ref.Trait_Name_From_ListView(ref tech);
+			if (traits_ref.get_TraitID(tech) == Traits.Trait_Name.SIG_TECH) { // Sig Tech
 				numericUpDown_Rank.Value = max_rank;
 				numericUpDown_Rank.Enabled = false;
 				numericUpDown_RegTP.Value = 0;
@@ -168,7 +166,7 @@ namespace OPRPCharBuild
 				textBox_TechBranched.Enabled = true;
 				numericUpDown_RankBranch.Enabled = true;
 				textBox_TechBranched.Text = sel_item.SubItems[6].Text;
-				numericUpDown_RankBranch.Value = Int32.Parse(sel_item.SubItems[7].Text);
+				numericUpDown_RankBranch.Value = int.Parse(sel_item.SubItems[7].Text);
 			}
 			comboBox_Type.Text = sel_item.SubItems[8].Text;        // Column 8: Type
 			comboBox_Range.Text = sel_item.SubItems[9].Text;       // Column 9: Range
@@ -182,7 +180,7 @@ namespace OPRPCharBuild
 						plus = false;
 					}
 					int ind_space = stat.IndexOf(' ');
-					int val = Int32.Parse(stat.Substring(1, ind_space - 1));
+					int val = int.Parse(stat.Substring(1, ind_space - 1));
 					string type = stat.Substring(ind_space + 1, 3);
 					// After parsing it, we put it into the form.
 					switch (type) {
@@ -237,7 +235,7 @@ namespace OPRPCharBuild
 					}
 				}
 			}
-			numericUpDown_Power.Value = Int32.Parse(sel_item.SubItems[11].Text);    // Column 11: Power
+			numericUpDown_Power.Value = int.Parse(sel_item.SubItems[11].Text);    // Column 11: Power
 			textBox_Effects.Text = sel_item.SubItems[12].Text;  // Column 12: Effects
 			textBox_TPMsg.Text = sel_item.SubItems[13].Text;    // Column 13: TP Note
 			richTextBox_Desc.Text = sel_item.SubItems[14].Text; // Column 14: Description
@@ -345,38 +343,8 @@ namespace OPRPCharBuild
 
 		#region Other member functions used
 
-		// Copy and paste from MainForm
-		private int Contains_Trait_AtIndex(Traits.Trait_Name ID, ListView listview) {
-			int index = 0;
-			foreach (ListViewItem eachItem in listview.Items) {
-				string spec = ""; // trash variable
-				string name = eachItem.SubItems[0].Text;
-				// SubItems[0] always contains the Trait name
-				// Need to check if this is a SPEC trait.
-				Trait_Name_From_ListView(ref spec, ref name);
-				if (trait_ref.get_TraitID(name) == ID) {
-					return index;
-				}
-				index++;
-			}
-			return -1;
-		}
-
-		// Copy and paste from MainForm
-		private void Trait_Name_From_ListView(ref string spec, ref string name) {
-			int spec_index = name.IndexOf('[');
-			if (spec_index != -1) {
-				// That means there is a Specification
-				int end_spec = name.IndexOf(']');
-				int length = end_spec - spec_index - 1;
-				spec = name.Substring(spec_index + 1, length);
-				// Replace the name of spec with "SPEC"
-				name = name.Replace(spec, "SPEC");
-			}
-		}
-
 		private void Add_Trait_comboBox(ref ComboBox list, Traits.Trait_Name ID, ListView traits_list) {
-			int index = Contains_Trait_AtIndex(ID, traits_list);
+			int index = traits_ref.Contains_Trait_AtIndex(ID, traits_list);
 			string name = traits_list.Items[index].SubItems[0].Text;
 			list.Items.Add(name);
 		}
@@ -402,10 +370,9 @@ namespace OPRPCharBuild
 		private void Update_TPMsg() {
 			string message = "";
 			// Affect Rank techs
-			string trash = ""; // Trash var spec for function
 			string tech = comboBox_AffectRank.Text;
-			Trait_Name_From_ListView(ref trash, ref tech);
-			Traits.Trait_Name Trait_ID = trait_ref.get_TraitID(tech);
+			traits_ref.Trait_Name_From_ListView(ref tech);
+			Traits.Trait_Name Trait_ID = traits_ref.get_TraitID(tech);
 			if (Trait_ID == Traits.Trait_Name.SIG_TECH) {
 				message += "[i]Signature Technique[/i]. ";
 			}
@@ -447,36 +414,35 @@ namespace OPRPCharBuild
 			numericUpDown_SpTP.Maximum = max_rank;
 			numericUpDown_RankBranch.Maximum = max_rank - 1;
 			// Add Traits Affecting Rank
-			if (Contains_Trait_AtIndex(Traits.Trait_Name.DWARF, traits_list) != -1) {
+			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.DWARF, traits_list) != -1) {
 				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.DWARF, traits_list);
 			}
-			if (Contains_Trait_AtIndex(Traits.Trait_Name.MARTIAL_MASTERY, traits_list) != -1) {
+			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.MARTIAL_MASTERY, traits_list) != -1) {
 				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.MARTIAL_MASTERY, traits_list);
 			}
-			if (Contains_Trait_AtIndex(Traits.Trait_Name.ADV_MARTIAL_MASTERY, traits_list) != -1) {
+			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.ADV_MARTIAL_MASTERY, traits_list) != -1) {
 				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ADV_MARTIAL_MASTERY, traits_list);
 			}
-			if (Contains_Trait_AtIndex(Traits.Trait_Name.STANCE_MAST, traits_list) != -1) {
+			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.STANCE_MAST, traits_list) != -1) {
 				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.STANCE_MAST, traits_list);
 			}
-			if (Contains_Trait_AtIndex(Traits.Trait_Name.ART_OF_STEALTH, traits_list) != -1) {
+			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.ART_OF_STEALTH, traits_list) != -1) {
 				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ART_OF_STEALTH, traits_list);
 			}
-			if (Contains_Trait_AtIndex(Traits.Trait_Name.ANTI_STEALTH, traits_list) != -1) {
+			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.ANTI_STEALTH, traits_list) != -1) {
 				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ANTI_STEALTH, traits_list);
 			}
-			if (Contains_Trait_AtIndex(Traits.Trait_Name.DEV_FRUIT, traits_list) != -1) {
+			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.DEV_FRUIT, traits_list) != -1) {
 				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.DEV_FRUIT, traits_list);
 			}
-			if (Contains_Trait_AtIndex(Traits.Trait_Name.SIG_TECH, traits_list) != -1) {
+			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.SIG_TECH, traits_list) != -1) {
 				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.SIG_TECH, traits_list);
 			}
 			// Add Special TP Traits
 			foreach (ListViewItem eachItem in SpTraits_list.Items) {
 				string name = eachItem.SubItems[0].Text;
-				string spec = ""; // trash variable
-				Trait_Name_From_ListView(ref spec, ref name);
-				Add_Trait_comboBox(ref comboBox_SpTrait, trait_ref.get_TraitID(name), SpTraits_list);
+				traits_ref.Trait_Name_From_ListView(ref name);
+				Add_Trait_comboBox(ref comboBox_SpTrait, traits_ref.get_TraitID(name), SpTraits_list);
 			}
 			comboBox_SpTrait.Text = edit_SpTrait;
 			comboBox_AffectRank.Text = edit_RankTrait;
@@ -581,10 +547,9 @@ namespace OPRPCharBuild
 
 		private void comboBox_AffectRank_SelectedIndexChanged(object sender, EventArgs e) {
 			// Where Signature tech comes into play
-			string trash = "";
 			string tech = comboBox_AffectRank.Text;
-			Trait_Name_From_ListView(ref trash, ref tech);
-			if (trait_ref.get_TraitID(comboBox_AffectRank.Text) == Traits.Trait_Name.SIG_TECH) {
+			traits_ref.Trait_Name_From_ListView(ref tech);
+			if (traits_ref.get_TraitID(comboBox_AffectRank.Text) == Traits.Trait_Name.SIG_TECH) {
 				numericUpDown_Rank.Value = max_rank;
 				numericUpDown_Rank.Enabled = false;
 				numericUpDown_RegTP.Value = 0;
