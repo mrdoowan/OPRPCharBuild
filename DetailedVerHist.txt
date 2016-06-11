@@ -1,3 +1,6 @@
+v1.0.1.3 - 
+- Changed colors on Trait labels to signify if Traits equaled out.
+- Sorted traits by General and Professional (Values later)
 v1.0.1.2 - 6/10/2016
 - Flagged numbers red if used TP goes over Total.
 - Fixed a bug when AP was checked and a sheet was generated, an exception would be flagged.

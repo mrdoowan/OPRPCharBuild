@@ -2403,9 +2403,10 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(13, 628);
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+			this.label1.Location = new System.Drawing.Point(13, 626);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(90, 13);
+			this.label1.Size = new System.Drawing.Size(119, 17);
 			this.label1.TabIndex = 7;
 			this.label1.Text = "Designed by Solo";
 			// 

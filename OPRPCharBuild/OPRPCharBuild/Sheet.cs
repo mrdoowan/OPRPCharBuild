@@ -397,6 +397,9 @@ namespace OPRPCharBuild
 				if (i + 1 != gen.Count) {
 					template.Write("\n\n");
 				}
+				else {
+					template.Write('\n');
+				}
 			}
 			template.Write("[c][b][u]Professional[/u][/b][c]");
 			for (int i = 0; i < prof.Count; ++i) {
@@ -404,10 +407,8 @@ namespace OPRPCharBuild
 				if (i + 1 != prof.Count) {
 					template.Write("\n\n");
 				}
-				else {
-					template.Write("[/table]\n");
-				}
 			}
+			template.Write("[/table]\n");
 			template.Write("[quote=Devil Fruit][b]Devil Fruit Name:[/b] " + Make_NA(DF_name) + '\n');
 			template.Write("[b]Devil Fruit Type:[/b] " + Make_NA(DF_type) + '\n');
 			template.Write("[b]Devil Fruit Ability:[/b] " + Make_NA(DF_desc) + "[/quote]\n");
@@ -486,8 +487,12 @@ namespace OPRPCharBuild
 			template.GetStringBuilder().Length = 0;
 		}
 
-		private void richTextBox_Template_MouseClick(object sender, MouseEventArgs e) {
+		private void richTextBox_Template_MouseEnter(object sender, EventArgs e) {
 			label1.Text = "Click on the box and press Ctrl + A to copy and paste";
+		}
+
+		private void richTextBox_Template_MouseLeave(object sender, EventArgs e) {
+			label1.Text = "Reminder: This template only serves as a Base Foundation";
 		}
 	}
 }

@@ -33,7 +33,11 @@ namespace OPRPCharBuild
 		private Traits traits = new Traits();           // For enumerations of traits
 		private Project2 project = new Project2();      // State of save file
 		private Project old_project = new Project();	// Used to import an old file and transfer to newest project
-		private bool upgrading = false;			// Used when upgrading
+		private bool upgrading = false;				// Used when upgrading
+		private int gen_cap = 0;					// To carry across Trait functions
+		private int prof_cap = 0;
+		private int gen_curr = 0;					// May need this eventually for "algorithmic" upgrade, but who cares
+		private int prof_curr = 0;					
 
 		#region General Functions
 
@@ -46,7 +50,7 @@ namespace OPRPCharBuild
 			}
 		}
 
-		// To move up or down the item
+		// To move up or down the item in a ListView
 		private void Move_List_Item(ref ListView list, string direction) {
 			int curr_ind = list.SelectedItems[0].Index;
 			if (curr_ind < 0) {
@@ -88,6 +92,7 @@ namespace OPRPCharBuild
 				string version_page = wc.DownloadString("https://raw.githubusercontent.com/mrdoowan/OPRPCharBuild/master/CurrentVer.txt");
 				int latest = int.Parse(version_page.Replace(".", ""));
 				if (latest <= current) {
+					// We do nothing if this happens
 					return;
 				}
 				if (MessageBox.Show("An update to v" + version_page + " is available. Would you like to close this application and download the newest version?", "New Version",
@@ -116,8 +121,16 @@ namespace OPRPCharBuild
 				gen += int.Parse(eachItem.SubItems[2].Text);
 				prof += int.Parse(eachItem.SubItems[3].Text);
 			}
+			gen_curr = gen;
+			prof_curr = prof;
 			label58_TraitsCurrent.Text = "You currently have " + gen + " General Trait(s) and " +
 				prof + " Professional Trait(s)";
+			if (gen_curr == gen_cap && prof_curr == prof_cap) {
+				label58_TraitsCurrent.ForeColor = Color.Green;
+			}
+			else {
+				label58_TraitsCurrent.ForeColor = Color.Red;
+			}
 		}
 
 		// Whenever SD Earned is updated, we have to update the max amount of Traits.
@@ -169,9 +182,17 @@ namespace OPRPCharBuild
 			if (checkedListBox1_AP.CheckedItems.Contains("Trait - Trait cap raised by 1")) {
 				gen++;
 			}
-			// Update label.
+			// Update label and global variable.
+			gen_cap = gen;
+			prof_cap = prof;
 			label59_TraitsCalc.Text = "Your current cap is " + gen +
 				" General Trait(s) and " + prof + " Professional Trait(s)";
+			if (gen_curr == gen_cap && prof_curr == prof_cap) {
+				label58_TraitsCurrent.ForeColor = Color.Green;
+			}
+			else {
+				label58_TraitsCurrent.ForeColor = Color.Red;
+			}
 		}
 
 		private void Update_AP_Count() {
@@ -275,7 +296,7 @@ namespace OPRPCharBuild
 				numericUpDown_AccuracyBase.Value);
 			if (total == int.Parse(textBox_UsedForStats.Text)) {
 				label_GenerateCheck.Text = "Base stats added correctly!";
-				label_GenerateCheck.ForeColor = System.Drawing.Color.Green;
+				label_GenerateCheck.ForeColor = Color.Green;
 			}
 			else {
 				label_GenerateCheck.Text = "Base Stat values do not add up!\n";
@@ -284,7 +305,7 @@ namespace OPRPCharBuild
 				label_GenerateCheck.Text += numericUpDown_StaminaBase.Value + " + ";
 				label_GenerateCheck.Text += numericUpDown_AccuracyBase.Value + " = ";
 				label_GenerateCheck.Text += total;
-				label_GenerateCheck.ForeColor = System.Drawing.Color.Red;
+				label_GenerateCheck.ForeColor = Color.Red;
 			}
 			// Used for when any of the base Stats changes.
 			// Used when Used for Stats is changed
@@ -581,7 +602,9 @@ namespace OPRPCharBuild
 			else if (ID == Traits.Trait_Name.FROM_SHAD) {
 				Add_Item_SpTrait_Table(Traits.Trait_Name.FROM_SHAD, listView_Traits, fortune, 2);
 			}
-
+			else if (ID == Traits.Trait_Name.SLEIGHT) {
+				Add_Item_SpTrait_Table(Traits.Trait_Name.SLEIGHT, listView_Traits, fortune, 2);
+			}
 			// Likewise, if a trait is removed, we have to check each SpTrait.
 			// For the parameter, just put CUSTOM
 			int cur_ind = 0;
@@ -1263,9 +1286,54 @@ namespace OPRPCharBuild
 			All_Update_Functions_Traits(Traits.Trait_Name.CUSTOM);
 		}
 
+		private void Move_ListView_Item(ref ListView list, int index, int val) {
+			ListViewItem item = list.Items[index];
+			if (index + val < 0 || index + val >= list.Items.Count) {
+				MessageBox.Show("Ordering screwed up. Bug found.", "Error");
+				return;
+			}
+			if (val == 0) {
+				// Don't have to do anything
+				return;
+			}
+			list.Items.RemoveAt(index);
+			list.Items.Insert(index + val, item);
+		}
+
 		private void button_TraitOrder_Click(object sender, EventArgs e) {
 			// Traits "Order" button from the MainForm
-			MessageBox.Show("You suck.", "Test");
+			try {
+				// Sort by General, Professional, and Gen/Prof
+				int size = listView_Traits.Items.Count;
+				int GMax = 0;		// Denotes the highest index of General Traits in a row
+				int PMax = 0;		// Denotes the highest index of Professional Traits in a row
+				for (int i = 0; i < size; ++i) {
+					if (listView_Traits.Items[i].SubItems[1].Text == "General" && GMax != i) {
+						int move = GMax - i;
+						Move_ListView_Item(ref listView_Traits, i, move);
+						GMax++;
+					}
+					else if (listView_Traits.Items[i].SubItems[1].Text == "General" && GMax == i) {
+						GMax++;
+					}
+				}
+				PMax = GMax + 1;
+				for (int i = PMax; i < size; ++i) {
+					if (listView_Traits.Items[i].SubItems[1].Text == "Professional" && PMax != i) {
+						int move = PMax - i;
+						Move_ListView_Item(ref listView_Traits, i, move);
+						PMax++;
+					}
+					else if (listView_Traits.Items[i].SubItems[1].Text == "Professional" && PMax == i) {
+						PMax++;
+					}
+				}
+				// GPMax would be size - 1
+			}
+			catch (Exception ex) {
+				MessageBox.Show("Ordering screwed up.\nReason: " + ex.Message, "Error");
+			}
+			
 		}
 
 
