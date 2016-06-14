@@ -136,8 +136,11 @@ namespace OPRPCharBuild
 			if (button_clicked) {
 				ListViewItem item = new ListViewItem();
 				item.SubItems[0].Text = comboBox1.Text;     // First column: Profession (Why does it do this?)
+				string name = comboBox1.Text;
+				bool primary = false;
 				if (checkBox1.Checked) {                    // Second column: Primary/Secondary
 					item.SubItems.Add("Primary");
+					primary = true;
 				}
 				else {
 					item.SubItems.Add("Secondary");
@@ -145,6 +148,7 @@ namespace OPRPCharBuild
 				item.SubItems.Add(richTextBox1_Desc.Text);      // Third column: Basic description
 				item.SubItems.Add(richTextBox2_Primary.Text);   // Fourth column: Primary bonus
 				Main_Form.Items.Add(item);
+				MainForm.ProfList.Add(name, primary);
 			}
 		}
 
@@ -153,6 +157,7 @@ namespace OPRPCharBuild
 			button1.Text = "Edit";
 			// Put what's Edited into the Dialog Box first.
 			comboBox1.Text = Main_Form.SelectedItems[0].SubItems[0].Text;
+			MainForm.ProfList.Remove(Main_Form.SelectedItems[0].SubItems[0].Text);
 			if (Main_Form.SelectedItems[0].SubItems[1].Text == "Primary") {
 				checkBox1.Checked = true;
 			}
@@ -165,14 +170,18 @@ namespace OPRPCharBuild
 			this.ShowDialog();
 			if (button_clicked) {
 				Main_Form.SelectedItems[0].SubItems[0].Text = comboBox1.Text;
+				string name = comboBox1.Text;
+				bool primary = false;
 				if (checkBox1.Checked) {
 					Main_Form.SelectedItems[0].SubItems[1].Text = "Primary";
+					primary = true;
 				}
 				else {
 					Main_Form.SelectedItems[0].SubItems[1].Text = "Secondary";
 				}
 				Main_Form.SelectedItems[0].SubItems[2].Text = richTextBox1_Desc.Text;
 				Main_Form.SelectedItems[0].SubItems[3].Text = richTextBox2_Primary.Text;
+				MainForm.ProfList.Add(name, primary);
 			}
 		}
 

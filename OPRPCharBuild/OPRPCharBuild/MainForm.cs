@@ -23,7 +23,7 @@ namespace OPRPCharBuild
 		}
 
 		// --------------------------------------------------------------------------------------------
-		// PUBLIC / PRIVATE MEMBER FUNCTIONS AND VARIABLES
+		// PUBLIC / PRIVATE MEMBER STRUCTS, FUNCTIONS, AND VARIABLES
 		// --------------------------------------------------------------------------------------------
 
 		public const string version = "1.0.1.0";
@@ -32,22 +32,28 @@ namespace OPRPCharBuild
 		private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
 		private Traits traits = new Traits();           // For enumerations of traits
 		private Project2 project = new Project2();      // State of save file
-		private Project old_project = new Project();	// Used to import an old file and transfer to newest project
+		private Project project1 = new Project();	// Used to import an old file and transfer to newest project
 		private bool upgrading = false;				// Used when upgrading
 		private int gen_cap = 0;					// To carry across Trait functions
 		private int prof_cap = 0;
 		private int gen_curr = 0;					// May need this eventually for "algorithmic" upgrade, but who cares
-		private int prof_curr = 0;					
+		private int prof_curr = 0;
+		// Hold a list of Professions that is "bound" to the ListView. String is the name, and bool is if it's primary or not.
+		public static Dictionary<string, bool> ProfList = new Dictionary<string, bool>();
 
 		#region General Functions
 
 		// General function for Deleting an Item from ListView
-		private void Delete_ListViewItem(ref ListView list) {
+		// Returns the string Name of the Item, specifically for finding Key values in Dict
+		private string Delete_ListViewItem(ref ListView list) {
 			if (list.SelectedItems.Count == 1) {
+				string key = list.SelectedItems[0].SubItems[0].Text;	// Typically the key value is always the name
 				foreach (ListViewItem eachItem in list.SelectedItems) {
 					list.Items.Remove(eachItem);
 				}
+				return key;
 			}
+			return "";
 		}
 
 		// To move up or down the item in a ListView
@@ -107,6 +113,17 @@ namespace OPRPCharBuild
 			catch (Exception e) {
 				MessageBox.Show("Error in checking for an update.\nReason: " + e.Message, "OPRP Char Builder", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			}
+		}
+
+		// Returns true if Prof is in the List and it's Primary
+		// Returns false otherwise
+		public static bool Is_Prof_Primary(string name) {
+			if (ProfList.ContainsKey(name)) {
+				if (ProfList[name]) {
+					return true;
+				}
+			}
+			return false;
 		}
 
 		#endregion
@@ -666,8 +683,8 @@ namespace OPRPCharBuild
 			// Used when a Technique is removed.
 		}
 
-		private void Update_SpTrait_Warning() {
-			// What happens if we delete a Sp. Trait in which a Technique uses that trait?
+		private void Update_Trait_Warning() {
+			// What happens if we delete a Trait in which a Technique uses that trait?
 			// We have to inform the user!
 			// This is probably the most inefficient way possible to implement loool
 			bool yes_msg = false; // Initialize
@@ -702,10 +719,10 @@ namespace OPRPCharBuild
 				}
 			}
 			if (yes_msg) {
-				label_SpTrait_Warning.Visible = true;
+				label_Trait_Warning.Visible = true;
 			}
 			else {
-				label_SpTrait_Warning.Visible = false;
+				label_Trait_Warning.Visible = false;
 			}
 			// Used when a Trait is added.
 			// Used when a Trait is edited.
@@ -897,16 +914,26 @@ namespace OPRPCharBuild
 		private void button_ProfEdit_Click(object sender, EventArgs e) {
 			// Profession "Edit" button from the MainForm
 			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
-			if (listView_Prof.SelectedItems.Count == 1) {
-				Add_Profession ProfessionWin = new Add_Profession();
-				ProfessionWin.EditDialog(ref listView_Prof);
+			try {
+				if (listView_Prof.SelectedItems.Count == 1) {
+					Add_Profession ProfessionWin = new Add_Profession();
+					ProfessionWin.EditDialog(ref listView_Prof);
+				}
+			}
+			catch (Exception ex) {
+				MessageBox.Show("Error in editing Profession.\nReason: " + ex.Message);
 			}
 		}
 
 		private void button5_ProfDelete_Click(object sender, EventArgs e) {
 			// Profession "Delete" button from the MainForm
 			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
-			Delete_ListViewItem(ref listView_Prof);
+			try {
+				ProfList.Remove(Delete_ListViewItem(ref listView_Prof));
+			}
+			catch (Exception ex) {
+				MessageBox.Show("Error in deleting Profession.\nReason: " + ex.Message);
+			}
 		}
 
 		private void button_UpProf_Click(object sender, EventArgs e) {
@@ -915,39 +942,6 @@ namespace OPRPCharBuild
 
 		private void button_DownProf_Click(object sender, EventArgs e) {
 			Move_List_Item(ref listView_Prof, "Down");
-		}
-
-		// To deselect the ListBox
-		private void MainForm_MouseClick(object sender, MouseEventArgs e) {
-			listBox_Achieve.ClearSelected();
-		}
-
-		private void tabControl1_MouseClick(object sender, MouseEventArgs e) {
-			listBox_Achieve.ClearSelected();
-		}
-
-		private void tabPage1_MouseClick(object sender, MouseEventArgs e) {
-			listBox_Achieve.ClearSelected();
-		}
-
-		private void tabPage2_MouseClick(object sender, MouseEventArgs e) {
-			listBox_Achieve.ClearSelected();
-		}
-
-		private void tabPage3_Click(object sender, EventArgs e) {
-			listBox_Achieve.ClearSelected();
-		}
-
-		private void tabPage4_Click(object sender, EventArgs e) {
-			listBox_Achieve.ClearSelected();
-		}
-
-		private void tabPage5_Click(object sender, EventArgs e) {
-			listBox_Achieve.ClearSelected();
-		}
-
-		private void tabPage6_Click(object sender, EventArgs e) {
-			listBox_Achieve.ClearSelected();
 		}
 
 		#endregion
@@ -1039,7 +1033,7 @@ namespace OPRPCharBuild
 		// "COMBAT & STATS" Tab
 		// --------------------------------------------------------------------------------------------
 
-		#region Combat & Stats Tab
+		#region Combat Tab
 
 		private void button6_WeaponAdd_Click(object sender, EventArgs e) {
 			// Weapon "Add" button from the MainForm
@@ -1152,12 +1146,9 @@ namespace OPRPCharBuild
 				}
 				if (!perc_20) {
 					// Look for Thief primary bonus of 10%
-					foreach (ListViewItem eachitem in listView_Prof.Items) {
-						if (eachitem.SubItems[0].Text == "Thief" && eachitem.SubItems[1].Text == "Primary") {
-							beli = (uint)(beli * 1.1);
-							message += "\n+ " + Commas_To_Value((uint)(beli * 0.1)) + " (10% beli Thief Primary)";
-							break;
-						}
+					if (Is_Prof_Primary("Thief")) {
+						beli = (uint)(beli * 1.1);
+						message += "\n+ " + Commas_To_Value((uint)(beli * 0.1)) + " (10% beli Thief Primary)";
 					}
 				}
 				// Show calculations
@@ -1167,6 +1158,10 @@ namespace OPRPCharBuild
 				textBox_Beli.Text = final_beli;
 			}
 		}
+
+		#endregion
+
+		#region Stats Tab
 
 		private void checkedListBox1_AP_SelectedIndexChanged(object sender, EventArgs e) {
 			// To keep track of AP
@@ -1255,7 +1250,7 @@ namespace OPRPCharBuild
 			Update_Total_RegTP();
 			Update_SpTrait_Table_Traits(ID);
 			Update_SpTrait_Table_Values();
-			Update_SpTrait_Warning();
+			Update_Trait_Warning();
 		}
 
 		private void button11_TraitAdd_Click(object sender, EventArgs e) {
@@ -1353,7 +1348,7 @@ namespace OPRPCharBuild
 		private void button14_TechAdd_Click(object sender, EventArgs e) {
 			// Technique "Add" button from the MainForm
 			int max_rank = int.Parse(textBox_Fortune.Text) / 2;
-			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP);
+			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, ProfList, textBox_DFName.Text, comboBox_DFType.Text);
 			TechniqueWin.NewDialog(ref listView_Techniques, false);
 			// Update functions go below
 			Update_SpTrait_Table_Values();
@@ -1363,7 +1358,7 @@ namespace OPRPCharBuild
 		private void button_TechBranch_Click(object sender, EventArgs e) {
 			// Technique "Duplicate" button from the MainForm
 			int max_rank = int.Parse(textBox_Fortune.Text) / 2;
-			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP);
+			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, ProfList, textBox_DFName.Text, comboBox_DFType.Text);
 			TechniqueWin.NewDialog(ref listView_Techniques, true);
 			// Update functions go below
 			Update_SpTrait_Table_Values();
@@ -1373,11 +1368,11 @@ namespace OPRPCharBuild
 		private void button_TechEdit_Click(object sender, EventArgs e) {
 			// Technique "Edit" button from the MainForm
 			int max_rank = int.Parse(textBox_Fortune.Text) / 2;
-			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP);
+			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, ProfList, textBox_DFName.Text, comboBox_DFType.Text);
 			TechniqueWin.EditDialog(ref listView_Techniques);
 			// Update functions go below
 			Update_SpTrait_Table_Values();
-			Update_SpTrait_Warning();
+			Update_Trait_Warning();
 			Update_Used_RegTP();
 		}
 
@@ -1386,7 +1381,7 @@ namespace OPRPCharBuild
 			Delete_ListViewItem(ref listView_Techniques);
 			// Update functions go below
 			Update_SpTrait_Table_Values();
-			Update_SpTrait_Warning();
+			Update_Trait_Warning();
 			Update_Used_RegTP();
 		}
 
@@ -1599,7 +1594,7 @@ namespace OPRPCharBuild
 				Update_SpTrait_Table_Traits(ID);
 			}
 			Update_SpTrait_Table_Values();
-			Update_SpTrait_Warning();
+			Update_Trait_Warning();
 		}
 
 		// This is where serialize our project.
@@ -1843,15 +1838,15 @@ namespace OPRPCharBuild
 							FileStream fs = File.Open(dlgFileOpen.FileName, FileMode.Open);
 							BinaryFormatter formatter = new BinaryFormatter();
 							try {
-								old_project = (Project)formatter.Deserialize(fs);
+								project1 = (Project)formatter.Deserialize(fs);
 							}
 							finally {
 								fs.Close();
 							}
-							old_project.location = dlgFileOpen.FileName;
-							old_project.filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
+							project1.location = dlgFileOpen.FileName;
+							project1.filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
 							// Transfer from older project to newer project.
-							old_project.Transfer_v1010toNew(ref project);
+							project1.Transfer_v1010toNew(ref project);
 							project.filename = null;
 							project.location = null;
 							resetForm();

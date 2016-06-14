@@ -81,7 +81,7 @@ namespace OPRPCharBuild
 		private void comboBox_TraitName_MouseMove(object sender, MouseEventArgs e) {
 			label_CustMsg.TextAlign = ContentAlignment.MiddleCenter;
 			label_CustMsg.Text = "NOTE: Custom Traits / Names will NOT be recognized by the tool when calculating.\n" +
-	"You can change the Trait name after Generating the sheet.";
+				"You can change the Trait name after Generating the sheet.";
         }
 
 		private void comboBox_TraitName_MouseLeave(object sender, EventArgs e) {

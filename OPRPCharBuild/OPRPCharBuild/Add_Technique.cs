@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace OPRPCharBuild
 {
@@ -7,15 +8,24 @@ namespace OPRPCharBuild
 	{
 		private bool button_clicked;
 		private int max_rank;
+		private int min_rank;
 		private ListView traits_list;
 		private ListView SpTraits_list;
-		Traits traits_ref = new Traits();
+		private Traits traits = new Traits();
+		private string effect_label_reset = "Effect Encyclopedia\n" + 
+			"- Weathermancy Effects require Weathermancy Trait\n" + 
+			"- Pop Greens Effects require Horticultural Warfare Trait\n" +
+			"- Stealth effects require Assassin/Thief primary.";
 		// Used when editing Dialogue for comboBox SpTrait and Rank Trait
 		private string edit_SpTrait;
 		private string edit_RankTrait;
 		// Devil Fruit section
 		private string DF_name;
 		private string DF_type;
+		// Professional List
+		// Effects carried out
+		private Effects effects = new Effects();
+		public List<Effects.EffectItem> Effect_list = new List<Effects.EffectItem>();
 
 		public Add_Technique(int MaxRank, ListView t_list, ListView Sp_list, string DF_Name, string DF_Type) {
 			InitializeComponent();
@@ -151,8 +161,8 @@ namespace OPRPCharBuild
 			edit_RankTrait = sel_item.SubItems[5].Text;                         // Column 5: Rank Trait (Need items initialized FIRST)
 																				// Columns 4 and 5 are done in Add_Technique_Load
 			string tech = sel_item.SubItems[5].Text;
-			traits_ref.Trait_Name_From_ListView(ref tech);
-			if (traits_ref.get_TraitID(tech) == Traits.Trait_Name.SIG_TECH) { // Sig Tech
+			traits.Trait_Name_From_ListView(ref tech);
+			if (traits.get_TraitID(tech) == Traits.Trait_Name.SIG_TECH) { // Sig Tech
 				numericUpDown_Rank.Value = max_rank;
 				numericUpDown_Rank.Enabled = false;
 				numericUpDown_RegTP.Value = 0;
@@ -349,14 +359,21 @@ namespace OPRPCharBuild
 		#region Other member functions used
 
 		// If trait is in Traits List, add it to the ComboBox. Returns true if so.
-		private bool Add_Trait_comboBox(ref ComboBox list, Traits.Trait_Name ID, ListView traits_list) {
-			int index = traits_ref.Contains_Trait_AtIndex(ID, traits_list);
+		private bool Add_Trait_comboBox(ref ComboBox combobox, Traits.Trait_Name ID, ListView traits_list) {
+			int index = traits.Contains_Trait_AtIndex(ID, traits_list);
 			if (index != -1) {
 				string name = traits_list.Items[index].SubItems[0].Text;
-				list.Items.Add(name);
+				combobox.Items.Add(name);
 				return true;
 			}
 			return false;
+		}
+
+		private void Add_Effect_comboBox(ref ComboBox combobox, Effects.Effect_Name ID) {
+			effects.Effect_info_load(ID);
+			if (effects.Get_Effect_MinRank() < max_rank) {
+				combobox.Items.Add(effects.Get_Effect_Name());
+			}
 		}
 
 		#endregion
@@ -379,14 +396,14 @@ namespace OPRPCharBuild
 
 		private void Update_Note() {
 			string message = "";
-			// Affect Rank techs
+			// Traits Affecting Tech
 			string tech = comboBox_AffectTech.Text;
-			traits_ref.Trait_Name_From_ListView(ref tech);
-			Traits.Trait_Name Trait_ID = traits_ref.get_TraitID(tech);
+			traits.Trait_Name_From_ListView(ref tech);
+			Traits.Trait_Name Trait_ID = traits.get_TraitID(tech);
 			if (Trait_ID == Traits.Trait_Name.SIG_TECH) {
 				message += "[i]Signature Technique[/i]. ";
 			}
-			if (Trait_ID == Traits.Trait_Name.DEV_FRUIT) {
+			else if (Trait_ID == Traits.Trait_Name.DEV_FRUIT) {
 				message += "[i]DF Technique";
 				if (checkBox_DFRank4.Checked) {
 					message += " - Free R4 Tech";
@@ -402,10 +419,13 @@ namespace OPRPCharBuild
 				}
 				message += ".[/i]";
 			}
-			if (Trait_ID == Traits.Trait_Name.MARTIAL_MASTERY || Trait_ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
+			else if (Trait_ID == Traits.Trait_Name.MARTIAL_MASTERY || Trait_ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
 				Trait_ID == Traits.Trait_Name.STANCE_MAST || Trait_ID == Traits.Trait_Name.ART_OF_STEALTH ||
 				Trait_ID == Traits.Trait_Name.ANTI_STEALTH || Trait_ID == Traits.Trait_Name.DWARF) {
 				message += "[i]" + comboBox_AffectTech.Text + " Technique[/i], treated 4 Ranks higher. ";
+			}
+			else { // This means some kind of technique is being used.
+				message += "[i]" + comboBox_AffectTech.Text + " Technique[/i]. ";
 			}
 			// Branch message
 			if (checkBox_Branched.Checked) {
@@ -423,21 +443,54 @@ namespace OPRPCharBuild
 			// Used when Sp. TP is changed.
 		}
 
-		private void Update_DF_Label() {
-			if (comboBox_AffectTech.Text == "Specific Devil Fruit") {
-				label_DF.Text = "Devil Fruit: " + DF_name + "\nType: " + DF_type;
-				checkBox_DFRank4.Enabled = true;
-				checkBox_Full.Enabled = true;
-				checkBox_Hybrid.Enabled = true;
-				checkBox_ZoanSig.Enabled = true;
+		private void Update_Power_Value() {
+
+			// Used when Trait Affecting Tech is changed
+			// Used when Rank is changed
+			// Used when an Effect is Added
+			// Used when an Effect is Removed
+		}
+
+		private void Update_DFRank4() {
+			int rank = (int)numericUpDown_Rank.Value;
+			if (checkBox_DFRank4.Checked) {
+				rank -= 4;
+				if (rank < 0) {
+					rank = 0;
+				}
+				numericUpDown_RegTP.Value = rank;
 			}
 			else {
-				label_DF.Text = "No Devil Fruit Option";
-				checkBox_DFRank4.Enabled = false;
-				checkBox_Full.Enabled = false;
-				checkBox_Hybrid.Enabled = false;
-				checkBox_ZoanSig.Enabled = false;
+				numericUpDown_RegTP.Value = rank;
 			}
+			// Used when DF Rank 4 is Checked
+			// Used when Rank Value is changed
+		}
+
+		private void Update_MinRank() {
+
+			// Used when an Effect is Added
+			// Used when an Effect is Removed
+		}
+
+		private void Update_Signature_Enable() {
+			if (traits.get_TraitID(comboBox_AffectTech.Text) == Traits.Trait_Name.SIG_TECH || checkBox_ZoanSig.Checked) {
+				numericUpDown_Rank.Value = max_rank;
+				numericUpDown_Rank.Enabled = false;
+				numericUpDown_RegTP.Value = 0;
+				numericUpDown_SpTP.Value = 0;
+				numericUpDown_RegTP.Enabled = false;
+				numericUpDown_SpTP.Enabled = false;
+			}
+			else {
+				numericUpDown_Rank.Enabled = true;
+				numericUpDown_RegTP.Enabled = true;
+				if (comboBox_SpTrait.Items.Count > 1) {
+					numericUpDown_SpTP.Enabled = true;
+				}
+			}
+			// Used when Signature Trait is Selected
+			// Used when Zoan Signature is Checked
 		}
 
 		#endregion
@@ -447,11 +500,13 @@ namespace OPRPCharBuild
 		// This only occurs once before the form is displayed for the first time.
 		// We'll need this to set some Maximums or comboBox lists based on the Main_Form
 		private void Add_Technique_Load(object sender, EventArgs e) {
+			// Set Maximum Values of NumericUpDown
 			numericUpDown_Rank.Maximum = max_rank;
 			label_MaxRank.Text = "Max Rank is: " + max_rank;
 			numericUpDown_RegTP.Maximum = max_rank;
 			numericUpDown_SpTP.Maximum = max_rank;
 			numericUpDown_RankBranch.Maximum = max_rank - 1;
+
 			// Add Traits Affecting the Tech
 			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.DWARF, traits_list);
 			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ART_OF_STEALTH, traits_list);
@@ -478,26 +533,110 @@ namespace OPRPCharBuild
 			if (!Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ADV_MARTIAL_MASTERY, traits_list)) {
 				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.MARTIAL_MASTERY, traits_list);
 			}
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.CROWD_CONT, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ANAT_STRIKE, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.QUICKSTRIKE, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.POW_SPEAK, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.BAKING_BAD, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.MAST_MISDI, traits_list);
+			if (MainForm.Is_Prof_Primary("Assassin") || MainForm.Is_Prof_Primary("Thief")) {
+				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.CROWD_CONT, traits_list);
+				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ANAT_STRIKE, traits_list);
+				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.QUICKSTRIKE, traits_list);
+				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.POW_SPEAK, traits_list);
+				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.BAKING_BAD, traits_list);
+				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.MAST_MISDI, traits_list);
+			}
+
 			// Add Special TP Traits
 			foreach (ListViewItem eachItem in SpTraits_list.Items) {
 				string name = eachItem.SubItems[0].Text;
-				traits_ref.Trait_Name_From_ListView(ref name);
-				Add_Trait_comboBox(ref comboBox_SpTrait, traits_ref.get_TraitID(name), SpTraits_list);
+				traits.Trait_Name_From_ListView(ref name);
+				Add_Trait_comboBox(ref comboBox_SpTrait, traits.get_TraitID(name), SpTraits_list);
 			}
 			comboBox_SpTrait.Text = edit_SpTrait;
 			comboBox_AffectTech.Text = edit_RankTrait;
+
 			// Check if SpTrait_comboBox is empty
 			if (comboBox_SpTrait.Items.Count > 0) {
 				numericUpDown_SpTP.Enabled = true;
 				label_SpTraitUsed.Text = "Sp TP Trait";
 				comboBox_SpTrait.Enabled = true;
 			}
+
+			// Fill in the ListView columns
+			listView_Effects.View = View.Details;
+			listView_Effects.FullRowSelect = true;
+			listView_Effects.Columns.Add("Name", 100);  // Column [0]
+			listView_Effects.Columns.Add("Cost", 50);   // Column [1]
+			listView_Effects.Columns.Add("Power?", 50); // Column [2]
+
+			// Add ALL Effects into the ComboBox (based on max rank)
+			#region Effects ComboBox
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISPLACE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISORI);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.GATLING);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DEFLECT);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.RICO);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.UNPRED);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DMG_TYPE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISARM);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SHOCK);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.CURVE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.OMNI_DI);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.HAKI_ENH);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ELE_DMG);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.FLAV);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SPIRIT);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SECONDARY_GEN);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SPEED);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.PIERCE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.AFT_IMG);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ADD_AFT_IMG);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.REVERSE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DUR_DMG);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISABLE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SENSORY);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SUP_SPE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DEF_BYP);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SPEC_BLOCK);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.START_BREAK);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MID_BREAK);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.HIGH_BREAK);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ARM_HAKI);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.GRAND_MAST);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ELE_COAT);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.FULLBODY);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.START_DEF);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MID_DEF);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.HIGH_DEF);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MELEE_RANGE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SHORT_RANGE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MED_RANGE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.LONG_RANGE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.V_LONG_RANGE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SHORT_AOE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MEDIUM_AOE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.LONG_AOE);
+			if (traits.Contains_Trait_AtIndex(Traits.Trait_Name.WEATHER, traits_list) != -1) {
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.CLOUD);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.RAIN);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.FOG);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ELE_DMG_WEAT);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.WIND);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MILK);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MIR_CLONE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MIR_CAMO);
+			}
+			if (traits.Contains_Trait_AtIndex(Traits.Trait_Name.HORT_WAR, traits_list) != -1) {
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SENTIENCE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.FLORAL);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.WOOD_DEF);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ELE_DMG_POP);
+			}
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SMOKE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.CROWD_BLEND);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SILENT);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SCENTLESS);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISGUISE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.PICKPOCK);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.NAT_CAMO);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.OPEN_CAMO);
+			#endregion
 		}
 
 		private void button11_Click(object sender, EventArgs e) {
@@ -581,34 +720,40 @@ namespace OPRPCharBuild
 		}
 
 		private void numericUpDown_Rank_ValueChanged(object sender, EventArgs e) {
+			// Check Effects before Proceeding
+			
+			Update_Power_Value();
 			// Set Maximum values.
 			numericUpDown_RegTP.Maximum = numericUpDown_Rank.Value;
 			numericUpDown_RegTP.Value = numericUpDown_Rank.Value - numericUpDown_RankBranch.Value;
 			numericUpDown_SpTP.Maximum = numericUpDown_Rank.Value;
 			numericUpDown_RankBranch.Maximum = numericUpDown_Rank.Value - 1; // This is hella important
-        }
+			// Update Functions
+			Update_DFRank4();
+		}
 
 		private void comboBox_AffectTech_SelectedIndexChanged(object sender, EventArgs e) {
-			// Where Signature tech comes into play
-			string tech = comboBox_AffectTech.Text;
-			traits_ref.Trait_Name_From_ListView(ref tech);
-			if (traits_ref.get_TraitID(comboBox_AffectTech.Text) == Traits.Trait_Name.SIG_TECH) {
-				numericUpDown_Rank.Value = max_rank;
-				numericUpDown_Rank.Enabled = false;
-				numericUpDown_RegTP.Value = 0;
-				numericUpDown_SpTP.Value = 0;
-				numericUpDown_RegTP.Enabled = false;
-				numericUpDown_SpTP.Enabled = false;
+			// Where Signature Tech Enable
+			Update_Signature_Enable();
+			// Specific Devil Fruit Enable
+			if (traits.get_TraitID(comboBox_AffectTech.Text) == Traits.Trait_Name.DEV_FRUIT) {
+				label_DF.Text = "Devil Fruit: " + DF_name + "\nType: " + DF_type;
+				checkBox_DFRank4.Enabled = true;
+				checkBox_Full.Enabled = true;
+				checkBox_Hybrid.Enabled = true;
+				checkBox_ZoanSig.Enabled = true;
 			}
 			else {
-				numericUpDown_Rank.Enabled = true;
-				numericUpDown_RegTP.Enabled = true;
-				if (comboBox_SpTrait.Items.Count > 1) {
-					numericUpDown_SpTP.Enabled = true;
-				}
+				label_DF.Text = "No Devil Fruit Option";
+				checkBox_DFRank4.Enabled = false;
+				checkBox_Full.Enabled = false;
+				checkBox_Hybrid.Enabled = false;
+				checkBox_ZoanSig.Enabled = false;
 			}
+			// Update Functions
 			Update_Note();
-		}
+			Update_Power_Value();
+        }
 
 		// This is to avoid tedious repetition for when Stat buttons are pressed.
 		private void Button_Effect(ref CheckBox changed_box, ref CheckBox other_box, ref NumericUpDown stat) {
@@ -671,7 +816,11 @@ namespace OPRPCharBuild
 				button_AddEffect.Enabled = false;
 				numericUpDown_Cost.Enabled = false;
 				comboBox_Effect.Enabled = false;
-				label_EffectDesc.Text = "Effect Encyclopedia";
+				textBox_Power.Text = "0";
+				listView_Effects.Items.Clear();
+				label_MinRank.Text = "Min Rank is: 1";
+				min_rank = 1;
+				label_EffectDesc.Text = effect_label_reset;
 			}
 			else {
 				listView_Effects.Enabled = true;
@@ -679,15 +828,20 @@ namespace OPRPCharBuild
 				button_AddEffect.Enabled = true;
 				numericUpDown_Cost.Enabled = true;
 				comboBox_Effect.Enabled = true;
-				// Add here to edit the label Text after enabling
+				// Fill in Effect Description if there's one pending
+				Effects.Effect_Name ID = effects.Get_EffectID(comboBox_Effect.Text);
+                effects.Effect_info_load(ID);
+				label_EffectDesc.Text = effects.Get_Effect_Desc();
 			}
 		}
 
 		private void checkBox_DFRank4_CheckedChanged(object sender, EventArgs e) {
+			Update_DFRank4();
 			Update_Note();
 		}
 
 		private void checkBox_ZoanSig_CheckedChanged(object sender, EventArgs e) {
+			Update_Signature_Enable();
 			Update_Note();
 		}
 
@@ -697,6 +851,24 @@ namespace OPRPCharBuild
 
 		private void checkBox_Hybrid_CheckedChanged(object sender, EventArgs e) {
 			Update_Note();
+		}
+
+		private void button_AddEffect_Click(object sender, EventArgs e) {
+			Update_MinRank();
+			Update_Power_Value();
+		}
+
+		private void button_EffectRemove_Click(object sender, EventArgs e) {
+			Update_MinRank();
+			Update_Power_Value();
+		}
+
+		private void comboBox_Effect_SelectionChangeCommitted(object sender, EventArgs e) {
+			// Due to selecting from a set List, we're going to assume everything is fine
+			Effects.Effect_Name ID = effects.Get_EffectID(comboBox_Effect.Text);
+			effects.Effect_info_load(ID);
+			numericUpDown_Cost.Value = effects.Get_Effect_Cost();
+			label_EffectDesc.Text = effects.Get_Effect_Desc();
 		}
 	}
 }

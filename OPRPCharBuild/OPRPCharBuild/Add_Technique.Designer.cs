@@ -25,6 +25,7 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Add_Technique));
 			this.label64 = new System.Windows.Forms.Label();
 			this.textBox_Name = new System.Windows.Forms.TextBox();
@@ -77,8 +78,9 @@
 			this.label13 = new System.Windows.Forms.Label();
 			this.label8 = new System.Windows.Forms.Label();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.label_EffectType = new System.Windows.Forms.Label();
+			this.label_MinRank = new System.Windows.Forms.Label();
 			this.button_AddEffect = new System.Windows.Forms.Button();
-			this.label20 = new System.Windows.Forms.Label();
 			this.label17 = new System.Windows.Forms.Label();
 			this.numericUpDown_Cost = new System.Windows.Forms.NumericUpDown();
 			this.label_EffectDesc = new System.Windows.Forms.Label();
@@ -94,6 +96,11 @@
 			this.checkBox_ZoanSig = new System.Windows.Forms.CheckBox();
 			this.checkBox_DFRank4 = new System.Windows.Forms.CheckBox();
 			this.label_DF = new System.Windows.Forms.Label();
+			this.toolTip_Cost = new System.Windows.Forms.ToolTip(this.components);
+			this.toolTip_DFEnable = new System.Windows.Forms.ToolTip(this.components);
+			this.toolTip_NAPower = new System.Windows.Forms.ToolTip(this.components);
+			this.toolTip_MinRank = new System.Windows.Forms.ToolTip(this.components);
+			this.toolTip_ComboBoxEffect = new System.Windows.Forms.ToolTip(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
@@ -154,6 +161,7 @@
 			this.numericUpDown_Rank.Name = "numericUpDown_Rank";
 			this.numericUpDown_Rank.Size = new System.Drawing.Size(42, 20);
 			this.numericUpDown_Rank.TabIndex = 30;
+			this.toolTip_NAPower.SetToolTip(this.numericUpDown_Rank, "Pay attention to the Min Rank from Effects");
 			this.numericUpDown_Rank.Value = new decimal(new int[] {
             1,
             0,
@@ -175,6 +183,8 @@
 			// 
 			this.comboBox_AffectTech.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox_AffectTech.FormattingEnabled = true;
+			this.comboBox_AffectTech.Items.AddRange(new object[] {
+            " "});
 			this.comboBox_AffectTech.Location = new System.Drawing.Point(276, 44);
 			this.comboBox_AffectTech.Name = "comboBox_AffectTech";
 			this.comboBox_AffectTech.Size = new System.Drawing.Size(153, 21);
@@ -361,11 +371,11 @@
 			// 
 			this.label11.AutoSize = true;
 			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label11.Location = new System.Drawing.Point(170, 21);
+			this.label11.Location = new System.Drawing.Point(106, 20);
 			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(37, 13);
+			this.label11.Size = new System.Drawing.Size(40, 13);
 			this.label11.TabIndex = 49;
-			this.label11.Text = "Power";
+			this.label11.Text = "Power:";
 			// 
 			// label12
 			// 
@@ -469,7 +479,7 @@
 			// label_MaxRank
 			// 
 			this.label_MaxRank.AutoSize = true;
-			this.label_MaxRank.Location = new System.Drawing.Point(351, 21);
+			this.label_MaxRank.Location = new System.Drawing.Point(192, 21);
 			this.label_MaxRank.Name = "label_MaxRank";
 			this.label_MaxRank.Size = new System.Drawing.Size(78, 13);
 			this.label_MaxRank.TabIndex = 65;
@@ -737,8 +747,9 @@
 			// 
 			// groupBox4
 			// 
+			this.groupBox4.Controls.Add(this.label_EffectType);
+			this.groupBox4.Controls.Add(this.label_MinRank);
 			this.groupBox4.Controls.Add(this.button_AddEffect);
-			this.groupBox4.Controls.Add(this.label20);
 			this.groupBox4.Controls.Add(this.label17);
 			this.groupBox4.Controls.Add(this.numericUpDown_Cost);
 			this.groupBox4.Controls.Add(this.label_EffectDesc);
@@ -755,6 +766,24 @@
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Effects";
 			// 
+			// label_EffectType
+			// 
+			this.label_EffectType.Location = new System.Drawing.Point(291, 164);
+			this.label_EffectType.Name = "label_EffectType";
+			this.label_EffectType.Size = new System.Drawing.Size(138, 23);
+			this.label_EffectType.TabIndex = 75;
+			this.label_EffectType.Text = "General Effect";
+			this.label_EffectType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label_MinRank
+			// 
+			this.label_MinRank.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.label_MinRank.Location = new System.Drawing.Point(8, 169);
+			this.label_MinRank.Name = "label_MinRank";
+			this.label_MinRank.Size = new System.Drawing.Size(120, 18);
+			this.label_MinRank.TabIndex = 111;
+			this.label_MinRank.Text = "Min Rank is: 1";
+			// 
 			// button_AddEffect
 			// 
 			this.button_AddEffect.Location = new System.Drawing.Point(210, 164);
@@ -763,67 +792,57 @@
 			this.button_AddEffect.TabIndex = 106;
 			this.button_AddEffect.Text = "Add";
 			this.button_AddEffect.UseVisualStyleBackColor = true;
-			// 
-			// label20
-			// 
-			this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label20.Location = new System.Drawing.Point(259, 17);
-			this.label20.Name = "label20";
-			this.label20.Size = new System.Drawing.Size(153, 17);
-			this.label20.TabIndex = 110;
-			this.label20.Text = "Effect";
-			this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.button_AddEffect.Click += new System.EventHandler(this.button_AddEffect_Click);
 			// 
 			// label17
 			// 
+			this.label17.AutoSize = true;
 			this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label17.Location = new System.Drawing.Point(207, 17);
+			this.label17.Location = new System.Drawing.Point(181, 20);
 			this.label17.Name = "label17";
-			this.label17.Size = new System.Drawing.Size(45, 17);
+			this.label17.Size = new System.Drawing.Size(31, 13);
 			this.label17.TabIndex = 109;
-			this.label17.Text = "Cost";
+			this.label17.Text = "Cost:";
 			this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// numericUpDown_Cost
 			// 
 			this.numericUpDown_Cost.Enabled = false;
-			this.numericUpDown_Cost.Location = new System.Drawing.Point(210, 37);
+			this.numericUpDown_Cost.Location = new System.Drawing.Point(215, 18);
 			this.numericUpDown_Cost.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-			this.numericUpDown_Cost.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
 			this.numericUpDown_Cost.Name = "numericUpDown_Cost";
-			this.numericUpDown_Cost.Size = new System.Drawing.Size(42, 20);
+			this.numericUpDown_Cost.Size = new System.Drawing.Size(39, 20);
 			this.numericUpDown_Cost.TabIndex = 108;
-			this.numericUpDown_Cost.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.toolTip_Cost.SetToolTip(this.numericUpDown_Cost, "REMINDER: Only change this value if changing different Tiers");
 			// 
 			// label_EffectDesc
 			// 
-			this.label_EffectDesc.Location = new System.Drawing.Point(210, 60);
+			this.label_EffectDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F);
+			this.label_EffectDesc.Location = new System.Drawing.Point(210, 45);
 			this.label_EffectDesc.Name = "label_EffectDesc";
-			this.label_EffectDesc.Size = new System.Drawing.Size(217, 101);
+			this.label_EffectDesc.Size = new System.Drawing.Size(225, 116);
 			this.label_EffectDesc.TabIndex = 107;
-			this.label_EffectDesc.Text = "Effect Encyclopedia";
-			this.label_EffectDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.label_EffectDesc.Text = "Effect Encyclopedia\n- Weathermancy Effects require Weathermancy Trait\n- Pop Green" +
+    "s Effects require Horticultural Warfare Trait\n- Stealth effects require Assassin" +
+    "/Thief primary.";
+			this.label_EffectDesc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// comboBox_Effect
 			// 
-			this.comboBox_Effect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox_Effect.FormattingEnabled = true;
-			this.comboBox_Effect.Location = new System.Drawing.Point(258, 36);
+			this.comboBox_Effect.Items.AddRange(new object[] {
+            ""});
+			this.comboBox_Effect.Location = new System.Drawing.Point(260, 17);
 			this.comboBox_Effect.Name = "comboBox_Effect";
 			this.comboBox_Effect.Size = new System.Drawing.Size(169, 21);
 			this.comboBox_Effect.TabIndex = 105;
+			this.comboBox_Effect.Text = "Effects";
+			this.toolTip_ComboBoxEffect.SetToolTip(this.comboBox_Effect, "No Custom Effects for now. Use another Effect that acts as a substitution");
+			this.comboBox_Effect.SelectionChangeCommitted += new System.EventHandler(this.comboBox_Effect_SelectionChangeCommitted);
 			// 
 			// button_EffectRemove
 			// 
@@ -833,14 +852,16 @@
 			this.button_EffectRemove.TabIndex = 104;
 			this.button_EffectRemove.Text = "Remove";
 			this.button_EffectRemove.UseVisualStyleBackColor = true;
+			this.button_EffectRemove.Click += new System.EventHandler(this.button_EffectRemove_Click);
 			// 
 			// textBox_Power
 			// 
-			this.textBox_Power.Location = new System.Drawing.Point(135, 17);
+			this.textBox_Power.Location = new System.Drawing.Point(146, 17);
 			this.textBox_Power.Name = "textBox_Power";
 			this.textBox_Power.ReadOnly = true;
 			this.textBox_Power.Size = new System.Drawing.Size(29, 20);
 			this.textBox_Power.TabIndex = 102;
+			this.textBox_Power.Text = "0";
 			// 
 			// checkBox_NA
 			// 
@@ -850,14 +871,16 @@
 			this.checkBox_NA.Size = new System.Drawing.Size(79, 17);
 			this.checkBox_NA.TabIndex = 52;
 			this.checkBox_NA.Text = "N/A Power";
+			this.toolTip_NAPower.SetToolTip(this.checkBox_NA, "WARNING: Checking this will clear all Effects.");
 			this.checkBox_NA.UseVisualStyleBackColor = true;
 			this.checkBox_NA.CheckedChanged += new System.EventHandler(this.checkBox_NA_CheckedChanged);
 			// 
 			// listView_Effects
 			// 
 			this.listView_Effects.Location = new System.Drawing.Point(9, 45);
+			this.listView_Effects.MultiSelect = false;
 			this.listView_Effects.Name = "listView_Effects";
-			this.listView_Effects.Size = new System.Drawing.Size(198, 116);
+			this.listView_Effects.Size = new System.Drawing.Size(200, 116);
 			this.listView_Effects.TabIndex = 51;
 			this.listView_Effects.UseCompatibleStateImageBehavior = false;
 			// 
@@ -887,6 +910,7 @@
 			this.groupBox6.TabIndex = 74;
 			this.groupBox6.TabStop = false;
 			this.groupBox6.Text = "Devil Fruit";
+			this.toolTip_DFEnable.SetToolTip(this.groupBox6, "Enable this section by selecting \"Specific Devil Fruit\" in Trait Affecting Tech");
 			// 
 			// checkBox_Hybrid
 			// 
@@ -1058,10 +1082,16 @@
 		private System.Windows.Forms.CheckBox checkBox_DFRank4;
 		private System.Windows.Forms.Label label_DF;
 		private System.Windows.Forms.Button button_AddEffect;
-		private System.Windows.Forms.Label label20;
 		private System.Windows.Forms.Label label17;
 		private System.Windows.Forms.NumericUpDown numericUpDown_Cost;
 		private System.Windows.Forms.Label label_EffectDesc;
 		private System.Windows.Forms.ComboBox comboBox_Effect;
+		private System.Windows.Forms.ToolTip toolTip_Cost;
+		private System.Windows.Forms.ToolTip toolTip_DFEnable;
+		private System.Windows.Forms.ToolTip toolTip_NAPower;
+		private System.Windows.Forms.Label label_MinRank;
+		private System.Windows.Forms.ToolTip toolTip_MinRank;
+		private System.Windows.Forms.ToolTip toolTip_ComboBoxEffect;
+		private System.Windows.Forms.Label label_EffectType;
 	}
 }

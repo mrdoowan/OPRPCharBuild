@@ -101,6 +101,7 @@
     <Compile Include="Add_Trait.Designer.cs">
       <DependentUpon>Add_Trait.cs</DependentUpon>
     </Compile>
+    <Compile Include="Effects.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
