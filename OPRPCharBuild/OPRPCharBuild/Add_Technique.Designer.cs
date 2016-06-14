@@ -31,7 +31,7 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.numericUpDown_Rank = new System.Windows.Forms.NumericUpDown();
 			this.label2 = new System.Windows.Forms.Label();
-			this.comboBox_AffectRank = new System.Windows.Forms.ComboBox();
+			this.comboBox_AffectTech = new System.Windows.Forms.ComboBox();
 			this.checkBox_Branched = new System.Windows.Forms.CheckBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.textBox_TechBranched = new System.Windows.Forms.TextBox();
@@ -47,7 +47,6 @@
 			this.comboBox_Type = new System.Windows.Forms.ComboBox();
 			this.comboBox_Range = new System.Windows.Forms.ComboBox();
 			this.label10 = new System.Windows.Forms.Label();
-			this.numericUpDown_Power = new System.Windows.Forms.NumericUpDown();
 			this.label11 = new System.Windows.Forms.Label();
 			this.label12 = new System.Windows.Forms.Label();
 			this.numericUpDown_Str = new System.Windows.Forms.NumericUpDown();
@@ -78,15 +77,27 @@
 			this.label13 = new System.Windows.Forms.Label();
 			this.label8 = new System.Windows.Forms.Label();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.button_AddEffect = new System.Windows.Forms.Button();
+			this.label20 = new System.Windows.Forms.Label();
 			this.label17 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.textBox_Effects = new System.Windows.Forms.TextBox();
+			this.numericUpDown_Cost = new System.Windows.Forms.NumericUpDown();
+			this.label_EffectDesc = new System.Windows.Forms.Label();
+			this.comboBox_Effect = new System.Windows.Forms.ComboBox();
+			this.button_EffectRemove = new System.Windows.Forms.Button();
+			this.textBox_Power = new System.Windows.Forms.TextBox();
+			this.checkBox_NA = new System.Windows.Forms.CheckBox();
+			this.listView_Effects = new System.Windows.Forms.ListView();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.checkBox_Hybrid = new System.Windows.Forms.CheckBox();
+			this.checkBox_Full = new System.Windows.Forms.CheckBox();
+			this.checkBox_ZoanSig = new System.Windows.Forms.CheckBox();
+			this.checkBox_DFRank4 = new System.Windows.Forms.CheckBox();
+			this.label_DF = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SpTP)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Power)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Str)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -95,7 +106,9 @@
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Sta)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Spe)).BeginInit();
 			this.groupBox4.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Cost)).BeginInit();
 			this.groupBox5.SuspendLayout();
+			this.groupBox6.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// label64
@@ -152,22 +165,22 @@
 			// 
 			this.label2.AutoSize = true;
 			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label2.Location = new System.Drawing.Point(168, 47);
+			this.label2.Location = new System.Drawing.Point(169, 47);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(102, 13);
+			this.label2.Size = new System.Drawing.Size(101, 13);
 			this.label2.TabIndex = 31;
-			this.label2.Text = "Trait Affecting Rank";
+			this.label2.Text = "Trait Affecting Tech";
 			// 
-			// comboBox_AffectRank
+			// comboBox_AffectTech
 			// 
-			this.comboBox_AffectRank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBox_AffectRank.FormattingEnabled = true;
-			this.comboBox_AffectRank.Location = new System.Drawing.Point(276, 44);
-			this.comboBox_AffectRank.Name = "comboBox_AffectRank";
-			this.comboBox_AffectRank.Size = new System.Drawing.Size(153, 21);
-			this.comboBox_AffectRank.Sorted = true;
-			this.comboBox_AffectRank.TabIndex = 32;
-			this.comboBox_AffectRank.SelectedIndexChanged += new System.EventHandler(this.comboBox_AffectRank_SelectedIndexChanged);
+			this.comboBox_AffectTech.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBox_AffectTech.FormattingEnabled = true;
+			this.comboBox_AffectTech.Location = new System.Drawing.Point(276, 44);
+			this.comboBox_AffectTech.Name = "comboBox_AffectTech";
+			this.comboBox_AffectTech.Size = new System.Drawing.Size(153, 21);
+			this.comboBox_AffectTech.Sorted = true;
+			this.comboBox_AffectTech.TabIndex = 32;
+			this.comboBox_AffectTech.SelectedIndexChanged += new System.EventHandler(this.comboBox_AffectTech_SelectedIndexChanged);
 			// 
 			// checkBox_Branched
 			// 
@@ -326,7 +339,9 @@
             "Medium",
             "Long",
             "Extra-Long",
-            "AOE"});
+            "Short AOE",
+            "Medium AOE",
+            "Long AOE"});
 			this.comboBox_Range.Location = new System.Drawing.Point(276, 27);
 			this.comboBox_Range.Name = "comboBox_Range";
 			this.comboBox_Range.Size = new System.Drawing.Size(153, 21);
@@ -342,28 +357,11 @@
 			this.label10.TabIndex = 47;
 			this.label10.Text = "Range:";
 			// 
-			// numericUpDown_Power
-			// 
-			this.numericUpDown_Power.Location = new System.Drawing.Point(6, 23);
-			this.numericUpDown_Power.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-			this.numericUpDown_Power.Name = "numericUpDown_Power";
-			this.numericUpDown_Power.Size = new System.Drawing.Size(42, 20);
-			this.numericUpDown_Power.TabIndex = 50;
-			this.numericUpDown_Power.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			// 
 			// label11
 			// 
 			this.label11.AutoSize = true;
 			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label11.Location = new System.Drawing.Point(54, 25);
+			this.label11.Location = new System.Drawing.Point(170, 21);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(37, 13);
 			this.label11.TabIndex = 49;
@@ -406,11 +404,11 @@
 			// 
 			this.label15.AutoSize = true;
 			this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label15.Location = new System.Drawing.Point(11, 25);
+			this.label15.Location = new System.Drawing.Point(28, 25);
 			this.label15.Name = "label15";
-			this.label15.Size = new System.Drawing.Size(55, 13);
+			this.label15.Size = new System.Drawing.Size(38, 13);
 			this.label15.TabIndex = 57;
-			this.label15.Text = "TP Notes:";
+			this.label15.Text = "Notes:";
 			// 
 			// textBox_TPMsg
 			// 
@@ -441,7 +439,7 @@
 			// 
 			// button12
 			// 
-			this.button12.Location = new System.Drawing.Point(291, 642);
+			this.button12.Location = new System.Drawing.Point(291, 876);
 			this.button12.Name = "button12";
 			this.button12.Size = new System.Drawing.Size(75, 23);
 			this.button12.TabIndex = 62;
@@ -451,7 +449,7 @@
 			// 
 			// button11
 			// 
-			this.button11.Location = new System.Drawing.Point(372, 642);
+			this.button11.Location = new System.Drawing.Point(372, 876);
 			this.button11.Name = "button11";
 			this.button11.Size = new System.Drawing.Size(75, 23);
 			this.button11.TabIndex = 61;
@@ -462,7 +460,7 @@
 			// label18
 			// 
 			this.label18.AutoSize = true;
-			this.label18.Location = new System.Drawing.Point(65, 647);
+			this.label18.Location = new System.Drawing.Point(65, 881);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(220, 13);
 			this.label18.TabIndex = 64;
@@ -471,12 +469,12 @@
 			// label_MaxRank
 			// 
 			this.label_MaxRank.AutoSize = true;
-			this.label_MaxRank.Location = new System.Drawing.Point(168, 19);
+			this.label_MaxRank.Location = new System.Drawing.Point(351, 21);
 			this.label_MaxRank.Name = "label_MaxRank";
 			this.label_MaxRank.Size = new System.Drawing.Size(78, 13);
 			this.label_MaxRank.TabIndex = 65;
 			this.label_MaxRank.Text = "Max Rank is: 0";
-			this.label_MaxRank.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.label_MaxRank.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// groupBox1
 			// 
@@ -490,7 +488,7 @@
 			this.groupBox1.Controls.Add(this.label_SpTraitUsed);
 			this.groupBox1.Controls.Add(this.comboBox_SpTrait);
 			this.groupBox1.Controls.Add(this.label2);
-			this.groupBox1.Controls.Add(this.comboBox_AffectRank);
+			this.groupBox1.Controls.Add(this.comboBox_AffectTech);
 			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
 			this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.groupBox1.Location = new System.Drawing.Point(12, 32);
@@ -542,7 +540,7 @@
 			this.groupBox3.Size = new System.Drawing.Size(435, 128);
 			this.groupBox3.TabIndex = 71;
 			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "Miscellaneous";
+			this.groupBox3.Text = "Specifics";
 			// 
 			// checkBox_MinusAcc
 			// 
@@ -739,44 +737,129 @@
 			// 
 			// groupBox4
 			// 
+			this.groupBox4.Controls.Add(this.button_AddEffect);
+			this.groupBox4.Controls.Add(this.label20);
 			this.groupBox4.Controls.Add(this.label17);
-			this.groupBox4.Controls.Add(this.label3);
-			this.groupBox4.Controls.Add(this.textBox_Effects);
+			this.groupBox4.Controls.Add(this.numericUpDown_Cost);
+			this.groupBox4.Controls.Add(this.label_EffectDesc);
+			this.groupBox4.Controls.Add(this.comboBox_Effect);
+			this.groupBox4.Controls.Add(this.button_EffectRemove);
+			this.groupBox4.Controls.Add(this.textBox_Power);
+			this.groupBox4.Controls.Add(this.checkBox_NA);
+			this.groupBox4.Controls.Add(this.listView_Effects);
 			this.groupBox4.Controls.Add(this.label11);
-			this.groupBox4.Controls.Add(this.numericUpDown_Power);
 			this.groupBox4.Location = new System.Drawing.Point(12, 356);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(435, 79);
+			this.groupBox4.Size = new System.Drawing.Size(435, 193);
 			this.groupBox4.TabIndex = 72;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Effects";
 			// 
+			// button_AddEffect
+			// 
+			this.button_AddEffect.Location = new System.Drawing.Point(210, 164);
+			this.button_AddEffect.Name = "button_AddEffect";
+			this.button_AddEffect.Size = new System.Drawing.Size(75, 23);
+			this.button_AddEffect.TabIndex = 106;
+			this.button_AddEffect.Text = "Add";
+			this.button_AddEffect.UseVisualStyleBackColor = true;
+			// 
+			// label20
+			// 
+			this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label20.Location = new System.Drawing.Point(259, 17);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(153, 17);
+			this.label20.TabIndex = 110;
+			this.label20.Text = "Effect";
+			this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
 			// label17
 			// 
 			this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label17.Location = new System.Drawing.Point(86, 24);
+			this.label17.Location = new System.Drawing.Point(207, 17);
 			this.label17.Name = "label17";
-			this.label17.Size = new System.Drawing.Size(343, 15);
-			this.label17.TabIndex = 75;
-			this.label17.Text = "i.e. +0 Displacement, +8 Gatling, +8 Armaments Haki";
+			this.label17.Size = new System.Drawing.Size(45, 17);
+			this.label17.TabIndex = 109;
+			this.label17.Text = "Cost";
 			this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
-			// label3
+			// numericUpDown_Cost
 			// 
-			this.label3.AutoSize = true;
-			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label3.Location = new System.Drawing.Point(3, 53);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(74, 13);
-			this.label3.TabIndex = 74;
-			this.label3.Text = "List of Effects:";
+			this.numericUpDown_Cost.Enabled = false;
+			this.numericUpDown_Cost.Location = new System.Drawing.Point(210, 37);
+			this.numericUpDown_Cost.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.numericUpDown_Cost.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDown_Cost.Name = "numericUpDown_Cost";
+			this.numericUpDown_Cost.Size = new System.Drawing.Size(42, 20);
+			this.numericUpDown_Cost.TabIndex = 108;
+			this.numericUpDown_Cost.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
-			// textBox_Effects
+			// label_EffectDesc
 			// 
-			this.textBox_Effects.Location = new System.Drawing.Point(83, 50);
-			this.textBox_Effects.Name = "textBox_Effects";
-			this.textBox_Effects.Size = new System.Drawing.Size(346, 20);
-			this.textBox_Effects.TabIndex = 73;
+			this.label_EffectDesc.Location = new System.Drawing.Point(210, 60);
+			this.label_EffectDesc.Name = "label_EffectDesc";
+			this.label_EffectDesc.Size = new System.Drawing.Size(217, 101);
+			this.label_EffectDesc.TabIndex = 107;
+			this.label_EffectDesc.Text = "Effect Encyclopedia";
+			this.label_EffectDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// comboBox_Effect
+			// 
+			this.comboBox_Effect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBox_Effect.FormattingEnabled = true;
+			this.comboBox_Effect.Location = new System.Drawing.Point(258, 36);
+			this.comboBox_Effect.Name = "comboBox_Effect";
+			this.comboBox_Effect.Size = new System.Drawing.Size(169, 21);
+			this.comboBox_Effect.TabIndex = 105;
+			// 
+			// button_EffectRemove
+			// 
+			this.button_EffectRemove.Location = new System.Drawing.Point(132, 164);
+			this.button_EffectRemove.Name = "button_EffectRemove";
+			this.button_EffectRemove.Size = new System.Drawing.Size(75, 23);
+			this.button_EffectRemove.TabIndex = 104;
+			this.button_EffectRemove.Text = "Remove";
+			this.button_EffectRemove.UseVisualStyleBackColor = true;
+			// 
+			// textBox_Power
+			// 
+			this.textBox_Power.Location = new System.Drawing.Point(135, 17);
+			this.textBox_Power.Name = "textBox_Power";
+			this.textBox_Power.ReadOnly = true;
+			this.textBox_Power.Size = new System.Drawing.Size(29, 20);
+			this.textBox_Power.TabIndex = 102;
+			// 
+			// checkBox_NA
+			// 
+			this.checkBox_NA.AutoSize = true;
+			this.checkBox_NA.Location = new System.Drawing.Point(11, 19);
+			this.checkBox_NA.Name = "checkBox_NA";
+			this.checkBox_NA.Size = new System.Drawing.Size(79, 17);
+			this.checkBox_NA.TabIndex = 52;
+			this.checkBox_NA.Text = "N/A Power";
+			this.checkBox_NA.UseVisualStyleBackColor = true;
+			this.checkBox_NA.CheckedChanged += new System.EventHandler(this.checkBox_NA_CheckedChanged);
+			// 
+			// listView_Effects
+			// 
+			this.listView_Effects.Location = new System.Drawing.Point(9, 45);
+			this.listView_Effects.Name = "listView_Effects";
+			this.listView_Effects.Size = new System.Drawing.Size(198, 116);
+			this.listView_Effects.TabIndex = 51;
+			this.listView_Effects.UseCompatibleStateImageBehavior = false;
 			// 
 			// groupBox5
 			// 
@@ -784,19 +867,91 @@
 			this.groupBox5.Controls.Add(this.textBox_TPMsg);
 			this.groupBox5.Controls.Add(this.label16);
 			this.groupBox5.Controls.Add(this.richTextBox_Desc);
-			this.groupBox5.Location = new System.Drawing.Point(12, 441);
+			this.groupBox5.Location = new System.Drawing.Point(12, 675);
 			this.groupBox5.Name = "groupBox5";
 			this.groupBox5.Size = new System.Drawing.Size(435, 195);
 			this.groupBox5.TabIndex = 73;
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Text";
 			// 
+			// groupBox6
+			// 
+			this.groupBox6.Controls.Add(this.checkBox_Hybrid);
+			this.groupBox6.Controls.Add(this.checkBox_Full);
+			this.groupBox6.Controls.Add(this.checkBox_ZoanSig);
+			this.groupBox6.Controls.Add(this.checkBox_DFRank4);
+			this.groupBox6.Controls.Add(this.label_DF);
+			this.groupBox6.Location = new System.Drawing.Point(12, 555);
+			this.groupBox6.Name = "groupBox6";
+			this.groupBox6.Size = new System.Drawing.Size(435, 121);
+			this.groupBox6.TabIndex = 74;
+			this.groupBox6.TabStop = false;
+			this.groupBox6.Text = "Devil Fruit";
+			// 
+			// checkBox_Hybrid
+			// 
+			this.checkBox_Hybrid.AutoSize = true;
+			this.checkBox_Hybrid.Enabled = false;
+			this.checkBox_Hybrid.Location = new System.Drawing.Point(323, 94);
+			this.checkBox_Hybrid.Name = "checkBox_Hybrid";
+			this.checkBox_Hybrid.Size = new System.Drawing.Size(106, 17);
+			this.checkBox_Hybrid.TabIndex = 79;
+			this.checkBox_Hybrid.Text = "Hybrid Transform";
+			this.checkBox_Hybrid.UseVisualStyleBackColor = true;
+			this.checkBox_Hybrid.CheckedChanged += new System.EventHandler(this.checkBox_Hybrid_CheckedChanged);
+			// 
+			// checkBox_Full
+			// 
+			this.checkBox_Full.AutoSize = true;
+			this.checkBox_Full.Enabled = false;
+			this.checkBox_Full.Location = new System.Drawing.Point(323, 71);
+			this.checkBox_Full.Name = "checkBox_Full";
+			this.checkBox_Full.Size = new System.Drawing.Size(92, 17);
+			this.checkBox_Full.TabIndex = 78;
+			this.checkBox_Full.Text = "Full Transform";
+			this.checkBox_Full.UseVisualStyleBackColor = true;
+			this.checkBox_Full.CheckedChanged += new System.EventHandler(this.checkBox_Full_CheckedChanged);
+			// 
+			// checkBox_ZoanSig
+			// 
+			this.checkBox_ZoanSig.AutoSize = true;
+			this.checkBox_ZoanSig.Enabled = false;
+			this.checkBox_ZoanSig.Location = new System.Drawing.Point(323, 48);
+			this.checkBox_ZoanSig.Name = "checkBox_ZoanSig";
+			this.checkBox_ZoanSig.Size = new System.Drawing.Size(99, 17);
+			this.checkBox_ZoanSig.TabIndex = 77;
+			this.checkBox_ZoanSig.Text = "Zoan Signature";
+			this.checkBox_ZoanSig.UseVisualStyleBackColor = true;
+			this.checkBox_ZoanSig.CheckedChanged += new System.EventHandler(this.checkBox_ZoanSig_CheckedChanged);
+			// 
+			// checkBox_DFRank4
+			// 
+			this.checkBox_DFRank4.AutoSize = true;
+			this.checkBox_DFRank4.Enabled = false;
+			this.checkBox_DFRank4.Location = new System.Drawing.Point(323, 25);
+			this.checkBox_DFRank4.Name = "checkBox_DFRank4";
+			this.checkBox_DFRank4.Size = new System.Drawing.Size(85, 17);
+			this.checkBox_DFRank4.TabIndex = 76;
+			this.checkBox_DFRank4.Text = "Free Rank 4";
+			this.checkBox_DFRank4.UseVisualStyleBackColor = true;
+			this.checkBox_DFRank4.CheckedChanged += new System.EventHandler(this.checkBox_DFRank4_CheckedChanged);
+			// 
+			// label_DF
+			// 
+			this.label_DF.Location = new System.Drawing.Point(3, 16);
+			this.label_DF.Name = "label_DF";
+			this.label_DF.Size = new System.Drawing.Size(314, 95);
+			this.label_DF.TabIndex = 75;
+			this.label_DF.Text = "No Devil Fruit Option";
+			this.label_DF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
 			// Add_Technique
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.ClientSize = new System.Drawing.Size(459, 671);
+			this.ClientSize = new System.Drawing.Size(459, 911);
+			this.Controls.Add(this.groupBox6);
 			this.Controls.Add(this.groupBox5);
 			this.Controls.Add(this.groupBox4);
 			this.Controls.Add(this.groupBox3);
@@ -816,7 +971,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SpTP)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Power)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Str)).EndInit();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
@@ -829,8 +983,11 @@
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Spe)).EndInit();
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Cost)).EndInit();
 			this.groupBox5.ResumeLayout(false);
 			this.groupBox5.PerformLayout();
+			this.groupBox6.ResumeLayout(false);
+			this.groupBox6.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -843,7 +1000,7 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.NumericUpDown numericUpDown_Rank;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.ComboBox comboBox_AffectRank;
+		private System.Windows.Forms.ComboBox comboBox_AffectTech;
 		private System.Windows.Forms.CheckBox checkBox_Branched;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.TextBox textBox_TechBranched;
@@ -859,7 +1016,6 @@
 		private System.Windows.Forms.ComboBox comboBox_Type;
 		private System.Windows.Forms.ComboBox comboBox_Range;
 		private System.Windows.Forms.Label label10;
-		private System.Windows.Forms.NumericUpDown numericUpDown_Power;
 		private System.Windows.Forms.Label label11;
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.NumericUpDown numericUpDown_Str;
@@ -875,9 +1031,6 @@
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.GroupBox groupBox3;
 		private System.Windows.Forms.GroupBox groupBox4;
-		private System.Windows.Forms.Label label17;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.TextBox textBox_Effects;
 		private System.Windows.Forms.GroupBox groupBox5;
 		private System.Windows.Forms.NumericUpDown numericUpDown_Acc;
 		private System.Windows.Forms.NumericUpDown numericUpDown_Sta;
@@ -894,5 +1047,21 @@
 		private System.Windows.Forms.CheckBox checkBox_PlusSpe;
 		private System.Windows.Forms.CheckBox checkBox_MinusStr;
 		private System.Windows.Forms.CheckBox checkBox_PlusStr;
+		private System.Windows.Forms.CheckBox checkBox_NA;
+		private System.Windows.Forms.ListView listView_Effects;
+		private System.Windows.Forms.Button button_EffectRemove;
+		private System.Windows.Forms.TextBox textBox_Power;
+		private System.Windows.Forms.GroupBox groupBox6;
+		private System.Windows.Forms.CheckBox checkBox_Hybrid;
+		private System.Windows.Forms.CheckBox checkBox_Full;
+		private System.Windows.Forms.CheckBox checkBox_ZoanSig;
+		private System.Windows.Forms.CheckBox checkBox_DFRank4;
+		private System.Windows.Forms.Label label_DF;
+		private System.Windows.Forms.Button button_AddEffect;
+		private System.Windows.Forms.Label label20;
+		private System.Windows.Forms.Label label17;
+		private System.Windows.Forms.NumericUpDown numericUpDown_Cost;
+		private System.Windows.Forms.Label label_EffectDesc;
+		private System.Windows.Forms.ComboBox comboBox_Effect;
 	}
 }

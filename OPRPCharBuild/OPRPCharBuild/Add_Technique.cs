@@ -13,13 +13,18 @@ namespace OPRPCharBuild
 		// Used when editing Dialogue for comboBox SpTrait and Rank Trait
 		private string edit_SpTrait;
 		private string edit_RankTrait;
+		// Devil Fruit section
+		private string DF_name;
+		private string DF_type;
 
-		public Add_Technique(int MaxRank, ListView t_list, ListView Sp_list) {
+		public Add_Technique(int MaxRank, ListView t_list, ListView Sp_list, string DF_Name, string DF_Type) {
 			InitializeComponent();
 			button_clicked = false;
 			max_rank = MaxRank;
 			traits_list = t_list;
 			SpTraits_list = Sp_list;
+			DF_name = DF_Name;
+			DF_type = DF_Type;
 		}
 
 		#region Dialog Functions
@@ -49,7 +54,7 @@ namespace OPRPCharBuild
 				item.SubItems.Add(numericUpDown_RegTP.Value.ToString()); // Column 2: Reg TP
 				item.SubItems.Add(numericUpDown_SpTP.Value.ToString());  // Column 3: Sp. TP
 				item.SubItems.Add(comboBox_SpTrait.Text);                // Column 4: Sp. Trait
-				item.SubItems.Add(comboBox_AffectRank.Text);             // Column 5: Rank Trait
+				item.SubItems.Add(comboBox_AffectTech.Text);             // Column 5: Rank Trait
 				item.SubItems.Add(textBox_TechBranched.Text);            // Column 6: Branched From
 				item.SubItems.Add(numericUpDown_RankBranch.Value.ToString()); // Column 7: Points Branched
 				item.SubItems.Add(comboBox_Type.Text);               // Column 8: Type
@@ -253,7 +258,7 @@ namespace OPRPCharBuild
 					Main_Form.SelectedItems[0].SubItems[2].Text = numericUpDown_RegTP.Value.ToString(); // Column 2: Reg TP
 					Main_Form.SelectedItems[0].SubItems[3].Text = numericUpDown_SpTP.Value.ToString();  // Column 3: Sp. TP
 					Main_Form.SelectedItems[0].SubItems[4].Text = comboBox_SpTrait.Text;            // Column 4: Sp. Trait
-					Main_Form.SelectedItems[0].SubItems[5].Text = comboBox_AffectRank.Text;         // Column 5: Rank Trait
+					Main_Form.SelectedItems[0].SubItems[5].Text = comboBox_AffectTech.Text;         // Column 5: Rank Trait
 					Main_Form.SelectedItems[0].SubItems[6].Text = textBox_TechBranched.Text;        // Column 6: Branched From
 					Main_Form.SelectedItems[0].SubItems[7].Text = numericUpDown_RankBranch.Value.ToString(); // Column 7: Points Branched
 					Main_Form.SelectedItems[0].SubItems[8].Text = comboBox_Type.Text;               // Column 8: Type
@@ -343,10 +348,15 @@ namespace OPRPCharBuild
 
 		#region Other member functions used
 
-		private void Add_Trait_comboBox(ref ComboBox list, Traits.Trait_Name ID, ListView traits_list) {
+		// If trait is in Traits List, add it to the ComboBox. Returns true if so.
+		private bool Add_Trait_comboBox(ref ComboBox list, Traits.Trait_Name ID, ListView traits_list) {
 			int index = traits_ref.Contains_Trait_AtIndex(ID, traits_list);
-			string name = traits_list.Items[index].SubItems[0].Text;
-			list.Items.Add(name);
+			if (index != -1) {
+				string name = traits_list.Items[index].SubItems[0].Text;
+				list.Items.Add(name);
+				return true;
+			}
+			return false;
 		}
 
 		#endregion
@@ -367,30 +377,43 @@ namespace OPRPCharBuild
 			// Used when Branched is checked/unchecked
 		}
 
-		private void Update_TPMsg() {
+		private void Update_Note() {
 			string message = "";
 			// Affect Rank techs
-			string tech = comboBox_AffectRank.Text;
+			string tech = comboBox_AffectTech.Text;
 			traits_ref.Trait_Name_From_ListView(ref tech);
 			Traits.Trait_Name Trait_ID = traits_ref.get_TraitID(tech);
 			if (Trait_ID == Traits.Trait_Name.SIG_TECH) {
 				message += "[i]Signature Technique[/i]. ";
 			}
 			if (Trait_ID == Traits.Trait_Name.DEV_FRUIT) {
-				message += "[i]Devil Fruit Technique[/i]. ";
+				message += "[i]DF Technique";
+				if (checkBox_DFRank4.Checked) {
+					message += " - Free R4 Tech";
+				}
+				if (checkBox_ZoanSig.Checked) {
+					message += " - Zoan Signature";
+				}
+				if (checkBox_Hybrid.Checked) {
+					message += " - Hybrid Transformation";
+				}
+				if (checkBox_Full.Checked) {
+					message += " - Full Transformation";
+				}
+				message += ".[/i]";
 			}
 			if (Trait_ID == Traits.Trait_Name.MARTIAL_MASTERY || Trait_ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
 				Trait_ID == Traits.Trait_Name.STANCE_MAST || Trait_ID == Traits.Trait_Name.ART_OF_STEALTH ||
 				Trait_ID == Traits.Trait_Name.ANTI_STEALTH || Trait_ID == Traits.Trait_Name.DWARF) {
-				message += "[i]" + comboBox_AffectRank.Text + " Technique[/i], treated 4 Ranks higher. ";
+				message += "[i]" + comboBox_AffectTech.Text + " Technique[/i], treated 4 Ranks higher. ";
 			}
 			// Branch message
 			if (checkBox_Branched.Checked) {
-				message += numericUpDown_RegTP.Value.ToString() + " points branched from [i]" + textBox_TechBranched.Text + "[/i]. ";
+				message += "Branched from [i]R" + numericUpDown_RankBranch.Value.ToString() + " " + textBox_TechBranched.Text + "[/i]. ";
 			}
 			// Special TP usage.
 			if (numericUpDown_SpTP.Value > 0) {
-				message += numericUpDown_SpTP.Value + " Sp. TP used from [i]" + comboBox_SpTrait.Text + "[/i].";
+				message += numericUpDown_SpTP.Value + " Sp. TP used for [i]" + comboBox_SpTrait.Text + "[/i].";
 			}
 			textBox_TPMsg.Text = message;
 			// Used when Sig is checked/unchecked
@@ -398,6 +421,23 @@ namespace OPRPCharBuild
 			// Used when Branched points is changed.
 			// Used when Special Trait is selected.
 			// Used when Sp. TP is changed.
+		}
+
+		private void Update_DF_Label() {
+			if (comboBox_AffectTech.Text == "Specific Devil Fruit") {
+				label_DF.Text = "Devil Fruit: " + DF_name + "\nType: " + DF_type;
+				checkBox_DFRank4.Enabled = true;
+				checkBox_Full.Enabled = true;
+				checkBox_Hybrid.Enabled = true;
+				checkBox_ZoanSig.Enabled = true;
+			}
+			else {
+				label_DF.Text = "No Devil Fruit Option";
+				checkBox_DFRank4.Enabled = false;
+				checkBox_Full.Enabled = false;
+				checkBox_Hybrid.Enabled = false;
+				checkBox_ZoanSig.Enabled = false;
+			}
 		}
 
 		#endregion
@@ -409,35 +449,41 @@ namespace OPRPCharBuild
 		private void Add_Technique_Load(object sender, EventArgs e) {
 			numericUpDown_Rank.Maximum = max_rank;
 			label_MaxRank.Text = "Max Rank is: " + max_rank;
-			numericUpDown_Power.Maximum = max_rank + 4;
 			numericUpDown_RegTP.Maximum = max_rank;
 			numericUpDown_SpTP.Maximum = max_rank;
 			numericUpDown_RankBranch.Maximum = max_rank - 1;
-			// Add Traits Affecting Rank
-			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.DWARF, traits_list) != -1) {
-				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.DWARF, traits_list);
+			// Add Traits Affecting the Tech
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.DWARF, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ART_OF_STEALTH, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ANTI_STEALTH, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.DEV_FRUIT, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.SIG_TECH, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.BAS_CYBORG, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ADV_CYBORG, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.NW_CYBORG, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.F_AND_F, traits_list);
+			if (!Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.DISC_HAKI, traits_list)) {
+				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.AWAKE_HAKI, traits_list);
 			}
-			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.MARTIAL_MASTERY, traits_list) != -1) {
-				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.MARTIAL_MASTERY, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.CONQ_HAKI, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.LIFE_RET, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ROK_MAST, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.HORT_WAR, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.WEATHER, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.CRIT_HIT, traits_list);
+			if (!Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ADV_STANCE_MASTERY, traits_list)) {
+				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.STANCE_MAST, traits_list);
 			}
-			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.ADV_MARTIAL_MASTERY, traits_list) != -1) {
-				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ADV_MARTIAL_MASTERY, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.GRAND_MARTIAL, traits_list);
+			if (!Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ADV_MARTIAL_MASTERY, traits_list)) {
+				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.MARTIAL_MASTERY, traits_list);
 			}
-			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.STANCE_MAST, traits_list) != -1) {
-				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.STANCE_MAST, traits_list);
-			}
-			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.ART_OF_STEALTH, traits_list) != -1) {
-				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ART_OF_STEALTH, traits_list);
-			}
-			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.ANTI_STEALTH, traits_list) != -1) {
-				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ANTI_STEALTH, traits_list);
-			}
-			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.DEV_FRUIT, traits_list) != -1) {
-				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.DEV_FRUIT, traits_list);
-			}
-			if (traits_ref.Contains_Trait_AtIndex(Traits.Trait_Name.SIG_TECH, traits_list) != -1) {
-				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.SIG_TECH, traits_list);
-			}
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.CROWD_CONT, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ANAT_STRIKE, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.QUICKSTRIKE, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.POW_SPEAK, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.BAKING_BAD, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.MAST_MISDI, traits_list);
 			// Add Special TP Traits
 			foreach (ListViewItem eachItem in SpTraits_list.Items) {
 				string name = eachItem.SubItems[0].Text;
@@ -445,7 +491,7 @@ namespace OPRPCharBuild
 				Add_Trait_comboBox(ref comboBox_SpTrait, traits_ref.get_TraitID(name), SpTraits_list);
 			}
 			comboBox_SpTrait.Text = edit_SpTrait;
-			comboBox_AffectRank.Text = edit_RankTrait;
+			comboBox_AffectTech.Text = edit_RankTrait;
 			// Check if SpTrait_comboBox is empty
 			if (comboBox_SpTrait.Items.Count > 0) {
 				numericUpDown_SpTP.Enabled = true;
@@ -472,11 +518,11 @@ namespace OPRPCharBuild
 		private void checkBox_Branched_CheckedChanged(object sender, EventArgs e) {
 			// Checkbox for Branched
 			Update_Branched_Check();
-			Update_TPMsg();
+			Update_Note();
 		}
 
 		private void textBox_TechBranched_TextChanged(object sender, EventArgs e) {
-			Update_TPMsg();
+			Update_Note();
 		}
 
 		private void numericUpDown_RankBranch_ValueChanged(object sender, EventArgs e) {
@@ -484,17 +530,17 @@ namespace OPRPCharBuild
 			numericUpDown_RegTP.Value = numericUpDown_Rank.Value - numericUpDown_RankBranch.Value;
 			// Reset Sp TP for simplicity sake.
 			numericUpDown_SpTP.Value = 0;
-			Update_TPMsg();
+			Update_Note();
 		}
 
 		private void numericUpDown_SpTP_ValueChanged(object sender, EventArgs e) {
 			// For simplicity sake, calculate regTP used for them.
 			numericUpDown_RegTP.Value = numericUpDown_Rank.Value - numericUpDown_SpTP.Value;
-            Update_TPMsg();
+            Update_Note();
 		}
 
 		private void comboBox_SpTrait_SelectedIndexChanged(object sender, EventArgs e) {
-			Update_TPMsg();
+			Update_Note();
 		}
 
 		private void button12_Click(object sender, EventArgs e) {
@@ -506,7 +552,7 @@ namespace OPRPCharBuild
 			if (result == DialogResult.Yes) {
 				textBox_Name.Clear();
 				numericUpDown_Rank.Value = 1;
-				comboBox_AffectRank.Text = "";
+				comboBox_AffectTech.Text = "";
 				checkBox_Branched.Checked = false;
 				textBox_TechBranched.Clear();
 				numericUpDown_RankBranch.Value = 0;
@@ -529,8 +575,6 @@ namespace OPRPCharBuild
 				numericUpDown_Sta.Value = 1;
 				numericUpDown_Acc.Value = 1;
 				// The rest
-				numericUpDown_Power.Value = 0;
-				textBox_Effects.Clear();
 				textBox_TPMsg.Clear();
 				richTextBox_Desc.Clear();
 			}
@@ -542,14 +586,13 @@ namespace OPRPCharBuild
 			numericUpDown_RegTP.Value = numericUpDown_Rank.Value - numericUpDown_RankBranch.Value;
 			numericUpDown_SpTP.Maximum = numericUpDown_Rank.Value;
 			numericUpDown_RankBranch.Maximum = numericUpDown_Rank.Value - 1; // This is hella important
-			numericUpDown_Power.Maximum = numericUpDown_Rank.Value + 4;
         }
 
-		private void comboBox_AffectRank_SelectedIndexChanged(object sender, EventArgs e) {
+		private void comboBox_AffectTech_SelectedIndexChanged(object sender, EventArgs e) {
 			// Where Signature tech comes into play
-			string tech = comboBox_AffectRank.Text;
+			string tech = comboBox_AffectTech.Text;
 			traits_ref.Trait_Name_From_ListView(ref tech);
-			if (traits_ref.get_TraitID(comboBox_AffectRank.Text) == Traits.Trait_Name.SIG_TECH) {
+			if (traits_ref.get_TraitID(comboBox_AffectTech.Text) == Traits.Trait_Name.SIG_TECH) {
 				numericUpDown_Rank.Value = max_rank;
 				numericUpDown_Rank.Enabled = false;
 				numericUpDown_RegTP.Value = 0;
@@ -564,7 +607,7 @@ namespace OPRPCharBuild
 					numericUpDown_SpTP.Enabled = true;
 				}
 			}
-			Update_TPMsg();
+			Update_Note();
 		}
 
 		// This is to avoid tedious repetition for when Stat buttons are pressed.
@@ -620,5 +663,40 @@ namespace OPRPCharBuild
 		}
 
 		#endregion
+
+		private void checkBox_NA_CheckedChanged(object sender, EventArgs e) {
+			if (checkBox_NA.Checked) {
+				listView_Effects.Enabled = false;
+				button_EffectRemove.Enabled = false;
+				button_AddEffect.Enabled = false;
+				numericUpDown_Cost.Enabled = false;
+				comboBox_Effect.Enabled = false;
+				label_EffectDesc.Text = "Effect Encyclopedia";
+			}
+			else {
+				listView_Effects.Enabled = true;
+				button_EffectRemove.Enabled = true;
+				button_AddEffect.Enabled = true;
+				numericUpDown_Cost.Enabled = true;
+				comboBox_Effect.Enabled = true;
+				// Add here to edit the label Text after enabling
+			}
+		}
+
+		private void checkBox_DFRank4_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void checkBox_ZoanSig_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void checkBox_Full_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void checkBox_Hybrid_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
 	}
 }

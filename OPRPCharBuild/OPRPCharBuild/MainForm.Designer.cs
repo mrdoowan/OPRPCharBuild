@@ -224,6 +224,7 @@
 			this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.olderVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolTip_Standardize = new System.Windows.Forms.ToolTip(this.components);
+			this.button1 = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -2161,6 +2162,7 @@
 			// 
 			// groupBox11
 			// 
+			this.groupBox11.Controls.Add(this.button1);
 			this.groupBox11.Controls.Add(this.button_TechBranch);
 			this.groupBox11.Controls.Add(this.button_DownTech);
 			this.groupBox11.Controls.Add(this.button_UpTech);
@@ -2523,6 +2525,15 @@
 			this.olderVersionToolStripMenuItem.Text = "Older Version";
 			this.olderVersionToolStripMenuItem.Click += new System.EventHandler(this.olderVersionToolStripMenuItem_Click);
 			// 
+			// button1
+			// 
+			this.button1.Location = new System.Drawing.Point(6, 437);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(94, 23);
+			this.button1.TabIndex = 4;
+			this.button1.Text = "Rokushiki";
+			this.button1.UseVisualStyleBackColor = true;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2788,6 +2799,7 @@
 		private System.Windows.Forms.ListView listView_Images;
 		private System.Windows.Forms.Button button_ImageEdit;
 		private System.Windows.Forms.Button button_TraitOrder;
+		private System.Windows.Forms.Button button1;
 	}
 }
 

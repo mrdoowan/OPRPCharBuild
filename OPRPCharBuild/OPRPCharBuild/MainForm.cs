@@ -1308,27 +1308,26 @@ namespace OPRPCharBuild
 				int GMax = 0;		// Denotes the highest index of General Traits in a row
 				int PMax = 0;		// Denotes the highest index of Professional Traits in a row
 				for (int i = 0; i < size; ++i) {
-					if (listView_Traits.Items[i].SubItems[1].Text == "General" && GMax != i) {
+					if (listView_Traits.Items[i].SubItems[1].Text == "General" && GMax != i - 1) {
 						int move = GMax - i;
 						Move_ListView_Item(ref listView_Traits, i, move);
 						GMax++;
 					}
-					else if (listView_Traits.Items[i].SubItems[1].Text == "General" && GMax == i) {
+					else if (listView_Traits.Items[i].SubItems[1].Text == "General" && GMax == i - 1) {
 						GMax++;
 					}
 				}
 				PMax = GMax + 1;
 				for (int i = PMax; i < size; ++i) {
-					if (listView_Traits.Items[i].SubItems[1].Text == "Professional" && PMax != i) {
+					if (listView_Traits.Items[i].SubItems[1].Text == "Professional" && PMax != i - 1) {
 						int move = PMax - i;
 						Move_ListView_Item(ref listView_Traits, i, move);
 						PMax++;
 					}
-					else if (listView_Traits.Items[i].SubItems[1].Text == "Professional" && PMax == i) {
+					else if (listView_Traits.Items[i].SubItems[1].Text == "Professional" && PMax == i - 1) {
 						PMax++;
 					}
 				}
-				// GPMax would be size - 1
 			}
 			catch (Exception ex) {
 				MessageBox.Show("Ordering screwed up.\nReason: " + ex.Message, "Error");
