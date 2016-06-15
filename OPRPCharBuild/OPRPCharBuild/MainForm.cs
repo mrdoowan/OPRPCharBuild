@@ -44,8 +44,8 @@ namespace OPRPCharBuild
 		#region General Functions
 
 		// General function for Deleting an Item from ListView
-		// Returns the string Name of the Item, specifically for finding Key values in Dict
-		private string Delete_ListViewItem(ref ListView list) {
+		// Returns the string Name of the Item, specifically for finding Key values in Dictionary
+		public static string Delete_ListViewItem(ref ListView list) {
 			if (list.SelectedItems.Count == 1) {
 				string key = list.SelectedItems[0].SubItems[0].Text;	// Typically the key value is always the name
 				foreach (ListViewItem eachItem in list.SelectedItems) {
@@ -93,9 +93,9 @@ namespace OPRPCharBuild
 				int current = int.Parse(version.Replace(".", ""));
 				// Get latest version from site
 				string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " " + System.Environment.OSVersion;
-				WebClient wc = new WebClient();
-				wc.Headers.Add("Content-Type", header_msg);
-				string version_page = wc.DownloadString("https://raw.githubusercontent.com/mrdoowan/OPRPCharBuild/master/CurrentVer.txt");
+				WebClient WC = new WebClient();
+				WC.Headers.Add("Content-Type", header_msg);
+				string version_page = WC.DownloadString("https://raw.githubusercontent.com/mrdoowan/OPRPCharBuild/master/CurrentVer.txt");
 				int latest = int.Parse(version_page.Replace(".", ""));
 				if (latest <= current) {
 					// We do nothing if this happens
@@ -124,6 +124,16 @@ namespace OPRPCharBuild
 				}
 			}
 			return false;
+		}
+
+		// Sets Primary bool variables for certain situations
+		public static void Set_Primary_Bool(string prof, ref bool var) {
+			if (Is_Prof_Primary(prof)) {
+				var = true;
+			}
+			else {
+				var = false;
+			}
 		}
 
 		#endregion

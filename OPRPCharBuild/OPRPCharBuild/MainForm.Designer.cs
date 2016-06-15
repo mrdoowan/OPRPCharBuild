@@ -2017,7 +2017,7 @@
             "Trait - Trait cap raised by 1",
             "Prime Prof - Secondary profession upgrade to primary",
             "Multiskilled Prof - Take two more secondary professions",
-            "Devil Fruit - Mythical Zoan"});
+            "Devil Fruit - Mythical Zoan Scoop"});
 			this.checkedListBox1_AP.Location = new System.Drawing.Point(302, 45);
 			this.checkedListBox1_AP.Name = "checkedListBox1_AP";
 			this.checkedListBox1_AP.Size = new System.Drawing.Size(312, 79);
@@ -2548,7 +2548,7 @@
 			// olderVersionToolStripMenuItem
 			// 
 			this.olderVersionToolStripMenuItem.Name = "olderVersionToolStripMenuItem";
-			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
 			this.olderVersionToolStripMenuItem.Text = "Older Version";
 			this.olderVersionToolStripMenuItem.Click += new System.EventHandler(this.olderVersionToolStripMenuItem_Click);
 			// 

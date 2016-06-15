@@ -356,6 +356,7 @@
 			this.comboBox_Range.Name = "comboBox_Range";
 			this.comboBox_Range.Size = new System.Drawing.Size(153, 21);
 			this.comboBox_Range.TabIndex = 48;
+			this.comboBox_Range.SelectionChangeCommitted += new System.EventHandler(this.comboBox_Range_SelectionChangeCommitted);
 			// 
 			// label10
 			// 
@@ -774,6 +775,7 @@
 			this.label_EffectType.TabIndex = 75;
 			this.label_EffectType.Text = "General Effect";
 			this.label_EffectType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.label_EffectType.Visible = false;
 			// 
 			// label_MinRank
 			// 
@@ -877,12 +879,14 @@
 			// 
 			// listView_Effects
 			// 
+			this.listView_Effects.ForeColor = System.Drawing.Color.Blue;
 			this.listView_Effects.Location = new System.Drawing.Point(9, 45);
 			this.listView_Effects.MultiSelect = false;
 			this.listView_Effects.Name = "listView_Effects";
 			this.listView_Effects.Size = new System.Drawing.Size(200, 116);
 			this.listView_Effects.TabIndex = 51;
 			this.listView_Effects.UseCompatibleStateImageBehavior = false;
+			this.listView_Effects.SelectedIndexChanged += new System.EventHandler(this.listView_Effects_SelectedIndexChanged);
 			// 
 			// groupBox5
 			// 

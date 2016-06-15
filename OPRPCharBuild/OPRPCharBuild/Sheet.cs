@@ -477,10 +477,10 @@ namespace OPRPCharBuild
 			template.Write("[center][big][big][i][font=Century Gothic]Development History[/font][/i][/big][/big][/center]\n");
 			template.Write("[b]Gains/Losses:[/b] \n");
 			template.Write('\n');
-			template.Write("[spoiler]Edit Log goes here[/spoiler]\n");
+			template.Write("[spoiler=Edit Log]Edit Log goes here[/spoiler]\n");
 			template.Write('\n');
 			template.Write("[small]This Character Template was created by the [url=http://s1.zetaboards.com/One_Piece_RP/topic/6060583/1/]OPRP Character Builder[/url] v" + version + vers_type + '\n');
-			template.Write("Calculations should be done correctly if not bugged or changed by [me][/small]");
+			template.Write("Note to Mods: Calculations should be done correctly if not bugged or changed by [me][/small]");
 			// Transfer entire stream into readable textbox
 			richTextBox_Template.Text = template.ToString();
 			// Reset/Clear Stringwriter

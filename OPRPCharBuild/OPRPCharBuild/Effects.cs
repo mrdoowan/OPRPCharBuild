@@ -9,8 +9,23 @@ namespace OPRPCharBuild
 {
 	public class Effects
 	{
+		// -----------------------------------------------------------------
+		// Main Member variables and struct
+		// -----------------------------------------------------------------
+		private string name;
+		private bool general;   // True if it doesn't need to trade Power.
+		private int cost;
+		private int min_rank;
+		private string desc;
+		private bool marksman_primary;	// Used to reduce the Cost of Range / AoE
+		private bool inventor_primary;
+		public static List<EffectItem> list = new List<EffectItem>();	// Static variable for project usage
+
 		// Default Constructor
-		public Effects() { }
+		public Effects() {
+			MainForm.Set_Primary_Bool("Marksman", ref marksman_primary);
+			MainForm.Set_Primary_Bool("Inventor", ref inventor_primary);
+		}
 
 		public enum Effect_Name
 		{
@@ -82,21 +97,12 @@ namespace OPRPCharBuild
 			NONE
 		}
 
-		// -----------------------------------------------------------------
-		// Main Member variables and struct
-		// -----------------------------------------------------------------
-		private string name;
-		private bool general;	// True if it doesn't need to trade Power.
-		private int cost;
-		private int min_rank;
-		private string desc;
-
 		public struct EffectItem
 		{
-			string name;
-			bool general;
-			int cost;
-			int min_rank;
+			public string name;
+			public bool general;
+			public int cost;
+			public int min_rank;
 
 			// Default Constructor
 			public EffectItem(string name_, bool gen_, int cost_, int MinRank_) {
@@ -190,6 +196,8 @@ namespace OPRPCharBuild
 			}
 		}
 
+		// WARNING: This is ONLY used when comboBox_Effect.Text is changed
+		// If used anywhere else, you will get MASSIVE BUGS
 		public void Effect_info_load(Effect_Name effect) {
 			switch (effect) {
 				case Effect_Name.DISPLACE:
@@ -461,50 +469,92 @@ namespace OPRPCharBuild
 				case Effect_Name.SHORT_RANGE:
 					name = "Short";
 					general = false;
-					cost = 4;
-					min_rank = 4;
+					if (marksman_primary) {
+						cost = 0;
+						min_rank = 0;
+					}
+					else {
+						cost = 4;
+						min_rank = 4;
+					}
 					desc = "Range of a few meters.";
 					break;
 				case Effect_Name.MED_RANGE:
 					name = "Medium";
 					general = false;
-					cost = 8;
-					min_rank = 28;
+					if (marksman_primary) {
+						cost = 4;
+						min_rank = 4;
+					}
+					else {
+						cost = 8;
+						min_rank = 28;
+					}
 					desc = "Range of half of a sport's stadium.";
 					break;
 				case Effect_Name.LONG_RANGE:
 					name = "Long";
 					general = false;
-					cost = 16;
-					min_rank = 44;
+					if (marksman_primary) {
+						cost = 8;
+						min_rank = 28;
+					}
+					else {
+						cost = 16;
+						min_rank = 44;
+					}
 					desc = "Range of an entire sport's stadium.";
 					break;
 				case Effect_Name.V_LONG_RANGE:
 					name = "Very Long";
 					general = false;
-					cost = 32;
-					min_rank = 66;
+					if (marksman_primary) {
+						cost = 16;
+						min_rank = 44;
+					}
+					else {
+						cost = 32;
+						min_rank = 66;
+					}
 					desc = "Range of a small city.";
 					break;
 				case Effect_Name.SHORT_AOE:
 					name = "Short AoE";
 					general = false;
-					cost = 8;
-					min_rank = 8;
+					if (inventor_primary) {
+						cost = 0;
+						min_rank = 0;
+					}
+					else {
+						cost = 8;
+						min_rank = 8;
+					}
 					desc = "A few meters in diameter.";
 					break;
 				case Effect_Name.MEDIUM_AOE:
 					name = "Medium AoE";
 					general = false;
-					cost = 16;
-					min_rank = 28;
+					if (inventor_primary) {
+						cost = 8;
+						min_rank = 8;
+					}
+					else {
+						cost = 16;
+						min_rank = 28;
+					}
 					desc = "Half of a sport's stadium in diameter.";
 					break;
 				case Effect_Name.LONG_AOE:
 					name = "Long AoE";
 					general = false;
-					cost = 32;
-					min_rank = 44;
+					if (inventor_primary) {
+						cost = 16;
+						min_rank = 28;
+					}
+					else {
+						cost = 32;
+						min_rank = 44;
+					}
 					desc = "An entire sport's stadium in diameter.";
 					break;
 				case Effect_Name.CLOUD:

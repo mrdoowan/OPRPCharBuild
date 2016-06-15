@@ -16,16 +16,20 @@ namespace OPRPCharBuild
 			"- Weathermancy Effects require Weathermancy Trait\n" + 
 			"- Pop Greens Effects require Horticultural Warfare Trait\n" +
 			"- Stealth effects require Assassin/Thief primary.";
+		private int gen_effects;	// To keep track how many General Effects there currently are for Secondary General Effects
+									// Updated when an Effect is added
+									// Updated when an Effect is removed
+		// Bools for primary professions
+		private bool assassin_primary;
+		private bool thief_primary;
 		// Used when editing Dialogue for comboBox SpTrait and Rank Trait
 		private string edit_SpTrait;
 		private string edit_RankTrait;
 		// Devil Fruit section
 		private string DF_name;
 		private string DF_type;
-		// Professional List
-		// Effects carried out
+		// Effects for loading
 		private Effects effects = new Effects();
-		public List<Effects.EffectItem> Effect_list = new List<Effects.EffectItem>();
 
 		public Add_Technique(int MaxRank, ListView t_list, ListView Sp_list, string DF_Name, string DF_Type) {
 			InitializeComponent();
@@ -35,6 +39,8 @@ namespace OPRPCharBuild
 			SpTraits_list = Sp_list;
 			DF_name = DF_Name;
 			DF_type = DF_Type;
+			MainForm.Set_Primary_Bool("Assassin", ref assassin_primary);
+			MainForm.Set_Primary_Bool("Thief", ref thief_primary);
 		}
 
 		#region Dialog Functions
@@ -369,6 +375,7 @@ namespace OPRPCharBuild
 			return false;
 		}
 
+		// One exception to the Effect_info_load function because we're adding items into the ComboBox
 		private void Add_Effect_comboBox(ref ComboBox combobox, Effects.Effect_Name ID) {
 			effects.Effect_info_load(ID);
 			if (effects.Get_Effect_MinRank() < max_rank) {
@@ -449,6 +456,10 @@ namespace OPRPCharBuild
 			// Used when Rank is changed
 			// Used when an Effect is Added
 			// Used when an Effect is Removed
+		}
+
+		private void Update_Secondary_General() {
+			
 		}
 
 		private void Update_DFRank4() {
@@ -533,14 +544,13 @@ namespace OPRPCharBuild
 			if (!Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ADV_MARTIAL_MASTERY, traits_list)) {
 				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.MARTIAL_MASTERY, traits_list);
 			}
-			if (MainForm.Is_Prof_Primary("Assassin") || MainForm.Is_Prof_Primary("Thief")) {
-				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.CROWD_CONT, traits_list);
-				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ANAT_STRIKE, traits_list);
-				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.QUICKSTRIKE, traits_list);
-				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.POW_SPEAK, traits_list);
-				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.BAKING_BAD, traits_list);
-				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.MAST_MISDI, traits_list);
-			}
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.CROWD_CONT, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ANAT_STRIKE, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.QUICKSTRIKE, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.POW_SPEAK, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.BAKING_BAD, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.MAST_MISDI, traits_list);
+			
 
 			// Add Special TP Traits
 			foreach (ListViewItem eachItem in SpTraits_list.Items) {
@@ -582,7 +592,7 @@ namespace OPRPCharBuild
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ELE_DMG);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.FLAV);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SPIRIT);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SECONDARY_GEN);
+			// Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SECONDARY_GEN);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SPEED);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.PIERCE);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.AFT_IMG);
@@ -604,14 +614,14 @@ namespace OPRPCharBuild
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.START_DEF);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MID_DEF);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.HIGH_DEF);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MELEE_RANGE);
+			/* Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MELEE_RANGE);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SHORT_RANGE);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MED_RANGE);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.LONG_RANGE);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.V_LONG_RANGE);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SHORT_AOE);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MEDIUM_AOE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.LONG_AOE);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.LONG_AOE);*/
 			if (traits.Contains_Trait_AtIndex(Traits.Trait_Name.WEATHER, traits_list) != -1) {
 				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.CLOUD);
 				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.RAIN);
@@ -628,14 +638,16 @@ namespace OPRPCharBuild
 				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.WOOD_DEF);
 				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ELE_DMG_POP);
 			}
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SMOKE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.CROWD_BLEND);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SILENT);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SCENTLESS);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISGUISE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.PICKPOCK);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.NAT_CAMO);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.OPEN_CAMO);
+			if (assassin_primary || thief_primary) {
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SMOKE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.CROWD_BLEND);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SILENT);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SCENTLESS);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISGUISE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.PICKPOCK);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.NAT_CAMO);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.OPEN_CAMO);
+			}
 			#endregion
 		}
 
@@ -853,12 +865,120 @@ namespace OPRPCharBuild
 			Update_Note();
 		}
 
+		// Add into the Effects.list, ListView, and Clear info
+		// Make sure to check if the comboBox Effect is valid
+		// Also check if Power < 0 and it fits within the current Rank
+		// And one last thing: Secondary General Effects is a motherfker
 		private void button_AddEffect_Click(object sender, EventArgs e) {
-			Update_MinRank();
-			Update_Power_Value();
+			try {
+				int val = 0;
+				if (effects.Get_EffectID(comboBox_Effect.Text) == Effects.Effect_Name.NONE) {
+					MessageBox.Show("Effect name is not legit. Please pick another one.", "Error");
+				}
+				else if (Is_Power_Under(ref val)) {
+					MessageBox.Show("Adding this Effect will cause Power to be " + val +
+						"\nThis is below 0.", "Error");
+				}
+				else if (Is_Rank_Over(ref val)) {
+					MessageBox.Show("Adding this Effect will cause total Costs to be " + val +
+						"\nThis is greater than the current Rank " + numericUpDown_Rank.Value, "Error");
+				}
+				else {
+					// List Data Structure
+					Effects.list.Add(new Effects.EffectItem(
+						effects.Get_Effect_Name(), effects.Get_Effect_Gen(),
+						effects.Get_Effect_Cost(), effects.Get_Effect_MinRank()));
+					// ListView
+					ListViewItem item = new ListViewItem();
+					item.SubItems[0].Text = effects.Get_Effect_Name();
+					item.SubItems.Add(effects.Get_Effect_Cost().ToString());
+					if (effects.Get_Effect_Gen()) {
+						item.SubItems.Add("No");
+					}
+					else {
+						item.SubItems.Add("Yes");
+					}
+					// Now check for Secondary General
+					if (effects.Get_Effect_Gen()) {
+						gen_effects++;
+						if (gen_effects > 2) {
+							// That means we have to add the Secondary
+							effects.Effect_info_load(Effects.Effect_Name.SECONDARY_GEN);
+							Effects.list.Add(new Effects.EffectItem(
+								effects.Get_Effect_Name(), effects.Get_Effect_Gen(),
+								effects.Get_Effect_Cost(), effects.Get_Effect_MinRank()));
+							ListViewItem secondary = new ListViewItem();
+							secondary.SubItems[0].Text = effects.Get_Effect_Name();
+							secondary.SubItems.Add("4");
+							secondary.SubItems.Add("Yes");
+						}
+					}
+					// Clear info
+					numericUpDown_Cost.Value = 0;
+					comboBox_Effect.Text = "Effect";
+					label_EffectDesc.Text = effect_label_reset;
+					label_EffectType.Visible = false;
+					// Update functions
+					Update_MinRank();
+					Update_Power_Value();
+				}
+			}
+			catch (Exception ex) {
+				MessageBox.Show("Error in adding Effect.\nReason: " + ex.Message, "Bug");
+			}
+		}
+
+		// Static function for Add_Effect
+		private bool Is_Rank_Over(ref int costs) {
+			// "Add" an Effect
+			costs = 0;
+			for (int i = 0; i < Effects.list.Count; ++i) {
+				costs += Effects.list[i].cost;
+			}
+			// We need to look if the Effect pending for Add is General and if there's already more than 2 General
+			if (effects.Get_Effect_Gen() && gen_effects > 2) {
+				costs += 4;
+			}
+			if ((costs + numericUpDown_Cost.Value) > numericUpDown_Rank.Value) {
+				return true;
+			}
+			return false;
+		}
+
+		// Static function for Add_Effect
+		private bool Is_Power_Under(ref int power) {
+			power = int.Parse(textBox_Power.Text);
+			for (int i = 0; i < Effects.list.Count; ++i) {
+				if (!Effects.list[i].general) {
+					power -= Effects.list[i].cost;
+				}
+			}
+			// We need to look if the Effect pending for Add is General and if there's already more than 2 General
+			if (effects.Get_Effect_Gen() && gen_effects > 2) {
+				power -= 4;
+			}
+			if (!effects.Get_Effect_Gen() && ((power - numericUpDown_Cost.Value) < 0)) {
+				// This logic better be right.
+				return true;
+			}
+			return false;
 		}
 
 		private void button_EffectRemove_Click(object sender, EventArgs e) {
+			// "Remove" an Effect
+			string effect = MainForm.Delete_ListViewItem(ref listView_Effects);
+			if (!string.IsNullOrWhiteSpace(effect)) {
+				for (int i = 0; i < Effects.list.Count; ++i) {
+					// We found the Effect name at its index: 1) Check for General, and then Remove it.
+					if (Effects.list[i].name == effect) { 
+						if (Effects.list[i].general) {
+							gen_effects--;
+						}
+						Effects.list.RemoveAt(i);
+						return;
+					}
+				}
+			}
 			Update_MinRank();
 			Update_Power_Value();
 		}
@@ -869,6 +989,27 @@ namespace OPRPCharBuild
 			effects.Effect_info_load(ID);
 			numericUpDown_Cost.Value = effects.Get_Effect_Cost();
 			label_EffectDesc.Text = effects.Get_Effect_Desc();
+			if (effects.Get_Effect_Gen()) {
+				label_EffectType.Visible = true;
+				label_EffectType.Text = "General Effect";
+			}
+			else {
+				label_EffectType.Visible = true;
+				label_EffectType.Text = "Effect requires Power";
+			}
+		}
+
+		private void comboBox_Range_SelectionChangeCommitted(object sender, EventArgs e) {
+			Effects.Effect_Name ID = effects.Get_EffectID(comboBox_Range.Text);
+			effects.Effect_info_load(ID);
+			comboBox_Effect.Text = effects.Get_Effect_Name();
+			numericUpDown_Cost.Value = effects.Get_Effect_Cost();
+			label_EffectDesc.Text = effects.Get_Effect_Desc();
+		}
+
+		// Used to display the Effect description in a "Blue" Color
+		private void listView_Effects_SelectedIndexChanged(object sender, EventArgs e) {
+
 		}
 	}
 }
