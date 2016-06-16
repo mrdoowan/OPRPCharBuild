@@ -33,7 +33,7 @@ namespace OPRPCharBuild
 			button_clicked = false;
 		}
 
-		private Dictionary<string, Professions> prof_dict = new Dictionary<string, Professions>() {
+		private Dictionary<string, Professions> Prof_Dict = new Dictionary<string, Professions>() {
 			#region Dictionary on Professions
 			{"Weapon Specialist", new Professions(
 				"A much more general fighter-type profession, a Weapon Specialist" +
@@ -134,21 +134,29 @@ namespace OPRPCharBuild
 		public void NewDialog(ref ListView Main_Form) {
 			this.ShowDialog();
 			if (button_clicked) {
-				ListViewItem item = new ListViewItem();
-				item.SubItems[0].Text = comboBox1.Text;     // First column: Profession (Why does it do this?)
-				string name = comboBox1.Text;
-				bool primary = false;
-				if (checkBox1.Checked) {                    // Second column: Primary/Secondary
-					item.SubItems.Add("Primary");
-					primary = true;
+				try {
+					string name = comboBox1.Text;
+					bool primary = false;
+					if (checkBox1.Checked) {
+						primary = true;
+					}
+					MainForm.ProfList.Add(name, primary);
+					// Check above for any Exceptions
+					ListViewItem item = new ListViewItem();
+					item.SubItems[0].Text = comboBox1.Text;     // First column: Profession (Why does it do this?)
+					if (primary) {                    // Second column: Primary/Secondary
+						item.SubItems.Add("Primary");
+					}
+					else {
+						item.SubItems.Add("Secondary");
+					}
+					item.SubItems.Add(richTextBox1_Desc.Text);      // Third column: Basic description
+					item.SubItems.Add(richTextBox2_Primary.Text);   // Fourth column: Primary bonus
+					Main_Form.Items.Add(item);
 				}
-				else {
-					item.SubItems.Add("Secondary");
+				catch (Exception e) {
+					MessageBox.Show("Can't add the same profession twice.\nReason: " + e.Message, "Exception Thrown");
 				}
-				item.SubItems.Add(richTextBox1_Desc.Text);      // Third column: Basic description
-				item.SubItems.Add(richTextBox2_Primary.Text);   // Fourth column: Primary bonus
-				Main_Form.Items.Add(item);
-				MainForm.ProfList.Add(name, primary);
 			}
 		}
 
@@ -188,8 +196,8 @@ namespace OPRPCharBuild
 		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
 			// If any of the listed professions were selected, immediately give the Descriptions
 			string Prof = comboBox1.Text;
-			richTextBox1_Desc.Text = prof_dict[Prof].desc;
-			richTextBox2_Primary.Text = prof_dict[Prof].bonus;
+			richTextBox1_Desc.Text = Prof_Dict[Prof].desc;
+			richTextBox2_Primary.Text = Prof_Dict[Prof].bonus;
 			if (!checkBox1.Checked) {
 				richTextBox2_Primary.Clear();
 			}
@@ -211,8 +219,8 @@ namespace OPRPCharBuild
 			// Only used to disable / enable the Primary Text Box
 			if (checkBox1.Checked) {
 				richTextBox2_Primary.Enabled = true;
-				if (prof_dict.ContainsKey(comboBox1.Text))
-					richTextBox2_Primary.Text = prof_dict[comboBox1.Text].bonus;
+				if (Prof_Dict.ContainsKey(comboBox1.Text))
+					richTextBox2_Primary.Text = Prof_Dict[comboBox1.Text].bonus;
 			}
 			else {
 				richTextBox2_Primary.Enabled = false;

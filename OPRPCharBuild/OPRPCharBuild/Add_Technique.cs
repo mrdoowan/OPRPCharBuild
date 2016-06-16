@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OPRPCharBuild
 {
@@ -15,8 +16,8 @@ namespace OPRPCharBuild
 		private string effect_label_reset = "Effect Encyclopedia\n" + 
 			"- Weathermancy Effects require Weathermancy Trait\n" + 
 			"- Pop Greens Effects require Horticultural Warfare Trait\n" +
-			"- Stealth effects require Assassin/Thief primary.";
-		private int gen_effects;	// To keep track how many General Effects there currently are for Secondary General Effects
+			"- Stealth Effect require Assassin/Thief primary.";
+		private int gen_effects;    // To keep track how many General Effects there currently are for Secondary Gen Effects
 									// Updated when an Effect is added
 									// Updated when an Effect is removed
 		// Bools for primary professions
@@ -28,19 +29,34 @@ namespace OPRPCharBuild
 		// Devil Fruit section
 		private string DF_name;
 		private string DF_type;
-		// Effects for loading
-		private Effects effects = new Effects();
+		// Loading the current effect
+		private Effects Effect = new Effects();
+		// Item for the Dict for a ListView
+		public struct EffectItem
+		{
+			public Effects.Effect_Name ID;
+			public int cost;
+
+			// Constructor
+			public EffectItem(Effects.Effect_Name ID_, int cost_) {
+				ID = ID_;
+				cost = cost_;
+			}
+		}
+		public static Dictionary<string, EffectItem> EffectList = new Dictionary<string, EffectItem>(); // Static variable for project usage
 
 		public Add_Technique(int MaxRank, ListView t_list, ListView Sp_list, string DF_Name, string DF_Type) {
 			InitializeComponent();
 			button_clicked = false;
 			max_rank = MaxRank;
+			min_rank = 1;
 			traits_list = t_list;
 			SpTraits_list = Sp_list;
 			DF_name = DF_Name;
 			DF_type = DF_Type;
 			MainForm.Set_Primary_Bool("Assassin", ref assassin_primary);
 			MainForm.Set_Primary_Bool("Thief", ref thief_primary);
+			gen_effects = 0;
 		}
 
 		#region Dialog Functions
@@ -377,9 +393,8 @@ namespace OPRPCharBuild
 
 		// One exception to the Effect_info_load function because we're adding items into the ComboBox
 		private void Add_Effect_comboBox(ref ComboBox combobox, Effects.Effect_Name ID) {
-			effects.Effect_info_load(ID);
-			if (effects.Get_Effect_MinRank() < max_rank) {
-				combobox.Items.Add(effects.Get_Effect_Name());
+			if (Effect.Get_EffectInfo(ID).MinRank < max_rank) {
+				combobox.Items.Add(Effect.Get_EffectInfo(ID).name);
 			}
 		}
 
@@ -456,10 +471,6 @@ namespace OPRPCharBuild
 			// Used when Rank is changed
 			// Used when an Effect is Added
 			// Used when an Effect is Removed
-		}
-
-		private void Update_Secondary_General() {
-			
 		}
 
 		private void Update_DFRank4() {
@@ -600,7 +611,8 @@ namespace OPRPCharBuild
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.REVERSE);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DUR_DMG);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISABLE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SENSORY);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SENSORY_SING);
+			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SENSORY_MULT);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SUP_SPE);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DEF_BYP);
 			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SPEC_BLOCK);
@@ -656,9 +668,15 @@ namespace OPRPCharBuild
 			if (string.IsNullOrWhiteSpace(textBox_Name.Text)) {
 				MessageBox.Show("Technique needs a name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-			else if (checkBox_Branched.Checked && (numericUpDown_RankBranch.Value == 0 || 
-				string.IsNullOrWhiteSpace(textBox_TechBranched.Text))) {
+			else if (checkBox_Branched.Checked && 
+				(numericUpDown_RankBranch.Value == 0 || string.IsNullOrWhiteSpace(textBox_TechBranched.Text))) {
 				MessageBox.Show("Technique Branch incomplete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else if (int.Parse(textBox_Power.Text) < 0) {
+				MessageBox.Show("Power is below 0.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else if (min_rank > numericUpDown_Rank.Value) {
+				MessageBox.Show("Effect costs are ineligible at its current rank.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else {
 				this.Close();
@@ -768,7 +786,7 @@ namespace OPRPCharBuild
         }
 
 		// This is to avoid tedious repetition for when Stat buttons are pressed.
-		private void Button_Effect(ref CheckBox changed_box, ref CheckBox other_box, ref NumericUpDown stat) {
+		private void Button_Stat(ref CheckBox changed_box, ref CheckBox other_box, ref NumericUpDown stat) {
 			if (changed_box.Checked) {
 				// When the button is checked.
 				if (other_box.Checked) {
@@ -788,35 +806,35 @@ namespace OPRPCharBuild
 		}
 
 		private void checkBox_PlusStr_CheckedChanged(object sender, EventArgs e) {
-			Button_Effect(ref checkBox_PlusStr, ref checkBox_MinusStr, ref numericUpDown_Str);
+			Button_Stat(ref checkBox_PlusStr, ref checkBox_MinusStr, ref numericUpDown_Str);
 		}
 
 		private void checkBox_MinusStr_CheckedChanged(object sender, EventArgs e) {
-			Button_Effect(ref checkBox_MinusStr, ref checkBox_PlusStr, ref numericUpDown_Str);
+			Button_Stat(ref checkBox_MinusStr, ref checkBox_PlusStr, ref numericUpDown_Str);
 		}
 
 		private void checkBox_PlusSpe_CheckedChanged(object sender, EventArgs e) {
-			Button_Effect(ref checkBox_PlusSpe, ref checkBox_MinusSpe, ref numericUpDown_Spe);
+			Button_Stat(ref checkBox_PlusSpe, ref checkBox_MinusSpe, ref numericUpDown_Spe);
 		}
 
 		private void checkBox_MinusSpe_CheckedChanged(object sender, EventArgs e) {
-			Button_Effect(ref checkBox_MinusSpe, ref checkBox_PlusSpe, ref numericUpDown_Spe);
+			Button_Stat(ref checkBox_MinusSpe, ref checkBox_PlusSpe, ref numericUpDown_Spe);
 		}
 
 		private void checkBox_PlusSta_CheckedChanged(object sender, EventArgs e) {
-			Button_Effect(ref checkBox_PlusSta, ref checkBox_MinusSta, ref numericUpDown_Sta);
+			Button_Stat(ref checkBox_PlusSta, ref checkBox_MinusSta, ref numericUpDown_Sta);
 		}
 
 		private void checkBox_MinusSta_CheckedChanged(object sender, EventArgs e) {
-			Button_Effect(ref checkBox_MinusSta, ref checkBox_PlusSta, ref numericUpDown_Sta);
+			Button_Stat(ref checkBox_MinusSta, ref checkBox_PlusSta, ref numericUpDown_Sta);
 		}
 
 		private void checkBox_PlusAcc_CheckedChanged(object sender, EventArgs e) {
-			Button_Effect(ref checkBox_PlusAcc, ref checkBox_MinusAcc, ref numericUpDown_Acc);
+			Button_Stat(ref checkBox_PlusAcc, ref checkBox_MinusAcc, ref numericUpDown_Acc);
 		}
 
 		private void checkBox_MinusAcc_CheckedChanged(object sender, EventArgs e) {
-			Button_Effect(ref checkBox_MinusAcc, ref checkBox_PlusAcc, ref numericUpDown_Acc);
+			Button_Stat(ref checkBox_MinusAcc, ref checkBox_PlusAcc, ref numericUpDown_Acc);
 		}
 
 		#endregion
@@ -839,11 +857,11 @@ namespace OPRPCharBuild
 				button_EffectRemove.Enabled = true;
 				button_AddEffect.Enabled = true;
 				numericUpDown_Cost.Enabled = true;
+				numericUpDown_Cost.ReadOnly = true;
 				comboBox_Effect.Enabled = true;
 				// Fill in Effect Description if there's one pending
-				Effects.Effect_Name ID = effects.Get_EffectID(comboBox_Effect.Text);
-                effects.Effect_info_load(ID);
-				label_EffectDesc.Text = effects.Get_Effect_Desc();
+				Effects.Effect_Name ID = Effect.Get_EffectID(comboBox_Effect.Text);
+				label_EffectDesc.Text = Effect.Get_EffectInfo(ID).desc;
 			}
 		}
 
@@ -865,56 +883,73 @@ namespace OPRPCharBuild
 			Update_Note();
 		}
 
-		// Add into the Effects.list, ListView, and Clear info
-		// Make sure to check if the comboBox Effect is valid
-		// Also check if Power < 0 and it fits within the current Rank
-		// And one last thing: Secondary General Effects is a motherfker
-		private void button_AddEffect_Click(object sender, EventArgs e) {
-			try {
-				int val = 0;
-				if (effects.Get_EffectID(comboBox_Effect.Text) == Effects.Effect_Name.NONE) {
-					MessageBox.Show("Effect name is not legit. Please pick another one.", "Error");
-				}
-				else if (Is_Power_Under(ref val)) {
-					MessageBox.Show("Adding this Effect will cause Power to be " + val +
-						"\nThis is below 0.", "Error");
-				}
-				else if (Is_Rank_Over(ref val)) {
-					MessageBox.Show("Adding this Effect will cause total Costs to be " + val +
-						"\nThis is greater than the current Rank " + numericUpDown_Rank.Value, "Error");
+		// Returns false if we come across a problem.
+		// Returns true if successfully added.
+		// This adds a specified Effect to our Dict
+		private bool Add_to_EffectList(Effects.Effect_Name ID, int cost) {
+			try { EffectList.Add(Effect.Get_EffectInfo(ID).name, new EffectItem(ID, cost)); }
+			catch (Exception ex) {
+				// Exception thrown for a Duplicate key. If null, then that's a problem.
+				if (ex is ArgumentNullException) {
+					MessageBox.Show("Error in adding Effect.\nReason: " + ex.Message, "Exception Thrown");
+					return false;
 				}
 				else {
-					// List Data Structure
-					Effects.list.Add(new Effects.EffectItem(
-						effects.Get_Effect_Name(), effects.Get_Effect_Gen(),
-						effects.Get_Effect_Cost(), effects.Get_Effect_MinRank()));
+					int i = 2;
+					// What we're doing here is trying to give this a unique key by adding a number that increments
+					// Infinite Loop danger btw if EffectList.Add keeps adding a null
+					while (true) {
+						try {
+							string new_name = Effect.Get_EffectInfo(ID).name + i.ToString();
+							EffectList.Add(new_name, new EffectItem(ID, cost));
+							break;
+						}
+						catch {
+							i++;
+						}
+					}
+				}
+			}
+			return true;
+		}
+
+		// Add into the EffectList dictionary, ListView, and Clear info
+		// Make sure to check if the comboBox Effect is valid
+		// And one last thing: Secondary General Effects is a *****
+		private void button_AddEffect_Click(object sender, EventArgs e) {
+			try {
+				Effects.Effect_Name ID = Effect.Get_EffectID(comboBox_Effect.Text);
+				if (ID == Effects.Effect_Name.NONE) {
+					MessageBox.Show("Effect name is not legit. Please pick a proper Effect.", "Error");
+				}
+				else {
+					// Dict Data Structure
+					Add_to_EffectList(ID, (int)numericUpDown_Cost.Value);
 					// ListView
 					ListViewItem item = new ListViewItem();
-					item.SubItems[0].Text = effects.Get_Effect_Name();
-					item.SubItems.Add(effects.Get_Effect_Cost().ToString());
-					if (effects.Get_Effect_Gen()) {
+					item.SubItems[0].Text = Effect.Get_EffectInfo(ID).name;
+					item.SubItems.Add(numericUpDown_Cost.Value.ToString());
+					if (Effect.Get_EffectInfo(ID).general) {
 						item.SubItems.Add("No");
 					}
 					else {
 						item.SubItems.Add("Yes");
 					}
 					// Now check for Secondary General
-					if (effects.Get_Effect_Gen()) {
+					if (Effect.Get_EffectInfo(ID).general) {
 						gen_effects++;
 						if (gen_effects > 2) {
 							// That means we have to add the Secondary
-							effects.Effect_info_load(Effects.Effect_Name.SECONDARY_GEN);
-							Effects.list.Add(new Effects.EffectItem(
-								effects.Get_Effect_Name(), effects.Get_Effect_Gen(),
-								effects.Get_Effect_Cost(), effects.Get_Effect_MinRank()));
-							ListViewItem secondary = new ListViewItem();
-							secondary.SubItems[0].Text = effects.Get_Effect_Name();
-							secondary.SubItems.Add("4");
-							secondary.SubItems.Add("Yes");
+							Add_to_EffectList(Effects.Effect_Name.SECONDARY_GEN, 4);
+							ListViewItem second = new ListViewItem();
+							second.SubItems[0].Text = Effect.Get_EffectInfo(Effects.Effect_Name.SECONDARY_GEN).name;
+							second.SubItems.Add("4");
+							second.SubItems.Add("Yes");
 						}
 					}
 					// Clear info
 					numericUpDown_Cost.Value = 0;
+					numericUpDown_Cost.ReadOnly = true;
 					comboBox_Effect.Text = "Effect";
 					label_EffectDesc.Text = effect_label_reset;
 					label_EffectType.Visible = false;
@@ -928,56 +963,40 @@ namespace OPRPCharBuild
 			}
 		}
 
-		// Static function for Add_Effect
-		private bool Is_Rank_Over(ref int costs) {
-			// "Add" an Effect
-			costs = 0;
-			for (int i = 0; i < Effects.list.Count; ++i) {
-				costs += Effects.list[i].cost;
+		// Returns the Key containing the ID
+		private string EffectList_Key(Effects.Effect_Name ID) {
+			try { return EffectList.FirstOrDefault(x => x.Value.ID == ID).Key; }
+			catch (Exception e) {
+				MessageBox.Show("Could not find Key in Effect List\nReason: " + e.Message, "Exception Thrown");
+				return "";
 			}
-			// We need to look if the Effect pending for Add is General and if there's already more than 2 General
-			if (effects.Get_Effect_Gen() && gen_effects > 2) {
-				costs += 4;
-			}
-			if ((costs + numericUpDown_Cost.Value) > numericUpDown_Rank.Value) {
-				return true;
-			}
-			return false;
 		}
 
-		// Static function for Add_Effect
-		private bool Is_Power_Under(ref int power) {
-			power = int.Parse(textBox_Power.Text);
-			for (int i = 0; i < Effects.list.Count; ++i) {
-				if (!Effects.list[i].general) {
-					power -= Effects.list[i].cost;
-				}
-			}
-			// We need to look if the Effect pending for Add is General and if there's already more than 2 General
-			if (effects.Get_Effect_Gen() && gen_effects > 2) {
-				power -= 4;
-			}
-			if (!effects.Get_Effect_Gen() && ((power - numericUpDown_Cost.Value) < 0)) {
-				// This logic better be right.
-				return true;
-			}
-			return false;
-		}
-
+		// Remember this requirement: Secondary Elite Effect is ALWAYS below a General Effect
+		// Also remember: EffectList.Remove(key) ONLY
 		private void button_EffectRemove_Click(object sender, EventArgs e) {
 			// "Remove" an Effect
 			string effect = MainForm.Delete_ListViewItem(ref listView_Effects);
-			if (!string.IsNullOrWhiteSpace(effect)) {
-				for (int i = 0; i < Effects.list.Count; ++i) {
-					// We found the Effect name at its index: 1) Check for General, and then Remove it.
-					if (Effects.list[i].name == effect) { 
-						if (Effects.list[i].general) {
-							gen_effects--;
-						}
-						Effects.list.RemoveAt(i);
-						return;
+			if (effect == Effect.Get_EffectInfo(Effects.Effect_Name.SECONDARY_GEN).name) {
+				MessageBox.Show("Can't remove a Secondary General Effect cost!\nRemove a General Effect instead.", "Error");
+			}
+            else if (!string.IsNullOrWhiteSpace(effect)) {
+				// That means we deleted an Effect from the ListView. 
+				// Now we must 1) Check for General, and then Remove Effect from Dict.
+				Effects.Effect_Name ID = Effect.Get_EffectID(effect);
+                string key = EffectList_Key(ID); // This should only be used to remove
+				if (Effect.Get_EffectInfo(ID).general) {
+					if (gen_effects > 2) {
+						// If we're removing a General Effect at >2, then we have to remove Secondary
+						string secondary = Effect.Get_EffectInfo(Effects.Effect_Name.SECONDARY_GEN).name;
+						ListViewItem item = listView_Effects.FindItemWithText(secondary);
+						listView_Effects.Items.Remove(item);    // ListView
+						string secondary_key = EffectList_Key(Effects.Effect_Name.SECONDARY_GEN);
+						EffectList.Remove(secondary_key);		// Dict
 					}
+					gen_effects--;
 				}
+				EffectList.Remove(key);
 			}
 			Update_MinRank();
 			Update_Power_Value();
@@ -985,11 +1004,14 @@ namespace OPRPCharBuild
 
 		private void comboBox_Effect_SelectionChangeCommitted(object sender, EventArgs e) {
 			// Due to selecting from a set List, we're going to assume everything is fine
-			Effects.Effect_Name ID = effects.Get_EffectID(comboBox_Effect.Text);
-			effects.Effect_info_load(ID);
-			numericUpDown_Cost.Value = effects.Get_Effect_Cost();
-			label_EffectDesc.Text = effects.Get_Effect_Desc();
-			if (effects.Get_Effect_Gen()) {
+			Effects.Effect_Name ID = Effect.Get_EffectID(comboBox_Effect.Text);
+			numericUpDown_Cost.Value = Effect.Get_EffectInfo(ID).cost;
+			if (ID == Effects.Effect_Name.MIR_CLONE || ID == Effects.Effect_Name.WOOD_DEF) {
+				// These are effects that can change in Cost.
+				numericUpDown_Cost.ReadOnly = false;
+			}
+			label_EffectDesc.Text = Effect.Get_EffectInfo(ID).desc;
+			if (Effect.Get_EffectInfo(ID).general) {
 				label_EffectType.Visible = true;
 				label_EffectType.Text = "General Effect";
 			}
@@ -1000,11 +1022,14 @@ namespace OPRPCharBuild
 		}
 
 		private void comboBox_Range_SelectionChangeCommitted(object sender, EventArgs e) {
-			Effects.Effect_Name ID = effects.Get_EffectID(comboBox_Range.Text);
-			effects.Effect_info_load(ID);
-			comboBox_Effect.Text = effects.Get_Effect_Name();
-			numericUpDown_Cost.Value = effects.Get_Effect_Cost();
-			label_EffectDesc.Text = effects.Get_Effect_Desc();
+			Effects.Effect_Name ID = Effect.Get_EffectID(comboBox_Range.Text);
+			comboBox_Effect.Text = Effect.Get_EffectInfo(ID).name;
+			numericUpDown_Cost.Value = Effect.Get_EffectInfo(ID).cost;
+			if (ID == Effects.Effect_Name.MIR_CLONE || ID == Effects.Effect_Name.WOOD_DEF) {
+				// These are effects that can change in Cost.
+				numericUpDown_Cost.ReadOnly = false;
+			}
+			label_EffectDesc.Text = Effect.Get_EffectInfo(ID).desc;
 		}
 
 		// Used to display the Effect description in a "Blue" Color

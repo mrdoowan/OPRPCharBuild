@@ -208,8 +208,6 @@
 			this.label62 = new System.Windows.Forms.Label();
 			this.textBox_RegTPUsed = new System.Windows.Forms.TextBox();
 			this.label61 = new System.Windows.Forms.Label();
-			this.tabPage8 = new System.Windows.Forms.TabPage();
-			this.label32 = new System.Windows.Forms.Label();
 			this.button_Generate = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -256,7 +254,6 @@
 			this.groupBox10.SuspendLayout();
 			this.tabPage6.SuspendLayout();
 			this.groupBox11.SuspendLayout();
-			this.tabPage8.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -279,7 +276,6 @@
 			this.tabControl1.Controls.Add(this.tabPage7);
 			this.tabControl1.Controls.Add(this.tabPage5);
 			this.tabControl1.Controls.Add(this.tabPage6);
-			this.tabControl1.Controls.Add(this.tabPage8);
 			this.tabControl1.Location = new System.Drawing.Point(12, 108);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
@@ -2397,27 +2393,6 @@
 			this.label61.TabIndex = 0;
 			this.label61.Text = "Used / Total Regular Technique Points:";
 			// 
-			// tabPage8
-			// 
-			this.tabPage8.Controls.Add(this.label32);
-			this.tabPage8.Location = new System.Drawing.Point(4, 22);
-			this.tabPage8.Name = "tabPage8";
-			this.tabPage8.Size = new System.Drawing.Size(652, 478);
-			this.tabPage8.TabIndex = 7;
-			this.tabPage8.Text = "Gains & Losses";
-			this.tabPage8.UseVisualStyleBackColor = true;
-			// 
-			// label32
-			// 
-			this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
-			this.label32.Location = new System.Drawing.Point(3, 0);
-			this.label32.Name = "label32";
-			this.label32.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.label32.Size = new System.Drawing.Size(646, 478);
-			this.label32.TabIndex = 0;
-			this.label32.Text = "CURRENTLY IN DEVELOPMENT";
-			this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
 			// button_Generate
 			// 
 			this.button_Generate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
@@ -2548,7 +2523,7 @@
 			// olderVersionToolStripMenuItem
 			// 
 			this.olderVersionToolStripMenuItem.Name = "olderVersionToolStripMenuItem";
-			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
 			this.olderVersionToolStripMenuItem.Text = "Older Version";
 			this.olderVersionToolStripMenuItem.Click += new System.EventHandler(this.olderVersionToolStripMenuItem_Click);
 			// 
@@ -2610,7 +2585,6 @@
 			this.tabPage6.ResumeLayout(false);
 			this.groupBox11.ResumeLayout(false);
 			this.groupBox11.PerformLayout();
-			this.tabPage8.ResumeLayout(false);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			this.ResumeLayout(false);
@@ -2818,8 +2792,6 @@
 		private System.Windows.Forms.Button button_ImageEdit;
 		private System.Windows.Forms.Button button_TraitOrder;
 		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.TabPage tabPage8;
-		private System.Windows.Forms.Label label32;
 	}
 }
 

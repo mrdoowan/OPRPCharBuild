@@ -287,7 +287,7 @@ namespace OPRPCharBuild
 			template.Write('\n');
 			template.Write("[table=2, Weaponry]");
 			if (weapons.Items.Count == 0) {
-				template.Write("[b]None[/b][c](DESCRIPTION)");
+				template.Write("[b]None[/b][c]N/A");
 			}
 			else {
 				int i = 0; // Just for the first index
@@ -302,7 +302,7 @@ namespace OPRPCharBuild
 			template.Write("[/table]\n");
 			template.Write("[table=2, Items]");
 			if (items.Items.Count == 0) {
-				template.Write("[b]None[/b][c](DESCRIPTION)");
+				template.Write("[b]None[/b][c]N/A");
 			}
 			else {
 				int i = 0; // Just for the first index

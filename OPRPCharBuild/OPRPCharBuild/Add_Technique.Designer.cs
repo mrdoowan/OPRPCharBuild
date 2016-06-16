@@ -101,6 +101,7 @@
 			this.toolTip_NAPower = new System.Windows.Forms.ToolTip(this.components);
 			this.toolTip_MinRank = new System.Windows.Forms.ToolTip(this.components);
 			this.toolTip_ComboBoxEffect = new System.Windows.Forms.ToolTip(this.components);
+			this.toolTip_Range = new System.Windows.Forms.ToolTip(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
@@ -356,6 +357,7 @@
 			this.comboBox_Range.Name = "comboBox_Range";
 			this.comboBox_Range.Size = new System.Drawing.Size(153, 21);
 			this.comboBox_Range.TabIndex = 48;
+			this.toolTip_Range.SetToolTip(this.comboBox_Range, "Selecting a Range will load its Effects. Press \"Add\" after selecting.");
 			this.comboBox_Range.SelectionChangeCommitted += new System.EventHandler(this.comboBox_Range_SelectionChangeCommitted);
 			// 
 			// label10
@@ -817,6 +819,7 @@
             0,
             0});
 			this.numericUpDown_Cost.Name = "numericUpDown_Cost";
+			this.numericUpDown_Cost.ReadOnly = true;
 			this.numericUpDown_Cost.Size = new System.Drawing.Size(39, 20);
 			this.numericUpDown_Cost.TabIndex = 108;
 			this.toolTip_Cost.SetToolTip(this.numericUpDown_Cost, "REMINDER: Only change this value if changing different Tiers");
@@ -1097,5 +1100,6 @@
 		private System.Windows.Forms.ToolTip toolTip_MinRank;
 		private System.Windows.Forms.ToolTip toolTip_ComboBoxEffect;
 		private System.Windows.Forms.Label label_EffectType;
+		private System.Windows.Forms.ToolTip toolTip_Range;
 	}
 }
