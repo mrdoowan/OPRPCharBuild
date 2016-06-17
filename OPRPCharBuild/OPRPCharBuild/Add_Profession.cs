@@ -164,8 +164,8 @@ namespace OPRPCharBuild
 			this.Text = "Edit Profession";
 			button1.Text = "Edit";
 			// Put what's Edited into the Dialog Box first.
-			comboBox1.Text = Main_Form.SelectedItems[0].SubItems[0].Text;
 			MainForm.ProfList.Remove(Main_Form.SelectedItems[0].SubItems[0].Text);
+			comboBox1.Text = Main_Form.SelectedItems[0].SubItems[0].Text;
 			if (Main_Form.SelectedItems[0].SubItems[1].Text == "Primary") {
 				checkBox1.Checked = true;
 			}
@@ -203,14 +203,14 @@ namespace OPRPCharBuild
 			}
 			// To clear the possible red background
 			if (red_name) {
-				comboBox1.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+				comboBox1.BackColor = Color.FromArgb(255, 255, 255);
 				red_name = false;
 			}
 		}
 
 		private void comboBox1_TextUpdate(object sender, EventArgs e) {
 			if (red_name) {
-				comboBox1.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+				comboBox1.BackColor = Color.FromArgb(255, 255, 255);
 				red_name = false;
 			}
 		}
@@ -230,14 +230,14 @@ namespace OPRPCharBuild
 
 		private void richTextBox1_Desc_TextChanged(object sender, EventArgs e) {
 			if (red_desc) {
-				richTextBox1_Desc.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+				richTextBox1_Desc.BackColor = Color.FromArgb(255, 255, 255);
 				red_desc = false;
 			}
 		}
 
 		private void richTextBox2_Primary_TextChanged(object sender, EventArgs e) {
 			if (red_bon) {
-				richTextBox2_Primary.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+				richTextBox2_Primary.BackColor = Color.FromArgb(255, 255, 255);
 				red_bon = false;
 			}
 		}

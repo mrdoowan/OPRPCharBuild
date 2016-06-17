@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ namespace OPRPCharBuild
 {
 	public partial class Add_Technique : Form
 	{
+		private bool exit_error;
 		private bool button_clicked;
 		private int max_rank;
 		private int min_rank;
@@ -35,18 +37,23 @@ namespace OPRPCharBuild
 		public struct EffectItem
 		{
 			public Effects.Effect_Name ID;
+			public bool gen;
 			public int cost;
+			public int minRank;
 
 			// Constructor
-			public EffectItem(Effects.Effect_Name ID_, int cost_) {
+			public EffectItem(Effects.Effect_Name ID_, bool gen_, int cost_, int minRank_) {
 				ID = ID_;
+				gen = gen_;
 				cost = cost_;
+				minRank = minRank_;
 			}
 		}
-		public static Dictionary<string, EffectItem> EffectList = new Dictionary<string, EffectItem>(); // Static variable for project usage
+		public Dictionary<string, EffectItem> EffectList = new Dictionary<string, EffectItem>(); // Static variable for project usage
 
 		public Add_Technique(int MaxRank, ListView t_list, ListView Sp_list, string DF_Name, string DF_Type) {
 			InitializeComponent();
+			exit_error = false;
 			button_clicked = false;
 			max_rank = MaxRank;
 			min_rank = 1;
@@ -61,11 +68,13 @@ namespace OPRPCharBuild
 
 		#region Dialog Functions
 
-		public void NewDialog(ref ListView Main_Form, bool branch) {
+		// For loading TechStats
+
+		public void NewDialog(ref ListView Main_Form, MainForm.TechInfo Tech, bool branch) {
 			if (branch) {
 				// If we're branching a Technique, we want to duplicate, and then modify.
 				try {
-					Copy_Data_To_Form(Main_Form);
+					Copy_Data_To_Form(Tech);
 					textBox_Name.Clear();
 					ListViewItem sel_item = Main_Form.SelectedItems[0];
 					int rank = int.Parse(sel_item.SubItems[1].Text);
@@ -80,18 +89,20 @@ namespace OPRPCharBuild
 			}
 			this.ShowDialog();
 			if (button_clicked) {
+				// Store into Dictionary with TechInfo
+				Copy_Form_to_Dictionary();
+				// Now add into ListView for display
 				ListViewItem item = new ListViewItem();
-				item.SubItems[0].Text = textBox_Name.Text;    // Column 0: Tech Name
-				item.SubItems.Add(numericUpDown_Rank.Value.ToString());  // Column 1: Rank
-				item.SubItems.Add(numericUpDown_RegTP.Value.ToString()); // Column 2: Reg TP
-				item.SubItems.Add(numericUpDown_SpTP.Value.ToString());  // Column 3: Sp. TP
-				item.SubItems.Add(comboBox_SpTrait.Text);                // Column 4: Sp. Trait
-				item.SubItems.Add(comboBox_AffectTech.Text);             // Column 5: Rank Trait
-				item.SubItems.Add(textBox_TechBranched.Text);            // Column 6: Branched From
-				item.SubItems.Add(numericUpDown_RankBranch.Value.ToString()); // Column 7: Points Branched
-				item.SubItems.Add(comboBox_Type.Text);               // Column 8: Type
-				item.SubItems.Add(comboBox_Range.Text);              // Column 9: Range
-				string stats = "";                                   // Column 10: Stats
+				item.SubItems[0].Text = textBox_Name.Text;				// Column 0: Tech Name
+				item.SubItems.Add(numericUpDown_Rank.Value.ToString());	// Column 1: Rank
+				item.SubItems.Add(numericUpDown_RegTP.Value.ToString());// Column 2: Reg TP
+				item.SubItems.Add(numericUpDown_SpTP.Value.ToString()); // Column 3: Sp. TP
+				item.SubItems.Add(comboBox_SpTrait.Text);				// Column 4: Sp. Trait
+				item.SubItems.Add(comboBox_AffectTech.Text);            // Column 5: Rank Trait
+				item.SubItems.Add(textBox_TechBranched.Text);           // Column 6: Branched From
+				item.SubItems.Add(comboBox_Type.Text);					// Column 7: Type
+				item.SubItems.Add(comboBox_Range.Text);					// Column 8: Range
+				string stats = "";										// Column 9: Stats
 				int type_checked = 0;
 				if (numericUpDown_Str.Enabled) {
 					type_checked++;
@@ -161,24 +172,19 @@ namespace OPRPCharBuild
 					// Jesus that is so repetitive ugh.
 				}
 				item.SubItems.Add(stats);
-				item.SubItems.Add(numericUpDown_Power.Value.ToString());    // Column 11: Power
-				item.SubItems.Add(textBox_Effects.Text);            // Column 12: Effects
-				item.SubItems.Add(textBox_TPMsg.Text);              // Column 13: TP Note
-				item.SubItems.Add(richTextBox_Desc.Text);           // Column 14: Description
-																								// Add the entire damn thing
-				Main_Form.Items.Add(item);
+				item.SubItems.Add(textBox_Power.Text.ToString());   // Column 10: Power
+				Main_Form.Items.Add(item);							// Add the entire damn thing
 			}
 		}
 
-		private void Copy_Data_To_Form(ListView Main_Form) {
-			// Put the Tech being edited into the Dialog Box first.
+		// NEEDS EDITING
+		private void Copy_Data_To_Form(MainForm.TechInfo Tech) {
+			// Put the Tech being edited into the Dialog Box first. Take it from the Dictionary
 			// ...This is going to massively suck.
-			ListViewItem sel_item = Main_Form.SelectedItems[0];
-			// With the above, we want to temporarily store a variable
 			textBox_Name.Text = sel_item.SubItems[0].Text;                      // Column 0: Tech Name
-			numericUpDown_Rank.Value = int.Parse(sel_item.SubItems[1].Text);  // Column 1: Rank
-			numericUpDown_RegTP.Value = int.Parse(sel_item.SubItems[2].Text); // Column 2: Reg TP
-			numericUpDown_SpTP.Value = int.Parse(sel_item.SubItems[3].Text);  // Column 3: Sp. TP
+			numericUpDown_Rank.Value = int.Parse(sel_item.SubItems[1].Text);	// Column 1: Rank
+			numericUpDown_RegTP.Value = int.Parse(sel_item.SubItems[2].Text);	// Column 2: Reg TP
+			numericUpDown_SpTP.Value = int.Parse(sel_item.SubItems[3].Text);	// Column 3: Sp. TP
 			edit_SpTrait = sel_item.SubItems[4].Text;                           // Column 4: Sp. Trait (Need items initialized FIRST)
 			edit_RankTrait = sel_item.SubItems[5].Text;                         // Column 5: Rank Trait (Need items initialized FIRST)
 																				// Columns 4 and 5 are done in Add_Technique_Load
@@ -274,15 +280,56 @@ namespace OPRPCharBuild
 			}
 			numericUpDown_Power.Value = int.Parse(sel_item.SubItems[11].Text);    // Column 11: Power
 			textBox_Effects.Text = sel_item.SubItems[12].Text;  // Column 12: Effects
-			textBox_TPMsg.Text = sel_item.SubItems[13].Text;    // Column 13: TP Note
+			textBox_Note.Text = sel_item.SubItems[13].Text;    // Column 13: TP Note
 			richTextBox_Desc.Text = sel_item.SubItems[14].Text; // Column 14: Description
 																// Now proceed to edit it.
 		}
 
-		public void EditDialog(ref ListView Main_Form) {
+		private void Stats_Number(CheckBox statCheckMinus, NumericUpDown statVal, ref int statInt) {
+			if (statVal.Enabled) {
+				if (statCheckMinus.Checked) {
+					statInt = -1 * (int)statVal.Value;
+				}
+				else {
+					statInt = (int)statVal.Value;
+				}
+			}
+		}
+
+		private void Copy_Form_to_Dictionary() {
+			string name = textBox_Name.Text;
+			int str = 0, spe = 0, sta = 0, acc = 0;
+			Stats_Number(checkBox_MinusStr, numericUpDown_Str, ref str);
+			Stats_Number(checkBox_MinusSpe, numericUpDown_Spe, ref spe);
+			Stats_Number(checkBox_MinusSta, numericUpDown_Sta, ref sta);
+			Stats_Number(checkBox_MinusAcc, numericUpDown_Acc, ref acc);
+			MainForm.TechStats Techstats = new MainForm.TechStats(str, spe, sta, acc);
+			// DF Options
+			List<bool> DF_options = new List<bool>();
+			DF_options.Add(checkBox_DFRank4.Checked);
+			DF_options.Add(checkBox_ZoanSig.Checked);
+			DF_options.Add(checkBox_Full.Checked);
+			DF_options.Add(checkBox_Hybrid.Checked);
+			// Now initialize TechInfo and add into TechList
+			MainForm.TechInfo Tech_Info = new MainForm.TechInfo((int)numericUpDown_Rank.Value,
+				(int)numericUpDown_RegTP.Value, (int)numericUpDown_SpTP.Value,
+				comboBox_AffectTech.Text, comboBox_SpTrait.Text, textBox_TechBranched.Text,
+				(int)numericUpDown_RankBranch.Value, comboBox_Type.Text, comboBox_Range.Text,
+				Techstats, EffectList, textBox_Power.Text, DF_options, textBox_Note.Text,
+				richTextBox_Desc.Text);
+			try { MainForm.TechList.Add(name, Tech_Info); }
+			catch (Exception e) { MessageBox.Show("There was an error in adding Info to TechList." + 
+				"Massive bug that could cause corruption.\nReason: " + e.Message, "Exception Thrown"); }
+		}
+
+		public void EditDialog(ref ListView Main_Form, MainForm.TechInfo Tech) {
 			try {
 				button11.Text = "Edit";
-				Copy_Data_To_Form(Main_Form);
+				try { Copy_Data_To_Form(Tech); }
+				catch (Exception ex) {
+					MessageBox.Show("There was an error copying from Dictionary to Tech Form.\nReason: " + ex.Message, "Exception Thrown");
+					return;
+				}
 				this.ShowDialog();
 				if (button_clicked) {
 					Main_Form.SelectedItems[0].SubItems[0].Text = textBox_Name.Text;    // Column 0: Tech Name
@@ -367,12 +414,12 @@ namespace OPRPCharBuild
 					Main_Form.SelectedItems[0].SubItems[10].Text = stats;
 					Main_Form.SelectedItems[0].SubItems[11].Text = numericUpDown_Power.Value.ToString();    // Column 11: Power
 					Main_Form.SelectedItems[0].SubItems[12].Text = textBox_Effects.Text;            // Column 12: Effects
-					Main_Form.SelectedItems[0].SubItems[13].Text = textBox_TPMsg.Text;              // Column 13: TP Note
+					Main_Form.SelectedItems[0].SubItems[13].Text = textBox_Note.Text;              // Column 13: TP Note
 					Main_Form.SelectedItems[0].SubItems[14].Text = richTextBox_Desc.Text;           // Column 14: Description
 				}
 			}
 			catch (Exception e) {
-				MessageBox.Show("You didn't select a Technique\nException Handled: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("A technique wasn't selected.\nException Handled: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -457,7 +504,7 @@ namespace OPRPCharBuild
 			if (numericUpDown_SpTP.Value > 0) {
 				message += numericUpDown_SpTP.Value + " Sp. TP used for [i]" + comboBox_SpTrait.Text + "[/i].";
 			}
-			textBox_TPMsg.Text = message;
+			textBox_Note.Text = message;
 			// Used when Sig is checked/unchecked
 			// Used when Branched From text is changed.
 			// Used when Branched points is changed.
@@ -466,7 +513,26 @@ namespace OPRPCharBuild
 		}
 
 		private void Update_Power_Value() {
-
+			int power = (int)numericUpDown_Rank.Value;
+			Traits.Trait_Name ID = traits.get_TraitID(comboBox_AffectTech.Text);
+			if (ID == Traits.Trait_Name.MARTIAL_MASTERY || ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
+				ID == Traits.Trait_Name.STANCE_MAST || ID == Traits.Trait_Name.ART_OF_STEALTH ||
+				ID == Traits.Trait_Name.ANTI_STEALTH || ID == Traits.Trait_Name.DWARF) {
+				power += 4;
+			}
+			foreach (EffectItem effect in EffectList.Values) {
+				if (!effect.gen) {
+					power -= effect.cost;
+				}
+			}
+			textBox_Power.Text = power.ToString();
+			// Flag it red if Power is below 0
+			if (power < 0) {
+				textBox_Power.BackColor = Color.FromArgb(255, 128, 128);
+			}
+			else {
+				textBox_Power.BackColor = SystemColors.Control;
+			}
 			// Used when Trait Affecting Tech is changed
 			// Used when Rank is changed
 			// Used when an Effect is Added
@@ -474,23 +540,44 @@ namespace OPRPCharBuild
 		}
 
 		private void Update_DFRank4() {
-			int rank = (int)numericUpDown_Rank.Value;
+			int TPUsed = (int)numericUpDown_Rank.Value;
 			if (checkBox_DFRank4.Checked) {
-				rank -= 4;
-				if (rank < 0) {
-					rank = 0;
+				TPUsed -= 4;
+				if (TPUsed < 0) {
+					TPUsed = 0;
 				}
-				numericUpDown_RegTP.Value = rank;
+				numericUpDown_RegTP.Value = TPUsed;
 			}
 			else {
-				numericUpDown_RegTP.Value = rank;
+				numericUpDown_RegTP.Value = TPUsed;
 			}
 			// Used when DF Rank 4 is Checked
 			// Used when Rank Value is changed
 		}
 
 		private void Update_MinRank() {
-
+			string label = "Min Rank is: ";
+			int min_cost = 0;
+			int min_rank = 0;
+			foreach (EffectItem effect in EffectList.Values) {
+				min_cost += effect.cost;
+				if (min_rank < effect.minRank) {
+					min_rank = effect.minRank;
+				}
+			}
+			if (min_rank > min_cost) {
+				label += min_rank;
+			}
+			else {
+				label += min_cost;
+			}
+			label_MinRank.Text = label;
+			if (min_rank > numericUpDown_Rank.Value || min_cost > numericUpDown_Rank.Value) {
+				label_MinRank.ForeColor = Color.Red;
+			}
+			else {
+				label_MinRank.ForeColor = SystemColors.ControlText;
+			}
 			// Used when an Effect is Added
 			// Used when an Effect is Removed
 		}
@@ -664,9 +751,13 @@ namespace OPRPCharBuild
 		}
 
 		private void button11_Click(object sender, EventArgs e) {
+			// The "Add" Technique button.
 			// Only want the appropriate changes to be made, so we add a bool
 			if (string.IsNullOrWhiteSpace(textBox_Name.Text)) {
 				MessageBox.Show("Technique needs a name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else if (MainForm.TechList.ContainsKey(textBox_Name.Text)) {
+				MessageBox.Show("Can't add 2 Techniques with the same name!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else if (checkBox_Branched.Checked && 
 				(numericUpDown_RankBranch.Value == 0 || string.IsNullOrWhiteSpace(textBox_TechBranched.Text))) {
@@ -712,6 +803,7 @@ namespace OPRPCharBuild
 			Update_Note();
 		}
 
+		// NEEDS EDITING
 		private void button12_Click(object sender, EventArgs e) {
 			// Clear button
 			DialogResult result = new DialogResult();
@@ -744,7 +836,7 @@ namespace OPRPCharBuild
 				numericUpDown_Sta.Value = 1;
 				numericUpDown_Acc.Value = 1;
 				// The rest
-				textBox_TPMsg.Clear();
+				textBox_Note.Clear();
 				richTextBox_Desc.Clear();
 			}
 		}
@@ -837,8 +929,6 @@ namespace OPRPCharBuild
 			Button_Stat(ref checkBox_MinusAcc, ref checkBox_PlusAcc, ref numericUpDown_Acc);
 		}
 
-		#endregion
-
 		private void checkBox_NA_CheckedChanged(object sender, EventArgs e) {
 			if (checkBox_NA.Checked) {
 				listView_Effects.Enabled = false;
@@ -850,15 +940,18 @@ namespace OPRPCharBuild
 				listView_Effects.Items.Clear();
 				label_MinRank.Text = "Min Rank is: 1";
 				min_rank = 1;
+				label_EffectType.Visible = false;
 				label_EffectDesc.Text = effect_label_reset;
 			}
 			else {
+				textBox_Power.Text = "1";
 				listView_Effects.Enabled = true;
 				button_EffectRemove.Enabled = true;
 				button_AddEffect.Enabled = true;
 				numericUpDown_Cost.Enabled = true;
 				numericUpDown_Cost.ReadOnly = true;
 				comboBox_Effect.Enabled = true;
+				label_EffectType.Visible = true;
 				// Fill in Effect Description if there's one pending
 				Effects.Effect_Name ID = Effect.Get_EffectID(comboBox_Effect.Text);
 				label_EffectDesc.Text = Effect.Get_EffectInfo(ID).desc;
@@ -887,7 +980,8 @@ namespace OPRPCharBuild
 		// Returns true if successfully added.
 		// This adds a specified Effect to our Dict
 		private bool Add_to_EffectList(Effects.Effect_Name ID, int cost) {
-			try { EffectList.Add(Effect.Get_EffectInfo(ID).name, new EffectItem(ID, cost)); }
+			Effects.EffectInfo effect = Effect.Get_EffectInfo(ID);
+			try { EffectList.Add(effect.name, new EffectItem(ID, effect.general, cost, effect.MinRank)); }
 			catch (Exception ex) {
 				// Exception thrown for a Duplicate key. If null, then that's a problem.
 				if (ex is ArgumentNullException) {
@@ -901,7 +995,7 @@ namespace OPRPCharBuild
 					while (true) {
 						try {
 							string new_name = Effect.Get_EffectInfo(ID).name + i.ToString();
-							EffectList.Add(new_name, new EffectItem(ID, cost));
+							EffectList.Add(new_name, new EffectItem(ID, effect.general, cost, effect.MinRank));
 							break;
 						}
 						catch {
@@ -1036,5 +1130,7 @@ namespace OPRPCharBuild
 		private void listView_Effects_SelectedIndexChanged(object sender, EventArgs e) {
 
 		}
+
+		#endregion
 	}
 }

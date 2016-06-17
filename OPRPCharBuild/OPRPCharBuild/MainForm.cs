@@ -41,6 +41,65 @@ namespace OPRPCharBuild
 		// Hold a list of Professions that is "bound" to the ListView. String is the name, and bool is if it's primary or not.
 		// Dictionary is fine because string values SHOULD be unique
 		public static Dictionary<string, bool> ProfList = new Dictionary<string, bool>();
+		// Techniques. My favorite. The struct TechInfo is designed to load all the information to Add_Technique form
+		public static Dictionary<string, TechInfo> TechList = new Dictionary<string, TechInfo>();
+		public struct TechInfo
+		{
+			public int rank;
+			public int regTP;
+			public int spTP;
+			public string tech_Trait;
+			public string sp_Trait;
+			public string tech_Branch;
+			public int rank_Branch;
+			public string type;
+			public string range;
+			public TechStats stats;
+			public Dictionary<string, Add_Technique.EffectItem> effectList;
+			public string power;
+			public List<bool> DF_checkBox;
+			public string note;
+			public string desc;
+
+			// Constructor
+			public TechInfo(int rank_, int regTP_, int spTP_, string techTrait_, string spTrait_,
+				string techBranch_, int rankBranch_, string type_, string range_, TechStats stats_,
+				Dictionary<string, Add_Technique.EffectItem> effectList_, string power_, List<bool> DF_,
+				string note_, string desc_) {
+				rank = rank_;
+				regTP = regTP_;
+				spTP = spTP_;
+				tech_Trait = techTrait_;
+				sp_Trait = spTrait_;
+				tech_Branch = techBranch_;
+				rank_Branch = rankBranch_;
+				type = type_;
+				range = range_;
+				stats = stats_;
+				effectList = effectList_;
+				power = power_;
+				DF_checkBox = DF_;
+				note = note_;
+				desc = desc_;
+			}
+		}
+
+		public struct TechStats
+		{
+			public int str;
+			public int spe;
+			public int sta;
+			public int acc;
+
+			// Constructor
+			public TechStats(int str_, int spe_, int sta_, int acc_) {
+				str = str_;
+				spe = spe_;
+				sta = sta_;
+				acc = acc_;
+			}
+		}
+
 
 		#region General Functions
 
@@ -302,9 +361,9 @@ namespace OPRPCharBuild
 			int index = Traits.Contains_Trait_AtIndex(Traits.Trait_Name.FATE_EMP, listView_Traits);
 			if (index != -1) {
 				// # Gen Traits is Column 2
-				int Traits = int.Parse(listView_Traits.Items[index].SubItems[2].Text);
-				fortune += Traits;
-				calc += " + " + Traits;
+				int traits = int.Parse(listView_Traits.Items[index].SubItems[2].Text);
+				fortune += traits;
+				calc += " + " + traits;
 			}
 			calc += ']';
 			// Total Fortune display along with calculation
@@ -694,6 +753,7 @@ namespace OPRPCharBuild
 			// Used when a Technique is removed.
 		}
 
+		// NEEDS EDITING
 		private void Update_Trait_Warning() {
 			// What happens if we delete a Trait in which a Technique uses that trait?
 			// We have to inform the user!
@@ -806,14 +866,10 @@ namespace OPRPCharBuild
 			listView_Techniques.Columns.Add("Sp. Trait", 75);       // 4
 			listView_Techniques.Columns.Add("Rank Trait", 75);      // 5
 			listView_Techniques.Columns.Add("Branched From", 100);  // 6
-			listView_Techniques.Columns.Add("TP Branched", 50);     // 7
-			listView_Techniques.Columns.Add("Type", 75);            // 8
-			listView_Techniques.Columns.Add("Range", 75);           // 9
-			listView_Techniques.Columns.Add("Stats", 75);           // 10
-			listView_Techniques.Columns.Add("Power", 50);           // 11
-			listView_Techniques.Columns.Add("Effects", 100);        // 12
-			listView_Techniques.Columns.Add("TP Note", 100);		// 13
-			listView_Techniques.Columns.Add("Description", 200);    // 14
+			listView_Techniques.Columns.Add("Type", 75);            // 7
+			listView_Techniques.Columns.Add("Range", 75);           // 8
+			listView_Techniques.Columns.Add("Stats", 75);           // 9
+			listView_Techniques.Columns.Add("Power", 50);           // 10
 
 			// ------ Weaponry Table
 			listView_Weaponry.View = View.Details;
@@ -946,7 +1002,7 @@ namespace OPRPCharBuild
 				}
             }
 			catch (Exception ex) {
-				MessageBox.Show("Error in deleting Profession.\nReason: " + ex.Message);
+				MessageBox.Show("Error in deleting Profession.\nReason: " + ex.Message, "Exception Thrown");
 			}
 		}
 
@@ -1363,7 +1419,7 @@ namespace OPRPCharBuild
 			// Technique "Add" button from the MainForm
 			int max_rank = int.Parse(textBox_Fortune.Text) / 2;
 			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, textBox_DFName.Text, comboBox_DFType.Text);
-			TechniqueWin.NewDialog(ref listView_Techniques, false);
+			TechniqueWin.NewDialog(ref listView_Techniques, new TechInfo(), false);
 			// Update functions go below
 			Update_SpTrait_Table_Values();
 			Update_Used_RegTP();
@@ -1371,32 +1427,48 @@ namespace OPRPCharBuild
 
 		private void button_TechBranch_Click(object sender, EventArgs e) {
 			// Technique "Duplicate" button from the MainForm
-			int max_rank = int.Parse(textBox_Fortune.Text) / 2;
-			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, textBox_DFName.Text, comboBox_DFType.Text);
-			TechniqueWin.NewDialog(ref listView_Techniques, true);
-			// Update functions go below
-			Update_SpTrait_Table_Values();
-			Update_Used_RegTP();
+			string TechName = listView_Techniques.SelectedItems[0].SubItems[0].Text;
+			if (string.IsNullOrWhiteSpace(TechName)) {
+				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
+				Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, textBox_DFName.Text, comboBox_DFType.Text);
+				TechInfo Selected = TechList[TechName];
+				TechniqueWin.NewDialog(ref listView_Techniques, Selected, true);
+				// Update functions go below
+				Update_SpTrait_Table_Values();
+				Update_Used_RegTP();
+			}
 		}
 
 		private void button_TechEdit_Click(object sender, EventArgs e) {
 			// Technique "Edit" button from the MainForm
-			int max_rank = int.Parse(textBox_Fortune.Text) / 2;
-			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, textBox_DFName.Text, comboBox_DFType.Text);
-			TechniqueWin.EditDialog(ref listView_Techniques);
-			// Update functions go below
-			Update_SpTrait_Table_Values();
-			Update_Trait_Warning();
-			Update_Used_RegTP();
+			string TechName = listView_Techniques.SelectedItems[0].SubItems[0].Text;
+			if (string.IsNullOrWhiteSpace(TechName)) {
+				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
+				Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, textBox_DFName.Text, comboBox_DFType.Text);
+				TechInfo Selected = TechList[TechName];
+				TechniqueWin.EditDialog(ref listView_Techniques, Selected);
+				// Update functions go below
+				Update_SpTrait_Table_Values();
+				Update_Trait_Warning();
+				Update_Used_RegTP();
+			}
 		}
 
 		private void button13_TechDelete_Click(object sender, EventArgs e) {
 			// Technique "Delete" button from the MainForm
-			Delete_ListViewItem(ref listView_Techniques);
-			// Update functions go below
-			Update_SpTrait_Table_Values();
-			Update_Trait_Warning();
-			Update_Used_RegTP();
+			try {
+				string TechName = Delete_ListViewItem(ref listView_Techniques);
+				if (string.IsNullOrWhiteSpace(TechName)) {
+					TechList.Remove(TechName);
+				}
+				// Update functions go below
+				Update_SpTrait_Table_Values();
+				Update_Trait_Warning();
+				Update_Used_RegTP();
+			}
+			catch (Exception ex) {
+				MessageBox.Show("Error in Deleting Technique\nReason: " + ex.Message, "Exception Thrown");
+			}
 		}
 
 		private void button_UpTech_Click(object sender, EventArgs e) {

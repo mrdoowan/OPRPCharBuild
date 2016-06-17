@@ -52,7 +52,7 @@
 			this.label12 = new System.Windows.Forms.Label();
 			this.numericUpDown_Str = new System.Windows.Forms.NumericUpDown();
 			this.label15 = new System.Windows.Forms.Label();
-			this.textBox_TPMsg = new System.Windows.Forms.TextBox();
+			this.textBox_Note = new System.Windows.Forms.TextBox();
 			this.label16 = new System.Windows.Forms.Label();
 			this.richTextBox_Desc = new System.Windows.Forms.RichTextBox();
 			this.button12 = new System.Windows.Forms.Button();
@@ -423,12 +423,12 @@
 			this.label15.TabIndex = 57;
 			this.label15.Text = "Notes:";
 			// 
-			// textBox_TPMsg
+			// textBox_Note
 			// 
-			this.textBox_TPMsg.Location = new System.Drawing.Point(72, 22);
-			this.textBox_TPMsg.Name = "textBox_TPMsg";
-			this.textBox_TPMsg.Size = new System.Drawing.Size(357, 20);
-			this.textBox_TPMsg.TabIndex = 58;
+			this.textBox_Note.Location = new System.Drawing.Point(72, 22);
+			this.textBox_Note.Name = "textBox_Note";
+			this.textBox_Note.Size = new System.Drawing.Size(357, 20);
+			this.textBox_Note.TabIndex = 58;
 			// 
 			// label16
 			// 
@@ -782,11 +782,12 @@
 			// label_MinRank
 			// 
 			this.label_MinRank.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.label_MinRank.Location = new System.Drawing.Point(8, 169);
+			this.label_MinRank.Location = new System.Drawing.Point(8, 166);
 			this.label_MinRank.Name = "label_MinRank";
 			this.label_MinRank.Size = new System.Drawing.Size(120, 18);
 			this.label_MinRank.TabIndex = 111;
-			this.label_MinRank.Text = "Min Rank is: 1";
+			this.label_MinRank.Text = "Min Rank is: 0";
+			this.label_MinRank.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// button_AddEffect
 			// 
@@ -866,7 +867,7 @@
 			this.textBox_Power.ReadOnly = true;
 			this.textBox_Power.Size = new System.Drawing.Size(29, 20);
 			this.textBox_Power.TabIndex = 102;
-			this.textBox_Power.Text = "0";
+			this.textBox_Power.Text = "1";
 			// 
 			// checkBox_NA
 			// 
@@ -894,7 +895,7 @@
 			// groupBox5
 			// 
 			this.groupBox5.Controls.Add(this.label15);
-			this.groupBox5.Controls.Add(this.textBox_TPMsg);
+			this.groupBox5.Controls.Add(this.textBox_Note);
 			this.groupBox5.Controls.Add(this.label16);
 			this.groupBox5.Controls.Add(this.richTextBox_Desc);
 			this.groupBox5.Location = new System.Drawing.Point(12, 675);
@@ -1051,7 +1052,7 @@
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.NumericUpDown numericUpDown_Str;
 		private System.Windows.Forms.Label label15;
-		private System.Windows.Forms.TextBox textBox_TPMsg;
+		private System.Windows.Forms.TextBox textBox_Note;
 		private System.Windows.Forms.Label label16;
 		private System.Windows.Forms.RichTextBox richTextBox_Desc;
 		private System.Windows.Forms.Button button12;
