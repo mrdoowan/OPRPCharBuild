@@ -25,7 +25,7 @@ namespace OPRPCharBuild
 			// I only want this button to make the appropriate changes.
 			if (string.IsNullOrWhiteSpace(richTextBox1.Text)) {
 				// Prompt the user to make fill in something first.
-				this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+				this.richTextBox1.BackColor = Color.FromArgb(255, 128, 128);
 				red_text = true;
 				MessageBox.Show("Please do not enter in a blank Achievement.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}

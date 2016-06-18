@@ -112,15 +112,15 @@ namespace OPRPCharBuild
 				string.IsNullOrWhiteSpace(richTextBox1_Desc.Text) ||
 				(string.IsNullOrWhiteSpace(richTextBox2_Primary.Text) && checkBox1.Checked)) {
 				if (string.IsNullOrWhiteSpace(comboBox1.Text)) {
-					comboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+					comboBox1.BackColor = Color.FromArgb(255, 128, 128);
 					red_name = true;
 				}
 				if (string.IsNullOrWhiteSpace(richTextBox1_Desc.Text)) {
-					richTextBox1_Desc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+					richTextBox1_Desc.BackColor = Color.FromArgb(255, 128, 128);
 					red_desc = true;
 				}
 				if ((string.IsNullOrWhiteSpace(richTextBox2_Primary.Text) && checkBox1.Enabled)) {
-					richTextBox2_Primary.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+					richTextBox2_Primary.BackColor = Color.FromArgb(255, 128, 128);
 					red_bon = true;
 				}
 				MessageBox.Show("Please do not enter in a blank Profession.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

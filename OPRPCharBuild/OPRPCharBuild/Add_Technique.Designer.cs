@@ -55,8 +55,8 @@
 			this.textBox_Note = new System.Windows.Forms.TextBox();
 			this.label16 = new System.Windows.Forms.Label();
 			this.richTextBox_Desc = new System.Windows.Forms.RichTextBox();
-			this.button12 = new System.Windows.Forms.Button();
-			this.button11 = new System.Windows.Forms.Button();
+			this.button_ClearTech = new System.Windows.Forms.Button();
+			this.button_AddTech = new System.Windows.Forms.Button();
 			this.label18 = new System.Windows.Forms.Label();
 			this.label_MaxRank = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -185,7 +185,7 @@
 			this.comboBox_AffectTech.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox_AffectTech.FormattingEnabled = true;
 			this.comboBox_AffectTech.Items.AddRange(new object[] {
-            " "});
+            ""});
 			this.comboBox_AffectTech.Location = new System.Drawing.Point(276, 44);
 			this.comboBox_AffectTech.Name = "comboBox_AffectTech";
 			this.comboBox_AffectTech.Size = new System.Drawing.Size(153, 21);
@@ -311,6 +311,8 @@
 			this.comboBox_SpTrait.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox_SpTrait.Enabled = false;
 			this.comboBox_SpTrait.FormattingEnabled = true;
+			this.comboBox_SpTrait.Items.AddRange(new object[] {
+            ""});
 			this.comboBox_SpTrait.Location = new System.Drawing.Point(276, 71);
 			this.comboBox_SpTrait.Name = "comboBox_SpTrait";
 			this.comboBox_SpTrait.Size = new System.Drawing.Size(153, 21);
@@ -349,16 +351,16 @@
             "Short",
             "Medium",
             "Long",
-            "Extra-Long",
-            "Short AOE",
-            "Medium AOE",
-            "Long AOE"});
+            "Very Long",
+            "Short AoE",
+            "Medium AoE",
+            "Long AoE"});
 			this.comboBox_Range.Location = new System.Drawing.Point(276, 27);
 			this.comboBox_Range.Name = "comboBox_Range";
 			this.comboBox_Range.Size = new System.Drawing.Size(153, 21);
 			this.comboBox_Range.TabIndex = 48;
 			this.toolTip_Range.SetToolTip(this.comboBox_Range, "Selecting a Range will load its Effects. Press \"Add\" after selecting.");
-			this.comboBox_Range.SelectionChangeCommitted += new System.EventHandler(this.comboBox_Range_SelectionChangeCommitted);
+			this.comboBox_Range.SelectedIndexChanged += new System.EventHandler(this.comboBox_Range_SelectedIndexChanged);
 			// 
 			// label10
 			// 
@@ -399,19 +401,9 @@
             0,
             0,
             0});
-			this.numericUpDown_Str.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
 			this.numericUpDown_Str.Name = "numericUpDown_Str";
 			this.numericUpDown_Str.Size = new System.Drawing.Size(42, 20);
 			this.numericUpDown_Str.TabIndex = 54;
-			this.numericUpDown_Str.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
 			// 
 			// label15
 			// 
@@ -450,25 +442,25 @@
 			this.richTextBox_Desc.TabIndex = 60;
 			this.richTextBox_Desc.Text = "";
 			// 
-			// button12
+			// button_ClearTech
 			// 
-			this.button12.Location = new System.Drawing.Point(291, 876);
-			this.button12.Name = "button12";
-			this.button12.Size = new System.Drawing.Size(75, 23);
-			this.button12.TabIndex = 62;
-			this.button12.Text = "Clear";
-			this.button12.UseVisualStyleBackColor = true;
-			this.button12.Click += new System.EventHandler(this.button12_Click);
+			this.button_ClearTech.Location = new System.Drawing.Point(291, 876);
+			this.button_ClearTech.Name = "button_ClearTech";
+			this.button_ClearTech.Size = new System.Drawing.Size(75, 23);
+			this.button_ClearTech.TabIndex = 62;
+			this.button_ClearTech.Text = "Clear";
+			this.button_ClearTech.UseVisualStyleBackColor = true;
+			this.button_ClearTech.Click += new System.EventHandler(this.button_ClearTech_Click);
 			// 
-			// button11
+			// button_AddTech
 			// 
-			this.button11.Location = new System.Drawing.Point(372, 876);
-			this.button11.Name = "button11";
-			this.button11.Size = new System.Drawing.Size(75, 23);
-			this.button11.TabIndex = 61;
-			this.button11.Text = "Add";
-			this.button11.UseVisualStyleBackColor = true;
-			this.button11.Click += new System.EventHandler(this.button11_Click);
+			this.button_AddTech.Location = new System.Drawing.Point(372, 876);
+			this.button_AddTech.Name = "button_AddTech";
+			this.button_AddTech.Size = new System.Drawing.Size(75, 23);
+			this.button_AddTech.TabIndex = 61;
+			this.button_AddTech.Text = "Add";
+			this.button_AddTech.UseVisualStyleBackColor = true;
+			this.button_AddTech.Click += new System.EventHandler(this.button_AddTech_Click);
 			// 
 			// label18
 			// 
@@ -481,12 +473,11 @@
 			// 
 			// label_MaxRank
 			// 
-			this.label_MaxRank.AutoSize = true;
-			this.label_MaxRank.Location = new System.Drawing.Point(192, 21);
+			this.label_MaxRank.Location = new System.Drawing.Point(172, 20);
 			this.label_MaxRank.Name = "label_MaxRank";
-			this.label_MaxRank.Size = new System.Drawing.Size(78, 13);
+			this.label_MaxRank.Size = new System.Drawing.Size(98, 15);
 			this.label_MaxRank.TabIndex = 65;
-			this.label_MaxRank.Text = "Max Rank is: 0";
+			this.label_MaxRank.Text = "Max Rank: 0";
 			this.label_MaxRank.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// groupBox1
@@ -652,19 +643,9 @@
             0,
             0,
             0});
-			this.numericUpDown_Acc.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
 			this.numericUpDown_Acc.Name = "numericUpDown_Acc";
 			this.numericUpDown_Acc.Size = new System.Drawing.Size(42, 20);
 			this.numericUpDown_Acc.TabIndex = 91;
-			this.numericUpDown_Acc.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
 			// 
 			// numericUpDown_Sta
 			// 
@@ -675,19 +656,9 @@
             0,
             0,
             0});
-			this.numericUpDown_Sta.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
 			this.numericUpDown_Sta.Name = "numericUpDown_Sta";
 			this.numericUpDown_Sta.Size = new System.Drawing.Size(42, 20);
 			this.numericUpDown_Sta.TabIndex = 90;
-			this.numericUpDown_Sta.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
 			// 
 			// numericUpDown_Spe
 			// 
@@ -698,19 +669,9 @@
             0,
             0,
             0});
-			this.numericUpDown_Spe.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
 			this.numericUpDown_Spe.Name = "numericUpDown_Spe";
 			this.numericUpDown_Spe.Size = new System.Drawing.Size(42, 20);
 			this.numericUpDown_Spe.TabIndex = 89;
-			this.numericUpDown_Spe.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
 			// 
 			// label19
 			// 
@@ -786,7 +747,7 @@
 			this.label_MinRank.Name = "label_MinRank";
 			this.label_MinRank.Size = new System.Drawing.Size(120, 18);
 			this.label_MinRank.TabIndex = 111;
-			this.label_MinRank.Text = "Min Rank is: 0";
+			this.label_MinRank.Text = "Min Rank: 0";
 			this.label_MinRank.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// button_AddEffect
@@ -812,7 +773,6 @@
 			// 
 			// numericUpDown_Cost
 			// 
-			this.numericUpDown_Cost.Enabled = false;
 			this.numericUpDown_Cost.Location = new System.Drawing.Point(215, 18);
 			this.numericUpDown_Cost.Maximum = new decimal(new int[] {
             1000,
@@ -827,7 +787,7 @@
 			// 
 			// label_EffectDesc
 			// 
-			this.label_EffectDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F);
+			this.label_EffectDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F);
 			this.label_EffectDesc.Location = new System.Drawing.Point(210, 45);
 			this.label_EffectDesc.Name = "label_EffectDesc";
 			this.label_EffectDesc.Size = new System.Drawing.Size(225, 116);
@@ -848,7 +808,7 @@
 			this.comboBox_Effect.TabIndex = 105;
 			this.comboBox_Effect.Text = "Effects";
 			this.toolTip_ComboBoxEffect.SetToolTip(this.comboBox_Effect, "No Custom Effects for now. Use another Effect that acts as a substitution");
-			this.comboBox_Effect.SelectionChangeCommitted += new System.EventHandler(this.comboBox_Effect_SelectionChangeCommitted);
+			this.comboBox_Effect.SelectedIndexChanged += new System.EventHandler(this.comboBox_Effect_SelectedIndexChanged);
 			// 
 			// button_EffectRemove
 			// 
@@ -887,10 +847,10 @@
 			this.listView_Effects.Location = new System.Drawing.Point(9, 45);
 			this.listView_Effects.MultiSelect = false;
 			this.listView_Effects.Name = "listView_Effects";
-			this.listView_Effects.Size = new System.Drawing.Size(200, 116);
+			this.listView_Effects.Size = new System.Drawing.Size(198, 116);
 			this.listView_Effects.TabIndex = 51;
 			this.listView_Effects.UseCompatibleStateImageBehavior = false;
-			this.listView_Effects.SelectedIndexChanged += new System.EventHandler(this.listView_Effects_SelectedIndexChanged);
+			this.listView_Effects.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView_Effects_MouseClick);
 			// 
 			// groupBox5
 			// 
@@ -990,8 +950,8 @@
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.label18);
-			this.Controls.Add(this.button12);
-			this.Controls.Add(this.button11);
+			this.Controls.Add(this.button_ClearTech);
+			this.Controls.Add(this.button_AddTech);
 			this.Controls.Add(this.textBox_Name);
 			this.Controls.Add(this.label64);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1055,8 +1015,8 @@
 		private System.Windows.Forms.TextBox textBox_Note;
 		private System.Windows.Forms.Label label16;
 		private System.Windows.Forms.RichTextBox richTextBox_Desc;
-		private System.Windows.Forms.Button button12;
-		private System.Windows.Forms.Button button11;
+		private System.Windows.Forms.Button button_ClearTech;
+		private System.Windows.Forms.Button button_AddTech;
 		private System.Windows.Forms.Label label18;
 		private System.Windows.Forms.Label label_MaxRank;
 		private System.Windows.Forms.GroupBox groupBox1;

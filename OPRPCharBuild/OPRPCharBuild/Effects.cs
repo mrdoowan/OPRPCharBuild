@@ -70,6 +70,23 @@ namespace OPRPCharBuild
 				longAOE_cost = 32;
 				longAOE_min = 44;
 			}
+			// Then Add onto the Dictionary after being initialized
+			EffectInfo_Dict.Add(Effect_Name.MELEE_RANGE, new EffectInfo("Melee", false, 0, 0,
+				"Range of direct physical combat."));
+			EffectInfo_Dict.Add(Effect_Name.SHORT_RANGE, new EffectInfo("Short", false, short_cost, short_min,
+				   "Range of a few meters."));
+			EffectInfo_Dict.Add(Effect_Name.MED_RANGE, new EffectInfo("Medium", false, med_cost, med_min,
+				   "Range of half of a sport's stadium."));
+			EffectInfo_Dict.Add(Effect_Name.LONG_RANGE, new EffectInfo("Long", false, long_cost, long_min,
+				   "Range of an entire sport's stadium."));
+			EffectInfo_Dict.Add(Effect_Name.V_LONG_RANGE, new EffectInfo("Very Long", false, Vlong_cost, Vlong_min,
+				   "Range of a small city."));
+			EffectInfo_Dict.Add(Effect_Name.SHORT_AOE, new EffectInfo("Short AoE", false, shortAOE_cost, shortAOE_min,
+				   "A few meters in diameter."));
+			EffectInfo_Dict.Add(Effect_Name.MEDIUM_AOE, new EffectInfo("Medium AoE", false, medAOE_cost, medAOE_min,
+				   "Half of a sport's stadium in diameter."));
+			EffectInfo_Dict.Add(Effect_Name.LONG_AOE, new EffectInfo("Long AoE", false, longAOE_cost, longAOE_min,
+				   "An entire sport's stadium in diameter."));
 		}
 
 		public enum Effect_Name
@@ -238,8 +255,9 @@ namespace OPRPCharBuild
 		};
 
 		// Inverse Dictionary: enum -> info
-		static private Dictionary<Effect_Name, EffectInfo> EffectInfo_Dict = new Dictionary<Effect_Name, EffectInfo>() {
+		private Dictionary<Effect_Name, EffectInfo> EffectInfo_Dict = new Dictionary<Effect_Name, EffectInfo>() {
 			#region Database of Effect Information
+			// The Ranges are added at a later part when Effects is initialized
 			{Effect_Name.DISPLACE, new EffectInfo("Displacement", true, 8, 8,
 				"Common examples are knockback techniques. The effect of a displacement technique can be greater at higher ranks. A stronger opponent will be displaced less by a weaker character using a displacement technique on them.")},
 			{Effect_Name.DISORI, new EffectInfo("Disorient", true, 8, 8,
@@ -316,22 +334,6 @@ namespace OPRPCharBuild
 				"Reduces damage of Rank 27 and below techniques. NOTE THAT 1) Tier Defenses require special abilities, 2) Wearable armor requires these techniques, and 3) Legendary Tier offers the defensive properties of High Tier (still unbreakable). Please refer to the Rules for more details.")},
 			{Effect_Name.HIGH_DEF, new EffectInfo("High Tier Defense", false, 24, 36,
 				"Reduces damage of Rank 43 and below techniques. NOTE THAT 1) Tier Defenses require special abilities, 2) Wearable armor requires these techniques, and 3) Legendary Tier offers the defensive properties of High Tier (still unbreakable). Please refer to the Rules for more details.")},
-			{Effect_Name.MELEE_RANGE, new EffectInfo("Melee", false, 0, 0,
-				"Range of direct physical combat.")},
-			{Effect_Name.SHORT_RANGE, new EffectInfo("Short", false, short_cost, short_min,
-				"Range of a few meters.")},
-			{Effect_Name.MED_RANGE, new EffectInfo("Medium", false, med_cost, med_min,
-				"Range of half of a sport's stadium.")},
-			{Effect_Name.LONG_RANGE, new EffectInfo("Long", false, long_cost, long_min,
-				"Range of an entire sport's stadium.")},
-			{Effect_Name.V_LONG_RANGE, new EffectInfo("Very Long", false, Vlong_cost, Vlong_min,
-				"Range of a small city.")},
-			{Effect_Name.SHORT_AOE, new EffectInfo("Short AoE", false, shortAOE_cost, shortAOE_min,
-				"A few meters in diameter.")},
-			{Effect_Name.MEDIUM_AOE, new EffectInfo("Medium AoE", false, medAOE_cost, medAOE_min,
-				"Half of a sport's stadium in diameter.")},
-			{Effect_Name.LONG_AOE, new EffectInfo("Long AoE", false, longAOE_cost, longAOE_min,
-				"An entire sport's stadium in diameter.")},
 			{Effect_Name.CLOUD, new EffectInfo("Cloud", true, 8, 8,
 				"(WEATHERMANCY) - Techniques used in order to create clouds to empower other Weathermancy techniques. Clouds scale in size with rank allowing the caster a greater area to work with and control the field through their other techniques.")},
 			{Effect_Name.RAIN, new EffectInfo("Rain", true, 8, 8,
@@ -345,7 +347,7 @@ namespace OPRPCharBuild
 			{Effect_Name.MILK, new EffectInfo("Milky Cloud", true, 8, 8,
 				"(WEATHERMANCY) - Techniques used to create Sea Clouds that are sustainable in the Blue Sea. These clouds are physically dense enough to be walked upon or used to form walls or other items, but they do not have a material tier and are rather useless as weapons. At higher ranks the user may create a larger quantity of this strange cloud.")},
 			{Effect_Name.MIR_CLONE, new EffectInfo("Mirage (Clones)", false, 8, 28,
-				"(WEATHERMANCY) - Techniques in which the user cast’s a mirage in order to make copies of themselves or something else in the vicinity. Due to the reflective nature the mirages move in unison with whatever they have replicated but of course remain intangible and cannot cause any harm even when attacking. The power of the technique indicates how accurate the mirage is. The size of objects that can be replicated scales with the minimum ranks of the AOE table.")},
+				"(WEATHERMANCY) - Techniques in which the user cast’s a mirage in order to make copies of themselves or something else in the vicinity. Due to the reflective nature the mirages move in unison with whatever they have replicated but of course remain intangible and cannot cause any harm even when attacking. The power of the technique indicates how accurate the mirage is. The size of objects that can be replicated scales with the minimum ranks of the AoE table.")},
 			{Effect_Name.MIR_CAMO, new EffectInfo("Mirage (Camouflage)", false, 14, 28,
 				"(WEATHERMANCY) - Techniques in which the user casts a mirage in order to hide their physical presence or the presence of something else in the vicinity. Effectiveness scales with power.")},
 			{Effect_Name.SENTIENCE, new EffectInfo("Sentience", false, 10, 10,
@@ -357,7 +359,7 @@ namespace OPRPCharBuild
 			{Effect_Name.ELE_DMG_POP, new EffectInfo("Elemental Damage (Pop Green)", true, 14, 14,
 				"(POP GREENS) - Pop Greens may be used to easily cause elemental effects, such as damaging poisons and fire. They therefore have a minimum rank of 14, rather than 28.")},
 			{Effect_Name.SMOKE, new EffectInfo("Smoke", true, 8, 8,
-				"(STEALTH) - A rapidly dispersing gaseous substance used to reduce visibility of that which is encompassed. Usually contained within a pellet or bomb of some sort, it can mask the silhouette of one person by default but can be combined with AOE to affect larger areas.")},
+				"(STEALTH) - A rapidly dispersing gaseous substance used to reduce visibility of that which is encompassed. Usually contained within a pellet or bomb of some sort, it can mask the silhouette of one person by default but can be combined with AoE to affect larger areas.")},
 			{Effect_Name.CROWD_BLEND, new EffectInfo("Crowd Blending", true, 8, 8,
 				"(STEALTH) - The ability to blend in with a crowd of people in order to avoid detection and shake off pursuers. Becomes more effective with higher rank. Consumes 1/2 AE in order to keep active, and is subject to common sense.")},
 			{Effect_Name.SILENT, new EffectInfo("Silent", true, 8, 14,

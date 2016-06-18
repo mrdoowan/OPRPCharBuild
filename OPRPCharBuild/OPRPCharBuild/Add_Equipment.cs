@@ -28,17 +28,17 @@ namespace OPRPCharBuild
 			if (string.IsNullOrWhiteSpace(richTextBox1.Text) ||
 				string.IsNullOrWhiteSpace(textBox1.Text)) {
 				if (string.IsNullOrWhiteSpace(richTextBox1.Text) && string.IsNullOrWhiteSpace(textBox1.Text)) {
-					textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-					richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+					textBox1.BackColor = Color.FromArgb(255, 128, 128);
+					richTextBox1.BackColor = Color.FromArgb(255, 128, 128);
 					red_textbox = true;
 					red_richbox = true;
 				}
 				else if (string.IsNullOrWhiteSpace(richTextBox1.Text)) {
-					richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+					richTextBox1.BackColor = Color.FromArgb(255, 128, 128);
 					red_richbox = true;
 				}
 				else if (string.IsNullOrWhiteSpace(textBox1.Text)) {
-					textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+					textBox1.BackColor = Color.FromArgb(255, 128, 128);
 					red_textbox = true;
 				}
 				MessageBox.Show("Please do not enter in a blank Equipment.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

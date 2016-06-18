@@ -179,6 +179,7 @@
 			this.label81 = new System.Windows.Forms.Label();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
 			this.groupBox10 = new System.Windows.Forms.GroupBox();
+			this.label32 = new System.Windows.Forms.Label();
 			this.button_TraitOrder = new System.Windows.Forms.Button();
 			this.button_TraitsEdit = new System.Windows.Forms.Button();
 			this.label59_TraitsCalc = new System.Windows.Forms.Label();
@@ -589,6 +590,7 @@
 			this.comboBox_Affiliation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox_Affiliation.FormattingEnabled = true;
 			this.comboBox_Affiliation.Items.AddRange(new object[] {
+            "",
             "Pirate",
             "Marine",
             "Bounty Hunter",
@@ -1090,7 +1092,7 @@
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(652, 478);
+			this.tabPage3.Size = new System.Drawing.Size(652, 475);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Background";
 			this.tabPage3.UseVisualStyleBackColor = true;
@@ -1203,7 +1205,7 @@
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage4.Size = new System.Drawing.Size(652, 478);
+			this.tabPage4.Size = new System.Drawing.Size(652, 475);
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "Abilities & Possessions";
 			this.tabPage4.UseVisualStyleBackColor = true;
@@ -1513,7 +1515,7 @@
 			this.tabPage7.Controls.Add(this.groupBox12);
 			this.tabPage7.Location = new System.Drawing.Point(4, 22);
 			this.tabPage7.Name = "tabPage7";
-			this.tabPage7.Size = new System.Drawing.Size(652, 478);
+			this.tabPage7.Size = new System.Drawing.Size(652, 475);
 			this.tabPage7.TabIndex = 6;
 			this.tabPage7.Text = "Stats";
 			this.tabPage7.UseVisualStyleBackColor = true;
@@ -2046,13 +2048,14 @@
 			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage5.Size = new System.Drawing.Size(652, 478);
+			this.tabPage5.Size = new System.Drawing.Size(652, 475);
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "Traits";
 			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
 			// groupBox10
 			// 
+			this.groupBox10.Controls.Add(this.label32);
 			this.groupBox10.Controls.Add(this.button_TraitOrder);
 			this.groupBox10.Controls.Add(this.button_TraitsEdit);
 			this.groupBox10.Controls.Add(this.label59_TraitsCalc);
@@ -2067,6 +2070,17 @@
 			this.groupBox10.TabIndex = 3;
 			this.groupBox10.TabStop = false;
 			this.groupBox10.Text = "Traits";
+			// 
+			// label32
+			// 
+			this.label32.AutoSize = true;
+			this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label32.Location = new System.Drawing.Point(6, 450);
+			this.label32.Name = "label32";
+			this.label32.Size = new System.Drawing.Size(551, 16);
+			this.label32.TabIndex = 28;
+			this.label32.Text = "NOTE: Do NOT make Custom Trait names. Edit Trait names in the generated Sheet ins" +
+    "tead.";
 			// 
 			// button_TraitOrder
 			// 
@@ -2148,7 +2162,7 @@
 			this.tabPage6.Location = new System.Drawing.Point(4, 22);
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage6.Size = new System.Drawing.Size(652, 478);
+			this.tabPage6.Size = new System.Drawing.Size(652, 475);
 			this.tabPage6.TabIndex = 5;
 			this.tabPage6.Text = "Techniques";
 			this.tabPage6.UseVisualStyleBackColor = true;
@@ -2523,7 +2537,7 @@
 			// olderVersionToolStripMenuItem
 			// 
 			this.olderVersionToolStripMenuItem.Name = "olderVersionToolStripMenuItem";
-			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
 			this.olderVersionToolStripMenuItem.Text = "Older Version";
 			this.olderVersionToolStripMenuItem.Click += new System.EventHandler(this.olderVersionToolStripMenuItem_Click);
 			// 
@@ -2792,6 +2806,7 @@
 		private System.Windows.Forms.Button button_ImageEdit;
 		private System.Windows.Forms.Button button_TraitOrder;
 		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Label label32;
 	}
 }
 

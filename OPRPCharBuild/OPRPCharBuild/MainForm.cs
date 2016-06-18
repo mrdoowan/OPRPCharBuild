@@ -41,6 +41,8 @@ namespace OPRPCharBuild
 		// Hold a list of Professions that is "bound" to the ListView. String is the name, and bool is if it's primary or not.
 		// Dictionary is fine because string values SHOULD be unique
 		public static Dictionary<string, bool> ProfList = new Dictionary<string, bool>();
+		// Just a List of Trait_ID will suffice to bind to its ListView
+		public static List<Traits.Trait_Name> TraitsList = new List<Traits.Trait_Name>();
 		// Techniques. My favorite. The struct TechInfo is designed to load all the information to Add_Technique form
 		public static Dictionary<string, TechInfo> TechList = new Dictionary<string, TechInfo>();
 		public struct TechInfo
@@ -55,6 +57,7 @@ namespace OPRPCharBuild
 			public string type;
 			public string range;
 			public TechStats stats;
+			public bool NA_power;
 			public Dictionary<string, Add_Technique.EffectItem> effectList;
 			public string power;
 			public List<bool> DF_checkBox;
@@ -63,7 +66,7 @@ namespace OPRPCharBuild
 
 			// Constructor
 			public TechInfo(int rank_, int regTP_, int spTP_, string techTrait_, string spTrait_,
-				string techBranch_, int rankBranch_, string type_, string range_, TechStats stats_,
+				string techBranch_, int rankBranch_, string type_, string range_, TechStats stats_, bool NA_,
 				Dictionary<string, Add_Technique.EffectItem> effectList_, string power_, List<bool> DF_,
 				string note_, string desc_) {
 				rank = rank_;
@@ -76,6 +79,7 @@ namespace OPRPCharBuild
 				type = type_;
 				range = range_;
 				stats = stats_;
+				NA_power = NA_;
 				effectList = effectList_;
 				power = power_;
 				DF_checkBox = DF_;
@@ -698,7 +702,6 @@ namespace OPRPCharBuild
 			foreach (ListViewItem eachItem in listView_SpTP.Items) {
 				// Locate index of SpTraits first.
 				string name = eachItem.SubItems[0].Text; // Name of Sp. Trait
-				string spec = Traits.Trait_Name_From_ListView(ref name);
 				if (Traits.Contains_Trait_AtIndex(Traits.get_TraitID(name), listView_Traits) == -1) {
 					// That means we couldn't find the SpTrait in the Trait listView
 					// So we delete it from the SpTrait Table
@@ -719,13 +722,11 @@ namespace OPRPCharBuild
 			// Nest loop this.
 			foreach (ListViewItem Sp_Trait in listView_SpTP.Items) {
 				string name1 = Sp_Trait.SubItems[0].Text;
-				Traits.Trait_Name_From_ListView(ref name1);
 				Traits.Trait_Name ID_Sp = Traits.get_TraitID(name1);
 				int used = 0;
 				foreach (ListViewItem Tech in listView_Techniques.Items) {
 					// Column 4 is Special Trait
 					string tech_trait = Tech.SubItems[4].Text;
-					Traits.Trait_Name_From_ListView(ref tech_trait);
 					Traits.Trait_Name ID_Tech = Traits.get_TraitID(tech_trait);
 					if (ID_Sp == ID_Tech) {
 						used += int.Parse(Tech.SubItems[3].Text); // Column 3 is Sp. TP
@@ -753,39 +754,38 @@ namespace OPRPCharBuild
 			// Used when a Technique is removed.
 		}
 
-		// NEEDS EDITING
 		private void Update_Trait_Warning() {
 			// What happens if we delete a Trait in which a Technique uses that trait?
 			// We have to inform the user!
 			// This is probably the most inefficient way possible to implement loool
 			bool yes_msg = false; // Initialize
 			foreach (ListViewItem Tech in listView_Techniques.Items) {
-				// Search in Technique Table for the special trait
-				string sp_name = Tech.SubItems[4].Text; // Column 4 is Sp. Trait
-				Traits.Trait_Name_From_ListView(ref sp_name);
-				if (!string.IsNullOrEmpty(sp_name)) {
-					// That means there is a Special Trait
+				// Search in Technique Table for both Special Trait and Tech Trait
+				string sp_Trait = Tech.SubItems[4].Text;	// Column 4 is Sp. Trait
+				string tech_Trait = Tech.SubItems[5].Text;	// Column 5 is Tech Trait
+				if (!string.IsNullOrWhiteSpace(sp_Trait) && !string.IsNullOrWhiteSpace(tech_Trait)) {
+					// That means there is a Special Trait or Tech Trait
 					bool break_loop = false;
-					Traits.Trait_Name Sp_ID = Traits.get_TraitID(sp_name);
-					foreach (ListViewItem Sp_Trait in listView_SpTP.Items) {
-						// For the tech's Special Trait, check the Sp Trait table
-						string trait = Sp_Trait.SubItems[0].Text;   // Column 0 is name
-						Traits.Trait_Name_From_ListView(ref trait);
-						Traits.Trait_Name Trait_ID = Traits.get_TraitID(trait);
-						if (Sp_ID == Trait_ID) {
-							// If the Sp Trait is in the table, we're good.
+					Traits.Trait_Name Sp_ID = Traits.get_TraitID(sp_Trait);
+					Traits.Trait_Name Tech_ID = Traits.get_TraitID(tech_Trait);
+					for (int i = 0; i < TraitsList.Count; ++i) {
+						// From the Traits List
+						if (Sp_ID == TraitsList[0] || Tech_ID == TraitsList[0]) {
+							// If the Trait is in TraitsList, we're good.
+							Tech.BackColor = SystemColors.Window;
 							break_loop = true;
 							break;
 						}
 					}
-					// So what happens if the statement was never broken? That means we couldn't find the
-					// trait in the Sp Trait table!
+					// So what happens if the statement was never broken? That means we couldn't find the trait in the TraitsList!
 					if (!break_loop) {
 						yes_msg = true;
 					}
 				}
 				if (yes_msg) {
 					// We can just break if we can display the warning
+					// Though, here we'll highlight the entire Item with 128, 128, 255
+					Tech.BackColor = Color.FromArgb(128, 128, 255);
 					break;
 				}
 			}
@@ -864,7 +864,7 @@ namespace OPRPCharBuild
 			listView_Techniques.Columns.Add("Reg TP", 50);          // 2
 			listView_Techniques.Columns.Add("Sp. TP", 50);          // 3
 			listView_Techniques.Columns.Add("Sp. Trait", 75);       // 4
-			listView_Techniques.Columns.Add("Rank Trait", 75);      // 5
+			listView_Techniques.Columns.Add("Tech Trait", 75);      // 5
 			listView_Techniques.Columns.Add("Branched From", 100);  // 6
 			listView_Techniques.Columns.Add("Type", 75);            // 7
 			listView_Techniques.Columns.Add("Range", 75);           // 8
@@ -921,6 +921,16 @@ namespace OPRPCharBuild
 				comboBox_MarineRank.Enabled = false;
 				comboBox_MarineRank.SelectedIndex = -1;
 				textBox_Threat.Enabled = true;
+			}
+			else {
+				textBox_Bounty.Enabled = false;
+				textBox_Bounty.Clear();
+				textBox_Comm.Enabled = false;
+				textBox_Comm.Clear();
+				comboBox_MarineRank.Enabled = false;
+				comboBox_MarineRank.SelectedIndex = -1;
+				textBox_Threat.Enabled = false;
+				textBox_Threat.Clear();
 			}
 		}
 
@@ -997,7 +1007,7 @@ namespace OPRPCharBuild
 			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
 			try {
 				string Prof = Delete_ListViewItem(ref listView_Prof);
-				if (string.IsNullOrWhiteSpace(Prof)) {
+				if (!string.IsNullOrWhiteSpace(Prof)) {
 					ProfList.Remove(Prof);
 				}
             }
@@ -1329,7 +1339,6 @@ namespace OPRPCharBuild
 			Traits.Trait_Name ID = TraitWin.NewDialog(ref listView_Traits);
 			// And lastly all Update functions
 			All_Update_Functions_Traits(ID);
-
 		}
 
 		private void button_TraitsEdit_Click(object sender, EventArgs e) {
@@ -1346,7 +1355,9 @@ namespace OPRPCharBuild
 		private void button10_TraitsDelete_Click(object sender, EventArgs e) {
 			// Traits "Delete" button from the MainForm
 			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
-			Delete_ListViewItem(ref listView_Traits);
+			string name = Delete_ListViewItem(ref listView_Traits);
+			// Remove trait from TraitList
+			TraitsList.Remove(Traits.get_TraitID(name));
 			// All update Functions
 			All_Update_Functions_Traits(Traits.Trait_Name.CUSTOM);
 		}
@@ -1419,7 +1430,7 @@ namespace OPRPCharBuild
 			// Technique "Add" button from the MainForm
 			int max_rank = int.Parse(textBox_Fortune.Text) / 2;
 			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, textBox_DFName.Text, comboBox_DFType.Text);
-			TechniqueWin.NewDialog(ref listView_Techniques, new TechInfo(), false);
+			TechniqueWin.NewDialog(ref listView_Techniques, null, new TechInfo(), false);
 			// Update functions go below
 			Update_SpTrait_Table_Values();
 			Update_Used_RegTP();
@@ -1428,11 +1439,11 @@ namespace OPRPCharBuild
 		private void button_TechBranch_Click(object sender, EventArgs e) {
 			// Technique "Duplicate" button from the MainForm
 			string TechName = listView_Techniques.SelectedItems[0].SubItems[0].Text;
-			if (string.IsNullOrWhiteSpace(TechName)) {
+			if (!string.IsNullOrWhiteSpace(TechName)) {
 				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
 				Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, textBox_DFName.Text, comboBox_DFType.Text);
 				TechInfo Selected = TechList[TechName];
-				TechniqueWin.NewDialog(ref listView_Techniques, Selected, true);
+				TechniqueWin.NewDialog(ref listView_Techniques, TechName, Selected, true);
 				// Update functions go below
 				Update_SpTrait_Table_Values();
 				Update_Used_RegTP();
@@ -1442,11 +1453,11 @@ namespace OPRPCharBuild
 		private void button_TechEdit_Click(object sender, EventArgs e) {
 			// Technique "Edit" button from the MainForm
 			string TechName = listView_Techniques.SelectedItems[0].SubItems[0].Text;
-			if (string.IsNullOrWhiteSpace(TechName)) {
+			if (!string.IsNullOrWhiteSpace(TechName)) {
 				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
 				Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, textBox_DFName.Text, comboBox_DFType.Text);
 				TechInfo Selected = TechList[TechName];
-				TechniqueWin.EditDialog(ref listView_Techniques, Selected);
+				TechniqueWin.EditDialog(ref listView_Techniques, TechName, Selected);
 				// Update functions go below
 				Update_SpTrait_Table_Values();
 				Update_Trait_Warning();
@@ -1458,7 +1469,7 @@ namespace OPRPCharBuild
 			// Technique "Delete" button from the MainForm
 			try {
 				string TechName = Delete_ListViewItem(ref listView_Techniques);
-				if (string.IsNullOrWhiteSpace(TechName)) {
+				if (!string.IsNullOrWhiteSpace(TechName)) {
 					TechList.Remove(TechName);
 				}
 				// Update functions go below
@@ -1500,10 +1511,10 @@ namespace OPRPCharBuild
 		#endregion
 
 		// --------------------------------------------------------------------------------------------
-		// Main Form Exception Checks
+		// Main Form Miscellaneous
 		// --------------------------------------------------------------------------------------------
 
-		#region Exception Checks
+		#region Save, Open, Import, Load, Form Stuff
 
 		// This completely resets the form back to its Loaded state.
 		private void resetForm() {
@@ -1511,13 +1522,13 @@ namespace OPRPCharBuild
 			textBox_CharacterName.Clear();
 			textBox_Nickname.Clear();
 			numericUpDown_Age.Value = 7;
-			comboBox_Gender.Text = "";
+			comboBox_Gender.SelectedIndex = -1;
 			textBox_Race.Clear();
 			textBox_Position.Clear();
-			comboBox_Affiliation.Text = "";
+			comboBox_Affiliation.SelectedIndex = -1;
 			textBox_Bounty.Clear();
 			textBox_Comm.Clear();
-			comboBox_MarineRank.Text = "";
+			comboBox_MarineRank.SelectedIndex = -1;
 			textBox_Threat.Clear();
 			listBox_Achieve.Items.Clear();
 			listView_Prof.Items.Clear();
@@ -1528,11 +1539,13 @@ namespace OPRPCharBuild
 			richTextBox_Eye.Clear();
 			richTextBox_Clothing.Clear();
 			richTextBox_GeneralAppear.Clear();
+			listView_Images.Items.Clear();
 			textBox_ImageURL.Clear();
+			textBox_ImageLabel.Clear();
 			checkBox_FullRes.Checked = true;
 			// Background
 			textBox_Island.Clear();
-			comboBox_Region.Text = "";
+			comboBox_Region.SelectedIndex = -1;
 			richTextBox_Personality.Clear();
 			richTextBox_History.Clear();
 			// Combat
@@ -1541,14 +1554,15 @@ namespace OPRPCharBuild
 			listView_Items.Items.Clear();
 			textBox_Beli.Clear();
 			textBox_DFName.Clear();
-			comboBox_DFType.Text = "";
+			comboBox_DFType.SelectedIndex = -1;
 			richTextBox_DFDesc.Clear();
 			// Stats
 			numericUpDown_SDEarned.Value = 0;
 			numericUpDown_SDintoStats.Value = 0;
-			foreach (CheckBox chkBox in checkedListBox1_AP.Controls) {
-				chkBox.Checked = false;
+			for (int i = 0; i < checkedListBox1_AP.Items.Count; ++i) {
+				checkedListBox1_AP.SetItemChecked(i, false);
 			}
+			textBox_AP.Text = "0";
 			numericUpDown_UsedForFort.Value = 0;
 			numericUpDown_StrengthBase.Value = 1;
 			numericUpDown_SpeedBase.Value = 1;
@@ -1557,6 +1571,17 @@ namespace OPRPCharBuild
 			// Traits & Techs
 			listView_Traits.Items.Clear();
 			listView_Techniques.Items.Clear();
+			// Update Functions (that are still needed)
+			Update_AP_Count();
+			Update_Strength_Final();
+			Update_Speed_Final();
+			Update_Stamina_Final();
+			Update_Accuracy_Final();
+			Update_Traits_Count_Label();
+			Update_Total_RegTP();
+			Update_Used_RegTP();
+			Update_SpTrait_Table_Traits(Traits.Trait_Name.CUSTOM);
+
 		}
 
 		// Saves the form into a serialized object so that only the tool recognizes the Saved Form
@@ -1611,52 +1636,66 @@ namespace OPRPCharBuild
 				(int)numericUpDown_AccuracyBase.Value
 				);
 			project.SaveProject_Traits(listView_Traits);
-			project.SaveProject_Tech(listView_Techniques);
+			project.SaveProject_Tech(TechList);
 		}
 
 		// Loads from serialized object and puts it into form
 		private void loadProjectToForm() {
-			project.LoadProject_Basic(
-				ref textBox_CharacterName,
-				ref textBox_Nickname,
-				ref numericUpDown_Age,
-				ref comboBox_Gender,
-				ref textBox_Race,
-				ref textBox_Position,
-				ref comboBox_Affiliation,
-				ref textBox_Bounty,
-				ref textBox_Comm,
-				ref comboBox_MarineRank,
-				ref textBox_Threat,
-				ref listBox_Achieve,
-				ref listView_Prof
-				);
-			project.LoadProject_Physical(
-				ref textBox_Height,
-				ref textBox_Weight,
-				ref richTextBox_Hair,
-				ref richTextBox_Eye,
-				ref richTextBox_Clothing,
-				ref richTextBox_GeneralAppear,
-				ref listView_Images
-				);
-			project.LoadProject_Background(
-				ref textBox_Island,
-				ref comboBox_Region,
-				ref richTextBox_Personality,
-				ref richTextBox_History
-				);
-			project.LoadProject_Combat(
-				ref richTextBox_Combat,
-				ref listView_Weaponry,
-				ref listView_Items,
-				ref textBox_Beli,
-				ref textBox_DFName,
-				ref comboBox_DFType,
-				ref richTextBox_DFDesc
-				);
-			project.LoadProject_Traits(ref listView_Traits);
-			project.LoadProject_Tech(ref listView_Techniques);
+			try {
+				project.LoadProject_Basic(
+			  ref textBox_CharacterName,
+			  ref textBox_Nickname,
+			  ref numericUpDown_Age,
+			  ref comboBox_Gender,
+			  ref textBox_Race,
+			  ref textBox_Position,
+			  ref comboBox_Affiliation,
+			  ref textBox_Bounty,
+			  ref textBox_Comm,
+			  ref comboBox_MarineRank,
+			  ref textBox_Threat,
+			  ref listBox_Achieve,
+			  ref listView_Prof
+			  );
+			}
+			catch (Exception ex) { MessageBox.Show("Load Basic Character Error.\nReason: " + ex.Message); }
+			try {
+				project.LoadProject_Physical(
+			  ref textBox_Height,
+			  ref textBox_Weight,
+			  ref richTextBox_Hair,
+			  ref richTextBox_Eye,
+			  ref richTextBox_Clothing,
+			  ref richTextBox_GeneralAppear,
+			  ref listView_Images
+			  );
+			}
+			catch (Exception ex) { MessageBox.Show("Load Physical Appearance Error.\nReason: " + ex.Message); }
+			try {
+				project.LoadProject_Background(
+			  ref textBox_Island,
+			  ref comboBox_Region,
+			  ref richTextBox_Personality,
+			  ref richTextBox_History
+			  );
+			}
+			catch (Exception ex) { MessageBox.Show("Load Character Background Error.\nReason: " + ex.Message); }
+			try {
+				project.LoadProject_Combat(
+			  ref richTextBox_Combat,
+			  ref listView_Weaponry,
+			  ref listView_Items,
+			  ref textBox_Beli,
+			  ref textBox_DFName,
+			  ref comboBox_DFType,
+			  ref richTextBox_DFDesc
+			  );
+			}
+			catch (Exception ex) { MessageBox.Show("Load Combat and Abilities Error.\nReason: " + ex.Message); }
+			try { project.LoadProject_Traits(ref listView_Traits); }
+			catch (Exception ex) { MessageBox.Show("Load Traits Error.\nReason: " + ex.Message); }
+			try { project.LoadProject_Tech(ref listView_Techniques); }
+			catch (Exception ex) { MessageBox.Show("Load Techniques Error.\nReason: " + ex.Message); }
 			// The two above need to be loaded first before Stats because some Update
 			// functions aren't in an Exception Handle
 			project.LoadProject_Stats(
@@ -1673,9 +1712,9 @@ namespace OPRPCharBuild
 			Update_Traits_Count_Label();
 			Update_AP_Count();
 			Update_Used_RegTP();
+			Update_Total_RegTP();
 			foreach (ListViewItem eachitem in listView_Traits.Items) {
 				string name = eachitem.SubItems[0].Text;
-				Traits.Trait_Name_From_ListView(ref name);
 				Traits.Trait_Name ID = Traits.get_TraitID(name);
 				Update_SpTrait_Table_Traits(ID);
 			}
@@ -1938,6 +1977,10 @@ namespace OPRPCharBuild
 							resetForm();
 							loadProjectToForm();
 							this.Text = "OPRP Character Builder";
+							MessageBox.Show("Few notes:\n- Edit every single one of your Techniques for Effects, Branching, and new \"Traits Affect Tech\"\n" +
+								"- Do not make Custom Trait names or the tool won't recognize them. Edit the custom name into the generated Sheet instead.\n" +
+								"- In this new version, many dangerous coding techniques were used. Please report any bugs ASAP as it could potentially corrupt .oprp data." +
+								" Please save backups as often as possible. Most of it should be fine now since much of this was tested.");
 						}
 						catch (Exception ex) {
 							MessageBox.Show("Failed to deserialize.\nReason: " + ex.Message);

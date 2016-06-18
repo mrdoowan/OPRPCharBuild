@@ -127,10 +127,10 @@ namespace OPRPCharBuild
 		} // 99 Traits
 
 		// This will contain all the Trait_Info for descriptions
-		private Trait_Type type;
-		private int gen_num;
-		private int prof_num;
-		private string desc;
+		private static Trait_Type type;
+		private static int gen_num;
+		private static int prof_num;
+		private static string desc;
 
 		// Map the string to its corresponding ID
 		static private Dictionary<string, Trait_Name> Trait_Dict = new Dictionary<string, Trait_Name>() {
@@ -246,6 +246,7 @@ namespace OPRPCharBuild
 
 		public Trait_Name get_TraitID(string trait) {
 			// This is to ensure Custom Traits and an error check
+			Trait_Name_From_ListView(ref trait);
 			if (Trait_Dict.ContainsKey(trait)) {
 				return Trait_Dict[trait];
 			}
@@ -267,6 +268,9 @@ namespace OPRPCharBuild
 					int end_spec = name.IndexOf(']');
 					int length = end_spec - spec_index - 1;
 					spec = name.Substring(spec_index + 1, length);
+					if (spec == "SPEC") {
+						return null;
+					}
 					// Replace the name of spec with "SPEC"
 					name = name.Replace(spec, "SPEC");
 				}
@@ -286,8 +290,6 @@ namespace OPRPCharBuild
 			foreach (ListViewItem eachItem in listview.Items) {
 				string name = eachItem.SubItems[0].Text;
 				// SubItems[0] always contains the Trait name
-				// Need to check if this is a SPEC trait.
-				Trait_Name_From_ListView(ref name);
 				if (get_TraitID(name) == ID) {
 					return index;
 				}

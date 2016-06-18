@@ -10,6 +10,8 @@ using System.Runtime.Serialization;
 
 // This contains files of older revisions.
 
+#pragma warning disable CS0649
+
 // MOST CURRENT VERSION: v1.0.2.0
 namespace OPRPCharBuild
 {
@@ -64,19 +66,24 @@ namespace OPRPCharBuild
 		public struct Tech
 		{
 			public string name;
-			public string rank;
-			public string reg_TP;
-			public string sp_TP;
+			public int rank;
+			public int reg_TP;
+			public int sp_TP;
 			public string sp_trait;
-			public string rank_trait;
-			public string branched;
-			public string branch_TP;
+			public string tech_trait;
+			public string branch_tech;
+			public int branch_rank;
 			public string type;
 			public string range;
-			public string stats;
+			public int str;
+			public int spe;
+			public int sta;
+			public int acc;
+			public bool NA_power;
+			public List<string> effects;
 			public string power;
-			public string effect;
-			public string TP_note;
+			public List<bool> DF_options;
+			public string notes;
 			public string desc;
 		}
 
@@ -133,7 +140,7 @@ namespace OPRPCharBuild
 		// Techniques Tab
 		public List<Tech> techniques = new List<Tech>();
 
-		// --- Save Functions
+		#region Save Functions
 
 		public void SaveProject_Basic(string name_, string nick_, int age_, string gender_, string race_, string position_,
 			string affiliation_, string bounty_, string commendation_, string rank_, string threat_, ListBox achieve_, ListView prof_) {
@@ -216,8 +223,15 @@ namespace OPRPCharBuild
 			int str_, int spe_, int sta_, int acc_) {
 			SD_Earned = SDEarned_;
 			SDtoSP = SDtoSP_;
-			foreach (CheckBox chkBox in AP_.Controls) {
-				AP.Add(chkBox.Checked);
+			AP.Clear();
+			for (int i = 0; i < AP_.Items.Count; ++i) {
+				CheckState chkBox = AP_.GetItemCheckState(i);
+				if (chkBox == CheckState.Checked) {
+					AP.Add(true);
+				}
+				else {
+					AP.Add(false);
+				}
 			}
 			used_fort = usedFort_;
 			str = str_;
@@ -229,6 +243,7 @@ namespace OPRPCharBuild
 		public void SaveProject_Traits(ListView traitsList_) {
 			traitsList.Clear();
 			foreach (ListViewItem eachitem in traitsList_.Items) {
+				// ListView
 				Trait trait = new Trait();
 				trait.name = eachitem.SubItems[0].Text;
 				trait.type = eachitem.SubItems[1].Text;
@@ -239,30 +254,44 @@ namespace OPRPCharBuild
 			}
 		}
 
-		public void SaveProject_Tech(ListView techList_) {
+		public void SaveProject_Tech(Dictionary<string, MainForm.TechInfo> techList_) {
 			techniques.Clear();
-			foreach (ListViewItem eachitem in techList_.Items) {
+			// Grabbing from TechInfo, NOT ListView
+			foreach (string techName in techList_.Keys) {
 				Tech tech = new Tech();
-				tech.name = eachitem.SubItems[0].Text;
-				tech.rank = eachitem.SubItems[1].Text;
-				tech.reg_TP = eachitem.SubItems[2].Text;
-				tech.sp_TP = eachitem.SubItems[3].Text;
-				tech.sp_trait = eachitem.SubItems[4].Text;
-				tech.rank_trait = eachitem.SubItems[5].Text;
-				tech.branched = eachitem.SubItems[6].Text;
-				tech.branch_TP = eachitem.SubItems[7].Text;
-				tech.type = eachitem.SubItems[8].Text;
-				tech.range = eachitem.SubItems[9].Text;
-				tech.stats = eachitem.SubItems[10].Text;
-				tech.power = eachitem.SubItems[11].Text;
-				tech.effect = eachitem.SubItems[12].Text;
-				tech.TP_note = eachitem.SubItems[13].Text;
-				tech.desc = eachitem.SubItems[14].Text;
+				tech.name = techName;
+				MainForm.TechInfo techInfo = techList_[techName];
+				tech.rank = techInfo.rank;
+				tech.reg_TP = techInfo.regTP;
+				tech.sp_TP = techInfo.spTP;
+				tech.sp_trait = techInfo.sp_Trait;
+				tech.tech_trait = techInfo.tech_Trait;
+				tech.branch_tech = techInfo.tech_Branch;
+				tech.branch_rank = techInfo.rank_Branch;
+				tech.type = techInfo.type;
+				tech.range = techInfo.range;
+				tech.str = techInfo.stats.str;
+				tech.spe = techInfo.stats.spe;
+				tech.sta = techInfo.stats.sta;
+				tech.acc = techInfo.stats.acc;
+				tech.NA_power = techInfo.NA_power;
+				List<string> effects = new List<string>();
+				foreach (string effectName in techInfo.effectList.Keys) {
+					// This includes possible copies of the same effect!
+					effects.Add(effectName);
+                }
+				tech.effects = effects;
+				tech.power = techInfo.power;
+				tech.DF_options = techInfo.DF_checkBox;
+				tech.notes = techInfo.note;
+				tech.desc = techInfo.desc;
 				techniques.Add(tech);
 			}
 		}
 
-		// --- Load Functions (This is only to retract from the save file onto here)
+		#endregion
+
+		#region Load Functions
 
 		public void LoadProject_Basic(ref TextBox _name, ref TextBox _nick, ref NumericUpDown _age, ref ComboBox _gender, ref TextBox _race, ref TextBox _position,
 			ref ComboBox _affiliation, ref TextBox _bounty, ref TextBox _commendation, ref ComboBox _rank, ref TextBox _threat, ref ListBox _achieve, ref ListView _prof) {
@@ -281,6 +310,7 @@ namespace OPRPCharBuild
 			for (int i = 0; i < achievements.Count; ++i) {
 				_achieve.Items.Add(achievements[i]);
 			}
+			MainForm.ProfList.Clear();
 			_prof.Items.Clear();
 			for (int i = 0; i < professions.Count; ++i) {
 				ListViewItem item = new ListViewItem();
@@ -289,6 +319,12 @@ namespace OPRPCharBuild
 				item.SubItems.Add(professions[i].desc);
 				item.SubItems.Add(professions[i].bonus);
 				_prof.Items.Add(item);
+				// Now add onto static variable ProfList
+				bool pri = false;
+				if (professions[i].primary == "Primary") {
+					pri = true;
+				}
+				MainForm.ProfList.Add(professions[i].name, pri);
 			}
 		}
 
@@ -346,10 +382,10 @@ namespace OPRPCharBuild
 			ref NumericUpDown _str, ref NumericUpDown _spe, ref NumericUpDown _sta, ref NumericUpDown _acc) {
 			_SDEarned.Value = SD_Earned;
 			_SDtoSP.Value = SDtoSP;
-			int index = 0;
-			foreach (CheckBox chkBox in _AP.Controls) {
-				chkBox.Checked = AP[index];
-				index++;
+			if (AP.Count == 5) {
+				for (int i = 0; i < _AP.Items.Count; ++i) {
+					_AP.SetItemChecked(i, AP[i]);
+				}
 			}
 			_usedFort.Value = used_fort;
 			_str.Value = str;
@@ -359,8 +395,10 @@ namespace OPRPCharBuild
 		}
 
 		public void LoadProject_Traits(ref ListView _traitsList) {
+			MainForm.TraitsList.Clear();
 			_traitsList.Items.Clear();
 			for (int i = 0; i < traitsList.Count; ++i) {
+				Traits Trait = new Traits();
 				ListViewItem item = new ListViewItem();
 				item.SubItems[0].Text = traitsList[i].name;
 				item.SubItems.Add(traitsList[i].type);
@@ -368,35 +406,102 @@ namespace OPRPCharBuild
 				item.SubItems.Add(traitsList[i].prof_num);
 				item.SubItems.Add(traitsList[i].desc);
 				_traitsList.Items.Add(item);
+				// Add into static TraitsList
+				MainForm.TraitsList.Add(Trait.get_TraitID(traitsList[i].name));
 			}
 		}
 
+		private string Filter_EffectName(string effect) {
+			// We know from our earlier implementation that copies of the same effect just have a number attached to the end.
+			// If for some odd reason a user has more than 10 of the same effects, this will crash...yeah.
+			char num = effect[effect.Length - 1];
+			if (char.IsNumber(num)) {
+				// We're removing that number
+				return effect.Remove(effect.Length - 1);
+			}
+			return effect;
+		}
+
+		private string Copy_StatInts_to_ListView(int str, int spe, int sta, int acc) {
+			string stats = "";
+			if (str == 0 && spe == 0 && sta == 0 && acc == 0) {
+				return "N/A";
+			}
+			if (str != 0) {
+				if (str > 0) { stats += "+"; }
+				stats += str + " Str";
+			}
+			if (spe != 0) {
+				if (!string.IsNullOrEmpty(stats)) { stats += ", "; }
+				if (spe > 0) { stats += "+"; }
+				stats += spe + " Spe";
+			}
+			if (sta != 0) {
+				if (!string.IsNullOrEmpty(stats)) { stats += ", "; }
+				if (sta > 0) { stats += "+"; }
+				stats += sta + " Sta";
+			}
+			if (acc != 0) {
+				if (!string.IsNullOrEmpty(stats)) { stats += ", "; }
+				if (acc > 0) { stats += "+"; }
+				stats += acc + " Acc";
+			}
+			return stats;
+		}
+
 		public void LoadProject_Tech(ref ListView _techList) {
+			MainForm.TechList.Clear();
 			_techList.Items.Clear();
 			for (int i = 0; i < techniques.Count; ++i) {
+				Effects Effect = new Effects();
+				// Store into static TechList
+				MainForm.TechStats Stats = new MainForm.TechStats(techniques[i].str, techniques[i].spe,
+					techniques[i].sta, techniques[i].acc);
+				Dictionary<string, Add_Technique.EffectItem> effectList = new Dictionary<string, Add_Technique.EffectItem>();
+				// Remember the save file only has a string of Effects, in which we can just simply load its info.
+				// Exception is: Wooden Defences and Mirage (Clones)
+				for (int j = 0; j < techniques[i].effects.Count; ++j) {
+					string effectName = techniques[i].effects[j];		// WARNING: There could be copies of an effect!
+					string FilteredeffectName = Filter_EffectName(effectName);
+					Effects.Effect_Name ID = Effect.Get_EffectID(FilteredeffectName);
+					// These are Effects in which the Cost isn't a set value.
+					if (ID == Effects.Effect_Name.MIR_CLONE) { MessageBox.Show("You may need to double check the Cost of any Tech that uses Mirage (Clones)", "Reminder"); }
+					if (ID == Effects.Effect_Name.WOOD_DEF) { MessageBox.Show("You may need to double check the Cost of any Tech that uses Wooden Defences", "Reminder"); }
+					// An error when you have 9 or more of the same effects
+					if (ID == Effects.Effect_Name.NONE) { MessageBox.Show("Wrong Effect name loaded or Why the heck do you have more than 9 of the same effects?", "Error"); return; }
+					effectList.Add(effectName, new Add_Technique.EffectItem(ID, Effect.Get_EffectInfo(ID).general,
+						Effect.Get_EffectInfo(ID).cost, Effect.Get_EffectInfo(ID).MinRank));
+				}
+				MainForm.TechInfo Tech_Info = new MainForm.TechInfo(techniques[i].rank, techniques[i].reg_TP,
+					techniques[i].sp_TP, techniques[i].tech_trait, techniques[i].sp_trait, techniques[i].branch_tech,
+					techniques[i].branch_rank, techniques[i].type, techniques[i].range, Stats, techniques[i].NA_power,
+					effectList, techniques[i].power, techniques[i].DF_options, techniques[i].notes, techniques[i].desc);
+				MainForm.TechList.Add(techniques[i].name, Tech_Info);
+				// Now add into ListView
 				ListViewItem item = new ListViewItem();
-				item.SubItems[0].Text = techniques[i].name;
-				item.SubItems.Add(techniques[i].rank);
-				item.SubItems.Add(techniques[i].reg_TP);
-				item.SubItems.Add(techniques[i].sp_TP);
-				item.SubItems.Add(techniques[i].sp_trait);
-				item.SubItems.Add(techniques[i].rank_trait);
-				item.SubItems.Add(techniques[i].branched);
-				item.SubItems.Add(techniques[i].branch_TP);
-				item.SubItems.Add(techniques[i].type);
-				item.SubItems.Add(techniques[i].range);
-				item.SubItems.Add(techniques[i].stats);
-				item.SubItems.Add(techniques[i].power);
-				item.SubItems.Add(techniques[i].effect);
-				item.SubItems.Add(techniques[i].TP_note);
-				item.SubItems.Add(techniques[i].desc);
+				item.SubItems[0].Text = techniques[i].name;			// [0]: Name
+				item.SubItems.Add(techniques[i].rank.ToString());	// [1]: Rank
+				item.SubItems.Add(techniques[i].reg_TP.ToString());	// [2]: RegTP
+				item.SubItems.Add(techniques[i].sp_TP.ToString());	// [3]: SpTP
+				item.SubItems.Add(techniques[i].sp_trait);			// [4]: SpTrait
+				item.SubItems.Add(techniques[i].tech_trait);		// [5]: TechTrait
+				item.SubItems.Add(techniques[i].branch_tech);		// [6]: BranchTech
+				item.SubItems.Add(techniques[i].type);				// [7]: Type
+				item.SubItems.Add(techniques[i].range);             // [8]: Range
+				string stats = Copy_StatInts_to_ListView(techniques[i].str,
+					techniques[i].spe, techniques[i].sta, techniques[i].acc);
+				item.SubItems.Add(stats);							// [9]: Stats
+				item.SubItems.Add(techniques[i].power);				// [10]: Power
 				_techList.Items.Add(item);
 			}
+
+			#endregion
+		
 		}
 	}
 }
 
-// Last Version used: v1.0.1.0
+// Last Version used: v1.0.1.0 (Project)
 namespace OPRPCharBuild
 {
 	[Serializable()]
@@ -512,7 +617,7 @@ namespace OPRPCharBuild
 		// Techniques Tab
 		private List<Tech> techniques = new List<Tech>();
 
-		// Transfer from Project to Newest Project
+		// Transfer from Project to Project2 (Newest)
 		public void Transfer_v1010toNew(ref Project2 project) {
 			// Basic Information Tab
 			project.char_name = char_name;
@@ -596,7 +701,7 @@ namespace OPRPCharBuild
 			project.sta = sta;
 			project.acc = acc;
 
-			// Traits & Tech Tab
+			// Traits Tab
 			project.traitsList.Clear();
 			for (int i = 0; i < traitsList.Count; ++i) {
 				Project2.Trait trait = new Project2.Trait();
@@ -607,26 +712,55 @@ namespace OPRPCharBuild
 				trait.desc = traitsList[i].desc;
 				project.traitsList.Add(trait);
 			}
+			// Technique Tab
 			project.techniques.Clear();
+			MainForm.TechList.Clear();
 			for (int i = 0; i < techniques.Count; ++i) {
 				Project2.Tech tech = new Project2.Tech();
 				tech.name = techniques[i].name;
-				tech.rank = techniques[i].rank;
-                tech.reg_TP = techniques[i].reg_TP;
-				tech.sp_TP = techniques[i].sp_TP;
+				tech.rank = int.Parse(techniques[i].rank);
+                tech.reg_TP = int.Parse(techniques[i].reg_TP);
+				tech.sp_TP = int.Parse(techniques[i].sp_TP);
 				tech.sp_trait = techniques[i].sp_trait;
-				tech.rank_trait = techniques[i].rank_trait;
-				tech.branched = techniques[i].branched;
-				tech.branch_TP = techniques[i].branch_TP;
+				tech.tech_trait = techniques[i].rank_trait;
+				tech.branch_tech = techniques[i].branched;
+				tech.branch_rank = 0;
 				tech.type = techniques[i].type;
 				tech.range = techniques[i].range;
-				tech.stats = techniques[i].stats;
+				Parse_String_to_StatsInt(ref tech, techniques[i].stats);
+				tech.NA_power = false;
+				tech.effects = new List<string>();
 				tech.power = techniques[i].power;
-				tech.effect = techniques[i].effect;
-				tech.TP_note = techniques[i].TP_note;
+				tech.DF_options = new List<bool>() { false, false, false, false };
+				tech.notes = techniques[i].TP_note;
 				tech.desc = techniques[i].desc;
 				project.techniques.Add(tech);
 			}
+		}
+
+		// Returns true if there are no more commas
+		// Returns false if there are still commas
+		private bool Parse_Stat(ref string stat_string, ref int stat_val) {
+			int ind_space = stat_string.IndexOf(' ');
+			int val = int.Parse(stat_string.Substring(1, ind_space - 1));
+			if (stat_string[0] == '-') { val *= -1; }
+			stat_val = val;
+			int comma_ind = stat_string.IndexOf(',');
+			if (comma_ind == -1) { return true; }
+			else { stat_string = stat_string.Remove(0, comma_ind + 1); }
+			return false;
+		}
+
+		// Not gonna bother commenting this, I'm just mindlessly doing it.
+		private void Parse_String_to_StatsInt(ref Project2.Tech tech, string stats) {
+			if (!stats.Contains("Str")) { tech.str = 0; }
+			else if (Parse_Stat(ref stats, ref tech.str)) { return; }
+			if (!stats.Contains("Spe")) { tech.spe = 0; }
+			else if (Parse_Stat(ref stats, ref tech.spe)) { return; }
+			if (!stats.Contains("Sta")) { tech.sta = 0; }
+			else if (Parse_Stat(ref stats, ref tech.sta)) { return; }
+			if (!stats.Contains("Acc")) { tech.acc = 0; }
+			else if (Parse_Stat(ref stats, ref tech.acc)) { return; }
 		}
 	}
 }
