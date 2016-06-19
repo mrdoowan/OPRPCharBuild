@@ -61,13 +61,14 @@ namespace OPRPCharBuild
 			public Dictionary<string, Add_Technique.EffectItem> effectList;
 			public string power;
 			public List<bool> DF_checkBox;
+			public List<bool> Cyborg_Boosts;
 			public string note;
 			public string desc;
 
 			// Constructor
 			public TechInfo(int rank_, int regTP_, int spTP_, string techTrait_, string spTrait_,
 				string techBranch_, int rankBranch_, string type_, string range_, TechStats stats_, bool NA_,
-				Dictionary<string, Add_Technique.EffectItem> effectList_, string power_, List<bool> DF_,
+				Dictionary<string, Add_Technique.EffectItem> effectList_, string power_, List<bool> DF_, List<bool> Cyborg_,
 				string note_, string desc_) {
 				rank = rank_;
 				regTP = regTP_;
@@ -83,6 +84,7 @@ namespace OPRPCharBuild
 				effectList = effectList_;
 				power = power_;
 				DF_checkBox = DF_;
+				Cyborg_Boosts = Cyborg_;
 				note = note_;
 				desc = desc_;
 			}
@@ -1429,7 +1431,8 @@ namespace OPRPCharBuild
 		private void button14_TechAdd_Click(object sender, EventArgs e) {
 			// Technique "Add" button from the MainForm
 			int max_rank = int.Parse(textBox_Fortune.Text) / 2;
-			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, textBox_DFName.Text, comboBox_DFType.Text);
+			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, 
+				textBox_DFName.Text, comboBox_DFType.Text, richTextBox_DFDesc.Text, textBox_DFEffect.Text);
 			TechniqueWin.NewDialog(ref listView_Techniques, null, new TechInfo(), false);
 			// Update functions go below
 			Update_SpTrait_Table_Values();
@@ -1441,7 +1444,8 @@ namespace OPRPCharBuild
 			string TechName = listView_Techniques.SelectedItems[0].SubItems[0].Text;
 			if (!string.IsNullOrWhiteSpace(TechName)) {
 				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
-				Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, textBox_DFName.Text, comboBox_DFType.Text);
+				Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, 
+					textBox_DFName.Text, comboBox_DFType.Text, richTextBox_DFDesc.Text, textBox_DFEffect.Text);
 				TechInfo Selected = TechList[TechName];
 				TechniqueWin.NewDialog(ref listView_Techniques, TechName, Selected, true);
 				// Update functions go below
@@ -1455,7 +1459,8 @@ namespace OPRPCharBuild
 			string TechName = listView_Techniques.SelectedItems[0].SubItems[0].Text;
 			if (!string.IsNullOrWhiteSpace(TechName)) {
 				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
-				Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, textBox_DFName.Text, comboBox_DFType.Text);
+				Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, 
+					textBox_DFName.Text, comboBox_DFType.Text, richTextBox_DFDesc.Text, textBox_DFEffect.Text);
 				TechInfo Selected = TechList[TechName];
 				TechniqueWin.EditDialog(ref listView_Techniques, TechName, Selected);
 				// Update functions go below
@@ -1623,7 +1628,8 @@ namespace OPRPCharBuild
 				textBox_Beli.Text,
 				textBox_DFName.Text,
 				comboBox_DFType.Text,
-				richTextBox_DFDesc.Text
+				richTextBox_DFDesc.Text,
+				textBox_DFEffect.Text
 				);
 			project.SaveProject_Stats(
 				(int)numericUpDown_SDEarned.Value,
@@ -1688,7 +1694,8 @@ namespace OPRPCharBuild
 			  ref textBox_Beli,
 			  ref textBox_DFName,
 			  ref comboBox_DFType,
-			  ref richTextBox_DFDesc
+			  ref richTextBox_DFDesc,
+			  ref textBox_DFEffect
 			  );
 			}
 			catch (Exception ex) { MessageBox.Show("Load Combat and Abilities Error.\nReason: " + ex.Message); }
@@ -1979,8 +1986,8 @@ namespace OPRPCharBuild
 						resetForm();
 						loadProjectToForm();
 						this.Text = "OPRP Character Builder";
-						MessageBox.Show("Character imported successfully!\n\nFew notes:" + 
-							"\n- Edit every single one of your Techniques for Effects, Branching, and new \"Traits Affect Tech\"\n" +
+						MessageBox.Show("Character imported successfully!\n\nFew notes:\n" + 
+							"- Edit every single one of your Techniques for Effects, Range, Branching, DF Options, and new \"Traits Affect Tech\"\n" +
 							"- Do not make Custom Trait names or the tool won't recognize them. Edit the custom name into the generated Sheet instead.\n" +
 							"- In this new version, many dangerous coding techniques were used. Please report any bugs ASAP as it could potentially corrupt .oprp data." +
 							" Please save backups as often as possible. Most of it should be fine now since much of this was tested.");

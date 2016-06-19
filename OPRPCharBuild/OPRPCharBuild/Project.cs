@@ -127,12 +127,13 @@ namespace OPRPCharBuild
 			public List<Effect> effects;
 			public string power;
 			public List<bool> DF_options;
+			public List<bool> Cyborg;
 			public string notes;
 			public string desc;
 
 			public Tech(string name_, int rank_, int regTP_, int spTP_, string spTrait_, string techTrait_, string branchTech_,
 				int branchRank_, string type_, string range_, int str_, int spe_, int sta_, int acc_, bool NA_, List<Effect> effects_,
-				string power_, List<bool> DF_, string notes_, string desc_) {
+				string power_, List<bool> DF_, List<bool> Cyborg_, string notes_, string desc_) {
 				name = name_;
 				rank = rank_;
 				reg_TP = regTP_;
@@ -151,6 +152,7 @@ namespace OPRPCharBuild
 				effects = effects_;
 				power = power_;
 				DF_options = DF_;
+				Cyborg = Cyborg_;
 				notes = notes_;
 				desc = desc_;
 			}
@@ -203,6 +205,7 @@ namespace OPRPCharBuild
 		public string DF_name;
 		public string DF_type;
 		public string DF_desc;
+		public string DF_effect;
 
 		// Traits Tab
 		public List<Trait> traitsList = new List<Trait>();
@@ -261,7 +264,7 @@ namespace OPRPCharBuild
 		}
 
 		public void SaveProject_Combat(string combat_, ListView weaponry_, ListView items_, string beli_,
-			string DFname_, string DFtype_, string DFdesc_) {
+			string DFname_, string DFtype_, string DFdesc_, string DFeffect_) {
 			combat = combat_;
 			weaponry.Clear();
 			foreach (ListViewItem eachitem in weaponry_.Items) {
@@ -277,6 +280,7 @@ namespace OPRPCharBuild
 			DF_name = DFname_;
 			DF_type = DFtype_;
 			DF_desc = DFdesc_;
+			DF_effect = DFeffect_;
 		}
 
 		public void SaveProject_Stats(int SDEarned_, int SDtoSP_, CheckedListBox AP_, int usedFort_,
@@ -323,7 +327,7 @@ namespace OPRPCharBuild
 				}
 				Tech tech = new Tech(techName, techInfo.rank, techInfo.regTP, techInfo.spTP, techInfo.sp_Trait, techInfo.tech_Trait,
 					techInfo.tech_Branch, techInfo.rank_Branch, techInfo.type, techInfo.range, techInfo.stats.str, techInfo.stats.spe,
-					techInfo.stats.sta, techInfo.stats.acc, techInfo.NA_power, effects, techInfo.power, techInfo.DF_checkBox,
+					techInfo.stats.sta, techInfo.stats.acc, techInfo.NA_power, effects, techInfo.power, techInfo.DF_checkBox, techInfo.Cyborg_Boosts,
 					techInfo.note, techInfo.desc);
 				techniques.Add(tech);
 			}
@@ -396,7 +400,7 @@ namespace OPRPCharBuild
 		}
 
 		public void LoadProject_Combat(ref RichTextBox _combat, ref ListView _weaponry, ref ListView _items, ref TextBox _beli,
-			ref TextBox _DFname, ref ComboBox _DFtype, ref RichTextBox _DFdesc) {
+			ref TextBox _DFname, ref ComboBox _DFtype, ref RichTextBox _DFdesc, ref TextBox _DFeffect) {
 			_combat.Text = combat;
 			_weaponry.Items.Clear();
 			for (int i = 0; i < weaponry.Count; ++i) {
@@ -416,6 +420,7 @@ namespace OPRPCharBuild
 			_DFname.Text = DF_name;
 			_DFtype.Text = DF_type;
 			_DFdesc.Text = DF_desc;
+			_DFeffect.Text = DF_effect;
 		}
 
 		public void LoadProject_Stats(ref NumericUpDown _SDEarned, ref NumericUpDown _SDtoSP, ref CheckedListBox _AP, ref NumericUpDown _usedFort,
@@ -512,7 +517,8 @@ namespace OPRPCharBuild
 				MainForm.TechInfo Tech_Info = new MainForm.TechInfo(techniques[i].rank, techniques[i].reg_TP,
 					techniques[i].sp_TP, techniques[i].tech_trait, techniques[i].sp_trait, techniques[i].branch_tech,
 					techniques[i].branch_rank, techniques[i].type, techniques[i].range, Stats, techniques[i].NA_power,
-					effectList, techniques[i].power, techniques[i].DF_options, techniques[i].notes, techniques[i].desc);
+					effectList, techniques[i].power, techniques[i].DF_options, techniques[i].Cyborg, 
+					techniques[i].notes, techniques[i].desc);
 				MainForm.TechList.Add(techniques[i].name, Tech_Info);
 				// Now add into ListView
 				ListViewItem item = new ListViewItem();
@@ -734,6 +740,7 @@ namespace OPRPCharBuild
 				project.DF_name = DF_name;
 				project.DF_type = DF_type;
 				project.DF_desc = DF_desc;
+				project.DF_effect = "";
 			}
 			catch (Exception e) { MessageBox.Show("v1.0.1.0 Transfer: Combat Error\nReason: " + e.Message, "Error"); }
 
@@ -786,7 +793,8 @@ namespace OPRPCharBuild
 					tech.NA_power = false;
 					tech.effects = new List<Project2.Effect>();
 					tech.power = techniques[i].power;
-					tech.DF_options = new List<bool>() { false, false, false, false };
+					tech.DF_options = new List<bool>() { false, false, false, false, false };
+					tech.Cyborg = new List<bool>() { false, false, false };
 					tech.notes = techniques[i].TP_note;
 					tech.desc = techniques[i].desc;
 					project.techniques.Add(tech);

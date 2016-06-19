@@ -226,6 +226,10 @@
 			this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.olderVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolTip_Standardize = new System.Windows.Forms.ToolTip(this.components);
+			this.label33 = new System.Windows.Forms.Label();
+			this.textBox_DFEffect = new System.Windows.Forms.TextBox();
+			this.label34 = new System.Windows.Forms.Label();
+			this.label35 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1212,6 +1216,10 @@
 			// 
 			// groupBox9
 			// 
+			this.groupBox9.Controls.Add(this.label35);
+			this.groupBox9.Controls.Add(this.label34);
+			this.groupBox9.Controls.Add(this.label33);
+			this.groupBox9.Controls.Add(this.textBox_DFEffect);
 			this.groupBox9.Controls.Add(this.richTextBox_DFDesc);
 			this.groupBox9.Controls.Add(this.label52);
 			this.groupBox9.Controls.Add(this.comboBox_DFType);
@@ -1221,7 +1229,7 @@
 			this.groupBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
 			this.groupBox9.Location = new System.Drawing.Point(6, 526);
 			this.groupBox9.Name = "groupBox9";
-			this.groupBox9.Size = new System.Drawing.Size(619, 194);
+			this.groupBox9.Size = new System.Drawing.Size(619, 226);
 			this.groupBox9.TabIndex = 14;
 			this.groupBox9.TabStop = false;
 			this.groupBox9.Text = "Devil Fruit";
@@ -1252,10 +1260,12 @@
             "",
             "Paramecia",
             "Logia",
-            "Zoan"});
+            "Zoan",
+            "Ancient Zoan",
+            "Myth Zoan"});
 			this.comboBox_DFType.Location = new System.Drawing.Point(70, 57);
 			this.comboBox_DFType.Name = "comboBox_DFType";
-			this.comboBox_DFType.Size = new System.Drawing.Size(121, 24);
+			this.comboBox_DFType.Size = new System.Drawing.Size(139, 24);
 			this.comboBox_DFType.TabIndex = 15;
 			// 
 			// label51
@@ -2541,6 +2551,43 @@
 			this.olderVersionToolStripMenuItem.Text = "Older Version";
 			this.olderVersionToolStripMenuItem.Click += new System.EventHandler(this.olderVersionToolStripMenuItem_Click);
 			// 
+			// label33
+			// 
+			this.label33.AutoSize = true;
+			this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label33.Location = new System.Drawing.Point(3, 194);
+			this.label33.Name = "label33";
+			this.label33.Size = new System.Drawing.Size(62, 13);
+			this.label33.TabIndex = 19;
+			this.label33.Text = "Free Effect:";
+			// 
+			// textBox_DFEffect
+			// 
+			this.textBox_DFEffect.Location = new System.Drawing.Point(70, 189);
+			this.textBox_DFEffect.Name = "textBox_DFEffect";
+			this.textBox_DFEffect.Size = new System.Drawing.Size(351, 23);
+			this.textBox_DFEffect.TabIndex = 18;
+			// 
+			// label34
+			// 
+			this.label34.AutoSize = true;
+			this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label34.Location = new System.Drawing.Point(427, 194);
+			this.label34.Name = "label34";
+			this.label34.Size = new System.Drawing.Size(159, 13);
+			this.label34.TabIndex = 20;
+			this.label34.Text = "(Only applicable for T1/T2 fruits)";
+			// 
+			// label35
+			// 
+			this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label35.Location = new System.Drawing.Point(427, 22);
+			this.label35.Name = "label35";
+			this.label35.Size = new System.Drawing.Size(185, 32);
+			this.label35.TabIndex = 21;
+			this.label35.Text = "Leave this entirely blank if your character does not have a Devil Fruit";
+			this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2807,6 +2854,10 @@
 		private System.Windows.Forms.Button button_TraitOrder;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Label label32;
+		private System.Windows.Forms.Label label34;
+		private System.Windows.Forms.Label label33;
+		private System.Windows.Forms.TextBox textBox_DFEffect;
+		private System.Windows.Forms.Label label35;
 	}
 }
 

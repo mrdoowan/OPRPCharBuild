@@ -1,3 +1,7 @@
+v1.0.1.11 - 6/19/2016
+- Add Technique Form GUI updated to look nicer
+- Devil Fruit and Cyborg changed so that the Form is automatically updated upon checking the Traits List
+- Sheet not yet updated to reflect the new changes
 v1.0.1.10 - 6/19/2016
 - A few bug fixes done pertaining to Loading/Saving again.
 - Updated Sheet.cs to reflect the current changes

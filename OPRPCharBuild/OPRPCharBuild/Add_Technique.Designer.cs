@@ -91,11 +91,19 @@
 			this.listView_Effects = new System.Windows.Forms.ListView();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
 			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.checkBox_Fuel3 = new System.Windows.Forms.CheckBox();
+			this.checkBox_Fuel2 = new System.Windows.Forms.CheckBox();
+			this.label_Cyborg = new System.Windows.Forms.Label();
+			this.checkBox_Fuel1 = new System.Windows.Forms.CheckBox();
+			this.checkBox_DFEffect = new System.Windows.Forms.CheckBox();
+			this.checkBox_DFTechEnable = new System.Windows.Forms.CheckBox();
 			this.checkBox_Hybrid = new System.Windows.Forms.CheckBox();
 			this.checkBox_Full = new System.Windows.Forms.CheckBox();
 			this.checkBox_ZoanSig = new System.Windows.Forms.CheckBox();
 			this.checkBox_DFRank4 = new System.Windows.Forms.CheckBox();
 			this.label_DF = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label20 = new System.Windows.Forms.Label();
 			this.toolTip_Cost = new System.Windows.Forms.ToolTip(this.components);
 			this.toolTip_DFEnable = new System.Windows.Forms.ToolTip(this.components);
 			this.toolTip_NAPower = new System.Windows.Forms.ToolTip(this.components);
@@ -444,7 +452,7 @@
 			// 
 			// button_ClearTech
 			// 
-			this.button_ClearTech.Location = new System.Drawing.Point(291, 876);
+			this.button_ClearTech.Location = new System.Drawing.Point(732, 476);
 			this.button_ClearTech.Name = "button_ClearTech";
 			this.button_ClearTech.Size = new System.Drawing.Size(75, 23);
 			this.button_ClearTech.TabIndex = 62;
@@ -454,7 +462,7 @@
 			// 
 			// button_AddTech
 			// 
-			this.button_AddTech.Location = new System.Drawing.Point(372, 876);
+			this.button_AddTech.Location = new System.Drawing.Point(813, 476);
 			this.button_AddTech.Name = "button_AddTech";
 			this.button_AddTech.Size = new System.Drawing.Size(75, 23);
 			this.button_AddTech.TabIndex = 61;
@@ -465,7 +473,7 @@
 			// label18
 			// 
 			this.label18.AutoSize = true;
-			this.label18.Location = new System.Drawing.Point(65, 881);
+			this.label18.Location = new System.Drawing.Point(506, 481);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(220, 13);
 			this.label18.TabIndex = 64;
@@ -509,7 +517,7 @@
 			this.groupBox2.Controls.Add(this.textBox_TechBranched);
 			this.groupBox2.Controls.Add(this.label5);
 			this.groupBox2.Controls.Add(this.numericUpDown_RankBranch);
-			this.groupBox2.Location = new System.Drawing.Point(12, 143);
+			this.groupBox2.Location = new System.Drawing.Point(453, 6);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(435, 73);
 			this.groupBox2.TabIndex = 70;
@@ -539,7 +547,7 @@
 			this.groupBox3.Controls.Add(this.comboBox_Range);
 			this.groupBox3.Controls.Add(this.label12);
 			this.groupBox3.Controls.Add(this.numericUpDown_Str);
-			this.groupBox3.Location = new System.Drawing.Point(12, 222);
+			this.groupBox3.Location = new System.Drawing.Point(12, 143);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(435, 128);
 			this.groupBox3.TabIndex = 71;
@@ -723,7 +731,7 @@
 			this.groupBox4.Controls.Add(this.checkBox_NA);
 			this.groupBox4.Controls.Add(this.listView_Effects);
 			this.groupBox4.Controls.Add(this.label11);
-			this.groupBox4.Location = new System.Drawing.Point(12, 356);
+			this.groupBox4.Location = new System.Drawing.Point(12, 277);
 			this.groupBox4.Name = "groupBox4";
 			this.groupBox4.Size = new System.Drawing.Size(435, 193);
 			this.groupBox4.TabIndex = 72;
@@ -780,7 +788,6 @@
             0,
             0});
 			this.numericUpDown_Cost.Name = "numericUpDown_Cost";
-			this.numericUpDown_Cost.ReadOnly = true;
 			this.numericUpDown_Cost.Size = new System.Drawing.Size(39, 20);
 			this.numericUpDown_Cost.TabIndex = 108;
 			this.toolTip_Cost.SetToolTip(this.numericUpDown_Cost, "REMINDER: Only change this value if changing different Tiers");
@@ -858,7 +865,7 @@
 			this.groupBox5.Controls.Add(this.textBox_Note);
 			this.groupBox5.Controls.Add(this.label16);
 			this.groupBox5.Controls.Add(this.richTextBox_Desc);
-			this.groupBox5.Location = new System.Drawing.Point(12, 675);
+			this.groupBox5.Location = new System.Drawing.Point(453, 275);
 			this.groupBox5.Name = "groupBox5";
 			this.groupBox5.Size = new System.Drawing.Size(435, 195);
 			this.groupBox5.TabIndex = 73;
@@ -867,24 +874,102 @@
 			// 
 			// groupBox6
 			// 
+			this.groupBox6.Controls.Add(this.checkBox_Fuel3);
+			this.groupBox6.Controls.Add(this.checkBox_Fuel2);
+			this.groupBox6.Controls.Add(this.label_Cyborg);
+			this.groupBox6.Controls.Add(this.checkBox_Fuel1);
+			this.groupBox6.Controls.Add(this.checkBox_DFEffect);
+			this.groupBox6.Controls.Add(this.checkBox_DFTechEnable);
 			this.groupBox6.Controls.Add(this.checkBox_Hybrid);
 			this.groupBox6.Controls.Add(this.checkBox_Full);
 			this.groupBox6.Controls.Add(this.checkBox_ZoanSig);
 			this.groupBox6.Controls.Add(this.checkBox_DFRank4);
 			this.groupBox6.Controls.Add(this.label_DF);
-			this.groupBox6.Location = new System.Drawing.Point(12, 555);
+			this.groupBox6.Controls.Add(this.label3);
+			this.groupBox6.Controls.Add(this.label20);
+			this.groupBox6.Location = new System.Drawing.Point(453, 85);
 			this.groupBox6.Name = "groupBox6";
-			this.groupBox6.Size = new System.Drawing.Size(435, 121);
+			this.groupBox6.Size = new System.Drawing.Size(435, 186);
 			this.groupBox6.TabIndex = 74;
 			this.groupBox6.TabStop = false;
-			this.groupBox6.Text = "Devil Fruit";
+			this.groupBox6.Text = "Devil Fruit and Cyborg";
 			this.toolTip_DFEnable.SetToolTip(this.groupBox6, "Enable this section by selecting \"Specific Devil Fruit\" in Trait Affecting Tech");
+			// 
+			// checkBox_Fuel3
+			// 
+			this.checkBox_Fuel3.AutoSize = true;
+			this.checkBox_Fuel3.Enabled = false;
+			this.checkBox_Fuel3.Location = new System.Drawing.Point(338, 163);
+			this.checkBox_Fuel3.Name = "checkBox_Fuel3";
+			this.checkBox_Fuel3.Size = new System.Drawing.Size(91, 17);
+			this.checkBox_Fuel3.TabIndex = 114;
+			this.checkBox_Fuel3.Text = "3 Fuel Stacks";
+			this.checkBox_Fuel3.UseVisualStyleBackColor = true;
+			this.checkBox_Fuel3.CheckedChanged += new System.EventHandler(this.checkBox_Fuel3_CheckedChanged);
+			// 
+			// checkBox_Fuel2
+			// 
+			this.checkBox_Fuel2.AutoSize = true;
+			this.checkBox_Fuel2.Enabled = false;
+			this.checkBox_Fuel2.Location = new System.Drawing.Point(241, 163);
+			this.checkBox_Fuel2.Name = "checkBox_Fuel2";
+			this.checkBox_Fuel2.Size = new System.Drawing.Size(91, 17);
+			this.checkBox_Fuel2.TabIndex = 113;
+			this.checkBox_Fuel2.Text = "2 Fuel Stacks";
+			this.checkBox_Fuel2.UseVisualStyleBackColor = true;
+			this.checkBox_Fuel2.CheckedChanged += new System.EventHandler(this.checkBox_Fuel2_CheckedChanged);
+			// 
+			// label_Cyborg
+			// 
+			this.label_Cyborg.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label_Cyborg.Location = new System.Drawing.Point(6, 163);
+			this.label_Cyborg.Name = "label_Cyborg";
+			this.label_Cyborg.Size = new System.Drawing.Size(137, 14);
+			this.label_Cyborg.TabIndex = 112;
+			this.label_Cyborg.Text = "No Cyborg Trait";
+			this.label_Cyborg.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// checkBox_Fuel1
+			// 
+			this.checkBox_Fuel1.AutoSize = true;
+			this.checkBox_Fuel1.Enabled = false;
+			this.checkBox_Fuel1.Location = new System.Drawing.Point(149, 163);
+			this.checkBox_Fuel1.Name = "checkBox_Fuel1";
+			this.checkBox_Fuel1.Size = new System.Drawing.Size(86, 17);
+			this.checkBox_Fuel1.TabIndex = 84;
+			this.checkBox_Fuel1.Text = "1 Fuel Stack";
+			this.checkBox_Fuel1.UseVisualStyleBackColor = true;
+			this.checkBox_Fuel1.CheckedChanged += new System.EventHandler(this.checkBox_Fuel1_CheckedChanged);
+			// 
+			// checkBox_DFEffect
+			// 
+			this.checkBox_DFEffect.AutoSize = true;
+			this.checkBox_DFEffect.Enabled = false;
+			this.checkBox_DFEffect.Location = new System.Drawing.Point(6, 137);
+			this.checkBox_DFEffect.Name = "checkBox_DFEffect";
+			this.checkBox_DFEffect.Size = new System.Drawing.Size(117, 17);
+			this.checkBox_DFEffect.TabIndex = 81;
+			this.checkBox_DFEffect.Text = "High Tier DF Effect";
+			this.checkBox_DFEffect.UseVisualStyleBackColor = true;
+			this.checkBox_DFEffect.CheckedChanged += new System.EventHandler(this.checkBox_DFEffect_CheckedChanged);
+			// 
+			// checkBox_DFTechEnable
+			// 
+			this.checkBox_DFTechEnable.AutoSize = true;
+			this.checkBox_DFTechEnable.Enabled = false;
+			this.checkBox_DFTechEnable.Location = new System.Drawing.Point(6, 19);
+			this.checkBox_DFTechEnable.Name = "checkBox_DFTechEnable";
+			this.checkBox_DFTechEnable.Size = new System.Drawing.Size(130, 17);
+			this.checkBox_DFTechEnable.TabIndex = 80;
+			this.checkBox_DFTechEnable.Text = "Enable DF Technique";
+			this.checkBox_DFTechEnable.UseVisualStyleBackColor = true;
+			this.checkBox_DFTechEnable.CheckedChanged += new System.EventHandler(this.checkBox_DFTechEnable_CheckedChanged);
 			// 
 			// checkBox_Hybrid
 			// 
 			this.checkBox_Hybrid.AutoSize = true;
 			this.checkBox_Hybrid.Enabled = false;
-			this.checkBox_Hybrid.Location = new System.Drawing.Point(323, 94);
+			this.checkBox_Hybrid.Location = new System.Drawing.Point(6, 114);
 			this.checkBox_Hybrid.Name = "checkBox_Hybrid";
 			this.checkBox_Hybrid.Size = new System.Drawing.Size(106, 17);
 			this.checkBox_Hybrid.TabIndex = 79;
@@ -896,7 +981,7 @@
 			// 
 			this.checkBox_Full.AutoSize = true;
 			this.checkBox_Full.Enabled = false;
-			this.checkBox_Full.Location = new System.Drawing.Point(323, 71);
+			this.checkBox_Full.Location = new System.Drawing.Point(6, 91);
 			this.checkBox_Full.Name = "checkBox_Full";
 			this.checkBox_Full.Size = new System.Drawing.Size(92, 17);
 			this.checkBox_Full.TabIndex = 78;
@@ -908,7 +993,7 @@
 			// 
 			this.checkBox_ZoanSig.AutoSize = true;
 			this.checkBox_ZoanSig.Enabled = false;
-			this.checkBox_ZoanSig.Location = new System.Drawing.Point(323, 48);
+			this.checkBox_ZoanSig.Location = new System.Drawing.Point(6, 68);
 			this.checkBox_ZoanSig.Name = "checkBox_ZoanSig";
 			this.checkBox_ZoanSig.Size = new System.Drawing.Size(99, 17);
 			this.checkBox_ZoanSig.TabIndex = 77;
@@ -920,7 +1005,7 @@
 			// 
 			this.checkBox_DFRank4.AutoSize = true;
 			this.checkBox_DFRank4.Enabled = false;
-			this.checkBox_DFRank4.Location = new System.Drawing.Point(323, 25);
+			this.checkBox_DFRank4.Location = new System.Drawing.Point(6, 45);
 			this.checkBox_DFRank4.Name = "checkBox_DFRank4";
 			this.checkBox_DFRank4.Size = new System.Drawing.Size(85, 17);
 			this.checkBox_DFRank4.TabIndex = 76;
@@ -930,19 +1015,37 @@
 			// 
 			// label_DF
 			// 
-			this.label_DF.Location = new System.Drawing.Point(3, 16);
+			this.label_DF.Location = new System.Drawing.Point(142, 16);
 			this.label_DF.Name = "label_DF";
-			this.label_DF.Size = new System.Drawing.Size(314, 95);
+			this.label_DF.Size = new System.Drawing.Size(287, 138);
 			this.label_DF.TabIndex = 75;
-			this.label_DF.Text = "No Devil Fruit Option";
+			this.label_DF.Text = "No Specific Devil Fruit Trait\nNo Devil Fruit Options";
 			this.label_DF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(3, 27);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(139, 13);
+			this.label3.TabIndex = 82;
+			this.label3.Text = "______________________";
+			// 
+			// label20
+			// 
+			this.label20.Location = new System.Drawing.Point(3, 146);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(426, 13);
+			this.label20.TabIndex = 83;
+			this.label20.Text = "_________________________________________________________________________";
+			this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// Add_Technique
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.ClientSize = new System.Drawing.Size(459, 911);
+			this.ClientSize = new System.Drawing.Size(894, 506);
 			this.Controls.Add(this.groupBox6);
 			this.Controls.Add(this.groupBox5);
 			this.Controls.Add(this.groupBox4);
@@ -1062,5 +1165,13 @@
 		private System.Windows.Forms.ToolTip toolTip_ComboBoxEffect;
 		private System.Windows.Forms.Label label_EffectType;
 		private System.Windows.Forms.ToolTip toolTip_Range;
+		private System.Windows.Forms.CheckBox checkBox_DFEffect;
+		private System.Windows.Forms.CheckBox checkBox_DFTechEnable;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label label20;
+		private System.Windows.Forms.CheckBox checkBox_Fuel3;
+		private System.Windows.Forms.CheckBox checkBox_Fuel2;
+		private System.Windows.Forms.Label label_Cyborg;
+		private System.Windows.Forms.CheckBox checkBox_Fuel1;
 	}
 }

@@ -25,12 +25,15 @@ namespace OPRPCharBuild
 		// Bools for primary professions
 		private bool assassin_primary;
 		private bool thief_primary;
-		// Used when editing Dialogue for comboBox SpTrait and Rank Trait
+		// Used when editing Dialogue for comboBox SpTrait. Rank Trait, and Note
 		private string edit_SpTrait;
 		private string edit_RankTrait;
+		private string edit_Note;
 		// Devil Fruit section
 		private string DF_name;
 		private string DF_type;
+		private string DF_desc;
+		private string DF_effect;
 		// Item for the Dict for a ListView
 		public struct EffectItem
 		{
@@ -49,7 +52,7 @@ namespace OPRPCharBuild
 		}
 		public Dictionary<string, EffectItem> EffectList = new Dictionary<string, EffectItem>(); // Static variable for project usage
 
-		public Add_Technique(int MaxRank, ListView t_list, ListView Sp_list, string DF_Name, string DF_Type) {
+		public Add_Technique(int MaxRank, ListView t_list, ListView Sp_list, string DF_Name, string DF_Type, string DF_Desc, string DF_Eff) {
 			InitializeComponent();
 			button_clicked = false;
 			max_rank = MaxRank;
@@ -58,6 +61,8 @@ namespace OPRPCharBuild
 			SpTraits_list = Sp_list;
 			DF_name = DF_Name;
 			DF_type = DF_Type;
+			DF_desc = DF_Desc;
+			DF_effect = DF_Eff;
 			MainForm.Set_Primary_Bool("Assassin", ref assassin_primary);
 			MainForm.Set_Primary_Bool("Thief", ref thief_primary);
 			gen_effects = 0;
@@ -76,7 +81,7 @@ namespace OPRPCharBuild
 			}
 		}
 
-		// For loading TechStats
+		// This goes from the Add_Technique Form to Dictionary
 		private void Add_Form_to_Dictionary() {
 			string name = textBox_Name.Text;
 			int str = 0, spe = 0, sta = 0, acc = 0;
@@ -86,22 +91,31 @@ namespace OPRPCharBuild
 			Stats_Number(checkBox_MinusAcc, numericUpDown_Acc, ref acc);
 			MainForm.TechStats Techstats = new MainForm.TechStats(str, spe, sta, acc);
 			// DF Options
-			List<bool> DF_options = new List<bool>();
-			DF_options.Add(checkBox_DFRank4.Checked);
-			DF_options.Add(checkBox_ZoanSig.Checked);
-			DF_options.Add(checkBox_Full.Checked);
-			DF_options.Add(checkBox_Hybrid.Checked);
+			List<bool> DF_options = new List<bool>() {
+				checkBox_DFRank4.Checked,
+				checkBox_ZoanSig.Checked,
+				checkBox_Full.Checked,
+				checkBox_Hybrid.Checked,
+				checkBox_DFEffect.Checked
+			};
+			List<bool> Cyborg = new List<bool>() {
+				checkBox_Fuel1.Checked,
+				checkBox_Fuel2.Checked,
+				checkBox_Fuel3.Checked
+			};
+
 			// Now initialize TechInfo and add into TechList
 			MainForm.TechInfo Tech_Info = new MainForm.TechInfo((int)numericUpDown_Rank.Value,
 				(int)numericUpDown_RegTP.Value, (int)numericUpDown_SpTP.Value,
 				comboBox_AffectTech.Text, comboBox_SpTrait.Text, textBox_TechBranched.Text,
 				(int)numericUpDown_RankBranch.Value, comboBox_Type.Text, comboBox_Range.Text,
-				Techstats, checkBox_NA.Checked, EffectList, textBox_Power.Text, DF_options, 
+				Techstats, checkBox_NA.Checked, EffectList, textBox_Power.Text, DF_options, Cyborg,
 				textBox_Note.Text, richTextBox_Desc.Text);
 			try { MainForm.TechList.Add(name, Tech_Info); }
 			catch (Exception e) {
 				MessageBox.Show("There was an error in adding Info to TechList." +
-					"Massive bug that could cause corruption.\nReason: " + e.Message, "Exception Thrown");
+					"WARNING: This is a massive bug that could cause corruption.\n" +
+					"I would highly encourage you to exit without saving.\nReason: " + e.Message, "Exception Thrown");
 			}
 		}
 
@@ -118,6 +132,7 @@ namespace OPRPCharBuild
 			}
 		}
 
+		// This goes from the Dictionary to Add_Technique Form
 		private void Copy_Data_To_Form(string name, MainForm.TechInfo Tech) {
 			// Put the Tech being edited into the Dialog Box first. Take it from the Dictionary
 			// ...This is going to massively suck.
@@ -125,8 +140,8 @@ namespace OPRPCharBuild
 			numericUpDown_Rank.Value = Tech.rank;
 			numericUpDown_RegTP.Value = Tech.regTP;
 			numericUpDown_SpTP.Value = Tech.spTP;
-			edit_SpTrait = Tech.sp_Trait;				// (Need items initialized in comboBox FIRST)
-			edit_RankTrait = Tech.tech_Trait;           // (Need items initialized in comboBox FIRST)
+			edit_SpTrait = Tech.sp_Trait;				// (Need items initialized in comboBox FIRST, then Add_Technique Form initializes)
+			edit_RankTrait = Tech.tech_Trait;           // (Need items initialized in comboBox FIRST, then Add_Technique Form initializes)
 			string tech = edit_RankTrait;
 			if (Traitss.get_TraitID(tech) == Traits.Trait_Name.SIG_TECH) { // Sig Tech
 				numericUpDown_Rank.Value = max_rank;
@@ -171,11 +186,24 @@ namespace OPRPCharBuild
 					}
 				}
 			}
+			// DF Options
+			for (int i = 0; i < Tech.DF_checkBox.Count; ++i) {
+				if (Tech.DF_checkBox[i] == true) {
+					checkBox_DFTechEnable.Enabled = true;
+					checkBox_DFTechEnable.Checked = true;
+					break;
+				}
+			}
 			checkBox_DFRank4.Checked = Tech.DF_checkBox[0];
 			checkBox_ZoanSig.Checked = Tech.DF_checkBox[1];
 			checkBox_Full.Checked = Tech.DF_checkBox[2];
 			checkBox_Hybrid.Checked = Tech.DF_checkBox[3];
-			textBox_Note.Text = Tech.note;
+			checkBox_DFEffect.Checked = Tech.DF_checkBox[4];
+			// Cyborg options
+			checkBox_Fuel1.Checked = Tech.Cyborg_Boosts[0];
+			checkBox_Fuel2.Checked = Tech.Cyborg_Boosts[1];
+			checkBox_Fuel3.Checked = Tech.Cyborg_Boosts[2];
+			edit_Note = Tech.note;                              // (Need Update Functions from Add_Technique_Load_Form first, and THEN edit it in)
 			richTextBox_Desc.Text = Tech.desc;
 			// Now proceed to edit it.
 		}
@@ -382,21 +410,24 @@ namespace OPRPCharBuild
 			if (Trait_ID == Traits.Trait_Name.SIG_TECH) {
 				message += "[i]Signature Technique[/i]. ";
 			}
-			else if (Trait_ID == Traits.Trait_Name.DEV_FRUIT) {
-				message += "[i]DF Technique";
+			else if (checkBox_DFTechEnable.Checked) {
+				message += "[i]DF Technique[/i]";
 				if (checkBox_DFRank4.Checked) {
-					message += " - Free R4 Tech";
+					message += " - [b]Free R4 Tech[/b]";
 				}
 				if (checkBox_ZoanSig.Checked) {
-					message += " - Zoan Signature";
+					message += " - [b]Zoan Signature[/b]";
 				}
 				if (checkBox_Hybrid.Checked) {
-					message += " - Hybrid Transformation";
+					message += " - [b]Hybrid Transformation[/b]";
 				}
 				if (checkBox_Full.Checked) {
-					message += " - Full Transformation";
+					message += " - [b]Full Transformation[/b]";
 				}
-				message += ".[/i]";
+				if (checkBox_DFEffect.Checked) {
+					message += " - [b]Free DF Effect applied.[/b]";
+				}
+				message += ".";
 			}
 			else if (!string.IsNullOrWhiteSpace(comboBox_AffectTech.Text)) { // This means some kind of technique is being used.
 				message += "[i]" + comboBox_AffectTech.Text + " Technique[/i]. ";
@@ -405,9 +436,19 @@ namespace OPRPCharBuild
 			if (checkBox_Branched.Checked) {
 				message += "Branched from [i]R" + numericUpDown_RankBranch.Value.ToString() + " " + textBox_TechBranched.Text + "[/i]. ";
 			}
+			// Cyborg message
+			if (checkBox_Fuel3.Checked) {
+				message += "[i]Cyborg Technique[/i] - uses 3 Fuel Charges. ";
+			}
+			else if (checkBox_Fuel2.Checked) {
+				message += "[i]Cyborg Technique[/i] - uses 2 Fuel Charges. ";
+			}
+			else if (checkBox_Fuel1.Checked) {
+				message += "[i]Cyborg Technique[/i] - uses 1 Fuel Charge. ";
+			}
 			// Special TP usage.
 			if (numericUpDown_SpTP.Value > 0) {
-				message += "Special TP from [i]" + comboBox_SpTrait.Text + "[/i].";
+				message += "Special TP from [i]" + comboBox_SpTrait.Text + "[/i]. ";
 			}
 			textBox_Note.Text = message;
 			// Used when Sig is checked/unchecked
@@ -491,6 +532,26 @@ namespace OPRPCharBuild
 			// Used when an Effect is Removed
 		}
 
+		private void Update_MaxRank() {
+			if (checkBox_Fuel3.Checked) {
+				label_MaxRank.Text = "Max Rank: " + max_rank + " + 12";
+				numericUpDown_Rank.Maximum = max_rank + 12;
+			}
+			else if (checkBox_Fuel2.Checked) {
+				label_MaxRank.Text = "Max Rank: " + max_rank + " + 8";
+				numericUpDown_Rank.Maximum = max_rank + 8;
+			}
+			else if (checkBox_Fuel1.Checked) {
+				label_MaxRank.Text = "Max Rank: " + max_rank + " + 4";
+				numericUpDown_Rank.Maximum = max_rank + 4;
+			}
+			else {
+				label_MaxRank.Text = "Max Rank: " + max_rank;
+				numericUpDown_Rank.Maximum = max_rank;
+			}
+			// Used when any of the Cyborg is checked
+		}
+
 		private void Update_Signature_Enable() {
 			if (Traitss.get_TraitID(comboBox_AffectTech.Text) == Traits.Trait_Name.SIG_TECH || checkBox_ZoanSig.Checked) {
 				numericUpDown_Rank.Value = max_rank;
@@ -527,11 +588,7 @@ namespace OPRPCharBuild
 			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.DWARF, traits_list);
 			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ART_OF_STEALTH, traits_list);
 			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ANTI_STEALTH, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.DEV_FRUIT, traits_list);
 			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.SIG_TECH, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.BAS_CYBORG, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ADV_CYBORG, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.NW_CYBORG, traits_list);
 			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.F_AND_F, traits_list);
 			if (!Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.DISC_HAKI, traits_list)) {
 				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.AWAKE_HAKI, traits_list);
@@ -654,6 +711,33 @@ namespace OPRPCharBuild
 				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.NAT_CAMO);
 				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.OPEN_CAMO);
 			}
+			// DF Options
+			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.DEV_FRUIT, traits_list) != -1) {
+				label_DF.Text = "";
+				label_DF.Text += DF_name + " [" + DF_type + "]\n";
+				label_DF.Text += DF_desc + '\n';
+				if (!string.IsNullOrWhiteSpace(DF_effect)) { label_DF.Text += "(" + DF_effect + ")"; }
+				else { label_DF.Text += "(No T1/T2 Free Effect)"; }
+				checkBox_DFTechEnable.Enabled = true;
+			}
+			// Cyborg Options
+			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.BAS_CYBORG, traits_list) != -1) {
+				label_Cyborg.Text = "Basic Cyborg:";
+				checkBox_Fuel1.Enabled = true;
+			}
+			else if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.ADV_CYBORG, traits_list) != -1) {
+				label_Cyborg.Text = "Advanced Cyborg:";
+				checkBox_Fuel1.Enabled = true;
+				checkBox_Fuel2.Enabled = true;
+			}
+			else if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.NW_CYBORG, traits_list) != -1) {
+				label_Cyborg.Text = "New World Cyborg:";
+				checkBox_Fuel1.Enabled = true;
+				checkBox_Fuel2.Enabled = true;
+				checkBox_Fuel3.Enabled = true;
+			}
+			// Because "Note" is a unique space that can be edited, we don't want it to be altered when edited in.
+			textBox_Note.Text = edit_Note;
 			#endregion
 		}
 
@@ -785,24 +869,9 @@ namespace OPRPCharBuild
 		private void comboBox_AffectTech_SelectedIndexChanged(object sender, EventArgs e) {
 			// Where Signature Tech Enable
 			Update_Signature_Enable();
-			// Specific Devil Fruit Enable
-			if (Traitss.get_TraitID(comboBox_AffectTech.Text) == Traits.Trait_Name.DEV_FRUIT) {
-				label_DF.Text = "Devil Fruit: " + DF_name + "\nType: " + DF_type;
-				checkBox_DFRank4.Enabled = true;
-				checkBox_Full.Enabled = true;
-				checkBox_Hybrid.Enabled = true;
-				checkBox_ZoanSig.Enabled = true;
-			}
-			else {
-				label_DF.Text = "No Devil Fruit Option";
-				checkBox_DFRank4.Enabled = false;
-				checkBox_Full.Enabled = false;
-				checkBox_Hybrid.Enabled = false;
-				checkBox_ZoanSig.Enabled = false;
-			}
-			// Update Functions
-			Update_Note();
+			// Update power from Mastery
 			Update_Power_Value();
+			Update_Note();
         }
 
 		// This is to avoid tedious repetition for when Stat buttons are pressed.
@@ -877,13 +946,35 @@ namespace OPRPCharBuild
 				button_EffectRemove.Enabled = true;
 				button_AddEffect.Enabled = true;
 				numericUpDown_Cost.Enabled = true;
-				numericUpDown_Cost.ReadOnly = true;
 				comboBox_Effect.Enabled = true;
 				label_EffectType.Visible = true;
 				// Fill in Effect Description if there's one pending
 				Effects.Effect_Name ID = Effect.Get_EffectID(comboBox_Effect.Text);
 				label_EffectDesc.Text = Effect.Get_EffectInfo(ID).desc;
 			}
+		}
+
+		private void checkBox_DFTechEnable_CheckedChanged(object sender, EventArgs e) {
+			if (checkBox_DFTechEnable.Checked) {
+				checkBox_DFRank4.Enabled = true;
+				checkBox_ZoanSig.Enabled = true;
+				checkBox_Full.Enabled = true;
+				checkBox_Hybrid.Enabled = true;
+				checkBox_DFEffect.Enabled = true;
+			}
+			else {
+				checkBox_DFRank4.Enabled = false;
+				checkBox_ZoanSig.Enabled = false;
+				checkBox_Full.Enabled = false;
+				checkBox_Hybrid.Enabled = false;
+				checkBox_DFEffect.Enabled = false;
+				checkBox_DFRank4.Checked = false;
+				checkBox_ZoanSig.Checked = false;
+				checkBox_Full.Checked = false;
+				checkBox_Hybrid.Checked = false;
+				checkBox_DFEffect.Checked = false;
+			}
+			Update_Note();
 		}
 
 		private void checkBox_DFRank4_CheckedChanged(object sender, EventArgs e) {
@@ -901,6 +992,25 @@ namespace OPRPCharBuild
 		}
 
 		private void checkBox_Hybrid_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void checkBox_DFEffect_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void checkBox_Fuel1_CheckedChanged(object sender, EventArgs e) {
+			Update_MaxRank();
+			Update_Note();
+		}
+
+		private void checkBox_Fuel2_CheckedChanged(object sender, EventArgs e) {
+			Update_MaxRank();
+			Update_Note();
+		}
+
+		private void checkBox_Fuel3_CheckedChanged(object sender, EventArgs e) {
+			Update_MaxRank();
 			Update_Note();
 		}
 
@@ -973,7 +1083,6 @@ namespace OPRPCharBuild
 					}
 					// Clear info
 					numericUpDown_Cost.Value = 0;
-					numericUpDown_Cost.ReadOnly = true;
 					comboBox_Effect.Text = "Effect";
 					label_EffectDesc.Text = effect_label_reset;
 					label_EffectType.Visible = false;
@@ -1032,10 +1141,6 @@ namespace OPRPCharBuild
 			// Due to selecting from a set List, we're going to assume everything is fine
 			Effects.Effect_Name ID = Effect.Get_EffectID(comboBox_Effect.Text);
 			numericUpDown_Cost.Value = Effect.Get_EffectInfo(ID).cost;
-			if (ID == Effects.Effect_Name.MIR_CLONE || ID == Effects.Effect_Name.WOOD_DEF) {
-				// These are effects that can change in Cost.
-				numericUpDown_Cost.ReadOnly = false;
-			}
 			label_EffectDesc.Text = Effect.Get_EffectInfo(ID).desc;
 			label_EffectDesc.ForeColor = SystemColors.ControlText;
 			if (Effect.Get_EffectInfo(ID).general) {
