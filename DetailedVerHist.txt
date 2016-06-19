@@ -1,3 +1,6 @@
+v1.0.1.10 - 6/19/2016
+- A few bug fixes done pertaining to Loading/Saving again.
+- Updated Sheet.cs to reflect the current changes
 v1.0.1.9 - 6/18/2016
 - Technique Overhaul (without Rokushiki and Cyborg) completed with Effects
 - Project serialization modified to fit the current version

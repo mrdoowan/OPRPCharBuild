@@ -1896,7 +1896,7 @@ namespace OPRPCharBuild
 				label_RegTPCalc.Text,
 				textBox_SpTPUsed.Text,
 				textBox_SpTPTotal.Text,
-				listView_Techniques,
+				TechList,
 				listView_SpTP
 				);
 			sheet.Complete_Template_Generate(version, vers_type);
@@ -1959,32 +1959,31 @@ namespace OPRPCharBuild
 					dlgFileOpen.Title = "Open Project";
 					dlgFileOpen.RestoreDirectory = true;
 					if (dlgFileOpen.ShowDialog() == DialogResult.OK) {
+						FileStream fs = File.Open(dlgFileOpen.FileName, FileMode.Open);
+						BinaryFormatter formatter = new BinaryFormatter();
 						try {
-							FileStream fs = File.Open(dlgFileOpen.FileName, FileMode.Open);
-							BinaryFormatter formatter = new BinaryFormatter();
-							try {
-								project1 = (Project)formatter.Deserialize(fs);
-							}
-							finally {
-								fs.Close();
-							}
-							project1.location = dlgFileOpen.FileName;
-							project1.filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
-							// Transfer from older project to newer project.
-							project1.Transfer_v1010toNew(ref project);
-							project.filename = null;
-							project.location = null;
-							resetForm();
-							loadProjectToForm();
-							this.Text = "OPRP Character Builder";
-							MessageBox.Show("Few notes:\n- Edit every single one of your Techniques for Effects, Branching, and new \"Traits Affect Tech\"\n" +
-								"- Do not make Custom Trait names or the tool won't recognize them. Edit the custom name into the generated Sheet instead.\n" +
-								"- In this new version, many dangerous coding techniques were used. Please report any bugs ASAP as it could potentially corrupt .oprp data." +
-								" Please save backups as often as possible. Most of it should be fine now since much of this was tested.");
+							project1 = (Project)formatter.Deserialize(fs);
 						}
 						catch (Exception ex) {
-							MessageBox.Show("Failed to deserialize.\nReason: " + ex.Message);
+							MessageBox.Show("Failed to import / deserialize. Internal issue.\nReason: " + ex.Message);
 						}
+						finally {
+							fs.Close();
+						}
+						project1.location = dlgFileOpen.FileName;
+						project1.filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
+						// Transfer from older project to newer project.
+						project1.Transfer_v1010toNew(ref project);
+						project.filename = null;
+						project.location = null;
+						resetForm();
+						loadProjectToForm();
+						this.Text = "OPRP Character Builder";
+						MessageBox.Show("Character imported successfully!\n\nFew notes:" + 
+							"\n- Edit every single one of your Techniques for Effects, Branching, and new \"Traits Affect Tech\"\n" +
+							"- Do not make Custom Trait names or the tool won't recognize them. Edit the custom name into the generated Sheet instead.\n" +
+							"- In this new version, many dangerous coding techniques were used. Please report any bugs ASAP as it could potentially corrupt .oprp data." +
+							" Please save backups as often as possible. Most of it should be fine now since much of this was tested.");
 					}
 				}
 			}
@@ -2005,7 +2004,6 @@ namespace OPRPCharBuild
 				}
 			}
 		}
-
 
 		#endregion
 	}

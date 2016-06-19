@@ -1092,7 +1092,7 @@
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(652, 475);
+			this.tabPage3.Size = new System.Drawing.Size(652, 478);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Background";
 			this.tabPage3.UseVisualStyleBackColor = true;
@@ -1205,7 +1205,7 @@
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage4.Size = new System.Drawing.Size(652, 475);
+			this.tabPage4.Size = new System.Drawing.Size(652, 478);
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "Abilities & Possessions";
 			this.tabPage4.UseVisualStyleBackColor = true;
@@ -1515,7 +1515,7 @@
 			this.tabPage7.Controls.Add(this.groupBox12);
 			this.tabPage7.Location = new System.Drawing.Point(4, 22);
 			this.tabPage7.Name = "tabPage7";
-			this.tabPage7.Size = new System.Drawing.Size(652, 475);
+			this.tabPage7.Size = new System.Drawing.Size(652, 478);
 			this.tabPage7.TabIndex = 6;
 			this.tabPage7.Text = "Stats";
 			this.tabPage7.UseVisualStyleBackColor = true;
@@ -2048,7 +2048,7 @@
 			this.tabPage5.Location = new System.Drawing.Point(4, 22);
 			this.tabPage5.Name = "tabPage5";
 			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage5.Size = new System.Drawing.Size(652, 475);
+			this.tabPage5.Size = new System.Drawing.Size(652, 478);
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "Traits";
 			this.tabPage5.UseVisualStyleBackColor = true;
@@ -2162,7 +2162,7 @@
 			this.tabPage6.Location = new System.Drawing.Point(4, 22);
 			this.tabPage6.Name = "tabPage6";
 			this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage6.Size = new System.Drawing.Size(652, 475);
+			this.tabPage6.Size = new System.Drawing.Size(652, 478);
 			this.tabPage6.TabIndex = 5;
 			this.tabPage6.Text = "Techniques";
 			this.tabPage6.UseVisualStyleBackColor = true;

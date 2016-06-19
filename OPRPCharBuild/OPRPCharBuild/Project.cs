@@ -33,6 +33,13 @@ namespace OPRPCharBuild
 			public string primary;
 			public string desc;
 			public string bonus;
+
+			public Professions(string name_, string pri_, string desc_, string bonus_) {
+				name = name_;
+				primary = pri_;
+				desc = desc_;
+				bonus = bonus_;
+			}
 		}
 
 		[Serializable()]
@@ -43,6 +50,14 @@ namespace OPRPCharBuild
 			public string full_res;
 			public string img_width;
 			public string img_height;
+
+			public Image(string label_, string url_, string fullres_, string imgWidth_, string imgHeight_) {
+				label = label_;
+				url = url_;
+				full_res = fullres_;
+				img_width = imgWidth_;
+				img_height = imgHeight_;
+			}
 		}
 
 		[Serializable()]
@@ -50,6 +65,11 @@ namespace OPRPCharBuild
 		{
 			public string name;
 			public string desc;
+
+			public Equipment(string name_, string desc_) {
+				name = name_;
+				desc = desc_;
+			}
 		}
 
 		[Serializable()]
@@ -60,6 +80,30 @@ namespace OPRPCharBuild
 			public string gen_num;
 			public string prof_num;
 			public string desc;
+
+			public Trait(string name_, string type_, string gen_, string prof_, string desc_) {
+				name = name_;
+				type = type_;
+				gen_num = gen_;
+				prof_num = prof_;
+				desc = desc_;
+			}
+		}
+
+		[Serializable()]
+		public struct Effect
+		{
+			public string name;
+			public bool gen;
+			public int cost;
+			public int minRank;
+
+			public Effect(string name_, bool gen_, int cost_, int minRank_) {
+				name = name_;
+				gen = gen_;
+				cost = cost_;
+				minRank = minRank_;
+			}
 		}
 
 		[Serializable()]
@@ -80,11 +124,37 @@ namespace OPRPCharBuild
 			public int sta;
 			public int acc;
 			public bool NA_power;
-			public List<string> effects;
+			public List<Effect> effects;
 			public string power;
 			public List<bool> DF_options;
 			public string notes;
 			public string desc;
+
+			public Tech(string name_, int rank_, int regTP_, int spTP_, string spTrait_, string techTrait_, string branchTech_,
+				int branchRank_, string type_, string range_, int str_, int spe_, int sta_, int acc_, bool NA_, List<Effect> effects_,
+				string power_, List<bool> DF_, string notes_, string desc_) {
+				name = name_;
+				rank = rank_;
+				reg_TP = regTP_;
+				sp_TP = spTP_;
+				sp_trait = spTrait_;
+				tech_trait = techTrait_;
+				branch_tech = branchTech_;
+				branch_rank = branchRank_;
+				type = type_;
+				range = range_;
+				str = str_;
+				spe = spe_;
+				sta = sta_;
+				acc = acc_;
+				NA_power = NA_;
+				effects = effects_;
+				power = power_;
+				DF_options = DF_;
+				notes = notes_;
+				desc = desc_;
+			}
+
 		}
 
 		// Basic Information Tab
@@ -161,11 +231,8 @@ namespace OPRPCharBuild
 			}
 			professions.Clear();
 			foreach (ListViewItem eachitem in prof_.Items) {
-				Professions profession = new Professions();
-				profession.name = eachitem.SubItems[0].Text;
-				profession.primary = eachitem.SubItems[1].Text;
-				profession.desc = eachitem.SubItems[2].Text;
-				profession.bonus = eachitem.SubItems[3].Text;
+				Professions profession = new Professions(eachitem.SubItems[0].Text, eachitem.SubItems[1].Text,
+					eachitem.SubItems[2].Text, eachitem.SubItems[3].Text);
 				professions.Add(profession);
 			}
 		}
@@ -178,13 +245,10 @@ namespace OPRPCharBuild
 			eye = eye_;
 			clothing = clothing_;
 			appearance = appearance_;
+			images.Clear();
 			foreach (ListViewItem eachitem in images_.Items) {
-				Image image = new Image();
-				image.label = eachitem.SubItems[0].Text;
-				image.url = eachitem.SubItems[1].Text;
-				image.full_res = eachitem.SubItems[2].Text;
-				image.img_width = eachitem.SubItems[3].Text;
-				image.img_height = eachitem.SubItems[4].Text;
+				Image image = new Image(eachitem.SubItems[0].Text, eachitem.SubItems[1].Text,
+					eachitem.SubItems[2].Text, eachitem.SubItems[3].Text, eachitem.SubItems[4].Text);
 				images.Add(image);
 			}
 		}
@@ -201,16 +265,12 @@ namespace OPRPCharBuild
 			combat = combat_;
 			weaponry.Clear();
 			foreach (ListViewItem eachitem in weaponry_.Items) {
-				Equipment weapon = new Equipment();
-				weapon.name = eachitem.SubItems[0].Text;
-				weapon.desc = eachitem.SubItems[1].Text;
+				Equipment weapon = new Equipment(eachitem.SubItems[0].Text, eachitem.SubItems[1].Text);
 				weaponry.Add(weapon);
 			}
 			items.Clear();
 			foreach (ListViewItem eachitem in items_.Items) {
-				Equipment item = new Equipment();
-				item.name = eachitem.SubItems[0].Text;
-				item.desc = eachitem.SubItems[1].Text;
+				Equipment item = new Equipment(eachitem.SubItems[0].Text, eachitem.SubItems[1].Text);
 				items.Add(item);
 			}
 			beli = beli_;
@@ -244,12 +304,8 @@ namespace OPRPCharBuild
 			traitsList.Clear();
 			foreach (ListViewItem eachitem in traitsList_.Items) {
 				// ListView
-				Trait trait = new Trait();
-				trait.name = eachitem.SubItems[0].Text;
-				trait.type = eachitem.SubItems[1].Text;
-				trait.gen_num = eachitem.SubItems[2].Text;
-				trait.prof_num = eachitem.SubItems[3].Text;
-				trait.desc = eachitem.SubItems[4].Text;
+				Trait trait = new Trait(eachitem.SubItems[0].Text, eachitem.SubItems[1].Text,
+					eachitem.SubItems[2].Text, eachitem.SubItems[3].Text, eachitem.SubItems[4].Text);
 				traitsList.Add(trait);
 			}
 		}
@@ -258,33 +314,17 @@ namespace OPRPCharBuild
 			techniques.Clear();
 			// Grabbing from TechInfo, NOT ListView
 			foreach (string techName in techList_.Keys) {
-				Tech tech = new Tech();
-				tech.name = techName;
 				MainForm.TechInfo techInfo = techList_[techName];
-				tech.rank = techInfo.rank;
-				tech.reg_TP = techInfo.regTP;
-				tech.sp_TP = techInfo.spTP;
-				tech.sp_trait = techInfo.sp_Trait;
-				tech.tech_trait = techInfo.tech_Trait;
-				tech.branch_tech = techInfo.tech_Branch;
-				tech.branch_rank = techInfo.rank_Branch;
-				tech.type = techInfo.type;
-				tech.range = techInfo.range;
-				tech.str = techInfo.stats.str;
-				tech.spe = techInfo.stats.spe;
-				tech.sta = techInfo.stats.sta;
-				tech.acc = techInfo.stats.acc;
-				tech.NA_power = techInfo.NA_power;
-				List<string> effects = new List<string>();
+				List<Effect> effects = new List<Effect>();
 				foreach (string effectName in techInfo.effectList.Keys) {
-					// This includes possible copies of the same effect!
-					effects.Add(effectName);
-                }
-				tech.effects = effects;
-				tech.power = techInfo.power;
-				tech.DF_options = techInfo.DF_checkBox;
-				tech.notes = techInfo.note;
-				tech.desc = techInfo.desc;
+					Add_Technique.EffectItem effectInfo = techInfo.effectList[effectName];
+					Effect Effect_ = new Effect(effectName, effectInfo.gen, effectInfo.cost, effectInfo.minRank);
+					effects.Add(Effect_);
+				}
+				Tech tech = new Tech(techName, techInfo.rank, techInfo.regTP, techInfo.spTP, techInfo.sp_Trait, techInfo.tech_Trait,
+					techInfo.tech_Branch, techInfo.rank_Branch, techInfo.type, techInfo.range, techInfo.stats.str, techInfo.stats.spe,
+					techInfo.stats.sta, techInfo.stats.acc, techInfo.NA_power, effects, techInfo.power, techInfo.DF_checkBox,
+					techInfo.note, techInfo.desc);
 				techniques.Add(tech);
 			}
 		}
@@ -461,16 +501,13 @@ namespace OPRPCharBuild
 				// Remember the save file only has a string of Effects, in which we can just simply load its info.
 				// Exception is: Wooden Defences and Mirage (Clones)
 				for (int j = 0; j < techniques[i].effects.Count; ++j) {
-					string effectName = techniques[i].effects[j];		// WARNING: There could be copies of an effect!
+					string effectName = techniques[i].effects[j].name;		// WARNING: There could be copies of an effect!
 					string FilteredeffectName = Filter_EffectName(effectName);
 					Effects.Effect_Name ID = Effect.Get_EffectID(FilteredeffectName);
-					// These are Effects in which the Cost isn't a set value.
-					if (ID == Effects.Effect_Name.MIR_CLONE) { MessageBox.Show("You may need to double check the Cost of any Tech that uses Mirage (Clones)", "Reminder"); }
-					if (ID == Effects.Effect_Name.WOOD_DEF) { MessageBox.Show("You may need to double check the Cost of any Tech that uses Wooden Defences", "Reminder"); }
 					// An error when you have 9 or more of the same effects
 					if (ID == Effects.Effect_Name.NONE) { MessageBox.Show("Wrong Effect name loaded or Why the heck do you have more than 9 of the same effects?", "Error"); return; }
-					effectList.Add(effectName, new Add_Technique.EffectItem(ID, Effect.Get_EffectInfo(ID).general,
-						Effect.Get_EffectInfo(ID).cost, Effect.Get_EffectInfo(ID).MinRank));
+					effectList.Add(effectName, new Add_Technique.EffectItem(ID, techniques[i].effects[j].gen,
+						techniques[i].effects[j].cost, techniques[i].effects[j].minRank));
 				}
 				MainForm.TechInfo Tech_Info = new MainForm.TechInfo(techniques[i].rank, techniques[i].reg_TP,
 					techniques[i].sp_TP, techniques[i].tech_trait, techniques[i].sp_trait, techniques[i].branch_tech,
@@ -619,122 +656,142 @@ namespace OPRPCharBuild
 
 		// Transfer from Project to Project2 (Newest)
 		public void Transfer_v1010toNew(ref Project2 project) {
-			// Basic Information Tab
-			project.char_name = char_name;
-			project.nickname = nickname;
-			project.age = age;
-			project.gender = gender;
-			project.race = race;
-			project.position = position;
-			project.affiliation = affiliation;
-			project.bounty = bounty;
-			project.commendation = commendation;
-			project.rank = rank;
-			project.threat = threat;
-			project.achievements = achievements;
-			project.professions.Clear();
-			for (int i = 0; i < professions.Count; ++i) {
-				Project2.Professions prof = new Project2.Professions();
-				prof.name = professions[i].name;
-				prof.primary = professions[i].primary;
-				prof.desc = professions[i].desc;
-				prof.bonus = professions[i].bonus;
-				project.professions.Add(prof);
+			try {
+				// Basic Information Tab
+				project.char_name = char_name;
+				project.nickname = nickname;
+				project.age = age;
+				project.gender = gender;
+				project.race = race;
+				project.position = position;
+				project.affiliation = affiliation;
+				project.bounty = bounty;
+				project.commendation = commendation;
+				project.rank = rank;
+				project.threat = threat;
+				project.achievements = achievements;
+				project.professions.Clear();
+				for (int i = 0; i < professions.Count; ++i) {
+					Project2.Professions prof = new Project2.Professions();
+					prof.name = professions[i].name;
+					prof.primary = professions[i].primary;
+					prof.desc = professions[i].desc;
+					prof.bonus = professions[i].bonus;
+					project.professions.Add(prof);
+				}
 			}
+			catch (Exception e) { MessageBox.Show("v1.0.1.0 Transfer: Basic Information Error\nReason: " + e.Message, "Error"); }
 
 			// Physical Appearance Tab
-			project.height = height;
-			project.weight = weight;
-			project.hair = hair;
-			project.eye = eye;
-			project.clothing = clothing;
-			project.appearance = appearance;
-			// Only load one image into the list.
-			project.images.Clear();
-			Project2.Image img = new Project2.Image();
-			img.label = "";
-			img.url = img_url;
-			if (full_res) {
-				img.full_res = "Yes";
-			}
-			else {
-				img.full_res = "No";
-			}
-			img.img_width = img_width.ToString();
-			img.img_height = img_height.ToString();
-			project.images.Add(img);
+			try {
+				project.height = height;
+				project.weight = weight;
+				project.hair = hair;
+				project.eye = eye;
+				project.clothing = clothing;
+				project.appearance = appearance;
+				// Only load one image into the list.
+				project.images.Clear();
+				Project2.Image img = new Project2.Image();
+				img.label = "";
+				img.url = img_url;
+				if (full_res) {
+					img.full_res = "Yes";
+				}
+				else {
+					img.full_res = "No";
+				}
+				img.img_width = img_width.ToString();
+				img.img_height = img_height.ToString();
+				project.images.Add(img);
 
-			// Backcground Tab
-			project.island = island;
-			project.region = region;
-			project.personality = personality;
-			project.history = history;
+				// Backcground Tab
+				project.island = island;
+				project.region = region;
+				project.personality = personality;
+				project.history = history;
+			}
+			catch (Exception e) { MessageBox.Show("v1.0.1.0 Transfer: Physical Appearance / Background Error\nReason: " + e.Message, "Error"); }
 
 			// Combat Tab
-			project.combat = combat;
-			project.weaponry.Clear();
-			for (int i = 0; i < weaponry.Count; ++i) {
-				Project2.Equipment weapon = new Project2.Equipment();
-				weapon.name = weaponry[i].name;
-				weapon.desc = weaponry[i].desc;
-				project.weaponry.Add(weapon);
+			try {
+				project.combat = combat;
+				project.weaponry.Clear();
+				for (int i = 0; i < weaponry.Count; ++i) {
+					Project2.Equipment weapon = new Project2.Equipment();
+					weapon.name = weaponry[i].name;
+					weapon.desc = weaponry[i].desc;
+					project.weaponry.Add(weapon);
+				}
+				project.items.Clear();
+				for (int i = 0; i < items.Count; ++i) {
+					Project2.Equipment item = new Project2.Equipment();
+					item.name = items[i].name;
+					item.desc = items[i].desc;
+					project.items.Add(item);
+				}
+				project.beli = beli;
+				project.DF_name = DF_name;
+				project.DF_type = DF_type;
+				project.DF_desc = DF_desc;
 			}
-			project.items.Clear();
-			for (int i = 0; i < items.Count; ++i) {
-				Project2.Equipment item = new Project2.Equipment();
-				item.name = items[i].name;
-				item.desc = items[i].desc;
-				project.items.Add(item);
-			}
-			project.beli = beli;
-			project.DF_name = DF_name;
-			project.DF_type = DF_type;
-			project.DF_desc = DF_desc;
+			catch (Exception e) { MessageBox.Show("v1.0.1.0 Transfer: Combat Error\nReason: " + e.Message, "Error"); }
 
 			// Stats Tab
-			project.SD_Earned = SD_Earned;
-			project.SDtoSP = SDtoSP;
-			project.AP = AP;
-			project.used_fort = used_fort;
-			project.str = str;
-			project.spe = spe;
-			project.sta = sta;
-			project.acc = acc;
+			try {
+				project.SD_Earned = SD_Earned;
+				project.SDtoSP = SDtoSP;
+				project.AP = AP;
+				project.used_fort = used_fort;
+				project.str = str;
+				project.spe = spe;
+				project.sta = sta;
+				project.acc = acc;
+			}
+			catch (Exception e) { MessageBox.Show("v1.0.1.0 Transfer: Stats Error\nReason: " + e.Message, "Error"); }
 
 			// Traits Tab
-			project.traitsList.Clear();
+			
+				project.traitsList.Clear();
 			for (int i = 0; i < traitsList.Count; ++i) {
 				Project2.Trait trait = new Project2.Trait();
 				trait.name = traitsList[i].name;
-				trait.type = traitsList[i].type;
-				trait.gen_num = traitsList[i].gen_num;
-				trait.prof_num = traitsList[i].prof_num;
-				trait.desc = traitsList[i].desc;
-				project.traitsList.Add(trait);
+				try {
+					trait.type = traitsList[i].type;
+					trait.gen_num = traitsList[i].gen_num;
+					trait.prof_num = traitsList[i].prof_num;
+					trait.desc = traitsList[i].desc;
+					project.traitsList.Add(trait);
+				}
+				catch (Exception e) { MessageBox.Show("v1.0.1.0 Transfer: Couldn't add Trait \"" + trait.name + "\"\nReason: " + e.Message, "Error"); }
 			}
+
 			// Technique Tab
 			project.techniques.Clear();
 			MainForm.TechList.Clear();
 			for (int i = 0; i < techniques.Count; ++i) {
 				Project2.Tech tech = new Project2.Tech();
 				tech.name = techniques[i].name;
-				tech.rank = int.Parse(techniques[i].rank);
-                tech.reg_TP = int.Parse(techniques[i].reg_TP);
-				tech.sp_TP = int.Parse(techniques[i].sp_TP);
-				tech.sp_trait = techniques[i].sp_trait;
-				tech.tech_trait = techniques[i].rank_trait;
-				tech.branch_tech = techniques[i].branched;
-				tech.branch_rank = 0;
-				tech.type = techniques[i].type;
-				tech.range = techniques[i].range;
-				Parse_String_to_StatsInt(ref tech, techniques[i].stats);
-				tech.NA_power = false;
-				tech.effects = new List<string>();
-				tech.power = techniques[i].power;
-				tech.DF_options = new List<bool>() { false, false, false, false };
-				tech.notes = techniques[i].TP_note;
-				tech.desc = techniques[i].desc;
-				project.techniques.Add(tech);
+				try {
+					tech.rank = int.Parse(techniques[i].rank);
+					tech.reg_TP = int.Parse(techniques[i].reg_TP);
+					tech.sp_TP = int.Parse(techniques[i].sp_TP);
+					tech.sp_trait = techniques[i].sp_trait;
+					tech.tech_trait = techniques[i].rank_trait;
+					tech.branch_tech = techniques[i].branched;
+					tech.branch_rank = 0;
+					tech.type = techniques[i].type;
+					tech.range = techniques[i].range;
+					Parse_String_to_StatsInt(ref tech, techniques[i].stats);
+					tech.NA_power = false;
+					tech.effects = new List<Project2.Effect>();
+					tech.power = techniques[i].power;
+					tech.DF_options = new List<bool>() { false, false, false, false };
+					tech.notes = techniques[i].TP_note;
+					tech.desc = techniques[i].desc;
+					project.techniques.Add(tech);
+				}
+				catch (Exception e) { MessageBox.Show("v1.0.1.0 Transfer: Couldn't add Technique \"" + tech.name + "\"\nReason: " + e.Message, "Error"); }
 			}
 		}
 
@@ -747,20 +804,23 @@ namespace OPRPCharBuild
 			stat_val = val;
 			int comma_ind = stat_string.IndexOf(',');
 			if (comma_ind == -1) { return true; }
-			else { stat_string = stat_string.Remove(0, comma_ind + 1); }
+			else { stat_string = stat_string.Remove(0, comma_ind + 2); } // We want to remove the space after the comma as well
 			return false;
 		}
 
 		// Not gonna bother commenting this, I'm just mindlessly doing it.
 		private void Parse_String_to_StatsInt(ref Project2.Tech tech, string stats) {
-			if (!stats.Contains("Str")) { tech.str = 0; }
-			else if (Parse_Stat(ref stats, ref tech.str)) { return; }
-			if (!stats.Contains("Spe")) { tech.spe = 0; }
-			else if (Parse_Stat(ref stats, ref tech.spe)) { return; }
-			if (!stats.Contains("Sta")) { tech.sta = 0; }
-			else if (Parse_Stat(ref stats, ref tech.sta)) { return; }
-			if (!stats.Contains("Acc")) { tech.acc = 0; }
-			else if (Parse_Stat(ref stats, ref tech.acc)) { return; }
+			try {
+				if (!stats.Contains("Str")) { tech.str = 0; }
+				else if (Parse_Stat(ref stats, ref tech.str)) { return; }
+				if (!stats.Contains("Spe")) { tech.spe = 0; }
+				else if (Parse_Stat(ref stats, ref tech.spe)) { return; }
+				if (!stats.Contains("Sta")) { tech.sta = 0; }
+				else if (Parse_Stat(ref stats, ref tech.sta)) { return; }
+				if (!stats.Contains("Acc")) { tech.acc = 0; }
+				else if (Parse_Stat(ref stats, ref tech.acc)) { return; }
+			}
+			catch (Exception e) { MessageBox.Show("Couldn't Parse Stats correctly for Technique \"" + tech.name + "\"\nReason: " + e.Message, "Error"); }
 		}
 	}
 }

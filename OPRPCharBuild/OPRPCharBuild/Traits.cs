@@ -127,10 +127,10 @@ namespace OPRPCharBuild
 		} // 99 Traits
 
 		// This will contain all the Trait_Info for descriptions
-		private static Trait_Type type;
-		private static int gen_num;
-		private static int prof_num;
-		private static string desc;
+		private Trait_Type type;
+		private int gen_num;
+		private int prof_num;
+		private string desc;
 
 		// Map the string to its corresponding ID
 		static private Dictionary<string, Trait_Name> Trait_Dict = new Dictionary<string, Trait_Name>() {
@@ -277,7 +277,7 @@ namespace OPRPCharBuild
 				return spec;
 			}
 			catch (Exception e) {
-				MessageBox.Show("An exception was handled!\nReason: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("An error from retrieving Trait Name from ListView!\nReason: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return null;
 			}
 		}
@@ -570,7 +570,7 @@ namespace OPRPCharBuild
 				case "Grandmaster [SPEC]":
 					type = Trait_Type.PROF;
 					gen_num = 0;
-					prof_num = 1;
+					prof_num = 2;
 					desc = "This character has achieved a legendary skill with his weapon/weapon class/form of attack. They are masters of their art beyond question, and are able to perform supernatural feats using their skill alone. Grandmaster ____s are able to access techniques that allow them to cut/hit fluid and insubstantial substances, such as air, fire, water, or even light.";
 					break;
 				case "Great Speed":

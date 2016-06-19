@@ -169,6 +169,8 @@ namespace OPRPCharBuild
 			richTextBox_Template.Text = help;
 		}
 
+		#region Helper Functions
+
 		// Make it less tedious for me.
 		private string Make_NA(string data) {
 			if (string.IsNullOrWhiteSpace(data)) {
@@ -178,6 +180,59 @@ namespace OPRPCharBuild
 				return data;
 			}
 		}
+
+		private bool If_Treat_Rank4(string techTrait) {
+			Traits Trait = new Traits();
+			Traits.Trait_Name ID = Trait.get_TraitID(techTrait);
+			return (ID == Traits.Trait_Name.MARTIAL_MASTERY || ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
+					ID == Traits.Trait_Name.ADV_MARTIAL_CLASS || ID == Traits.Trait_Name.STANCE_MAST ||
+					ID == Traits.Trait_Name.ADV_STANCE_MASTERY || ID == Traits.Trait_Name.ART_OF_STEALTH ||
+					ID == Traits.Trait_Name.ANTI_STEALTH || ID == Traits.Trait_Name.DWARF);
+		}
+
+		private string TechStats_Into_String(MainForm.TechStats Stats) {
+			string statsMsg = "";
+			if (Stats.str != 0) {
+				if (Stats.str > 0) { statsMsg += "+"; }
+				statsMsg += Stats.str + " Str";
+			}
+			if (Stats.spe != 0) {
+				if (!string.IsNullOrEmpty(statsMsg)) { statsMsg += ", "; }
+				if (Stats.spe > 0) { statsMsg += "+"; }
+				statsMsg += Stats.spe + " Spe";
+			}
+			if (Stats.sta != 0) {
+				if (!string.IsNullOrEmpty(statsMsg)) { statsMsg += ", "; }
+				if (Stats.spe > 0) { statsMsg += "+"; }
+				statsMsg += Stats.sta + " Sta";
+			}
+			if (Stats.acc != 0) {
+				if (!string.IsNullOrEmpty(statsMsg)) { statsMsg += ", "; }
+				if (Stats.acc > 0) { statsMsg += "+"; }
+				statsMsg += Stats.acc + " Acc";
+			}
+			if (string.IsNullOrEmpty(statsMsg)) { return "N/A"; }
+			return statsMsg;
+		}
+
+		private string TechEffects_Into_String(Dictionary<string, Add_Technique.EffectItem> Effects) {
+			string effectsMsg = "";
+			int i = 0;
+			foreach (string effectName in Effects.Keys) {
+				if (i > 0) {
+					effectsMsg += ", ";
+				}
+				Add_Technique.EffectItem effectInfo = Effects[effectName];
+				effectsMsg += effectName;
+				effectsMsg += " [";
+				if (!effectInfo.gen) { effectsMsg += "-"; }
+				effectsMsg += effectInfo.cost + "]";
+				i++;
+			}
+			return effectsMsg;
+		}
+
+		#endregion
 
 		// ---------------------------------------------------------------------------
 		public void Basic_Generate(string name, string nick, int age, string gender, string race, string aff, string bounty, string rank,
@@ -232,7 +287,7 @@ namespace OPRPCharBuild
 					template.Write("[*][b][u]" + prof.SubItems[0].Text + "[/u] - [i]");
 					template.Write(prof.SubItems[1].Text + "[/i]:[/b] ");
 					template.Write(prof.SubItems[2].Text);
-					template.Write(" [i]" + prof.SubItems[3].Text + "[/i]\n");
+					template.Write(" [i]" + prof.SubItems[3].Text + "[/i]\n\n");
 				}
 			}
 			// Then secondary
@@ -240,7 +295,7 @@ namespace OPRPCharBuild
 				if (prof.SubItems[1].Text == "Secondary") {
 					template.Write("[*][b][u]" + prof.SubItems[0].Text + "[/u] - [i]");
 					template.Write(prof.SubItems[1].Text + "[/i]:[/b] ");
-					template.Write(prof.SubItems[2].Text + '\n');
+					template.Write(prof.SubItems[2].Text + "\n\n");
 				}
 			}
 			template.Write("[/list]\n");
@@ -322,16 +377,20 @@ namespace OPRPCharBuild
 		public void Stats_Generate(int AP_num, CheckedListBox AP, int SD_Earned, string SD_Remain, string SP, string SP_calc, string used_stat, int used_fort,
 			int str_base, string str_fin, string str_calc, int spe_base, string spe_fin, string spe_calc, int sta_base, string sta_fin, string sta_calc,
 			int acc_base, string acc_fin, string acc_calc, string fort, string fort_calc) {
-			template.Write("[b]Advancement Points:[/b] " + AP_num);
-			if (AP_num != 0) {
+			template.Write("[quote=Advancement Points: " + AP_num + "]");
+			if (AP_num > 0) {
 				template.Write("[list]");
 				foreach (string checkedAP in AP.CheckedItems) {
 					template.Write("[*]" + checkedAP + '\n');
 				}
-				template.Write("[/list]");
+				template.Write("[/list][/quote]");
 			}
 			template.Write('\n');
-			template.Write("[b]SD Earned:[/b] " + SD_Earned + '\n');
+			template.Write("[b]SD Earned:[/b] " + SD_Earned);
+			if (AP_num > 0) {
+				template.Write("/" + (SD_Earned + AP_num * 50));
+			}
+			template.Write('\n');
 			template.Write("[b]SD Remaining:[/b] " + SD_Remain + '\n');
 			template.Write("[b]Stat Points:[/b] " + SP + ' ' + SP_calc + '\n');
 			template.Write("[list][*][i]Used for Stats:[/i] " + used_stat + '\n');
@@ -371,7 +430,7 @@ namespace OPRPCharBuild
 					if (int.Parse(trait.SubItems[3].Text) > 1) {
 						desc += "s";
 					}
-					desc += ") -[/b] " + trait.SubItems[4].Text;
+					desc += ")[/b] - " + trait.SubItems[4].Text;
 					prof.Add(desc);
 				}
 				else {
@@ -384,7 +443,7 @@ namespace OPRPCharBuild
 						// There's a professional trait too.
 						desc += ", " + trait.SubItems[3].Text + " Professional";
 					}
-					desc += ") -[/b] " + trait.SubItems[4].Text;
+					desc += ")[/b] - " + trait.SubItems[4].Text;
 					gen.Add(desc);
 				}
 				gen_num += int.Parse(trait.SubItems[2].Text);
@@ -415,7 +474,8 @@ namespace OPRPCharBuild
 			template.Write('\n');
 		}
 		// ---------------------------------------------------------------------------
-		public void Techs_Generate(string usedRegTP, string totRegTP, string regTPCalc, string usedSpTP, string totSpTP, ListView techs, ListView SpTraits) {
+		public void Techs_Generate(string usedRegTP, string totRegTP, string regTPCalc, string usedSpTP, string totSpTP, 
+			Dictionary<string, MainForm.TechInfo> techList, ListView SpTraits) {
 			template.Write("[center][big][big][i][font=Century Gothic]Techniques[/font][/i][/big][/big][/center]\n");
 			template.Write("[b]Used/Total Regular Technique Points:[/b] " + usedRegTP + '/' + totRegTP + ' ' + regTPCalc + '\n');
 			template.Write("[b]Used/Total Special Technique Points:[/b] " + usedSpTP + '/' + totSpTP);
@@ -429,6 +489,16 @@ namespace OPRPCharBuild
 			}
 			template.Write('\n');
 			template.Write('\n');
+			bool treat_rank4 = false;
+			foreach (MainForm.TechInfo Tech in techList.Values) {
+				if (If_Treat_Rank4(Tech.tech_Trait)) {
+					treat_rank4 = true;
+					break;
+				}
+			}
+			if (treat_rank4) {
+				template.Write("[table]* Technique is treated as 4 ranks higher[/table]");
+			}
 			template.Write("[table=2, Techniques]");
 			if (int.Parse(usedRegTP) == 0 && int.Parse(usedSpTP) == 0) {
 				// This is a zero Technique option
@@ -441,31 +511,35 @@ namespace OPRPCharBuild
 			}
 			else {
 				int i = 0;
-				foreach (ListViewItem Tech in techs.Items) {
-					if (i > 0) {
-						template.Write("[c]");
+				foreach (string TechName in techList.Keys) {
+					MainForm.TechInfo Technique = MainForm.TechList[TechName];
+					if (i > 0) { template.Write("[c]"); }
+					template.Write("[b]" + TechName + "[/b]");		// Name
+					template.Write(" (" + Technique.rank);			// Rank
+					if (If_Treat_Rank4(Technique.tech_Trait)) { template.Write("*"); }
+					template.Write(")\n");
+					template.Write("[u]Type:[/u] " + Technique.type + '\n'); // Type
+					template.Write("[u]Range:[/u] " + Technique.range + '\n');// Range
+					template.Write("[u]Power:[/u] " + Technique.power + '\n');// Power
+					template.Write("[u]Stats:[/u] " + TechStats_Into_String(Technique.stats) + '\n');   // Stats
+					template.Write("[u]TP Spent:[/u] " + Technique.regTP + "R");
+					if (Technique.spTP > 0) {
+						template.Write(" | " + Technique.spTP + "S\n");
 					}
-					template.Write("[b]" + Tech.SubItems[0].Text + "[/b]"); // Name
-					template.Write(" (" + Tech.SubItems[1].Text + ")\n");   // Rank
-					template.Write("[u]Type:[/u] " + Tech.SubItems[8].Text + '\n'); // Type
-					template.Write("[u]Range:[/u] " + Tech.SubItems[9].Text + '\n');// Range
-					template.Write("[u]Power:[/u] " + Tech.SubItems[11].Text + '\n');// Power
-					template.Write("[u]Stats:[/u] " + Tech.SubItems[10].Text + '\n');// Stats
 					template.Write("[c]");
-					if (!string.IsNullOrWhiteSpace(Tech.SubItems[13].Text)) {
+					if (!string.IsNullOrWhiteSpace(Technique.note)) {
 						// TP Note on top
-						template.Write("[u]TP Note:[/u] " + Tech.SubItems[13].Text + '\n');
+						template.Write("[u]TP Note:[/u] " + Technique.note + '\n');
 					}
-					if (!string.IsNullOrWhiteSpace(Tech.SubItems[12].Text)) {
+					if (Technique.effectList.Count > 0) {
 						// Effects on bottom
-						template.Write("[u]Effects:[/u] " + Tech.SubItems[12].Text + '\n');
+						template.Write("[u]Effects:[/u] " + TechEffects_Into_String(Technique.effectList) + '\n');
 					}
-					if (!string.IsNullOrWhiteSpace(Tech.SubItems[13].Text) ||
-						!string.IsNullOrWhiteSpace(Tech.SubItems[12].Text)) {
+					if (!string.IsNullOrWhiteSpace(Technique.note) || Technique.effectList.Count > 0) {
 						template.Write('\n');
 						template.Write("[hr]\n");
 					}
-					template.Write("[u]Description:[/u] " + Tech.SubItems[14].Text + '\n');
+					template.Write("[u]Description:[/u] " + Technique.desc + '\n');	// Description
 					i++;
 				}
 				template.Write("[/table]\n");

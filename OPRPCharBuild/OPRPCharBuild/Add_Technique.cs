@@ -398,11 +398,6 @@ namespace OPRPCharBuild
 				}
 				message += ".[/i]";
 			}
-			else if (Trait_ID == Traits.Trait_Name.MARTIAL_MASTERY || Trait_ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
-				Trait_ID == Traits.Trait_Name.STANCE_MAST || Trait_ID == Traits.Trait_Name.ART_OF_STEALTH ||
-				Trait_ID == Traits.Trait_Name.ANTI_STEALTH || Trait_ID == Traits.Trait_Name.DWARF) {
-				message += "[i]" + comboBox_AffectTech.Text + " Technique[/i], treated 4 Ranks higher. ";
-			}
 			else if (!string.IsNullOrWhiteSpace(comboBox_AffectTech.Text)) { // This means some kind of technique is being used.
 				message += "[i]" + comboBox_AffectTech.Text + " Technique[/i]. ";
 			}
@@ -412,7 +407,7 @@ namespace OPRPCharBuild
 			}
 			// Special TP usage.
 			if (numericUpDown_SpTP.Value > 0) {
-				message += numericUpDown_SpTP.Value + " Sp. TP used for [i]" + comboBox_SpTrait.Text + "[/i].";
+				message += "Special TP from [i]" + comboBox_SpTrait.Text + "[/i].";
 			}
 			textBox_Note.Text = message;
 			// Used when Sig is checked/unchecked
@@ -426,7 +421,8 @@ namespace OPRPCharBuild
 			int power = (int)numericUpDown_Rank.Value;
 			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectTech.Text);
 			if (ID == Traits.Trait_Name.MARTIAL_MASTERY || ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
-				ID == Traits.Trait_Name.STANCE_MAST || ID == Traits.Trait_Name.ART_OF_STEALTH ||
+				ID == Traits.Trait_Name.ADV_MARTIAL_CLASS || ID == Traits.Trait_Name.STANCE_MAST ||
+				ID == Traits.Trait_Name.ADV_STANCE_MASTERY || ID == Traits.Trait_Name.ART_OF_STEALTH ||
 				ID == Traits.Trait_Name.ANTI_STEALTH || ID == Traits.Trait_Name.DWARF) {
 				power += 4;
 			}
@@ -553,6 +549,7 @@ namespace OPRPCharBuild
 			if (!Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ADV_MARTIAL_MASTERY, traits_list)) {
 				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.MARTIAL_MASTERY, traits_list);
 			}
+			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ADV_MARTIAL_CLASS, traits_list);
 			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.CROWD_CONT, traits_list);
 			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ANAT_STRIKE, traits_list);
 			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.QUICKSTRIKE, traits_list);
@@ -696,15 +693,15 @@ namespace OPRPCharBuild
 			if (result == DialogResult.Yes) {
 				textBox_Name.Clear();
 				numericUpDown_Rank.Value = 1;
-				comboBox_AffectTech.Text = "";
+				comboBox_AffectTech.SelectedIndex = -1;
 				checkBox_Branched.Checked = false;
 				textBox_TechBranched.Clear();
 				numericUpDown_RankBranch.Value = 0;
 				numericUpDown_RegTP.Value = 0;
 				numericUpDown_SpTP.Value = 0;
-				comboBox_SpTrait.Text = "";
-				comboBox_Type.Text = "";
-				comboBox_Range.Text = "";
+				comboBox_SpTrait.SelectedIndex = -1;
+				comboBox_Type.SelectedIndex = -1;
+				comboBox_Range.SelectedIndex = -1;
 				// Stats
 				checkBox_PlusStr.Checked = false;
 				checkBox_MinusStr.Checked = false;
