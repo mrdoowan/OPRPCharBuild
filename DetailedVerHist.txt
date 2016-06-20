@@ -1,9 +1,12 @@
+v1.0.1.12 - 6/19/2016
+- Massive bug fixes to make sure all the Techniques are fluidly going through
+- Sheet.cs still not yet updated to reflect new changes
 v1.0.1.11 - 6/19/2016
 - Add Technique Form GUI updated to look nicer
 - Devil Fruit and Cyborg changed so that the Form is automatically updated upon checking the Traits List
 - Sheet not yet updated to reflect the new changes
 v1.0.1.10 - 6/19/2016
-- A few bug fixes done pertaining to Loading/Saving again.
+- A few bug fixes done pertaining to Loading/Saving again
 - Updated Sheet.cs to reflect the current changes
 v1.0.1.9 - 6/18/2016
 - Technique Overhaul (without Rokushiki and Cyborg) completed with Effects

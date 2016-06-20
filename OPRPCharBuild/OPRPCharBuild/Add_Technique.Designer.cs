@@ -78,6 +78,7 @@
 			this.label13 = new System.Windows.Forms.Label();
 			this.label8 = new System.Windows.Forms.Label();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.textBox_Power = new System.Windows.Forms.TextBox();
 			this.label_EffectType = new System.Windows.Forms.Label();
 			this.label_MinRank = new System.Windows.Forms.Label();
 			this.button_AddEffect = new System.Windows.Forms.Button();
@@ -86,7 +87,6 @@
 			this.label_EffectDesc = new System.Windows.Forms.Label();
 			this.comboBox_Effect = new System.Windows.Forms.ComboBox();
 			this.button_EffectRemove = new System.Windows.Forms.Button();
-			this.textBox_Power = new System.Windows.Forms.TextBox();
 			this.checkBox_NA = new System.Windows.Forms.CheckBox();
 			this.listView_Effects = new System.Windows.Forms.ListView();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -104,12 +104,7 @@
 			this.label_DF = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label20 = new System.Windows.Forms.Label();
-			this.toolTip_Cost = new System.Windows.Forms.ToolTip(this.components);
-			this.toolTip_DFEnable = new System.Windows.Forms.ToolTip(this.components);
-			this.toolTip_NAPower = new System.Windows.Forms.ToolTip(this.components);
-			this.toolTip_MinRank = new System.Windows.Forms.ToolTip(this.components);
-			this.toolTip_ComboBoxEffect = new System.Windows.Forms.ToolTip(this.components);
-			this.toolTip_Range = new System.Windows.Forms.ToolTip(this.components);
+			this.toolTips = new System.Windows.Forms.ToolTip(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
@@ -170,7 +165,6 @@
 			this.numericUpDown_Rank.Name = "numericUpDown_Rank";
 			this.numericUpDown_Rank.Size = new System.Drawing.Size(42, 20);
 			this.numericUpDown_Rank.TabIndex = 30;
-			this.toolTip_NAPower.SetToolTip(this.numericUpDown_Rank, "Pay attention to the Min Rank from Effects");
 			this.numericUpDown_Rank.Value = new decimal(new int[] {
             1,
             0,
@@ -367,7 +361,7 @@
 			this.comboBox_Range.Name = "comboBox_Range";
 			this.comboBox_Range.Size = new System.Drawing.Size(153, 21);
 			this.comboBox_Range.TabIndex = 48;
-			this.toolTip_Range.SetToolTip(this.comboBox_Range, "Selecting a Range will load its Effects. Press \"Add\" after selecting.");
+			this.toolTips.SetToolTip(this.comboBox_Range, "Selecting a Range will load its Effects. Press \"Add\" after selecting.");
 			this.comboBox_Range.SelectedIndexChanged += new System.EventHandler(this.comboBox_Range_SelectedIndexChanged);
 			// 
 			// label10
@@ -384,7 +378,7 @@
 			// 
 			this.label11.AutoSize = true;
 			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label11.Location = new System.Drawing.Point(106, 20);
+			this.label11.Location = new System.Drawing.Point(102, 20);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(40, 13);
 			this.label11.TabIndex = 49;
@@ -719,6 +713,7 @@
 			// 
 			// groupBox4
 			// 
+			this.groupBox4.Controls.Add(this.textBox_Power);
 			this.groupBox4.Controls.Add(this.label_EffectType);
 			this.groupBox4.Controls.Add(this.label_MinRank);
 			this.groupBox4.Controls.Add(this.button_AddEffect);
@@ -727,7 +722,6 @@
 			this.groupBox4.Controls.Add(this.label_EffectDesc);
 			this.groupBox4.Controls.Add(this.comboBox_Effect);
 			this.groupBox4.Controls.Add(this.button_EffectRemove);
-			this.groupBox4.Controls.Add(this.textBox_Power);
 			this.groupBox4.Controls.Add(this.checkBox_NA);
 			this.groupBox4.Controls.Add(this.listView_Effects);
 			this.groupBox4.Controls.Add(this.label11);
@@ -737,6 +731,14 @@
 			this.groupBox4.TabIndex = 72;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Effects";
+			// 
+			// textBox_Power
+			// 
+			this.textBox_Power.Location = new System.Drawing.Point(148, 17);
+			this.textBox_Power.Name = "textBox_Power";
+			this.textBox_Power.Size = new System.Drawing.Size(27, 20);
+			this.textBox_Power.TabIndex = 112;
+			this.textBox_Power.Text = "0";
 			// 
 			// label_EffectType
 			// 
@@ -790,7 +792,7 @@
 			this.numericUpDown_Cost.Name = "numericUpDown_Cost";
 			this.numericUpDown_Cost.Size = new System.Drawing.Size(39, 20);
 			this.numericUpDown_Cost.TabIndex = 108;
-			this.toolTip_Cost.SetToolTip(this.numericUpDown_Cost, "REMINDER: Only change this value if changing different Tiers");
+			this.toolTips.SetToolTip(this.numericUpDown_Cost, "REMINDER: Only change this value if changing different Tiers");
 			// 
 			// label_EffectDesc
 			// 
@@ -814,7 +816,7 @@
 			this.comboBox_Effect.Size = new System.Drawing.Size(169, 21);
 			this.comboBox_Effect.TabIndex = 105;
 			this.comboBox_Effect.Text = "Effects";
-			this.toolTip_ComboBoxEffect.SetToolTip(this.comboBox_Effect, "No Custom Effects for now. Use another Effect that acts as a substitution");
+			this.toolTips.SetToolTip(this.comboBox_Effect, "No Custom Effects for now. Use another Effect that acts as a substitution");
 			this.comboBox_Effect.SelectedIndexChanged += new System.EventHandler(this.comboBox_Effect_SelectedIndexChanged);
 			// 
 			// button_EffectRemove
@@ -827,15 +829,6 @@
 			this.button_EffectRemove.UseVisualStyleBackColor = true;
 			this.button_EffectRemove.Click += new System.EventHandler(this.button_EffectRemove_Click);
 			// 
-			// textBox_Power
-			// 
-			this.textBox_Power.Location = new System.Drawing.Point(146, 17);
-			this.textBox_Power.Name = "textBox_Power";
-			this.textBox_Power.ReadOnly = true;
-			this.textBox_Power.Size = new System.Drawing.Size(29, 20);
-			this.textBox_Power.TabIndex = 102;
-			this.textBox_Power.Text = "1";
-			// 
 			// checkBox_NA
 			// 
 			this.checkBox_NA.AutoSize = true;
@@ -844,7 +837,7 @@
 			this.checkBox_NA.Size = new System.Drawing.Size(79, 17);
 			this.checkBox_NA.TabIndex = 52;
 			this.checkBox_NA.Text = "N/A Power";
-			this.toolTip_NAPower.SetToolTip(this.checkBox_NA, "WARNING: Checking this will clear all Effects.");
+			this.toolTips.SetToolTip(this.checkBox_NA, "WARNING: Checking this will clear all Effects.");
 			this.checkBox_NA.UseVisualStyleBackColor = true;
 			this.checkBox_NA.CheckedChanged += new System.EventHandler(this.checkBox_NA_CheckedChanged);
 			// 
@@ -893,7 +886,6 @@
 			this.groupBox6.TabIndex = 74;
 			this.groupBox6.TabStop = false;
 			this.groupBox6.Text = "Devil Fruit and Cyborg";
-			this.toolTip_DFEnable.SetToolTip(this.groupBox6, "Enable this section by selecting \"Specific Devil Fruit\" in Trait Affecting Tech");
 			// 
 			// checkBox_Fuel3
 			// 
@@ -1015,6 +1007,7 @@
 			// 
 			// label_DF
 			// 
+			this.label_DF.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.label_DF.Location = new System.Drawing.Point(142, 16);
 			this.label_DF.Name = "label_DF";
 			this.label_DF.Size = new System.Drawing.Size(287, 138);
@@ -1039,6 +1032,12 @@
 			this.label20.TabIndex = 83;
 			this.label20.Text = "_________________________________________________________________________";
 			this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// toolTips
+			// 
+			this.toolTips.AutoPopDelay = 5000;
+			this.toolTips.InitialDelay = 50;
+			this.toolTips.ReshowDelay = 100;
 			// 
 			// Add_Technique
 			// 
@@ -1145,7 +1144,6 @@
 		private System.Windows.Forms.CheckBox checkBox_NA;
 		private System.Windows.Forms.ListView listView_Effects;
 		private System.Windows.Forms.Button button_EffectRemove;
-		private System.Windows.Forms.TextBox textBox_Power;
 		private System.Windows.Forms.GroupBox groupBox6;
 		private System.Windows.Forms.CheckBox checkBox_Hybrid;
 		private System.Windows.Forms.CheckBox checkBox_Full;
@@ -1157,14 +1155,9 @@
 		private System.Windows.Forms.NumericUpDown numericUpDown_Cost;
 		private System.Windows.Forms.Label label_EffectDesc;
 		private System.Windows.Forms.ComboBox comboBox_Effect;
-		private System.Windows.Forms.ToolTip toolTip_Cost;
-		private System.Windows.Forms.ToolTip toolTip_DFEnable;
-		private System.Windows.Forms.ToolTip toolTip_NAPower;
+		private System.Windows.Forms.ToolTip toolTips;
 		private System.Windows.Forms.Label label_MinRank;
-		private System.Windows.Forms.ToolTip toolTip_MinRank;
-		private System.Windows.Forms.ToolTip toolTip_ComboBoxEffect;
 		private System.Windows.Forms.Label label_EffectType;
-		private System.Windows.Forms.ToolTip toolTip_Range;
 		private System.Windows.Forms.CheckBox checkBox_DFEffect;
 		private System.Windows.Forms.CheckBox checkBox_DFTechEnable;
 		private System.Windows.Forms.Label label3;
@@ -1173,5 +1166,6 @@
 		private System.Windows.Forms.CheckBox checkBox_Fuel2;
 		private System.Windows.Forms.Label label_Cyborg;
 		private System.Windows.Forms.CheckBox checkBox_Fuel1;
+		private System.Windows.Forms.TextBox textBox_Power;
 	}
 }

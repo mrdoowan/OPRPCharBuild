@@ -25,10 +25,11 @@ namespace OPRPCharBuild
 		// Bools for primary professions
 		private bool assassin_primary;
 		private bool thief_primary;
-		// Used when editing Dialogue for comboBox SpTrait. Rank Trait, and Note
+		// Used when editing Dialogue for comboBox SpTrait, Rank Trait, and Note
 		private string edit_SpTrait;
 		private string edit_RankTrait;
 		private string edit_Note;
+		private string edit_power;
 		// Devil Fruit section
 		private string DF_name;
 		private string DF_type;
@@ -171,19 +172,24 @@ namespace OPRPCharBuild
 			From_TechStats_to_Form(Stats.sta, ref numericUpDown_Sta, ref checkBox_PlusSta, ref checkBox_MinusSta);
 			From_TechStats_to_Form(Stats.acc, ref numericUpDown_Acc, ref checkBox_PlusAcc, ref checkBox_MinusAcc);
 			checkBox_NA.Checked = Tech.NA_power;
-			if (Tech.NA_power) {
-				textBox_Power.Text = Tech.power;
+			edit_power = Tech.power.ToString();				// (If Power was set customized, we want to keep that number.)
+			if (!Tech.NA_power) {
+				// If N/A Power is not selected
 				// Adding onto ListView for effects
-				foreach (EffectItem effect in EffectList.Values) {
+				foreach (string effectName in Tech.effectList.Keys) {
+					EffectItem effectInfo = Tech.effectList[effectName];
+					// Adding onto EffectList dictionary
+					EffectList.Add(effectName, effectInfo);
 					ListViewItem item = new ListViewItem();
-					item.SubItems[0].Text = Effect.Get_EffectInfo(effect.ID).name;
-					item.SubItems.Add(effect.cost.ToString());
-					if (effect.gen) {
+					item.SubItems[0].Text = Effect.Get_EffectInfo(effectInfo.ID).name;
+					item.SubItems.Add(effectInfo.cost.ToString());
+					if (effectInfo.gen) {
 						item.SubItems.Add("Yes");
 					}
 					else {
 						item.SubItems.Add("No");
 					}
+					listView_Effects.Items.Add(item);
 				}
 			}
 			// DF Options
@@ -321,7 +327,7 @@ namespace OPRPCharBuild
 				item.SubItems.Add(comboBox_Range.Text);                 // Column 8: Range
 				string stats = Copy_Form_to_ListView_Stats();
 				item.SubItems.Add(stats);                           // Column 9: Stats
-				item.SubItems.Add(textBox_Power.Text.ToString());   // Column 10: Power
+				item.SubItems.Add(textBox_Power.Text);				// Column 10: Power
 				Main_Form.Items.Add(item);							// Add the entire damn thing
 			}
 		}
@@ -354,7 +360,7 @@ namespace OPRPCharBuild
 					Main_Form.SelectedItems[0].SubItems[8].Text = comboBox_Range.Text;                  // Column 8: Range
 					string stats = Copy_Form_to_ListView_Stats();
 					Main_Form.SelectedItems[0].SubItems[9].Text = stats;								// Column 9: Stats
-					Main_Form.SelectedItems[0].SubItems[10].Text = textBox_Power.Text.ToString();		// Column 10: Power
+					Main_Form.SelectedItems[0].SubItems[10].Text = textBox_Power.Text;					// Column 10: Power
 				}
 			}
 			catch (Exception e) {
@@ -404,6 +410,10 @@ namespace OPRPCharBuild
 
 		private void Update_Note() {
 			string message = "";
+			// Branch message
+			if (checkBox_Branched.Checked) {
+				message += "Branched from [i]R" + numericUpDown_RankBranch.Value.ToString() + " " + textBox_TechBranched.Text + "[/i]. ";
+			}
 			// Traits Affecting Tech
 			string tech = comboBox_AffectTech.Text;
 			Traits.Trait_Name Trait_ID = Traitss.get_TraitID(tech);
@@ -425,16 +435,9 @@ namespace OPRPCharBuild
 					message += " - [b]Full Transformation[/b]";
 				}
 				if (checkBox_DFEffect.Checked) {
-					message += " - [b]Free DF Effect applied.[/b]";
+					message += " - [b]Free DF Effect applied[/b]";
 				}
-				message += ".";
-			}
-			else if (!string.IsNullOrWhiteSpace(comboBox_AffectTech.Text)) { // This means some kind of technique is being used.
-				message += "[i]" + comboBox_AffectTech.Text + " Technique[/i]. ";
-			}
-			// Branch message
-			if (checkBox_Branched.Checked) {
-				message += "Branched from [i]R" + numericUpDown_RankBranch.Value.ToString() + " " + textBox_TechBranched.Text + "[/i]. ";
+				message += ". ";
 			}
 			// Cyborg message
 			if (checkBox_Fuel3.Checked) {
@@ -445,6 +448,9 @@ namespace OPRPCharBuild
 			}
 			else if (checkBox_Fuel1.Checked) {
 				message += "[i]Cyborg Technique[/i] - uses 1 Fuel Charge. ";
+			}
+			if (!string.IsNullOrWhiteSpace(comboBox_AffectTech.Text)) {
+				message += "[i]" + comboBox_AffectTech.Text + " Technique[/i]. ";
 			}
 			// Special TP usage.
 			if (numericUpDown_SpTP.Value > 0) {
@@ -478,7 +484,9 @@ namespace OPRPCharBuild
 				textBox_Power.BackColor = Color.FromArgb(255, 128, 128);
 			}
 			else {
-				textBox_Power.BackColor = SystemColors.Control;
+				// if (!checkBox_NA.Checked) { textBox_Power.BackColor = SystemColors.Control; }
+				// else { textBox_Power.BackColor = SystemColors.Window; }
+				textBox_Power.BackColor = SystemColors.Window;
 			}
 			// Used when Trait Affecting Tech is changed
 			// Used when Rank is changed
@@ -521,7 +529,15 @@ namespace OPRPCharBuild
 				min_rank = min_cost;
 			}
 			label_MinRank.Text = label;
-			if (min_rank > numericUpDown_Rank.Value || min_cost > numericUpDown_Rank.Value) {
+			int curr_rank = (int)numericUpDown_Rank.Value;
+			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectTech.Text);
+			if (ID == Traits.Trait_Name.MARTIAL_MASTERY || ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
+				ID == Traits.Trait_Name.ADV_MARTIAL_CLASS || ID == Traits.Trait_Name.STANCE_MAST ||
+				ID == Traits.Trait_Name.ADV_STANCE_MASTERY || ID == Traits.Trait_Name.ART_OF_STEALTH ||
+				ID == Traits.Trait_Name.ANTI_STEALTH || ID == Traits.Trait_Name.DWARF) {
+				curr_rank += 4;
+			}
+			if (min_rank > curr_rank || min_cost > curr_rank) {
 				label_MinRank.ForeColor = Color.Red;
 			}
 			else {
@@ -574,7 +590,7 @@ namespace OPRPCharBuild
 
 		#endregion
 
-		// This only occurs once before the form is displayed for the first time.
+		// This only occurs once before the form is displayed for the first time. (This occurs right when this.ShowDialog() is called)
 		// We'll need this to set some Maximums or comboBox lists based on the Main_Form
 		private void Add_Technique_Load(object sender, EventArgs e) {
 			// Set Maximum Values of NumericUpDown
@@ -623,12 +639,15 @@ namespace OPRPCharBuild
 			comboBox_SpTrait.Text = edit_SpTrait;
 			comboBox_AffectTech.Text = edit_RankTrait;
 
-			// Check if SpTrait_comboBox is empty
-			if (comboBox_SpTrait.Items.Count > 0) {
+			// Check if SpTrait_comboBox is empty (there's always 1 item which is the WhiteSpace)
+			if (comboBox_SpTrait.Items.Count > 1) {
 				numericUpDown_SpTP.Enabled = true;
 				label_SpTraitUsed.Text = "Sp TP Trait";
 				comboBox_SpTrait.Enabled = true;
 			}
+
+			// Put in power value from before
+			textBox_Power.Text = edit_power;
 
 			// Fill in the ListView columns
 			listView_Effects.View = View.Details;
@@ -636,6 +655,11 @@ namespace OPRPCharBuild
 			listView_Effects.Columns.Add("Name", 100);  // Column [0]
 			listView_Effects.Columns.Add("Cost", 38);   // Column [1]
 			listView_Effects.Columns.Add("General", 55); // Column [2]
+
+			// Reset back to normal Effects options (changed from Range earlier)
+			comboBox_Effect.Text = "Effects";
+			numericUpDown_Cost.Value = 0;
+			label_EffectDesc.Text = effect_label_reset;
 
 			// Add ALL Effects into the ComboBox (based on max rank)
 			#region Effects ComboBox
@@ -743,23 +767,44 @@ namespace OPRPCharBuild
 
 		#region Exception Handlers
 
+		// Check if a string has all numbers
+		private bool All_Numbers(string power) {
+			for (int i = 0; i < power.Length; ++i) {
+				if (!char.IsNumber(power[i])) {
+					return false;
+				}
+			}
+			return true;
+		}
+
 		private void button_AddTech_Click(object sender, EventArgs e) {
 			// The "Add" Technique button.
 			// Only want the appropriate changes to be made, so we add a bool
+			int curr_rank = (int)numericUpDown_Rank.Value;
+			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectTech.Text);
+			if (ID == Traits.Trait_Name.MARTIAL_MASTERY || ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
+			ID == Traits.Trait_Name.ADV_MARTIAL_CLASS || ID == Traits.Trait_Name.STANCE_MAST ||
+			ID == Traits.Trait_Name.ADV_STANCE_MASTERY || ID == Traits.Trait_Name.ART_OF_STEALTH ||
+			ID == Traits.Trait_Name.ANTI_STEALTH || ID == Traits.Trait_Name.DWARF) {
+				curr_rank += 4;
+			}
 			if (string.IsNullOrWhiteSpace(textBox_Name.Text)) {
 				MessageBox.Show("Technique needs a name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else if (MainForm.TechList.ContainsKey(textBox_Name.Text) && button_AddTech.Text == "Add") {
 				MessageBox.Show("Can't add 2 Techniques with the same name!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-			else if (checkBox_Branched.Checked && 
+			else if (checkBox_Branched.Checked &&
 				(numericUpDown_RankBranch.Value == 0 || string.IsNullOrWhiteSpace(textBox_TechBranched.Text))) {
 				MessageBox.Show("Technique Branch incomplete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else if (int.Parse(textBox_Power.Text) < 0) {
 				MessageBox.Show("Power is below 0.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-			else if (min_rank > numericUpDown_Rank.Value) {
+			else if (!All_Numbers(textBox_Power.Text)) {
+				MessageBox.Show("Power should only have numbers!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else if (min_rank > curr_rank) {
 				MessageBox.Show("Effect costs are ineligible at its current rank.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else {
@@ -871,6 +916,7 @@ namespace OPRPCharBuild
 			Update_Signature_Enable();
 			// Update power from Mastery
 			Update_Power_Value();
+			Update_MinRank();
 			Update_Note();
         }
 
@@ -926,22 +972,26 @@ namespace OPRPCharBuild
 			Button_Stat(ref checkBox_MinusAcc, ref checkBox_PlusAcc, ref numericUpDown_Acc);
 		}
 
-		// I think I won't touch the ListView for Effects at all.
 		private void checkBox_NA_CheckedChanged(object sender, EventArgs e) {
 			if (checkBox_NA.Checked) {
 				listView_Effects.Enabled = false;
+				listView_Effects.Clear();
 				button_EffectRemove.Enabled = false;
 				button_AddEffect.Enabled = false;
 				numericUpDown_Cost.Enabled = false;
 				comboBox_Effect.Enabled = false;
 				textBox_Power.Text = "0";
+				//textBox_Power.ReadOnly = false;
+				//textBox_Power.BackColor = SystemColors.Window;
 				label_MinRank.Text = "Min Rank: 1";
 				min_rank = 1;
 				label_EffectType.Visible = false;
 				label_EffectDesc.Text = effect_label_reset;
 			}
 			else {
-				textBox_Power.Text = "1";
+				textBox_Power.Text = numericUpDown_Rank.Value.ToString();
+				//textBox_Power.ReadOnly = true;
+				//textBox_Power.BackColor = SystemColors.Control;
 				listView_Effects.Enabled = true;
 				button_EffectRemove.Enabled = true;
 				button_AddEffect.Enabled = true;
@@ -950,7 +1000,8 @@ namespace OPRPCharBuild
 				label_EffectType.Visible = true;
 				// Fill in Effect Description if there's one pending
 				Effects.Effect_Name ID = Effect.Get_EffectID(comboBox_Effect.Text);
-				label_EffectDesc.Text = Effect.Get_EffectInfo(ID).desc;
+				if (ID != Effects.Effect_Name.NONE) { label_EffectDesc.Text = Effect.Get_EffectInfo(ID).desc; }
+				else { label_EffectDesc.Text = effect_label_reset; }
 			}
 		}
 
@@ -1109,39 +1160,43 @@ namespace OPRPCharBuild
 		// Also remember: EffectList.Remove(key) ONLY
 		private void button_EffectRemove_Click(object sender, EventArgs e) {
 			// "Remove" an Effect
-			if (listView_Effects.SelectedItems[0].SubItems[0].Text == Effect.Get_EffectInfo(Effects.Effect_Name.SECONDARY_GEN).name) {
-				MessageBox.Show("Can't remove a Secondary General Effect cost!\nRemove a General Effect instead.", "Error");
-				return;
-			}
-			string effect = MainForm.Delete_ListViewItem(ref listView_Effects);
-            if (!string.IsNullOrWhiteSpace(effect)) {
-				// That means we deleted an Effect from the ListView. 
-				// Now we must 1) Check for General, and then Remove Effect from Dict.
-				Effects.Effect_Name ID = Effect.Get_EffectID(effect);
-                string key = EffectList_Key(ID); // This should only be used to remove
-				if (Effect.Get_EffectInfo(ID).general) {
-					if (gen_effects > 2) {
-						// If we're removing a General Effect at >2, then we have to remove Secondary
-						string secondary = Effect.Get_EffectInfo(Effects.Effect_Name.SECONDARY_GEN).name;
-						ListViewItem item = listView_Effects.FindItemWithText(secondary);
-						listView_Effects.Items.Remove(item);    // ListView
-						string secondary_key = EffectList_Key(Effects.Effect_Name.SECONDARY_GEN);
-						EffectList.Remove(secondary_key);		// Dict
-					}
-					gen_effects--;
+			if (listView_Effects.SelectedIndices.Count > 0) {
+				if (listView_Effects.SelectedItems[0].SubItems[0].Text == Effect.Get_EffectInfo(Effects.Effect_Name.SECONDARY_GEN).name) {
+					MessageBox.Show("Can't remove a Secondary General Effect cost!\nRemove a General Effect instead.", "Error",
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
 				}
-				EffectList.Remove(key);
+				string effect = MainForm.Delete_ListViewItem(ref listView_Effects);
+				if (!string.IsNullOrWhiteSpace(effect)) {
+					// That means we deleted an Effect from the ListView. 
+					// Now we must 1) Check for General, and then Remove Effect from Dict.
+					Effects.Effect_Name ID = Effect.Get_EffectID(effect);
+					string key = EffectList_Key(ID); // This should only be used to remove
+					if (Effect.Get_EffectInfo(ID).general) {
+						if (gen_effects > 2) {
+							// If we're removing a General Effect at >2, then we have to remove Secondary
+							string secondary = Effect.Get_EffectInfo(Effects.Effect_Name.SECONDARY_GEN).name;
+							ListViewItem item = listView_Effects.FindItemWithText(secondary);
+							listView_Effects.Items.Remove(item);    // ListView
+							string secondary_key = EffectList_Key(Effects.Effect_Name.SECONDARY_GEN);
+							EffectList.Remove(secondary_key);       // Dict
+						}
+						gen_effects--;
+					}
+					EffectList.Remove(key);
+					Update_MinRank();
+					Update_Power_Value();
+				}
 			}
 			label_EffectDesc.Text = effect_label_reset;
 			label_EffectDesc.ForeColor = SystemColors.ControlText;
-			Update_MinRank();
-			Update_Power_Value();
 		}
 		private void comboBox_Effect_SelectedIndexChanged(object sender, EventArgs e) {
 			// Due to selecting from a set List, we're going to assume everything is fine
 			Effects.Effect_Name ID = Effect.Get_EffectID(comboBox_Effect.Text);
 			numericUpDown_Cost.Value = Effect.Get_EffectInfo(ID).cost;
-			label_EffectDesc.Text = Effect.Get_EffectInfo(ID).desc;
+			if (ID != Effects.Effect_Name.NONE) { label_EffectDesc.Text = Effect.Get_EffectInfo(ID).desc; }
+			else { label_EffectDesc.Text = effect_label_reset; }
 			label_EffectDesc.ForeColor = SystemColors.ControlText;
 			if (Effect.Get_EffectInfo(ID).general) {
 				label_EffectType.Visible = true;
@@ -1163,6 +1218,7 @@ namespace OPRPCharBuild
 				comboBox_Effect.Text = Effect.Get_EffectInfo(ID).name;
 				numericUpDown_Cost.Value = Effect.Get_EffectInfo(ID).cost;
 				label_EffectDesc.Text = Effect.Get_EffectInfo(ID).desc;
+				label_EffectType.Visible = true;
 				label_EffectType.Text = "Effect requires Power";
 			}
 		}
