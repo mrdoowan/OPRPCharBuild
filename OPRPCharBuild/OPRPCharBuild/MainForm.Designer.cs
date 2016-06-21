@@ -110,6 +110,10 @@
 			this.label23 = new System.Windows.Forms.Label();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.groupBox9 = new System.Windows.Forms.GroupBox();
+			this.label35 = new System.Windows.Forms.Label();
+			this.label34 = new System.Windows.Forms.Label();
+			this.label33 = new System.Windows.Forms.Label();
+			this.textBox_DFEffect = new System.Windows.Forms.TextBox();
 			this.richTextBox_DFDesc = new System.Windows.Forms.RichTextBox();
 			this.label52 = new System.Windows.Forms.Label();
 			this.comboBox_DFType = new System.Windows.Forms.ComboBox();
@@ -189,11 +193,12 @@
 			this.listView_Traits = new System.Windows.Forms.ListView();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.groupBox11 = new System.Windows.Forms.GroupBox();
-			this.button1 = new System.Windows.Forms.Button();
+			this.label39 = new System.Windows.Forms.Label();
+			this.label38 = new System.Windows.Forms.Label();
+			this.label36 = new System.Windows.Forms.Label();
 			this.button_TechBranch = new System.Windows.Forms.Button();
 			this.button_DownTech = new System.Windows.Forms.Button();
 			this.button_UpTech = new System.Windows.Forms.Button();
-			this.label_Trait_Warning = new System.Windows.Forms.Label();
 			this.textBox_SpTPTotal = new System.Windows.Forms.TextBox();
 			this.label45 = new System.Windows.Forms.Label();
 			this.textBox_SpTPUsed = new System.Windows.Forms.TextBox();
@@ -226,10 +231,6 @@
 			this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.olderVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolTip_Standardize = new System.Windows.Forms.ToolTip(this.components);
-			this.label33 = new System.Windows.Forms.Label();
-			this.textBox_DFEffect = new System.Windows.Forms.TextBox();
-			this.label34 = new System.Windows.Forms.Label();
-			this.label35 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1234,6 +1235,43 @@
 			this.groupBox9.TabStop = false;
 			this.groupBox9.Text = "Devil Fruit";
 			// 
+			// label35
+			// 
+			this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label35.Location = new System.Drawing.Point(427, 22);
+			this.label35.Name = "label35";
+			this.label35.Size = new System.Drawing.Size(185, 32);
+			this.label35.TabIndex = 21;
+			this.label35.Text = "Leave this entirely blank if your character does not have a Devil Fruit";
+			this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// label34
+			// 
+			this.label34.AutoSize = true;
+			this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label34.Location = new System.Drawing.Point(427, 194);
+			this.label34.Name = "label34";
+			this.label34.Size = new System.Drawing.Size(159, 13);
+			this.label34.TabIndex = 20;
+			this.label34.Text = "(Only applicable for T1/T2 fruits)";
+			// 
+			// label33
+			// 
+			this.label33.AutoSize = true;
+			this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label33.Location = new System.Drawing.Point(3, 194);
+			this.label33.Name = "label33";
+			this.label33.Size = new System.Drawing.Size(62, 13);
+			this.label33.TabIndex = 19;
+			this.label33.Text = "Free Effect:";
+			// 
+			// textBox_DFEffect
+			// 
+			this.textBox_DFEffect.Location = new System.Drawing.Point(70, 189);
+			this.textBox_DFEffect.Name = "textBox_DFEffect";
+			this.textBox_DFEffect.Size = new System.Drawing.Size(351, 23);
+			this.textBox_DFEffect.TabIndex = 18;
+			// 
 			// richTextBox_DFDesc
 			// 
 			this.richTextBox_DFDesc.Location = new System.Drawing.Point(70, 87);
@@ -2085,7 +2123,7 @@
 			// 
 			this.label32.AutoSize = true;
 			this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label32.Location = new System.Drawing.Point(6, 450);
+			this.label32.Location = new System.Drawing.Point(6, 404);
 			this.label32.Name = "label32";
 			this.label32.Size = new System.Drawing.Size(551, 16);
 			this.label32.TabIndex = 28;
@@ -2179,11 +2217,12 @@
 			// 
 			// groupBox11
 			// 
-			this.groupBox11.Controls.Add(this.button1);
+			this.groupBox11.Controls.Add(this.label39);
+			this.groupBox11.Controls.Add(this.label38);
+			this.groupBox11.Controls.Add(this.label36);
 			this.groupBox11.Controls.Add(this.button_TechBranch);
 			this.groupBox11.Controls.Add(this.button_DownTech);
 			this.groupBox11.Controls.Add(this.button_UpTech);
-			this.groupBox11.Controls.Add(this.label_Trait_Warning);
 			this.groupBox11.Controls.Add(this.textBox_SpTPTotal);
 			this.groupBox11.Controls.Add(this.label45);
 			this.groupBox11.Controls.Add(this.textBox_SpTPUsed);
@@ -2207,14 +2246,41 @@
 			this.groupBox11.TabStop = false;
 			this.groupBox11.Text = "Techniques";
 			// 
-			// button1
+			// label39
 			// 
-			this.button1.Location = new System.Drawing.Point(6, 437);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(94, 23);
-			this.button1.TabIndex = 4;
-			this.button1.Text = "Rokushiki";
-			this.button1.UseVisualStyleBackColor = true;
+			this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+			this.label39.ForeColor = System.Drawing.Color.Purple;
+			this.label39.Location = new System.Drawing.Point(9, 144);
+			this.label39.Name = "label39";
+			this.label39.Size = new System.Drawing.Size(225, 18);
+			this.label39.TabIndex = 42;
+			this.label39.Text = "Quickstrike: 0 / 0";
+			this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.label39.Visible = false;
+			// 
+			// label38
+			// 
+			this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+			this.label38.ForeColor = System.Drawing.Color.Purple;
+			this.label38.Location = new System.Drawing.Point(9, 126);
+			this.label38.Name = "label38";
+			this.label38.Size = new System.Drawing.Size(225, 18);
+			this.label38.TabIndex = 41;
+			this.label38.Text = "Anatomical Strike: 0 / 0";
+			this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.label38.Visible = false;
+			// 
+			// label36
+			// 
+			this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+			this.label36.ForeColor = System.Drawing.Color.Purple;
+			this.label36.Location = new System.Drawing.Point(9, 108);
+			this.label36.Name = "label36";
+			this.label36.Size = new System.Drawing.Size(225, 18);
+			this.label36.TabIndex = 40;
+			this.label36.Text = "Critical Hit: 0 / 0";
+			this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.label36.Visible = false;
 			// 
 			// button_TechBranch
 			// 
@@ -2245,17 +2311,6 @@
 			this.button_UpTech.TabIndex = 37;
 			this.button_UpTech.UseVisualStyleBackColor = true;
 			this.button_UpTech.Click += new System.EventHandler(this.button_UpTech_Click);
-			// 
-			// label_Trait_Warning
-			// 
-			this.label_Trait_Warning.ForeColor = System.Drawing.Color.Blue;
-			this.label_Trait_Warning.Location = new System.Drawing.Point(12, 115);
-			this.label_Trait_Warning.Name = "label_Trait_Warning";
-			this.label_Trait_Warning.Size = new System.Drawing.Size(225, 42);
-			this.label_Trait_Warning.TabIndex = 36;
-			this.label_Trait_Warning.Text = "Some techniques don\'t have their trait anymore!";
-			this.label_Trait_Warning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.label_Trait_Warning.Visible = false;
 			// 
 			// textBox_SpTPTotal
 			// 
@@ -2335,7 +2390,7 @@
 			// 
 			this.label66.AutoSize = true;
 			this.label66.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label66.Location = new System.Drawing.Point(6, 182);
+			this.label66.Location = new System.Drawing.Point(6, 184);
 			this.label66.Name = "label66";
 			this.label66.Size = new System.Drawing.Size(94, 13);
 			this.label66.TabIndex = 28;
@@ -2547,46 +2602,9 @@
 			// olderVersionToolStripMenuItem
 			// 
 			this.olderVersionToolStripMenuItem.Name = "olderVersionToolStripMenuItem";
-			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
 			this.olderVersionToolStripMenuItem.Text = "Older Version";
 			this.olderVersionToolStripMenuItem.Click += new System.EventHandler(this.olderVersionToolStripMenuItem_Click);
-			// 
-			// label33
-			// 
-			this.label33.AutoSize = true;
-			this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label33.Location = new System.Drawing.Point(3, 194);
-			this.label33.Name = "label33";
-			this.label33.Size = new System.Drawing.Size(62, 13);
-			this.label33.TabIndex = 19;
-			this.label33.Text = "Free Effect:";
-			// 
-			// textBox_DFEffect
-			// 
-			this.textBox_DFEffect.Location = new System.Drawing.Point(70, 189);
-			this.textBox_DFEffect.Name = "textBox_DFEffect";
-			this.textBox_DFEffect.Size = new System.Drawing.Size(351, 23);
-			this.textBox_DFEffect.TabIndex = 18;
-			// 
-			// label34
-			// 
-			this.label34.AutoSize = true;
-			this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label34.Location = new System.Drawing.Point(427, 194);
-			this.label34.Name = "label34";
-			this.label34.Size = new System.Drawing.Size(159, 13);
-			this.label34.TabIndex = 20;
-			this.label34.Text = "(Only applicable for T1/T2 fruits)";
-			// 
-			// label35
-			// 
-			this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label35.Location = new System.Drawing.Point(427, 22);
-			this.label35.Name = "label35";
-			this.label35.Size = new System.Drawing.Size(185, 32);
-			this.label35.TabIndex = 21;
-			this.label35.Text = "Leave this entirely blank if your character does not have a Devil Fruit";
-			this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// MainForm
 			// 
@@ -2776,7 +2794,6 @@
 		private System.Windows.Forms.TextBox textBox_SpTPTotal;
 		private System.Windows.Forms.Label label45;
 		private System.Windows.Forms.TextBox textBox_SpTPUsed;
-		private System.Windows.Forms.Label label_Trait_Warning;
 		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -2852,12 +2869,14 @@
 		private System.Windows.Forms.ListView listView_Images;
 		private System.Windows.Forms.Button button_ImageEdit;
 		private System.Windows.Forms.Button button_TraitOrder;
-		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Label label32;
 		private System.Windows.Forms.Label label34;
 		private System.Windows.Forms.Label label33;
 		private System.Windows.Forms.TextBox textBox_DFEffect;
 		private System.Windows.Forms.Label label35;
+		private System.Windows.Forms.Label label36;
+		private System.Windows.Forms.Label label39;
+		private System.Windows.Forms.Label label38;
 	}
 }
 

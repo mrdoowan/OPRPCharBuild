@@ -4,9 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization;
 
 // This contains files of older revisions.
 
@@ -494,6 +491,28 @@ namespace OPRPCharBuild
 			return stats;
 		}
 
+		private string Generate_AppTraits_String(string techTrait, string techNote) {
+			string AppTraits = techTrait;
+			if (!string.IsNullOrWhiteSpace(AppTraits)) { AppTraits += ", "; }
+			if (techNote.Contains(Add_Technique.DevFruit)) { AppTraits += Add_Technique.DevFruit + ", "; }
+			if (techNote.Contains(Add_Technique.SigTech)) { AppTraits += Add_Technique.SigTech + ", "; }
+			if (techNote.Contains(Add_Technique.Cyborg)) { AppTraits += Add_Technique.Cyborg + ", "; }
+			if (techNote.Contains(Add_Technique.CritHit)) { AppTraits += Add_Technique.CritHit + ", "; }
+			if (techNote.Contains(Add_Technique.AnatStrike)) { AppTraits += Add_Technique.AnatStrike + ", "; }
+			if (techNote.Contains(Add_Technique.Quickstrike)) { AppTraits += Add_Technique.Quickstrike + ", "; }
+			if (techNote.Contains(Add_Technique.HakiTech)) { AppTraits += Add_Technique.HakiTech + ", "; }
+			if (techNote.Contains(Add_Technique.FormFunc)) { AppTraits += Add_Technique.FormFunc + ", "; }
+			if (techNote.Contains(Add_Technique.LifeRet)) { AppTraits += Add_Technique.LifeRet + ", "; }
+			if (techNote.Contains(Add_Technique.MentFort)) { AppTraits += Add_Technique.MentFort + ", "; }
+			if (techNote.Contains(Add_Technique.CrowdCont)) { AppTraits += Add_Technique.CrowdCont + ", "; }
+			if (techNote.Contains(Add_Technique.PowSpeak)) { AppTraits += Add_Technique.PowSpeak + ", "; }
+			if (techNote.Contains(Add_Technique.BakeBad)) { AppTraits += Add_Technique.BakeBad + ", "; }
+			if (techNote.Contains(Add_Technique.ExtraIngred)) { AppTraits += Add_Technique.ExtraIngred + ", "; }
+			// Now trim the ", "
+			if (!string.IsNullOrWhiteSpace(AppTraits)) { AppTraits = AppTraits.Remove(AppTraits.Length - 2, 2); }
+			return AppTraits;
+		}
+
 		public void LoadProject_Tech(ref ListView _techList) {
 			MainForm.TechList.Clear();
 			_techList.Items.Clear();
@@ -526,8 +545,9 @@ namespace OPRPCharBuild
 				item.SubItems.Add(techniques[i].rank.ToString());	// [1]: Rank
 				item.SubItems.Add(techniques[i].reg_TP.ToString());	// [2]: RegTP
 				item.SubItems.Add(techniques[i].sp_TP.ToString());	// [3]: SpTP
-				item.SubItems.Add(techniques[i].sp_trait);			// [4]: SpTrait
-				item.SubItems.Add(techniques[i].tech_trait);		// [5]: TechTrait
+				item.SubItems.Add(techniques[i].sp_trait);          // [4]: SpTrait
+				string AppTraits = Generate_AppTraits_String(techniques[i].tech_trait, techniques[i].notes);
+                item.SubItems.Add(AppTraits);						// [5]: App. Traits
 				item.SubItems.Add(techniques[i].branch_tech);		// [6]: BranchTech
 				item.SubItems.Add(techniques[i].type);				// [7]: Type
 				item.SubItems.Add(techniques[i].range);             // [8]: Range

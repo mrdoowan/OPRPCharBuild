@@ -116,6 +116,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Rokushiki.cs" />
+    <Compile Include="SelectOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectOptions.Designer.cs">
+      <DependentUpon>SelectOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sheet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +153,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectOptions.resx">
+      <DependentUpon>SelectOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sheet.resx">
       <DependentUpon>Sheet.cs</DependentUpon>

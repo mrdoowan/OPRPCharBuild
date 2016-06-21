@@ -379,16 +379,35 @@ namespace OPRPCharBuild
 			int acc_base, string acc_fin, string acc_calc, string fort, string fort_calc) {
 			template.Write("[quote=Advancement Points: " + AP_num + "]");
 			if (AP_num > 0) {
-				template.Write("[list]");
-				foreach (string checkedAP in AP.CheckedItems) {
-					template.Write("[*]" + checkedAP + '\n');
+				foreach (int index in AP.CheckedIndices) {
+					switch (index) {
+						case 0:
+							template.Write("- [b]Technique (1 AP)[/b] - Permanently increase tech point multiplier by 0.5\n");
+							break;
+						case 1:
+							template.Write("- [b]Trait (2 AP)[/b] - Trait cap raised by 1, can take Legacy Traits without training\n");
+							break;
+						case 2:
+							template.Write("- [b]Prime Professional (1 AP)[/b] - May upgrade a secondary profession to primary\n");
+							break;
+						case 3:
+							template.Write("- [b]Multiskilled Professional (1 AP)[/b] - May take two additional secondary professions\n");
+							break;
+						case 4:
+							template.Write("- [b]Devil Fruit (1 AP)[/b] - Choose a Myth Zoan, gained without DF SL\n");
+							break;
+						default:
+							break;
+					}
 				}
-				template.Write("[/list][/quote]");
 			}
-			template.Write('\n');
+			else {
+				template.Write("None");
+			}
+			template.Write("[/quote]\n");
 			template.Write("[b]SD Earned:[/b] " + SD_Earned);
 			if (AP_num > 0) {
-				template.Write("/" + (SD_Earned + AP_num * 50));
+				template.Write(" / " + (SD_Earned + AP_num * 50));
 			}
 			template.Write('\n');
 			template.Write("[b]SD Remaining:[/b] " + SD_Remain + '\n');
@@ -475,15 +494,15 @@ namespace OPRPCharBuild
 		}
 		// ---------------------------------------------------------------------------
 		public void Techs_Generate(string usedRegTP, string totRegTP, string regTPCalc, string usedSpTP, string totSpTP, 
-			Dictionary<string, MainForm.TechInfo> techList, ListView SpTraits) {
+			Dictionary<string, MainForm.TechInfo> techList, ListView SpTraits, string DF_effect) {
 			template.Write("[center][big][big][i][font=Century Gothic]Techniques[/font][/i][/big][/big][/center]\n");
-			template.Write("[b]Used/Total Regular Technique Points:[/b] " + usedRegTP + '/' + totRegTP + ' ' + regTPCalc + '\n');
-			template.Write("[b]Used/Total Special Technique Points:[/b] " + usedSpTP + '/' + totSpTP);
+			template.Write("[b]Used/Total Regular Technique Points:[/b] " + usedRegTP + " / " + totRegTP + ' ' + regTPCalc + '\n');
+			template.Write("[b]Used/Total Special Technique Points:[/b] " + usedSpTP + " / " + totSpTP);
 			if (int.Parse(totSpTP) > 0) {
 				template.Write("[list]");
 				foreach (ListViewItem SpTrait in SpTraits.Items) {
 					template.Write("[*]" + SpTrait.SubItems[0].Text + ": ");
-					template.Write(SpTrait.SubItems[1].Text + "/" + SpTrait.SubItems[2].Text + '\n');
+					template.Write(SpTrait.SubItems[1].Text + " / " + SpTrait.SubItems[2].Text + '\n');
 				}
 				template.Write("[/list]");
 			}
@@ -496,8 +515,16 @@ namespace OPRPCharBuild
 					break;
 				}
 			}
-			if (treat_rank4) {
-				template.Write("[table]* Technique is treated as 4 ranks higher[/table]");
+			if (treat_rank4 || !string.IsNullOrWhiteSpace(DF_effect)) {
+				template.Write("[table]");
+				if (treat_rank4) {
+					template.Write("* Technique is treated as 4 ranks higher\n");
+				}
+				if (!string.IsNullOrWhiteSpace(DF_effect)) {
+					if (treat_rank4) { template.Write('\n'); }
+					template.Write("[u]Free DF Effect:[/u] " + DF_effect + '\n');
+				}
+				template.Write("[/table]");
 			}
 			template.Write("[table=2, Techniques]");
 			if (int.Parse(usedRegTP) == 0 && int.Parse(usedSpTP) == 0) {
@@ -529,17 +556,17 @@ namespace OPRPCharBuild
 					template.Write("[c]");
 					if (!string.IsNullOrWhiteSpace(Technique.note)) {
 						// TP Note on top
-						template.Write("[u]TP Note:[/u] " + Technique.note + '\n');
+						template.Write(Technique.note + '\n');
 					}
-					if (Technique.effectList.Count > 0) {
-						// Effects on bottom
-						template.Write("[u]Effects:[/u] " + TechEffects_Into_String(Technique.effectList) + '\n');
-					}
-					if (!string.IsNullOrWhiteSpace(Technique.note) || Technique.effectList.Count > 0) {
+					if (!string.IsNullOrWhiteSpace(Technique.note)) {
 						template.Write('\n');
 						template.Write("[hr]\n");
 					}
-					template.Write("[u]Description:[/u] " + Technique.desc + '\n');	// Description
+					template.Write("[u]Description:[/u] " + Technique.desc + '\n'); // Description
+					if (Technique.effectList.Count > 0) {
+						// Effects on bottom
+						template.Write("\n[u]Effects:[/u] " + TechEffects_Into_String(Technique.effectList) + '\n');
+					}
 					i++;
 				}
 				template.Write("[/table]\n");
@@ -554,7 +581,7 @@ namespace OPRPCharBuild
 			template.Write("[spoiler=Edit Log]Edit Log goes here[/spoiler]\n");
 			template.Write('\n');
 			template.Write("[small]This Character Template was created by the [url=http://s1.zetaboards.com/One_Piece_RP/topic/6060583/1/]OPRP Character Builder[/url] v" + version + vers_type + '\n');
-			template.Write("Note to Mods: Calculations should be done correctly if not bugged or changed by [me][/small]");
+			template.Write("Note to Mods: Calculations should be done correctly if not bugged or changed by [me]. Regardless, please double check.[/small]");
 			// Transfer entire stream into readable textbox
 			richTextBox_Template.Text = template.ToString();
 			// Reset/Clear Stringwriter

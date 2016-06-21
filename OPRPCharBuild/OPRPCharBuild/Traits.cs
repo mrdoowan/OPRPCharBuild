@@ -255,6 +255,17 @@ namespace OPRPCharBuild
 			}
 		}
 
+		/* public string get_TraitKey(Trait_Name ID) {
+			// Not encouraged to use as it's a pretty big time killer
+			try {
+				return Trait_Dict.FirstOrDefault(x => x.Value == ID).Key;
+			}
+			catch (Exception e) {
+				MessageBox.Show("Error in getting Key from Trait Dictionary. Returning null.\nReason: " + e.Message);
+				return null;
+			}
+		} */
+
 		// Specifically used if there's a Specification in trait name
 		// Modifies variable "name" that contains the Trait_Name with [SPEC] if specification is involved.
 		// Returns the variable "spec" for Specification

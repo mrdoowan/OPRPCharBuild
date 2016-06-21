@@ -18,7 +18,7 @@ namespace OPRPCharBuild
 		private string effect_label_reset = "Effect Encyclopedia\n" + 
 			"- Weathermancy Effects require Weathermancy Trait\n" + 
 			"- Pop Greens Effects require Horticultural Warfare Trait\n" +
-			"- Stealth Effect require Assassin/Thief primary.";
+			"- Stealth Effects require Assassin/Thief primary.";
 		private int gen_effects;    // To keep track how many General Effects there currently are for Secondary Gen Effects
 									// Updated when an Effect is added
 									// Updated when an Effect is removed
@@ -35,6 +35,22 @@ namespace OPRPCharBuild
 		private string DF_type;
 		private string DF_desc;
 		private string DF_effect;
+		// Strings for the Applied Traits
+		public const string DevFruit = "Devil Fruit";
+		public const string SigTech = "Signature Technique";
+		public const string RokuTech = "Rokushiki Master";
+		public const string Cyborg = "Cyborg";
+		public const string CritHit = "Critical Hit";
+		public const string AnatStrike = "Anatomical Strike";
+		public const string Quickstrike = "Quickstrike";
+		public const string HakiTech = "Haki";
+		public const string FormFunc = "Form and Function";
+		public const string LifeRet = "Life Return";
+		public const string MentFort = "Mentally Fortified";
+		public const string CrowdCont = "Crowd Control";
+		public const string PowSpeak = "Powerful Speaker";
+		public const string BakeBad = "Baking Bad";
+		public const string ExtraIngred = "That Extra Special Ingredient";
 		// Item for the Dict for a ListView
 		public struct EffectItem
 		{
@@ -108,10 +124,10 @@ namespace OPRPCharBuild
 			// Now initialize TechInfo and add into TechList
 			MainForm.TechInfo Tech_Info = new MainForm.TechInfo((int)numericUpDown_Rank.Value,
 				(int)numericUpDown_RegTP.Value, (int)numericUpDown_SpTP.Value,
-				comboBox_AffectTech.Text, comboBox_SpTrait.Text, textBox_TechBranched.Text,
+				comboBox_AffectRank.Text, comboBox_SpTrait.Text, textBox_TechBranched.Text,
 				(int)numericUpDown_RankBranch.Value, comboBox_Type.Text, comboBox_Range.Text,
 				Techstats, checkBox_NA.Checked, EffectList, textBox_Power.Text, DF_options, Cyborg,
-				textBox_Note.Text, richTextBox_Desc.Text);
+				richTextBox_Note.Text, richTextBox_Desc.Text);
 			try { MainForm.TechList.Add(name, Tech_Info); }
 			catch (Exception e) {
 				MessageBox.Show("There was an error in adding Info to TechList." +
@@ -288,6 +304,28 @@ namespace OPRPCharBuild
 			return stats;
 		}
 
+		private string Generate_AppTraits_String(string AffectRank) {
+			string AppTraits = AffectRank;
+			if (!string.IsNullOrWhiteSpace(AppTraits)) { AppTraits += ", "; }
+			if (checkBox_DFTechEnable.Checked) { AppTraits += DevFruit + ", "; }
+			if (checkBox_Fuel3.Checked || checkBox_Fuel2.Checked || checkBox_Fuel1.Checked) { AppTraits += Cyborg + ", "; }
+			if (checkBox_SigTech.Checked) { AppTraits += SigTech + ", "; }
+			if (checkBox_CritHit.Checked) { AppTraits += CritHit + ", "; }
+			if (checkBox_AnatStrike.Checked) { AppTraits += AnatStrike + ", "; }
+			if (checkBox_QuickStrike.Checked) { AppTraits += Quickstrike + ", "; }
+			if (checkBox_Haki.Checked) { AppTraits += HakiTech + ", "; }
+			if (checkBox_FormAndFunc.Checked) { AppTraits += FormFunc + ", "; }
+			if (checkBox_LifeReturn.Checked) { AppTraits += LifeRet + ", "; }
+			if (checkBox_MentFort.Checked) { AppTraits += MentFort + ", "; }
+			if (checkBox_CrowdCont.Checked) { AppTraits += CrowdCont + ", "; }
+			if (checkBox_PowSpeak.Checked) { AppTraits += PowSpeak + ", "; }
+			if (checkBox_BakingBad.Checked) { AppTraits += BakeBad + ", "; }
+			if (checkBox_SpIngred.Checked) { AppTraits += ExtraIngred + ", "; }
+			// Now trim the ", "
+			if (!string.IsNullOrWhiteSpace(AppTraits)) { AppTraits = AppTraits.Remove(AppTraits.Length - 2, 2); }
+			return AppTraits;
+		}
+
 		#endregion
 
 		#region Dialog Functions for Prompting Form
@@ -320,8 +358,9 @@ namespace OPRPCharBuild
 				item.SubItems.Add(numericUpDown_Rank.Value.ToString());	// Column 1: Rank
 				item.SubItems.Add(numericUpDown_RegTP.Value.ToString());// Column 2: Reg TP
 				item.SubItems.Add(numericUpDown_SpTP.Value.ToString()); // Column 3: Sp. TP
-				item.SubItems.Add(comboBox_SpTrait.Text);				// Column 4: Sp. Trait
-				item.SubItems.Add(comboBox_AffectTech.Text);            // Column 5: Rank Trait
+				item.SubItems.Add(comboBox_SpTrait.Text);               // Column 4: Sp. Trait
+				string AppTraits = Generate_AppTraits_String(comboBox_AffectRank.Text);
+				item.SubItems.Add(AppTraits);				            // Column 5: App. Traits
 				item.SubItems.Add(textBox_TechBranched.Text);           // Column 6: Branched From
 				item.SubItems.Add(comboBox_Type.Text);					// Column 7: Type
 				item.SubItems.Add(comboBox_Range.Text);                 // Column 8: Range
@@ -354,7 +393,8 @@ namespace OPRPCharBuild
 					Main_Form.SelectedItems[0].SubItems[2].Text = numericUpDown_RegTP.Value.ToString(); // Column 2: Reg TP
 					Main_Form.SelectedItems[0].SubItems[3].Text = numericUpDown_SpTP.Value.ToString();  // Column 3: Sp. TP
 					Main_Form.SelectedItems[0].SubItems[4].Text = comboBox_SpTrait.Text;                // Column 4: Sp. Trait
-					Main_Form.SelectedItems[0].SubItems[5].Text = comboBox_AffectTech.Text;             // Column 5: Rank Trait
+					string AppTraits = Generate_AppTraits_String(comboBox_AffectRank.Text);
+					Main_Form.SelectedItems[0].SubItems[5].Text = AppTraits;							// Column 5: App. Traits
 					Main_Form.SelectedItems[0].SubItems[6].Text = textBox_TechBranched.Text;            // Column 6: Branched From
 					Main_Form.SelectedItems[0].SubItems[7].Text = comboBox_Type.Text;                   // Column 7: Type
 					Main_Form.SelectedItems[0].SubItems[8].Text = comboBox_Range.Text;                  // Column 8: Range
@@ -370,13 +410,13 @@ namespace OPRPCharBuild
 
 		#endregion
 
-		#region Other member functions used
+		#region Helper Functions
 
 		// If trait is in Traits List, add it to the ComboBox. Returns true if so.
-		private bool Add_Trait_comboBox(ref ComboBox combobox, Traits.Trait_Name ID, ListView traits_list) {
-			int index = Traitss.Contains_Trait_AtIndex(ID, traits_list);
+		private bool Add_Trait_comboBox(ref ComboBox combobox, Traits.Trait_Name ID, ListView TraitsList) {
+			int index = Traitss.Contains_Trait_AtIndex(ID, TraitsList);
 			if (index != -1) {
-				string name = traits_list.Items[index].SubItems[0].Text;
+				string name = TraitsList.Items[index].SubItems[0].Text;
 				combobox.Items.Add(name);
 				return true;
 			}
@@ -385,7 +425,7 @@ namespace OPRPCharBuild
 
 		// One exception to the Effect_info_load function because we're adding items into the ComboBox
 		private void Add_Effect_comboBox(ref ComboBox combobox, Effects.Effect_Name ID) {
-			if (Effect.Get_EffectInfo(ID).MinRank < max_rank) {
+			if (Effect.Get_EffectInfo(ID).MinRank <= max_rank) {
 				combobox.Items.Add(Effect.Get_EffectInfo(ID).name);
 			}
 		}
@@ -411,52 +451,42 @@ namespace OPRPCharBuild
 		private void Update_Note() {
 			string message = "";
 			// Branch message
-			if (checkBox_Branched.Checked) {
-				message += "Branched from [i]R" + numericUpDown_RankBranch.Value.ToString() + " " + textBox_TechBranched.Text + "[/i]. ";
-			}
+			if (checkBox_Branched.Checked) { message += "- Branched from [i]R" + numericUpDown_RankBranch.Value.ToString() + " " + textBox_TechBranched.Text + "[/i]\n"; }
 			// Traits Affecting Tech
-			string tech = comboBox_AffectTech.Text;
+			string tech = comboBox_AffectRank.Text;
 			Traits.Trait_Name Trait_ID = Traitss.get_TraitID(tech);
-			if (Trait_ID == Traits.Trait_Name.SIG_TECH) {
-				message += "[i]Signature Technique[/i]. ";
-			}
+			if (checkBox_SigTech.Checked) { message += "- [b][i]" + SigTech + "[/i][/b]\n"; }
 			else if (checkBox_DFTechEnable.Checked) {
-				message += "[i]DF Technique[/i]";
-				if (checkBox_DFRank4.Checked) {
-					message += " - [b]Free R4 Tech[/b]";
-				}
-				if (checkBox_ZoanSig.Checked) {
-					message += " - [b]Zoan Signature[/b]";
-				}
-				if (checkBox_Hybrid.Checked) {
-					message += " - [b]Hybrid Transformation[/b]";
-				}
-				if (checkBox_Full.Checked) {
-					message += " - [b]Full Transformation[/b]";
-				}
-				if (checkBox_DFEffect.Checked) {
-					message += " - [b]Free DF Effect applied[/b]";
-				}
-				message += ". ";
+				message += "- [i]" + DevFruit + " Technique[/i]";
+				if (checkBox_DFRank4.Checked) { message += " - [b]Free R4 Tech[/b]"; }
+				if (checkBox_ZoanSig.Checked) { message += " - [b]Zoan Signature[/b]"; }
+				if (checkBox_Hybrid.Checked) { message += " - [b]Hybrid Transformation[/b]"; }
+				if (checkBox_Full.Checked) { message += " - [b]Full Transformation[/b]"; }
+				if (checkBox_DFEffect.Checked) { message += " - [b]Free DF Effect applied[/b]"; }
+				message += "\n";
 			}
 			// Cyborg message
-			if (checkBox_Fuel3.Checked) {
-				message += "[i]Cyborg Technique[/i] - uses 3 Fuel Charges. ";
-			}
-			else if (checkBox_Fuel2.Checked) {
-				message += "[i]Cyborg Technique[/i] - uses 2 Fuel Charges. ";
-			}
-			else if (checkBox_Fuel1.Checked) {
-				message += "[i]Cyborg Technique[/i] - uses 1 Fuel Charge. ";
-			}
-			if (!string.IsNullOrWhiteSpace(comboBox_AffectTech.Text)) {
-				message += "[i]" + comboBox_AffectTech.Text + " Technique[/i]. ";
-			}
+			if (checkBox_Fuel3.Checked) { message += "- [i]" + Cyborg + " Technique[/i] - uses 3 Fuel Charges\n"; }
+			else if (checkBox_Fuel2.Checked) { message += "- [i]" + Cyborg + " Technique[/i] - uses 2 Fuel Charges\n"; }
+			else if (checkBox_Fuel1.Checked) { message += "- [i]" + Cyborg + " Technique[/i] - uses 1 Fuel Charge\n"; }
+			// Treated 4 Ranks higher
+			if (!string.IsNullOrWhiteSpace(comboBox_AffectRank.Text)) { message += "- [i]" + comboBox_AffectRank.Text + " Technique*[/i]\n"; }
 			// Special TP usage.
-			if (numericUpDown_SpTP.Value > 0) {
-				message += "Special TP from [i]" + comboBox_SpTrait.Text + "[/i]. ";
-			}
-			textBox_Note.Text = message;
+			if (numericUpDown_SpTP.Value > 0) { message += "- Special TP from [i]" + comboBox_SpTrait.Text + "[/i]\n"; }
+			// Any other Technique
+			if (checkBox_CritHit.Checked) { message += "- [i]" + CritHit + " Technique[/i]\n"; }
+			if (checkBox_AnatStrike.Checked) { message += "- [i]" + AnatStrike + " Technique[/i]\n"; }
+			if (checkBox_QuickStrike.Checked) { message += "- [i]" + Quickstrike + " Technique[/i]\n"; }
+			if (checkBox_Haki.Checked) { message += "- [i]" + HakiTech + " Technique[/i]\n"; }
+			if (checkBox_FormAndFunc.Checked) { message += "- [i]" + FormFunc + " Technique[/i]\n"; }
+			if (checkBox_LifeReturn.Checked) { message += "- [i]" + LifeRet + " Technique[/i]\n"; }
+			if (checkBox_MentFort.Checked) { message += "- [i]" + MentFort + " Technique[/i]\n"; }
+			if (checkBox_CrowdCont.Checked) { message += "- [i]" + CrowdCont + " Technique[/i]\n"; }
+			if (checkBox_PowSpeak.Checked) { message += "- [i]" + PowSpeak + " Technique[/i]\n"; }
+			if (checkBox_BakingBad.Checked) { message += "- [i]" + BakeBad + " Technique[/i]\n"; }
+			if (checkBox_SpIngred.Checked) { message += "- [i]" + ExtraIngred + " Technique[/i]\n"; }
+			if (!string.IsNullOrWhiteSpace(message)) { message = message.Remove(message.Length - 1, 1); } // Remove the last \n
+			richTextBox_Note.Text = message;
 			// Used when Sig is checked/unchecked
 			// Used when Branched From text is changed.
 			// Used when Branched points is changed.
@@ -466,7 +496,7 @@ namespace OPRPCharBuild
 
 		private void Update_Power_Value() {
 			int power = (int)numericUpDown_Rank.Value;
-			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectTech.Text);
+			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectRank.Text);
 			if (ID == Traits.Trait_Name.MARTIAL_MASTERY || ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
 				ID == Traits.Trait_Name.ADV_MARTIAL_CLASS || ID == Traits.Trait_Name.STANCE_MAST ||
 				ID == Traits.Trait_Name.ADV_STANCE_MASTERY || ID == Traits.Trait_Name.ART_OF_STEALTH ||
@@ -511,7 +541,7 @@ namespace OPRPCharBuild
 		}
 
 		private void Update_MinRank() {
-			string label = "Min Rank: ";
+			string label = "[Min Rank: ";
 			int min_cost = 0;
 			int MinRank = 0;
 			foreach (EffectItem effect in EffectList.Values) {
@@ -528,9 +558,9 @@ namespace OPRPCharBuild
 				label += min_cost;
 				min_rank = min_cost;
 			}
-			label_MinRank.Text = label;
+			label_MinRank.Text = label + ']' ;
 			int curr_rank = (int)numericUpDown_Rank.Value;
-			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectTech.Text);
+			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectRank.Text);
 			if (ID == Traits.Trait_Name.MARTIAL_MASTERY || ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
 				ID == Traits.Trait_Name.ADV_MARTIAL_CLASS || ID == Traits.Trait_Name.STANCE_MAST ||
 				ID == Traits.Trait_Name.ADV_STANCE_MASTERY || ID == Traits.Trait_Name.ART_OF_STEALTH ||
@@ -550,26 +580,26 @@ namespace OPRPCharBuild
 
 		private void Update_MaxRank() {
 			if (checkBox_Fuel3.Checked) {
-				label_MaxRank.Text = "Max Rank: " + max_rank + " + 12";
+				label_MaxRank.Text = "[Max Rank: " + max_rank + " + 12]";
 				numericUpDown_Rank.Maximum = max_rank + 12;
 			}
 			else if (checkBox_Fuel2.Checked) {
-				label_MaxRank.Text = "Max Rank: " + max_rank + " + 8";
+				label_MaxRank.Text = "[Max Rank: " + max_rank + " + 8]";
 				numericUpDown_Rank.Maximum = max_rank + 8;
 			}
 			else if (checkBox_Fuel1.Checked) {
-				label_MaxRank.Text = "Max Rank: " + max_rank + " + 4";
+				label_MaxRank.Text = "[Max Rank: " + max_rank + " + 4]";
 				numericUpDown_Rank.Maximum = max_rank + 4;
 			}
 			else {
-				label_MaxRank.Text = "Max Rank: " + max_rank;
+				label_MaxRank.Text = "[Max Rank: " + max_rank + ']';
 				numericUpDown_Rank.Maximum = max_rank;
 			}
 			// Used when any of the Cyborg is checked
 		}
 
 		private void Update_Signature_Enable() {
-			if (Traitss.get_TraitID(comboBox_AffectTech.Text) == Traits.Trait_Name.SIG_TECH || checkBox_ZoanSig.Checked) {
+			if (checkBox_SigTech.Checked || checkBox_ZoanSig.Checked) {
 				numericUpDown_Rank.Value = max_rank;
 				numericUpDown_Rank.Enabled = false;
 				numericUpDown_RegTP.Value = 0;
@@ -601,49 +631,33 @@ namespace OPRPCharBuild
 			numericUpDown_RankBranch.Maximum = max_rank - 1;
 
 			// Add Traits Affecting the Tech
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.DWARF, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ART_OF_STEALTH, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ANTI_STEALTH, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.SIG_TECH, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.F_AND_F, traits_list);
-			if (!Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.DISC_HAKI, traits_list)) {
-				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.AWAKE_HAKI, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.DWARF, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ART_OF_STEALTH, traits_list);
+			Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ANTI_STEALTH, traits_list);
+			if (!Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ADV_STANCE_MASTERY, traits_list)) {
+				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.STANCE_MAST, traits_list);
 			}
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.CONQ_HAKI, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.LIFE_RET, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ROK_MAST, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.HORT_WAR, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.WEATHER, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.CRIT_HIT, traits_list);
-			if (!Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ADV_STANCE_MASTERY, traits_list)) {
-				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.STANCE_MAST, traits_list);
+			if (!Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ADV_MARTIAL_MASTERY, traits_list)) {
+				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.MARTIAL_MASTERY, traits_list);
 			}
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.GRAND_MARTIAL, traits_list);
-			if (!Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ADV_MARTIAL_MASTERY, traits_list)) {
-				Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.MARTIAL_MASTERY, traits_list);
-			}
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ADV_MARTIAL_CLASS, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.CROWD_CONT, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.ANAT_STRIKE, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.QUICKSTRIKE, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.POW_SPEAK, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.BAKING_BAD, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectTech, Traits.Trait_Name.MAST_MISDI, traits_list);
-			
+			Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ADV_MARTIAL_CLASS, traits_list);
+
+			if (string.IsNullOrWhiteSpace(edit_RankTrait)) { comboBox_AffectRank.SelectedIndex = -1; }
+			else { comboBox_AffectRank.Text = edit_RankTrait; }
 
 			// Add Special TP Traits
 			foreach (ListViewItem eachItem in SpTraits_list.Items) {
 				string name = eachItem.SubItems[0].Text;
 				Add_Trait_comboBox(ref comboBox_SpTrait, Traitss.get_TraitID(name), SpTraits_list);
 			}
-			comboBox_SpTrait.Text = edit_SpTrait;
-			comboBox_AffectTech.Text = edit_RankTrait;
 
 			// Check if SpTrait_comboBox is empty (there's always 1 item which is the WhiteSpace)
 			if (comboBox_SpTrait.Items.Count > 1) {
 				numericUpDown_SpTP.Enabled = true;
-				label_SpTraitUsed.Text = "Sp TP Trait";
+				label_SpTraitUsed.Text = "Sp. TP Trait";
 				comboBox_SpTrait.Enabled = true;
+				if (string.IsNullOrWhiteSpace(edit_SpTrait)) { comboBox_SpTrait.SelectedIndex = -1; }
+				else { comboBox_SpTrait.Text = edit_SpTrait; }
 			}
 
 			// Put in power value from before
@@ -746,22 +760,50 @@ namespace OPRPCharBuild
 			}
 			// Cyborg Options
 			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.BAS_CYBORG, traits_list) != -1) {
-				label_Cyborg.Text = "Basic Cyborg:";
-				checkBox_Fuel1.Enabled = true;
+				label_Cyborg.Text = "[Basic Cyborg]";
+				checkBox_SigTech.Enabled = true;
 			}
 			else if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.ADV_CYBORG, traits_list) != -1) {
-				label_Cyborg.Text = "Advanced Cyborg:";
+				label_Cyborg.Text = "[Advanced Cyborg]";
 				checkBox_Fuel1.Enabled = true;
 				checkBox_Fuel2.Enabled = true;
 			}
 			else if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.NW_CYBORG, traits_list) != -1) {
-				label_Cyborg.Text = "New World Cyborg:";
+				label_Cyborg.Text = "[New World Cyborg]";
 				checkBox_Fuel1.Enabled = true;
 				checkBox_Fuel2.Enabled = true;
 				checkBox_Fuel3.Enabled = true;
 			}
-			// Because "Note" is a unique space that can be edited, we don't want it to be altered when edited in.
-			textBox_Note.Text = edit_Note;
+			// Applicable Traits & Note
+			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.SIG_TECH, traits_list) != -1) { checkBox_SigTech.Enabled = true; }
+			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.CRIT_HIT, traits_list) != -1) { checkBox_CritHit.Enabled = true; }
+			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.ANAT_STRIKE, traits_list) != -1) { checkBox_AnatStrike.Enabled = true; }
+			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.QUICKSTRIKE, traits_list) != -1) { checkBox_QuickStrike.Enabled = true; }
+			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.AWAKE_HAKI, traits_list) != -1 ||
+				Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.DISC_HAKI, traits_list) != -1 ||
+				Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.CONQ_HAKI, traits_list) != -1) { checkBox_Haki.Enabled = true; }
+			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.F_AND_F, traits_list) != -1) { checkBox_FormAndFunc.Enabled = true; }
+			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.LIFE_RET, traits_list) != -1) { checkBox_LifeReturn.Enabled = true; }
+			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.MENT_FORT, traits_list) != -1) { checkBox_MentFort.Enabled = true; }
+			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.EXTRA_INGRED, traits_list) != -1) { checkBox_SpIngred.Enabled = true; }
+			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.CROWD_CONT, traits_list) != -1) { checkBox_CrowdCont.Enabled = true; }
+			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.POW_SPEAK, traits_list) != -1) { checkBox_PowSpeak.Enabled = true; }
+			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.BAKING_BAD, traits_list) != -1) { checkBox_BakingBad.Enabled = true; }
+			// Because "Note" is something we need to initialize before the Checks, we save a copy and load it here.
+			richTextBox_Note.Text = edit_Note;
+			// Now we check the Box if "Note" contains the String
+			if (edit_Note.Contains(SigTech) && checkBox_SigTech.Enabled) { checkBox_SigTech.Checked = true; }
+			if (edit_Note.Contains(CritHit) && checkBox_CritHit.Enabled) { checkBox_CritHit.Checked = true; }
+			if (edit_Note.Contains(AnatStrike) && checkBox_AnatStrike.Enabled) { checkBox_AnatStrike.Checked = true; }
+			if (edit_Note.Contains(Quickstrike) && checkBox_QuickStrike.Enabled) { checkBox_QuickStrike.Checked = true; }
+			if (edit_Note.Contains(HakiTech) && checkBox_Haki.Enabled) { checkBox_Haki.Checked = true; }
+			if (edit_Note.Contains(FormFunc) && checkBox_FormAndFunc.Enabled) { checkBox_FormAndFunc.Checked = true; }
+			if (edit_Note.Contains(LifeRet) && checkBox_LifeReturn.Enabled) { checkBox_LifeReturn.Checked = true; }
+			if (edit_Note.Contains(MentFort) && checkBox_MentFort.Enabled) { checkBox_MentFort.Checked = true; }
+			if (edit_Note.Contains(ExtraIngred) && checkBox_SpIngred.Enabled) { checkBox_SpIngred.Checked = true; }
+			if (edit_Note.Contains(CrowdCont) && checkBox_CrowdCont.Enabled) { checkBox_CrowdCont.Checked = true; }
+			if (edit_Note.Contains(PowSpeak) && checkBox_PowSpeak.Enabled) { checkBox_PowSpeak.Checked = true; }
+			if (edit_Note.Contains(BakeBad) && checkBox_BakingBad.Enabled) { checkBox_BakingBad.Checked = true; }
 			#endregion
 		}
 
@@ -781,7 +823,7 @@ namespace OPRPCharBuild
 			// The "Add" Technique button.
 			// Only want the appropriate changes to be made, so we add a bool
 			int curr_rank = (int)numericUpDown_Rank.Value;
-			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectTech.Text);
+			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectRank.Text);
 			if (ID == Traits.Trait_Name.MARTIAL_MASTERY || ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
 			ID == Traits.Trait_Name.ADV_MARTIAL_CLASS || ID == Traits.Trait_Name.STANCE_MAST ||
 			ID == Traits.Trait_Name.ADV_STANCE_MASTERY || ID == Traits.Trait_Name.ART_OF_STEALTH ||
@@ -822,7 +864,7 @@ namespace OPRPCharBuild
 			if (result == DialogResult.Yes) {
 				textBox_Name.Clear();
 				numericUpDown_Rank.Value = 1;
-				comboBox_AffectTech.SelectedIndex = -1;
+				comboBox_AffectRank.SelectedIndex = -1;
 				checkBox_Branched.Checked = false;
 				textBox_TechBranched.Clear();
 				numericUpDown_RankBranch.Value = 0;
@@ -865,7 +907,7 @@ namespace OPRPCharBuild
 				checkBox_Hybrid.Enabled = false;
 				checkBox_ZoanSig.Enabled = false;
 				// The rest
-				textBox_Note.Clear();
+				richTextBox_Note.Clear();
 				richTextBox_Desc.Clear();
 			}
 		}
@@ -911,9 +953,7 @@ namespace OPRPCharBuild
 			Update_DFRank4();
 		}
 
-		private void comboBox_AffectTech_SelectedIndexChanged(object sender, EventArgs e) {
-			// Where Signature Tech Enable
-			Update_Signature_Enable();
+		private void comboBox_AffectRank_SelectedIndexChanged(object sender, EventArgs e) {
 			// Update power from Mastery
 			Update_Power_Value();
 			Update_MinRank();
@@ -1008,10 +1048,12 @@ namespace OPRPCharBuild
 		private void checkBox_DFTechEnable_CheckedChanged(object sender, EventArgs e) {
 			if (checkBox_DFTechEnable.Checked) {
 				checkBox_DFRank4.Enabled = true;
-				checkBox_ZoanSig.Enabled = true;
-				checkBox_Full.Enabled = true;
-				checkBox_Hybrid.Enabled = true;
-				checkBox_DFEffect.Enabled = true;
+				if (DF_type == "Zoan" || DF_type == "Ancient Zoan" || DF_type == "Myth Zoan") {
+					checkBox_ZoanSig.Enabled = true;
+					checkBox_Full.Enabled = true;
+					checkBox_Hybrid.Enabled = true;
+				}
+				if (!string.IsNullOrWhiteSpace(DF_effect)) { checkBox_DFEffect.Enabled = true; }
 			}
 			else {
 				checkBox_DFRank4.Enabled = false;
@@ -1237,6 +1279,56 @@ namespace OPRPCharBuild
 			}
 		}
 
+		private void checkBox_SigTech_CheckedChanged(object sender, EventArgs e) {
+			Update_Signature_Enable();
+			Update_Note();
+		}
+
+		private void checkBox_MentFort_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void checkBox_BakingBad_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void checkBox_PowSpeak_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void checkBox_CrowdCont_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void checkBox_LifeReturn_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void checkBox_FormAndFunc_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void checkBox_Haki_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void checkBox_AnatStrike_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void checkBox_CritHit_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void checkBox_QuickStrike_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void checkBox_SpIngred_CheckedChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
 		#endregion
+
 	}
 }

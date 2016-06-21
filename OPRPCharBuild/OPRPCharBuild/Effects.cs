@@ -28,6 +28,7 @@ namespace OPRPCharBuild
 		private static int medAOE_min;
 		private static int longAOE_cost;
 		private static int longAOE_min;
+		private static bool stealth_gen;
 		// Dictionary might work, but you can add the same effect twice. We can work around this by 
 
 		// Default Constructor
@@ -70,6 +71,8 @@ namespace OPRPCharBuild
 				longAOE_cost = 32;
 				longAOE_min = 44;
 			}
+			if (MainForm.TraitsList.Contains(Traits.Trait_Name.MAST_MISDI)) { stealth_gen = true; }
+			else { stealth_gen = false; }
 			// Then Add onto the Dictionary after being initialized
 			EffectInfo_Dict.Add(Effect_Name.MELEE_RANGE, new EffectInfo("Melee", false, 0, 0,
 				"Range of direct physical combat."));
@@ -87,6 +90,8 @@ namespace OPRPCharBuild
 				   "Half of a sport's stadium in diameter."));
 			EffectInfo_Dict.Add(Effect_Name.LONG_AOE, new EffectInfo("Long AoE", false, longAOE_cost, longAOE_min,
 				   "An entire sport's stadium in diameter."));
+			EffectInfo_Dict.Add(Effect_Name.SILENT, new EffectInfo("Silent", stealth_gen, 8, 14,
+					"(STEALTH) - Causing an attack or movement to produce very little sound, making it undetectable through hearing alone. More effective at higher ranks. Consumes 1/2 AE in order to keep active. This becomes a General Effect with the \"Master of Misdirection\" Trait."));
 		}
 
 		public enum Effect_Name
@@ -255,7 +260,7 @@ namespace OPRPCharBuild
 		};
 
 		// Inverse Dictionary: enum -> info
-		private Dictionary<Effect_Name, EffectInfo> EffectInfo_Dict = new Dictionary<Effect_Name, EffectInfo>() {
+		static private Dictionary<Effect_Name, EffectInfo> EffectInfo_Dict = new Dictionary<Effect_Name, EffectInfo>() {
 			#region Database of Effect Information
 			// The Ranges are added at a later part when Effects is initialized
 			{Effect_Name.DISPLACE, new EffectInfo("Displacement", true, 8, 8,
@@ -297,7 +302,7 @@ namespace OPRPCharBuild
 			{Effect_Name.AFT_IMG, new EffectInfo("After-Image", false, 8, 14,
 				"A singular after-image that looks like the user. The after image repeats an action performed at high speed by the user though at a slower pace to be perceived normally. It cannot do damage, nor has any physical form and will disperse after 1 post or after it is hit. The power of these techniques improves the authenticity of the after-image.")},
 			{Effect_Name.ADD_AFT_IMG, new EffectInfo("Additional After-Image", false, 4, 18,
-				"NOTE: Requires After Image as an effect. Allows the technique to gain an extra after-image. This effect can stack for each additional payment.")},
+				"NOTE: Requires After-Image as an effect!\nAllows the technique to gain an extra after-image. This effect can stack for each additional payment.")},
 			{Effect_Name.REVERSE, new EffectInfo("Reversal", false, 16, 16,
 				"This is applicable for Defensive Type techniques only. Similar but not limited to an upgraded version of deflecting. Reversal techniques are all attempts to repel a form of attack back at an opponent. With higher ranks, more obscure or supernatural techniques can be reversed.")},
 			{Effect_Name.DUR_DMG, new EffectInfo("Duration Damage", false, 8, 8,
@@ -329,11 +334,11 @@ namespace OPRPCharBuild
 			{Effect_Name.FULLBODY, new EffectInfo("Full Body Effects", false, 10, 20,
 				"The cost of extending an effect of a technique from limbs to the entire body. Effects such as Tekkai, Armaments Haki amongst others use this.")},
 			{Effect_Name.START_DEF, new EffectInfo("Starter Tier Defense", false, 4, 10,
-				"Reduces damage of Rank 13 and below techniques. NOTE THAT 1) Tier Defenses require special abilities, 2) Wearable armor requires these techniques, and 3) Legendary Tier offers the defensive properties of High Tier (still unbreakable). Please refer to the Rules for more details.")},
+				"Reduces damage of Rank 13 and below techniques. NOTE THAT 1) Tier Defenses may require some special abilities, 2) Wearable armor requires Techniques with this Effect, and 3) Legendary Tier offers the defensive properties of High Tier (still unbreakable). Please refer to the Rules for more details.")},
 			{Effect_Name.MID_DEF, new EffectInfo("Mid Tier Defense", false, 12, 22,
-				"Reduces damage of Rank 27 and below techniques. NOTE THAT 1) Tier Defenses require special abilities, 2) Wearable armor requires these techniques, and 3) Legendary Tier offers the defensive properties of High Tier (still unbreakable). Please refer to the Rules for more details.")},
+				"Reduces damage of Rank 27 and below techniques. NOTE THAT 1) Tier Defenses may require some special abilities, 2) Wearable armor requires Techniques with this Effect, and 3) Legendary Tier offers the defensive properties of High Tier (still unbreakable). Please refer to the Rules for more details.")},
 			{Effect_Name.HIGH_DEF, new EffectInfo("High Tier Defense", false, 24, 36,
-				"Reduces damage of Rank 43 and below techniques. NOTE THAT 1) Tier Defenses require special abilities, 2) Wearable armor requires these techniques, and 3) Legendary Tier offers the defensive properties of High Tier (still unbreakable). Please refer to the Rules for more details.")},
+				"Reduces damage of Rank 43 and below techniques. NOTE THAT 1) Tier Defenses may require some special abilities, 2) Wearable armor requires Techniques with this Effect, and 3) Legendary Tier offers the defensive properties of High Tier (still unbreakable). Please refer to the Rules for more details.")},
 			{Effect_Name.CLOUD, new EffectInfo("Cloud", true, 8, 8,
 				"(WEATHERMANCY) - Techniques used in order to create clouds to empower other Weathermancy techniques. Clouds scale in size with rank allowing the caster a greater area to work with and control the field through their other techniques.")},
 			{Effect_Name.RAIN, new EffectInfo("Rain", true, 8, 8,
@@ -358,21 +363,20 @@ namespace OPRPCharBuild
 				"(POP GREENS) - Wooden blockades that provide a defence against incoming attacks, paid for according to the material tier defence costs. They last one turn by default, but this duration may be extended for an additional cost.")},
 			{Effect_Name.ELE_DMG_POP, new EffectInfo("Elemental Damage (Pop Green)", true, 14, 14,
 				"(POP GREENS) - Pop Greens may be used to easily cause elemental effects, such as damaging poisons and fire. They therefore have a minimum rank of 14, rather than 28.")},
-			{Effect_Name.SMOKE, new EffectInfo("Smoke", true, 8, 8,
+			{Effect_Name.SMOKE, new EffectInfo("Smoke", false, 8, 8,
 				"(STEALTH) - A rapidly dispersing gaseous substance used to reduce visibility of that which is encompassed. Usually contained within a pellet or bomb of some sort, it can mask the silhouette of one person by default but can be combined with AoE to affect larger areas.")},
-			{Effect_Name.CROWD_BLEND, new EffectInfo("Crowd Blending", true, 8, 8,
+			{Effect_Name.CROWD_BLEND, new EffectInfo("Crowd Blending", false, 8, 8,
 				"(STEALTH) - The ability to blend in with a crowd of people in order to avoid detection and shake off pursuers. Becomes more effective with higher rank. Consumes 1/2 AE in order to keep active, and is subject to common sense.")},
-			{Effect_Name.SILENT, new EffectInfo("Silent", true, 8, 14,
-				"(STEALTH) - Causing an attack or movement to produce very little sound, making it undetectable through hearing alone. More effective at higher ranks. Consumes 1/2 AE in order to keep active.")},
-			{Effect_Name.SCENTLESS, new EffectInfo("Scentless", true, 14, 14,
+			// "Silent" Effect is added later when Effect() is initialized
+			{Effect_Name.SCENTLESS, new EffectInfo("Scentless", false, 14, 14,
 				"(STEALTH) - Removing scent from one's person. Doing so can throw off detection based around scent, making a character more difficult to track. More effective at higher ranks.")},
-			{Effect_Name.DISGUISE, new EffectInfo("Disguise", true, 4, 4,
+			{Effect_Name.DISGUISE, new EffectInfo("Disguise", false, 4, 4,
 				"(STEALTH) - Disguising oneself (or sometimes another), usually in the form of different clothing and make-up. Useful for infiltration. However, for a character with high fame, putting on a disguise can often not be enough to prevent them from being recognised. A disguise technique of rank less than roughly fame/4 will be less likely to convince others. Especially so if very noticeable physical traits are not masked. Keeping up a disguise does not consume upkeep.")},
-			{Effect_Name.PICKPOCK, new EffectInfo("Pickpocket", true, 8, 8,
+			{Effect_Name.PICKPOCK, new EffectInfo("Pickpocket", false, 8, 8,
 				"(STEALTH) - The act of taking an item from another, without their consent. Pickpocketing is a tricky art that requires masterful sleight of hand, and can therefore be noticed (but not necessarily prevented) if the target is aware enough. They may realise more quickly if items of noticeable size suddenly go missing, even if not immediately. May be combined with Material Breaker effects in order to effectively remove even items attached to things.")},
-			{Effect_Name.NAT_CAMO, new EffectInfo("Natural Camouflage", true, 14, 14,
-				"(STEALTH) - Blending in to the environment through masterful knowledge of the surroundings and the perception of others. At lower ranks, this skill may be used to avoid detection in areas that provide a natural camouflage; shadows, night and foliage to name a few.")},
-			{Effect_Name.OPEN_CAMO, new EffectInfo("Open Camouflage", true, 28, 28,
+			{Effect_Name.NAT_CAMO, new EffectInfo("Natural Camouflage", false, 14, 14,
+				"(STEALTH) - Blending in to the environment through masterful knowledge of the surroundings and the perception of others. At lower ranks, this skill may be used to avoid detection in areas that provide a natural camouflage; shadows, night and foliage to name a few. Consumes 1/2 AE in order to keep active. With the \"Master of Misdirection\" Trait, any environment is treated as a Natural Camoflauge.")},
+			{Effect_Name.OPEN_CAMO, new EffectInfo("Open Camouflage", false, 28, 28,
 				"(STEALTH) - Blending in to the environment through masterful knowledge of the surroundings and the perception of others. At this high rank, it becomes possible to blend in seemingly with mere open space. Consumes 1/2 AE in order to keep active.")},
 			{Effect_Name.NONE, new EffectInfo("Error", true, 0, 0, "Report Bug")}
 			#endregion 

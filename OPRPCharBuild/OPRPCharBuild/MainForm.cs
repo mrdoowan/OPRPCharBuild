@@ -124,6 +124,7 @@ namespace OPRPCharBuild
 
 		// To move up or down the item in a ListView
 		private void Move_List_Item(ref ListView list, string direction) {
+			if (list.SelectedItems.Count == 0) { return; }
 			int curr_ind = list.SelectedItems[0].Index;
 			if (curr_ind < 0) {
 				return;
@@ -756,54 +757,6 @@ namespace OPRPCharBuild
 			// Used when a Technique is removed.
 		}
 
-		private void Update_Trait_Warning() {
-			// What happens if we delete a Trait in which a Technique uses that trait?
-			// We have to inform the user!
-			// This is probably the most inefficient way possible to implement loool
-			bool yes_msg = false; // Initialize
-			foreach (ListViewItem Tech in listView_Techniques.Items) {
-				// Search in Technique Table for both Special Trait and Tech Trait
-				string sp_Trait = Tech.SubItems[4].Text;	// Column 4 is Sp. Trait
-				string tech_Trait = Tech.SubItems[5].Text;	// Column 5 is Tech Trait
-				if (!string.IsNullOrWhiteSpace(sp_Trait) && !string.IsNullOrWhiteSpace(tech_Trait)) {
-					// That means there is a Special Trait or Tech Trait
-					bool break_loop = false;
-					Traits.Trait_Name Sp_ID = Traits.get_TraitID(sp_Trait);
-					Traits.Trait_Name Tech_ID = Traits.get_TraitID(tech_Trait);
-					for (int i = 0; i < TraitsList.Count; ++i) {
-						// From the Traits List
-						if (Sp_ID == TraitsList[0] || Tech_ID == TraitsList[0]) {
-							// If the Trait is in TraitsList, we're good.
-							Tech.BackColor = SystemColors.Window;
-							break_loop = true;
-							break;
-						}
-					}
-					// So what happens if the statement was never broken? That means we couldn't find the trait in the TraitsList!
-					if (!break_loop) {
-						yes_msg = true;
-					}
-				}
-				if (yes_msg) {
-					// We can just break if we can display the warning
-					// Though, here we'll highlight the entire Item with 128, 128, 255
-					Tech.BackColor = Color.FromArgb(128, 128, 255);
-					break;
-				}
-			}
-			if (yes_msg) {
-				label_Trait_Warning.Visible = true;
-			}
-			else {
-				label_Trait_Warning.Visible = false;
-			}
-			// Used when a Trait is added.
-			// Used when a Trait is edited.
-			// Used when a Trait is removed.
-			// Used when a Technique is edited.
-			// Used when a Technique is removed.
-		}
-
 		#endregion
 
 		// --------------------------------------------------------------------------------------------
@@ -866,7 +819,7 @@ namespace OPRPCharBuild
 			listView_Techniques.Columns.Add("Reg TP", 50);          // 2
 			listView_Techniques.Columns.Add("Sp. TP", 50);          // 3
 			listView_Techniques.Columns.Add("Sp. Trait", 75);       // 4
-			listView_Techniques.Columns.Add("Tech Trait", 75);      // 5
+			listView_Techniques.Columns.Add("Applied Traits", 150); // 5
 			listView_Techniques.Columns.Add("Branched From", 100);  // 6
 			listView_Techniques.Columns.Add("Type", 75);            // 7
 			listView_Techniques.Columns.Add("Range", 75);           // 8
@@ -1332,7 +1285,6 @@ namespace OPRPCharBuild
 			Update_Total_RegTP();
 			Update_SpTrait_Table_Traits(ID);
 			Update_SpTrait_Table_Values();
-			Update_Trait_Warning();
 		}
 
 		private void button11_TraitAdd_Click(object sender, EventArgs e) {
@@ -1465,25 +1417,27 @@ namespace OPRPCharBuild
 				TechniqueWin.EditDialog(ref listView_Techniques, TechName, Selected);
 				// Update functions go below
 				Update_SpTrait_Table_Values();
-				Update_Trait_Warning();
 				Update_Used_RegTP();
 			}
 		}
 
 		private void button13_TechDelete_Click(object sender, EventArgs e) {
 			// Technique "Delete" button from the MainForm
-			try {
-				string TechName = Delete_ListViewItem(ref listView_Techniques);
-				if (!string.IsNullOrWhiteSpace(TechName)) {
-					TechList.Remove(TechName);
+			DialogResult result = MessageBox.Show("Are you sure you want to delete this Technique?", "Remove Tech",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (result == DialogResult.Yes) {
+				try {
+					string TechName = Delete_ListViewItem(ref listView_Techniques);
+					if (!string.IsNullOrWhiteSpace(TechName)) {
+						TechList.Remove(TechName);
+					}
+					// Update functions go below
+					Update_SpTrait_Table_Values();
+					Update_Used_RegTP();
 				}
-				// Update functions go below
-				Update_SpTrait_Table_Values();
-				Update_Trait_Warning();
-				Update_Used_RegTP();
-			}
-			catch (Exception ex) {
-				MessageBox.Show("Error in Deleting Technique\nReason: " + ex.Message, "Exception Thrown");
+				catch (Exception ex) {
+					MessageBox.Show("Error in Deleting Technique\nReason: " + ex.Message, "Exception Thrown");
+				}
 			}
 		}
 
@@ -1726,7 +1680,6 @@ namespace OPRPCharBuild
 				Update_SpTrait_Table_Traits(ID);
 			}
 			Update_SpTrait_Table_Values();
-			Update_Trait_Warning();
 		}
 
 		// This is where serialize our project.
@@ -1904,7 +1857,8 @@ namespace OPRPCharBuild
 				textBox_SpTPUsed.Text,
 				textBox_SpTPTotal.Text,
 				TechList,
-				listView_SpTP
+				listView_SpTP,
+				textBox_DFEffect.Text
 				);
 			sheet.Complete_Template_Generate(version, vers_type);
 			sheet.ShowDialog();

@@ -1,3 +1,9 @@
+v1.0.1.13 - 6/20/2016
+- Cleaned up Sheet to make a complete generated Character Template
+- Scrapped Update_Trait_Warning() for its cumbersome implementation
+- Added a new section for "Applicable Traits" so that the Traits all stacks neatly
+- Started on Rokushiki and added a New Form for Importing and Rokushiki
+- Incomplete as of now
 v1.0.1.12 - 6/19/2016
 - Massive bug fixes to make sure all the Techniques are fluidly going through
 - Sheet.cs still not yet updated to reflect new changes
