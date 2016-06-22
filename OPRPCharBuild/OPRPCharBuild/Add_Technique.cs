@@ -8,6 +8,9 @@ namespace OPRPCharBuild
 {
 	public partial class Add_Technique : Form
 	{
+
+		#region All Private/Public Member Variables
+
 		private bool button_clicked;
 		private int max_rank;
 		private int min_rank;
@@ -22,19 +25,23 @@ namespace OPRPCharBuild
 		private int gen_effects;    // To keep track how many General Effects there currently are for Secondary Gen Effects
 									// Updated when an Effect is added
 									// Updated when an Effect is removed
+		
 		// Bools for primary professions
 		private bool assassin_primary;
 		private bool thief_primary;
+
 		// Used when editing Dialogue for comboBox SpTrait, Rank Trait, and Note
 		private string edit_SpTrait;
 		private string edit_RankTrait;
 		private string edit_Note;
 		private string edit_power;
+
 		// Devil Fruit section
 		private string DF_name;
 		private string DF_type;
 		private string DF_desc;
 		private string DF_effect;
+
 		// Strings for the Applied Traits
 		public const string DevFruit = "Devil Fruit";
 		public const string SigTech = "Signature Technique";
@@ -51,6 +58,7 @@ namespace OPRPCharBuild
 		public const string PowSpeak = "Powerful Speaker";
 		public const string BakeBad = "Baking Bad";
 		public const string ExtraIngred = "That Extra Special Ingredient";
+
 		// Item for the Dict for a ListView
 		public struct EffectItem
 		{
@@ -67,7 +75,13 @@ namespace OPRPCharBuild
 				minRank = minRank_;
 			}
 		}
-		public Dictionary<string, EffectItem> EffectList = new Dictionary<string, EffectItem>(); // Static variable for project usage
+		private Dictionary<string, EffectItem> EffectList = new Dictionary<string, EffectItem>();
+
+		// This defines if the Form is being used for Rokushiki Customization.
+		Rokushiki Roku = new Rokushiki();
+		private Rokushiki.RokuName Roku_Form_Type;
+		private int base_power; // This is only for Rokushiki Techniques. Otherwise, this is always 0.
+		private bool Has_RokuMaster = false;
 
 		public Add_Technique(int MaxRank, ListView t_list, ListView Sp_list, string DF_Name, string DF_Type, string DF_Desc, string DF_Eff) {
 			InitializeComponent();
@@ -83,7 +97,16 @@ namespace OPRPCharBuild
 			MainForm.Set_Primary_Bool("Assassin", ref assassin_primary);
 			MainForm.Set_Primary_Bool("Thief", ref thief_primary);
 			gen_effects = 0;
+			Roku_Form_Type = Rokushiki.RokuName.NONE;
+			foreach (ListViewItem item in t_list.Items) {
+				if (item.SubItems[0].Text == "Rokushiki Master") {
+					Has_RokuMaster = true;
+					break;
+				}
+			}
 		}
+
+		#endregion
 
 		#region Helper Dialog Functions
 
@@ -120,11 +143,11 @@ namespace OPRPCharBuild
 				checkBox_Fuel2.Checked,
 				checkBox_Fuel3.Checked
 			};
-
+			string App_Traits_Str = Generate_AppTraits_String(comboBox_AffectRank.Text);
 			// Now initialize TechInfo and add into TechList
-			MainForm.TechInfo Tech_Info = new MainForm.TechInfo((int)numericUpDown_Rank.Value,
+			MainForm.TechInfo Tech_Info = new MainForm.TechInfo(Roku_Form_Type, (int)numericUpDown_Rank.Value,
 				(int)numericUpDown_RegTP.Value, (int)numericUpDown_SpTP.Value,
-				comboBox_AffectRank.Text, comboBox_SpTrait.Text, textBox_TechBranched.Text,
+				comboBox_AffectRank.Text, comboBox_SpTrait.Text, App_Traits_Str, textBox_TechBranched.Text,
 				(int)numericUpDown_RankBranch.Value, comboBox_Type.Text, comboBox_Range.Text,
 				Techstats, checkBox_NA.Checked, EffectList, textBox_Power.Text, DF_options, Cyborg,
 				richTextBox_Note.Text, richTextBox_Desc.Text);
@@ -150,15 +173,27 @@ namespace OPRPCharBuild
 		}
 
 		// This goes from the Dictionary to Add_Technique Form
+		// Take into account of Rokushiki here
 		private void Copy_Data_To_Form(string name, MainForm.TechInfo Tech) {
 			// Put the Tech being edited into the Dialog Box first. Take it from the Dictionary
 			// ...This is going to massively suck.
+			Roku_Form_Type = Tech.Roku;						// Establish that this is indeed a Rokushiki
+			if (Roku_Form_Type != Rokushiki.RokuName.NONE) {
+				// This means we're editing a Rokushiki Technique
+				Rokushiki.RokuInfo Info_Roku = Roku.Get_RokuInfo(Roku_Form_Type);
+				this.Text = "Technique Creator - [Rokushiki: " + Info_Roku.name + "]";
+				label_RokuMsg.Visible = true;
+				toolTips.Active = false;
+				toolTip_Roku.Active = true;
+				base_power = Info_Roku.basePower;
+				comboBox_AffectRank.Enabled = false;
+			}
 			textBox_Name.Text = name;
 			numericUpDown_Rank.Value = Tech.rank;
 			numericUpDown_RegTP.Value = Tech.regTP;
 			numericUpDown_SpTP.Value = Tech.spTP;
 			edit_SpTrait = Tech.sp_Trait;				// (Need items initialized in comboBox FIRST, then Add_Technique Form initializes)
-			edit_RankTrait = Tech.tech_Trait;           // (Need items initialized in comboBox FIRST, then Add_Technique Form initializes)
+			edit_RankTrait = Tech.rank_Trait;           // (Need items initialized in comboBox FIRST, then Add_Technique Form initializes)
 			string tech = edit_RankTrait;
 			if (Traitss.get_TraitID(tech) == Traits.Trait_Name.SIG_TECH) { // Sig Tech
 				numericUpDown_Rank.Value = max_rank;
@@ -326,11 +361,18 @@ namespace OPRPCharBuild
 			return AppTraits;
 		}
 
+		private bool Has_4RanksHigher_Trait(Traits.Trait_Name ID) {
+			return (ID == Traits.Trait_Name.MARTIAL_MASTERY || ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
+				ID == Traits.Trait_Name.ADV_MARTIAL_CLASS || ID == Traits.Trait_Name.STANCE_MAST ||
+				ID == Traits.Trait_Name.ADV_STANCE_MASTERY || ID == Traits.Trait_Name.ART_OF_STEALTH ||
+				ID == Traits.Trait_Name.ANTI_STEALTH || ID == Traits.Trait_Name.DWARF);
+        }
+
 		#endregion
 
 		#region Dialog Functions for Prompting Form
 
-		public void NewDialog(ref ListView Main_Form, string TechName, MainForm.TechInfo Tech, bool branch) {
+		public void NewDialog(ref ListView Main_Form, string TechName, MainForm.TechInfo Tech, bool branch, int index) {
 			if (branch) {
 				// If we're branching a Technique, we want to duplicate, and then modify.
 				try {
@@ -343,6 +385,9 @@ namespace OPRPCharBuild
                     numericUpDown_Rank.Value = rank + 1;
 					textBox_TechBranched.Text = sel_item.SubItems[0].Text;
 					numericUpDown_RankBranch.Value = rank;
+					// Only Update Note here since we're making a Tech that's Branched.
+					Update_Note();
+					edit_Note = richTextBox_Note.Text;
 				}
 				catch (Exception e) {
 					MessageBox.Show("There was a problem branching Technique\nReason: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -354,23 +399,25 @@ namespace OPRPCharBuild
 				Add_Form_to_Dictionary();
 				// Now add into ListView for display
 				ListViewItem item = new ListViewItem();
-				item.SubItems[0].Text = textBox_Name.Text;				// Column 0: Tech Name
-				item.SubItems.Add(numericUpDown_Rank.Value.ToString());	// Column 1: Rank
+				item.SubItems[0].Text = textBox_Name.Text;              // Column 0: Tech Name
+				item.SubItems.Add(numericUpDown_Rank.Value.ToString()); // Column 1: Rank
 				item.SubItems.Add(numericUpDown_RegTP.Value.ToString());// Column 2: Reg TP
 				item.SubItems.Add(numericUpDown_SpTP.Value.ToString()); // Column 3: Sp. TP
 				item.SubItems.Add(comboBox_SpTrait.Text);               // Column 4: Sp. Trait
 				string AppTraits = Generate_AppTraits_String(comboBox_AffectRank.Text);
-				item.SubItems.Add(AppTraits);				            // Column 5: App. Traits
+				item.SubItems.Add(AppTraits);                           // Column 5: App. Traits
 				item.SubItems.Add(textBox_TechBranched.Text);           // Column 6: Branched From
-				item.SubItems.Add(comboBox_Type.Text);					// Column 7: Type
+				item.SubItems.Add(comboBox_Type.Text);                  // Column 7: Type
 				item.SubItems.Add(comboBox_Range.Text);                 // Column 8: Range
 				string stats = Copy_Form_to_ListView_Stats();
-				item.SubItems.Add(stats);                           // Column 9: Stats
-				item.SubItems.Add(textBox_Power.Text);				// Column 10: Power
-				Main_Form.Items.Add(item);							// Add the entire damn thing
+				item.SubItems.Add(stats);                               // Column 9: Stats
+				item.SubItems.Add(textBox_Power.Text);                  // Column 10: Power
+				if (Main_Form.Items.Count - 1 == index || Main_Form.Items.Count == 0) { Main_Form.Items.Add(item); } // That means we're inserting at the very end of the index
+				else { Main_Form.Items.Insert(index + 1, item); }           // Add the entire damn thing
 			}
 		}
 
+		// You can customize Rokushiki by Editing a Technique
 		public void EditDialog(ref ListView Main_Form, string TechName, MainForm.TechInfo Tech) {
 			try {
 				button_AddTech.Text = "Edit";
@@ -450,6 +497,10 @@ namespace OPRPCharBuild
 
 		private void Update_Note() {
 			string message = "";
+			// Rokushiki Message
+			if (Roku_Form_Type != Rokushiki.RokuName.NONE) {
+				if (!checkBox_Branched.Checked) { message += "- [i]Base " + Roku.Get_RokuInfo(Roku_Form_Type).name + " Technique[/i]"; }
+			}
 			// Branch message
 			if (checkBox_Branched.Checked) { message += "- Branched from [i]R" + numericUpDown_RankBranch.Value.ToString() + " " + textBox_TechBranched.Text + "[/i]\n"; }
 			// Traits Affecting Tech
@@ -495,12 +546,14 @@ namespace OPRPCharBuild
 		}
 
 		private void Update_Power_Value() {
-			int power = (int)numericUpDown_Rank.Value;
+			int power = 0;
+			if (Roku_Form_Type == Rokushiki.RokuName.NONE) { power = (int)numericUpDown_Rank.Value; }
+			else {
+				int offset = (int)(numericUpDown_Rank.Value - Roku.Get_RokuInfo(Roku_Form_Type).baseRank);
+				power = base_power + offset;
+			}
 			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectRank.Text);
-			if (ID == Traits.Trait_Name.MARTIAL_MASTERY || ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
-				ID == Traits.Trait_Name.ADV_MARTIAL_CLASS || ID == Traits.Trait_Name.STANCE_MAST ||
-				ID == Traits.Trait_Name.ADV_STANCE_MASTERY || ID == Traits.Trait_Name.ART_OF_STEALTH ||
-				ID == Traits.Trait_Name.ANTI_STEALTH || ID == Traits.Trait_Name.DWARF) {
+			if (Has_4RanksHigher_Trait(ID)) {
 				power += 4;
 			}
 			foreach (EffectItem effect in EffectList.Values) {
@@ -561,10 +614,7 @@ namespace OPRPCharBuild
 			label_MinRank.Text = label + ']' ;
 			int curr_rank = (int)numericUpDown_Rank.Value;
 			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectRank.Text);
-			if (ID == Traits.Trait_Name.MARTIAL_MASTERY || ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
-				ID == Traits.Trait_Name.ADV_MARTIAL_CLASS || ID == Traits.Trait_Name.STANCE_MAST ||
-				ID == Traits.Trait_Name.ADV_STANCE_MASTERY || ID == Traits.Trait_Name.ART_OF_STEALTH ||
-				ID == Traits.Trait_Name.ANTI_STEALTH || ID == Traits.Trait_Name.DWARF) {
+			if (Has_4RanksHigher_Trait(ID)) {
 				curr_rank += 4;
 			}
 			if (min_rank > curr_rank || min_cost > curr_rank) {
@@ -630,34 +680,43 @@ namespace OPRPCharBuild
 			numericUpDown_SpTP.Maximum = max_rank;
 			numericUpDown_RankBranch.Maximum = max_rank - 1;
 
-			// Add Traits Affecting the Tech
-			Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.DWARF, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ART_OF_STEALTH, traits_list);
-			Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ANTI_STEALTH, traits_list);
-			if (!Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ADV_STANCE_MASTERY, traits_list)) {
-				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.STANCE_MAST, traits_list);
-			}
-			if (!Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ADV_MARTIAL_MASTERY, traits_list)) {
-				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.MARTIAL_MASTERY, traits_list);
-			}
-			Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ADV_MARTIAL_CLASS, traits_list);
+			// Add Traits Affecting the Rank
+			try {
+				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.DWARF, traits_list);
+				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ART_OF_STEALTH, traits_list);
+				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ANTI_STEALTH, traits_list);
+				if (!Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ADV_STANCE_MASTERY, traits_list)) {
+					Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.STANCE_MAST, traits_list);
+				}
+				if (!Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ADV_MARTIAL_MASTERY, traits_list)) {
+					Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.MARTIAL_MASTERY, traits_list);
+				}
+				Add_Trait_comboBox(ref comboBox_AffectRank, Traits.Trait_Name.ADV_MARTIAL_CLASS, traits_list);
 
-			if (string.IsNullOrWhiteSpace(edit_RankTrait)) { comboBox_AffectRank.SelectedIndex = -1; }
-			else { comboBox_AffectRank.Text = edit_RankTrait; }
+				if (string.IsNullOrWhiteSpace(edit_RankTrait)) { comboBox_AffectRank.SelectedIndex = -1; }
+				else { comboBox_AffectRank.Text = edit_RankTrait; }
+			}
+			catch (Exception ex) {
+				MessageBox.Show("Error in Adding Traits Affecting Rank to comboBox.\nReason: " + ex.Message, "Error");
+			}
 
 			// Add Special TP Traits
-			foreach (ListViewItem eachItem in SpTraits_list.Items) {
-				string name = eachItem.SubItems[0].Text;
-				Add_Trait_comboBox(ref comboBox_SpTrait, Traitss.get_TraitID(name), SpTraits_list);
+			try {
+				foreach (ListViewItem eachItem in SpTraits_list.Items) {
+					string name = eachItem.SubItems[0].Text;
+					Add_Trait_comboBox(ref comboBox_SpTrait, Traitss.get_TraitID(name), SpTraits_list);
+				}
+				// Check if SpTrait_comboBox is empty (there's always 1 item which is the WhiteSpace)
+				if (comboBox_SpTrait.Items.Count > 1) {
+					numericUpDown_SpTP.Enabled = true;
+					label_SpTraitUsed.Text = "Sp. TP Trait";
+					comboBox_SpTrait.Enabled = true;
+					if (string.IsNullOrWhiteSpace(edit_SpTrait)) { comboBox_SpTrait.SelectedIndex = -1; }
+					else { comboBox_SpTrait.Text = edit_SpTrait; }
+				}
 			}
-
-			// Check if SpTrait_comboBox is empty (there's always 1 item which is the WhiteSpace)
-			if (comboBox_SpTrait.Items.Count > 1) {
-				numericUpDown_SpTP.Enabled = true;
-				label_SpTraitUsed.Text = "Sp. TP Trait";
-				comboBox_SpTrait.Enabled = true;
-				if (string.IsNullOrWhiteSpace(edit_SpTrait)) { comboBox_SpTrait.SelectedIndex = -1; }
-				else { comboBox_SpTrait.Text = edit_SpTrait; }
+			catch (Exception ex) {
+				MessageBox.Show("Error in Adding Special TP Traits to comboBox.\nReason: " + ex.Message, "Error");
 			}
 
 			// Put in power value from before
@@ -677,137 +736,158 @@ namespace OPRPCharBuild
 
 			// Add ALL Effects into the ComboBox (based on max rank)
 			#region Effects ComboBox
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISPLACE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISORI);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.GATLING);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DEFLECT);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.RICO);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.UNPRED);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DMG_TYPE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISARM);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SHOCK);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.CURVE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.OMNI_DI);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.HAKI_ENH);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ELE_DMG);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.FLAV);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SPIRIT);
-			// Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SECONDARY_GEN);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SPEED);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.PIERCE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.AFT_IMG);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ADD_AFT_IMG);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.REVERSE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DUR_DMG);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISABLE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SENSORY_SING);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SENSORY_MULT);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SUP_SPE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DEF_BYP);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SPEC_BLOCK);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.START_BREAK);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MID_BREAK);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.HIGH_BREAK);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ARM_HAKI);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.GRAND_MAST);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ELE_COAT);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.FULLBODY);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.START_DEF);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MID_DEF);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.HIGH_DEF);
-			/* Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MELEE_RANGE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SHORT_RANGE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MED_RANGE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.LONG_RANGE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.V_LONG_RANGE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SHORT_AOE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MEDIUM_AOE);
-			Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.LONG_AOE);*/
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.WEATHER, traits_list) != -1) {
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.CLOUD);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.RAIN);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.FOG);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ELE_DMG_WEAT);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.WIND);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MILK);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MIR_CLONE);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MIR_CAMO);
+			try {
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISPLACE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISORI);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.GATLING);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DEFLECT);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.RICO);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.UNPRED);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DMG_TYPE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISARM);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SHOCK);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.CURVE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.OMNI_DI);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.HAKI_ENH);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ELE_DMG);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.FLAV);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SPIRIT);
+				// Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SECONDARY_GEN);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SPEED);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.PIERCE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.AFT_IMG);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ADD_AFT_IMG);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.REVERSE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DUR_DMG);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISABLE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SENSORY_SING);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SENSORY_MULT);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SUP_SPE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DEF_BYP);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SPEC_BLOCK);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.START_BREAK);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MID_BREAK);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.HIGH_BREAK);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ARM_HAKI);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.GRAND_MAST);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ELE_COAT);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.FULLBODY);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.START_DEF);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MID_DEF);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.HIGH_DEF);
+				/* Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MELEE_RANGE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SHORT_RANGE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MED_RANGE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.LONG_RANGE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.V_LONG_RANGE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SHORT_AOE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MEDIUM_AOE);
+				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.LONG_AOE);*/
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.WEATHER, traits_list) != -1) {
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.CLOUD);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.RAIN);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.FOG);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ELE_DMG_WEAT);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.WIND);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MILK);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MIR_CLONE);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.MIR_CAMO);
+				}
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.HORT_WAR, traits_list) != -1) {
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SENTIENCE);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.FLORAL);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.WOOD_DEF);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ELE_DMG_POP);
+				}
+				if (assassin_primary || thief_primary) {
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SMOKE);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.CROWD_BLEND);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SILENT);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SCENTLESS);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISGUISE);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.PICKPOCK);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.NAT_CAMO);
+					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.OPEN_CAMO);
+				}
 			}
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.HORT_WAR, traits_list) != -1) {
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SENTIENCE);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.FLORAL);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.WOOD_DEF);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.ELE_DMG_POP);
-			}
-			if (assassin_primary || thief_primary) {
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SMOKE);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.CROWD_BLEND);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SILENT);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.SCENTLESS);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISGUISE);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.PICKPOCK);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.NAT_CAMO);
-				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.OPEN_CAMO);
+			catch (Exception ex) {
+				MessageBox.Show("Error in Effects to comboBox.\nReason: " + ex.Message, "Error");
 			}
 			// DF Options
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.DEV_FRUIT, traits_list) != -1) {
-				label_DF.Text = "";
-				label_DF.Text += DF_name + " [" + DF_type + "]\n";
-				label_DF.Text += DF_desc + '\n';
-				if (!string.IsNullOrWhiteSpace(DF_effect)) { label_DF.Text += "(" + DF_effect + ")"; }
-				else { label_DF.Text += "(No T1/T2 Free Effect)"; }
-				checkBox_DFTechEnable.Enabled = true;
+			try {
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.DEV_FRUIT, traits_list) != -1) {
+					label_DF.Text = "";
+					label_DF.Text += DF_name + " [" + DF_type + "]\n";
+					label_DF.Text += DF_desc + '\n';
+					if (!string.IsNullOrWhiteSpace(DF_effect)) { label_DF.Text += "(" + DF_effect + ")"; }
+					else { label_DF.Text += "(No T1/T2 Free Effect)"; }
+					checkBox_DFTechEnable.Enabled = true;
+				}
+			}
+			catch (Exception ex) {
+				MessageBox.Show("Error in configuring DF Options.\nReason: " + ex.Message, "Error");
 			}
 			// Cyborg Options
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.BAS_CYBORG, traits_list) != -1) {
-				label_Cyborg.Text = "[Basic Cyborg]";
-				checkBox_SigTech.Enabled = true;
+			try {
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.BAS_CYBORG, traits_list) != -1) {
+					label_Cyborg.Text = "[Basic Cyborg]";
+					checkBox_SigTech.Enabled = true;
+				}
+				else if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.ADV_CYBORG, traits_list) != -1) {
+					label_Cyborg.Text = "[Advanced Cyborg]";
+					checkBox_Fuel1.Enabled = true;
+					checkBox_Fuel2.Enabled = true;
+				}
+				else if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.NW_CYBORG, traits_list) != -1) {
+					label_Cyborg.Text = "[New World Cyborg]";
+					checkBox_Fuel1.Enabled = true;
+					checkBox_Fuel2.Enabled = true;
+					checkBox_Fuel3.Enabled = true;
+				}
 			}
-			else if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.ADV_CYBORG, traits_list) != -1) {
-				label_Cyborg.Text = "[Advanced Cyborg]";
-				checkBox_Fuel1.Enabled = true;
-				checkBox_Fuel2.Enabled = true;
-			}
-			else if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.NW_CYBORG, traits_list) != -1) {
-				label_Cyborg.Text = "[New World Cyborg]";
-				checkBox_Fuel1.Enabled = true;
-				checkBox_Fuel2.Enabled = true;
-				checkBox_Fuel3.Enabled = true;
+			catch (Exception ex) {
+				MessageBox.Show("Error in configuring Cyborg Options.\nReason: " + ex.Message, "Error");
 			}
 			// Applicable Traits & Note
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.SIG_TECH, traits_list) != -1) { checkBox_SigTech.Enabled = true; }
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.CRIT_HIT, traits_list) != -1) { checkBox_CritHit.Enabled = true; }
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.ANAT_STRIKE, traits_list) != -1) { checkBox_AnatStrike.Enabled = true; }
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.QUICKSTRIKE, traits_list) != -1) { checkBox_QuickStrike.Enabled = true; }
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.AWAKE_HAKI, traits_list) != -1 ||
-				Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.DISC_HAKI, traits_list) != -1 ||
-				Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.CONQ_HAKI, traits_list) != -1) { checkBox_Haki.Enabled = true; }
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.F_AND_F, traits_list) != -1) { checkBox_FormAndFunc.Enabled = true; }
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.LIFE_RET, traits_list) != -1) { checkBox_LifeReturn.Enabled = true; }
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.MENT_FORT, traits_list) != -1) { checkBox_MentFort.Enabled = true; }
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.EXTRA_INGRED, traits_list) != -1) { checkBox_SpIngred.Enabled = true; }
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.CROWD_CONT, traits_list) != -1) { checkBox_CrowdCont.Enabled = true; }
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.POW_SPEAK, traits_list) != -1) { checkBox_PowSpeak.Enabled = true; }
-			if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.BAKING_BAD, traits_list) != -1) { checkBox_BakingBad.Enabled = true; }
-			// Because "Note" is something we need to initialize before the Checks, we save a copy and load it here.
-			richTextBox_Note.Text = edit_Note;
-			// Now we check the Box if "Note" contains the String
-			if (edit_Note.Contains(SigTech) && checkBox_SigTech.Enabled) { checkBox_SigTech.Checked = true; }
-			if (edit_Note.Contains(CritHit) && checkBox_CritHit.Enabled) { checkBox_CritHit.Checked = true; }
-			if (edit_Note.Contains(AnatStrike) && checkBox_AnatStrike.Enabled) { checkBox_AnatStrike.Checked = true; }
-			if (edit_Note.Contains(Quickstrike) && checkBox_QuickStrike.Enabled) { checkBox_QuickStrike.Checked = true; }
-			if (edit_Note.Contains(HakiTech) && checkBox_Haki.Enabled) { checkBox_Haki.Checked = true; }
-			if (edit_Note.Contains(FormFunc) && checkBox_FormAndFunc.Enabled) { checkBox_FormAndFunc.Checked = true; }
-			if (edit_Note.Contains(LifeRet) && checkBox_LifeReturn.Enabled) { checkBox_LifeReturn.Checked = true; }
-			if (edit_Note.Contains(MentFort) && checkBox_MentFort.Enabled) { checkBox_MentFort.Checked = true; }
-			if (edit_Note.Contains(ExtraIngred) && checkBox_SpIngred.Enabled) { checkBox_SpIngred.Checked = true; }
-			if (edit_Note.Contains(CrowdCont) && checkBox_CrowdCont.Enabled) { checkBox_CrowdCont.Checked = true; }
-			if (edit_Note.Contains(PowSpeak) && checkBox_PowSpeak.Enabled) { checkBox_PowSpeak.Checked = true; }
-			if (edit_Note.Contains(BakeBad) && checkBox_BakingBad.Enabled) { checkBox_BakingBad.Checked = true; }
+			try {
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.SIG_TECH, traits_list) != -1) { checkBox_SigTech.Enabled = true; }
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.CRIT_HIT, traits_list) != -1) { checkBox_CritHit.Enabled = true; }
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.ANAT_STRIKE, traits_list) != -1) { checkBox_AnatStrike.Enabled = true; }
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.QUICKSTRIKE, traits_list) != -1) { checkBox_QuickStrike.Enabled = true; }
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.AWAKE_HAKI, traits_list) != -1 ||
+					Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.DISC_HAKI, traits_list) != -1 ||
+					Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.CONQ_HAKI, traits_list) != -1) { checkBox_Haki.Enabled = true; }
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.F_AND_F, traits_list) != -1) { checkBox_FormAndFunc.Enabled = true; }
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.LIFE_RET, traits_list) != -1) { checkBox_LifeReturn.Enabled = true; }
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.MENT_FORT, traits_list) != -1) { checkBox_MentFort.Enabled = true; }
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.EXTRA_INGRED, traits_list) != -1) { checkBox_SpIngred.Enabled = true; }
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.CROWD_CONT, traits_list) != -1) { checkBox_CrowdCont.Enabled = true; }
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.POW_SPEAK, traits_list) != -1) { checkBox_PowSpeak.Enabled = true; }
+				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.BAKING_BAD, traits_list) != -1) { checkBox_BakingBad.Enabled = true; }
+				// Because "Note" is something we need to initialize before the Checks, we save a copy and load it here.
+				richTextBox_Note.Text = edit_Note;
+				// Now we check the Box if "Note" contains the String
+				if (string.IsNullOrWhiteSpace(edit_Note)) { edit_Note = ""; } // To prevent unhandled Exception
+				if (edit_Note.Contains(SigTech) && checkBox_SigTech.Enabled) { checkBox_SigTech.Checked = true; }
+				if (edit_Note.Contains(CritHit) && checkBox_CritHit.Enabled) { checkBox_CritHit.Checked = true; }
+				if (edit_Note.Contains(AnatStrike) && checkBox_AnatStrike.Enabled) { checkBox_AnatStrike.Checked = true; }
+				if (edit_Note.Contains(Quickstrike) && checkBox_QuickStrike.Enabled) { checkBox_QuickStrike.Checked = true; }
+				if (edit_Note.Contains(HakiTech) && checkBox_Haki.Enabled) { checkBox_Haki.Checked = true; }
+				if (edit_Note.Contains(FormFunc) && checkBox_FormAndFunc.Enabled) { checkBox_FormAndFunc.Checked = true; }
+				if (edit_Note.Contains(LifeRet) && checkBox_LifeReturn.Enabled) { checkBox_LifeReturn.Checked = true; }
+				if (edit_Note.Contains(MentFort) && checkBox_MentFort.Enabled) { checkBox_MentFort.Checked = true; }
+				if (edit_Note.Contains(ExtraIngred) && checkBox_SpIngred.Enabled) { checkBox_SpIngred.Checked = true; }
+				if (edit_Note.Contains(CrowdCont) && checkBox_CrowdCont.Enabled) { checkBox_CrowdCont.Checked = true; }
+				if (edit_Note.Contains(PowSpeak) && checkBox_PowSpeak.Enabled) { checkBox_PowSpeak.Checked = true; }
+				if (edit_Note.Contains(BakeBad) && checkBox_BakingBad.Enabled) { checkBox_BakingBad.Checked = true; }
+			}
+			catch (Exception ex) {
+				MessageBox.Show("Error in configuring Applicable Traits.\nReason: " + ex.Message, "Error");
+			}
 			#endregion
 		}
 
-		#region Exception Handlers
+		#region Event Handlers
 
 		// Check if a string has all numbers
 		private bool All_Numbers(string power) {
@@ -824,14 +904,11 @@ namespace OPRPCharBuild
 			// Only want the appropriate changes to be made, so we add a bool
 			int curr_rank = (int)numericUpDown_Rank.Value;
 			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectRank.Text);
-			if (ID == Traits.Trait_Name.MARTIAL_MASTERY || ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
-			ID == Traits.Trait_Name.ADV_MARTIAL_CLASS || ID == Traits.Trait_Name.STANCE_MAST ||
-			ID == Traits.Trait_Name.ADV_STANCE_MASTERY || ID == Traits.Trait_Name.ART_OF_STEALTH ||
-			ID == Traits.Trait_Name.ANTI_STEALTH || ID == Traits.Trait_Name.DWARF) {
+			if (Has_4RanksHigher_Trait(ID)) {
 				curr_rank += 4;
 			}
 			if (string.IsNullOrWhiteSpace(textBox_Name.Text)) {
-				MessageBox.Show("Technique needs a name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Technique needs a Name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else if (MainForm.TechList.ContainsKey(textBox_Name.Text) && button_AddTech.Text == "Add") {
 				MessageBox.Show("Can't add 2 Techniques with the same name!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -839,6 +916,18 @@ namespace OPRPCharBuild
 			else if (checkBox_Branched.Checked &&
 				(numericUpDown_RankBranch.Value == 0 || string.IsNullOrWhiteSpace(textBox_TechBranched.Text))) {
 				MessageBox.Show("Technique Branch incomplete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else if ((numericUpDown_Rank.Value - numericUpDown_RankBranch.Value) != (numericUpDown_RegTP.Value + numericUpDown_SpTP.Value)) {
+				MessageBox.Show("TP Spent doesn't add up correctly.\n" + 
+					numericUpDown_Rank.Value + " (Rank) - " + numericUpDown_RankBranch.Value + " (Branch) = " + (numericUpDown_Rank.Value - numericUpDown_RankBranch.Value) + '\n' +
+					numericUpDown_RegTP.Value + " (Reg TP) + " + numericUpDown_SpTP.Value + " (Sp TP) = " + (numericUpDown_RegTP.Value + numericUpDown_SpTP.Value),
+					"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else if (string.IsNullOrWhiteSpace(comboBox_Type.Text)) {
+				MessageBox.Show("Technique needs a Type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else if (string.IsNullOrWhiteSpace(comboBox_Range.Text)) {
+				MessageBox.Show("Technique needs a Range.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else if (int.Parse(textBox_Power.Text) < 0) {
 				MessageBox.Show("Power is below 0.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -862,6 +951,15 @@ namespace OPRPCharBuild
 			result = MessageBox.Show("Are you sure you want to clear the technique?", "Clear Technique",
 				MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 			if (result == DialogResult.Yes) {
+				// Absolutely Undo all the Rokushiki things.
+				this.Text = "Technique Creator";
+				Roku_Form_Type = Rokushiki.RokuName.NONE;
+				toolTip_Roku.Active = false;
+				toolTips.Active = true;
+				label_RokuMsg.Visible = false;
+				base_power = 0;
+				comboBox_AffectRank.Enabled = true;
+				// Basic Character
 				textBox_Name.Clear();
 				numericUpDown_Rank.Value = 1;
 				comboBox_AffectRank.SelectedIndex = -1;
@@ -913,6 +1011,10 @@ namespace OPRPCharBuild
 		}
 
 		private void checkBox_Branched_CheckedChanged(object sender, EventArgs e) {
+			if (checkBox_Branched.Checked == false) {
+				numericUpDown_RankBranch.Value = 0;
+				textBox_TechBranched.Clear();
+			}
 			// Checkbox for Branched
 			Update_Branched_Check();
 			Update_Note();
@@ -923,7 +1025,6 @@ namespace OPRPCharBuild
 		}
 
 		private void numericUpDown_RankBranch_ValueChanged(object sender, EventArgs e) {
-			// Update Rank value
 			numericUpDown_RegTP.Value = numericUpDown_Rank.Value - numericUpDown_RankBranch.Value;
 			// Reset Sp TP for simplicity sake.
 			numericUpDown_SpTP.Value = 0;
@@ -1328,7 +1429,135 @@ namespace OPRPCharBuild
 			Update_Note();
 		}
 
-		#endregion
+		// REMINDER: Rokushiki Techniques CANNOT be applied with Mastery. Therefore, it's Rank will always be what it is.
+		private void button_Rokushiki_Click(object sender, EventArgs e) {
+			DialogResult result = MessageBox.Show("This will overwrite some parts of the Form. Are you sure you want to Load a Rokushiki Technique?", "Reminder",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+			if (result == DialogResult.Yes) {
+				try {
+					SelectOptions Roku_Window = new SelectOptions(2, Has_RokuMaster, max_rank);
+					Rokushiki.RokuName Sel_Roku = Rokushiki.RokuName.NONE;
+					string Roku_Name = "";
+					string selected_option = Roku_Window.Rokushiki_Load_Dialog(ref Sel_Roku, ref Roku_Name);
+					if (!string.IsNullOrWhiteSpace(selected_option) && Sel_Roku != Rokushiki.RokuName.NONE) {
+						Rokushiki.RokuInfo Info_Roku = Roku.Get_RokuInfo(Sel_Roku);
+						// We picked a Rokushiki Technique!
+						if (selected_option == "Add") {
+							// Close the Form and immediately add the Default Technique for Rokushiki
+							this.Close();
+							button_clicked = true;
+							Roku_Form_Type = Sel_Roku;
+							// Initialize into Form elements for transfer into Dict and ListView
+							textBox_Name.Text = Roku_Name;
+							numericUpDown_Rank.Value = Info_Roku.baseRank;
+							numericUpDown_RegTP.Value = Info_Roku.baseRank;
+							comboBox_AffectRank.SelectedIndex = -1;
+							numericUpDown_SpTP.Value = 0;
+							comboBox_SpTrait.SelectedIndex = -1;
+							comboBox_Type.Text = Info_Roku.type;
+							comboBox_Range.Text = Info_Roku.range;
+							if (Info_Roku.str != 0) {
+								if (Info_Roku.str > 0) { checkBox_PlusStr.Checked = true; }
+								if (Info_Roku.str < 0) { checkBox_MinusStr.Checked = true; Info_Roku.str *= -1; }
+								numericUpDown_Str.Value = Info_Roku.str;
+							}
+							else { checkBox_PlusStr.Checked = false; checkBox_MinusStr.Checked = false; numericUpDown_Str.Value = 0; }
+							if (Info_Roku.spe != 0) {
+								if (Info_Roku.spe > 0) { checkBox_PlusSpe.Checked = true; }
+								if (Info_Roku.spe < 0) { checkBox_MinusSpe.Checked = true; Info_Roku.spe *= -1; }
+								numericUpDown_Spe.Value = Info_Roku.spe;
+							}
+							else { checkBox_PlusSpe.Checked = false; checkBox_MinusSpe.Checked = false; numericUpDown_Spe.Value = 0; }
+							if (Info_Roku.sta != 0) {
+								if (Info_Roku.sta > 0) { checkBox_PlusSta.Checked = true; }
+								if (Info_Roku.sta < 0) { checkBox_MinusSta.Checked = true; Info_Roku.sta *= -1; }
+								numericUpDown_Sta.Value = Info_Roku.sta;
+							}
+							else { checkBox_PlusSta.Checked = false; checkBox_MinusSta.Checked = false; numericUpDown_Sta.Value = 0; }
+							if (Info_Roku.acc != 0) {
+								if (Info_Roku.acc > 0) { checkBox_PlusAcc.Checked = true; }
+								if (Info_Roku.acc < 0) { checkBox_MinusAcc.Checked = true; Info_Roku.acc *= -1; }
+								numericUpDown_Acc.Value = Info_Roku.acc;
+							}
+							else { checkBox_PlusAcc.Checked = false; checkBox_MinusAcc.Checked = false; numericUpDown_Acc.Value = 0; }
+							checkBox_NA.Checked = false;
+							checkBox_Branched.Checked = false;
+							checkBox_DFTechEnable.Checked = false;
+							checkBox_Fuel1.Checked = false;
+							checkBox_Fuel2.Checked = false;
+							checkBox_Fuel3.Checked = false;
+							checkBox_SigTech.Checked = false;
+							checkBox_CritHit.Checked = false;
+							checkBox_AnatStrike.Checked = false;
+							checkBox_QuickStrike.Checked = false;
+							checkBox_Haki.Checked = false;
+							checkBox_FormAndFunc.Checked = false;
+							checkBox_LifeReturn.Checked = false;
+							checkBox_MentFort.Checked = false;
+							checkBox_CrowdCont.Checked = false;
+							checkBox_PowSpeak.Checked = false;
+							checkBox_BakingBad.Checked = false;
+							checkBox_SpIngred.Checked = false;
+							EffectList.Clear();
+							listView_Effects.Items.Clear();
+							textBox_Power.Text = Info_Roku.basePower.ToString();
+							richTextBox_Note.Clear();
+							richTextBox_Note.Text = "- [i]Base " + Info_Roku.name + " Technique[/i]";
+							richTextBox_Desc.Text = Info_Roku.desc;
+						}
+						else if (selected_option == "Custom") {
+							// Load the Information into the Technique Form, change "Form Type", and signify this is now Rokushiki
+							this.Text = "Technique Creator - [Rokushiki: " + Info_Roku.name + "]";
+							label_RokuMsg.Visible = true;
+							toolTips.Active = false;
+							toolTip_Roku.Active = true;
+							Roku_Form_Type = Sel_Roku;
+							base_power = Info_Roku.basePower;
+							// Now edit the Form accordingly.
+							textBox_Name.Text = Roku_Name;
+							numericUpDown_Rank.Value = Info_Roku.baseRank;
+							numericUpDown_RegTP.Value = Info_Roku.baseRank;
+							comboBox_Type.Text = Info_Roku.type;
+							comboBox_Range.Text = Info_Roku.range;
+							if (Info_Roku.str != 0) {
+								if (Info_Roku.str > 0) { checkBox_PlusStr.Checked = true; }
+								if (Info_Roku.str < 0) { checkBox_MinusStr.Checked = true; Info_Roku.str *= -1; }
+								numericUpDown_Str.Value = Info_Roku.str;
+							}
+							else { checkBox_PlusStr.Checked = false; checkBox_MinusStr.Checked = false; numericUpDown_Str.Value = 0; }
+							if (Info_Roku.spe != 0) {
+								if (Info_Roku.spe > 0) { checkBox_PlusSpe.Checked = true; }
+								if (Info_Roku.spe < 0) { checkBox_MinusSpe.Checked = true; Info_Roku.spe *= -1; }
+								numericUpDown_Spe.Value = Info_Roku.spe;
+							}
+							else { checkBox_PlusSpe.Checked = false; checkBox_MinusSpe.Checked = false; numericUpDown_Spe.Value = 0; }
+							if (Info_Roku.sta != 0) {
+								if (Info_Roku.sta > 0) { checkBox_PlusSta.Checked = true; }
+								if (Info_Roku.sta < 0) { checkBox_MinusSta.Checked = true; Info_Roku.sta *= -1; }
+								numericUpDown_Sta.Value = Info_Roku.sta;
+							}
+							else { checkBox_PlusSta.Checked = false; checkBox_MinusSta.Checked = false; numericUpDown_Sta.Value = 0; }
+							if (Info_Roku.acc != 0) {
+								if (Info_Roku.acc > 0) { checkBox_PlusAcc.Checked = true; }
+								if (Info_Roku.acc < 0) { checkBox_MinusAcc.Checked = true; Info_Roku.acc *= -1; }
+								numericUpDown_Acc.Value = Info_Roku.acc;
+							}
+							else { checkBox_PlusAcc.Checked = false; checkBox_MinusAcc.Checked = false; numericUpDown_Acc.Value = 0; }
+							checkBox_Branched.Checked = false;
+							EffectList.Clear();
+							listView_Effects.Items.Clear();
+							textBox_Power.Text = Info_Roku.basePower.ToString();
+							comboBox_AffectRank.Enabled = false;
+							richTextBox_Desc.Text = Info_Roku.desc;
+						}
+					}
+				}
+				catch (Exception ex) {
+					MessageBox.Show("Error in Loading Rokushiki Tech.\nReason: " + ex.Message, "Error");
+				}
+			}
+		}
 
+		#endregion
 	}
 }

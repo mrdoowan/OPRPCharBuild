@@ -105,7 +105,7 @@
 			this.label_Cyborg = new System.Windows.Forms.Label();
 			this.checkBox_SigTech = new System.Windows.Forms.CheckBox();
 			this.toolTips = new System.Windows.Forms.ToolTip(this.components);
-			this.label21 = new System.Windows.Forms.Label();
+			this.label_RokuMsg = new System.Windows.Forms.Label();
 			this.groupBox7 = new System.Windows.Forms.GroupBox();
 			this.checkBox_SpIngred = new System.Windows.Forms.CheckBox();
 			this.checkBox_MentFort = new System.Windows.Forms.CheckBox();
@@ -119,6 +119,8 @@
 			this.checkBox_CritHit = new System.Windows.Forms.CheckBox();
 			this.checkBox_QuickStrike = new System.Windows.Forms.CheckBox();
 			this.checkBox_Fuel1 = new System.Windows.Forms.CheckBox();
+			this.toolTip_Roku = new System.Windows.Forms.ToolTip(this.components);
+			this.textBox_StaticRokuMsg = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
@@ -208,6 +210,7 @@
 			this.comboBox_AffectRank.Size = new System.Drawing.Size(153, 21);
 			this.comboBox_AffectRank.Sorted = true;
 			this.comboBox_AffectRank.TabIndex = 32;
+			this.toolTip_Roku.SetToolTip(this.comboBox_AffectRank, "You can\'t use any Mastery Trait with a Rokushiki Technique.");
 			this.comboBox_AffectRank.SelectedIndexChanged += new System.EventHandler(this.comboBox_AffectRank_SelectedIndexChanged);
 			// 
 			// checkBox_Branched
@@ -218,6 +221,7 @@
 			this.checkBox_Branched.TabIndex = 34;
 			this.checkBox_Branched.Text = "Tech Branched";
 			this.checkBox_Branched.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.toolTip_Roku.SetToolTip(this.checkBox_Branched, "Unchecking this box signifies this is a Base Rokushiki Technique.");
 			this.checkBox_Branched.UseVisualStyleBackColor = true;
 			this.checkBox_Branched.CheckedChanged += new System.EventHandler(this.checkBox_Branched_CheckedChanged);
 			// 
@@ -504,6 +508,7 @@
 			this.groupBox1.Controls.Add(this.comboBox_SpTrait);
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.comboBox_AffectRank);
+			this.groupBox1.Controls.Add(this.textBox_StaticRokuMsg);
 			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
 			this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.groupBox1.Location = new System.Drawing.Point(12, 32);
@@ -515,7 +520,6 @@
 			// 
 			// button_Rokushiki
 			// 
-			this.button_Rokushiki.Enabled = false;
 			this.button_Rokushiki.Location = new System.Drawing.Point(276, 16);
 			this.button_Rokushiki.Name = "button_Rokushiki";
 			this.button_Rokushiki.Size = new System.Drawing.Size(153, 23);
@@ -523,6 +527,7 @@
 			this.button_Rokushiki.Text = "Load Rokushiki Technique";
 			this.toolTips.SetToolTip(this.button_Rokushiki, "Rokushiki Techs require a Minimum Rank 22");
 			this.button_Rokushiki.UseVisualStyleBackColor = true;
+			this.button_Rokushiki.Click += new System.EventHandler(this.button_Rokushiki_Click);
 			// 
 			// groupBox2
 			// 
@@ -759,6 +764,7 @@
 			this.textBox_Power.Size = new System.Drawing.Size(27, 20);
 			this.textBox_Power.TabIndex = 112;
 			this.textBox_Power.Text = "0";
+			this.toolTip_Roku.SetToolTip(this.textBox_Power, "Power is already calculated to its best ability.");
 			this.toolTips.SetToolTip(this.textBox_Power, "You should NOT edit Power unless there\'s a unique case.");
 			// 
 			// label_EffectType
@@ -813,7 +819,8 @@
 			this.numericUpDown_Cost.Name = "numericUpDown_Cost";
 			this.numericUpDown_Cost.Size = new System.Drawing.Size(39, 20);
 			this.numericUpDown_Cost.TabIndex = 108;
-			this.toolTips.SetToolTip(this.numericUpDown_Cost, "REMINDER: Only change this value if changing different Tiers");
+			this.toolTips.SetToolTip(this.numericUpDown_Cost, "REMINDER: Only change this value if different Tiers or utilizing Rokushiki Master" +
+        "");
 			// 
 			// label_EffectDesc
 			// 
@@ -836,7 +843,9 @@
 			this.comboBox_Effect.Size = new System.Drawing.Size(169, 21);
 			this.comboBox_Effect.TabIndex = 105;
 			this.comboBox_Effect.Text = "Effects";
-			this.toolTips.SetToolTip(this.comboBox_Effect, "No Custom Effects for now. Use another Effect that acts as a substitution");
+			this.toolTip_Roku.SetToolTip(this.comboBox_Effect, "Do NOT add Effects that the Rokushiki Tech already contains by default. You are a" +
+        "ble to upgrade, though.");
+			this.toolTips.SetToolTip(this.comboBox_Effect, "No Custom Effects. Use another Effect that acts as a substitution");
 			this.comboBox_Effect.SelectedIndexChanged += new System.EventHandler(this.comboBox_Effect_SelectedIndexChanged);
 			// 
 			// button_EffectRemove
@@ -1057,17 +1066,17 @@
 			// 
 			this.toolTips.AutomaticDelay = 50;
 			// 
-			// label21
+			// label_RokuMsg
 			// 
-			this.label21.AutoSize = true;
-			this.label21.ForeColor = System.Drawing.Color.Green;
-			this.label21.Location = new System.Drawing.Point(11, 562);
-			this.label21.Name = "label21";
-			this.label21.Size = new System.Drawing.Size(431, 13);
-			this.label21.TabIndex = 75;
-			this.label21.Text = "This form is now set to specially design Rokushiki Techs. Press \"Clear\" to Reset " +
+			this.label_RokuMsg.AutoSize = true;
+			this.label_RokuMsg.ForeColor = System.Drawing.Color.Green;
+			this.label_RokuMsg.Location = new System.Drawing.Point(11, 562);
+			this.label_RokuMsg.Name = "label_RokuMsg";
+			this.label_RokuMsg.Size = new System.Drawing.Size(431, 13);
+			this.label_RokuMsg.TabIndex = 75;
+			this.label_RokuMsg.Text = "This form is now set to specially design Rokushiki Techs. Press \"Clear\" to Reset " +
     "the Form.";
-			this.label21.Visible = false;
+			this.label_RokuMsg.Visible = false;
 			// 
 			// groupBox7
 			// 
@@ -1248,6 +1257,19 @@
 			this.checkBox_Fuel1.Text = "1 Fuel Stack";
 			this.checkBox_Fuel1.UseVisualStyleBackColor = true;
 			// 
+			// toolTip_Roku
+			// 
+			this.toolTip_Roku.Active = false;
+			// 
+			// textBox_StaticRokuMsg
+			// 
+			this.textBox_StaticRokuMsg.Location = new System.Drawing.Point(277, 45);
+			this.textBox_StaticRokuMsg.Name = "textBox_StaticRokuMsg";
+			this.textBox_StaticRokuMsg.ReadOnly = true;
+			this.textBox_StaticRokuMsg.Size = new System.Drawing.Size(152, 20);
+			this.textBox_StaticRokuMsg.TabIndex = 76;
+			this.textBox_StaticRokuMsg.Text = "Rokushiki Master";
+			// 
 			// Add_Technique
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1255,7 +1277,7 @@
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(894, 588);
 			this.Controls.Add(this.groupBox7);
-			this.Controls.Add(this.label21);
+			this.Controls.Add(this.label_RokuMsg);
 			this.Controls.Add(this.groupBox6);
 			this.Controls.Add(this.groupBox5);
 			this.Controls.Add(this.groupBox4);
@@ -1380,7 +1402,7 @@
 		private System.Windows.Forms.TextBox textBox_Power;
 		private System.Windows.Forms.RichTextBox richTextBox_Note;
 		private System.Windows.Forms.Button button_Rokushiki;
-		private System.Windows.Forms.Label label21;
+		private System.Windows.Forms.Label label_RokuMsg;
 		private System.Windows.Forms.GroupBox groupBox7;
 		private System.Windows.Forms.CheckBox checkBox_AnatStrike;
 		private System.Windows.Forms.CheckBox checkBox_CritHit;
@@ -1394,5 +1416,7 @@
 		private System.Windows.Forms.CheckBox checkBox_FormAndFunc;
 		private System.Windows.Forms.CheckBox checkBox_SpIngred;
 		private System.Windows.Forms.CheckBox checkBox_MentFort;
+		private System.Windows.Forms.ToolTip toolTip_Roku;
+		private System.Windows.Forms.TextBox textBox_StaticRokuMsg;
 	}
 }

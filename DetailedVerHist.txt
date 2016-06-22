@@ -1,3 +1,8 @@
+v1.0.1.14 - 6/21/2016
+- Rokushiki completely implemented
+- Importing Old files completely implemented
+- Edited the Project object again for the last iteration
+- Added implementation for Critical Hit, Anatomical Strike, and Quickstrike.
 v1.0.1.13 - 6/20/2016
 - Cleaned up Sheet to make a complete generated Character Template
 - Scrapped Update_Trait_Warning() for its cumbersome implementation

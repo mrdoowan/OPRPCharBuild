@@ -107,11 +107,13 @@ namespace OPRPCharBuild
 		public struct Tech
 		{
 			public string name;
+			public Rokushiki.RokuName Roku;
 			public int rank;
 			public int reg_TP;
 			public int sp_TP;
+			public string rank_trait;
 			public string sp_trait;
-			public string tech_trait;
+			public string app_traits;
 			public string branch_tech;
 			public int branch_rank;
 			public string type;
@@ -128,15 +130,17 @@ namespace OPRPCharBuild
 			public string notes;
 			public string desc;
 
-			public Tech(string name_, int rank_, int regTP_, int spTP_, string spTrait_, string techTrait_, string branchTech_,
-				int branchRank_, string type_, string range_, int str_, int spe_, int sta_, int acc_, bool NA_, List<Effect> effects_,
+			public Tech(string name_, Rokushiki.RokuName Roku_, int rank_, int regTP_, int spTP_, string rankTrait_, string spTrait_, string appTraits_, 
+				string branchTech_, int branchRank_, string type_, string range_, int str_, int spe_, int sta_, int acc_, bool NA_, List<Effect> effects_,
 				string power_, List<bool> DF_, List<bool> Cyborg_, string notes_, string desc_) {
 				name = name_;
+				Roku = Roku_;
 				rank = rank_;
 				reg_TP = regTP_;
 				sp_TP = spTP_;
+				rank_trait = rankTrait_;
 				sp_trait = spTrait_;
-				tech_trait = techTrait_;
+				app_traits = appTraits_;
 				branch_tech = branchTech_;
 				branch_rank = branchRank_;
 				type = type_;
@@ -322,8 +326,8 @@ namespace OPRPCharBuild
 					Effect Effect_ = new Effect(effectName, effectInfo.gen, effectInfo.cost, effectInfo.minRank);
 					effects.Add(Effect_);
 				}
-				Tech tech = new Tech(techName, techInfo.rank, techInfo.regTP, techInfo.spTP, techInfo.sp_Trait, techInfo.tech_Trait,
-					techInfo.tech_Branch, techInfo.rank_Branch, techInfo.type, techInfo.range, techInfo.stats.str, techInfo.stats.spe,
+				Tech tech = new Tech(techName, techInfo.Roku, techInfo.rank, techInfo.regTP, techInfo.spTP, techInfo.rank_Trait, techInfo.sp_Trait, 
+					techInfo.app_Traits, techInfo.tech_Branch, techInfo.rank_Branch, techInfo.type, techInfo.range, techInfo.stats.str, techInfo.stats.spe,
 					techInfo.stats.sta, techInfo.stats.acc, techInfo.NA_power, effects, techInfo.power, techInfo.DF_checkBox, techInfo.Cyborg_Boosts,
 					techInfo.note, techInfo.desc);
 				techniques.Add(tech);
@@ -491,8 +495,8 @@ namespace OPRPCharBuild
 			return stats;
 		}
 
-		private string Generate_AppTraits_String(string techTrait, string techNote) {
-			string AppTraits = techTrait;
+		private string Generate_AppTraits_String(string rankTrait, string techNote) {
+			string AppTraits = rankTrait;
 			if (!string.IsNullOrWhiteSpace(AppTraits)) { AppTraits += ", "; }
 			if (techNote.Contains(Add_Technique.DevFruit)) { AppTraits += Add_Technique.DevFruit + ", "; }
 			if (techNote.Contains(Add_Technique.SigTech)) { AppTraits += Add_Technique.SigTech + ", "; }
@@ -517,7 +521,7 @@ namespace OPRPCharBuild
 			MainForm.TechList.Clear();
 			_techList.Items.Clear();
 			for (int i = 0; i < techniques.Count; ++i) {
-				Effects Effect = new Effects();
+				Effects Effectss = new Effects();
 				// Store into static TechList
 				MainForm.TechStats Stats = new MainForm.TechStats(techniques[i].str, techniques[i].spe,
 					techniques[i].sta, techniques[i].acc);
@@ -527,14 +531,14 @@ namespace OPRPCharBuild
 				for (int j = 0; j < techniques[i].effects.Count; ++j) {
 					string effectName = techniques[i].effects[j].name;		// WARNING: There could be copies of an effect!
 					string FilteredeffectName = Filter_EffectName(effectName);
-					Effects.Effect_Name ID = Effect.Get_EffectID(FilteredeffectName);
+					Effects.Effect_Name ID = Effectss.Get_EffectID(FilteredeffectName);
 					// An error when you have 9 or more of the same effects
 					if (ID == Effects.Effect_Name.NONE) { MessageBox.Show("Wrong Effect name loaded or Why the heck do you have more than 9 of the same effects?", "Error"); return; }
 					effectList.Add(effectName, new Add_Technique.EffectItem(ID, techniques[i].effects[j].gen,
 						techniques[i].effects[j].cost, techniques[i].effects[j].minRank));
 				}
-				MainForm.TechInfo Tech_Info = new MainForm.TechInfo(techniques[i].rank, techniques[i].reg_TP,
-					techniques[i].sp_TP, techniques[i].tech_trait, techniques[i].sp_trait, techniques[i].branch_tech,
+				MainForm.TechInfo Tech_Info = new MainForm.TechInfo(techniques[i].Roku, techniques[i].rank, techniques[i].reg_TP,
+					techniques[i].sp_TP, techniques[i].rank_trait, techniques[i].sp_trait, techniques[i].app_traits, techniques[i].branch_tech,
 					techniques[i].branch_rank, techniques[i].type, techniques[i].range, Stats, techniques[i].NA_power,
 					effectList, techniques[i].power, techniques[i].DF_options, techniques[i].Cyborg, 
 					techniques[i].notes, techniques[i].desc);
@@ -546,7 +550,7 @@ namespace OPRPCharBuild
 				item.SubItems.Add(techniques[i].reg_TP.ToString());	// [2]: RegTP
 				item.SubItems.Add(techniques[i].sp_TP.ToString());	// [3]: SpTP
 				item.SubItems.Add(techniques[i].sp_trait);          // [4]: SpTrait
-				string AppTraits = Generate_AppTraits_String(techniques[i].tech_trait, techniques[i].notes);
+				string AppTraits = Generate_AppTraits_String(techniques[i].rank_trait, techniques[i].notes);
                 item.SubItems.Add(AppTraits);						// [5]: App. Traits
 				item.SubItems.Add(techniques[i].branch_tech);		// [6]: BranchTech
 				item.SubItems.Add(techniques[i].type);				// [7]: Type
@@ -800,12 +804,14 @@ namespace OPRPCharBuild
 				Project2.Tech tech = new Project2.Tech();
 				tech.name = techniques[i].name;
 				try {
+					tech.Roku = Rokushiki.RokuName.NONE;
 					tech.rank = int.Parse(techniques[i].rank);
 					tech.reg_TP = int.Parse(techniques[i].reg_TP);
 					tech.sp_TP = int.Parse(techniques[i].sp_TP);
 					tech.sp_trait = techniques[i].sp_trait;
-					tech.tech_trait = techniques[i].rank_trait;
+					tech.rank_trait = techniques[i].rank_trait;
 					tech.branch_tech = techniques[i].branched;
+					tech.app_traits = "";
 					tech.branch_rank = 0;
 					tech.type = techniques[i].type;
 					tech.range = techniques[i].range;

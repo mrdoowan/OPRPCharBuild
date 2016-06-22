@@ -193,9 +193,7 @@
 			this.listView_Traits = new System.Windows.Forms.ListView();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.groupBox11 = new System.Windows.Forms.GroupBox();
-			this.label39 = new System.Windows.Forms.Label();
-			this.label38 = new System.Windows.Forms.Label();
-			this.label36 = new System.Windows.Forms.Label();
+			this.label_CritAnatQuick = new System.Windows.Forms.Label();
 			this.button_TechBranch = new System.Windows.Forms.Button();
 			this.button_DownTech = new System.Windows.Forms.Button();
 			this.button_UpTech = new System.Windows.Forms.Button();
@@ -230,7 +228,7 @@
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.olderVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolTip_Standardize = new System.Windows.Forms.ToolTip(this.components);
+			this.toolTips = new System.Windows.Forms.ToolTip(this.components);
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1369,7 +1367,7 @@
 			this.button_Standardize.Size = new System.Drawing.Size(92, 23);
 			this.button_Standardize.TabIndex = 23;
 			this.button_Standardize.Text = "Standardize";
-			this.toolTip_Standardize.SetToolTip(this.button_Standardize, "Press this if you are scooping to calculate an undeducted Beli Standardized value" +
+			this.toolTips.SetToolTip(this.button_Standardize, "Press this if you are scooping to calculate an undeducted Beli Standardized value" +
         "");
 			this.button_Standardize.UseVisualStyleBackColor = true;
 			this.button_Standardize.Click += new System.EventHandler(this.button_Standardize_Click);
@@ -2217,9 +2215,7 @@
 			// 
 			// groupBox11
 			// 
-			this.groupBox11.Controls.Add(this.label39);
-			this.groupBox11.Controls.Add(this.label38);
-			this.groupBox11.Controls.Add(this.label36);
+			this.groupBox11.Controls.Add(this.label_CritAnatQuick);
 			this.groupBox11.Controls.Add(this.button_TechBranch);
 			this.groupBox11.Controls.Add(this.button_DownTech);
 			this.groupBox11.Controls.Add(this.button_UpTech);
@@ -2246,41 +2242,17 @@
 			this.groupBox11.TabStop = false;
 			this.groupBox11.Text = "Techniques";
 			// 
-			// label39
+			// label_CritAnatQuick
 			// 
-			this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-			this.label39.ForeColor = System.Drawing.Color.Purple;
-			this.label39.Location = new System.Drawing.Point(9, 144);
-			this.label39.Name = "label39";
-			this.label39.Size = new System.Drawing.Size(225, 18);
-			this.label39.TabIndex = 42;
-			this.label39.Text = "Quickstrike: 0 / 0";
-			this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.label39.Visible = false;
-			// 
-			// label38
-			// 
-			this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-			this.label38.ForeColor = System.Drawing.Color.Purple;
-			this.label38.Location = new System.Drawing.Point(9, 126);
-			this.label38.Name = "label38";
-			this.label38.Size = new System.Drawing.Size(225, 18);
-			this.label38.TabIndex = 41;
-			this.label38.Text = "Anatomical Strike: 0 / 0";
-			this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.label38.Visible = false;
-			// 
-			// label36
-			// 
-			this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-			this.label36.ForeColor = System.Drawing.Color.Purple;
-			this.label36.Location = new System.Drawing.Point(9, 108);
-			this.label36.Name = "label36";
-			this.label36.Size = new System.Drawing.Size(225, 18);
-			this.label36.TabIndex = 40;
-			this.label36.Text = "Critical Hit: 0 / 0";
-			this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.label36.Visible = false;
+			this.label_CritAnatQuick.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+			this.label_CritAnatQuick.ForeColor = System.Drawing.Color.Purple;
+			this.label_CritAnatQuick.Location = new System.Drawing.Point(9, 108);
+			this.label_CritAnatQuick.Name = "label_CritAnatQuick";
+			this.label_CritAnatQuick.Size = new System.Drawing.Size(225, 76);
+			this.label_CritAnatQuick.TabIndex = 40;
+			this.label_CritAnatQuick.Text = "Critical Hit, Anatomical Strike, and Quickstrike Points";
+			this.label_CritAnatQuick.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.label_CritAnatQuick.Visible = false;
 			// 
 			// button_TechBranch
 			// 
@@ -2440,6 +2412,7 @@
 			this.textBox_RegTPTotal.Size = new System.Drawing.Size(32, 23);
 			this.textBox_RegTPTotal.TabIndex = 4;
 			this.textBox_RegTPTotal.Text = "16";
+			this.textBox_RegTPTotal.TextChanged += new System.EventHandler(this.textBox_RegTPTotal_TextChanged);
 			// 
 			// label62
 			// 
@@ -2602,9 +2575,13 @@
 			// olderVersionToolStripMenuItem
 			// 
 			this.olderVersionToolStripMenuItem.Name = "olderVersionToolStripMenuItem";
-			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
 			this.olderVersionToolStripMenuItem.Text = "Older Version";
 			this.olderVersionToolStripMenuItem.Click += new System.EventHandler(this.olderVersionToolStripMenuItem_Click);
+			// 
+			// toolTips
+			// 
+			this.toolTips.AutomaticDelay = 50;
 			// 
 			// MainForm
 			// 
@@ -2854,7 +2831,7 @@
 		private System.Windows.Forms.Button button_UpWeapon;
 		private System.Windows.Forms.Button button_DownTech;
 		private System.Windows.Forms.Button button_UpTech;
-		private System.Windows.Forms.ToolTip toolTip_Standardize;
+		private System.Windows.Forms.ToolTip toolTips;
 		private System.Windows.Forms.Button button_Standardize;
 		private System.Windows.Forms.Button button_TechBranch;
 		private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
@@ -2874,9 +2851,7 @@
 		private System.Windows.Forms.Label label33;
 		private System.Windows.Forms.TextBox textBox_DFEffect;
 		private System.Windows.Forms.Label label35;
-		private System.Windows.Forms.Label label36;
-		private System.Windows.Forms.Label label39;
-		private System.Windows.Forms.Label label38;
+		private System.Windows.Forms.Label label_CritAnatQuick;
 	}
 }
 

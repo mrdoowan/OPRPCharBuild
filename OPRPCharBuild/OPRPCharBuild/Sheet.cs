@@ -315,7 +315,7 @@ namespace OPRPCharBuild
 			if (images.Items.Count > 0) {
 				foreach (ListViewItem img in images.Items) {
 					template.Write("[spoiler");
-					if (string.IsNullOrWhiteSpace(img.SubItems[0].Text)) {
+					if (!string.IsNullOrWhiteSpace(img.SubItems[0].Text)) {
 						template.Write("=" + img.SubItems[0].Text);
 					}
 					template.Write("][img");
@@ -493,7 +493,7 @@ namespace OPRPCharBuild
 			template.Write('\n');
 		}
 		// ---------------------------------------------------------------------------
-		public void Techs_Generate(string usedRegTP, string totRegTP, string regTPCalc, string usedSpTP, string totSpTP, 
+		public void Techs_Generate(string usedRegTP, string totRegTP, string regTPCalc, string usedSpTP, string totSpTP, string CritAnatQuick_Msg,
 			Dictionary<string, MainForm.TechInfo> techList, ListView SpTraits, string DF_effect) {
 			template.Write("[center][big][big][i][font=Century Gothic]Techniques[/font][/i][/big][/big][/center]\n");
 			template.Write("[b]Used/Total Regular Technique Points:[/b] " + usedRegTP + " / " + totRegTP + ' ' + regTPCalc + '\n');
@@ -510,18 +510,20 @@ namespace OPRPCharBuild
 			template.Write('\n');
 			bool treat_rank4 = false;
 			foreach (MainForm.TechInfo Tech in techList.Values) {
-				if (If_Treat_Rank4(Tech.tech_Trait)) {
+				if (If_Treat_Rank4(Tech.rank_Trait)) {
 					treat_rank4 = true;
 					break;
 				}
 			}
-			if (treat_rank4 || !string.IsNullOrWhiteSpace(DF_effect)) {
+			if (treat_rank4 || !string.IsNullOrWhiteSpace(DF_effect) || !string.IsNullOrWhiteSpace(CritAnatQuick_Msg)) {
 				template.Write("[table]");
 				if (treat_rank4) {
 					template.Write("* Technique is treated as 4 ranks higher\n");
 				}
+				if (!string.IsNullOrWhiteSpace(CritAnatQuick_Msg)) {
+					template.Write(CritAnatQuick_Msg + '\n');
+				}
 				if (!string.IsNullOrWhiteSpace(DF_effect)) {
-					if (treat_rank4) { template.Write('\n'); }
 					template.Write("[u]Free DF Effect:[/u] " + DF_effect + '\n');
 				}
 				template.Write("[/table]");
@@ -543,17 +545,19 @@ namespace OPRPCharBuild
 					if (i > 0) { template.Write("[c]"); }
 					template.Write("[b]" + TechName + "[/b]");		// Name
 					template.Write(" (" + Technique.rank);			// Rank
-					if (If_Treat_Rank4(Technique.tech_Trait)) { template.Write("*"); }
+					if (If_Treat_Rank4(Technique.rank_Trait)) {
+						template.Write("*");
+					}
 					template.Write(")\n");
 					template.Write("[u]Type:[/u] " + Technique.type + '\n'); // Type
 					template.Write("[u]Range:[/u] " + Technique.range + '\n');// Range
 					template.Write("[u]Power:[/u] " + Technique.power + '\n');// Power
 					template.Write("[u]Stats:[/u] " + TechStats_Into_String(Technique.stats) + '\n');   // Stats
-					template.Write("[u]TP Spent:[/u] " + Technique.regTP + "R");
+					template.Write("[u]TP:[/u] " + Technique.regTP + "R");
 					if (Technique.spTP > 0) {
-						template.Write(" | " + Technique.spTP + "S\n");
+						template.Write(" | " + Technique.spTP + "S");
 					}
-					template.Write("[c]");
+					template.Write("\n[c]");
 					if (!string.IsNullOrWhiteSpace(Technique.note)) {
 						// TP Note on top
 						template.Write(Technique.note + '\n');
@@ -580,12 +584,13 @@ namespace OPRPCharBuild
 			template.Write('\n');
 			template.Write("[spoiler=Edit Log]Edit Log goes here[/spoiler]\n");
 			template.Write('\n');
-			template.Write("[small]This Character Template was created by the [url=http://s1.zetaboards.com/One_Piece_RP/topic/6060583/1/]OPRP Character Builder[/url] v" + version + vers_type + '\n');
-			template.Write("Note to Mods: Calculations should be done correctly if not bugged or changed by [me]. Regardless, please double check.[/small]");
+			template.Write("[center][small]This Character Template was created by the [url=http://s1.zetaboards.com/One_Piece_RP/topic/6060583/1/]OPRP Character Builder[/url] v" + version + vers_type + '\n');
+			template.Write("Note to Mods: Calculations should be done correctly if not bugged or changed by [me]. Regardless, please double check.[/small][/center]");
 			// Transfer entire stream into readable textbox
 			richTextBox_Template.Text = template.ToString();
 			// Reset/Clear Stringwriter
 			template.GetStringBuilder().Length = 0;
+			template.Dispose();
 		}
 
 		private void richTextBox_Template_MouseEnter(object sender, EventArgs e) {

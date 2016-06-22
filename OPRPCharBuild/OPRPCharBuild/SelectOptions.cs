@@ -13,43 +13,88 @@ namespace OPRPCharBuild
 	public partial class SelectOptions : Form
 	{
 		private int option;
-		List<Traits.Trait_Name> TraitsList;
-		private int max_rank;
-		Rokushiki Roku = new Rokushiki();
+		private bool Has_Roku_Master;
+		private int max_rank;                   // The current max rank the character is able to have. (if base rank of tech is above max rank, nope)
+		private Rokushiki.RokuName Sel_Roku;    // The selected Rokushiki for loading
+		private string Custom_Name;
+		private string Sel_Version;
+		private bool OK_clicked;
+		private bool Custom_clicked;
 
-		private const string ProjectStr = "v1.0.1.0 (Project)";
+		public const string ProjectStr = "v1.0.1.0 (Project)";
 
 		// Default Constructor
-		public SelectOptions(int option_, List<Traits.Trait_Name> Traits_, int maxRank_) {
+		public SelectOptions(int option_, bool RokuMaster_, int maxRank_) {
 			InitializeComponent();
 			option = option_;
-			TraitsList = Traits_;
+			Has_Roku_Master = RokuMaster_;
 			max_rank = maxRank_;
+			OK_clicked = false;
+			Custom_clicked = false;
 		}
 
 		#region Dialog Functions
 
+		public string Import_Version_Dialog() {
+			this.ShowDialog();
+			if (OK_clicked) {
+				return Sel_Version;
+			}
+			else {
+				return null;
+			}
+		}
 
+		public string Rokushiki_Load_Dialog(ref Rokushiki.RokuName Selected, ref string Roku_Name) {
+			this.ShowDialog();
+			if (string.IsNullOrWhiteSpace(Custom_Name)) {
+				// No Custom Name was selected
+				Roku_Name = comboBox_Options.Text;
+			}
+			else {
+				// That means there is a Custom Name.
+				Roku_Name = Custom_Name;
+			}
+			if (OK_clicked) {
+				Selected = Sel_Roku;
+				return "Add";
+			}
+			if (Custom_clicked) {
+				Selected = Sel_Roku;
+				return "Custom";
+			}
+			else {
+				// Trash variable
+				return null;
+			}
+		}
 
-		#endregion 
+		#endregion
+
+		#region Event Handlers
 
 		// When this.ShowDialog() is called
 		private void SelectOptions_Load(object sender, EventArgs e) {
 			if (option == 1) {
 				// Import previous version option.
-				this.Text = "Import Previous Version";
+				this.Text = "Import Older Files";
 				textBox_Name.Visible = false;
 				label_Name.Visible = false;
 				button_Custom.Visible = false;
-				label_MaxRank.Visible = false;
+				toolTip1.Active = false;
 
 				// Add previous versions.
 				comboBox_Options.Items.Add(ProjectStr);
 
+				// Set other variables
+				label_Msg.ForeColor = SystemColors.ControlText;
+				label_Msg.Text = "Select version of the file you want to import.";
+				button_OK.Text = "Import";
 			}
 			else if (option == 2) {
 				// Select Rokushiki option.
 				this.Text = "Rokushiki Technique";
+				label_Msg.Text = "";
 
 				comboBox_Options.Items.Add("Shigan");
 				comboBox_Options.Items.Add("Rankyaku");
@@ -58,11 +103,11 @@ namespace OPRPCharBuild
 				comboBox_Options.Items.Add("Tekkai");
 				comboBox_Options.Items.Add("Geppou");
 
-				if (!TraitsList.Contains(Traits.Trait_Name.ROK_MAST)) {
+				if (!Has_Roku_Master) {
 					button_Custom.Enabled = false;
 				}
 				else {
-					comboBox_Options.Items.Add("Rokugan");
+					comboBox_Options.Items.Add("Rokuogan");
 				}
 
 			}
@@ -72,18 +117,66 @@ namespace OPRPCharBuild
 			}
 		}
 
+		// Button for Customization
 		private void button_Custom_Click(object sender, EventArgs e) {
-
+			if (option == 2) {
+				if (comboBox_Options.SelectedIndex == -1) { MessageBox.Show("Please select a Rokushiki Technique to customize before continuing.", "Error"); }
+				else {
+					Custom_Name = textBox_Name.Text;
+					this.Close();
+					Custom_clicked = true;
+				}
+			}
 		}
 
+		// Button to Add/Import depending on Option
 		private void button_OK_Click(object sender, EventArgs e) {
-
+			if (option == 1) {
+				// For Importing
+				string Version_Selected = comboBox_Options.Text;
+				if (comboBox_Options.SelectedIndex == -1) { MessageBox.Show("Please select a version before continuing.", "Error"); }
+				else {
+					Sel_Version = comboBox_Options.Text;
+					this.Close();
+					OK_clicked = true;
+				}
+			}
+			else if (option == 2) {
+				// For Adding Rokushiki
+				if (comboBox_Options.SelectedIndex == -1) { MessageBox.Show("Please select a Rokushiki Technique to Add before continuing.", "Error"); }
+				else {
+					Custom_Name = textBox_Name.Text;
+					this.Close();
+					OK_clicked = true;
+				}
+			}
 		}
 
 		private void comboBox_Options_SelectedIndexChanged(object sender, EventArgs e) {
 			if (option == 2) {
-				Rokushiki.RokuInfo Info = Roku.Get_RokuInfo(comboBox_Options.Text);
+				Rokushiki Roku = new Rokushiki();
+				if (!string.IsNullOrWhiteSpace(comboBox_Options.Text)) {
+					// That means we selected a Rokushiki Technique
+					Sel_Roku = Roku.Get_RokuEnum(comboBox_Options.Text);
+					Rokushiki.RokuInfo Info_Roku = Roku.Get_RokuInfo(Sel_Roku);
+					if (Info_Roku.baseRank > max_rank) {
+						button_Custom.Enabled = false;
+						button_OK.Enabled = false;
+						label_Msg.Text = Info_Roku.name + "'s Base Rank is " + Info_Roku.baseRank + '\n'
+							+ "You can only make Techniques at Max Rank " + max_rank;
+					}
+					else {
+						if (!Has_Roku_Master) {
+							button_Custom.Enabled = false;
+						}
+						button_OK.Enabled = true;
+						label_Msg.Text = "";
+					}
+				}
 			}
 		}
+
+		#endregion
+
 	}
 }

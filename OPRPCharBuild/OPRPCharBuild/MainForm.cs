@@ -26,13 +26,14 @@ namespace OPRPCharBuild
 		// PUBLIC / PRIVATE MEMBER STRUCTS, FUNCTIONS, AND VARIABLES
 		// --------------------------------------------------------------------------------------------
 
-		public const string version = "1.0.1.0";
+		#region Member Variables and Structs
+
+		public const string version = "1.0.1.14";
 		public const string vers_type = "";
-		public const string old_vers = "1.0.1.0";
 		private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
 		private Traits Traits = new Traits();           // For enumerations of Traits
 		private Project2 project = new Project2();      // State of save file
-		private Project project1 = new Project();	// Used to import an old file and transfer to newest project
+		private Project project1 = new Project();   // Used to import an old file and transfer to newest project
 		private bool upgrading = false;				// Used when upgrading
 		private int gen_cap = 0;					// To carry across Trait functions
 		private int prof_cap = 0;
@@ -47,11 +48,13 @@ namespace OPRPCharBuild
 		public static Dictionary<string, TechInfo> TechList = new Dictionary<string, TechInfo>();
 		public struct TechInfo
 		{
+			public Rokushiki.RokuName Roku;
 			public int rank;
 			public int regTP;
 			public int spTP;
-			public string tech_Trait;
+			public string rank_Trait;
 			public string sp_Trait;
+			public string app_Traits;
 			public string tech_Branch;
 			public int rank_Branch;
 			public string type;
@@ -66,14 +69,16 @@ namespace OPRPCharBuild
 			public string desc;
 
 			// Constructor
-			public TechInfo(int rank_, int regTP_, int spTP_, string techTrait_, string spTrait_,
+			public TechInfo(Rokushiki.RokuName Roku_, int rank_, int regTP_, int spTP_, string rankTrait_, string spTrait_, string appTraits_,
 				string techBranch_, int rankBranch_, string type_, string range_, TechStats stats_, bool NA_,
 				Dictionary<string, Add_Technique.EffectItem> effectList_, string power_, List<bool> DF_, List<bool> Cyborg_,
 				string note_, string desc_) {
+				Roku = Roku_;
 				rank = rank_;
 				regTP = regTP_;
 				spTP = spTP_;
-				tech_Trait = techTrait_;
+				rank_Trait = rankTrait_;
+				app_Traits = appTraits_;
 				sp_Trait = spTrait_;
 				tech_Branch = techBranch_;
 				rank_Branch = rankBranch_;
@@ -106,6 +111,7 @@ namespace OPRPCharBuild
 			}
 		}
 
+		#endregion
 
 		#region General Functions
 
@@ -757,10 +763,64 @@ namespace OPRPCharBuild
 			// Used when a Technique is removed.
 		}
 
+		// Helper function for Update_CritAnatQuick_Msg()
+		private void Print_Applied_Msg(ref string msg, Traits.Trait_Name trait_ID, string trait_Name) {
+			int points = int.Parse(textBox_RegTPTotal.Text) / 4;
+			int num = 0;
+			msg += trait_Name + ": ";
+			for (int i = 0; i < TraitsList.Count; ++i) {
+				if (TraitsList[i] == trait_ID) {
+					num++;
+				}
+			}
+			int total = num * points;
+			int used = 0;
+			foreach (TechInfo Tech_Info in TechList.Values) {
+				if (Tech_Info.app_Traits.Contains(trait_Name)) {
+					used += Tech_Info.regTP;
+				}
+			}
+			msg += used + " / " + total + '\n';
+		}
+
+		// This is only for Critical Hit, Anatomical Strike, and Quickstrike
+		private void Update_CritAnatQuick_Msg() {
+			string msg = "";
+			int points = int.Parse(textBox_Fortune.Text) / 4;
+			if (TraitsList.Contains(Traits.Trait_Name.CRIT_HIT)) {
+				Print_Applied_Msg(ref msg, Traits.Trait_Name.CRIT_HIT, "Critical Hit");
+			}
+			if (TraitsList.Contains(Traits.Trait_Name.ANAT_STRIKE)) {
+				Print_Applied_Msg(ref msg, Traits.Trait_Name.ANAT_STRIKE, "Anatomical Strike");
+			}
+			if (TraitsList.Contains(Traits.Trait_Name.QUICKSTRIKE)) {
+				Print_Applied_Msg(ref msg, Traits.Trait_Name.QUICKSTRIKE, "Quickstrike");
+			}
+			// Trim the newline
+			if (!string.IsNullOrWhiteSpace(msg)) { msg.Remove(msg.Length - 1, 1); }
+			if (string.IsNullOrWhiteSpace(msg)) {
+				label_CritAnatQuick.Visible = false;
+				label_CritAnatQuick.Text = msg;
+			}
+			else {
+				label_CritAnatQuick.Visible = true;
+				label_CritAnatQuick.Text = msg;
+			}
+			// Updated when Technique is Added
+			// Updated when Technique is Edited
+			// Updated when Technique is Branched
+			// Updated when Technique is Removed
+			// Updated when a Trait is added.
+			// Updated when a Trait is edited
+			// Updated when a Trait is removed.
+			// Updated when Total Reg TP is Changed.
+
+		}
+
 		#endregion
 
 		// --------------------------------------------------------------------------------------------
-		// EXCEPTION HANDLERS
+		// EVENT HANDLERS
 		// --------------------------------------------------------------------------------------------
 
 		// This only occurs once before the form is displayed for the first time.
@@ -1285,6 +1345,7 @@ namespace OPRPCharBuild
 			Update_Total_RegTP();
 			Update_SpTrait_Table_Traits(ID);
 			Update_SpTrait_Table_Values();
+			Update_CritAnatQuick_Msg();
 		}
 
 		private void button11_TraitAdd_Click(object sender, EventArgs e) {
@@ -1292,7 +1353,7 @@ namespace OPRPCharBuild
 			Add_Trait TraitWin = new Add_Trait();
 			Traits.Trait_Name ID = TraitWin.NewDialog(ref listView_Traits);
 			// And lastly all Update functions
-			All_Update_Functions_Traits(ID);
+			if (ID != Traits.Trait_Name.CUSTOM) { All_Update_Functions_Traits(ID); }
 		}
 
 		private void button_TraitsEdit_Click(object sender, EventArgs e) {
@@ -1302,13 +1363,14 @@ namespace OPRPCharBuild
 				Add_Trait TraitWin = new Add_Trait();
 				Traits.Trait_Name ID = TraitWin.EditDialog(ref listView_Traits);
 				// All corresponding Update functions (same as Add)
-				All_Update_Functions_Traits(ID);
+				if (ID != Traits.Trait_Name.CUSTOM) { All_Update_Functions_Traits(ID); }
             }
 		}
 
 		private void button10_TraitsDelete_Click(object sender, EventArgs e) {
 			// Traits "Delete" button from the MainForm
 			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
+			if (listView_Traits.SelectedItems.Count == 0) { return; }
 			string name = Delete_ListViewItem(ref listView_Traits);
 			// Remove trait from TraitList
 			TraitsList.Remove(Traits.get_TraitID(name));
@@ -1374,6 +1436,12 @@ namespace OPRPCharBuild
 
 		#region Techniques Tab
 
+		private void All_Update_Functions_Techs() {
+			Update_SpTrait_Table_Values();
+			Update_Used_RegTP();
+			Update_CritAnatQuick_Msg();
+		}
+
 		private void listView3_SpTP_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e) {
 			// Prevents users from changing column width
 			e.Cancel = true;
@@ -1383,46 +1451,63 @@ namespace OPRPCharBuild
 		private void button14_TechAdd_Click(object sender, EventArgs e) {
 			// Technique "Add" button from the MainForm
 			int max_rank = int.Parse(textBox_Fortune.Text) / 2;
+			int num_items = listView_Techniques.Items.Count;
+			if (num_items == 0) { num_items++; } // What if it's empty?
 			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, 
 				textBox_DFName.Text, comboBox_DFType.Text, richTextBox_DFDesc.Text, textBox_DFEffect.Text);
-			TechniqueWin.NewDialog(ref listView_Techniques, null, new TechInfo(), false);
+			TechniqueWin.NewDialog(ref listView_Techniques, null, new TechInfo(), false, num_items - 1);
 			// Update functions go below
-			Update_SpTrait_Table_Values();
-			Update_Used_RegTP();
+			All_Update_Functions_Techs();
 		}
 
 		private void button_TechBranch_Click(object sender, EventArgs e) {
-			// Technique "Duplicate" button from the MainForm
+			// Technique "Branch" button from the MainForm
+			if (listView_Techniques.SelectedItems.Count == 0) { return; }
 			string TechName = listView_Techniques.SelectedItems[0].SubItems[0].Text;
+			int index = listView_Techniques.SelectedIndices[0];
 			if (!string.IsNullOrWhiteSpace(TechName)) {
 				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
-				Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, 
-					textBox_DFName.Text, comboBox_DFType.Text, richTextBox_DFDesc.Text, textBox_DFEffect.Text);
 				TechInfo Selected = TechList[TechName];
-				TechniqueWin.NewDialog(ref listView_Techniques, TechName, Selected, true);
-				// Update functions go below
-				Update_SpTrait_Table_Values();
-				Update_Used_RegTP();
+				if (Selected.Roku != Rokushiki.RokuName.NONE && !TraitsList.Contains(Traits.Trait_Name.ROK_MAST)) {
+					// ^If the Selected Technique is Rokushiki and character does not have Rokushiki Master
+					MessageBox.Show("You can't edit a Rokushiki Technique without the Rokushiki Master Trait!", "Error",
+						MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
+				else {
+					Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP,
+					textBox_DFName.Text, comboBox_DFType.Text, richTextBox_DFDesc.Text, textBox_DFEffect.Text);
+					TechniqueWin.NewDialog(ref listView_Techniques, TechName, Selected, true, index);
+					// Update functions go below
+					All_Update_Functions_Techs();
+				}
 			}
 		}
 
 		private void button_TechEdit_Click(object sender, EventArgs e) {
 			// Technique "Edit" button from the MainForm
+			if (listView_Techniques.SelectedItems.Count == 0) { return; }
 			string TechName = listView_Techniques.SelectedItems[0].SubItems[0].Text;
 			if (!string.IsNullOrWhiteSpace(TechName)) {
 				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
-				Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, 
-					textBox_DFName.Text, comboBox_DFType.Text, richTextBox_DFDesc.Text, textBox_DFEffect.Text);
 				TechInfo Selected = TechList[TechName];
-				TechniqueWin.EditDialog(ref listView_Techniques, TechName, Selected);
-				// Update functions go below
-				Update_SpTrait_Table_Values();
-				Update_Used_RegTP();
+				if (Selected.Roku != Rokushiki.RokuName.NONE && !TraitsList.Contains(Traits.Trait_Name.ROK_MAST)) {
+					// ^If the Selected Technique is Rokushiki and character does not have Rokushiki Master
+					MessageBox.Show("You can't edit a Rokushiki Technique without the Rokushiki Master Trait!", "Error",
+						MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
+				else {
+					Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP,
+					textBox_DFName.Text, comboBox_DFType.Text, richTextBox_DFDesc.Text, textBox_DFEffect.Text);
+					TechniqueWin.EditDialog(ref listView_Techniques, TechName, Selected);
+					// Update functions go below
+					All_Update_Functions_Techs();
+				}
 			}
 		}
 
 		private void button13_TechDelete_Click(object sender, EventArgs e) {
 			// Technique "Delete" button from the MainForm
+			if (listView_Techniques.SelectedItems.Count == 0) { return; }
 			DialogResult result = MessageBox.Show("Are you sure you want to delete this Technique?", "Remove Tech",
 				MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 			if (result == DialogResult.Yes) {
@@ -1432,8 +1517,7 @@ namespace OPRPCharBuild
 						TechList.Remove(TechName);
 					}
 					// Update functions go below
-					Update_SpTrait_Table_Values();
-					Update_Used_RegTP();
+					All_Update_Functions_Techs();
 				}
 				catch (Exception ex) {
 					MessageBox.Show("Error in Deleting Technique\nReason: " + ex.Message, "Exception Thrown");
@@ -1467,6 +1551,10 @@ namespace OPRPCharBuild
 			}
 		}
 
+		private void textBox_RegTPTotal_TextChanged(object sender, EventArgs e) {
+			Update_CritAnatQuick_Msg();
+		}
+
 		#endregion
 
 		// --------------------------------------------------------------------------------------------
@@ -1491,6 +1579,7 @@ namespace OPRPCharBuild
 			textBox_Threat.Clear();
 			listBox_Achieve.Items.Clear();
 			listView_Prof.Items.Clear();
+			ProfList.Clear();
 			// Physical Appearance
 			textBox_Height.Clear();
 			textBox_Weight.Clear();
@@ -1515,6 +1604,7 @@ namespace OPRPCharBuild
 			textBox_DFName.Clear();
 			comboBox_DFType.SelectedIndex = -1;
 			richTextBox_DFDesc.Clear();
+			textBox_DFEffect.Clear();
 			// Stats
 			numericUpDown_SDEarned.Value = 0;
 			numericUpDown_SDintoStats.Value = 0;
@@ -1529,7 +1619,10 @@ namespace OPRPCharBuild
 			numericUpDown_AccuracyBase.Value = 1;
 			// Traits & Techs
 			listView_Traits.Items.Clear();
+			TraitsList.Clear();
+			listView_SpTP.Items.Clear();
 			listView_Techniques.Items.Clear();
+			TechList.Clear();
 			// Update Functions (that are still needed)
 			Update_AP_Count();
 			Update_Strength_Final();
@@ -1856,6 +1949,7 @@ namespace OPRPCharBuild
 				label_RegTPCalc.Text,
 				textBox_SpTPUsed.Text,
 				textBox_SpTPTotal.Text,
+				label_CritAnatQuick.Text,
 				TechList,
 				listView_SpTP,
 				textBox_DFEffect.Text
@@ -1907,14 +2001,15 @@ namespace OPRPCharBuild
 		}
 
 		private void olderVersionToolStripMenuItem_Click(object sender, EventArgs e) {
-			DialogResult result = MessageBox.Show("This can load .oprp files from v" + old_vers + ". Do you want to import?", "Import", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			DialogResult result = MessageBox.Show("Save your current work before importing a Character?", "Import Project",
+			MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 			if (result == DialogResult.Yes) {
-				result = MessageBox.Show("Save your current work before importing a Character?", "Import Project",
-				MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-				if (result == DialogResult.Yes) {
-					saveCharacter();
-				}
-				if (result != DialogResult.Cancel) {
+				saveCharacter();
+			}
+			if (result != DialogResult.Cancel) {
+				SelectOptions Import_Window = new SelectOptions(1, false, 0);
+				string selected_version = Import_Window.Import_Version_Dialog();
+				if (!string.IsNullOrWhiteSpace(selected_version)) {
 					OpenFileDialog dlgFileOpen = new OpenFileDialog();
 					dlgFileOpen.Filter = "OPRP files (*.oprp)|*.oprp";
 					dlgFileOpen.Title = "Open Project";
@@ -1922,29 +2017,33 @@ namespace OPRPCharBuild
 					if (dlgFileOpen.ShowDialog() == DialogResult.OK) {
 						FileStream fs = File.Open(dlgFileOpen.FileName, FileMode.Open);
 						BinaryFormatter formatter = new BinaryFormatter();
-						try {
-							project1 = (Project)formatter.Deserialize(fs);
+						// ------------------- v1.0.1.0 (Project)
+						if (selected_version == SelectOptions.ProjectStr) {
+							try {
+								project1 = (Project)formatter.Deserialize(fs);
+							}
+							catch (Exception ex) {
+								MessageBox.Show("Failed to import / deserialize. Internal issue.\nReason: " + ex.Message);
+							}
+							finally {
+								fs.Close();
+								project1.location = dlgFileOpen.FileName;
+								project1.filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
+								// Transfer from older project to newer project.
+								project1.Transfer_v1010toNew(ref project);
+								project.filename = null;
+								project.location = null;
+								resetForm();
+								loadProjectToForm();
+								this.Text = "OPRP Character Builder";
+								MessageBox.Show("Character imported successfully!\n\nFew notes:\n" +
+									"- Edit every single one of your Techniques for Effects, Range, Branching, DF Options, and new \"Traits Affect Tech\"\n" +
+									"- Do not make Custom Trait names or the tool won't recognize them. Edit the custom name into the generated Sheet instead.\n" +
+									"- In this new version, many dangerous coding techniques were used. Please report any bugs ASAP as it could potentially corrupt .oprp data." +
+									" Please save backups as often as possible. Most of it should be fine now since much of this was tested.");
+							}
 						}
-						catch (Exception ex) {
-							MessageBox.Show("Failed to import / deserialize. Internal issue.\nReason: " + ex.Message);
-						}
-						finally {
-							fs.Close();
-							project1.location = dlgFileOpen.FileName;
-							project1.filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
-							// Transfer from older project to newer project.
-							project1.Transfer_v1010toNew(ref project);
-							project.filename = null;
-							project.location = null;
-							resetForm();
-							loadProjectToForm();
-							this.Text = "OPRP Character Builder";
-							MessageBox.Show("Character imported successfully!\n\nFew notes:\n" +
-								"- Edit every single one of your Techniques for Effects, Range, Branching, DF Options, and new \"Traits Affect Tech\"\n" +
-								"- Do not make Custom Trait names or the tool won't recognize them. Edit the custom name into the generated Sheet instead.\n" +
-								"- In this new version, many dangerous coding techniques were used. Please report any bugs ASAP as it could potentially corrupt .oprp data." +
-								" Please save backups as often as possible. Most of it should be fine now since much of this was tested.");
-						}
+						// v1.0.2.0 (Project2)
 					}
 				}
 			}
@@ -1967,5 +2066,6 @@ namespace OPRPCharBuild
 		}
 
 		#endregion
+
 	}
 }

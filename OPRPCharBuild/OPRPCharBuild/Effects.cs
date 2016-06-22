@@ -260,7 +260,8 @@ namespace OPRPCharBuild
 		};
 
 		// Inverse Dictionary: enum -> info
-		static private Dictionary<Effect_Name, EffectInfo> EffectInfo_Dict = new Dictionary<Effect_Name, EffectInfo>() {
+		// DO NOT MAKE THIS STATIC, it's always being added upon!
+		private Dictionary<Effect_Name, EffectInfo> EffectInfo_Dict = new Dictionary<Effect_Name, EffectInfo>() {
 			#region Database of Effect Information
 			// The Ranges are added at a later part when Effects is initialized
 			{Effect_Name.DISPLACE, new EffectInfo("Displacement", true, 8, 8,
