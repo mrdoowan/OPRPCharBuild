@@ -175,7 +175,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="down_arrow.png" />
+    <Content Include="NewFile.ico" />
+    <Content Include="OpenFile.ico" />
     <Content Include="oprp1.ico" />
+    <Content Include="SaveFile.ico" />
     <Content Include="up_arrow.png" />
   </ItemGroup>
   <ItemGroup>

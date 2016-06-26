@@ -342,7 +342,13 @@ namespace OPRPCharBuild
 					type = Trait_Type.GEN;
 					gen_num = 3;
 					prof_num = 0;
-					desc = "This is a high-tech cyborg, rarely encountered anywhere but the Grand Line. A character must be within the Grand Line to access this kind of technology. Advanced Cyborgs begin with up to 12M Beli worth of modifications. They are made of steel and may be constructed of materials up to titanium in strength, and may have additional body parts added. Their size may vary from their original form at a cost. Each arm may conceal two weapons and each leg may conceal one. Additionally, they may externally mount cybernetics/weapons at this stage. Cyborgs of this type may have multiple special systems, though moderators may enforce a limit eventually. Advanced Cyborgs may also purchase additional fuel charges up to a limit of 5. Upgrades from Basic Cyborg modifications are maintained and do not count against Advanced maximums. (SYSTEMS)";
+					desc = "This is a high-tech cyborg, rarely encountered anywhere but the Grand Line. A character must be within the Grand Line to access this kind of technology. Advanced Cyborgs begin with up to 12M Beli worth of modifications. They are made of steel and may be constructed of materials up to titanium in strength, and may have additional body parts added. Their size may vary from their original form at a cost. Each arm may conceal two weapons and each leg may conceal one. Additionally, they may externally mount cybernetics/weapons at this stage. Cyborgs of this type may have multiple special systems, though moderators may enforce a limit eventually. Advanced Cyborgs may also purchase additional fuel charges up to a limit of 5. Upgrades from Basic Cyborg modifications are maintained and do not count against Advanced maximums.\n" + 
+						"[list][*]Appendages - 4.5M Beli/per\n" + 
+						"[*]Additional Body Parts – 6M Beli/per\n" + 
+						"[*]Torso - 9M Beli\n" + 
+						"[*]Titanium upgrade at 60% of the sum of cybernetic body parts\n" + 
+						"[*]Additional Weapon Slots - 2M Beli/per\n" + 
+						"[*]Additional Fuel Charges - 10M Beli/per[/list]";
 					break;
 				case "Advanced Stance Mastery":
 					type = Trait_Type.PROF;
@@ -396,7 +402,9 @@ namespace OPRPCharBuild
 					type = Trait_Type.GEN;
 					gen_num = 1;
 					prof_num = 0;
-					desc = "This is the most basic level of cyborg, and the most commonly encountered type in the blues. A Basic Cyborg begins with up to 3M Beli worth of modifications. Their bodies are made out of Iron and do not vary from their original size. They may have one concealed weapon per arm or leg, and one basic system per other appendage. Note that these weapons or systems are very basic. (SYSTEMS)";
+					desc = "This is the most basic level of cyborg, and the most commonly encountered type in the blues. A Basic Cyborg begins with up to 3M Beli worth of modifications. Their bodies are made out of Iron and do not vary from their original size. They may have one concealed weapon per arm or leg, and one basic system per other appendage. Note that these weapons or systems are very basic.\n" + 
+						"[list][*]Appendages - 1.5M Beli/per\n" + 
+						"[*]Torso - 3M Beli[/list]";
 					break;
 				case "Bear Stamina":
 					type = Trait_Type.GEN;
@@ -714,7 +722,18 @@ namespace OPRPCharBuild
 					type = Trait_Type.GEN;
 					gen_num = 5;
 					prof_num = 0;
-					desc = "These cyborgs represent the very pinnacle of scientific achievement in the world of cybernetics, being by right more machine than human. A character must be in either the Grand Line or New World to access this kind of technology. They can be made of materials up to titanium in strength but may have built-in armor made from custom-materials. Alongside this, these cyborgs are given up to 21M Beli worth of modifications. New World Cyborgs pay 30% to upgrade weaker materials. These Cyborgs are able to create body systems that provide personal flight, self-repair, fire energy projectiles and more. (SYSTEMS)\n\nThe special thing about all of these systems is that they are able to be input into the cyborg’s internal systems. An Inventor with access to R44 techniques can still build a laser, however they must buy a holder for the laser that will cost them money.";
+					desc = "These cyborgs represent the very pinnacle of scientific achievement in the world of cybernetics, being by right more machine than human. A character must be in either the Grand Line or New World to access this kind of technology. They can be made of materials up to titanium in strength but may have built-in armor made from custom-materials. Alongside this, these cyborgs are given up to 21M Beli worth of modifications. New World Cyborgs pay 30% to upgrade weaker materials. These Cyborgs are able to create body systems that provide personal flight, self-repair, fire energy projectiles and more.\n" +
+						"[list][*]Appendages - 4.5M Beli/per\n" + 
+						"[*]Additional Body Parts – 6M Beli/per\n" + 
+						"[*]Torso - 9M Beli\n" + 
+						"[*]Additional Armour - 3M beli/per limb + material cost\n" + 
+						"[*]Additional Weapon Slots - 2M Beli/per\n" + 
+						"[*]Additional Fuel Charges - 10M Beli/per\n" + 
+						"[*]Laser techs start at rank 44. Rank 44 lasers travel extremely quickly, however they have a smaller blast radius. The base technique's range is long, it has built-in iron piercing and has a [Short] blast radius as well.\n" + 
+						"[*]Self-Repair techs start at rank 14. These techniques are similar in strength to a Doctor’s Medicine however they only work on themselves. The other factor that goes in is that during the self-repair the Cybernetic systems cannot attack, however Cyborgs are able to run on the move. The repair takes one post.\n" + 
+						"[*]Flight techniques start at rank 28. At this rank, it’s more of a Cybernetic-fueled Geppou. However, at rank 44 it is possible to fly for a constant AE cost.\n" + 
+						"[*]Other advanced systems may be implemented into their bodies as well, so do not feel constricted to just these three systems. These will be funded by technique points.[/list]\n" + 
+						"The special thing about all of these systems is that they are able to be input into the cyborg’s internal systems. An Inventor with access to R44 techniques can still build a laser, however they must buy a holder for the laser that will cost them money.";
 					break;
 				case "Performance Assistant":
 					type = Trait_Type.PROF;

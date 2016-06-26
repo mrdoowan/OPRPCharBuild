@@ -60,6 +60,7 @@
 			this.label_MaxRank = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.button_Rokushiki = new System.Windows.Forms.Button();
+			this.textBox_StaticRokuMsg = new System.Windows.Forms.TextBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.checkBox_MinusAcc = new System.Windows.Forms.CheckBox();
@@ -105,7 +106,7 @@
 			this.label_Cyborg = new System.Windows.Forms.Label();
 			this.checkBox_SigTech = new System.Windows.Forms.CheckBox();
 			this.toolTips = new System.Windows.Forms.ToolTip(this.components);
-			this.label_RokuMsg = new System.Windows.Forms.Label();
+			this.label_TechFormMsg = new System.Windows.Forms.Label();
 			this.groupBox7 = new System.Windows.Forms.GroupBox();
 			this.checkBox_SpIngred = new System.Windows.Forms.CheckBox();
 			this.checkBox_MentFort = new System.Windows.Forms.CheckBox();
@@ -120,7 +121,7 @@
 			this.checkBox_QuickStrike = new System.Windows.Forms.CheckBox();
 			this.checkBox_Fuel1 = new System.Windows.Forms.CheckBox();
 			this.toolTip_Roku = new System.Windows.Forms.ToolTip(this.components);
-			this.textBox_StaticRokuMsg = new System.Windows.Forms.TextBox();
+			this.label_PowerNote = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
@@ -489,7 +490,7 @@
 			// 
 			this.label_MaxRank.Location = new System.Drawing.Point(93, 18);
 			this.label_MaxRank.Name = "label_MaxRank";
-			this.label_MaxRank.Size = new System.Drawing.Size(95, 19);
+			this.label_MaxRank.Size = new System.Drawing.Size(152, 19);
 			this.label_MaxRank.TabIndex = 65;
 			this.label_MaxRank.Text = "[Max Rank: 0]";
 			this.label_MaxRank.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -528,6 +529,15 @@
 			this.toolTips.SetToolTip(this.button_Rokushiki, "Rokushiki Techs require a Minimum Rank 22");
 			this.button_Rokushiki.UseVisualStyleBackColor = true;
 			this.button_Rokushiki.Click += new System.EventHandler(this.button_Rokushiki_Click);
+			// 
+			// textBox_StaticRokuMsg
+			// 
+			this.textBox_StaticRokuMsg.Location = new System.Drawing.Point(277, 45);
+			this.textBox_StaticRokuMsg.Name = "textBox_StaticRokuMsg";
+			this.textBox_StaticRokuMsg.ReadOnly = true;
+			this.textBox_StaticRokuMsg.Size = new System.Drawing.Size(152, 20);
+			this.textBox_StaticRokuMsg.TabIndex = 76;
+			this.textBox_StaticRokuMsg.Text = "Rokushiki Master";
 			// 
 			// groupBox2
 			// 
@@ -765,7 +775,8 @@
 			this.textBox_Power.TabIndex = 112;
 			this.textBox_Power.Text = "0";
 			this.toolTip_Roku.SetToolTip(this.textBox_Power, "Power is already calculated to its best ability.");
-			this.toolTips.SetToolTip(this.textBox_Power, "You should NOT edit Power unless there\'s a unique case.");
+			this.toolTips.SetToolTip(this.textBox_Power, "Power has been calculated to the best of its ability. Only edit if you\'re sure it" +
+        "\'s incorrect.");
 			// 
 			// label_EffectType
 			// 
@@ -1064,19 +1075,21 @@
 			// 
 			// toolTips
 			// 
-			this.toolTips.AutomaticDelay = 50;
+			this.toolTips.AutoPopDelay = 10000;
+			this.toolTips.InitialDelay = 50;
+			this.toolTips.ReshowDelay = 100;
 			// 
-			// label_RokuMsg
+			// label_TechFormMsg
 			// 
-			this.label_RokuMsg.AutoSize = true;
-			this.label_RokuMsg.ForeColor = System.Drawing.Color.Green;
-			this.label_RokuMsg.Location = new System.Drawing.Point(11, 562);
-			this.label_RokuMsg.Name = "label_RokuMsg";
-			this.label_RokuMsg.Size = new System.Drawing.Size(431, 13);
-			this.label_RokuMsg.TabIndex = 75;
-			this.label_RokuMsg.Text = "This form is now set to specially design Rokushiki Techs. Press \"Clear\" to Reset " +
+			this.label_TechFormMsg.AutoSize = true;
+			this.label_TechFormMsg.ForeColor = System.Drawing.Color.Green;
+			this.label_TechFormMsg.Location = new System.Drawing.Point(11, 562);
+			this.label_TechFormMsg.Name = "label_TechFormMsg";
+			this.label_TechFormMsg.Size = new System.Drawing.Size(431, 13);
+			this.label_TechFormMsg.TabIndex = 75;
+			this.label_TechFormMsg.Text = "This form is now set to specially design Rokushiki Techs. Press \"Clear\" to Reset " +
     "the Form.";
-			this.label_RokuMsg.Visible = false;
+			this.label_TechFormMsg.Visible = false;
 			// 
 			// groupBox7
 			// 
@@ -1260,15 +1273,20 @@
 			// toolTip_Roku
 			// 
 			this.toolTip_Roku.Active = false;
+			this.toolTip_Roku.AutoPopDelay = 10000;
+			this.toolTip_Roku.InitialDelay = 50;
+			this.toolTip_Roku.ReshowDelay = 100;
 			// 
-			// textBox_StaticRokuMsg
+			// label_PowerNote
 			// 
-			this.textBox_StaticRokuMsg.Location = new System.Drawing.Point(277, 45);
-			this.textBox_StaticRokuMsg.Name = "textBox_StaticRokuMsg";
-			this.textBox_StaticRokuMsg.ReadOnly = true;
-			this.textBox_StaticRokuMsg.Size = new System.Drawing.Size(152, 20);
-			this.textBox_StaticRokuMsg.TabIndex = 76;
-			this.textBox_StaticRokuMsg.Text = "Rokushiki Master";
+			this.label_PowerNote.Location = new System.Drawing.Point(9, 554);
+			this.label_PowerNote.Name = "label_PowerNote";
+			this.label_PowerNote.Size = new System.Drawing.Size(438, 31);
+			this.label_PowerNote.TabIndex = 77;
+			this.label_PowerNote.Text = "NOTE: Power and Mastery Traits work together in the sense that it\'s +4 to Power O" +
+    "R -4 to an Effect Cost. Use with discretion.";
+			this.label_PowerNote.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.label_PowerNote.Visible = false;
 			// 
 			// Add_Technique
 			// 
@@ -1277,7 +1295,7 @@
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(894, 588);
 			this.Controls.Add(this.groupBox7);
-			this.Controls.Add(this.label_RokuMsg);
+			this.Controls.Add(this.label_TechFormMsg);
 			this.Controls.Add(this.groupBox6);
 			this.Controls.Add(this.groupBox5);
 			this.Controls.Add(this.groupBox4);
@@ -1289,6 +1307,7 @@
 			this.Controls.Add(this.button_AddTech);
 			this.Controls.Add(this.textBox_Name);
 			this.Controls.Add(this.label64);
+			this.Controls.Add(this.label_PowerNote);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.Name = "Add_Technique";
@@ -1402,7 +1421,7 @@
 		private System.Windows.Forms.TextBox textBox_Power;
 		private System.Windows.Forms.RichTextBox richTextBox_Note;
 		private System.Windows.Forms.Button button_Rokushiki;
-		private System.Windows.Forms.Label label_RokuMsg;
+		private System.Windows.Forms.Label label_TechFormMsg;
 		private System.Windows.Forms.GroupBox groupBox7;
 		private System.Windows.Forms.CheckBox checkBox_AnatStrike;
 		private System.Windows.Forms.CheckBox checkBox_CritHit;
@@ -1418,5 +1437,6 @@
 		private System.Windows.Forms.CheckBox checkBox_MentFort;
 		private System.Windows.Forms.ToolTip toolTip_Roku;
 		private System.Windows.Forms.TextBox textBox_StaticRokuMsg;
+		private System.Windows.Forms.Label label_PowerNote;
 	}
 }

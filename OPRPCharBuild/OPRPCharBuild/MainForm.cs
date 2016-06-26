@@ -29,7 +29,9 @@ namespace OPRPCharBuild
 		#region Member Variables and Structs
 
 		public const string version = "1.0.1.14";
+		private const bool divide_10 = true; // True if Revision number is >= 10, False otherwise
 		public const string vers_type = "";
+		public const string curr_proj = "Project2";
 		private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
 		private Traits Traits = new Traits();           // For enumerations of Traits
 		private Project2 project = new Project2();      // State of save file
@@ -164,6 +166,7 @@ namespace OPRPCharBuild
 		private void Check_Update() {
 			try {
 				int current = int.Parse(version.Replace(".", ""));
+				if (divide_10) { current /= 10; }
 				// Get latest version from site
 				string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " " + System.Environment.OSVersion;
 				WebClient WC = new WebClient();
@@ -873,6 +876,7 @@ namespace OPRPCharBuild
 			// ------ Technique Table
 			listView_Techniques.View = View.Details;
 			listView_Techniques.FullRowSelect = true;
+			label_CritAnatQuick.Text = "";
 
 			listView_Techniques.Columns.Add("Tech Name", 150);      // 0
 			listView_Techniques.Columns.Add("Rank", 50);            // 1
@@ -1621,6 +1625,7 @@ namespace OPRPCharBuild
 			listView_Traits.Items.Clear();
 			TraitsList.Clear();
 			listView_SpTP.Items.Clear();
+			label_CritAnatQuick.Text = "";
 			listView_Techniques.Items.Clear();
 			TechList.Clear();
 			// Update Functions (that are still needed)
@@ -1630,6 +1635,7 @@ namespace OPRPCharBuild
 			Update_Stamina_Final();
 			Update_Accuracy_Final();
 			Update_Traits_Count_Label();
+			Update_Traits_Cap();
 			Update_Total_RegTP();
 			Update_Used_RegTP();
 			Update_SpTrait_Table_Traits(Traits.Trait_Name.CUSTOM);
@@ -1850,21 +1856,18 @@ namespace OPRPCharBuild
 					try {
 						FileStream fs = File.Open(dlgFileOpen.FileName, FileMode.Open);
 						BinaryFormatter formatter = new BinaryFormatter();
-						try {
-							project = (Project2)formatter.Deserialize(fs);
-						}
-						finally {
-							fs.Close();
-							// Holy moly you need to update the save location or else you lose work.
-							project.location = dlgFileOpen.FileName;
-							project.filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
-							resetForm();
-							loadProjectToForm();
-							this.Text = project.filename;
-						}
+						project = (Project2)formatter.Deserialize(fs);
+						fs.Close();
+						// Holy moly you need to update the save location or else you lose work.
+						project.location = dlgFileOpen.FileName;
+						project.filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
+						resetForm();
+						loadProjectToForm();
+						this.Text = project.filename;
 					}
 					catch (Exception e) {
-						MessageBox.Show("Failed to deserialize.\nReason: " + e.Message);
+						MessageBox.Show("Failed to deserialize. It may be because you loaded an older version." +
+							"This tool currently uses the " + curr_proj + " iteration.\nReason: " + e.Message);
 					}
 				}
 			}
@@ -1968,15 +1971,15 @@ namespace OPRPCharBuild
 			}
 		}
 
-		private void newToolStripMenuItem_Click(object sender, EventArgs e) {
+		private void toolStripButton_New_Click(object sender, EventArgs e) {
 			newCharacter();
 		}
 
-		private void openToolStripMenuItem_Click(object sender, EventArgs e) {
+		private void toolStripButton_Open_Click(object sender, EventArgs e) {
 			openCharacter();
 		}
 
-		private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
+		private void toolStripButton_Save_Click(object sender, EventArgs e) {
 			saveCharacter();
 		}
 
@@ -2021,11 +2024,6 @@ namespace OPRPCharBuild
 						if (selected_version == SelectOptions.ProjectStr) {
 							try {
 								project1 = (Project)formatter.Deserialize(fs);
-							}
-							catch (Exception ex) {
-								MessageBox.Show("Failed to import / deserialize. Internal issue.\nReason: " + ex.Message);
-							}
-							finally {
 								fs.Close();
 								project1.location = dlgFileOpen.FileName;
 								project1.filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
@@ -2040,7 +2038,10 @@ namespace OPRPCharBuild
 									"- Edit every single one of your Techniques for Effects, Range, Branching, DF Options, and new \"Traits Affect Tech\"\n" +
 									"- Do not make Custom Trait names or the tool won't recognize them. Edit the custom name into the generated Sheet instead.\n" +
 									"- In this new version, many dangerous coding techniques were used. Please report any bugs ASAP as it could potentially corrupt .oprp data." +
-									" Please save backups as often as possible. Most of it should be fine now since much of this was tested.");
+									" Please save backups as often as possible. Bugs will be MUCH MORE evident in this version.");
+							}
+							catch (Exception ex) {
+								MessageBox.Show("Failed to import / deserialize into " + curr_proj + " due to Internal issue.\nReason: " + ex.Message);
 							}
 						}
 						// v1.0.2.0 (Project2)
@@ -2066,6 +2067,5 @@ namespace OPRPCharBuild
 		}
 
 		#endregion
-
 	}
 }

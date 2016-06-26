@@ -25,6 +25,7 @@ namespace OPRPCharBuild
 		private int gen_effects;    // To keep track how many General Effects there currently are for Secondary Gen Effects
 									// Updated when an Effect is added
 									// Updated when an Effect is removed
+		// private bool branching;		// To signify if we are branching
 		
 		// Bools for primary professions
 		private bool assassin_primary;
@@ -86,6 +87,7 @@ namespace OPRPCharBuild
 		public Add_Technique(int MaxRank, ListView t_list, ListView Sp_list, string DF_Name, string DF_Type, string DF_Desc, string DF_Eff) {
 			InitializeComponent();
 			button_clicked = false;
+			//branching = false;
 			max_rank = MaxRank;
 			min_rank = 1;
 			traits_list = t_list;
@@ -182,7 +184,7 @@ namespace OPRPCharBuild
 				// This means we're editing a Rokushiki Technique
 				Rokushiki.RokuInfo Info_Roku = Roku.Get_RokuInfo(Roku_Form_Type);
 				this.Text = "Technique Creator - [Rokushiki: " + Info_Roku.name + "]";
-				label_RokuMsg.Visible = true;
+				label_TechFormMsg.Visible = true;
 				toolTips.Active = false;
 				toolTip_Roku.Active = true;
 				base_power = Info_Roku.basePower;
@@ -376,6 +378,7 @@ namespace OPRPCharBuild
 			if (branch) {
 				// If we're branching a Technique, we want to duplicate, and then modify.
 				try {
+					//branching = true;
 					Copy_Data_To_Form(TechName, Tech);
 					// Now edit as necessary
 					textBox_Name.Clear();
@@ -388,6 +391,7 @@ namespace OPRPCharBuild
 					// Only Update Note here since we're making a Tech that's Branched.
 					Update_Note();
 					edit_Note = richTextBox_Note.Text;
+					//branching = false;
 				}
 				catch (Exception e) {
 					MessageBox.Show("There was a problem branching Technique\nReason: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -517,9 +521,9 @@ namespace OPRPCharBuild
 				message += "\n";
 			}
 			// Cyborg message
-			if (checkBox_Fuel3.Checked) { message += "- [i]" + Cyborg + " Technique[/i] - uses 3 Fuel Charges\n"; }
-			else if (checkBox_Fuel2.Checked) { message += "- [i]" + Cyborg + " Technique[/i] - uses 2 Fuel Charges\n"; }
-			else if (checkBox_Fuel1.Checked) { message += "- [i]" + Cyborg + " Technique[/i] - uses 1 Fuel Charge\n"; }
+			if (checkBox_Fuel3.Checked) { message += "- [i]" + Cyborg + " Technique[/i] - uses 3 Fuel Charges (+12 Rank)\n"; }
+			else if (checkBox_Fuel2.Checked) { message += "- [i]" + Cyborg + " Technique[/i] - uses 2 Fuel Charges (+8 Rank)\n"; }
+			else if (checkBox_Fuel1.Checked) { message += "- [i]" + Cyborg + " Technique[/i] - uses 1 Fuel Charge (+4 Rank)\n"; }
 			// Treated 4 Ranks higher
 			if (!string.IsNullOrWhiteSpace(comboBox_AffectRank.Text)) { message += "- [i]" + comboBox_AffectRank.Text + " Technique*[/i]\n"; }
 			// Special TP usage.
@@ -547,14 +551,25 @@ namespace OPRPCharBuild
 
 		private void Update_Power_Value() {
 			int power = 0;
-			if (Roku_Form_Type == Rokushiki.RokuName.NONE) { power = (int)numericUpDown_Rank.Value; }
+			if (Roku_Form_Type == Rokushiki.RokuName.NONE) {
+				power = (int)numericUpDown_Rank.Value;
+				Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectRank.Text);
+				if (Has_4RanksHigher_Trait(ID)) {
+					power += 4;
+				}
+				if (checkBox_Fuel3.Checked) {
+					power += 12;
+				}
+				else if (checkBox_Fuel2.Checked) {
+					power += 8;
+				}
+				else if (checkBox_Fuel1.Checked) {
+					power += 4;
+				}
+			}
 			else {
 				int offset = (int)(numericUpDown_Rank.Value - Roku.Get_RokuInfo(Roku_Form_Type).baseRank);
 				power = base_power + offset;
-			}
-			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectRank.Text);
-			if (Has_4RanksHigher_Trait(ID)) {
-				power += 4;
 			}
 			foreach (EffectItem effect in EffectList.Values) {
 				if (!effect.gen) {
@@ -590,7 +605,6 @@ namespace OPRPCharBuild
 				numericUpDown_RegTP.Value = TPUsed;
 			}
 			// Used when DF Rank 4 is Checked
-			// Used when Rank Value is changed
 		}
 
 		private void Update_MinRank() {
@@ -628,26 +642,6 @@ namespace OPRPCharBuild
 			// Used when an Effect is Removed
 		}
 
-		private void Update_MaxRank() {
-			if (checkBox_Fuel3.Checked) {
-				label_MaxRank.Text = "[Max Rank: " + max_rank + " + 12]";
-				numericUpDown_Rank.Maximum = max_rank + 12;
-			}
-			else if (checkBox_Fuel2.Checked) {
-				label_MaxRank.Text = "[Max Rank: " + max_rank + " + 8]";
-				numericUpDown_Rank.Maximum = max_rank + 8;
-			}
-			else if (checkBox_Fuel1.Checked) {
-				label_MaxRank.Text = "[Max Rank: " + max_rank + " + 4]";
-				numericUpDown_Rank.Maximum = max_rank + 4;
-			}
-			else {
-				label_MaxRank.Text = "[Max Rank: " + max_rank + ']';
-				numericUpDown_Rank.Maximum = max_rank;
-			}
-			// Used when any of the Cyborg is checked
-		}
-
 		private void Update_Signature_Enable() {
 			if (checkBox_SigTech.Checked || checkBox_ZoanSig.Checked) {
 				numericUpDown_Rank.Value = max_rank;
@@ -675,7 +669,7 @@ namespace OPRPCharBuild
 		private void Add_Technique_Load(object sender, EventArgs e) {
 			// Set Maximum Values of NumericUpDown
 			numericUpDown_Rank.Maximum = max_rank;
-			label_MaxRank.Text = "Max Rank: " + max_rank;
+			label_MaxRank.Text = "[Max Rank: " + max_rank + ']';
 			numericUpDown_RegTP.Maximum = max_rank;
 			numericUpDown_SpTP.Maximum = max_rank;
 			numericUpDown_RankBranch.Maximum = max_rank - 1;
@@ -903,6 +897,8 @@ namespace OPRPCharBuild
 			// The "Add" Technique button.
 			// Only want the appropriate changes to be made, so we add a bool
 			int curr_rank = (int)numericUpDown_Rank.Value;
+			int free_DF = 0;
+			if (checkBox_DFRank4.Checked) { free_DF = 4; }
 			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectRank.Text);
 			if (Has_4RanksHigher_Trait(ID)) {
 				curr_rank += 4;
@@ -917,7 +913,7 @@ namespace OPRPCharBuild
 				(numericUpDown_RankBranch.Value == 0 || string.IsNullOrWhiteSpace(textBox_TechBranched.Text))) {
 				MessageBox.Show("Technique Branch incomplete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-			else if ((numericUpDown_Rank.Value - numericUpDown_RankBranch.Value) != (numericUpDown_RegTP.Value + numericUpDown_SpTP.Value)) {
+			else if ((numericUpDown_Rank.Value - numericUpDown_RankBranch.Value) != (numericUpDown_RegTP.Value + numericUpDown_SpTP.Value + free_DF)) {
 				MessageBox.Show("TP Spent doesn't add up correctly.\n" + 
 					numericUpDown_Rank.Value + " (Rank) - " + numericUpDown_RankBranch.Value + " (Branch) = " + (numericUpDown_Rank.Value - numericUpDown_RankBranch.Value) + '\n' +
 					numericUpDown_RegTP.Value + " (Reg TP) + " + numericUpDown_SpTP.Value + " (Sp TP) = " + (numericUpDown_RegTP.Value + numericUpDown_SpTP.Value),
@@ -956,7 +952,7 @@ namespace OPRPCharBuild
 				Roku_Form_Type = Rokushiki.RokuName.NONE;
 				toolTip_Roku.Active = false;
 				toolTips.Active = true;
-				label_RokuMsg.Visible = false;
+				label_TechFormMsg.Visible = false;
 				base_power = 0;
 				comboBox_AffectRank.Enabled = true;
 				// Basic Character
@@ -1025,15 +1021,13 @@ namespace OPRPCharBuild
 		}
 
 		private void numericUpDown_RankBranch_ValueChanged(object sender, EventArgs e) {
-			numericUpDown_RegTP.Value = numericUpDown_Rank.Value - numericUpDown_RankBranch.Value;
-			// Reset Sp TP for simplicity sake.
-			numericUpDown_SpTP.Value = 0;
+			numericUpDown_RegTP.Value = numericUpDown_Rank.Value - numericUpDown_RankBranch.Value - numericUpDown_SpTP.Value;
 			Update_Note();
 		}
 
 		private void numericUpDown_SpTP_ValueChanged(object sender, EventArgs e) {
 			// For simplicity sake, calculate regTP used for them.
-			numericUpDown_RegTP.Value = numericUpDown_Rank.Value - numericUpDown_SpTP.Value;
+			numericUpDown_RegTP.Value = numericUpDown_Rank.Value - numericUpDown_SpTP.Value - numericUpDown_RankBranch.Value;
             Update_Note();
 		}
 
@@ -1048,13 +1042,14 @@ namespace OPRPCharBuild
 			// Set Maximum values.
 			numericUpDown_RegTP.Maximum = numericUpDown_Rank.Value;
 			numericUpDown_RegTP.Value = numericUpDown_Rank.Value - numericUpDown_RankBranch.Value;
+			if (checkBox_DFRank4.Checked) { numericUpDown_RegTP.Value -= 4; }
 			numericUpDown_SpTP.Maximum = numericUpDown_Rank.Value;
 			numericUpDown_RankBranch.Maximum = numericUpDown_Rank.Value - 1; // This is hella important
-			// Update Functions
-			Update_DFRank4();
 		}
 
 		private void comboBox_AffectRank_SelectedIndexChanged(object sender, EventArgs e) {
+			if (string.IsNullOrWhiteSpace(comboBox_AffectRank.Text)) { label_PowerNote.Visible = false; }
+			else { label_PowerNote.Visible = true; }
 			// Update power from Mastery
 			Update_Power_Value();
 			Update_MinRank();
@@ -1194,17 +1189,17 @@ namespace OPRPCharBuild
 		}
 
 		private void checkBox_Fuel1_CheckedChanged(object sender, EventArgs e) {
-			Update_MaxRank();
+			Update_Power_Value();
 			Update_Note();
 		}
 
 		private void checkBox_Fuel2_CheckedChanged(object sender, EventArgs e) {
-			Update_MaxRank();
+			Update_Power_Value();
 			Update_Note();
 		}
 
 		private void checkBox_Fuel3_CheckedChanged(object sender, EventArgs e) {
-			Update_MaxRank();
+			Update_Power_Value();
 			Update_Note();
 		}
 
@@ -1508,7 +1503,8 @@ namespace OPRPCharBuild
 						else if (selected_option == "Custom") {
 							// Load the Information into the Technique Form, change "Form Type", and signify this is now Rokushiki
 							this.Text = "Technique Creator - [Rokushiki: " + Info_Roku.name + "]";
-							label_RokuMsg.Visible = true;
+							label_PowerNote.Visible = false;
+							label_TechFormMsg.Visible = true;
 							toolTips.Active = false;
 							toolTip_Roku.Active = true;
 							Roku_Form_Type = Sel_Roku;

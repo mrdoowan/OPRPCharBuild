@@ -517,33 +517,37 @@ namespace OPRPCharBuild
 			}
 			if (treat_rank4 || !string.IsNullOrWhiteSpace(DF_effect) || !string.IsNullOrWhiteSpace(CritAnatQuick_Msg)) {
 				template.Write("[table]");
+				string preTable = "";
 				if (treat_rank4) {
-					template.Write("* Technique is treated as 4 ranks higher\n");
+					preTable += "* Technique is treated as 4 ranks higher\n";
 				}
 				if (!string.IsNullOrWhiteSpace(CritAnatQuick_Msg)) {
-					template.Write(CritAnatQuick_Msg + '\n');
+					if (treat_rank4) { preTable += '\n'; }
+					preTable += CritAnatQuick_Msg + '\n';
 				}
 				if (!string.IsNullOrWhiteSpace(DF_effect)) {
-					template.Write("[u]Free DF Effect:[/u] " + DF_effect + '\n');
+					if (treat_rank4 || !string.IsNullOrWhiteSpace(CritAnatQuick_Msg)) { preTable += '\n'; }
+					preTable += "[u]Free DF Effect:[/u] " + DF_effect + '\n';
 				}
-				template.Write("[/table]");
+				if (!string.IsNullOrWhiteSpace(preTable)) { preTable = preTable.Remove(preTable.Length - 1, 1); } // Trim newline
+				template.Write(preTable + "[/table]");
 			}
-			template.Write("[table=2, Techniques]");
+			template.Write("[table=2, Techniques, 1][center][b][u]Name/Type/Range/Power/Stats/TP[/u][/b][/center][c]\n");
+			template.Write("[center][b][u]Description/Notes[/u][/b][/center]\n");
 			if (int.Parse(usedRegTP) == 0 && int.Parse(usedSpTP) == 0) {
 				// This is a zero Technique option
-				template.Write("[b]TECHNIQUE NAME[/b] (#)\n");
+				template.Write("[c][b]TECHNIQUE NAME[/b] (#)\n");
 				template.Write("[u]Type:[/u] \n");
 				template.Write("[u]Range:[/u] \n");
 				template.Write("[u]Power:[/u] \n");
 				template.Write("[u]Stats:[/u] \n");
+				template.Write("[u]TP Spent:[/u] \n");
 				template.Write("[c][u]Description:[/u] (Effects)\n[/table]\n");
 			}
 			else {
-				int i = 0;
 				foreach (string TechName in techList.Keys) {
 					MainForm.TechInfo Technique = MainForm.TechList[TechName];
-					if (i > 0) { template.Write("[c]"); }
-					template.Write("[b]" + TechName + "[/b]");		// Name
+					template.Write("[c][b]" + TechName + "[/b]");		// Name
 					template.Write(" (" + Technique.rank);			// Rank
 					if (If_Treat_Rank4(Technique.rank_Trait)) {
 						template.Write("*");
@@ -553,7 +557,7 @@ namespace OPRPCharBuild
 					template.Write("[u]Range:[/u] " + Technique.range + '\n');// Range
 					template.Write("[u]Power:[/u] " + Technique.power + '\n');// Power
 					template.Write("[u]Stats:[/u] " + TechStats_Into_String(Technique.stats) + '\n');   // Stats
-					template.Write("[u]TP:[/u] " + Technique.regTP + "R");
+					template.Write("[u]TP Spent:[/u] " + Technique.regTP + "R");
 					if (Technique.spTP > 0) {
 						template.Write(" | " + Technique.spTP + "S");
 					}
@@ -571,7 +575,6 @@ namespace OPRPCharBuild
 						// Effects on bottom
 						template.Write("\n[u]Effects:[/u] " + TechEffects_Into_String(Technique.effectList) + '\n');
 					}
-					i++;
 				}
 				template.Write("[/table]\n");
 				template.Write('\n');
@@ -585,7 +588,7 @@ namespace OPRPCharBuild
 			template.Write("[spoiler=Edit Log]Edit Log goes here[/spoiler]\n");
 			template.Write('\n');
 			template.Write("[center][small]This Character Template was created by the [url=http://s1.zetaboards.com/One_Piece_RP/topic/6060583/1/]OPRP Character Builder[/url] v" + version + vers_type + '\n');
-			template.Write("Note to Mods: Calculations should be done correctly if not bugged or changed by [me]. Regardless, please double check.[/small][/center]");
+			template.Write("Note to Mods: Calculations should be done correctly if not bugged or altered by [me]. Regardless, please double check.[/small][/center]");
 			// Transfer entire stream into readable textbox
 			richTextBox_Template.Text = template.ToString();
 			// Reset/Clear Stringwriter

@@ -1,3 +1,8 @@
+v1.0.1.15 - 6/25/2016
+- Bug fixed Cyborg on Techniques
+- Small changes on Sheet to make Techniques more readable
+- QoL changes that I forgot, but just went ahead an did
+- Bug fixes of the sort
 v1.0.1.14 - 6/21/2016
 - Rokushiki completely implemented
 - Importing Old files completely implemented
