@@ -13,11 +13,18 @@ Based on OPRP usernames
 
 * Developer: Solo
 * Base Idea: VackTavish for his original OPRP Character Calculator
-* Beta Testers: Drift, Rayne, Masa, Linx, Bright, Cevian, Davy Jones, Arche, Spunky
 * Icon: Masa
 
 Version History
 ---------------
+
+### v1.0.2.0
+
+* Overhauled and Complete Technique Creator with Effects and Power Calculations
+* Rokushiki Techniques can now be loaded
+* New Trait Form for easier access
+* Importing of older file versions into newer versions
+* Sheet updated to make Technique Tables look neater on Zetaboard
 
 ### v1.0.1.0 
 

@@ -36,6 +36,7 @@ namespace OPRPCharBuild
 		#region Dialog Functions
 
 		public string Import_Version_Dialog() {
+
 			this.ShowDialog();
 			if (OK_clicked) {
 				return Sel_Version;
@@ -87,21 +88,20 @@ namespace OPRPCharBuild
 				comboBox_Options.Items.Add(ProjectStr);
 
 				// Set other variables
-				label_Msg.ForeColor = SystemColors.ControlText;
-				label_Msg.Text = "Select version of the file you want to import.";
+				label_Msg.Text = "Current .oprp File Extension Form is: " + MainForm.curr_proj + "\nSelect version of the file you want to import.";
 				button_OK.Text = "Import";
 			}
 			else if (option == 2) {
 				// Select Rokushiki option.
 				this.Text = "Rokushiki Technique";
-				label_Msg.Text = "";
+				label_Msg.Text = "Select the Rokushiki Technique you would like to Add.";
 
 				comboBox_Options.Items.Add("Shigan");
 				comboBox_Options.Items.Add("Rankyaku");
 				comboBox_Options.Items.Add("Soru");
 				comboBox_Options.Items.Add("Kami-E");
 				comboBox_Options.Items.Add("Tekkai");
-				comboBox_Options.Items.Add("Geppou");
+				comboBox_Options.Items.Add("Geppo");
 
 				if (!Has_Roku_Master) {
 					button_Custom.Enabled = false;
@@ -162,6 +162,7 @@ namespace OPRPCharBuild
 					if (Info_Roku.baseRank > max_rank) {
 						button_Custom.Enabled = false;
 						button_OK.Enabled = false;
+						label_Msg.ForeColor = Color.Red;
 						label_Msg.Text = Info_Roku.name + "'s Base Rank is " + Info_Roku.baseRank + '\n'
 							+ "You can only make Techniques at Max Rank " + max_rank;
 					}
@@ -170,7 +171,8 @@ namespace OPRPCharBuild
 							button_Custom.Enabled = false;
 						}
 						button_OK.Enabled = true;
-						label_Msg.Text = "";
+						label_Msg.ForeColor = SystemColors.ControlText;
+						label_Msg.Text = Info_Roku.name + "'s Base Rank is " + Info_Roku.baseRank + '\n';
 					}
 				}
 			}

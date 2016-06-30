@@ -106,8 +106,6 @@
 			// checkBox1
 			// 
 			this.checkBox1.AutoSize = true;
-			this.checkBox1.Checked = true;
-			this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.checkBox1.Location = new System.Drawing.Point(456, 14);
 			this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
 			this.checkBox1.Name = "checkBox1";
@@ -129,6 +127,7 @@
 			// 
 			// richTextBox2_Primary
 			// 
+			this.richTextBox2_Primary.Enabled = false;
 			this.richTextBox2_Primary.Location = new System.Drawing.Point(127, 172);
 			this.richTextBox2_Primary.Margin = new System.Windows.Forms.Padding(4);
 			this.richTextBox2_Primary.Name = "richTextBox2_Primary";

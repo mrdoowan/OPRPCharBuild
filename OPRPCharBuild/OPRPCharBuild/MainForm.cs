@@ -28,8 +28,8 @@ namespace OPRPCharBuild
 
 		#region Member Variables and Structs
 
-		public const string version = "1.0.1.14";
-		private const bool divide_10 = true; // True if Revision number is >= 10, False otherwise
+		public const string version = "1.0.2.0";
+		private const bool divide_10 = false; // True if Revision number is >= 10, False otherwise
 		public const string vers_type = "";
 		public const string curr_proj = "Project2";
 		private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
@@ -203,12 +203,12 @@ namespace OPRPCharBuild
 		}
 
 		// Sets Primary bool variables for certain situations
-		public static void Set_Primary_Bool(string prof, ref bool var) {
+		public static bool Is_Primary_Bool(string prof) {
 			if (Is_Prof_Primary(prof)) {
-				var = true;
+				return true;
 			}
 			else {
-				var = false;
+				return false;
 			}
 		}
 
@@ -325,7 +325,7 @@ namespace OPRPCharBuild
 				int remain = SD_in - 150;
 				int convert = (int)((double)remain / 1.5);
 				SP += 150 + convert;
-				calc += " + 150 + " + convert + "_(" + remain + "/1.5)";
+				calc += " + 150 + " + convert + " (" + remain + "/1.5)";
 				// i.e. Calculations: 32 + 150 + 66(100/1.5)
 			}
 			else if (SD_in > 250 && SD_in <= 350) {
@@ -333,14 +333,14 @@ namespace OPRPCharBuild
 				int remain = SD_in - 150 - 100; // this is in SD
 				int convert = remain / 2;
 				SP += 150 + 66 + convert;
-				calc += " + 150 + 66_(100/1.5) + " + convert + "_(" + remain + "/2)";
+				calc += " + 150 + 66 (100/1.5) + " + convert + " (" + remain + "/2)";
 			}
 			else {
 				// 351+ SD is 3:1
 				int remain = SD_in - 150 - 100 - 100;
 				int convert = remain / 3;
 				SP += 150 + 66 + 50 + convert;
-				calc += " + 150 + 66_(100/1.5) + 50_(100/2) + " + convert + "_(" + remain + "/3)";
+				calc += " + 150 + 66 (100/1.5) + 50 (100/2) + " + convert + " (" + remain + "/3)";
 			}
 			calc += ']';
 			textBox_StatPoints.Text = SP.ToString();
@@ -746,8 +746,8 @@ namespace OPRPCharBuild
 				}
 				Sp_Trait.SubItems[1].Text = used.ToString();
 			}
-			Update_Used_SpTP();
 			Update_Total_SpTP();
+			Update_Used_SpTP();
 			// After update of those values, we will then check to see if Used > Total
 			foreach (ListViewItem Sp_Trait in listView_SpTP.Items) {
 				if (int.Parse(Sp_Trait.SubItems[1].Text) > int.Parse(Sp_Trait.SubItems[2].Text)) {
@@ -800,7 +800,7 @@ namespace OPRPCharBuild
 				Print_Applied_Msg(ref msg, Traits.Trait_Name.QUICKSTRIKE, "Quickstrike");
 			}
 			// Trim the newline
-			if (!string.IsNullOrWhiteSpace(msg)) { msg.Remove(msg.Length - 1, 1); }
+			msg = msg.TrimEnd('\n');
 			if (string.IsNullOrWhiteSpace(msg)) {
 				label_CritAnatQuick.Visible = false;
 				label_CritAnatQuick.Text = msg;
@@ -1396,6 +1396,7 @@ namespace OPRPCharBuild
 			list.Items.Insert(index + val, item);
 		}
 
+		/* Maybe later...
 		private void button_TraitOrder_Click(object sender, EventArgs e) {
 			// Traits "Order" button from the MainForm
 			try {
@@ -1429,7 +1430,7 @@ namespace OPRPCharBuild
 				MessageBox.Show("Ordering screwed up.\nReason: " + ex.Message, "Error");
 			}
 			
-		}
+		}*/
 
 
 		#endregion
@@ -1771,8 +1772,8 @@ namespace OPRPCharBuild
 			// Some update functions in which it isn't in an Exception Handle
 			Update_Traits_Count_Label();
 			Update_AP_Count();
-			Update_Used_RegTP();
 			Update_Total_RegTP();
+			Update_Used_RegTP();
 			foreach (ListViewItem eachitem in listView_Traits.Items) {
 				string name = eachitem.SubItems[0].Text;
 				Traits.Trait_Name ID = Traits.get_TraitID(name);

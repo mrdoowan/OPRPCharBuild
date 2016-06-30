@@ -1,8 +1,12 @@
+v1.0.2.0 - 6/??/2016
+- Release of the next update
+- Updated the Technique Form to toggle Inventor/Marksman primary
+- Fixed a bug on branching Techniques with Sp TP
 v1.0.1.15 - 6/25/2016
 - Bug fixed Cyborg on Techniques
 - Small changes on Sheet to make Techniques more readable
-- QoL changes that I forgot, but just went ahead an did
-- Bug fixes of the sort
+- QoL changes to make Technique Creater feel smoother
+- Bug fixes on the Technique Creator
 v1.0.1.14 - 6/21/2016
 - Rokushiki completely implemented
 - Importing Old files completely implemented

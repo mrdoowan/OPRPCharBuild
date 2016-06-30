@@ -79,6 +79,8 @@
 			this.label13 = new System.Windows.Forms.Label();
 			this.label8 = new System.Windows.Forms.Label();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.checkBox_Inventor = new System.Windows.Forms.CheckBox();
+			this.checkBox_Marksman = new System.Windows.Forms.CheckBox();
 			this.textBox_Power = new System.Windows.Forms.TextBox();
 			this.label_EffectType = new System.Windows.Forms.Label();
 			this.label_MinRank = new System.Windows.Forms.Label();
@@ -93,13 +95,13 @@
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
 			this.richTextBox_Note = new System.Windows.Forms.RichTextBox();
 			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.richTextBox_DF = new System.Windows.Forms.RichTextBox();
 			this.checkBox_DFEffect = new System.Windows.Forms.CheckBox();
 			this.checkBox_DFTechEnable = new System.Windows.Forms.CheckBox();
 			this.checkBox_Hybrid = new System.Windows.Forms.CheckBox();
 			this.checkBox_Full = new System.Windows.Forms.CheckBox();
 			this.checkBox_ZoanSig = new System.Windows.Forms.CheckBox();
 			this.checkBox_DFRank4 = new System.Windows.Forms.CheckBox();
-			this.label_DF = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.checkBox_Fuel3 = new System.Windows.Forms.CheckBox();
 			this.checkBox_Fuel2 = new System.Windows.Forms.CheckBox();
@@ -398,7 +400,7 @@
 			// 
 			this.label11.AutoSize = true;
 			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label11.Location = new System.Drawing.Point(130, 31);
+			this.label11.Location = new System.Drawing.Point(42, 45);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(37, 13);
 			this.label11.TabIndex = 49;
@@ -459,7 +461,7 @@
 			// 
 			// button_ClearTech
 			// 
-			this.button_ClearTech.Location = new System.Drawing.Point(732, 557);
+			this.button_ClearTech.Location = new System.Drawing.Point(732, 571);
 			this.button_ClearTech.Name = "button_ClearTech";
 			this.button_ClearTech.Size = new System.Drawing.Size(75, 23);
 			this.button_ClearTech.TabIndex = 62;
@@ -469,7 +471,7 @@
 			// 
 			// button_AddTech
 			// 
-			this.button_AddTech.Location = new System.Drawing.Point(813, 557);
+			this.button_AddTech.Location = new System.Drawing.Point(813, 571);
 			this.button_AddTech.Name = "button_AddTech";
 			this.button_AddTech.Size = new System.Drawing.Size(75, 23);
 			this.button_AddTech.TabIndex = 61;
@@ -480,7 +482,7 @@
 			// label18
 			// 
 			this.label18.AutoSize = true;
-			this.label18.Location = new System.Drawing.Point(506, 562);
+			this.label18.Location = new System.Drawing.Point(506, 576);
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(220, 13);
 			this.label18.TabIndex = 64;
@@ -748,6 +750,8 @@
 			// 
 			// groupBox4
 			// 
+			this.groupBox4.Controls.Add(this.checkBox_Inventor);
+			this.groupBox4.Controls.Add(this.checkBox_Marksman);
 			this.groupBox4.Controls.Add(this.textBox_Power);
 			this.groupBox4.Controls.Add(this.label_EffectType);
 			this.groupBox4.Controls.Add(this.label_MinRank);
@@ -762,14 +766,40 @@
 			this.groupBox4.Controls.Add(this.label11);
 			this.groupBox4.Location = new System.Drawing.Point(12, 277);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(435, 274);
+			this.groupBox4.Size = new System.Drawing.Size(435, 283);
 			this.groupBox4.TabIndex = 72;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Effects";
 			// 
+			// checkBox_Inventor
+			// 
+			this.checkBox_Inventor.AutoSize = true;
+			this.checkBox_Inventor.Enabled = false;
+			this.checkBox_Inventor.Location = new System.Drawing.Point(94, 44);
+			this.checkBox_Inventor.Name = "checkBox_Inventor";
+			this.checkBox_Inventor.Size = new System.Drawing.Size(102, 17);
+			this.checkBox_Inventor.TabIndex = 114;
+			this.checkBox_Inventor.Text = "Inventor Primary";
+			this.toolTips.SetToolTip(this.checkBox_Inventor, "Check this to lower the AoE costs");
+			this.checkBox_Inventor.UseVisualStyleBackColor = true;
+			this.checkBox_Inventor.CheckedChanged += new System.EventHandler(this.checkBox_Inventor_CheckedChanged);
+			// 
+			// checkBox_Marksman
+			// 
+			this.checkBox_Marksman.AutoSize = true;
+			this.checkBox_Marksman.Enabled = false;
+			this.checkBox_Marksman.Location = new System.Drawing.Point(94, 19);
+			this.checkBox_Marksman.Name = "checkBox_Marksman";
+			this.checkBox_Marksman.Size = new System.Drawing.Size(112, 17);
+			this.checkBox_Marksman.TabIndex = 113;
+			this.checkBox_Marksman.Text = "Marksman Primary";
+			this.toolTips.SetToolTip(this.checkBox_Marksman, "Check this to lower the Range costs.");
+			this.checkBox_Marksman.UseVisualStyleBackColor = true;
+			this.checkBox_Marksman.CheckedChanged += new System.EventHandler(this.checkBox_Marksman_CheckedChanged);
+			// 
 			// textBox_Power
 			// 
-			this.textBox_Power.Location = new System.Drawing.Point(97, 28);
+			this.textBox_Power.Location = new System.Drawing.Point(9, 42);
 			this.textBox_Power.Name = "textBox_Power";
 			this.textBox_Power.Size = new System.Drawing.Size(27, 20);
 			this.textBox_Power.TabIndex = 112;
@@ -780,7 +810,7 @@
 			// 
 			// label_EffectType
 			// 
-			this.label_EffectType.Location = new System.Drawing.Point(291, 242);
+			this.label_EffectType.Location = new System.Drawing.Point(291, 255);
 			this.label_EffectType.Name = "label_EffectType";
 			this.label_EffectType.Size = new System.Drawing.Size(138, 23);
 			this.label_EffectType.TabIndex = 75;
@@ -791,7 +821,7 @@
 			// label_MinRank
 			// 
 			this.label_MinRank.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.label_MinRank.Location = new System.Drawing.Point(8, 244);
+			this.label_MinRank.Location = new System.Drawing.Point(8, 257);
 			this.label_MinRank.Name = "label_MinRank";
 			this.label_MinRank.Size = new System.Drawing.Size(120, 18);
 			this.label_MinRank.TabIndex = 111;
@@ -800,7 +830,7 @@
 			// 
 			// button_AddEffect
 			// 
-			this.button_AddEffect.Location = new System.Drawing.Point(210, 242);
+			this.button_AddEffect.Location = new System.Drawing.Point(210, 255);
 			this.button_AddEffect.Name = "button_AddEffect";
 			this.button_AddEffect.Size = new System.Drawing.Size(75, 23);
 			this.button_AddEffect.TabIndex = 106;
@@ -837,7 +867,7 @@
 			// 
 			this.label_EffectDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.label_EffectDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
-			this.label_EffectDesc.Location = new System.Drawing.Point(210, 55);
+			this.label_EffectDesc.Location = new System.Drawing.Point(210, 68);
 			this.label_EffectDesc.Name = "label_EffectDesc";
 			this.label_EffectDesc.Size = new System.Drawing.Size(220, 185);
 			this.label_EffectDesc.TabIndex = 107;
@@ -861,7 +891,7 @@
 			// 
 			// button_EffectRemove
 			// 
-			this.button_EffectRemove.Location = new System.Drawing.Point(132, 242);
+			this.button_EffectRemove.Location = new System.Drawing.Point(132, 255);
 			this.button_EffectRemove.Name = "button_EffectRemove";
 			this.button_EffectRemove.Size = new System.Drawing.Size(75, 23);
 			this.button_EffectRemove.TabIndex = 104;
@@ -872,7 +902,7 @@
 			// checkBox_NA
 			// 
 			this.checkBox_NA.AutoSize = true;
-			this.checkBox_NA.Location = new System.Drawing.Point(12, 30);
+			this.checkBox_NA.Location = new System.Drawing.Point(9, 19);
 			this.checkBox_NA.Name = "checkBox_NA";
 			this.checkBox_NA.Size = new System.Drawing.Size(79, 17);
 			this.checkBox_NA.TabIndex = 52;
@@ -884,7 +914,7 @@
 			// listView_Effects
 			// 
 			this.listView_Effects.ForeColor = System.Drawing.Color.Blue;
-			this.listView_Effects.Location = new System.Drawing.Point(9, 55);
+			this.listView_Effects.Location = new System.Drawing.Point(9, 68);
 			this.listView_Effects.MultiSelect = false;
 			this.listView_Effects.Name = "listView_Effects";
 			this.listView_Effects.Size = new System.Drawing.Size(198, 185);
@@ -898,7 +928,7 @@
 			this.groupBox5.Controls.Add(this.label15);
 			this.groupBox5.Controls.Add(this.label16);
 			this.groupBox5.Controls.Add(this.richTextBox_Desc);
-			this.groupBox5.Location = new System.Drawing.Point(453, 356);
+			this.groupBox5.Location = new System.Drawing.Point(453, 370);
 			this.groupBox5.Name = "groupBox5";
 			this.groupBox5.Size = new System.Drawing.Size(435, 195);
 			this.groupBox5.TabIndex = 73;
@@ -919,13 +949,13 @@
 			// 
 			// groupBox6
 			// 
+			this.groupBox6.Controls.Add(this.richTextBox_DF);
 			this.groupBox6.Controls.Add(this.checkBox_DFEffect);
 			this.groupBox6.Controls.Add(this.checkBox_DFTechEnable);
 			this.groupBox6.Controls.Add(this.checkBox_Hybrid);
 			this.groupBox6.Controls.Add(this.checkBox_Full);
 			this.groupBox6.Controls.Add(this.checkBox_ZoanSig);
 			this.groupBox6.Controls.Add(this.checkBox_DFRank4);
-			this.groupBox6.Controls.Add(this.label_DF);
 			this.groupBox6.Controls.Add(this.label3);
 			this.groupBox6.Location = new System.Drawing.Point(453, 85);
 			this.groupBox6.Name = "groupBox6";
@@ -933,6 +963,17 @@
 			this.groupBox6.TabIndex = 74;
 			this.groupBox6.TabStop = false;
 			this.groupBox6.Text = "Devil Fruit";
+			// 
+			// richTextBox_DF
+			// 
+			this.richTextBox_DF.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.richTextBox_DF.Location = new System.Drawing.Point(142, 14);
+			this.richTextBox_DF.Name = "richTextBox_DF";
+			this.richTextBox_DF.ReadOnly = true;
+			this.richTextBox_DF.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+			this.richTextBox_DF.Size = new System.Drawing.Size(287, 138);
+			this.richTextBox_DF.TabIndex = 83;
+			this.richTextBox_DF.Text = "No Specific Devil Fruit Trait\nNo Devil Fruit Options";
 			// 
 			// checkBox_DFEffect
 			// 
@@ -1007,16 +1048,6 @@
 			this.checkBox_DFRank4.UseVisualStyleBackColor = true;
 			this.checkBox_DFRank4.CheckedChanged += new System.EventHandler(this.checkBox_DFRank4_CheckedChanged);
 			// 
-			// label_DF
-			// 
-			this.label_DF.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.label_DF.Location = new System.Drawing.Point(142, 16);
-			this.label_DF.Name = "label_DF";
-			this.label_DF.Size = new System.Drawing.Size(287, 138);
-			this.label_DF.TabIndex = 75;
-			this.label_DF.Text = "No Specific Devil Fruit Trait\nNo Devil Fruit Options";
-			this.label_DF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
@@ -1083,7 +1114,7 @@
 			// 
 			this.label_TechFormMsg.AutoSize = true;
 			this.label_TechFormMsg.ForeColor = System.Drawing.Color.Green;
-			this.label_TechFormMsg.Location = new System.Drawing.Point(11, 562);
+			this.label_TechFormMsg.Location = new System.Drawing.Point(11, 571);
 			this.label_TechFormMsg.Name = "label_TechFormMsg";
 			this.label_TechFormMsg.Size = new System.Drawing.Size(431, 13);
 			this.label_TechFormMsg.TabIndex = 75;
@@ -1111,7 +1142,7 @@
 			this.groupBox7.Controls.Add(this.label_Cyborg);
 			this.groupBox7.Location = new System.Drawing.Point(453, 245);
 			this.groupBox7.Name = "groupBox7";
-			this.groupBox7.Size = new System.Drawing.Size(435, 105);
+			this.groupBox7.Size = new System.Drawing.Size(435, 119);
 			this.groupBox7.TabIndex = 76;
 			this.groupBox7.TabStop = false;
 			this.groupBox7.Text = "Applicable Traits";
@@ -1279,7 +1310,7 @@
 			// 
 			// label_PowerNote
 			// 
-			this.label_PowerNote.Location = new System.Drawing.Point(9, 554);
+			this.label_PowerNote.Location = new System.Drawing.Point(9, 563);
 			this.label_PowerNote.Name = "label_PowerNote";
 			this.label_PowerNote.Size = new System.Drawing.Size(438, 31);
 			this.label_PowerNote.TabIndex = 77;
@@ -1293,7 +1324,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.ClientSize = new System.Drawing.Size(894, 588);
+			this.ClientSize = new System.Drawing.Size(894, 603);
 			this.Controls.Add(this.groupBox7);
 			this.Controls.Add(this.label_TechFormMsg);
 			this.Controls.Add(this.groupBox6);
@@ -1402,7 +1433,6 @@
 		private System.Windows.Forms.CheckBox checkBox_Full;
 		private System.Windows.Forms.CheckBox checkBox_ZoanSig;
 		private System.Windows.Forms.CheckBox checkBox_DFRank4;
-		private System.Windows.Forms.Label label_DF;
 		private System.Windows.Forms.Button button_AddEffect;
 		private System.Windows.Forms.Label label17;
 		private System.Windows.Forms.NumericUpDown numericUpDown_Cost;
@@ -1438,5 +1468,8 @@
 		private System.Windows.Forms.ToolTip toolTip_Roku;
 		private System.Windows.Forms.TextBox textBox_StaticRokuMsg;
 		private System.Windows.Forms.Label label_PowerNote;
+		private System.Windows.Forms.RichTextBox richTextBox_DF;
+		private System.Windows.Forms.CheckBox checkBox_Inventor;
+		private System.Windows.Forms.CheckBox checkBox_Marksman;
 	}
 }

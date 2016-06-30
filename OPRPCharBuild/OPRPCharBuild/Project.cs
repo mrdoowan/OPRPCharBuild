@@ -459,11 +459,11 @@ namespace OPRPCharBuild
 
 		private string Filter_EffectName(string effect) {
 			// We know from our earlier implementation that copies of the same effect just have a number attached to the end.
-			// If for some odd reason a user has more than 10 of the same effects, this will crash...yeah.
+			// If for some odd reason a user has more than 10 of the same effects, this will crash...yeah...not fixing that.
 			char num = effect[effect.Length - 1];
 			if (char.IsNumber(num)) {
 				// We're removing that number
-				return effect.Remove(effect.Length - 1);
+				return effect.TrimEnd(num);
 			}
 			return effect;
 		}
@@ -513,7 +513,7 @@ namespace OPRPCharBuild
 			if (techNote.Contains(Add_Technique.BakeBad)) { AppTraits += Add_Technique.BakeBad + ", "; }
 			if (techNote.Contains(Add_Technique.ExtraIngred)) { AppTraits += Add_Technique.ExtraIngred + ", "; }
 			// Now trim the ", "
-			if (!string.IsNullOrWhiteSpace(AppTraits)) { AppTraits = AppTraits.Remove(AppTraits.Length - 2, 2); }
+			AppTraits = AppTraits.TrimEnd(',', ' ');
 			return AppTraits;
 		}
 

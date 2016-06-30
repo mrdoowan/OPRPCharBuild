@@ -25,7 +25,6 @@ namespace OPRPCharBuild
 		private int gen_effects;    // To keep track how many General Effects there currently are for Secondary Gen Effects
 									// Updated when an Effect is added
 									// Updated when an Effect is removed
-		// private bool branching;		// To signify if we are branching
 		
 		// Bools for primary professions
 		private bool assassin_primary;
@@ -87,7 +86,6 @@ namespace OPRPCharBuild
 		public Add_Technique(int MaxRank, ListView t_list, ListView Sp_list, string DF_Name, string DF_Type, string DF_Desc, string DF_Eff) {
 			InitializeComponent();
 			button_clicked = false;
-			//branching = false;
 			max_rank = MaxRank;
 			min_rank = 1;
 			traits_list = t_list;
@@ -96,8 +94,8 @@ namespace OPRPCharBuild
 			DF_type = DF_Type;
 			DF_desc = DF_Desc;
 			DF_effect = DF_Eff;
-			MainForm.Set_Primary_Bool("Assassin", ref assassin_primary);
-			MainForm.Set_Primary_Bool("Thief", ref thief_primary);
+			assassin_primary = MainForm.Is_Primary_Bool("Assassin");
+			thief_primary = MainForm.Is_Primary_Bool("Thief");
 			gen_effects = 0;
 			Roku_Form_Type = Rokushiki.RokuName.NONE;
 			foreach (ListViewItem item in t_list.Items) {
@@ -246,12 +244,9 @@ namespace OPRPCharBuild
 				}
 			}
 			// DF Options
-			for (int i = 0; i < Tech.DF_checkBox.Count; ++i) {
-				if (Tech.DF_checkBox[i] == true) {
-					checkBox_DFTechEnable.Enabled = true;
-					checkBox_DFTechEnable.Checked = true;
-					break;
-				}
+			if (Tech.note.Contains("Devil Fruit")) {
+				checkBox_DFTechEnable.Enabled = true;
+				checkBox_DFTechEnable.Checked = true;
 			}
 			checkBox_DFRank4.Checked = Tech.DF_checkBox[0];
 			checkBox_ZoanSig.Checked = Tech.DF_checkBox[1];
@@ -359,7 +354,7 @@ namespace OPRPCharBuild
 			if (checkBox_BakingBad.Checked) { AppTraits += BakeBad + ", "; }
 			if (checkBox_SpIngred.Checked) { AppTraits += ExtraIngred + ", "; }
 			// Now trim the ", "
-			if (!string.IsNullOrWhiteSpace(AppTraits)) { AppTraits = AppTraits.Remove(AppTraits.Length - 2, 2); }
+			AppTraits = AppTraits.TrimEnd(',', ' ');
 			return AppTraits;
 		}
 
@@ -378,7 +373,6 @@ namespace OPRPCharBuild
 			if (branch) {
 				// If we're branching a Technique, we want to duplicate, and then modify.
 				try {
-					//branching = true;
 					Copy_Data_To_Form(TechName, Tech);
 					// Now edit as necessary
 					textBox_Name.Clear();
@@ -388,10 +382,6 @@ namespace OPRPCharBuild
                     numericUpDown_Rank.Value = rank + 1;
 					textBox_TechBranched.Text = sel_item.SubItems[0].Text;
 					numericUpDown_RankBranch.Value = rank;
-					// Only Update Note here since we're making a Tech that's Branched.
-					Update_Note();
-					edit_Note = richTextBox_Note.Text;
-					//branching = false;
 				}
 				catch (Exception e) {
 					MessageBox.Show("There was a problem branching Technique\nReason: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -510,11 +500,11 @@ namespace OPRPCharBuild
 			// Traits Affecting Tech
 			string tech = comboBox_AffectRank.Text;
 			Traits.Trait_Name Trait_ID = Traitss.get_TraitID(tech);
-			if (checkBox_SigTech.Checked) { message += "- [b][i]" + SigTech + "[/i][/b]\n"; }
+			if (checkBox_SigTech.Checked) { message += "- [bgcolor=gray][color=black][b][i]" + SigTech + "[/i][/b][/color][/bgcolor]\n"; }
 			else if (checkBox_DFTechEnable.Checked) {
 				message += "- [i]" + DevFruit + " Technique[/i]";
-				if (checkBox_DFRank4.Checked) { message += " - [b]Free R4 Tech[/b]"; }
-				if (checkBox_ZoanSig.Checked) { message += " - [b]Zoan Signature[/b]"; }
+				if (checkBox_DFRank4.Checked) { message += " - [bgcolor=gray][color=black][b]Free R4 Tech[/b][/color][/bgcolor]"; }
+				if (checkBox_ZoanSig.Checked) { message += " - [bgcolor=gray][color=black][b]Zoan Signature[/b][/color][/bgcolor]"; }
 				if (checkBox_Hybrid.Checked) { message += " - [b]Hybrid Transformation[/b]"; }
 				if (checkBox_Full.Checked) { message += " - [b]Full Transformation[/b]"; }
 				if (checkBox_DFEffect.Checked) { message += " - [b]Free DF Effect applied[/b]"; }
@@ -540,7 +530,7 @@ namespace OPRPCharBuild
 			if (checkBox_PowSpeak.Checked) { message += "- [i]" + PowSpeak + " Technique[/i]\n"; }
 			if (checkBox_BakingBad.Checked) { message += "- [i]" + BakeBad + " Technique[/i]\n"; }
 			if (checkBox_SpIngred.Checked) { message += "- [i]" + ExtraIngred + " Technique[/i]\n"; }
-			if (!string.IsNullOrWhiteSpace(message)) { message = message.Remove(message.Length - 1, 1); } // Remove the last \n
+			message = message.TrimEnd('\n'); // Remove the last \n
 			richTextBox_Note.Text = message;
 			// Used when Sig is checked/unchecked
 			// Used when Branched From text is changed.
@@ -728,6 +718,11 @@ namespace OPRPCharBuild
 			numericUpDown_Cost.Value = 0;
 			label_EffectDesc.Text = effect_label_reset;
 
+			// Edit Effects Dictionary based on Professions
+			checkBox_Inventor.Enabled = MainForm.Is_Primary_Bool("Inventor");
+			checkBox_Marksman.Enabled = MainForm.Is_Primary_Bool("Marksman");
+			if (MainForm.TraitsList.Contains(Traits.Trait_Name.MAST_MISDI)) { Effect.Enable_Mast_of_MisDirect(); }
+
 			// Add ALL Effects into the ComboBox (based on max rank)
 			#region Effects ComboBox
 			try {
@@ -810,11 +805,11 @@ namespace OPRPCharBuild
 			// DF Options
 			try {
 				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.DEV_FRUIT, traits_list) != -1) {
-					label_DF.Text = "";
-					label_DF.Text += DF_name + " [" + DF_type + "]\n";
-					label_DF.Text += DF_desc + '\n';
-					if (!string.IsNullOrWhiteSpace(DF_effect)) { label_DF.Text += "(" + DF_effect + ")"; }
-					else { label_DF.Text += "(No T1/T2 Free Effect)"; }
+					richTextBox_DF.Text = "";
+					richTextBox_DF.Text += DF_name + " [" + DF_type + "]\n\n";
+					richTextBox_DF.Text += DF_desc;
+					if (!string.IsNullOrWhiteSpace(DF_effect)) { richTextBox_DF.Text += "\n\nEffect: (" + DF_effect + ")"; }
+					else { richTextBox_DF.Text += "(No T1/T2 Free Effect)"; }
 					checkBox_DFTechEnable.Enabled = true;
 				}
 			}
@@ -913,7 +908,8 @@ namespace OPRPCharBuild
 				(numericUpDown_RankBranch.Value == 0 || string.IsNullOrWhiteSpace(textBox_TechBranched.Text))) {
 				MessageBox.Show("Technique Branch incomplete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-			else if ((numericUpDown_Rank.Value - numericUpDown_RankBranch.Value) != (numericUpDown_RegTP.Value + numericUpDown_SpTP.Value + free_DF)) {
+			else if ((numericUpDown_Rank.Value - numericUpDown_RankBranch.Value) != (numericUpDown_RegTP.Value + numericUpDown_SpTP.Value + free_DF) &&
+				(!checkBox_ZoanSig.Checked && !checkBox_SigTech.Checked)) {
 				MessageBox.Show("TP Spent doesn't add up correctly.\n" + 
 					numericUpDown_Rank.Value + " (Rank) - " + numericUpDown_RankBranch.Value + " (Branch) = " + (numericUpDown_Rank.Value - numericUpDown_RankBranch.Value) + '\n' +
 					numericUpDown_RegTP.Value + " (Reg TP) + " + numericUpDown_SpTP.Value + " (Sp TP) = " + (numericUpDown_RegTP.Value + numericUpDown_SpTP.Value),
@@ -933,6 +929,9 @@ namespace OPRPCharBuild
 			}
 			else if (min_rank > curr_rank) {
 				MessageBox.Show("Effect costs are ineligible at its current rank.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else if (string.IsNullOrWhiteSpace(richTextBox_Desc.Text)) {
+				MessageBox.Show("Technique needs a Description.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else {
 				this.Close();
@@ -995,7 +994,7 @@ namespace OPRPCharBuild
 				checkBox_Full.Checked = false;
 				checkBox_Hybrid.Checked = false;
 				checkBox_Full.Checked = false;
-				label_DF.Text = "No Devil Fruit Option";
+				richTextBox_DF.Text = "No Specific Devil Fruit Trait\nNo Devil Fruit Option";
 				checkBox_DFRank4.Enabled = false;
 				checkBox_Full.Enabled = false;
 				checkBox_Hybrid.Enabled = false;
@@ -1020,31 +1019,35 @@ namespace OPRPCharBuild
 			Update_Note();
 		}
 
-		private void numericUpDown_RankBranch_ValueChanged(object sender, EventArgs e) {
-			numericUpDown_RegTP.Value = numericUpDown_Rank.Value - numericUpDown_RankBranch.Value - numericUpDown_SpTP.Value;
-			Update_Note();
-		}
-
-		private void numericUpDown_SpTP_ValueChanged(object sender, EventArgs e) {
-			// For simplicity sake, calculate regTP used for them.
-			numericUpDown_RegTP.Value = numericUpDown_Rank.Value - numericUpDown_SpTP.Value - numericUpDown_RankBranch.Value;
-            Update_Note();
-		}
-
-		private void comboBox_SpTrait_SelectedIndexChanged(object sender, EventArgs e) {
-			Update_Note();
-		}
-
 		private void numericUpDown_Rank_ValueChanged(object sender, EventArgs e) {
 			// Check Effects before Proceeding
 			Update_MinRank();
 			Update_Power_Value();
 			// Set Maximum values.
 			numericUpDown_RegTP.Maximum = numericUpDown_Rank.Value;
-			numericUpDown_RegTP.Value = numericUpDown_Rank.Value - numericUpDown_RankBranch.Value;
-			if (checkBox_DFRank4.Checked) { numericUpDown_RegTP.Value -= 4; }
 			numericUpDown_SpTP.Maximum = numericUpDown_Rank.Value;
+			// This is a simple "patch", will have a real fix later
+			int val = (int)(numericUpDown_Rank.Value - numericUpDown_RankBranch.Value - numericUpDown_SpTP.Value);
+			if (val < numericUpDown_RegTP.Minimum) { numericUpDown_RegTP.Value = 0; }
+			else { numericUpDown_RegTP.Value = val; }
+			if (checkBox_DFRank4.Checked) { numericUpDown_RegTP.Value -= 4; }
 			numericUpDown_RankBranch.Maximum = numericUpDown_Rank.Value - 1; // This is hella important
+		}
+
+		private void numericUpDown_SpTP_ValueChanged(object sender, EventArgs e) {
+			Update_Note();
+		}
+
+		private void numericUpDown_RankBranch_ValueChanged(object sender, EventArgs e) {
+			// This is a simple "patch", will have a real fix later
+			int val = (int)(numericUpDown_Rank.Value - numericUpDown_RankBranch.Value - numericUpDown_SpTP.Value);
+			if (val < numericUpDown_RegTP.Minimum) { numericUpDown_RegTP.Value = 0; }
+			else { numericUpDown_RegTP.Value = val; }
+			Update_Note();
+		}
+
+		private void comboBox_SpTrait_SelectedIndexChanged(object sender, EventArgs e) {
+			Update_Note();
 		}
 
 		private void comboBox_AffectRank_SelectedIndexChanged(object sender, EventArgs e) {
@@ -1203,6 +1206,16 @@ namespace OPRPCharBuild
 			Update_Note();
 		}
 
+		private void checkBox_Marksman_CheckedChanged(object sender, EventArgs e) {
+			if (checkBox_Marksman.Checked) { Effect.Enable_Marksman_Primary(); }
+			else { Effect.Disable_Marksman_Primary(); }
+		}
+
+		private void checkBox_Inventor_CheckedChanged(object sender, EventArgs e) {
+			if (checkBox_Inventor.Checked) { Effect.Enable_Inventor_Primary(); }
+			else { Effect.Disable_Inventor_Primary(); }
+		}
+
 		// Returns false if we come across a problem.
 		// Returns true if successfully added.
 		// This adds a specified Effect to our Dict
@@ -1349,7 +1362,7 @@ namespace OPRPCharBuild
 
 		private void comboBox_Range_SelectedIndexChanged(object sender, EventArgs e) {
 			Effects.Effect_Name ID = Effect.Get_EffectID(comboBox_Range.Text);
-			if (ID == Effects.Effect_Name.MELEE_RANGE || ID == Effects.Effect_Name.SHORT_RANGE ||
+			if (ID == Effects.Effect_Name.SHORT_RANGE ||
 				ID == Effects.Effect_Name.MED_RANGE || ID == Effects.Effect_Name.LONG_RANGE ||
 				ID == Effects.Effect_Name.V_LONG_RANGE || ID == Effects.Effect_Name.SHORT_AOE ||
 				ID == Effects.Effect_Name.MEDIUM_AOE || ID == Effects.Effect_Name.LONG_AOE) {

@@ -41,7 +41,7 @@
 			this.comboBox_Options.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox_Options.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
 			this.comboBox_Options.FormattingEnabled = true;
-			this.comboBox_Options.Location = new System.Drawing.Point(12, 52);
+			this.comboBox_Options.Location = new System.Drawing.Point(12, 60);
 			this.comboBox_Options.Name = "comboBox_Options";
 			this.comboBox_Options.Size = new System.Drawing.Size(260, 24);
 			this.comboBox_Options.TabIndex = 0;
@@ -50,7 +50,7 @@
 			// textBox_Name
 			// 
 			this.textBox_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_Name.Location = new System.Drawing.Point(118, 81);
+			this.textBox_Name.Location = new System.Drawing.Point(118, 89);
 			this.textBox_Name.Name = "textBox_Name";
 			this.textBox_Name.Size = new System.Drawing.Size(154, 20);
 			this.textBox_Name.TabIndex = 1;
@@ -60,7 +60,7 @@
 			// label_Name
 			// 
 			this.label_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_Name.Location = new System.Drawing.Point(12, 81);
+			this.label_Name.Location = new System.Drawing.Point(12, 89);
 			this.label_Name.Name = "label_Name";
 			this.label_Name.Size = new System.Drawing.Size(100, 20);
 			this.label_Name.TabIndex = 2;
@@ -98,10 +98,10 @@
 			// label_Msg
 			// 
 			this.label_Msg.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_Msg.ForeColor = System.Drawing.Color.Red;
+			this.label_Msg.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.label_Msg.Location = new System.Drawing.Point(12, 9);
 			this.label_Msg.Name = "label_Msg";
-			this.label_Msg.Size = new System.Drawing.Size(260, 39);
+			this.label_Msg.Size = new System.Drawing.Size(260, 48);
 			this.label_Msg.TabIndex = 5;
 			this.label_Msg.Text = "Label";
 			this.label_Msg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

@@ -12,87 +12,9 @@ namespace OPRPCharBuild
 		// -----------------------------------------------------------------
 		// Main Member variables and struct
 		// -----------------------------------------------------------------
-		private bool marksman_primary;	// Used to reduce the Cost of Range / AoE
-		private bool inventor_primary;
-		private static int short_cost;	// Huh static casting
-		private static int short_min;
-		private static int med_cost;
-		private static int med_min;
-		private static int long_cost;
-		private static int long_min;
-		private static int Vlong_cost;
-		private static int Vlong_min;
-		private static int shortAOE_cost;
-		private static int shortAOE_min;
-		private static int medAOE_cost;
-		private static int medAOE_min;
-		private static int longAOE_cost;
-		private static int longAOE_min;
-		private static bool stealth_gen;
-		// Dictionary might work, but you can add the same effect twice. We can work around this by 
 
 		// Default Constructor
-		public Effects() {
-			MainForm.Set_Primary_Bool("Marksman", ref marksman_primary);
-			MainForm.Set_Primary_Bool("Inventor", ref inventor_primary);
-			if (marksman_primary) {
-				short_cost = 0;
-				short_min = 0;
-				med_cost = 4;
-				med_min = 4;
-				long_cost = 8;
-				long_min = 28;
-				Vlong_cost = 16;
-				Vlong_min = 44;
-			}
-			else {
-				short_cost = 4;
-				short_min = 4;
-				med_cost = 8;
-				med_min = 28;
-				long_cost = 16;
-				long_min = 44;
-				Vlong_cost = 32;
-				Vlong_min = 66;
-			}
-			if (inventor_primary) {
-				shortAOE_cost = 0;
-				shortAOE_min = 0;
-				medAOE_cost = 8;
-				medAOE_min = 8;
-				longAOE_cost = 16;
-				longAOE_min = 28;
-			}
-			else {
-				shortAOE_cost = 8;
-				shortAOE_min = 8;
-				medAOE_cost = 16;
-				medAOE_min = 28;
-				longAOE_cost = 32;
-				longAOE_min = 44;
-			}
-			if (MainForm.TraitsList.Contains(Traits.Trait_Name.MAST_MISDI)) { stealth_gen = true; }
-			else { stealth_gen = false; }
-			// Then Add onto the Dictionary after being initialized
-			EffectInfo_Dict.Add(Effect_Name.MELEE_RANGE, new EffectInfo("Melee", false, 0, 0,
-				"Range of direct physical combat."));
-			EffectInfo_Dict.Add(Effect_Name.SHORT_RANGE, new EffectInfo("Short", false, short_cost, short_min,
-				   "Range of a few meters."));
-			EffectInfo_Dict.Add(Effect_Name.MED_RANGE, new EffectInfo("Medium", false, med_cost, med_min,
-				   "Range of half of a sport's stadium."));
-			EffectInfo_Dict.Add(Effect_Name.LONG_RANGE, new EffectInfo("Long", false, long_cost, long_min,
-				   "Range of an entire sport's stadium."));
-			EffectInfo_Dict.Add(Effect_Name.V_LONG_RANGE, new EffectInfo("Very Long", false, Vlong_cost, Vlong_min,
-				   "Range of a small city."));
-			EffectInfo_Dict.Add(Effect_Name.SHORT_AOE, new EffectInfo("Short AoE", false, shortAOE_cost, shortAOE_min,
-				   "A few meters in diameter."));
-			EffectInfo_Dict.Add(Effect_Name.MEDIUM_AOE, new EffectInfo("Medium AoE", false, medAOE_cost, medAOE_min,
-				   "Half of a sport's stadium in diameter."));
-			EffectInfo_Dict.Add(Effect_Name.LONG_AOE, new EffectInfo("Long AoE", false, longAOE_cost, longAOE_min,
-				   "An entire sport's stadium in diameter."));
-			EffectInfo_Dict.Add(Effect_Name.SILENT, new EffectInfo("Silent", stealth_gen, 8, 14,
-					"(STEALTH) - Causing an attack or movement to produce very little sound, making it undetectable through hearing alone. More effective at higher ranks. Consumes 1/2 AE in order to keep active. This becomes a General Effect with the \"Master of Misdirection\" Trait."));
-		}
+		public Effects() { }
 
 		public enum Effect_Name
 		{
@@ -340,6 +262,22 @@ namespace OPRPCharBuild
 				"Reduces damage of Rank 27 and below techniques. NOTE THAT 1) Tier Defenses may require some special abilities, 2) Wearable armor requires Techniques with this Effect, and 3) Legendary Tier offers the defensive properties of High Tier (still unbreakable). Please refer to the Rules for more details.")},
 			{Effect_Name.HIGH_DEF, new EffectInfo("High Tier Defense", false, 24, 36,
 				"Reduces damage of Rank 43 and below techniques. NOTE THAT 1) Tier Defenses may require some special abilities, 2) Wearable armor requires Techniques with this Effect, and 3) Legendary Tier offers the defensive properties of High Tier (still unbreakable). Please refer to the Rules for more details.")},
+			{Effect_Name.MELEE_RANGE, new EffectInfo("Melee", false, 0, 0,
+				"Range of direct physical combat.")},
+			{Effect_Name.SHORT_RANGE, new EffectInfo("Short", false, 4, 4,
+				"Range of a few meters.")},
+			{Effect_Name.MED_RANGE, new EffectInfo("Medium", false, 8, 28,
+				"Range of half of a sport's stadium.")},
+			{Effect_Name.LONG_RANGE, new EffectInfo("Long", false, 16, 44,
+				"Range of an entire sport's stadium.")},
+			{Effect_Name.V_LONG_RANGE, new EffectInfo("Very Long", false, 32, 66,
+				"Range of a small city.")},
+			{Effect_Name.SHORT_AOE, new EffectInfo("Short AoE", false, 8, 8,
+				"A few meters in diameter.")},
+			{Effect_Name.MEDIUM_AOE, new EffectInfo("Medium AoE", false, 16, 28,
+				"Half of a sport's stadium in diameter.")},
+			{Effect_Name.LONG_AOE, new EffectInfo("Long AoE", false, 32, 44,
+				"An entire sport's stadium in diameter.")},
 			{Effect_Name.CLOUD, new EffectInfo("Cloud", true, 8, 8,
 				"(WEATHERMANCY) - Techniques used in order to create clouds to empower other Weathermancy techniques. Clouds scale in size with rank allowing the caster a greater area to work with and control the field through their other techniques.")},
 			{Effect_Name.RAIN, new EffectInfo("Rain", true, 8, 8,
@@ -368,7 +306,8 @@ namespace OPRPCharBuild
 				"(STEALTH) - A rapidly dispersing gaseous substance used to reduce visibility of that which is encompassed. Usually contained within a pellet or bomb of some sort, it can mask the silhouette of one person by default but can be combined with AoE to affect larger areas.")},
 			{Effect_Name.CROWD_BLEND, new EffectInfo("Crowd Blending", false, 8, 8,
 				"(STEALTH) - The ability to blend in with a crowd of people in order to avoid detection and shake off pursuers. Becomes more effective with higher rank. Consumes 1/2 AE in order to keep active, and is subject to common sense.")},
-			// "Silent" Effect is added later when Effect() is initialized
+			{Effect_Name.SILENT, new EffectInfo("Silent", false, 8, 14,
+				"(STEALTH) - Causing an attack or movement to produce very little sound, making it undetectable through hearing alone. More effective at higher ranks. Consumes 1/2 AE in order to keep active. This becomes a General Effect with the \"Master of Misdirection\" Trait.")},
 			{Effect_Name.SCENTLESS, new EffectInfo("Scentless", false, 14, 14,
 				"(STEALTH) - Removing scent from one's person. Doing so can throw off detection based around scent, making a character more difficult to track. More effective at higher ranks.")},
 			{Effect_Name.DISGUISE, new EffectInfo("Disguise", false, 4, 4,
@@ -400,5 +339,118 @@ namespace OPRPCharBuild
 				return new EffectInfo();
 			}
 		}
+
+		public void Enable_Inventor_Primary() {
+			try {
+				// Remove Effects
+				EffectInfo_Dict.Remove(Effect_Name.SHORT_AOE);
+				EffectInfo_Dict.Remove(Effect_Name.MEDIUM_AOE);
+				EffectInfo_Dict.Remove(Effect_Name.LONG_AOE);
+				// Add Altered Effects
+				EffectInfo_Dict.Add(Effect_Name.SHORT_AOE, new EffectInfo("Short AoE", false, 0, 0,
+				   "A few meters in diameter."));
+				EffectInfo_Dict.Add(Effect_Name.MEDIUM_AOE, new EffectInfo("Medium AoE", false, 8, 8,
+					"Half of a sport's stadium in diameter."));
+				EffectInfo_Dict.Add(Effect_Name.LONG_AOE, new EffectInfo("Long AoE", false, 16, 28,
+					"An entire sport's stadium in diameter."));
+			}
+			catch (Exception e) {
+				MessageBox.Show("Primary Inventor Enabled incorrectly.\nReason: " + e.Message, "Error");
+			}
+		}
+
+		public void Disable_Inventor_Primary() {
+			try {
+				// Remove Altered Effects
+				EffectInfo_Dict.Remove(Effect_Name.SHORT_AOE);
+				EffectInfo_Dict.Remove(Effect_Name.MEDIUM_AOE);
+				EffectInfo_Dict.Remove(Effect_Name.LONG_AOE);
+				// Add Original Effects
+				EffectInfo_Dict.Add(Effect_Name.SHORT_AOE, new EffectInfo("Short AoE", false, 8, 8,
+				   "A few meters in diameter."));
+				EffectInfo_Dict.Add(Effect_Name.MEDIUM_AOE, new EffectInfo("Medium AoE", false, 16, 28,
+					"Half of a sport's stadium in diameter."));
+				EffectInfo_Dict.Add(Effect_Name.LONG_AOE, new EffectInfo("Long AoE", false, 32, 44,
+					"An entire sport's stadium in diameter."));
+			}
+			catch (Exception e) {
+				MessageBox.Show("Primary Inventor Disabled incorrectly.\nReason: " + e.Message, "Error");
+			}
+		}
+
+		public void Enable_Marksman_Primary() {
+			try {
+				// Remove Effects
+				EffectInfo_Dict.Remove(Effect_Name.SHORT_RANGE);
+				EffectInfo_Dict.Remove(Effect_Name.MED_RANGE);
+				EffectInfo_Dict.Remove(Effect_Name.LONG_RANGE);
+				EffectInfo_Dict.Remove(Effect_Name.V_LONG_RANGE);
+				// Add Altered Effects
+				EffectInfo_Dict.Add(Effect_Name.SHORT_RANGE, new EffectInfo("Short", false, 0, 0,
+				   "Range of a few meters."));
+				EffectInfo_Dict.Add(Effect_Name.MED_RANGE, new EffectInfo("Medium", false, 4, 4,
+					   "Range of half of a sport's stadium."));
+				EffectInfo_Dict.Add(Effect_Name.LONG_RANGE, new EffectInfo("Long", false, 8, 28,
+					   "Range of an entire sport's stadium."));
+				EffectInfo_Dict.Add(Effect_Name.V_LONG_RANGE, new EffectInfo("Very Long", false, 16, 44,
+					   "Range of a small city."));
+			}
+			catch (Exception e) {
+				MessageBox.Show("Primary Marksman Enabled incorrectly.\nReason: " + e.Message, "Error");
+			}
+		}
+
+		public void Disable_Marksman_Primary() {
+			try {
+				// Remove Altered Effects
+				EffectInfo_Dict.Remove(Effect_Name.SHORT_RANGE);
+				EffectInfo_Dict.Remove(Effect_Name.MED_RANGE);
+				EffectInfo_Dict.Remove(Effect_Name.LONG_RANGE);
+				EffectInfo_Dict.Remove(Effect_Name.V_LONG_RANGE);
+				// Add Original Effects
+				EffectInfo_Dict.Add(Effect_Name.SHORT_RANGE, new EffectInfo("Short", false, 4, 4,
+				   "Range of a few meters."));
+				EffectInfo_Dict.Add(Effect_Name.MED_RANGE, new EffectInfo("Medium", false, 8, 28,
+					   "Range of half of a sport's stadium."));
+				EffectInfo_Dict.Add(Effect_Name.LONG_RANGE, new EffectInfo("Long", false, 16, 44,
+					   "Range of an entire sport's stadium."));
+				EffectInfo_Dict.Add(Effect_Name.V_LONG_RANGE, new EffectInfo("Very Long", false, 32, 66,
+					   "Range of a small city."));
+			}
+			catch (Exception e) {
+				MessageBox.Show("Primary Marksman Disabled incorrectly.\nReason: " + e.Message, "Error");
+			}
+		}
+
+		public void Enable_Mast_of_MisDirect() {
+			try {
+				// Remove Effects
+				EffectInfo_Dict.Remove(Effect_Name.SILENT);
+				EffectInfo_Dict.Remove(Effect_Name.OPEN_CAMO);
+				// Add Altered Effects
+				EffectInfo_Dict.Add(Effect_Name.SILENT, new EffectInfo("Silent", true, 8, 14,
+				   "(STEALTH) - Causing an attack or movement to produce very little sound, making it undetectable through hearing alone. More effective at higher ranks. Consumes 1/2 AE in order to keep active. This becomes a General Effect with the \"Master of Misdirection\" Trait."));
+				EffectInfo_Dict.Add(Effect_Name.OPEN_CAMO, new EffectInfo("Open Camouflage", false, 14, 14,
+				   "(STEALTH) - Blending in to the environment through masterful knowledge of the surroundings and the perception of others. At this high rank, it becomes possible to blend in seemingly with mere open space. Consumes 1/2 AE in order to keep active."));
+			}
+			catch (Exception e) {
+				MessageBox.Show("Master of Misdirection Enabled incorrectly.\nReason: " + e.Message, "Error");
+			}
+		}
+
+		// Do I need this since it's done as kind of "permanently"?
+		/* 
+		public void Disable_Mast_of_MisDirect() {
+			try {
+				// Remove Altered Effects
+
+				// Add Original Effects
+
+			}
+			catch (Exception e) {
+				MessageBox.Show("Master of Misdirection Disabled incorrectly.\nReason: " + e.Message, "Error");
+			}
+		}
+		*/
 	}
 }

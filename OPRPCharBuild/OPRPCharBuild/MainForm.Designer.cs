@@ -184,7 +184,6 @@
 			this.tabPage5 = new System.Windows.Forms.TabPage();
 			this.groupBox10 = new System.Windows.Forms.GroupBox();
 			this.label32 = new System.Windows.Forms.Label();
-			this.button_TraitOrder = new System.Windows.Forms.Button();
 			this.button_TraitsEdit = new System.Windows.Forms.Button();
 			this.label59_TraitsCalc = new System.Windows.Forms.Label();
 			this.label58_TraitsCurrent = new System.Windows.Forms.Label();
@@ -2103,7 +2102,6 @@
 			// groupBox10
 			// 
 			this.groupBox10.Controls.Add(this.label32);
-			this.groupBox10.Controls.Add(this.button_TraitOrder);
 			this.groupBox10.Controls.Add(this.button_TraitsEdit);
 			this.groupBox10.Controls.Add(this.label59_TraitsCalc);
 			this.groupBox10.Controls.Add(this.label58_TraitsCurrent);
@@ -2128,16 +2126,6 @@
 			this.label32.TabIndex = 28;
 			this.label32.Text = "NOTE: Do NOT make Custom Trait names. Edit Trait names in the generated Sheet ins" +
     "tead.";
-			// 
-			// button_TraitOrder
-			// 
-			this.button_TraitOrder.Location = new System.Drawing.Point(6, 327);
-			this.button_TraitOrder.Name = "button_TraitOrder";
-			this.button_TraitOrder.Size = new System.Drawing.Size(75, 23);
-			this.button_TraitOrder.TabIndex = 27;
-			this.button_TraitOrder.Text = "Order";
-			this.button_TraitOrder.UseVisualStyleBackColor = true;
-			this.button_TraitOrder.Click += new System.EventHandler(this.button_TraitOrder_Click);
 			// 
 			// button_TraitsEdit
 			// 
@@ -2863,7 +2851,6 @@
 		private System.Windows.Forms.Button button_ImageUp;
 		private System.Windows.Forms.ListView listView_Images;
 		private System.Windows.Forms.Button button_ImageEdit;
-		private System.Windows.Forms.Button button_TraitOrder;
 		private System.Windows.Forms.Label label32;
 		private System.Windows.Forms.Label label34;
 		private System.Windows.Forms.Label label33;
