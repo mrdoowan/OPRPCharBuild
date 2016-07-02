@@ -164,8 +164,8 @@ namespace OPRPCharBuild
 			this.Text = "Edit Profession";
 			button1.Text = "Edit";
 			// Put what's Edited into the Dialog Box first.
-			MainForm.ProfList.Remove(Main_Form.SelectedItems[0].SubItems[0].Text);
-			comboBox1.Text = Main_Form.SelectedItems[0].SubItems[0].Text;
+			string prof_name = Main_Form.SelectedItems[0].SubItems[0].Text;
+			comboBox1.Text = prof_name;
 			if (Main_Form.SelectedItems[0].SubItems[1].Text == "Primary") {
 				checkBox1.Checked = true;
 			}
@@ -177,6 +177,8 @@ namespace OPRPCharBuild
 			// Now proceed to edit it.
 			this.ShowDialog();
 			if (button_clicked) {
+				// Remove initial item from Dictionary
+				MainForm.ProfList.Remove(prof_name);
 				Main_Form.SelectedItems[0].SubItems[0].Text = comboBox1.Text;
 				string name = comboBox1.Text;
 				bool primary = false;
@@ -189,7 +191,10 @@ namespace OPRPCharBuild
 				}
 				Main_Form.SelectedItems[0].SubItems[2].Text = richTextBox1_Desc.Text;
 				Main_Form.SelectedItems[0].SubItems[3].Text = richTextBox2_Primary.Text;
-				MainForm.ProfList.Add(name, primary);
+				try { MainForm.ProfList.Add(name, primary); }
+				catch (Exception e) {
+					MessageBox.Show("Can't add the same profession twice.\nReason: " + e.Message, "Exception Thrown");
+				}
 			}
 		}
 

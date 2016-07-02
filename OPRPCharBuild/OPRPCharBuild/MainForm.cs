@@ -28,8 +28,7 @@ namespace OPRPCharBuild
 
 		#region Member Variables and Structs
 
-		public const string version = "1.0.2.0";
-		private const bool divide_10 = false; // True if Revision number is >= 10, False otherwise
+		public const string version = "1.0.2.1";
 		public const string vers_type = "";
 		public const string curr_proj = "Project2";
 		private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
@@ -166,7 +165,6 @@ namespace OPRPCharBuild
 		private void Check_Update() {
 			try {
 				int current = int.Parse(version.Replace(".", ""));
-				if (divide_10) { current /= 10; }
 				// Get latest version from site
 				string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " " + System.Environment.OSVersion;
 				WebClient WC = new WebClient();
@@ -189,6 +187,10 @@ namespace OPRPCharBuild
 			catch (Exception e) {
 				MessageBox.Show("Error in checking for an update.\nReason: " + e.Message, "OPRP Char Builder", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			}
+		}
+
+		private void Check_Bug_Message() {
+
 		}
 
 		// Returns true if Prof is in the List and it's Primary
@@ -835,6 +837,8 @@ namespace OPRPCharBuild
 
 			// Check for updates of a new version
 			Check_Update();
+			// Check for any Bug Messages / Warnings
+			Check_Bug_Message();
 
 			// ------ Professions
 			listView_Prof.View = View.Details;
@@ -1478,6 +1482,12 @@ namespace OPRPCharBuild
 					MessageBox.Show("You can't edit a Rokushiki Technique without the Rokushiki Master Trait!", "Error",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
+				else if (Selected.rank + 4 > max_rank) {
+					// A branched technique must have at least 4 ranks from the Technique they are branching from
+					MessageBox.Show("A branched Technique must be 4 ranks higher than the Technique they are branching from\n" +
+						"Branching this Technique would cause you to go over your Max Rank [" + max_rank + "]", "Error",
+						MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
 				else {
 					Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP,
 					textBox_DFName.Text, comboBox_DFType.Text, richTextBox_DFDesc.Text, textBox_DFEffect.Text);
@@ -1696,7 +1706,7 @@ namespace OPRPCharBuild
 				(int)numericUpDown_AccuracyBase.Value
 				);
 			project.SaveProject_Traits(listView_Traits);
-			project.SaveProject_Tech(TechList);
+			project.SaveProject_Tech(TechList, listView_Techniques);
 		}
 
 		// Loads from serialized object and puts it into form

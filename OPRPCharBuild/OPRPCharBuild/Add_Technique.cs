@@ -26,7 +26,7 @@ namespace OPRPCharBuild
 									// Updated when an Effect is added
 									// Updated when an Effect is removed
 		
-		// Bools for primary professions
+		// Bools
 		private bool assassin_primary;
 		private bool thief_primary;
 
@@ -45,7 +45,6 @@ namespace OPRPCharBuild
 		// Strings for the Applied Traits
 		public const string DevFruit = "Devil Fruit";
 		public const string SigTech = "Signature Technique";
-		public const string RokuTech = "Rokushiki Master";
 		public const string Cyborg = "Cyborg";
 		public const string CritHit = "Critical Hit";
 		public const string AnatStrike = "Anatomical Strike";
@@ -123,39 +122,39 @@ namespace OPRPCharBuild
 
 		// This goes from the Add_Technique Form to Dictionary
 		private void Add_Form_to_Dictionary() {
-			string name = textBox_Name.Text;
-			int str = 0, spe = 0, sta = 0, acc = 0;
-			Stats_Number(checkBox_MinusStr, numericUpDown_Str, ref str);
-			Stats_Number(checkBox_MinusSpe, numericUpDown_Spe, ref spe);
-			Stats_Number(checkBox_MinusSta, numericUpDown_Sta, ref sta);
-			Stats_Number(checkBox_MinusAcc, numericUpDown_Acc, ref acc);
-			MainForm.TechStats Techstats = new MainForm.TechStats(str, spe, sta, acc);
-			// DF Options
-			List<bool> DF_options = new List<bool>() {
+			try {
+				string name = textBox_Name.Text;
+				int str = 0, spe = 0, sta = 0, acc = 0;
+				Stats_Number(checkBox_MinusStr, numericUpDown_Str, ref str);
+				Stats_Number(checkBox_MinusSpe, numericUpDown_Spe, ref spe);
+				Stats_Number(checkBox_MinusSta, numericUpDown_Sta, ref sta);
+				Stats_Number(checkBox_MinusAcc, numericUpDown_Acc, ref acc);
+				MainForm.TechStats Techstats = new MainForm.TechStats(str, spe, sta, acc);
+				// DF Options
+				List<bool> DF_options = new List<bool>() {
 				checkBox_DFRank4.Checked,
 				checkBox_ZoanSig.Checked,
 				checkBox_Full.Checked,
 				checkBox_Hybrid.Checked,
 				checkBox_DFEffect.Checked
-			};
-			List<bool> Cyborg = new List<bool>() {
+				};
+				List<bool> Cyborg = new List<bool>() {
 				checkBox_Fuel1.Checked,
 				checkBox_Fuel2.Checked,
 				checkBox_Fuel3.Checked
-			};
-			string App_Traits_Str = Generate_AppTraits_String(comboBox_AffectRank.Text);
-			// Now initialize TechInfo and add into TechList
-			MainForm.TechInfo Tech_Info = new MainForm.TechInfo(Roku_Form_Type, (int)numericUpDown_Rank.Value,
-				(int)numericUpDown_RegTP.Value, (int)numericUpDown_SpTP.Value,
-				comboBox_AffectRank.Text, comboBox_SpTrait.Text, App_Traits_Str, textBox_TechBranched.Text,
-				(int)numericUpDown_RankBranch.Value, comboBox_Type.Text, comboBox_Range.Text,
-				Techstats, checkBox_NA.Checked, EffectList, textBox_Power.Text, DF_options, Cyborg,
-				richTextBox_Note.Text, richTextBox_Desc.Text);
-			try { MainForm.TechList.Add(name, Tech_Info); }
+				};
+				string App_Traits_Str = Generate_AppTraits_String(comboBox_AffectRank.Text);
+				// Now initialize TechInfo and add into TechList
+				MainForm.TechInfo Tech_Info = new MainForm.TechInfo(Roku_Form_Type, (int)numericUpDown_Rank.Value,
+					(int)numericUpDown_RegTP.Value, (int)numericUpDown_SpTP.Value,
+					comboBox_AffectRank.Text, comboBox_SpTrait.Text, App_Traits_Str, textBox_TechBranched.Text,
+					(int)numericUpDown_RankBranch.Value, comboBox_Type.Text, comboBox_Range.Text,
+					Techstats, checkBox_NA.Checked, EffectList, textBox_Power.Text, DF_options, Cyborg,
+					richTextBox_Note.Text, richTextBox_Desc.Text);
+				MainForm.TechList.Add(name, Tech_Info);
+			}
 			catch (Exception e) {
-				MessageBox.Show("There was an error in adding Info to TechList." +
-					"WARNING: This is a massive bug that could cause corruption.\n" +
-					"I would highly encourage you to exit without saving.\nReason: " + e.Message, "Exception Thrown");
+				MessageBox.Show("There was an error in adding TechInfo to TechList\nReason: " + e.Message, "Exception Thrown");
 			}
 		}
 
@@ -379,7 +378,7 @@ namespace OPRPCharBuild
 					ListViewItem sel_item = Main_Form.SelectedItems[0];
 					int rank = int.Parse(sel_item.SubItems[1].Text);
 					checkBox_Branched.Checked = true;
-                    numericUpDown_Rank.Value = rank + 1;
+                    numericUpDown_Rank.Value = rank + 4;
 					textBox_TechBranched.Text = sel_item.SubItems[0].Text;
 					numericUpDown_RankBranch.Value = rank;
 				}
@@ -420,12 +419,14 @@ namespace OPRPCharBuild
 					MessageBox.Show("There was an error copying from Dictionary to Tech Form.\nReason: " + ex.Message, "Exception Thrown");
 					return;
 				}
+				// Save copy of Technique
+				MainForm.TechInfo techInfo = MainForm.TechList[TechName];
+				// Remove initial item from Dictionary first.
+				if (!MainForm.TechList.Remove(TechName)) {
+					MessageBox.Show("Couldn't remove from the Dictionary because TechName was null!", "Report Bug");
+				}
 				this.ShowDialog();
 				if (button_clicked) {
-					// Remove initial item from Dictionary first.
-					if (!MainForm.TechList.Remove(TechName)) {
-						MessageBox.Show("Couldn't remove from the Dictionary! Data could be corrupted.", "Report Bug");
-					}
 					// Now re-add the same item into the Dictionary
 					Add_Form_to_Dictionary();
 					// Add into ListView for display
@@ -442,6 +443,10 @@ namespace OPRPCharBuild
 					string stats = Copy_Form_to_ListView_Stats();
 					Main_Form.SelectedItems[0].SubItems[9].Text = stats;								// Column 9: Stats
 					Main_Form.SelectedItems[0].SubItems[10].Text = textBox_Power.Text;					// Column 10: Power
+				}
+				else {
+					// This means we canceled changes, so add the Technique back.
+					MainForm.TechList.Add(TechName, techInfo);
 				}
 			}
 			catch (Exception e) {
@@ -493,7 +498,7 @@ namespace OPRPCharBuild
 			string message = "";
 			// Rokushiki Message
 			if (Roku_Form_Type != Rokushiki.RokuName.NONE) {
-				if (!checkBox_Branched.Checked) { message += "- [i]Base " + Roku.Get_RokuInfo(Roku_Form_Type).name + " Technique[/i]"; }
+				if (!checkBox_Branched.Checked) { message += "- [i]Base " + Roku.Get_RokuInfo(Roku_Form_Type).name + " Technique[/i]\n"; }
 			}
 			// Branch message
 			if (checkBox_Branched.Checked) { message += "- Branched from [i]R" + numericUpDown_RankBranch.Value.ToString() + " " + textBox_TechBranched.Text + "[/i]\n"; }
@@ -853,8 +858,6 @@ namespace OPRPCharBuild
 				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.CROWD_CONT, traits_list) != -1) { checkBox_CrowdCont.Enabled = true; }
 				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.POW_SPEAK, traits_list) != -1) { checkBox_PowSpeak.Enabled = true; }
 				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.BAKING_BAD, traits_list) != -1) { checkBox_BakingBad.Enabled = true; }
-				// Because "Note" is something we need to initialize before the Checks, we save a copy and load it here.
-				richTextBox_Note.Text = edit_Note;
 				// Now we check the Box if "Note" contains the String
 				if (string.IsNullOrWhiteSpace(edit_Note)) { edit_Note = ""; } // To prevent unhandled Exception
 				if (edit_Note.Contains(SigTech) && checkBox_SigTech.Enabled) { checkBox_SigTech.Checked = true; }
@@ -869,6 +872,7 @@ namespace OPRPCharBuild
 				if (edit_Note.Contains(CrowdCont) && checkBox_CrowdCont.Enabled) { checkBox_CrowdCont.Checked = true; }
 				if (edit_Note.Contains(PowSpeak) && checkBox_PowSpeak.Enabled) { checkBox_PowSpeak.Checked = true; }
 				if (edit_Note.Contains(BakeBad) && checkBox_BakingBad.Enabled) { checkBox_BakingBad.Checked = true; }
+				Update_Note();	// Update note after.
 			}
 			catch (Exception ex) {
 				MessageBox.Show("Error in configuring Applicable Traits.\nReason: " + ex.Message, "Error");
@@ -901,7 +905,7 @@ namespace OPRPCharBuild
 			if (string.IsNullOrWhiteSpace(textBox_Name.Text)) {
 				MessageBox.Show("Technique needs a Name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-			else if (MainForm.TechList.ContainsKey(textBox_Name.Text) && button_AddTech.Text == "Add") {
+			else if (MainForm.TechList.ContainsKey(textBox_Name.Text)) {
 				MessageBox.Show("Can't add 2 Techniques with the same name!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else if (checkBox_Branched.Checked &&
@@ -1557,6 +1561,7 @@ namespace OPRPCharBuild
 							listView_Effects.Items.Clear();
 							textBox_Power.Text = Info_Roku.basePower.ToString();
 							comboBox_AffectRank.Enabled = false;
+							Update_Note();
 							richTextBox_Desc.Text = Info_Roku.desc;
 						}
 					}

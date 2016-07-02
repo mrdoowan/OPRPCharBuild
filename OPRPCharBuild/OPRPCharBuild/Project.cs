@@ -315,10 +315,11 @@ namespace OPRPCharBuild
 			}
 		}
 
-		public void SaveProject_Tech(Dictionary<string, MainForm.TechInfo> techList_) {
+		public void SaveProject_Tech(Dictionary<string, MainForm.TechInfo> techList_, ListView techListView_) {
 			techniques.Clear();
-			// Grabbing from TechInfo, NOT ListView
-			foreach (string techName in techList_.Keys) {
+			// Grabbing from TechInfo AND ListView (to maintain order)
+			foreach (ListViewItem techItem in techListView_.Items) {
+				string techName = techItem.SubItems[0].Text;
 				MainForm.TechInfo techInfo = techList_[techName];
 				List<Effect> effects = new List<Effect>();
 				foreach (string effectName in techInfo.effectList.Keys) {

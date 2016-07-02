@@ -1,3 +1,7 @@
+v1.0.2.1 - 7/1/2016
+- Fixed a bug when editing a Technique with the same name as another Technique would error.
+- Fixed a bug when editing a Profession and canceling would remove it from the Dictionary
+- Fixed some problems with customizing Rokushiki
 v1.0.2.0 - 6/??/2016
 - Release of the next update
 - Updated the Technique Form to toggle Inventor/Marksman primary
