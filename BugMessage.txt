@@ -1,2 +1,0 @@
-- DO NOT edit a Profession, and then cancel it. That will accidentally delete the profession, but it still visually displays it.
-- DO NOT edit a Technique with the same name as another Technique. It says "corrupted data", but after much observation, there should be no corrupted data. Take it with a grain of salt.
