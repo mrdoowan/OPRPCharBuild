@@ -123,7 +123,6 @@
 			this.checkBox_QuickStrike = new System.Windows.Forms.CheckBox();
 			this.checkBox_Fuel1 = new System.Windows.Forms.CheckBox();
 			this.toolTip_Roku = new System.Windows.Forms.ToolTip(this.components);
-			this.label_PowerNote = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
@@ -804,7 +803,8 @@
 			this.textBox_Power.Size = new System.Drawing.Size(27, 20);
 			this.textBox_Power.TabIndex = 112;
 			this.textBox_Power.Text = "0";
-			this.toolTip_Roku.SetToolTip(this.textBox_Power, "Power is already calculated to its best ability.");
+			this.toolTip_Roku.SetToolTip(this.textBox_Power, "Power has been calculated to the best of its ability. Only edit if you\'re sure it" +
+        "\'s incorrect.");
 			this.toolTips.SetToolTip(this.textBox_Power, "Power has been calculated to the best of its ability. Only edit if you\'re sure it" +
         "\'s incorrect.");
 			// 
@@ -1308,17 +1308,6 @@
 			this.toolTip_Roku.InitialDelay = 50;
 			this.toolTip_Roku.ReshowDelay = 100;
 			// 
-			// label_PowerNote
-			// 
-			this.label_PowerNote.Location = new System.Drawing.Point(9, 563);
-			this.label_PowerNote.Name = "label_PowerNote";
-			this.label_PowerNote.Size = new System.Drawing.Size(438, 31);
-			this.label_PowerNote.TabIndex = 77;
-			this.label_PowerNote.Text = "NOTE: Power and Mastery Traits work together in the sense that it\'s +4 to Power O" +
-    "R -4 to an Effect Cost. Use with discretion.";
-			this.label_PowerNote.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.label_PowerNote.Visible = false;
-			// 
 			// Add_Technique
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1338,7 +1327,6 @@
 			this.Controls.Add(this.button_AddTech);
 			this.Controls.Add(this.textBox_Name);
 			this.Controls.Add(this.label64);
-			this.Controls.Add(this.label_PowerNote);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.Name = "Add_Technique";
@@ -1467,7 +1455,6 @@
 		private System.Windows.Forms.CheckBox checkBox_MentFort;
 		private System.Windows.Forms.ToolTip toolTip_Roku;
 		private System.Windows.Forms.TextBox textBox_StaticRokuMsg;
-		private System.Windows.Forms.Label label_PowerNote;
 		private System.Windows.Forms.RichTextBox richTextBox_DF;
 		private System.Windows.Forms.CheckBox checkBox_Inventor;
 		private System.Windows.Forms.CheckBox checkBox_Marksman;

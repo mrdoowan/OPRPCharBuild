@@ -18,6 +18,11 @@ Based on OPRP usernames
 Version History
 ---------------
 
+### v1.0.2.2
+
+* Hotfixed Bug: Editing a Profession and canceling changes would accidentally remove the Profession from data, but it wouldn't visually display that.
+* Hotfixed Bug: Editing a Technique name to the same name as another one would flag an error.
+
 ### v1.0.2.0
 
 * Overhauled and Complete Technique Creator with Effects and Power Calculations

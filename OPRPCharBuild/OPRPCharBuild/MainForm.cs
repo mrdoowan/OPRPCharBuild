@@ -28,7 +28,7 @@ namespace OPRPCharBuild
 
 		#region Member Variables and Structs
 
-		public const string version = "1.0.2.1";
+		public const string version = "1.0.2.2";
 		public const string vers_type = "";
 		public const string curr_proj = "Project2";
 		private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
@@ -166,7 +166,7 @@ namespace OPRPCharBuild
 			try {
 				int current = int.Parse(version.Replace(".", ""));
 				// Get latest version from site
-				string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " " + System.Environment.OSVersion;
+				string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " " + Environment.OSVersion;
 				WebClient WC = new WebClient();
 				WC.Headers.Add("Content-Type", header_msg);
 				string version_page = WC.DownloadString("https://raw.githubusercontent.com/mrdoowan/OPRPCharBuild/master/CurrentVer.txt");
@@ -190,7 +190,18 @@ namespace OPRPCharBuild
 		}
 
 		private void Check_Bug_Message() {
-
+			try {
+				WebClient WC = new WebClient();
+				string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " " + Environment.OSVersion;
+				WC.Headers.Add("Content-Type", header_msg);
+				string message = WC.DownloadString("https://raw.githubusercontent.com/mrdoowan/OPRPCharBuild/master/BugMessage.txt");
+				if (!string.IsNullOrWhiteSpace(message)) {
+					MessageBox.Show("Current bugs in v" + version + "\n\n" + message, "Bug Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				}
+			}
+			catch (Exception e) {
+				MessageBox.Show("Error in checking for a bug message\nReason: " + e.Message, "OPRP Char Builder", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+			}
 		}
 
 		// Returns true if Prof is in the List and it's Primary
@@ -1523,7 +1534,8 @@ namespace OPRPCharBuild
 		private void button13_TechDelete_Click(object sender, EventArgs e) {
 			// Technique "Delete" button from the MainForm
 			if (listView_Techniques.SelectedItems.Count == 0) { return; }
-			DialogResult result = MessageBox.Show("Are you sure you want to delete this Technique?", "Remove Tech",
+			DialogResult result = MessageBox.Show("Are you sure you want to delete \"" + 
+				listView_Techniques.SelectedItems[0].SubItems[0].Text + "\"?", "Remove Tech",
 				MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 			if (result == DialogResult.Yes) {
 				try {

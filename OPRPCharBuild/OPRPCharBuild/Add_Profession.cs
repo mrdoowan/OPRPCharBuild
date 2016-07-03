@@ -179,22 +179,24 @@ namespace OPRPCharBuild
 			if (button_clicked) {
 				// Remove initial item from Dictionary
 				MainForm.ProfList.Remove(prof_name);
-				Main_Form.SelectedItems[0].SubItems[0].Text = comboBox1.Text;
 				string name = comboBox1.Text;
 				bool primary = false;
 				if (checkBox1.Checked) {
-					Main_Form.SelectedItems[0].SubItems[1].Text = "Primary";
 					primary = true;
+				}
+				try { MainForm.ProfList.Add(name, primary); }
+				catch (Exception e) {
+					MessageBox.Show("Can't add the same profession twice.\nReason: " + e.Message, "Exception Thrown");
+				}
+				Main_Form.SelectedItems[0].SubItems[0].Text = comboBox1.Text;
+				if (primary) {
+					Main_Form.SelectedItems[0].SubItems[1].Text = "Primary";
 				}
 				else {
 					Main_Form.SelectedItems[0].SubItems[1].Text = "Secondary";
 				}
 				Main_Form.SelectedItems[0].SubItems[2].Text = richTextBox1_Desc.Text;
 				Main_Form.SelectedItems[0].SubItems[3].Text = richTextBox2_Primary.Text;
-				try { MainForm.ProfList.Add(name, primary); }
-				catch (Exception e) {
-					MessageBox.Show("Can't add the same profession twice.\nReason: " + e.Message, "Exception Thrown");
-				}
 			}
 		}
 

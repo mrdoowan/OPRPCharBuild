@@ -2122,10 +2122,10 @@
 			this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label32.Location = new System.Drawing.Point(6, 404);
 			this.label32.Name = "label32";
-			this.label32.Size = new System.Drawing.Size(551, 16);
+			this.label32.Size = new System.Drawing.Size(551, 32);
 			this.label32.TabIndex = 28;
 			this.label32.Text = "NOTE: Do NOT make Custom Trait names. Edit Trait names in the generated Sheet ins" +
-    "tead.";
+    "tead.\r\nFor Special TP, you can treat a current Special Trait as a custom one.";
 			// 
 			// button_TraitsEdit
 			// 

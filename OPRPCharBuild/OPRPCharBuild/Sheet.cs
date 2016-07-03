@@ -547,16 +547,16 @@ namespace OPRPCharBuild
 			else {
 				foreach (string TechName in techList.Keys) {
 					MainForm.TechInfo Technique = MainForm.TechList[TechName];
-					template.Write("[c][b]" + TechName + "[/b]");				// Name
-					template.Write(" (" + Technique.rank);						// Rank
+					template.Write("[c][b]" + TechName + "[/b]");               // Name
+					template.Write(" (" + Technique.rank);                      // Rank
 					if (Technique.Cyborg_Boosts[2]) { template.Write(" + 12"); }
 					else if (Technique.Cyborg_Boosts[1]) { template.Write(" + 8"); }
 					else if (Technique.Cyborg_Boosts[0]) { template.Write(" + 4"); }
 					if (If_Treat_Rank4(Technique.rank_Trait)) { template.Write("*"); }
 					template.Write(")\n");
-					template.Write("[u]Type:[/u] " + Technique.type + '\n');	// Type
-					template.Write("[u]Range:[/u] " + Technique.range + '\n');	// Range
-					template.Write("[u]Power:[/u] " + Technique.power + '\n');	// Power
+					template.Write("[u]Type:[/u] " + Technique.type + '\n');    // Type
+					template.Write("[u]Range:[/u] " + Technique.range + '\n');  // Range
+					template.Write("[u]Power:[/u] " + Make_NA(Technique.power) + '\n');					// Power
 					template.Write("[u]Stats:[/u] " + TechStats_Into_String(Technique.stats) + '\n');   // Stats
 					template.Write("[u]TP Spent:[/u] " + Technique.regTP + "R");
 					if (Technique.spTP > 0) {
@@ -574,7 +574,7 @@ namespace OPRPCharBuild
 					template.Write("[u]Description:[/u] " + Technique.desc + '\n'); // Description
 					if (Technique.effectList.Count > 0) {
 						// Effects on bottom
-						template.Write("\n[u]Effects:[/u] " + TechEffects_Into_String(Technique.effectList) + '\n');
+						template.Write("\n[u]Effects:[/u] " + TechEffects_Into_String(Technique.effectList) + "\n\n");
 					}
 				}
 				template.Write("[/table]\n");

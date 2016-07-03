@@ -421,7 +421,8 @@ namespace OPRPCharBuild
 				}
 				// Save copy of Technique
 				MainForm.TechInfo techInfo = MainForm.TechList[TechName];
-				// Remove initial item from Dictionary first.
+				// Remove initial item from Dictionary first so we can avoid conflict of names
+				// Why? Take a look at the Event Handler button_AddTech_Click()
 				if (!MainForm.TechList.Remove(TechName)) {
 					MessageBox.Show("Couldn't remove from the Dictionary because TechName was null!", "Report Bug");
 				}
@@ -498,7 +499,8 @@ namespace OPRPCharBuild
 			string message = "";
 			// Rokushiki Message
 			if (Roku_Form_Type != Rokushiki.RokuName.NONE) {
-				if (!checkBox_Branched.Checked) { message += "- [i]Base " + Roku.Get_RokuInfo(Roku_Form_Type).name + " Technique[/i]\n"; }
+				if (!checkBox_Branched.Checked) { message += "- [i]Basic " + Roku.Get_RokuInfo(Roku_Form_Type).name + "[/i]\n"; }
+				else { message += "- [i]Branched " + Roku.Get_RokuInfo(Roku_Form_Type).name + "[/i]\n"; }
 			}
 			// Branch message
 			if (checkBox_Branched.Checked) { message += "- Branched from [i]R" + numericUpDown_RankBranch.Value.ToString() + " " + textBox_TechBranched.Text + "[/i]\n"; }
@@ -934,9 +936,6 @@ namespace OPRPCharBuild
 			else if (min_rank > curr_rank) {
 				MessageBox.Show("Effect costs are ineligible at its current rank.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-			else if (string.IsNullOrWhiteSpace(richTextBox_Desc.Text)) {
-				MessageBox.Show("Technique needs a Description.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
 			else {
 				this.Close();
 				button_clicked = true;
@@ -1055,8 +1054,6 @@ namespace OPRPCharBuild
 		}
 
 		private void comboBox_AffectRank_SelectedIndexChanged(object sender, EventArgs e) {
-			if (string.IsNullOrWhiteSpace(comboBox_AffectRank.Text)) { label_PowerNote.Visible = false; }
-			else { label_PowerNote.Visible = true; }
 			// Update power from Mastery
 			Update_Power_Value();
 			Update_MinRank();
@@ -1123,10 +1120,11 @@ namespace OPRPCharBuild
 				button_AddEffect.Enabled = false;
 				numericUpDown_Cost.Enabled = false;
 				comboBox_Effect.Enabled = false;
-				textBox_Power.Text = "0";
+				textBox_Power.Text = "";
+				textBox_Power.Enabled = false;
 				//textBox_Power.ReadOnly = false;
 				//textBox_Power.BackColor = SystemColors.Window;
-				label_MinRank.Text = "Min Rank: 1";
+				label_MinRank.Text = "[Min Rank: 0]";
 				min_rank = 1;
 				label_EffectType.Visible = false;
 				label_EffectDesc.Text = effect_label_reset;
@@ -1135,6 +1133,8 @@ namespace OPRPCharBuild
 				textBox_Power.Text = numericUpDown_Rank.Value.ToString();
 				//textBox_Power.ReadOnly = true;
 				//textBox_Power.BackColor = SystemColors.Control;
+				textBox_Power.Enabled = true;
+				Update_Power_Value();
 				listView_Effects.Enabled = true;
 				button_EffectRemove.Enabled = true;
 				button_AddEffect.Enabled = true;
@@ -1520,7 +1520,6 @@ namespace OPRPCharBuild
 						else if (selected_option == "Custom") {
 							// Load the Information into the Technique Form, change "Form Type", and signify this is now Rokushiki
 							this.Text = "Technique Creator - [Rokushiki: " + Info_Roku.name + "]";
-							label_PowerNote.Visible = false;
 							label_TechFormMsg.Visible = true;
 							toolTips.Active = false;
 							toolTip_Roku.Active = true;
