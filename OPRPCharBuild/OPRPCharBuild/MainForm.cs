@@ -162,26 +162,38 @@ namespace OPRPCharBuild
 
 		// Really don't want to use Microsoft's Click-Once application at this point, so I'll just
 		// implement my own version.
+		// Version now follows the following format:
+		// Major.Minor.Revision (only 3)
 		private void Check_Update() {
 			try {
-				int current = int.Parse(version.Replace(".", ""));
+				string[] current = version.Split('.');
 				// Get latest version from site
 				string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " " + Environment.OSVersion;
 				WebClient WC = new WebClient();
 				WC.Headers.Add("Content-Type", header_msg);
 				string version_page = WC.DownloadString("https://raw.githubusercontent.com/mrdoowan/OPRPCharBuild/master/CurrentVer.txt");
-				int latest = int.Parse(version_page.Replace(".", ""));
-				if (latest <= current) {
-					// We do nothing if this happens
+				string[] latest = version_page.Split('.');
+				// There should only be 3 numbers.
+				if (current.Length != latest.Length) {
+					MessageBox.Show("Current and Latest version Length are not equal.", "Report Bug", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					return;
 				}
+				for (int i = 0; i < current.Length; ++i) {
+					// We do nothing if the current version is greater than latest version
+					if (int.Parse(current[i]) > int.Parse(latest[i])) {
+						return;
+					}
+					else if (i == current.Length - 1 && (int.Parse(current[i]) >= int.Parse(latest[i]))) { // Last number check.
+						return;
+					}
+				}
+				// If we've arrived at this point, that means it needs updating.
 				if (MessageBox.Show("An update to v" + version_page + " is available. Would you like to close this application and download the newest version?", "New Version",
 					MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
 					Process.Start(website);
 					Process.Start("http://s1.zetaboards.com/One_Piece_RP/topic/6060583/1/");
 					upgrading = true;
-                    Application.Exit();
-
+					Application.Exit();
 				}
 			}
 			catch (Exception e) {

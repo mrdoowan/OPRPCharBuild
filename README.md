@@ -18,12 +18,12 @@ Based on OPRP usernames
 Version History
 ---------------
 
-### v1.0.2.2
+### v1.2.2
 
 * Hotfixed Bug: Editing a Profession and canceling changes would accidentally remove the Profession from data, but it wouldn't visually display that.
 * Hotfixed Bug: Editing a Technique name to the same name as another one would flag an error.
 
-### v1.0.2.0
+### v1.2.0
 
 * Overhauled and Complete Technique Creator with Effects and Power Calculations
 * Rokushiki Techniques can now be loaded
@@ -31,7 +31,7 @@ Version History
 * Importing of older file versions into newer versions
 * Sheet updated to make Technique Tables look neater on Zetaboard
 
-### v1.0.1.0 
+### v1.1.0 
 
 * Initial Version released! 
 * Bug fixes and many QoL changes 
@@ -42,6 +42,6 @@ Version History
 * Anything in a List can now be ordered freely by the user. 
 * Help Documentation added. 
 
-### v1.0.0.0 (BETA)
+### v1.0.0 (BETA)
 
 * "Closed" Beta released!

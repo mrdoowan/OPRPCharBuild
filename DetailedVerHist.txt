@@ -1,75 +1,78 @@
-v1.0.2.2 - 7/3/2016
+v1.2.3 - 7/5/2016
+- Made small changes to the Version numbers (downed it to 3 numbers, will be reflected next change)
+- Revised Stats label to "SD Earned (w/o) AP" for clarity
+v1.2.2 - 7/3/2016
 - Mastery now affects both Power and Effect, got rid of message.
 - Power now truly displays as "N/A"
-v1.0.2.1 - 7/1/2016
+v1.2.1 - 7/1/2016
 - Fixed a bug when editing a Technique with the same name as another Technique would error.
 - Fixed a bug when editing a Profession and canceling would remove it from the Dictionary
 - Fixed some problems with customizing Rokushiki
-v1.0.2.0 - 6/29/2016
+v1.2.0 - 6/29/2016
 - Release of the next update
 - Updated the Technique Form to toggle Inventor/Marksman primary
 - Fixed a bug on branching Techniques with Sp TP
-v1.0.1.15 - 6/25/2016
+v1.1.15 - 6/25/2016
 - Bug fixed Cyborg on Techniques
 - Small changes on Sheet to make Techniques more readable
 - QoL changes to make Technique Creater feel smoother
 - Bug fixes on the Technique Creator
-v1.0.1.14 - 6/21/2016
+v1.1.14 - 6/21/2016
 - Rokushiki completely implemented
 - Importing Old files completely implemented
 - Edited the Project object again for the last iteration
 - Added implementation for Critical Hit, Anatomical Strike, and Quickstrike.
-v1.0.1.13 - 6/20/2016
+v1.1.13 - 6/20/2016
 - Cleaned up Sheet to make a complete generated Character Template
 - Scrapped Update_Trait_Warning() for its cumbersome implementation
 - Added a new section for "Applicable Traits" so that the Traits all stacks neatly
 - Started on Rokushiki and added a New Form for Importing and Rokushiki
 - Incomplete as of now
-v1.0.1.12 - 6/19/2016
+v1.1.12 - 6/19/2016
 - Massive bug fixes to make sure all the Techniques are fluidly going through
 - Sheet.cs still not yet updated to reflect new changes
-v1.0.1.11 - 6/19/2016
+v1.1.11 - 6/19/2016
 - Add Technique Form GUI updated to look nicer
 - Devil Fruit and Cyborg changed so that the Form is automatically updated upon checking the Traits List
 - Sheet not yet updated to reflect the new changes
-v1.0.1.10 - 6/19/2016
+v1.1.10 - 6/19/2016
 - A few bug fixes done pertaining to Loading/Saving again
 - Updated Sheet.cs to reflect the current changes
-v1.0.1.9 - 6/18/2016
+v1.1.9 - 6/18/2016
 - Technique Overhaul (without Rokushiki and Cyborg) completed with Effects
 - Project serialization modified to fit the current version
 - Massive amount of bug fixes on Project saving and Editing/Branching Techniques
 - Fixed Reset form to properly reset: Affiliation, Images, Region, AP_Label, Final Stats, Trait_Label
-v1.0.1.8 - 6/17/2016
+v1.1.8 - 6/17/2016
 - Started implementation of binding the ListView of Techniques into a Dictionary
 - In progress of transferring data between ListView and Form and Dictionary
 - Still has compiler errors from syntax due to incompletion
-v1.0.1.7 - 6/15/2016
+v1.1.7 - 6/15/2016
 - Revamped Effects to make it look significantly cleaner. Made an inverse Dictionary from enum -> string
 - Integrated Secondary General Effects
 - Still has compiler errors from syntax due to incompletion
-v1.0.1.6 - 6/14/2016
+v1.1.6 - 6/14/2016
 - Bound the List of Effects into a ListView, along with finishing the "Add" and "Remove" button
 - Changed around some functions and turned them into public static for usage between Classes
 - Still has compiler errors from syntax due to incompletion
-v1.0.1.5 - 6/14/2016
+v1.1.5 - 6/14/2016
 - List of Effects and their exact descriptions implemented into the tool
 - Made a Dictionary of Professions
 - Added many user design and update functions into the Technique Form
 - Changed the SpTrait_Warning label into Trait_Warning label because of inclusion of General Traits. Still requires implementation
 - Still has compiler errors from syntax due to incompletion
-v1.0.1.4 - 6/13/2016
+v1.1.4 - 6/13/2016
 - Started doing the Technique Overhaul by editing the GUI
 - Added the list of Effects into the form
 - Still has compiler errors from syntax due to incompletion
-v1.0.1.3 - 6/11/2016
+v1.1.3 - 6/11/2016
 - Changed colors on Trait labels to signify if Traits equaled out
 - Sorted traits by General and Professional
-v1.0.1.2 - 6/10/2016
+v1.1.2 - 6/10/2016
 - Flagged numbers red if used TP goes over Total.
 - Fixed a bug when AP was checked and a sheet was generated, an exception would be flagged
 - Flagged the new Project2 format as serializable
-v1.0.1.1 - 6/9/2016
+v1.1.1 - 6/9/2016
 - Made an incomplete function that imports an older version to the newer version
 - Doesn't require you to save when Generating a sheet
 - Users can now use more than one image for their character
@@ -78,46 +81,46 @@ v1.0.1.1 - 6/9/2016
 - Fixed a bug where resetting the form would screw up the min value of "Age"
 - Cleaned up massive spaghetti code that used to contain repeating functions "Trait_Name_From_ListView" and "Contains_Trait_AtIndex"
 - Updated visual on calculations: Brackets look better
-v1.0.1.0 - 6/7/2016
+v1.1.0 - 6/7/2016
 - Official Full Release
 - Help documentation added
 - Proper URL links established
 - Small note added when generating sheets
-v1.0.0.8 - 6/7/2016
+v1.0.8 - 6/7/2016
 - Small bug fix with image links on the Sheet
 - Added some exception handling, particularly when not entering anything for "Spec"
-v1.0.0.7 - 6/6/2016
+v1.0.7 - 6/6/2016
 - Minor bug fix on adding Stat bonuses after base stat 75.
-v1.0.0.6 - 6/6/2016
+v1.0.6 - 6/6/2016
 - Bugs fixed on Technique Forms.
 - Fixed calculations on Total Reg TP
 - Beli Standardization (an undeducted version) implemented
 - Fixed a bug where Opening a file doesn't save it later on.
 - Added a "Branch" Technique feature
 - Small QoL changes that makes the tool easier and more comprehensive.
-v1.0.0.5 - 6/6/2016
+v1.0.5 - 6/6/2016
 - Technique Form GUI completely revamped
 - Stats is now customizable from all 4 types
 - TP "Note" (formerly TP Message) is now editable
 - Branching calculations are now done correctly with Reg TP used
 - There is now a "List of Effects" you can add for Techniques (without calculations)
 - Remind the user to fill missing required information before adding a Tech. Inform user through MessageBox.
-v1.0.0.4 - 6/3/2016
+v1.0.4 - 6/3/2016
 - Version check tested and good
-v1.0.0.3 - 6/3/2016
+v1.0.3 - 6/3/2016
 - Weaponry and Items is now a Table in the Template Sheet
 - Primary profession is always listed as first in the Template Sheet
 - Users are allowed to freely order items in ALL of the Lists
 - Implemented a simple version check
-v1.0.0.2 - 6/2/2016
+v1.0.2 - 6/2/2016
 - Remind the user to fill missing required information before adding onto a List. Mark the background as red to inform the user what they have to fill in (Not done for Techniques yet)
 - Put Stats as its own tab
 - Add a newline between "Clothing" and "Appearance"
 - Age min (7) and max (70) set
 - N/A for "Nickname" and "Devil Fruit" if left blank
-v1.0.0.1 - 6/1/2016
+v1.0.1 - 6/1/2016
 - Fixed a math error where "Stat Points" was used to calculate Fortune, not "Used for Stats"
 - Added "Self" to the Combo Box for "Range" when adding Techniques
 - "Eye" changed to "Eyes" in Physical Appearance
-v1.0.0.0 - 6/1/2016
+v1.0.0 - 6/1/2016
 - Beta Released

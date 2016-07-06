@@ -228,6 +228,7 @@
 			this.toolStripButton_New = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton_Open = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
+			this.label_TotalSD = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1568,6 +1569,7 @@
 			// 
 			// groupBox12
 			// 
+			this.groupBox12.Controls.Add(this.label_TotalSD);
 			this.groupBox12.Controls.Add(this.textBox_AP);
 			this.groupBox12.Controls.Add(this.label_FortuneCalc);
 			this.groupBox12.Controls.Add(this.label_GenerateCheck);
@@ -1996,7 +1998,7 @@
 			// numericUpDown_SDintoStats
 			// 
 			this.numericUpDown_SDintoStats.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.numericUpDown_SDintoStats.Location = new System.Drawing.Point(240, 88);
+			this.numericUpDown_SDintoStats.Location = new System.Drawing.Point(97, 78);
 			this.numericUpDown_SDintoStats.Maximum = new decimal(new int[] {
             0,
             0,
@@ -2011,16 +2013,16 @@
 			// 
 			this.label78.AutoSize = true;
 			this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label78.Location = new System.Drawing.Point(13, 90);
+			this.label78.Location = new System.Drawing.Point(159, 80);
 			this.label78.Name = "label78";
-			this.label78.Size = new System.Drawing.Size(224, 13);
+			this.label78.Size = new System.Drawing.Size(95, 13);
 			this.label78.TabIndex = 20;
-			this.label78.Text = "How much of your SD Earned will be in Stats?";
+			this.label78.Text = "SD Spent on Stats";
 			// 
 			// textBox_SDRemain
 			// 
 			this.textBox_SDRemain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_SDRemain.Location = new System.Drawing.Point(97, 57);
+			this.textBox_SDRemain.Location = new System.Drawing.Point(97, 104);
 			this.textBox_SDRemain.Name = "textBox_SDRemain";
 			this.textBox_SDRemain.ReadOnly = true;
 			this.textBox_SDRemain.Size = new System.Drawing.Size(55, 20);
@@ -2031,7 +2033,7 @@
 			// 
 			this.label79.AutoSize = true;
 			this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label79.Location = new System.Drawing.Point(13, 60);
+			this.label79.Location = new System.Drawing.Point(159, 107);
 			this.label79.Name = "label79";
 			this.label79.Size = new System.Drawing.Size(78, 13);
 			this.label79.TabIndex = 19;
@@ -2040,7 +2042,7 @@
 			// numericUpDown_SDEarned
 			// 
 			this.numericUpDown_SDEarned.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.numericUpDown_SDEarned.Location = new System.Drawing.Point(97, 28);
+			this.numericUpDown_SDEarned.Location = new System.Drawing.Point(97, 52);
 			this.numericUpDown_SDEarned.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -2082,11 +2084,11 @@
 			// 
 			this.label81.AutoSize = true;
 			this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label81.Location = new System.Drawing.Point(29, 30);
+			this.label81.Location = new System.Drawing.Point(159, 54);
 			this.label81.Name = "label81";
-			this.label81.Size = new System.Drawing.Size(62, 13);
+			this.label81.Size = new System.Drawing.Size(104, 13);
 			this.label81.TabIndex = 15;
-			this.label81.Text = "SD Earned:";
+			this.label81.Text = "SD Earned (w/o AP)";
 			// 
 			// tabPage5
 			// 
@@ -2590,6 +2592,15 @@
 			this.toolStripButton_Save.Text = "Save";
 			this.toolStripButton_Save.Click += new System.EventHandler(this.toolStripButton_Save_Click);
 			// 
+			// label_TotalSD
+			// 
+			this.label_TotalSD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label_TotalSD.Location = new System.Drawing.Point(94, 22);
+			this.label_TotalSD.Name = "label_TotalSD";
+			this.label_TotalSD.Size = new System.Drawing.Size(166, 15);
+			this.label_TotalSD.TabIndex = 53;
+			this.label_TotalSD.Text = "Total SD Earned: 0";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2861,6 +2872,7 @@
 		private System.Windows.Forms.ToolStripButton toolStripButton_New;
 		private System.Windows.Forms.ToolStripButton toolStripButton_Open;
 		private System.Windows.Forms.ToolStripButton toolStripButton_Save;
+		private System.Windows.Forms.Label label_TotalSD;
 	}
 }
 
