@@ -21,7 +21,7 @@ namespace OPRPCharBuild
 		private bool OK_clicked;
 		private bool Custom_clicked;
 
-		public const string ProjectStr = "v1.0.1.0 (Project)";
+		public const string ProjectStr = "v1.1.0 (Project)";
 
 		// Default Constructor
 		public SelectOptions(int option_, bool RokuMaster_, int maxRank_) {

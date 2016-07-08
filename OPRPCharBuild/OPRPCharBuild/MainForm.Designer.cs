@@ -142,6 +142,10 @@
 			this.label26 = new System.Windows.Forms.Label();
 			this.tabPage7 = new System.Windows.Forms.TabPage();
 			this.groupBox12 = new System.Windows.Forms.GroupBox();
+			this.textBox_Focus = new System.Windows.Forms.TextBox();
+			this.label39 = new System.Windows.Forms.Label();
+			this.textBox_TotalSD = new System.Windows.Forms.TextBox();
+			this.label_TotalSD = new System.Windows.Forms.Label();
 			this.textBox_AP = new System.Windows.Forms.TextBox();
 			this.label_FortuneCalc = new System.Windows.Forms.Label();
 			this.label_GenerateCheck = new System.Windows.Forms.Label();
@@ -191,8 +195,24 @@
 			this.button_TraitAdd = new System.Windows.Forms.Button();
 			this.listView_Traits = new System.Windows.Forms.ListView();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.groupBox8 = new System.Windows.Forms.GroupBox();
+			this.label41 = new System.Windows.Forms.Label();
+			this.button_SubCatEdit = new System.Windows.Forms.Button();
+			this.label_RowNum = new System.Windows.Forms.Label();
+			this.label_SubCatWarning = new System.Windows.Forms.Label();
+			this.numericUpDown_RowEnd = new System.Windows.Forms.NumericUpDown();
+			this.numericUpDown_RowBegin = new System.Windows.Forms.NumericUpDown();
+			this.textBox_SubCat = new System.Windows.Forms.TextBox();
+			this.label40 = new System.Windows.Forms.Label();
+			this.button_SubCatAdd = new System.Windows.Forms.Button();
+			this.button_SubCatClear = new System.Windows.Forms.Button();
+			this.label_SubCatMsg = new System.Windows.Forms.Label();
+			this.label38 = new System.Windows.Forms.Label();
+			this.label36 = new System.Windows.Forms.Label();
+			this.listView_SubCat = new System.Windows.Forms.ListView();
 			this.groupBox11 = new System.Windows.Forms.GroupBox();
 			this.label_CritAnatQuick = new System.Windows.Forms.Label();
+			this.label_TechCount = new System.Windows.Forms.Label();
 			this.button_TechBranch = new System.Windows.Forms.Button();
 			this.button_DownTech = new System.Windows.Forms.Button();
 			this.button_UpTech = new System.Windows.Forms.Button();
@@ -228,7 +248,6 @@
 			this.toolStripButton_New = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton_Open = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
-			this.label_TotalSD = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -257,6 +276,9 @@
 			this.tabPage5.SuspendLayout();
 			this.groupBox10.SuspendLayout();
 			this.tabPage6.SuspendLayout();
+			this.groupBox8.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowEnd)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowBegin)).BeginInit();
 			this.groupBox11.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
@@ -1237,6 +1259,7 @@
 			// label35
 			// 
 			this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label35.ForeColor = System.Drawing.Color.Purple;
 			this.label35.Location = new System.Drawing.Point(427, 22);
 			this.label35.Name = "label35";
 			this.label35.Size = new System.Drawing.Size(185, 32);
@@ -1248,6 +1271,7 @@
 			// 
 			this.label34.AutoSize = true;
 			this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label34.ForeColor = System.Drawing.Color.Purple;
 			this.label34.Location = new System.Drawing.Point(427, 194);
 			this.label34.Name = "label34";
 			this.label34.Size = new System.Drawing.Size(159, 13);
@@ -1569,6 +1593,9 @@
 			// 
 			// groupBox12
 			// 
+			this.groupBox12.Controls.Add(this.textBox_Focus);
+			this.groupBox12.Controls.Add(this.label39);
+			this.groupBox12.Controls.Add(this.textBox_TotalSD);
 			this.groupBox12.Controls.Add(this.label_TotalSD);
 			this.groupBox12.Controls.Add(this.textBox_AP);
 			this.groupBox12.Controls.Add(this.label_FortuneCalc);
@@ -1612,15 +1639,55 @@
 			this.groupBox12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
 			this.groupBox12.Location = new System.Drawing.Point(3, 3);
 			this.groupBox12.Name = "groupBox12";
-			this.groupBox12.Size = new System.Drawing.Size(619, 378);
+			this.groupBox12.Size = new System.Drawing.Size(619, 409);
 			this.groupBox12.TabIndex = 14;
 			this.groupBox12.TabStop = false;
 			this.groupBox12.Text = "Statistics";
 			// 
+			// textBox_Focus
+			// 
+			this.textBox_Focus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.textBox_Focus.Location = new System.Drawing.Point(138, 127);
+			this.textBox_Focus.Name = "textBox_Focus";
+			this.textBox_Focus.ReadOnly = true;
+			this.textBox_Focus.Size = new System.Drawing.Size(55, 20);
+			this.textBox_Focus.TabIndex = 55;
+			this.textBox_Focus.Text = "0";
+			// 
+			// label39
+			// 
+			this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label39.Location = new System.Drawing.Point(18, 126);
+			this.label39.Name = "label39";
+			this.label39.Size = new System.Drawing.Size(114, 20);
+			this.label39.TabIndex = 56;
+			this.label39.Text = "Focus:";
+			this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// textBox_TotalSD
+			// 
+			this.textBox_TotalSD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.textBox_TotalSD.Location = new System.Drawing.Point(138, 23);
+			this.textBox_TotalSD.Name = "textBox_TotalSD";
+			this.textBox_TotalSD.ReadOnly = true;
+			this.textBox_TotalSD.Size = new System.Drawing.Size(55, 20);
+			this.textBox_TotalSD.TabIndex = 54;
+			this.textBox_TotalSD.Text = "0";
+			// 
+			// label_TotalSD
+			// 
+			this.label_TotalSD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label_TotalSD.Location = new System.Drawing.Point(28, 25);
+			this.label_TotalSD.Name = "label_TotalSD";
+			this.label_TotalSD.Size = new System.Drawing.Size(104, 15);
+			this.label_TotalSD.TabIndex = 53;
+			this.label_TotalSD.Text = "Total SD Amount:";
+			this.label_TotalSD.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
 			// textBox_AP
 			// 
 			this.textBox_AP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_AP.Location = new System.Drawing.Point(413, 19);
+			this.textBox_AP.Location = new System.Drawing.Point(325, 16);
 			this.textBox_AP.Name = "textBox_AP";
 			this.textBox_AP.ReadOnly = true;
 			this.textBox_AP.Size = new System.Drawing.Size(25, 20);
@@ -1631,7 +1698,7 @@
 			// 
 			this.label_FortuneCalc.AutoSize = true;
 			this.label_FortuneCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_FortuneCalc.Location = new System.Drawing.Point(348, 347);
+			this.label_FortuneCalc.Location = new System.Drawing.Point(395, 379);
 			this.label_FortuneCalc.Name = "label_FortuneCalc";
 			this.label_FortuneCalc.Size = new System.Drawing.Size(42, 13);
 			this.label_FortuneCalc.TabIndex = 51;
@@ -1640,7 +1707,7 @@
 			// label_GenerateCheck
 			// 
 			this.label_GenerateCheck.ForeColor = System.Drawing.Color.Red;
-			this.label_GenerateCheck.Location = new System.Drawing.Point(6, 288);
+			this.label_GenerateCheck.Location = new System.Drawing.Point(53, 320);
 			this.label_GenerateCheck.Name = "label_GenerateCheck";
 			this.label_GenerateCheck.Size = new System.Drawing.Size(209, 60);
 			this.label_GenerateCheck.TabIndex = 6;
@@ -1651,7 +1718,7 @@
 			// 
 			this.label_AccuracyCalc.AutoSize = true;
 			this.label_AccuracyCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_AccuracyCalc.Location = new System.Drawing.Point(412, 320);
+			this.label_AccuracyCalc.Location = new System.Drawing.Point(459, 352);
 			this.label_AccuracyCalc.Name = "label_AccuracyCalc";
 			this.label_AccuracyCalc.Size = new System.Drawing.Size(19, 13);
 			this.label_AccuracyCalc.TabIndex = 50;
@@ -1661,7 +1728,7 @@
 			// 
 			this.label_StaminaCalc.AutoSize = true;
 			this.label_StaminaCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_StaminaCalc.Location = new System.Drawing.Point(412, 290);
+			this.label_StaminaCalc.Location = new System.Drawing.Point(459, 322);
 			this.label_StaminaCalc.Name = "label_StaminaCalc";
 			this.label_StaminaCalc.Size = new System.Drawing.Size(19, 13);
 			this.label_StaminaCalc.TabIndex = 49;
@@ -1671,7 +1738,7 @@
 			// 
 			this.label_SpeedCalc.AutoSize = true;
 			this.label_SpeedCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_SpeedCalc.Location = new System.Drawing.Point(412, 261);
+			this.label_SpeedCalc.Location = new System.Drawing.Point(459, 293);
 			this.label_SpeedCalc.Name = "label_SpeedCalc";
 			this.label_SpeedCalc.Size = new System.Drawing.Size(19, 13);
 			this.label_SpeedCalc.TabIndex = 48;
@@ -1681,7 +1748,7 @@
 			// 
 			this.label_StrengthCalc.AutoSize = true;
 			this.label_StrengthCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_StrengthCalc.Location = new System.Drawing.Point(412, 230);
+			this.label_StrengthCalc.Location = new System.Drawing.Point(459, 262);
 			this.label_StrengthCalc.Name = "label_StrengthCalc";
 			this.label_StrengthCalc.Size = new System.Drawing.Size(19, 13);
 			this.label_StrengthCalc.TabIndex = 47;
@@ -1691,7 +1758,7 @@
 			// 
 			this.label63.AutoSize = true;
 			this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-			this.label63.Location = new System.Drawing.Point(360, 202);
+			this.label63.Location = new System.Drawing.Point(407, 234);
 			this.label63.Name = "label63";
 			this.label63.Size = new System.Drawing.Size(38, 17);
 			this.label63.TabIndex = 46;
@@ -1700,7 +1767,7 @@
 			// textBox_AccuracyFinal
 			// 
 			this.textBox_AccuracyFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_AccuracyFinal.Location = new System.Drawing.Point(351, 318);
+			this.textBox_AccuracyFinal.Location = new System.Drawing.Point(398, 350);
 			this.textBox_AccuracyFinal.Name = "textBox_AccuracyFinal";
 			this.textBox_AccuracyFinal.ReadOnly = true;
 			this.textBox_AccuracyFinal.Size = new System.Drawing.Size(55, 20);
@@ -1710,7 +1777,7 @@
 			// textBox_StaminaFinal
 			// 
 			this.textBox_StaminaFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_StaminaFinal.Location = new System.Drawing.Point(351, 288);
+			this.textBox_StaminaFinal.Location = new System.Drawing.Point(398, 320);
 			this.textBox_StaminaFinal.Name = "textBox_StaminaFinal";
 			this.textBox_StaminaFinal.ReadOnly = true;
 			this.textBox_StaminaFinal.Size = new System.Drawing.Size(55, 20);
@@ -1720,7 +1787,7 @@
 			// textBox_SpeedFinal
 			// 
 			this.textBox_SpeedFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_SpeedFinal.Location = new System.Drawing.Point(351, 258);
+			this.textBox_SpeedFinal.Location = new System.Drawing.Point(398, 290);
 			this.textBox_SpeedFinal.Name = "textBox_SpeedFinal";
 			this.textBox_SpeedFinal.ReadOnly = true;
 			this.textBox_SpeedFinal.Size = new System.Drawing.Size(55, 20);
@@ -1730,7 +1797,7 @@
 			// textBox_StrengthFinal
 			// 
 			this.textBox_StrengthFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_StrengthFinal.Location = new System.Drawing.Point(351, 228);
+			this.textBox_StrengthFinal.Location = new System.Drawing.Point(398, 260);
 			this.textBox_StrengthFinal.Name = "textBox_StrengthFinal";
 			this.textBox_StrengthFinal.ReadOnly = true;
 			this.textBox_StrengthFinal.Size = new System.Drawing.Size(55, 20);
@@ -1740,7 +1807,7 @@
 			// textBox_Fortune
 			// 
 			this.textBox_Fortune.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_Fortune.Location = new System.Drawing.Point(278, 347);
+			this.textBox_Fortune.Location = new System.Drawing.Point(325, 379);
 			this.textBox_Fortune.Name = "textBox_Fortune";
 			this.textBox_Fortune.ReadOnly = true;
 			this.textBox_Fortune.Size = new System.Drawing.Size(55, 20);
@@ -1751,7 +1818,7 @@
 			// numericUpDown_AccuracyBase
 			// 
 			this.numericUpDown_AccuracyBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.numericUpDown_AccuracyBase.Location = new System.Drawing.Point(278, 318);
+			this.numericUpDown_AccuracyBase.Location = new System.Drawing.Point(325, 350);
 			this.numericUpDown_AccuracyBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1775,7 +1842,7 @@
 			// numericUpDown_StaminaBase
 			// 
 			this.numericUpDown_StaminaBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.numericUpDown_StaminaBase.Location = new System.Drawing.Point(278, 288);
+			this.numericUpDown_StaminaBase.Location = new System.Drawing.Point(325, 320);
 			this.numericUpDown_StaminaBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1799,7 +1866,7 @@
 			// numericUpDown_SpeedBase
 			// 
 			this.numericUpDown_SpeedBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.numericUpDown_SpeedBase.Location = new System.Drawing.Point(278, 258);
+			this.numericUpDown_SpeedBase.Location = new System.Drawing.Point(325, 290);
 			this.numericUpDown_SpeedBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1823,7 +1890,7 @@
 			// numericUpDown_StrengthBase
 			// 
 			this.numericUpDown_StrengthBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.numericUpDown_StrengthBase.Location = new System.Drawing.Point(278, 228);
+			this.numericUpDown_StrengthBase.Location = new System.Drawing.Point(325, 260);
 			this.numericUpDown_StrengthBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1848,7 +1915,7 @@
 			// 
 			this.label67.AutoSize = true;
 			this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-			this.label67.Location = new System.Drawing.Point(283, 201);
+			this.label67.Location = new System.Drawing.Point(330, 233);
 			this.label67.Name = "label67";
 			this.label67.Size = new System.Drawing.Size(40, 17);
 			this.label67.TabIndex = 36;
@@ -1858,7 +1925,7 @@
 			// 
 			this.label68.AutoSize = true;
 			this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label68.Location = new System.Drawing.Point(226, 350);
+			this.label68.Location = new System.Drawing.Point(273, 382);
 			this.label68.Name = "label68";
 			this.label68.Size = new System.Drawing.Size(46, 13);
 			this.label68.TabIndex = 35;
@@ -1868,7 +1935,7 @@
 			// 
 			this.label69.AutoSize = true;
 			this.label69.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label69.Location = new System.Drawing.Point(217, 320);
+			this.label69.Location = new System.Drawing.Point(264, 352);
 			this.label69.Name = "label69";
 			this.label69.Size = new System.Drawing.Size(55, 13);
 			this.label69.TabIndex = 34;
@@ -1878,7 +1945,7 @@
 			// 
 			this.label70.AutoSize = true;
 			this.label70.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label70.Location = new System.Drawing.Point(224, 290);
+			this.label70.Location = new System.Drawing.Point(271, 322);
 			this.label70.Name = "label70";
 			this.label70.Size = new System.Drawing.Size(48, 13);
 			this.label70.TabIndex = 33;
@@ -1888,7 +1955,7 @@
 			// 
 			this.label71.AutoSize = true;
 			this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label71.Location = new System.Drawing.Point(231, 260);
+			this.label71.Location = new System.Drawing.Point(278, 292);
 			this.label71.Name = "label71";
 			this.label71.Size = new System.Drawing.Size(41, 13);
 			this.label71.TabIndex = 32;
@@ -1898,7 +1965,7 @@
 			// 
 			this.label72.AutoSize = true;
 			this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label72.Location = new System.Drawing.Point(222, 230);
+			this.label72.Location = new System.Drawing.Point(269, 262);
 			this.label72.Name = "label72";
 			this.label72.Size = new System.Drawing.Size(50, 13);
 			this.label72.TabIndex = 31;
@@ -1908,7 +1975,7 @@
 			// 
 			this.label37_SDonAP.AutoSize = true;
 			this.label37_SDonAP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label37_SDonAP.Location = new System.Drawing.Point(444, 22);
+			this.label37_SDonAP.Location = new System.Drawing.Point(356, 19);
 			this.label37_SDonAP.Name = "label37_SDonAP";
 			this.label37_SDonAP.Size = new System.Drawing.Size(92, 13);
 			this.label37_SDonAP.TabIndex = 30;
@@ -1922,7 +1989,7 @@
             0,
             0,
             0});
-			this.numericUpDown_UsedForFort.Location = new System.Drawing.Point(97, 243);
+			this.numericUpDown_UsedForFort.Location = new System.Drawing.Point(144, 275);
 			this.numericUpDown_UsedForFort.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1936,7 +2003,7 @@
 			// textBox_UsedForStats
 			// 
 			this.textBox_UsedForStats.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_UsedForStats.Location = new System.Drawing.Point(97, 202);
+			this.textBox_UsedForStats.Location = new System.Drawing.Point(144, 234);
 			this.textBox_UsedForStats.Name = "textBox_UsedForStats";
 			this.textBox_UsedForStats.ReadOnly = true;
 			this.textBox_UsedForStats.Size = new System.Drawing.Size(55, 20);
@@ -1948,7 +2015,7 @@
 			// 
 			this.label74.AutoSize = true;
 			this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label74.Location = new System.Drawing.Point(2, 245);
+			this.label74.Location = new System.Drawing.Point(49, 277);
 			this.label74.Name = "label74";
 			this.label74.Size = new System.Drawing.Size(89, 13);
 			this.label74.TabIndex = 27;
@@ -1958,7 +2025,7 @@
 			// 
 			this.label75.AutoSize = true;
 			this.label75.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label75.Location = new System.Drawing.Point(14, 205);
+			this.label75.Location = new System.Drawing.Point(61, 237);
 			this.label75.Name = "label75";
 			this.label75.Size = new System.Drawing.Size(77, 13);
 			this.label75.TabIndex = 26;
@@ -1968,7 +2035,7 @@
 			// 
 			this.label_SDtoSPCalculations.AutoSize = true;
 			this.label_SDtoSPCalculations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_SDtoSPCalculations.Location = new System.Drawing.Point(158, 165);
+			this.label_SDtoSPCalculations.Location = new System.Drawing.Point(205, 197);
 			this.label_SDtoSPCalculations.Name = "label_SDtoSPCalculations";
 			this.label_SDtoSPCalculations.Size = new System.Drawing.Size(43, 13);
 			this.label_SDtoSPCalculations.TabIndex = 24;
@@ -1977,7 +2044,7 @@
 			// textBox_StatPoints
 			// 
 			this.textBox_StatPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_StatPoints.Location = new System.Drawing.Point(97, 162);
+			this.textBox_StatPoints.Location = new System.Drawing.Point(144, 194);
 			this.textBox_StatPoints.Name = "textBox_StatPoints";
 			this.textBox_StatPoints.ReadOnly = true;
 			this.textBox_StatPoints.Size = new System.Drawing.Size(55, 20);
@@ -1989,7 +2056,7 @@
 			// 
 			this.label77.AutoSize = true;
 			this.label77.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label77.Location = new System.Drawing.Point(30, 165);
+			this.label77.Location = new System.Drawing.Point(77, 197);
 			this.label77.Name = "label77";
 			this.label77.Size = new System.Drawing.Size(61, 13);
 			this.label77.TabIndex = 22;
@@ -1998,7 +2065,7 @@
 			// numericUpDown_SDintoStats
 			// 
 			this.numericUpDown_SDintoStats.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.numericUpDown_SDintoStats.Location = new System.Drawing.Point(97, 78);
+			this.numericUpDown_SDintoStats.Location = new System.Drawing.Point(138, 75);
 			this.numericUpDown_SDintoStats.Maximum = new decimal(new int[] {
             0,
             0,
@@ -2011,18 +2078,18 @@
 			// 
 			// label78
 			// 
-			this.label78.AutoSize = true;
 			this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label78.Location = new System.Drawing.Point(159, 80);
+			this.label78.Location = new System.Drawing.Point(15, 74);
 			this.label78.Name = "label78";
-			this.label78.Size = new System.Drawing.Size(95, 13);
+			this.label78.Size = new System.Drawing.Size(117, 18);
 			this.label78.TabIndex = 20;
-			this.label78.Text = "SD Spent on Stats";
+			this.label78.Text = "SD Spent Into SP:";
+			this.label78.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// textBox_SDRemain
 			// 
 			this.textBox_SDRemain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_SDRemain.Location = new System.Drawing.Point(97, 104);
+			this.textBox_SDRemain.Location = new System.Drawing.Point(138, 101);
 			this.textBox_SDRemain.Name = "textBox_SDRemain";
 			this.textBox_SDRemain.ReadOnly = true;
 			this.textBox_SDRemain.Size = new System.Drawing.Size(55, 20);
@@ -2031,18 +2098,18 @@
 			// 
 			// label79
 			// 
-			this.label79.AutoSize = true;
 			this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label79.Location = new System.Drawing.Point(159, 107);
+			this.label79.Location = new System.Drawing.Point(18, 100);
 			this.label79.Name = "label79";
-			this.label79.Size = new System.Drawing.Size(78, 13);
+			this.label79.Size = new System.Drawing.Size(114, 20);
 			this.label79.TabIndex = 19;
 			this.label79.Text = "SD Remaining:";
+			this.label79.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// numericUpDown_SDEarned
 			// 
 			this.numericUpDown_SDEarned.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.numericUpDown_SDEarned.Location = new System.Drawing.Point(97, 52);
+			this.numericUpDown_SDEarned.Location = new System.Drawing.Point(138, 49);
 			this.numericUpDown_SDEarned.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -2059,14 +2126,14 @@
 			this.checkedListBox1_AP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
 			this.checkedListBox1_AP.FormattingEnabled = true;
 			this.checkedListBox1_AP.Items.AddRange(new object[] {
-            "Technique - Increase tech point multiplier by .5",
-            "Trait - Trait cap raised by 1",
-            "Prime Prof - Secondary profession upgrade to primary",
-            "Multiskilled Prof - Take two more secondary professions",
-            "Devil Fruit - Mythical Zoan Scoop"});
-			this.checkedListBox1_AP.Location = new System.Drawing.Point(302, 45);
+            "Technique - Permanently increase tech point multiplier by .5",
+            "Trait - Trait cap raised by 1, can take Legacy Traits without training",
+            "Prime Professional - May upgrade secondary profession to primary",
+            "Multiskilled Professional - May take two more secondary professions",
+            "Devil Fruit - Choose a Myth Zoan, gained without DF SL"});
+			this.checkedListBox1_AP.Location = new System.Drawing.Point(214, 42);
 			this.checkedListBox1_AP.Name = "checkedListBox1_AP";
-			this.checkedListBox1_AP.Size = new System.Drawing.Size(312, 79);
+			this.checkedListBox1_AP.Size = new System.Drawing.Size(399, 79);
 			this.checkedListBox1_AP.TabIndex = 8;
 			this.checkedListBox1_AP.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_AP_SelectedIndexChanged);
 			// 
@@ -2074,7 +2141,7 @@
 			// 
 			this.label80.AutoSize = true;
 			this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label80.Location = new System.Drawing.Point(299, 22);
+			this.label80.Location = new System.Drawing.Point(211, 19);
 			this.label80.Name = "label80";
 			this.label80.Size = new System.Drawing.Size(108, 13);
 			this.label80.TabIndex = 16;
@@ -2082,13 +2149,13 @@
 			// 
 			// label81
 			// 
-			this.label81.AutoSize = true;
 			this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label81.Location = new System.Drawing.Point(159, 54);
+			this.label81.Location = new System.Drawing.Point(15, 48);
 			this.label81.Name = "label81";
-			this.label81.Size = new System.Drawing.Size(104, 13);
+			this.label81.Size = new System.Drawing.Size(117, 18);
 			this.label81.TabIndex = 15;
-			this.label81.Text = "SD Earned (w/o AP)";
+			this.label81.Text = "SD Earned (w/o AP):";
+			this.label81.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// tabPage5
 			// 
@@ -2122,12 +2189,14 @@
 			// 
 			this.label32.AutoSize = true;
 			this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label32.Location = new System.Drawing.Point(6, 404);
+			this.label32.Location = new System.Drawing.Point(6, 413);
 			this.label32.Name = "label32";
 			this.label32.Size = new System.Drawing.Size(551, 32);
 			this.label32.TabIndex = 28;
 			this.label32.Text = "NOTE: Do NOT make Custom Trait names. Edit Trait names in the generated Sheet ins" +
-    "tead.\r\nFor Special TP, you can treat a current Special Trait as a custom one.";
+    "tead.\r\nFor Special TP, just use the name of a current Special Trait and treat it" +
+    " as a custom one.";
+			this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// button_TraitsEdit
 			// 
@@ -2153,6 +2222,7 @@
 			// 
 			this.label58_TraitsCurrent.AutoSize = true;
 			this.label58_TraitsCurrent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label58_TraitsCurrent.ForeColor = System.Drawing.Color.Red;
 			this.label58_TraitsCurrent.Location = new System.Drawing.Point(230, 363);
 			this.label58_TraitsCurrent.Name = "label58_TraitsCurrent";
 			this.label58_TraitsCurrent.Size = new System.Drawing.Size(383, 16);
@@ -2195,6 +2265,8 @@
 			// 
 			// tabPage6
 			// 
+			this.tabPage6.AutoScroll = true;
+			this.tabPage6.Controls.Add(this.groupBox8);
 			this.tabPage6.Controls.Add(this.groupBox11);
 			this.tabPage6.Location = new System.Drawing.Point(4, 22);
 			this.tabPage6.Name = "tabPage6";
@@ -2204,9 +2276,187 @@
 			this.tabPage6.Text = "Techniques";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// groupBox8
+			// 
+			this.groupBox8.Controls.Add(this.label41);
+			this.groupBox8.Controls.Add(this.button_SubCatEdit);
+			this.groupBox8.Controls.Add(this.label_RowNum);
+			this.groupBox8.Controls.Add(this.label_SubCatWarning);
+			this.groupBox8.Controls.Add(this.numericUpDown_RowEnd);
+			this.groupBox8.Controls.Add(this.numericUpDown_RowBegin);
+			this.groupBox8.Controls.Add(this.textBox_SubCat);
+			this.groupBox8.Controls.Add(this.label40);
+			this.groupBox8.Controls.Add(this.button_SubCatAdd);
+			this.groupBox8.Controls.Add(this.button_SubCatClear);
+			this.groupBox8.Controls.Add(this.label_SubCatMsg);
+			this.groupBox8.Controls.Add(this.label38);
+			this.groupBox8.Controls.Add(this.label36);
+			this.groupBox8.Controls.Add(this.listView_SubCat);
+			this.groupBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+			this.groupBox8.Location = new System.Drawing.Point(6, 419);
+			this.groupBox8.Name = "groupBox8";
+			this.groupBox8.Size = new System.Drawing.Size(619, 196);
+			this.groupBox8.TabIndex = 41;
+			this.groupBox8.TabStop = false;
+			this.groupBox8.Text = "Sub-Categories";
+			// 
+			// label41
+			// 
+			this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label41.ForeColor = System.Drawing.Color.Indigo;
+			this.label41.Location = new System.Drawing.Point(477, 99);
+			this.label41.Name = "label41";
+			this.label41.Size = new System.Drawing.Size(136, 52);
+			this.label41.TabIndex = 51;
+			this.label41.Text = "Advice: Finish all your Techniques first, then make sub-categories.";
+			this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// button_SubCatEdit
+			// 
+			this.button_SubCatEdit.Location = new System.Drawing.Point(315, 128);
+			this.button_SubCatEdit.Name = "button_SubCatEdit";
+			this.button_SubCatEdit.Size = new System.Drawing.Size(75, 23);
+			this.button_SubCatEdit.TabIndex = 50;
+			this.button_SubCatEdit.Text = "Edit";
+			this.button_SubCatEdit.UseVisualStyleBackColor = true;
+			this.button_SubCatEdit.Click += new System.EventHandler(this.button_SubCatEdit_Click);
+			// 
+			// label_RowNum
+			// 
+			this.label_RowNum.AutoSize = true;
+			this.label_RowNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label_RowNum.ForeColor = System.Drawing.Color.Blue;
+			this.label_RowNum.Location = new System.Drawing.Point(312, 17);
+			this.label_RowNum.Name = "label_RowNum";
+			this.label_RowNum.Size = new System.Drawing.Size(120, 13);
+			this.label_RowNum.TabIndex = 42;
+			this.label_RowNum.Text = "No Technique Selected";
+			// 
+			// label_SubCatWarning
+			// 
+			this.label_SubCatWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label_SubCatWarning.ForeColor = System.Drawing.Color.OrangeRed;
+			this.label_SubCatWarning.Location = new System.Drawing.Point(312, 154);
+			this.label_SubCatWarning.Name = "label_SubCatWarning";
+			this.label_SubCatWarning.Size = new System.Drawing.Size(301, 39);
+			this.label_SubCatWarning.TabIndex = 49;
+			this.label_SubCatWarning.Text = "Note: Adding no Sub-Categories will automatically put all Techniques into one tab" +
+    "le.\r\n";
+			this.label_SubCatWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// numericUpDown_RowEnd
+			// 
+			this.numericUpDown_RowEnd.Location = new System.Drawing.Point(514, 36);
+			this.numericUpDown_RowEnd.Maximum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+			this.numericUpDown_RowEnd.Name = "numericUpDown_RowEnd";
+			this.numericUpDown_RowEnd.Size = new System.Drawing.Size(37, 23);
+			this.numericUpDown_RowEnd.TabIndex = 48;
+			// 
+			// numericUpDown_RowBegin
+			// 
+			this.numericUpDown_RowBegin.Location = new System.Drawing.Point(396, 36);
+			this.numericUpDown_RowBegin.Maximum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+			this.numericUpDown_RowBegin.Name = "numericUpDown_RowBegin";
+			this.numericUpDown_RowBegin.Size = new System.Drawing.Size(37, 23);
+			this.numericUpDown_RowBegin.TabIndex = 11;
+			// 
+			// textBox_SubCat
+			// 
+			this.textBox_SubCat.Location = new System.Drawing.Point(396, 65);
+			this.textBox_SubCat.Name = "textBox_SubCat";
+			this.textBox_SubCat.Size = new System.Drawing.Size(217, 23);
+			this.textBox_SubCat.TabIndex = 47;
+			// 
+			// label40
+			// 
+			this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label40.Location = new System.Drawing.Point(312, 62);
+			this.label40.Name = "label40";
+			this.label40.Size = new System.Drawing.Size(78, 28);
+			this.label40.TabIndex = 46;
+			this.label40.Text = "Sub-Category Name:";
+			this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// button_SubCatAdd
+			// 
+			this.button_SubCatAdd.Location = new System.Drawing.Point(396, 99);
+			this.button_SubCatAdd.Name = "button_SubCatAdd";
+			this.button_SubCatAdd.Size = new System.Drawing.Size(75, 23);
+			this.button_SubCatAdd.TabIndex = 45;
+			this.button_SubCatAdd.Text = "Add";
+			this.button_SubCatAdd.UseVisualStyleBackColor = true;
+			this.button_SubCatAdd.Click += new System.EventHandler(this.button_SubCatAdd_Click);
+			// 
+			// button_SubCatClear
+			// 
+			this.button_SubCatClear.Location = new System.Drawing.Point(315, 99);
+			this.button_SubCatClear.Name = "button_SubCatClear";
+			this.button_SubCatClear.Size = new System.Drawing.Size(75, 23);
+			this.button_SubCatClear.TabIndex = 43;
+			this.button_SubCatClear.Text = "Clear";
+			this.button_SubCatClear.UseVisualStyleBackColor = true;
+			this.button_SubCatClear.Click += new System.EventHandler(this.button_SubCatClear_Click);
+			// 
+			// label_SubCatMsg
+			// 
+			this.label_SubCatMsg.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label_SubCatMsg.ForeColor = System.Drawing.Color.Blue;
+			this.label_SubCatMsg.Location = new System.Drawing.Point(6, 154);
+			this.label_SubCatMsg.Name = "label_SubCatMsg";
+			this.label_SubCatMsg.Size = new System.Drawing.Size(300, 39);
+			this.label_SubCatMsg.TabIndex = 43;
+			this.label_SubCatMsg.Text = "Selected Sub-Category [NAME]";
+			this.label_SubCatMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label38
+			// 
+			this.label38.AutoSize = true;
+			this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label38.Location = new System.Drawing.Point(454, 40);
+			this.label38.Name = "label38";
+			this.label38.Size = new System.Drawing.Size(54, 13);
+			this.label38.TabIndex = 44;
+			this.label38.Text = "Row End:";
+			// 
+			// label36
+			// 
+			this.label36.AutoSize = true;
+			this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label36.Location = new System.Drawing.Point(328, 40);
+			this.label36.Name = "label36";
+			this.label36.Size = new System.Drawing.Size(62, 13);
+			this.label36.TabIndex = 43;
+			this.label36.Text = "Row Begin:";
+			// 
+			// listView_SubCat
+			// 
+			this.listView_SubCat.AllowColumnReorder = true;
+			this.listView_SubCat.AutoArrange = false;
+			this.listView_SubCat.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+			this.listView_SubCat.FullRowSelect = true;
+			this.listView_SubCat.GridLines = true;
+			this.listView_SubCat.HideSelection = false;
+			this.listView_SubCat.Location = new System.Drawing.Point(6, 22);
+			this.listView_SubCat.MultiSelect = false;
+			this.listView_SubCat.Name = "listView_SubCat";
+			this.listView_SubCat.Size = new System.Drawing.Size(300, 129);
+			this.listView_SubCat.TabIndex = 43;
+			this.listView_SubCat.UseCompatibleStateImageBehavior = false;
+			this.listView_SubCat.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.listView_SubCat_ColumnWidthChanging);
+			this.listView_SubCat.SelectedIndexChanged += new System.EventHandler(this.listView_SubCat_SelectedIndexChanged);
+			// 
 			// groupBox11
 			// 
 			this.groupBox11.Controls.Add(this.label_CritAnatQuick);
+			this.groupBox11.Controls.Add(this.label_TechCount);
 			this.groupBox11.Controls.Add(this.button_TechBranch);
 			this.groupBox11.Controls.Add(this.button_DownTech);
 			this.groupBox11.Controls.Add(this.button_UpTech);
@@ -2228,7 +2478,7 @@
 			this.groupBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
 			this.groupBox11.Location = new System.Drawing.Point(6, 6);
 			this.groupBox11.Name = "groupBox11";
-			this.groupBox11.Size = new System.Drawing.Size(619, 466);
+			this.groupBox11.Size = new System.Drawing.Size(619, 407);
 			this.groupBox11.TabIndex = 3;
 			this.groupBox11.TabStop = false;
 			this.groupBox11.Text = "Techniques";
@@ -2237,17 +2487,28 @@
 			// 
 			this.label_CritAnatQuick.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
 			this.label_CritAnatQuick.ForeColor = System.Drawing.Color.Purple;
-			this.label_CritAnatQuick.Location = new System.Drawing.Point(9, 108);
+			this.label_CritAnatQuick.Location = new System.Drawing.Point(9, 92);
 			this.label_CritAnatQuick.Name = "label_CritAnatQuick";
-			this.label_CritAnatQuick.Size = new System.Drawing.Size(225, 76);
+			this.label_CritAnatQuick.Size = new System.Drawing.Size(225, 63);
 			this.label_CritAnatQuick.TabIndex = 40;
 			this.label_CritAnatQuick.Text = "Critical Hit, Anatomical Strike, and Quickstrike Points";
 			this.label_CritAnatQuick.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.label_CritAnatQuick.Visible = false;
 			// 
+			// label_TechCount
+			// 
+			this.label_TechCount.AutoSize = true;
+			this.label_TechCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label_TechCount.ForeColor = System.Drawing.Color.DarkCyan;
+			this.label_TechCount.Location = new System.Drawing.Point(6, 383);
+			this.label_TechCount.Name = "label_TechCount";
+			this.label_TechCount.Size = new System.Drawing.Size(152, 13);
+			this.label_TechCount.TabIndex = 43;
+			this.label_TechCount.Text = "Total number of Techniques: 0";
+			// 
 			// button_TechBranch
 			// 
-			this.button_TechBranch.Location = new System.Drawing.Point(376, 437);
+			this.button_TechBranch.Location = new System.Drawing.Point(372, 378);
 			this.button_TechBranch.Name = "button_TechBranch";
 			this.button_TechBranch.Size = new System.Drawing.Size(75, 23);
 			this.button_TechBranch.TabIndex = 39;
@@ -2258,7 +2519,7 @@
 			// button_DownTech
 			// 
 			this.button_DownTech.Image = ((System.Drawing.Image)(resources.GetObject("button_DownTech.Image")));
-			this.button_DownTech.Location = new System.Drawing.Point(587, 233);
+			this.button_DownTech.Location = new System.Drawing.Point(587, 204);
 			this.button_DownTech.Name = "button_DownTech";
 			this.button_DownTech.Size = new System.Drawing.Size(26, 26);
 			this.button_DownTech.TabIndex = 38;
@@ -2268,7 +2529,7 @@
 			// button_UpTech
 			// 
 			this.button_UpTech.Image = ((System.Drawing.Image)(resources.GetObject("button_UpTech.Image")));
-			this.button_UpTech.Location = new System.Drawing.Point(587, 201);
+			this.button_UpTech.Location = new System.Drawing.Point(587, 172);
 			this.button_UpTech.Name = "button_UpTech";
 			this.button_UpTech.Size = new System.Drawing.Size(26, 26);
 			this.button_UpTech.TabIndex = 37;
@@ -2306,7 +2567,7 @@
 			// 
 			// button_TechEdit
 			// 
-			this.button_TechEdit.Location = new System.Drawing.Point(457, 437);
+			this.button_TechEdit.Location = new System.Drawing.Point(453, 378);
 			this.button_TechEdit.Name = "button_TechEdit";
 			this.button_TechEdit.Size = new System.Drawing.Size(75, 23);
 			this.button_TechEdit.TabIndex = 32;
@@ -2316,7 +2577,7 @@
 			// 
 			// button_TechDelete
 			// 
-			this.button_TechDelete.Location = new System.Drawing.Point(538, 437);
+			this.button_TechDelete.Location = new System.Drawing.Point(534, 378);
 			this.button_TechDelete.Name = "button_TechDelete";
 			this.button_TechDelete.Size = new System.Drawing.Size(75, 23);
 			this.button_TechDelete.TabIndex = 30;
@@ -2326,7 +2587,7 @@
 			// 
 			// button_TechAdd
 			// 
-			this.button_TechAdd.Location = new System.Drawing.Point(295, 437);
+			this.button_TechAdd.Location = new System.Drawing.Point(291, 378);
 			this.button_TechAdd.Name = "button_TechAdd";
 			this.button_TechAdd.Size = new System.Drawing.Size(75, 23);
 			this.button_TechAdd.TabIndex = 31;
@@ -2342,18 +2603,19 @@
 			this.listView_Techniques.FullRowSelect = true;
 			this.listView_Techniques.GridLines = true;
 			this.listView_Techniques.HideSelection = false;
-			this.listView_Techniques.Location = new System.Drawing.Point(6, 201);
+			this.listView_Techniques.Location = new System.Drawing.Point(6, 172);
 			this.listView_Techniques.MultiSelect = false;
 			this.listView_Techniques.Name = "listView_Techniques";
-			this.listView_Techniques.Size = new System.Drawing.Size(575, 230);
+			this.listView_Techniques.Size = new System.Drawing.Size(575, 200);
 			this.listView_Techniques.TabIndex = 29;
 			this.listView_Techniques.UseCompatibleStateImageBehavior = false;
+			this.listView_Techniques.SelectedIndexChanged += new System.EventHandler(this.listView_Techniques_SelectedIndexChanged);
 			// 
 			// label66
 			// 
 			this.label66.AutoSize = true;
 			this.label66.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label66.Location = new System.Drawing.Point(6, 184);
+			this.label66.Location = new System.Drawing.Point(6, 155);
 			this.label66.Name = "label66";
 			this.label66.Size = new System.Drawing.Size(94, 13);
 			this.label66.TabIndex = 28;
@@ -2370,7 +2632,7 @@
 			this.listView_SpTP.Location = new System.Drawing.Point(243, 66);
 			this.listView_SpTP.MultiSelect = false;
 			this.listView_SpTP.Name = "listView_SpTP";
-			this.listView_SpTP.Size = new System.Drawing.Size(370, 129);
+			this.listView_SpTP.Size = new System.Drawing.Size(370, 100);
 			this.listView_SpTP.TabIndex = 27;
 			this.listView_SpTP.UseCompatibleStateImageBehavior = false;
 			this.listView_SpTP.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.listView3_SpTP_ColumnWidthChanging);
@@ -2592,15 +2854,6 @@
 			this.toolStripButton_Save.Text = "Save";
 			this.toolStripButton_Save.Click += new System.EventHandler(this.toolStripButton_Save_Click);
 			// 
-			// label_TotalSD
-			// 
-			this.label_TotalSD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_TotalSD.Location = new System.Drawing.Point(94, 22);
-			this.label_TotalSD.Name = "label_TotalSD";
-			this.label_TotalSD.Size = new System.Drawing.Size(166, 15);
-			this.label_TotalSD.TabIndex = 53;
-			this.label_TotalSD.Text = "Total SD Earned: 0";
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2658,6 +2911,10 @@
 			this.groupBox10.ResumeLayout(false);
 			this.groupBox10.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
+			this.groupBox8.ResumeLayout(false);
+			this.groupBox8.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowEnd)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowBegin)).EndInit();
 			this.groupBox11.ResumeLayout(false);
 			this.groupBox11.PerformLayout();
 			this.menuStrip1.ResumeLayout(false);
@@ -2873,6 +3130,25 @@
 		private System.Windows.Forms.ToolStripButton toolStripButton_Open;
 		private System.Windows.Forms.ToolStripButton toolStripButton_Save;
 		private System.Windows.Forms.Label label_TotalSD;
+		private System.Windows.Forms.GroupBox groupBox8;
+		private System.Windows.Forms.Label label_RowNum;
+		private System.Windows.Forms.ListView listView_SubCat;
+		private System.Windows.Forms.Label label38;
+		private System.Windows.Forms.Label label36;
+		private System.Windows.Forms.Label label_SubCatMsg;
+		private System.Windows.Forms.Button button_SubCatAdd;
+		private System.Windows.Forms.Button button_SubCatClear;
+		private System.Windows.Forms.TextBox textBox_SubCat;
+		private System.Windows.Forms.Label label40;
+		private System.Windows.Forms.NumericUpDown numericUpDown_RowEnd;
+		private System.Windows.Forms.NumericUpDown numericUpDown_RowBegin;
+		private System.Windows.Forms.Label label_SubCatWarning;
+		private System.Windows.Forms.Label label_TechCount;
+		private System.Windows.Forms.TextBox textBox_TotalSD;
+		private System.Windows.Forms.TextBox textBox_Focus;
+		private System.Windows.Forms.Label label39;
+		private System.Windows.Forms.Button button_SubCatEdit;
+		private System.Windows.Forms.Label label41;
 	}
 }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -112,6 +113,20 @@ namespace OPRPCharBuild
 			}
 		}
 
+		// Class to sort ListView by number
+		class ListViewItemNumberSort : IComparer
+		{
+			private int col; 
+			public ListViewItemNumberSort(int column) { col = column; }
+			public int Compare(object x, object y) {
+				int nx = int.Parse((x as ListViewItem).SubItems[col].Text);
+				int ny = int.Parse((y as ListViewItem).SubItems[col].Text);
+				return nx.CompareTo(ny);
+			}
+		}
+
+		// Class to sort ListView by Text based on selected Column
+
 		#endregion
 
 		#region General Functions
@@ -165,11 +180,14 @@ namespace OPRPCharBuild
 		// Version now follows the following format:
 		// Major.Minor.Revision (only 3)
 		private void Check_Update() {
+			// -------------------------------------
+			// Version Check
+			// -------------------------------------
+			WebClient WC = new WebClient();
 			try {
 				string[] current = version.Split('.');
 				// Get latest version from site
-				string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " " + Environment.OSVersion;
-				WebClient WC = new WebClient();
+				string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " UpdateCheck " + Environment.OSVersion;
 				WC.Headers.Add("Content-Type", header_msg);
 				string version_page = WC.DownloadString("https://raw.githubusercontent.com/mrdoowan/OPRPCharBuild/master/CurrentVer.txt");
 				string[] latest = version_page.Split('.');
@@ -199,17 +217,17 @@ namespace OPRPCharBuild
 			catch (Exception e) {
 				MessageBox.Show("Error in checking for an update.\nReason: " + e.Message, "OPRP Char Builder", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			}
-		}
-
-		private void Check_Bug_Message() {
+			// -------------------------------------
+			// Displaying any Bug Messages
+			// -------------------------------------
 			try {
-				WebClient WC = new WebClient();
-				string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " " + Environment.OSVersion;
+				string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " BugMessage " + Environment.OSVersion;
 				WC.Headers.Add("Content-Type", header_msg);
 				string message = WC.DownloadString("https://raw.githubusercontent.com/mrdoowan/OPRPCharBuild/master/BugMessage.txt");
 				if (!string.IsNullOrWhiteSpace(message)) {
 					MessageBox.Show("Current bugs in v" + version + "\n\n" + message, "Bug Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				}
+				WC.Dispose();
 			}
 			catch (Exception e) {
 				MessageBox.Show("Error in checking for a bug message\nReason: " + e.Message, "OPRP Char Builder", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -235,6 +253,19 @@ namespace OPRPCharBuild
 			else {
 				return false;
 			}
+		}
+
+		// Returns the Index of the listview_SubCat if the row is between any Row Begin and Row End
+		// Returns -1 if the row is not between any Row Begin and Row End
+		private int Is_Row_In_SubCatTable(int row) {
+			foreach (ListViewItem item in listView_SubCat.Items) {
+				int begin = int.Parse(item.SubItems[0].Text);
+				int end = int.Parse(item.SubItems[1].Text);
+				if (row >= begin && row <= end) {
+					return item.Index;
+				}
+			}
+			return -1;
 		}
 
 		#endregion
@@ -263,8 +294,7 @@ namespace OPRPCharBuild
 
 		// Whenever SD Earned is updated, we have to update the max amount of Traits.
 		private void Update_Traits_Cap() {
-			int gen = 0;
-			int prof = 0;
+			int gen = 0, prof = 0;
 			int SD_Earned = (int)numericUpDown_SDEarned.Value;
 			if (SD_Earned < 50) {
 				gen = 3;
@@ -307,12 +337,16 @@ namespace OPRPCharBuild
 				prof = 6;
 			}
 			// Check if AP checked
-			if (checkedListBox1_AP.CheckedItems.Contains("Trait - Trait cap raised by 1")) {
+			if (checkedListBox1_AP.CheckedIndices.Contains(1)) {	// [1] is the Trait
 				gen++;
 			}
 			// Update label and global variable.
 			gen_cap = gen;
 			prof_cap = prof;
+			// Update Focus
+			int focus = 1 + gen / 2;
+			textBox_Focus.Text = focus.ToString();
+			// Update Traits Message
 			label59_TraitsCalc.Text = "Your current cap is " + gen +
 				" General Trait(s) and " + prof + " Professional Trait(s)";
 			if (gen_curr == gen_cap && prof_curr == prof_cap) {
@@ -325,7 +359,7 @@ namespace OPRPCharBuild
 
 		private void Update_AP_Count() {
 			int AP_num = checkedListBox1_AP.CheckedItems.Count;
-			if (checkedListBox1_AP.CheckedItems.Contains("Trait - Trait cap raised by 1")) {
+			if (checkedListBox1_AP.CheckedIndices.Contains(1)) {
 				AP_num++;
 				// This is 2 AP
 			}
@@ -371,6 +405,12 @@ namespace OPRPCharBuild
 			textBox_StatPoints.Text = SP.ToString();
 			label_SDtoSPCalculations.Text = calc;
 			// Used when SD into Stats is changed
+		}
+
+		private void Update_TotalSD() {
+			textBox_TotalSD.Text = ((int)numericUpDown_SDEarned.Value + int.Parse(textBox_AP.Text) * 50).ToString();
+			// Used when AP is Checked
+			// Used when SD Earned is Changed
 		}
 
 		// Calculating SD Remaining after remnants of Stat Points
@@ -617,7 +657,7 @@ namespace OPRPCharBuild
 				multiplier = 4.0;
 			}
 			// Check AP
-			if (checkedListBox1_AP.CheckedItems.Contains("Technique - Increase tech point multiplier by .5")) {
+			if ((checkedListBox1_AP.CheckedIndices.Contains(0))) {
 				multiplier += 0.5;
 			}
 			int total = (int)((double)fortune * multiplier);
@@ -845,6 +885,61 @@ namespace OPRPCharBuild
 
 		}
 
+		private void Update_TechNum() {
+			// This will also properly set the Maximum Values of numericupdown_Row
+			int num = listView_Techniques.Items.Count;
+			label_TechCount.Text = "Total number of Techniques: " + num;
+			if (num > 0) {
+				numericUpDown_RowBegin.Maximum = num - 1;
+				numericUpDown_RowEnd.Maximum = num - 1;
+			}
+			// Updated when Technique is Added
+			// Updated when Technique is Edited
+			// Updated when Technique is Branched
+			// Updated when Technique is Removed
+		}
+
+		// Note that "index" is where the item currently is
+		private void Update_SubCat_RowNum(int option, int row) {
+			// We want to properly update the SubCategory ListView as well.
+			if (option == 1) {
+				// Option is for "Branching"
+				// Only applicable when it's Branched. In Branched, the new item is Inserted a row below.
+				// So at the very least, row > 0 is always true
+				int index = Is_Row_In_SubCatTable(row - 1);
+                if (index != -1) {
+
+				}
+			}
+			else if (option == 2) {
+				// Option is for "Removing"
+
+			}
+			else if (option == 3) {
+				// Option is for "Move Up"
+
+			}
+			else if (option == 4) {
+				// Option is for "Move Down"
+
+			}
+			else {
+				MessageBox.Show("Incorrect Option #: " + option, "Report Bug", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			// Now we gotta check if the next row is in conflict when we added 1. If so, we have to change its Begin Row.
+
+			// Updated when Technique is Added
+			// Updated when Technique is Edited
+			// Updated when Technique is Branched
+			// Updated when Technique is Removed
+		}
+
+		private void Update_SubCatWarning() {
+
+			// Updated when a SubCategory is Added
+			// Updated when a SubCategory is Removed
+		}
+
 		#endregion
 
 		// --------------------------------------------------------------------------------------------
@@ -853,15 +948,12 @@ namespace OPRPCharBuild
 
 		// This only occurs once before the form is displayed for the first time.
 		private void MainForm_Load(object sender, EventArgs e) {
-
 			this.Text = "OPRP Character Builder";
 			label_Title.Text = "OPRP Character Builder";
 			label1.Text = "OPRP Character Builder v" + version + vers_type + " designed by Solo";
 
-			// Check for updates of a new version
+			// Check for updates of a New Version or Bug Messages
 			Check_Update();
-			// Check for any Bug Messages / Warnings
-			Check_Bug_Message();
 
 			// ------ Professions
 			listView_Prof.View = View.Details;
@@ -916,6 +1008,16 @@ namespace OPRPCharBuild
 			listView_Techniques.Columns.Add("Range", 75);           // 8
 			listView_Techniques.Columns.Add("Stats", 75);           // 9
 			listView_Techniques.Columns.Add("Power", 50);           // 10
+
+			// ------ Tech Sub-Category Table
+			label_SubCatMsg.Text = "No Valid Sub-Category Selected";
+			listView_SubCat.View = View.Details;
+			listView_SubCat.FullRowSelect = true;
+			listView_SubCat.Sorting = SortOrder.Ascending;
+
+			listView_SubCat.Columns.Add("Begin", 50);
+			listView_SubCat.Columns.Add("End", 50);
+			listView_SubCat.Columns.Add("Sub-Category Name", 170);
 
 			// ------ Weaponry Table
 			listView_Weaponry.View = View.Details;
@@ -1293,6 +1395,7 @@ namespace OPRPCharBuild
 			// To keep track of AP
 			Update_AP_Count();
 			checkedListBox1_AP.ClearSelected();
+			Update_TotalSD();
 			Update_Traits_Cap(); // For increasing Trait cap
 			Update_Total_RegTP(); // For Tech multiplier
 		}
@@ -1304,6 +1407,7 @@ namespace OPRPCharBuild
 			Update_Traits_Cap(); // Trait Cap is based on SD Earned
 			Update_SD_Remaining();
 			Update_Total_RegTP();
+			Update_TotalSD();
 		}
 
 		private void numericUpDown_SDintoStats_ValueChanged(object sender, EventArgs e) {
@@ -1423,43 +1527,6 @@ namespace OPRPCharBuild
 			list.Items.Insert(index + val, item);
 		}
 
-		/* Maybe later...
-		private void button_TraitOrder_Click(object sender, EventArgs e) {
-			// Traits "Order" button from the MainForm
-			try {
-				// Sort by General, Professional, and Gen/Prof
-				int size = listView_Traits.Items.Count;
-				int GMax = 0;		// Denotes the highest index of General Traits in a row
-				int PMax = 0;		// Denotes the highest index of Professional Traits in a row
-				for (int i = 0; i < size; ++i) {
-					if (listView_Traits.Items[i].SubItems[1].Text == "General" && GMax != i - 1) {
-						int move = GMax - i;
-						Move_ListView_Item(ref listView_Traits, i, move);
-						GMax++;
-					}
-					else if (listView_Traits.Items[i].SubItems[1].Text == "General" && GMax == i - 1) {
-						GMax++;
-					}
-				}
-				PMax = GMax + 1;
-				for (int i = PMax; i < size; ++i) {
-					if (listView_Traits.Items[i].SubItems[1].Text == "Professional" && PMax != i - 1) {
-						int move = PMax - i;
-						Move_ListView_Item(ref listView_Traits, i, move);
-						PMax++;
-					}
-					else if (listView_Traits.Items[i].SubItems[1].Text == "Professional" && PMax == i - 1) {
-						PMax++;
-					}
-				}
-			}
-			catch (Exception ex) {
-				MessageBox.Show("Ordering screwed up.\nReason: " + ex.Message, "Error");
-			}
-			
-		}*/
-
-
 		#endregion
 
 		// --------------------------------------------------------------------------------------------
@@ -1472,7 +1539,8 @@ namespace OPRPCharBuild
 			Update_SpTrait_Table_Values();
 			Update_Used_RegTP();
 			Update_CritAnatQuick_Msg();
-		}
+			Update_TechNum();
+        }
 
 		private void listView3_SpTP_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e) {
 			// Prevents users from changing column width
@@ -1592,6 +1660,87 @@ namespace OPRPCharBuild
 
 		private void textBox_RegTPTotal_TextChanged(object sender, EventArgs e) {
 			Update_CritAnatQuick_Msg();
+		}
+
+		private void listView_Techniques_SelectedIndexChanged(object sender, EventArgs e) {
+			if (listView_Techniques.SelectedItems.Count == 1) {
+				try {
+					int row = listView_Techniques.SelectedIndices[0];
+					label_RowNum.Text = "Row " + row + " Selected";
+				}
+				catch {
+					label_RowNum.Text = "No Technique Selected";
+				}
+			}
+		}
+
+		private void button_SubCatAdd_Click(object sender, EventArgs e) {
+			if (numericUpDown_RowEnd.Value < numericUpDown_RowBegin.Value) {
+				MessageBox.Show("Row Begin must be a lower value (or equal to) than Row End.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+			else if (string.IsNullOrWhiteSpace(textBox_SubCat.Text)) {
+				MessageBox.Show("Sub-Category needs a name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+			else if (listView_Techniques.Items.Count < 1) {
+				MessageBox.Show("You have no Techniques.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+			else if (Is_Row_In_SubCatTable((int)numericUpDown_RowBegin.Value) != -1) {
+				MessageBox.Show("Row Begin overlaps with another Sub-Category", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+			else if (Is_Row_In_SubCatTable((int)numericUpDown_RowEnd.Value) != -1) {
+				MessageBox.Show("Row End overlaps with another Sub-Category", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+			ListViewItem item = new ListViewItem();
+			item.SubItems[0].Text = numericUpDown_RowBegin.Value.ToString();
+			item.SubItems.Add(numericUpDown_RowEnd.Value.ToString());
+			item.SubItems.Add(textBox_SubCat.Text);
+			item.Selected = true;
+			listView_SubCat.Items.Add(item);
+			listView_SubCat.ListViewItemSorter = new ListViewItemNumberSort(0);
+			listView_SubCat.Sort();
+		}
+
+		private void button_SubCatEdit_Click(object sender, EventArgs e) {
+			if (listView_SubCat.SelectedItems.Count == 1) {
+				try {
+
+				}
+				catch {
+
+				}
+			}
+		}
+
+		private void button_SubCatClear_Click(object sender, EventArgs e) {
+			listView_SubCat.Items.Clear();
+		}
+
+		private void listView_SubCat_SelectedIndexChanged(object sender, EventArgs e) {
+			if (listView_SubCat.SelectedItems.Count == 1) {
+				try {
+					int begin_ind = int.Parse(listView_SubCat.SelectedItems[0].SubItems[0].Text);
+					int end_ind = int.Parse(listView_SubCat.SelectedItems[0].SubItems[1].Text);
+					string begin_str = listView_Techniques.Items[begin_ind].SubItems[0].Text;
+					string end_str = listView_Techniques.Items[end_ind].SubItems[0].Text;
+					string name = listView_SubCat.SelectedItems[0].SubItems[2].Text;
+					label_SubCatMsg.Text = "Selected Sub-Category [" + name + "]\n" +
+						"FROM " + begin_str + " TO " + end_str;
+                }
+				catch {
+					label_SubCatMsg.Text = "No Valid Sub-Category Selected";
+				}
+			}
+		}
+
+		private void listView_SubCat_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e) {
+			// Prevents users from changing column width
+			e.Cancel = true;
+			e.NewWidth = listView_SubCat.Columns[e.ColumnIndex].Width;
 		}
 
 		#endregion
@@ -1806,8 +1955,10 @@ namespace OPRPCharBuild
 			// Some update functions in which it isn't in an Exception Handle
 			Update_Traits_Count_Label();
 			Update_AP_Count();
+			Update_TotalSD();
 			Update_Total_RegTP();
 			Update_Used_RegTP();
+			Update_TechNum();
 			foreach (ListViewItem eachitem in listView_Traits.Items) {
 				string name = eachitem.SubItems[0].Text;
 				Traits.Trait_Name ID = Traits.get_TraitID(name);

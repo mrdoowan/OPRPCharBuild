@@ -765,7 +765,7 @@
 			this.groupBox4.Controls.Add(this.label11);
 			this.groupBox4.Location = new System.Drawing.Point(12, 277);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(435, 283);
+			this.groupBox4.Size = new System.Drawing.Size(435, 288);
 			this.groupBox4.TabIndex = 72;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Effects";
@@ -810,7 +810,7 @@
 			// 
 			// label_EffectType
 			// 
-			this.label_EffectType.Location = new System.Drawing.Point(291, 255);
+			this.label_EffectType.Location = new System.Drawing.Point(291, 259);
 			this.label_EffectType.Name = "label_EffectType";
 			this.label_EffectType.Size = new System.Drawing.Size(138, 23);
 			this.label_EffectType.TabIndex = 75;
@@ -821,7 +821,7 @@
 			// label_MinRank
 			// 
 			this.label_MinRank.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.label_MinRank.Location = new System.Drawing.Point(8, 257);
+			this.label_MinRank.Location = new System.Drawing.Point(6, 261);
 			this.label_MinRank.Name = "label_MinRank";
 			this.label_MinRank.Size = new System.Drawing.Size(120, 18);
 			this.label_MinRank.TabIndex = 111;
@@ -830,7 +830,7 @@
 			// 
 			// button_AddEffect
 			// 
-			this.button_AddEffect.Location = new System.Drawing.Point(210, 255);
+			this.button_AddEffect.Location = new System.Drawing.Point(210, 259);
 			this.button_AddEffect.Name = "button_AddEffect";
 			this.button_AddEffect.Size = new System.Drawing.Size(75, 23);
 			this.button_AddEffect.TabIndex = 106;
@@ -891,7 +891,7 @@
 			// 
 			// button_EffectRemove
 			// 
-			this.button_EffectRemove.Location = new System.Drawing.Point(132, 255);
+			this.button_EffectRemove.Location = new System.Drawing.Point(132, 259);
 			this.button_EffectRemove.Name = "button_EffectRemove";
 			this.button_EffectRemove.Size = new System.Drawing.Size(75, 23);
 			this.button_EffectRemove.TabIndex = 104;
@@ -1114,7 +1114,7 @@
 			// 
 			this.label_TechFormMsg.AutoSize = true;
 			this.label_TechFormMsg.ForeColor = System.Drawing.Color.Green;
-			this.label_TechFormMsg.Location = new System.Drawing.Point(11, 571);
+			this.label_TechFormMsg.Location = new System.Drawing.Point(9, 576);
 			this.label_TechFormMsg.Name = "label_TechFormMsg";
 			this.label_TechFormMsg.Size = new System.Drawing.Size(431, 13);
 			this.label_TechFormMsg.TabIndex = 75;

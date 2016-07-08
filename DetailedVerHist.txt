@@ -1,3 +1,8 @@
+v1.2.4 - 7/7/2016
+- Implemented the interface for Sub-Categories
+- Added a function that allows ListView sorting
+- Combined the WebClient functions for Version / BugMessage Checking into one function. Avoids the 503 Error message.
+- Calculating Focus implemented
 v1.2.3 - 7/5/2016
 - Made small changes to the Version numbers (downed it to 3 numbers, will be reflected next change)
 - Revised Stats label to "SD Earned (w/o) AP" for clarity
