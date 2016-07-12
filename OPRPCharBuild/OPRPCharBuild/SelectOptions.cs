@@ -19,24 +19,25 @@ namespace OPRPCharBuild
 		private string Custom_Name;
 		private string Sel_Version;
 		private bool OK_clicked;
-		private bool Custom_clicked;
+		private bool Left_clicked;
+		private string Template_Name;
 
 		public const string ProjectStr = "v1.1.0 (Project)";
 
 		// Default Constructor
-		public SelectOptions(int option_, bool RokuMaster_, int maxRank_) {
+		public SelectOptions(int option_, bool RokuMaster_ = false, int maxRank_ = 0, string template_ = null) {
 			InitializeComponent();
 			option = option_;
 			Has_Roku_Master = RokuMaster_;
 			max_rank = maxRank_;
 			OK_clicked = false;
-			Custom_clicked = false;
+			Left_clicked = false;
+			Template_Name = template_;
 		}
 
 		#region Dialog Functions
 
 		public string Import_Version_Dialog() {
-
 			this.ShowDialog();
 			if (OK_clicked) {
 				return Sel_Version;
@@ -60,7 +61,7 @@ namespace OPRPCharBuild
 				Selected = Sel_Roku;
 				return "Add";
 			}
-			if (Custom_clicked) {
+			if (Left_clicked) {
 				Selected = Sel_Roku;
 				return "Custom";
 			}
@@ -81,7 +82,7 @@ namespace OPRPCharBuild
 				this.Text = "Import Older Files";
 				textBox_Name.Visible = false;
 				label_Name.Visible = false;
-				button_Custom.Visible = false;
+				button_Left.Visible = false;
 				toolTip1.Active = false;
 
 				// Add previous versions.
@@ -104,12 +105,21 @@ namespace OPRPCharBuild
 				comboBox_Options.Items.Add("Geppo");
 
 				if (!Has_Roku_Master) {
-					button_Custom.Enabled = false;
+					button_Left.Enabled = false;
 				}
 				else {
 					comboBox_Options.Items.Add("Rokuogan");
 				}
-
+			}
+			else if (option == 3) {
+				// Generate Character Template
+				this.Text = "Select Character Template";
+				label_Msg.Text = "No imported character template detected.";
+				button_Left.Text = "Import";
+				button_OK.Text = "Generate";
+				textBox_Name.Visible = false;
+				label_Name.Visible = false;
+				toolTip1.Active = false;
 			}
 			else {
 				MessageBox.Show("Option " + option + " not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -118,13 +128,13 @@ namespace OPRPCharBuild
 		}
 
 		// Button for Customization
-		private void button_Custom_Click(object sender, EventArgs e) {
+		private void button_Left_Click(object sender, EventArgs e) {
 			if (option == 2) {
 				if (comboBox_Options.SelectedIndex == -1) { MessageBox.Show("Please select a Rokushiki Technique to customize before continuing.", "Error"); }
 				else {
 					Custom_Name = textBox_Name.Text;
 					this.Close();
-					Custom_clicked = true;
+					Left_clicked = true;
 				}
 			}
 		}
@@ -160,7 +170,7 @@ namespace OPRPCharBuild
 					Sel_Roku = Roku.Get_RokuEnum(comboBox_Options.Text);
 					Rokushiki.RokuInfo Info_Roku = Roku.Get_RokuInfo(Sel_Roku);
 					if (Info_Roku.baseRank > max_rank) {
-						button_Custom.Enabled = false;
+						button_Left.Enabled = false;
 						button_OK.Enabled = false;
 						label_Msg.ForeColor = Color.Red;
 						label_Msg.Text = Info_Roku.name + "'s Base Rank is " + Info_Roku.baseRank + '\n'
@@ -168,7 +178,7 @@ namespace OPRPCharBuild
 					}
 					else {
 						if (!Has_Roku_Master) {
-							button_Custom.Enabled = false;
+							button_Left.Enabled = false;
 						}
 						button_OK.Enabled = true;
 						label_Msg.ForeColor = SystemColors.ControlText;

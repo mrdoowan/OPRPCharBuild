@@ -114,7 +114,7 @@ namespace OPRPCharBuild
 		}
 
 		// Class to sort ListView by number
-		class ListViewItemNumberSort : IComparer
+		public class ListViewItemNumberSort : IComparer
 		{
 			private int col; 
 			public ListViewItemNumberSort(int column) { col = column; }
@@ -126,6 +126,14 @@ namespace OPRPCharBuild
 		}
 
 		// Class to sort ListView by Text based on selected Column
+		public class ListViewItemSorter : IComparer
+		{
+			private int col;
+			public ListViewItemSorter(int column) { col = column; }
+			public int Compare(object x, object y) {
+				return string.Compare(((ListViewItem)x).SubItems[col].Text, ((ListViewItem)y).SubItems[col].Text);
+			}
+		}
 
 		#endregion
 
@@ -893,49 +901,53 @@ namespace OPRPCharBuild
 				numericUpDown_RowBegin.Maximum = num - 1;
 				numericUpDown_RowEnd.Maximum = num - 1;
 			}
+			else if (num == 0) {
+				numericUpDown_RowBegin.Maximum = 0;
+				numericUpDown_RowEnd.Maximum = 0;
+			}
 			// Updated when Technique is Added
 			// Updated when Technique is Edited
 			// Updated when Technique is Branched
 			// Updated when Technique is Removed
 		}
 
-		// Note that "index" is where the item currently is
-		private void Update_SubCat_RowNum(int option, int row) {
-			// We want to properly update the SubCategory ListView as well.
-			if (option == 1) {
-				// Option is for "Branching"
-				// Only applicable when it's Branched. In Branched, the new item is Inserted a row below.
-				// So at the very least, row > 0 is always true
-				int index = Is_Row_In_SubCatTable(row - 1);
-                if (index != -1) {
-
+		// Checks to make sure that all Techniques are in Categories
+		private void Update_SubCatWarning() {
+			bool loop_break = false;
+			for (int i = 0; i < listView_SubCat.Items.Count; ++i) {
+				ListViewItem category = listView_SubCat.Items[i];
+				if (i == 0 && int.Parse(category.SubItems[0].Text) != 0) {
+					loop_break = true;
+					break;
+				}
+				if (i == listView_SubCat.Items.Count - 1 && 
+					int.Parse(category.SubItems[1].Text) != listView_Techniques.Items.Count - 1) {
+					loop_break = true;
+					break;
+				}
+				if (i != listView_SubCat.Items.Count - 1) {
+					if (int.Parse(category.SubItems[1].Text) + 1 !=
+					int.Parse(listView_SubCat.Items[i + 1].SubItems[0].Text)) {
+						// Comparing this category's End Row with the next category's Begin Row
+						loop_break = true;
+						break;
+					}
 				}
 			}
-			else if (option == 2) {
-				// Option is for "Removing"
-
+			if (listView_SubCat.Items.Count == 0) {
+				label_SubCatWarning.Text = "Note: Adding no Categories will automatically put all Techniques into one table.";
+				label_SubCatWarning.ForeColor = Color.OrangeRed;
 			}
-			else if (option == 3) {
-				// Option is for "Move Up"
-
-			}
-			else if (option == 4) {
-				// Option is for "Move Down"
-
+			else if (loop_break) {
+				// Display Warning Message 
+				label_SubCatWarning.Text = "Some Techniques aren't in Categories! They will not be generated in the sheet!";
+				label_SubCatWarning.ForeColor = Color.Red;
 			}
 			else {
-				MessageBox.Show("Incorrect Option #: " + option, "Report Bug", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				// All Techniques accounted for!
+				label_SubCatWarning.Text = "All Techniques are in Categories.";
+				label_SubCatWarning.ForeColor = Color.Green;
 			}
-			// Now we gotta check if the next row is in conflict when we added 1. If so, we have to change its Begin Row.
-
-			// Updated when Technique is Added
-			// Updated when Technique is Edited
-			// Updated when Technique is Branched
-			// Updated when Technique is Removed
-		}
-
-		private void Update_SubCatWarning() {
-
 			// Updated when a SubCategory is Added
 			// Updated when a SubCategory is Removed
 		}
@@ -997,7 +1009,7 @@ namespace OPRPCharBuild
 			listView_Techniques.FullRowSelect = true;
 			label_CritAnatQuick.Text = "";
 
-			listView_Techniques.Columns.Add("Tech Name", 150);      // 0
+			listView_Techniques.Columns.Add("Tech Name", 250);      // 0
 			listView_Techniques.Columns.Add("Rank", 50);            // 1
 			listView_Techniques.Columns.Add("Reg TP", 50);          // 2
 			listView_Techniques.Columns.Add("Sp. TP", 50);          // 3
@@ -1009,15 +1021,15 @@ namespace OPRPCharBuild
 			listView_Techniques.Columns.Add("Stats", 75);           // 9
 			listView_Techniques.Columns.Add("Power", 50);           // 10
 
-			// ------ Tech Sub-Category Table
-			label_SubCatMsg.Text = "No Valid Sub-Category Selected";
+			// ------ Tech Category Table
+			label_SubCatMsg.Text = "No Valid Category Selected";
 			listView_SubCat.View = View.Details;
 			listView_SubCat.FullRowSelect = true;
 			listView_SubCat.Sorting = SortOrder.Ascending;
 
 			listView_SubCat.Columns.Add("Begin", 50);
 			listView_SubCat.Columns.Add("End", 50);
-			listView_SubCat.Columns.Add("Sub-Category Name", 170);
+			listView_SubCat.Columns.Add("Category Name", 170);
 
 			// ------ Weaponry Table
 			listView_Weaponry.View = View.Details;
@@ -1513,20 +1525,6 @@ namespace OPRPCharBuild
 			All_Update_Functions_Traits(Traits.Trait_Name.CUSTOM);
 		}
 
-		private void Move_ListView_Item(ref ListView list, int index, int val) {
-			ListViewItem item = list.Items[index];
-			if (index + val < 0 || index + val >= list.Items.Count) {
-				MessageBox.Show("Ordering screwed up. Bug found.", "Error");
-				return;
-			}
-			if (val == 0) {
-				// Don't have to do anything
-				return;
-			}
-			list.Items.RemoveAt(index);
-			list.Items.Insert(index + val, item);
-		}
-
 		#endregion
 
 		// --------------------------------------------------------------------------------------------
@@ -1663,14 +1661,12 @@ namespace OPRPCharBuild
 		}
 
 		private void listView_Techniques_SelectedIndexChanged(object sender, EventArgs e) {
-			if (listView_Techniques.SelectedItems.Count == 1) {
-				try {
-					int row = listView_Techniques.SelectedIndices[0];
-					label_RowNum.Text = "Row " + row + " Selected";
-				}
-				catch {
-					label_RowNum.Text = "No Technique Selected";
-				}
+			try {
+				int row = listView_Techniques.SelectedIndices[0];
+				label_RowNum.Text = "Row " + row + " Selected";
+			}
+			catch {
+				label_RowNum.Text = "Select a Technique to see which Row it is in.";
 			}
 		}
 
@@ -1680,7 +1676,7 @@ namespace OPRPCharBuild
 				return;
 			}
 			else if (string.IsNullOrWhiteSpace(textBox_SubCat.Text)) {
-				MessageBox.Show("Sub-Category needs a name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Category needs a name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 			else if (listView_Techniques.Items.Count < 1) {
@@ -1688,36 +1684,54 @@ namespace OPRPCharBuild
 				return;
 			}
 			else if (Is_Row_In_SubCatTable((int)numericUpDown_RowBegin.Value) != -1) {
-				MessageBox.Show("Row Begin overlaps with another Sub-Category", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Row Begin overlaps with another Category", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 			else if (Is_Row_In_SubCatTable((int)numericUpDown_RowEnd.Value) != -1) {
-				MessageBox.Show("Row End overlaps with another Sub-Category", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Row End overlaps with another Category", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 			ListViewItem item = new ListViewItem();
 			item.SubItems[0].Text = numericUpDown_RowBegin.Value.ToString();
 			item.SubItems.Add(numericUpDown_RowEnd.Value.ToString());
 			item.SubItems.Add(textBox_SubCat.Text);
+			// Reset options
+			numericUpDown_RowBegin.Value = 0;
+			numericUpDown_RowEnd.Value = 0;
+			textBox_SubCat.Clear();
+			// Add to ListView
 			item.Selected = true;
 			listView_SubCat.Items.Add(item);
 			listView_SubCat.ListViewItemSorter = new ListViewItemNumberSort(0);
 			listView_SubCat.Sort();
+			Update_SubCatWarning();
 		}
 
 		private void button_SubCatEdit_Click(object sender, EventArgs e) {
 			if (listView_SubCat.SelectedItems.Count == 1) {
 				try {
-
+					int begin = int.Parse(listView_SubCat.SelectedItems[0].SubItems[0].Text);
+					int end = int.Parse(listView_SubCat.SelectedItems[0].SubItems[1].Text);
+					if (begin > numericUpDown_RowBegin.Maximum) { numericUpDown_RowBegin.Value = numericUpDown_RowBegin.Maximum; }
+					else { numericUpDown_RowBegin.Value = begin; }
+					if (end > numericUpDown_RowEnd.Maximum) { numericUpDown_RowEnd.Value = numericUpDown_RowEnd.Maximum; }
+					else { numericUpDown_RowEnd.Value = end; }
+					textBox_SubCat.Text = listView_SubCat.SelectedItems[0].SubItems[2].Text;
+					Delete_ListViewItem(ref listView_SubCat);
+					Update_SubCatWarning();
 				}
 				catch {
-
+					MessageBox.Show("Error in editing Category.", "Exception Thrown", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}
 		}
 
 		private void button_SubCatClear_Click(object sender, EventArgs e) {
-			listView_SubCat.Items.Clear();
+			if (MessageBox.Show("Are you sure you want to clear the Categories?", "Clear Categories",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
+				listView_SubCat.Items.Clear();
+				Update_SubCatWarning();
+			}
 		}
 
 		private void listView_SubCat_SelectedIndexChanged(object sender, EventArgs e) {
@@ -1728,11 +1742,11 @@ namespace OPRPCharBuild
 					string begin_str = listView_Techniques.Items[begin_ind].SubItems[0].Text;
 					string end_str = listView_Techniques.Items[end_ind].SubItems[0].Text;
 					string name = listView_SubCat.SelectedItems[0].SubItems[2].Text;
-					label_SubCatMsg.Text = "Selected Sub-Category [" + name + "]\n" +
-						"FROM " + begin_str + " TO " + end_str;
+					label_SubCatMsg.Text = "Selected Category: (" + name + ")\n" +
+						"FROM [" + begin_str + "] TO [" + end_str + ']';
                 }
 				catch {
-					label_SubCatMsg.Text = "No Valid Sub-Category Selected";
+					label_SubCatMsg.Text = "No Valid Category Selected";
 				}
 			}
 		}
@@ -1811,7 +1825,10 @@ namespace OPRPCharBuild
 			listView_SpTP.Items.Clear();
 			label_CritAnatQuick.Text = "";
 			listView_Techniques.Items.Clear();
+			Update_TechNum();
 			TechList.Clear();
+			listView_SubCat.Items.Clear();
+			textBox_SubCat.Clear();
 			// Update Functions (that are still needed)
 			Update_AP_Count();
 			Update_Strength_Final();
@@ -2053,7 +2070,7 @@ namespace OPRPCharBuild
 					}
 					catch (Exception e) {
 						MessageBox.Show("Failed to deserialize. It may be because you loaded an older version." +
-							"This tool currently uses the " + curr_proj + " iteration.\nReason: " + e.Message);
+							"Please Import your older version file instead.\nReason: " + e.Message);
 					}
 				}
 			}
@@ -2234,6 +2251,10 @@ namespace OPRPCharBuild
 					}
 				}
 			}
+		}
+
+		private void characterTemplateToolStripMenuItem_Click(object sender, EventArgs e) {
+
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {

@@ -30,7 +30,7 @@
 			this.comboBox_Options = new System.Windows.Forms.ComboBox();
 			this.textBox_Name = new System.Windows.Forms.TextBox();
 			this.label_Name = new System.Windows.Forms.Label();
-			this.button_Custom = new System.Windows.Forms.Button();
+			this.button_Left = new System.Windows.Forms.Button();
 			this.button_OK = new System.Windows.Forms.Button();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.label_Msg = new System.Windows.Forms.Label();
@@ -67,17 +67,17 @@
 			this.label_Name.Text = "Custom Name:";
 			this.label_Name.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
-			// button_Custom
+			// button_Left
 			// 
-			this.button_Custom.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-			this.button_Custom.Location = new System.Drawing.Point(12, 126);
-			this.button_Custom.Name = "button_Custom";
-			this.button_Custom.Size = new System.Drawing.Size(82, 25);
-			this.button_Custom.TabIndex = 3;
-			this.button_Custom.Text = "Customize";
-			this.toolTip1.SetToolTip(this.button_Custom, "You need the Rokushiki Master Trait to further edit.");
-			this.button_Custom.UseVisualStyleBackColor = true;
-			this.button_Custom.Click += new System.EventHandler(this.button_Custom_Click);
+			this.button_Left.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+			this.button_Left.Location = new System.Drawing.Point(12, 126);
+			this.button_Left.Name = "button_Left";
+			this.button_Left.Size = new System.Drawing.Size(82, 25);
+			this.button_Left.TabIndex = 3;
+			this.button_Left.Text = "Customize";
+			this.toolTip1.SetToolTip(this.button_Left, "You need the Rokushiki Master Trait to customize.");
+			this.button_Left.UseVisualStyleBackColor = true;
+			this.button_Left.Click += new System.EventHandler(this.button_Left_Click);
 			// 
 			// button_OK
 			// 
@@ -113,7 +113,7 @@
 			this.ClientSize = new System.Drawing.Size(284, 162);
 			this.Controls.Add(this.label_Msg);
 			this.Controls.Add(this.button_OK);
-			this.Controls.Add(this.button_Custom);
+			this.Controls.Add(this.button_Left);
 			this.Controls.Add(this.label_Name);
 			this.Controls.Add(this.textBox_Name);
 			this.Controls.Add(this.comboBox_Options);
@@ -131,7 +131,7 @@
 		private System.Windows.Forms.ComboBox comboBox_Options;
 		private System.Windows.Forms.TextBox textBox_Name;
 		private System.Windows.Forms.Label label_Name;
-		private System.Windows.Forms.Button button_Custom;
+		private System.Windows.Forms.Button button_Left;
 		private System.Windows.Forms.ToolTip toolTip1;
 		private System.Windows.Forms.Button button_OK;
 		private System.Windows.Forms.Label label_Msg;

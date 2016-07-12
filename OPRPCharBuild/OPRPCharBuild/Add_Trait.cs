@@ -41,6 +41,8 @@ namespace OPRPCharBuild
 				item.SubItems.Add(numericUpDown_TraitProf.Value.ToString());// Fourth Column: # Prof
 				item.SubItems.Add(richTextBox_TraitDesc.Text); // Fifth Column: Description
 				Main_Form.Items.Add(item);
+				Main_Form.ListViewItemSorter = new MainForm.ListViewItemSorter(1);
+				Main_Form.Sort();
 				// And lastly add to the TraitsList
 				MainForm.TraitsList.Add(ID);
 				return ID;

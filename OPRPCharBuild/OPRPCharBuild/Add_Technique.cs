@@ -25,7 +25,8 @@ namespace OPRPCharBuild
 		private int gen_effects;    // To keep track how many General Effects there currently are for Secondary Gen Effects
 									// Updated when an Effect is added
 									// Updated when an Effect is removed
-		
+		private bool Has_4ranks;	// For Traits that treat 4 ranks higher
+
 		// Bools
 		private bool assassin_primary;
 		private bool thief_primary;
@@ -100,6 +101,12 @@ namespace OPRPCharBuild
 			foreach (ListViewItem item in t_list.Items) {
 				if (item.SubItems[0].Text == "Rokushiki Master") {
 					Has_RokuMaster = true;
+					break;
+				}
+			}
+			foreach (ListViewItem item in t_list.Items) {
+				if (Has_4RanksHigher_Trait(Traitss.get_TraitID(item.SubItems[0].Text))) {
+					Has_4ranks = true;
 					break;
 				}
 			}
@@ -733,6 +740,7 @@ namespace OPRPCharBuild
 			// Add ALL Effects into the ComboBox (based on max rank)
 			#region Effects ComboBox
 			try {
+				if (Has_4ranks) { max_rank += 4; }
 				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISPLACE);
 				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.DISORI);
 				Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.GATLING);
@@ -805,6 +813,7 @@ namespace OPRPCharBuild
 					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.NAT_CAMO);
 					Add_Effect_comboBox(ref comboBox_Effect, Effects.Effect_Name.OPEN_CAMO);
 				}
+				if (Has_4ranks) { max_rank -= 4; }
 			}
 			catch (Exception ex) {
 				MessageBox.Show("Error in Effects to comboBox.\nReason: " + ex.Message, "Error");
@@ -1054,6 +1063,15 @@ namespace OPRPCharBuild
 		}
 
 		private void comboBox_AffectRank_SelectedIndexChanged(object sender, EventArgs e) {
+			if (!string.IsNullOrWhiteSpace(comboBox_AffectRank.Text)) {
+				label_MaxRank.Text = label_MaxRank.Text.TrimEnd(']');
+				label_MaxRank.Text += "*]";
+			}
+			else {
+				// Nothing selected.
+				label_MaxRank.Text = label_MaxRank.Text.TrimEnd('*', ']');
+				label_MaxRank.Text += ']';
+			}
 			// Update power from Mastery
 			Update_Power_Value();
 			Update_MinRank();

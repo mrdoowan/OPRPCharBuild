@@ -248,6 +248,7 @@
 			this.toolStripButton_New = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton_Open = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
+			this.characterTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1647,7 +1648,7 @@
 			// textBox_Focus
 			// 
 			this.textBox_Focus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_Focus.Location = new System.Drawing.Point(138, 127);
+			this.textBox_Focus.Location = new System.Drawing.Point(129, 130);
 			this.textBox_Focus.Name = "textBox_Focus";
 			this.textBox_Focus.ReadOnly = true;
 			this.textBox_Focus.Size = new System.Drawing.Size(55, 20);
@@ -1657,7 +1658,7 @@
 			// label39
 			// 
 			this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label39.Location = new System.Drawing.Point(18, 126);
+			this.label39.Location = new System.Drawing.Point(9, 129);
 			this.label39.Name = "label39";
 			this.label39.Size = new System.Drawing.Size(114, 20);
 			this.label39.TabIndex = 56;
@@ -1667,7 +1668,7 @@
 			// textBox_TotalSD
 			// 
 			this.textBox_TotalSD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_TotalSD.Location = new System.Drawing.Point(138, 23);
+			this.textBox_TotalSD.Location = new System.Drawing.Point(129, 26);
 			this.textBox_TotalSD.Name = "textBox_TotalSD";
 			this.textBox_TotalSD.ReadOnly = true;
 			this.textBox_TotalSD.Size = new System.Drawing.Size(55, 20);
@@ -1677,7 +1678,7 @@
 			// label_TotalSD
 			// 
 			this.label_TotalSD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_TotalSD.Location = new System.Drawing.Point(28, 25);
+			this.label_TotalSD.Location = new System.Drawing.Point(19, 28);
 			this.label_TotalSD.Name = "label_TotalSD";
 			this.label_TotalSD.Size = new System.Drawing.Size(104, 15);
 			this.label_TotalSD.TabIndex = 53;
@@ -1687,7 +1688,7 @@
 			// textBox_AP
 			// 
 			this.textBox_AP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_AP.Location = new System.Drawing.Point(325, 16);
+			this.textBox_AP.Location = new System.Drawing.Point(304, 26);
 			this.textBox_AP.Name = "textBox_AP";
 			this.textBox_AP.ReadOnly = true;
 			this.textBox_AP.Size = new System.Drawing.Size(25, 20);
@@ -1698,7 +1699,7 @@
 			// 
 			this.label_FortuneCalc.AutoSize = true;
 			this.label_FortuneCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_FortuneCalc.Location = new System.Drawing.Point(395, 379);
+			this.label_FortuneCalc.Location = new System.Drawing.Point(366, 382);
 			this.label_FortuneCalc.Name = "label_FortuneCalc";
 			this.label_FortuneCalc.Size = new System.Drawing.Size(42, 13);
 			this.label_FortuneCalc.TabIndex = 51;
@@ -1707,7 +1708,7 @@
 			// label_GenerateCheck
 			// 
 			this.label_GenerateCheck.ForeColor = System.Drawing.Color.Red;
-			this.label_GenerateCheck.Location = new System.Drawing.Point(53, 320);
+			this.label_GenerateCheck.Location = new System.Drawing.Point(20, 313);
 			this.label_GenerateCheck.Name = "label_GenerateCheck";
 			this.label_GenerateCheck.Size = new System.Drawing.Size(209, 60);
 			this.label_GenerateCheck.TabIndex = 6;
@@ -1718,7 +1719,7 @@
 			// 
 			this.label_AccuracyCalc.AutoSize = true;
 			this.label_AccuracyCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_AccuracyCalc.Location = new System.Drawing.Point(459, 352);
+			this.label_AccuracyCalc.Location = new System.Drawing.Point(430, 355);
 			this.label_AccuracyCalc.Name = "label_AccuracyCalc";
 			this.label_AccuracyCalc.Size = new System.Drawing.Size(19, 13);
 			this.label_AccuracyCalc.TabIndex = 50;
@@ -1728,7 +1729,7 @@
 			// 
 			this.label_StaminaCalc.AutoSize = true;
 			this.label_StaminaCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_StaminaCalc.Location = new System.Drawing.Point(459, 322);
+			this.label_StaminaCalc.Location = new System.Drawing.Point(430, 325);
 			this.label_StaminaCalc.Name = "label_StaminaCalc";
 			this.label_StaminaCalc.Size = new System.Drawing.Size(19, 13);
 			this.label_StaminaCalc.TabIndex = 49;
@@ -1738,7 +1739,7 @@
 			// 
 			this.label_SpeedCalc.AutoSize = true;
 			this.label_SpeedCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_SpeedCalc.Location = new System.Drawing.Point(459, 293);
+			this.label_SpeedCalc.Location = new System.Drawing.Point(430, 296);
 			this.label_SpeedCalc.Name = "label_SpeedCalc";
 			this.label_SpeedCalc.Size = new System.Drawing.Size(19, 13);
 			this.label_SpeedCalc.TabIndex = 48;
@@ -1748,7 +1749,7 @@
 			// 
 			this.label_StrengthCalc.AutoSize = true;
 			this.label_StrengthCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_StrengthCalc.Location = new System.Drawing.Point(459, 262);
+			this.label_StrengthCalc.Location = new System.Drawing.Point(430, 265);
 			this.label_StrengthCalc.Name = "label_StrengthCalc";
 			this.label_StrengthCalc.Size = new System.Drawing.Size(19, 13);
 			this.label_StrengthCalc.TabIndex = 47;
@@ -1758,7 +1759,7 @@
 			// 
 			this.label63.AutoSize = true;
 			this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-			this.label63.Location = new System.Drawing.Point(407, 234);
+			this.label63.Location = new System.Drawing.Point(378, 237);
 			this.label63.Name = "label63";
 			this.label63.Size = new System.Drawing.Size(38, 17);
 			this.label63.TabIndex = 46;
@@ -1767,7 +1768,7 @@
 			// textBox_AccuracyFinal
 			// 
 			this.textBox_AccuracyFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_AccuracyFinal.Location = new System.Drawing.Point(398, 350);
+			this.textBox_AccuracyFinal.Location = new System.Drawing.Point(369, 353);
 			this.textBox_AccuracyFinal.Name = "textBox_AccuracyFinal";
 			this.textBox_AccuracyFinal.ReadOnly = true;
 			this.textBox_AccuracyFinal.Size = new System.Drawing.Size(55, 20);
@@ -1777,7 +1778,7 @@
 			// textBox_StaminaFinal
 			// 
 			this.textBox_StaminaFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_StaminaFinal.Location = new System.Drawing.Point(398, 320);
+			this.textBox_StaminaFinal.Location = new System.Drawing.Point(369, 323);
 			this.textBox_StaminaFinal.Name = "textBox_StaminaFinal";
 			this.textBox_StaminaFinal.ReadOnly = true;
 			this.textBox_StaminaFinal.Size = new System.Drawing.Size(55, 20);
@@ -1787,7 +1788,7 @@
 			// textBox_SpeedFinal
 			// 
 			this.textBox_SpeedFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_SpeedFinal.Location = new System.Drawing.Point(398, 290);
+			this.textBox_SpeedFinal.Location = new System.Drawing.Point(369, 293);
 			this.textBox_SpeedFinal.Name = "textBox_SpeedFinal";
 			this.textBox_SpeedFinal.ReadOnly = true;
 			this.textBox_SpeedFinal.Size = new System.Drawing.Size(55, 20);
@@ -1797,7 +1798,7 @@
 			// textBox_StrengthFinal
 			// 
 			this.textBox_StrengthFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_StrengthFinal.Location = new System.Drawing.Point(398, 260);
+			this.textBox_StrengthFinal.Location = new System.Drawing.Point(369, 263);
 			this.textBox_StrengthFinal.Name = "textBox_StrengthFinal";
 			this.textBox_StrengthFinal.ReadOnly = true;
 			this.textBox_StrengthFinal.Size = new System.Drawing.Size(55, 20);
@@ -1807,7 +1808,7 @@
 			// textBox_Fortune
 			// 
 			this.textBox_Fortune.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_Fortune.Location = new System.Drawing.Point(325, 379);
+			this.textBox_Fortune.Location = new System.Drawing.Point(296, 382);
 			this.textBox_Fortune.Name = "textBox_Fortune";
 			this.textBox_Fortune.ReadOnly = true;
 			this.textBox_Fortune.Size = new System.Drawing.Size(55, 20);
@@ -1818,7 +1819,7 @@
 			// numericUpDown_AccuracyBase
 			// 
 			this.numericUpDown_AccuracyBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.numericUpDown_AccuracyBase.Location = new System.Drawing.Point(325, 350);
+			this.numericUpDown_AccuracyBase.Location = new System.Drawing.Point(296, 353);
 			this.numericUpDown_AccuracyBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1842,7 +1843,7 @@
 			// numericUpDown_StaminaBase
 			// 
 			this.numericUpDown_StaminaBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.numericUpDown_StaminaBase.Location = new System.Drawing.Point(325, 320);
+			this.numericUpDown_StaminaBase.Location = new System.Drawing.Point(296, 323);
 			this.numericUpDown_StaminaBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1866,7 +1867,7 @@
 			// numericUpDown_SpeedBase
 			// 
 			this.numericUpDown_SpeedBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.numericUpDown_SpeedBase.Location = new System.Drawing.Point(325, 290);
+			this.numericUpDown_SpeedBase.Location = new System.Drawing.Point(296, 293);
 			this.numericUpDown_SpeedBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1890,7 +1891,7 @@
 			// numericUpDown_StrengthBase
 			// 
 			this.numericUpDown_StrengthBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.numericUpDown_StrengthBase.Location = new System.Drawing.Point(325, 260);
+			this.numericUpDown_StrengthBase.Location = new System.Drawing.Point(296, 263);
 			this.numericUpDown_StrengthBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1915,7 +1916,7 @@
 			// 
 			this.label67.AutoSize = true;
 			this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-			this.label67.Location = new System.Drawing.Point(330, 233);
+			this.label67.Location = new System.Drawing.Point(301, 236);
 			this.label67.Name = "label67";
 			this.label67.Size = new System.Drawing.Size(40, 17);
 			this.label67.TabIndex = 36;
@@ -1925,7 +1926,7 @@
 			// 
 			this.label68.AutoSize = true;
 			this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label68.Location = new System.Drawing.Point(273, 382);
+			this.label68.Location = new System.Drawing.Point(244, 385);
 			this.label68.Name = "label68";
 			this.label68.Size = new System.Drawing.Size(46, 13);
 			this.label68.TabIndex = 35;
@@ -1935,7 +1936,7 @@
 			// 
 			this.label69.AutoSize = true;
 			this.label69.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label69.Location = new System.Drawing.Point(264, 352);
+			this.label69.Location = new System.Drawing.Point(235, 355);
 			this.label69.Name = "label69";
 			this.label69.Size = new System.Drawing.Size(55, 13);
 			this.label69.TabIndex = 34;
@@ -1945,7 +1946,7 @@
 			// 
 			this.label70.AutoSize = true;
 			this.label70.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label70.Location = new System.Drawing.Point(271, 322);
+			this.label70.Location = new System.Drawing.Point(242, 325);
 			this.label70.Name = "label70";
 			this.label70.Size = new System.Drawing.Size(48, 13);
 			this.label70.TabIndex = 33;
@@ -1955,7 +1956,7 @@
 			// 
 			this.label71.AutoSize = true;
 			this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label71.Location = new System.Drawing.Point(278, 292);
+			this.label71.Location = new System.Drawing.Point(249, 295);
 			this.label71.Name = "label71";
 			this.label71.Size = new System.Drawing.Size(41, 13);
 			this.label71.TabIndex = 32;
@@ -1965,7 +1966,7 @@
 			// 
 			this.label72.AutoSize = true;
 			this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label72.Location = new System.Drawing.Point(269, 262);
+			this.label72.Location = new System.Drawing.Point(240, 265);
 			this.label72.Name = "label72";
 			this.label72.Size = new System.Drawing.Size(50, 13);
 			this.label72.TabIndex = 31;
@@ -1975,7 +1976,7 @@
 			// 
 			this.label37_SDonAP.AutoSize = true;
 			this.label37_SDonAP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label37_SDonAP.Location = new System.Drawing.Point(356, 19);
+			this.label37_SDonAP.Location = new System.Drawing.Point(335, 29);
 			this.label37_SDonAP.Name = "label37_SDonAP";
 			this.label37_SDonAP.Size = new System.Drawing.Size(92, 13);
 			this.label37_SDonAP.TabIndex = 30;
@@ -1989,7 +1990,7 @@
             0,
             0,
             0});
-			this.numericUpDown_UsedForFort.Location = new System.Drawing.Point(144, 275);
+			this.numericUpDown_UsedForFort.Location = new System.Drawing.Point(129, 278);
 			this.numericUpDown_UsedForFort.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -2003,7 +2004,7 @@
 			// textBox_UsedForStats
 			// 
 			this.textBox_UsedForStats.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_UsedForStats.Location = new System.Drawing.Point(144, 234);
+			this.textBox_UsedForStats.Location = new System.Drawing.Point(129, 237);
 			this.textBox_UsedForStats.Name = "textBox_UsedForStats";
 			this.textBox_UsedForStats.ReadOnly = true;
 			this.textBox_UsedForStats.Size = new System.Drawing.Size(55, 20);
@@ -2015,7 +2016,7 @@
 			// 
 			this.label74.AutoSize = true;
 			this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label74.Location = new System.Drawing.Point(49, 277);
+			this.label74.Location = new System.Drawing.Point(34, 280);
 			this.label74.Name = "label74";
 			this.label74.Size = new System.Drawing.Size(89, 13);
 			this.label74.TabIndex = 27;
@@ -2025,7 +2026,7 @@
 			// 
 			this.label75.AutoSize = true;
 			this.label75.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label75.Location = new System.Drawing.Point(61, 237);
+			this.label75.Location = new System.Drawing.Point(46, 240);
 			this.label75.Name = "label75";
 			this.label75.Size = new System.Drawing.Size(77, 13);
 			this.label75.TabIndex = 26;
@@ -2035,7 +2036,7 @@
 			// 
 			this.label_SDtoSPCalculations.AutoSize = true;
 			this.label_SDtoSPCalculations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label_SDtoSPCalculations.Location = new System.Drawing.Point(205, 197);
+			this.label_SDtoSPCalculations.Location = new System.Drawing.Point(190, 200);
 			this.label_SDtoSPCalculations.Name = "label_SDtoSPCalculations";
 			this.label_SDtoSPCalculations.Size = new System.Drawing.Size(43, 13);
 			this.label_SDtoSPCalculations.TabIndex = 24;
@@ -2044,7 +2045,7 @@
 			// textBox_StatPoints
 			// 
 			this.textBox_StatPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_StatPoints.Location = new System.Drawing.Point(144, 194);
+			this.textBox_StatPoints.Location = new System.Drawing.Point(129, 197);
 			this.textBox_StatPoints.Name = "textBox_StatPoints";
 			this.textBox_StatPoints.ReadOnly = true;
 			this.textBox_StatPoints.Size = new System.Drawing.Size(55, 20);
@@ -2056,7 +2057,7 @@
 			// 
 			this.label77.AutoSize = true;
 			this.label77.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label77.Location = new System.Drawing.Point(77, 197);
+			this.label77.Location = new System.Drawing.Point(62, 200);
 			this.label77.Name = "label77";
 			this.label77.Size = new System.Drawing.Size(61, 13);
 			this.label77.TabIndex = 22;
@@ -2065,7 +2066,7 @@
 			// numericUpDown_SDintoStats
 			// 
 			this.numericUpDown_SDintoStats.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.numericUpDown_SDintoStats.Location = new System.Drawing.Point(138, 75);
+			this.numericUpDown_SDintoStats.Location = new System.Drawing.Point(129, 78);
 			this.numericUpDown_SDintoStats.Maximum = new decimal(new int[] {
             0,
             0,
@@ -2079,7 +2080,7 @@
 			// label78
 			// 
 			this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label78.Location = new System.Drawing.Point(15, 74);
+			this.label78.Location = new System.Drawing.Point(6, 77);
 			this.label78.Name = "label78";
 			this.label78.Size = new System.Drawing.Size(117, 18);
 			this.label78.TabIndex = 20;
@@ -2089,7 +2090,7 @@
 			// textBox_SDRemain
 			// 
 			this.textBox_SDRemain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.textBox_SDRemain.Location = new System.Drawing.Point(138, 101);
+			this.textBox_SDRemain.Location = new System.Drawing.Point(129, 104);
 			this.textBox_SDRemain.Name = "textBox_SDRemain";
 			this.textBox_SDRemain.ReadOnly = true;
 			this.textBox_SDRemain.Size = new System.Drawing.Size(55, 20);
@@ -2099,7 +2100,7 @@
 			// label79
 			// 
 			this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label79.Location = new System.Drawing.Point(18, 100);
+			this.label79.Location = new System.Drawing.Point(9, 103);
 			this.label79.Name = "label79";
 			this.label79.Size = new System.Drawing.Size(114, 20);
 			this.label79.TabIndex = 19;
@@ -2109,7 +2110,7 @@
 			// numericUpDown_SDEarned
 			// 
 			this.numericUpDown_SDEarned.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.numericUpDown_SDEarned.Location = new System.Drawing.Point(138, 49);
+			this.numericUpDown_SDEarned.Location = new System.Drawing.Point(129, 52);
 			this.numericUpDown_SDEarned.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -2131,7 +2132,7 @@
             "Prime Professional - May upgrade secondary profession to primary",
             "Multiskilled Professional - May take two more secondary professions",
             "Devil Fruit - Choose a Myth Zoan, gained without DF SL"});
-			this.checkedListBox1_AP.Location = new System.Drawing.Point(214, 42);
+			this.checkedListBox1_AP.Location = new System.Drawing.Point(193, 52);
 			this.checkedListBox1_AP.Name = "checkedListBox1_AP";
 			this.checkedListBox1_AP.Size = new System.Drawing.Size(399, 79);
 			this.checkedListBox1_AP.TabIndex = 8;
@@ -2141,7 +2142,7 @@
 			// 
 			this.label80.AutoSize = true;
 			this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label80.Location = new System.Drawing.Point(211, 19);
+			this.label80.Location = new System.Drawing.Point(190, 29);
 			this.label80.Name = "label80";
 			this.label80.Size = new System.Drawing.Size(108, 13);
 			this.label80.TabIndex = 16;
@@ -2150,7 +2151,7 @@
 			// label81
 			// 
 			this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label81.Location = new System.Drawing.Point(15, 48);
+			this.label81.Location = new System.Drawing.Point(6, 51);
 			this.label81.Name = "label81";
 			this.label81.Size = new System.Drawing.Size(117, 18);
 			this.label81.TabIndex = 15;
@@ -2298,7 +2299,7 @@
 			this.groupBox8.Size = new System.Drawing.Size(619, 196);
 			this.groupBox8.TabIndex = 41;
 			this.groupBox8.TabStop = false;
-			this.groupBox8.Text = "Sub-Categories";
+			this.groupBox8.Text = "Categories (Not yet Save-able)";
 			// 
 			// label41
 			// 
@@ -2308,7 +2309,7 @@
 			this.label41.Name = "label41";
 			this.label41.Size = new System.Drawing.Size(136, 52);
 			this.label41.TabIndex = 51;
-			this.label41.Text = "Advice: Finish all your Techniques first, then make sub-categories.";
+			this.label41.Text = "Advice: Finish all your Techniques first, then make categories.";
 			this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// button_SubCatEdit
@@ -2328,9 +2329,9 @@
 			this.label_RowNum.ForeColor = System.Drawing.Color.Blue;
 			this.label_RowNum.Location = new System.Drawing.Point(312, 17);
 			this.label_RowNum.Name = "label_RowNum";
-			this.label_RowNum.Size = new System.Drawing.Size(120, 13);
+			this.label_RowNum.Size = new System.Drawing.Size(220, 13);
 			this.label_RowNum.TabIndex = 42;
-			this.label_RowNum.Text = "No Technique Selected";
+			this.label_RowNum.Text = "Select a Technique to see which Row it is in.";
 			// 
 			// label_SubCatWarning
 			// 
@@ -2340,8 +2341,8 @@
 			this.label_SubCatWarning.Name = "label_SubCatWarning";
 			this.label_SubCatWarning.Size = new System.Drawing.Size(301, 39);
 			this.label_SubCatWarning.TabIndex = 49;
-			this.label_SubCatWarning.Text = "Note: Adding no Sub-Categories will automatically put all Techniques into one tab" +
-    "le.\r\n";
+			this.label_SubCatWarning.Text = "Note: Adding no Categories will automatically put all Techniques into one table.\r" +
+    "\n";
 			this.label_SubCatWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// numericUpDown_RowEnd
@@ -2358,7 +2359,7 @@
 			// 
 			// numericUpDown_RowBegin
 			// 
-			this.numericUpDown_RowBegin.Location = new System.Drawing.Point(396, 36);
+			this.numericUpDown_RowBegin.Location = new System.Drawing.Point(401, 36);
 			this.numericUpDown_RowBegin.Maximum = new decimal(new int[] {
             0,
             0,
@@ -2370,24 +2371,24 @@
 			// 
 			// textBox_SubCat
 			// 
-			this.textBox_SubCat.Location = new System.Drawing.Point(396, 65);
+			this.textBox_SubCat.Location = new System.Drawing.Point(401, 65);
 			this.textBox_SubCat.Name = "textBox_SubCat";
-			this.textBox_SubCat.Size = new System.Drawing.Size(217, 23);
+			this.textBox_SubCat.Size = new System.Drawing.Size(212, 23);
 			this.textBox_SubCat.TabIndex = 47;
 			// 
 			// label40
 			// 
 			this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label40.Location = new System.Drawing.Point(312, 62);
+			this.label40.Location = new System.Drawing.Point(311, 62);
 			this.label40.Name = "label40";
-			this.label40.Size = new System.Drawing.Size(78, 28);
+			this.label40.Size = new System.Drawing.Size(84, 28);
 			this.label40.TabIndex = 46;
-			this.label40.Text = "Sub-Category Name:";
+			this.label40.Text = "Category Name:";
 			this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// button_SubCatAdd
 			// 
-			this.button_SubCatAdd.Location = new System.Drawing.Point(396, 99);
+			this.button_SubCatAdd.Location = new System.Drawing.Point(401, 99);
 			this.button_SubCatAdd.Name = "button_SubCatAdd";
 			this.button_SubCatAdd.Size = new System.Drawing.Size(75, 23);
 			this.button_SubCatAdd.TabIndex = 45;
@@ -2413,7 +2414,7 @@
 			this.label_SubCatMsg.Name = "label_SubCatMsg";
 			this.label_SubCatMsg.Size = new System.Drawing.Size(300, 39);
 			this.label_SubCatMsg.TabIndex = 43;
-			this.label_SubCatMsg.Text = "Selected Sub-Category [NAME]";
+			this.label_SubCatMsg.Text = "Selected Category [NAME]";
 			this.label_SubCatMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// label38
@@ -2430,7 +2431,7 @@
 			// 
 			this.label36.AutoSize = true;
 			this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label36.Location = new System.Drawing.Point(328, 40);
+			this.label36.Location = new System.Drawing.Point(333, 40);
 			this.label36.Name = "label36";
 			this.label36.Size = new System.Drawing.Size(62, 13);
 			this.label36.TabIndex = 43;
@@ -2793,7 +2794,8 @@
 			// importToolStripMenuItem
 			// 
 			this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.olderVersionToolStripMenuItem});
+            this.olderVersionToolStripMenuItem,
+            this.characterTemplateToolStripMenuItem});
 			this.importToolStripMenuItem.Name = "importToolStripMenuItem";
 			this.importToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
 			this.importToolStripMenuItem.Text = "Import";
@@ -2801,7 +2803,7 @@
 			// olderVersionToolStripMenuItem
 			// 
 			this.olderVersionToolStripMenuItem.Name = "olderVersionToolStripMenuItem";
-			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
 			this.olderVersionToolStripMenuItem.Text = "Older Version";
 			this.olderVersionToolStripMenuItem.Click += new System.EventHandler(this.olderVersionToolStripMenuItem_Click);
 			// 
@@ -2853,6 +2855,13 @@
 			this.toolStripButton_Save.Size = new System.Drawing.Size(23, 22);
 			this.toolStripButton_Save.Text = "Save";
 			this.toolStripButton_Save.Click += new System.EventHandler(this.toolStripButton_Save_Click);
+			// 
+			// characterTemplateToolStripMenuItem
+			// 
+			this.characterTemplateToolStripMenuItem.Name = "characterTemplateToolStripMenuItem";
+			this.characterTemplateToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+			this.characterTemplateToolStripMenuItem.Text = "Custom Template";
+			this.characterTemplateToolStripMenuItem.Click += new System.EventHandler(this.characterTemplateToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
@@ -3149,6 +3158,7 @@
 		private System.Windows.Forms.Label label39;
 		private System.Windows.Forms.Button button_SubCatEdit;
 		private System.Windows.Forms.Label label41;
+		private System.Windows.Forms.ToolStripMenuItem characterTemplateToolStripMenuItem;
 	}
 }
 

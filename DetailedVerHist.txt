@@ -1,3 +1,10 @@
+v1.2.5 - 7/8/2016
+- Now known as "Categories" (design-wise, it's still called "SubCat")
+- Implemented check to see if any Techniques are missing in making Categories
+- Traits is now ordered by type
+- Added a small star near Max Rank label to signify if a 4 Rank Trait is being used
+- Category warning implemented
+- Set up basic framework for Custom Template
 v1.2.4 - 7/7/2016
 - Implemented the interface for Sub-Categories
 - Added a function that allows ListView sorting
