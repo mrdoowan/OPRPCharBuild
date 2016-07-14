@@ -13,18 +13,102 @@ namespace OPRPCharBuild
 {
 	// Also put Help Document in here as well.
 
+	// Option 1: Generate Character Sheet
+	// Option 2: Preview Template
+	// Option 3: Help Document
+	// Option 4: List of Custom Tags
+
 	public partial class Sheet : Form
 	{
-
+		private int option;
 		private StringWriter template = new StringWriter();
+		public static string color_hex = "";
 
-		public Sheet() {
+		public Sheet(int option_, string text_ = "") {
 			InitializeComponent();
+			option = option_;
+			if (option != 1) { label1.Visible = false; }
+			richTextBox_Template.Text = text_;
+			if (option == 2) {
+				this.Text = "Preview Template";
+				label_Title.Text = "Preview Template";
+			}
 		}
 
 		private void button_Close_Click(object sender, EventArgs e) {
 			this.Close();
 		}
+
+		// The Basic Template for the Tool
+		#region Basic Template
+		public const string Basic_Template = "[center][big][big][big][big][font=Garamond]Character Template[/font][/big][/big][/big][/big]\n\n" +
+			"[-----][/center]\n\n" +
+			"<color>[b]Account Name:[/b]</color> [me]\n\n" +
+			"[center][big][big][i][font=Century Gothic]Basic Character Information[/font][/i][/big][/big][/center]\n" +
+			"<color>[b]Name:[/b]</color> <1>\n" +
+			"<color>[b]Nickname:[/b]</color> <2>\n" +
+			"<color>[b]Age:[/b]</color> <3>\n" +
+			"<color>[b]Gender:[/b]</color> <4>\n" +
+			"<color>[b]Race:[/b]</color> <5>\n" +
+			"<color>[b]Affiliation:[/b]</color> <6>\n" +
+			"<empty=7><color>[b]Bounty:[/b]</color> <7></empty>\n" +
+			"<empty=8><color>[b]Rank (Commendations):[/b]</color> <8> (<9>)</empty>\n" +
+			"<empty=10><color>[b]Threat:[/b]</color> <10></empty>\n" +
+			"<color>[b]Position:[/b]</color> <11>\n" +
+			"[list]<Achievement>[*]<12>\n</Achievement>[/list]\n" +
+			"<color>[b]Professions:[/b]</color>[list]<Profession>[*]<color>[b][u]<13>[/u] - [i]<85>[/i]:[/b]</color> <86><empty=87> [i]<87>[/i]</empty>\n\n</Profession>[/list]\n" +
+			"[center][i][big][big][font=Century Gothic]Physical Appearance[/font][/big][/big][/i][/center]\n" +
+			"<color>[b]Height:[/b]</color> <14>\n" +
+			"<color>[b]Height:[/b]</color> <15>\n" +
+			"<color>[b]Hair:[/b]</color> <16>\n" +
+			"<color>[b]Eyes:[/b]</color> <17>\n\n" +
+			"<color>[b]Clothing/Accessories:[/b]</color> <18>\n\n" +
+			"<color>[b]General Appearance:[/b]</color> <19>\n\n" +
+			"<Image>[spoiler=<92>][img<empty=93>=<93>,<94></empty]<91>[/img][/spoiler]\n</Image>" +
+			"[center][big][big][i][font=Century Gothic]The Character[/font][/i][/big][/big][/center]\n" +
+			"<color>[b]Personality:[/b]</color> <20>\n\n" +
+			"<color>[b]Hometown:[/b]</color> <21>, <22>\n\n" +
+			"<color>[b]History:[/b]</color> <23>\n\n" +
+			"[big][big][center][i][font=Century Gothic]Abilities and Possessions[/font][/i][/center][/big][/big]\n" +
+			"<color>[b]Combat:[/b]</color> <24>\n\n" +
+			"[table=2, Weaponry]<Weapon><empty=><color>[b]<25>[/b]</color></empty>[c]<empty=><76></empty>\n</Weapon>[/table]\n" +
+			"[table=2, Items]<Item><empty=><color>[b]<26>[/b]</color></empty>[c]<empty=><77></empty>\n</Item>[/table]\n" +
+			"<color>[b]Beli: [/b]</color> <27>\n" +
+			"[quote=Advancement Points: <28>]<AP><29> (<78> AP) - <79>\n</AP>[/quote]\n" +
+			"<color>[b]SD Earned:[/b]</color> <30><empty=> / <74></empty>\n" +
+			"<color>[b]SD Remaining: [/b]</color> <31>\n" +
+			"<color>[b]Stat Points:[/b]</color> <32> <33>\n" +
+			"<color>[b][list][*][i]Used for Stats:[/i] <34>\n" +
+			"[*][i]Used for Fortune:[/i] <35>\n" +
+			"[list][*][i]Strength:[/i] <36><equal=36,37> <38></equal>\n" +
+			"[*][i]Speed:[/i] <39><equal=39,40> <41></equal>\n" +
+			"[*][i]Stamina:[/i] <42><equal=42,43> <44></equal>\n" +
+			"[*][i]Accuracy:[/i] <45><equal=45,46> <47></equal>\n" +
+			"[*]<color>[b][i]Fortune:[/i][/b]</color> <48> <49>[/list][/list]\n" +
+			"[table]<color>[b]Traits:[/b]</color> <95> General, <96> Professional[/table][table=2]<color>[b][u]General[/u][/b]</color>[c]<Traits_G><color>[b]<> - (<> Trait<plural=>s</plural>):[/b]</color> - <>\n\n</Traits_G>" +
+			"[c]<color>[b][u]Professional[/u][/b]</color>[c]<Traits_P><color>[b]<> - (<> Trait<plural=>s</plural>):[/b]</color> - <>\n\n</Traits_P>[/table]\n" +
+			"[quote=Devil Fruit]<color>[b]Devil Fruit Name: [/b]</color> <>\n" +
+			"<color>[b]Devil Fruit Type:[/b]</color> <>\n" +
+			"<color>[b]Devil Fruit Ability:[/b]</color> <>[/quote]\n\n" +
+			"[center][big][big][i][font=Century Gothic]Techniques[/font][/i][/big][/big][/center]\n" +
+			"<color>[b]Used/Total Regular Technique Points:[/b]</color> <> / <> <>\n" +
+			"<color>[b]Used/Total Special Technique Points:[/b]</color> <> / <> <empty=>[list]<SpTrait>[*]<>: <> / <>\n</SpTrait>[/list]\n\n" +
+			"<TechHead>[table=2, <>, 1][center]<color>[b][u]Name/Type/Range/Power/Stats/TP[/u][/b]</color>[/center][c]\n" +
+			"[center]<color>[b][u]Description/Notes[/u][/b]</color>[/center]</TechHead>\n" +
+			"<TechTable>[c]<color>[b]<>[/b]</color> (<>)\n" +
+			"[u]Type:[/u] <>\n" +
+			"[u]Range:[/u] <>\n" +
+			"[u]Power:[/u] <>\n" +
+			"[u]Stats:[/u] <>\n" +
+			"[u]TP Spent:[/u] <>R<empty=> | <>S</empty>\n" +
+			"[c]<empty=><>\n\n[hr]\n</empty>" +
+			"[u]Description:[/u] <>\n" +
+			"<empty=>[u]Effects:[/u] <>\n</TechTable>[/table]\n" +
+			"[center][big][big][i][font=Century Gothic]Development History[/font][/i][/big][/big][/center]\n" +
+			"<color>[b]Gains/Losses:[/b]</color> \n" +
+			"[spoiler=Edit Log]Edit Log goes here[/spoiler]\n";
+
+		#endregion
 
 		public void Set_Help_Form() {
 			this.Text = "Help";
@@ -33,7 +117,7 @@ namespace OPRPCharBuild
 
 			string help = "--------------- One Piece RP Character Builder Tool\n";
 			help += "--------------- Updated as of 6/7/2016\n";
-			help += "--------------- For v1.0.1.0\n";
+			help += "--------------- For v1.1.0\n";
 			help += '\n';
 			help += "It is heavily preferred you copy and paste this Documentation into a separate Text Editor and Ctrl + F many of its features\n";
 			help += '\n';

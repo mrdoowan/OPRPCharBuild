@@ -12,6 +12,9 @@ namespace OPRPCharBuild
 {
 	public partial class SelectOptions : Form
 	{
+		// OPTION 1 is Importing Character
+		// OPTION 2 is Rokushiki
+		// OPTION 3 is Generating Sheet
 		private int option;
 		private bool Has_Roku_Master;
 		private int max_rank;                   // The current max rank the character is able to have. (if base rank of tech is above max rank, nope)
@@ -71,6 +74,11 @@ namespace OPRPCharBuild
 			}
 		}
 
+		public bool Generate_Sheet_Dialog() {
+			this.ShowDialog();
+			return OK_clicked;
+		}
+
 		#endregion
 
 		#region Event Handlers
@@ -114,11 +122,15 @@ namespace OPRPCharBuild
 			else if (option == 3) {
 				// Generate Character Template
 				this.Text = "Select Character Template";
-				label_Msg.Text = "No imported character template detected.";
-				button_Left.Text = "Import";
+				if (MainForm.template_imported) { label_Msg.Text = MainForm.temp_import_msg; }
+				else { label_Msg.Text = MainForm.no_temp_import_msg; }
+				label_BottomHalf.Visible = true;
+				label_BottomHalf.Text = MainForm.template_filename;
+				button_Left.Text = "Preview";
 				button_OK.Text = "Generate";
-				textBox_Name.Visible = false;
-				label_Name.Visible = false;
+				button_Mid.Visible = true;
+				comboBox_Options.Visible = false;
+				label_Name.Text = "Hex Color\n(Blank if no Color)";
 				toolTip1.Active = false;
 			}
 			else {
@@ -130,6 +142,7 @@ namespace OPRPCharBuild
 		// Button for Customization
 		private void button_Left_Click(object sender, EventArgs e) {
 			if (option == 2) {
+				// Customize Rokushiki
 				if (comboBox_Options.SelectedIndex == -1) { MessageBox.Show("Please select a Rokushiki Technique to customize before continuing.", "Error"); }
 				else {
 					Custom_Name = textBox_Name.Text;
@@ -137,9 +150,25 @@ namespace OPRPCharBuild
 					Left_clicked = true;
 				}
 			}
+			else if (option == 3) {
+				// Preview the current Template selected
+				Sheet preview = new Sheet(2, MainForm.template);
+				preview.ShowDialog();
+            }
 		}
 
-		// Button to Add/Import depending on Option
+		// The button in the Middle, currently just serving as a purpose to reset the template
+		private void button_Mid_Click(object sender, EventArgs e) {
+			if (option == 3) {
+				MainForm.template = Sheet.Basic_Template;
+				MainForm.template_filename = MainForm.std_template_msg;
+				MainForm.template_imported = false;
+				label_Msg.Text = MainForm.no_temp_import_msg;
+				label_BottomHalf.Text = MainForm.template_filename;
+            }
+		}
+
+		// Button to Add/Import/Generate depending on Option
 		private void button_OK_Click(object sender, EventArgs e) {
 			if (option == 1) {
 				// For Importing
@@ -159,6 +188,12 @@ namespace OPRPCharBuild
 					this.Close();
 					OK_clicked = true;
 				}
+			}
+			else if (option == 3) {
+				// For Generating sheet
+				this.Close();
+				Sheet.color_hex = textBox_Name.Text;
+				OK_clicked = true;
 			}
 		}
 

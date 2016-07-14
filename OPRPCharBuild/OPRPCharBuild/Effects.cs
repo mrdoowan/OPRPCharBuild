@@ -127,7 +127,7 @@ namespace OPRPCharBuild
 			{"Elemental Damage", Effect_Name.ELE_DMG},
 			{"Flavour", Effect_Name.FLAV},
 			{"Spirit Generated Illusions", Effect_Name.SPIRIT},
-			{"Secondary General Effect", Effect_Name.SECONDARY_GEN},
+			{"Secondary", Effect_Name.SECONDARY_GEN},
 			{"Speed", Effect_Name.SPEED},
 			{"Piercing", Effect_Name.PIERCE},
 			{"After-Image", Effect_Name.AFT_IMG},
@@ -182,7 +182,7 @@ namespace OPRPCharBuild
 		};
 
 		// Inverse Dictionary: enum -> info
-		// DO NOT MAKE THIS STATIC, it's always being added upon!
+		// DO NOT MAKE THIS STATIC, it's always being changed!
 		private Dictionary<Effect_Name, EffectInfo> EffectInfo_Dict = new Dictionary<Effect_Name, EffectInfo>() {
 			#region Database of Effect Information
 			// The Ranges are added at a later part when Effects is initialized
@@ -216,7 +216,7 @@ namespace OPRPCharBuild
 				"Technique flair that does not grant any advantage other than making things look fancier. The higher the rank, the more exotic.")},
 			{Effect_Name.SPIRIT, new EffectInfo("Spirit Generated Illusions", true, 14, 28,
 				"Eye catching illusions that have significance, lasting only momentarily in battle but can shock or intimidate foes. Asura is a good example for these effects.")},
-			{Effect_Name.SECONDARY_GEN, new EffectInfo("Secondary General Effect", false, 4, 4,
+			{Effect_Name.SECONDARY_GEN, new EffectInfo("Secondary", false, 4, 4,
 				"A cost when using more than two General Effects, paid each time an extra secondary general effect is added.")},
 			{Effect_Name.SPEED, new EffectInfo("Speed", false, 4, 4,
 				"Techniques that focus more on striking an opponent as quickly as possible rather than with sheer force thus they often don't hit as hard as techniques of similar rank but come out faster.")},

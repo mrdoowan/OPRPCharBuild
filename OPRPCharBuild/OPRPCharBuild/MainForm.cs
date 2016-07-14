@@ -32,7 +32,11 @@ namespace OPRPCharBuild
 		public const string version = "1.0.2.2";
 		public const string vers_type = "";
 		public const string curr_proj = "Project2";
-		private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
+		public const string temp_import_msg = "A Template was imported successfully.";
+		public const string no_temp_import_msg = "No Template imported.\nImport a Template from the Main Menu Strip.";
+		public const string std_template_msg = "Standard Template selected.";
+		public static bool template_imported = false;
+        private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
 		private Traits Traits = new Traits();           // For enumerations of Traits
 		private Project2 project = new Project2();      // State of save file
 		private Project project1 = new Project();   // Used to import an old file and transfer to newest project
@@ -112,6 +116,13 @@ namespace OPRPCharBuild
 				acc = acc_;
 			}
 		}
+
+		// Variables for Templates
+		public static string template = Sheet.Basic_Template;		// Containing the entire string
+		public static string template_filename = std_template_msg;  // Containing the filename
+		public static Dictionary<int, string> CustomTags = new Dictionary<int, string>() {
+
+		};
 
 		// Class to sort ListView by number
 		public class ListViewItemNumberSort : IComparer
@@ -199,11 +210,11 @@ namespace OPRPCharBuild
 				WC.Headers.Add("Content-Type", header_msg);
 				string version_page = WC.DownloadString("https://raw.githubusercontent.com/mrdoowan/OPRPCharBuild/master/CurrentVer.txt");
 				string[] latest = version_page.Split('.');
-				// There should only be 3 numbers.
-				if (current.Length != latest.Length) {
+				// There should only be 3 numbers. (IMPLEMENT AFTER v1.3.0)
+				/* if (current.Length != latest.Length) {
 					MessageBox.Show("Current and Latest version Length are not equal.", "Report Bug", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					return;
-				}
+				} */
 				for (int i = 0; i < current.Length; ++i) {
 					// We do nothing if the current version is greater than latest version
 					if (int.Parse(current[i]) > int.Parse(latest[i])) {
@@ -2077,91 +2088,87 @@ namespace OPRPCharBuild
 		}
 
 		private void button_Generate_Click(object sender, EventArgs e) {
-			DialogResult result = new DialogResult();
-			result = DialogResult.No;
-			result = MessageBox.Show("Would you like to save before generating a sheet?", "Save Project",
-				MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (result == DialogResult.Yes) {
-				saveCharacter();
+			SelectOptions Generate_Window = new SelectOptions(3);
+			if (Generate_Window.Generate_Sheet_Dialog()) {
+				Sheet sheet = new Sheet(1);
+				sheet.Basic_Generate(
+					textBox_CharacterName.Text,
+					textBox_Nickname.Text,
+					(int)numericUpDown_Age.Value,
+					comboBox_Gender.Text,
+					textBox_Race.Text,
+					comboBox_Affiliation.Text,
+					textBox_Bounty.Text,
+					comboBox_MarineRank.Text,
+					textBox_Comm.Text,
+					textBox_Threat.Text,
+					textBox_Position.Text,
+					listBox_Achieve,
+					listView_Prof
+					);
+				sheet.Physical_Background_Generate(
+					textBox_Height.Text,
+					textBox_Weight.Text,
+					richTextBox_Hair.Text,
+					richTextBox_Eye.Text,
+					richTextBox_Clothing.Text,
+					richTextBox_GeneralAppear.Text,
+					listView_Images,
+					richTextBox_Personality.Text,
+					textBox_Island.Text,
+					comboBox_Region.Text,
+					richTextBox_History.Text
+					);
+				sheet.Combat_Generate(
+					richTextBox_Combat.Text,
+					listView_Weaponry,
+					listView_Items,
+					textBox_Beli.Text
+					);
+				sheet.Stats_Generate(
+					int.Parse(textBox_AP.Text),
+					checkedListBox1_AP,
+					(int)numericUpDown_SDEarned.Value,
+					textBox_SDRemain.Text,
+					textBox_StatPoints.Text,
+					label_SDtoSPCalculations.Text,
+					textBox_UsedForStats.Text,
+					(int)numericUpDown_UsedForFort.Value,
+					(int)numericUpDown_StrengthBase.Value,
+					textBox_StrengthFinal.Text,
+					label_StrengthCalc.Text,
+					(int)numericUpDown_SpeedBase.Value,
+					textBox_SpeedFinal.Text,
+					label_SpeedCalc.Text,
+					(int)numericUpDown_StaminaBase.Value,
+					textBox_StaminaFinal.Text,
+					label_StaminaCalc.Text,
+					(int)numericUpDown_AccuracyBase.Value,
+					textBox_AccuracyFinal.Text,
+					label_AccuracyCalc.Text,
+					textBox_Fortune.Text,
+					label_FortuneCalc.Text
+					);
+				sheet.Traits_DF_Generate(
+					listView_Traits,
+					textBox_DFName.Text,
+					comboBox_DFType.Text,
+					richTextBox_DFDesc.Text
+					);
+				sheet.Techs_Generate(
+					textBox_RegTPUsed.Text,
+					textBox_RegTPTotal.Text,
+					label_RegTPCalc.Text,
+					textBox_SpTPUsed.Text,
+					textBox_SpTPTotal.Text,
+					label_CritAnatQuick.Text,
+					TechList,
+					listView_SpTP,
+					textBox_DFEffect.Text
+					);
+				sheet.Complete_Template_Generate(version, vers_type);
+				sheet.ShowDialog();
 			}
-			Sheet sheet = new Sheet();
-			sheet.Basic_Generate(
-				textBox_CharacterName.Text,
-				textBox_Nickname.Text,
-				(int)numericUpDown_Age.Value,
-				comboBox_Gender.Text,
-				textBox_Race.Text,
-				comboBox_Affiliation.Text,
-				textBox_Bounty.Text,
-				comboBox_MarineRank.Text,
-				textBox_Comm.Text,
-				textBox_Threat.Text,
-				textBox_Position.Text,
-				listBox_Achieve,
-				listView_Prof
-				);
-			sheet.Physical_Background_Generate(
-				textBox_Height.Text,
-				textBox_Weight.Text,
-				richTextBox_Hair.Text,
-				richTextBox_Eye.Text,
-				richTextBox_Clothing.Text,
-				richTextBox_GeneralAppear.Text,
-				listView_Images,
-				richTextBox_Personality.Text,
-				textBox_Island.Text,
-				comboBox_Region.Text,
-				richTextBox_History.Text
-				);
-			sheet.Combat_Generate(
-				richTextBox_Combat.Text,
-				listView_Weaponry,
-				listView_Items,
-				textBox_Beli.Text
-				);
-			sheet.Stats_Generate(
-				int.Parse(textBox_AP.Text),
-				checkedListBox1_AP,
-				(int)numericUpDown_SDEarned.Value,
-				textBox_SDRemain.Text,
-				textBox_StatPoints.Text,
-				label_SDtoSPCalculations.Text,
-				textBox_UsedForStats.Text,
-				(int)numericUpDown_UsedForFort.Value,
-				(int)numericUpDown_StrengthBase.Value,
-				textBox_StrengthFinal.Text,
-				label_StrengthCalc.Text,
-				(int)numericUpDown_SpeedBase.Value,
-				textBox_SpeedFinal.Text,
-				label_SpeedCalc.Text,
-				(int)numericUpDown_StaminaBase.Value,
-				textBox_StaminaFinal.Text,
-				label_StaminaCalc.Text,
-				(int)numericUpDown_AccuracyBase.Value,
-				textBox_AccuracyFinal.Text,
-				label_AccuracyCalc.Text,
-				textBox_Fortune.Text,
-				label_FortuneCalc.Text
-				);
-			sheet.Traits_DF_Generate(
-				listView_Traits,
-				textBox_DFName.Text,
-				comboBox_DFType.Text,
-				richTextBox_DFDesc.Text
-				);
-			sheet.Techs_Generate(
-				textBox_RegTPUsed.Text,
-				textBox_RegTPTotal.Text,
-				label_RegTPCalc.Text,
-				textBox_SpTPUsed.Text,
-				textBox_SpTPTotal.Text,
-				label_CritAnatQuick.Text,
-				TechList,
-				listView_SpTP,
-				textBox_DFEffect.Text
-				);
-			sheet.Complete_Template_Generate(version, vers_type);
-			sheet.ShowDialog();
 		}
 
 		private void button_ResetChar_Click(object sender, EventArgs e) {
@@ -2201,7 +2208,7 @@ namespace OPRPCharBuild
 		}
 
 		private void helpDocumentToolStripMenuItem_Click(object sender, EventArgs e) {
-			Sheet help = new Sheet();
+			Sheet help = new Sheet(2);
 			help.Set_Help_Form();
 			help.Show();
 		}
@@ -2223,7 +2230,7 @@ namespace OPRPCharBuild
 					if (dlgFileOpen.ShowDialog() == DialogResult.OK) {
 						FileStream fs = File.Open(dlgFileOpen.FileName, FileMode.Open);
 						BinaryFormatter formatter = new BinaryFormatter();
-						// ------------------- v1.0.1.0 (Project)
+						// v1.1.0 (Project)
 						if (selected_version == SelectOptions.ProjectStr) {
 							try {
 								project1 = (Project)formatter.Deserialize(fs);
@@ -2247,14 +2254,39 @@ namespace OPRPCharBuild
 								MessageBox.Show("Failed to import / deserialize into " + curr_proj + " due to Internal issue.\nReason: " + ex.Message);
 							}
 						}
-						// v1.0.2.0 (Project2)
+						// v1.2.0 - v1.3.0 (Project2)
 					}
 				}
 			}
 		}
 
 		private void characterTemplateToolStripMenuItem_Click(object sender, EventArgs e) {
+			Import_Template();
+		}
 
+		// Returns True if Template imported successfully, False otherwise
+		private bool Import_Template() {
+			OpenFileDialog dlgFileOpen = new OpenFileDialog();
+			dlgFileOpen.Filter = "Text files (*.txt)|*.txt";
+			dlgFileOpen.Title = "Import Template";
+			dlgFileOpen.RestoreDirectory = true;
+			if (dlgFileOpen.ShowDialog() == DialogResult.OK) {
+				try {
+					StreamReader sr = new StreamReader(dlgFileOpen.FileName);
+					template = sr.ReadToEnd();
+					template_filename = dlgFileOpen.FileName;
+					MessageBox.Show("Template \"" + template_filename + "\" imported successfully.", "Imported", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					template_imported = true;
+					return true;
+				}
+				catch {
+					MessageBox.Show("Error in importing Template.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return false;
+				}
+			}
+			else {
+				return false;
+			}
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {

@@ -731,8 +731,12 @@ namespace OPRPCharBuild
 			comboBox_Effect.Text = "Effects";
 			numericUpDown_Cost.Value = 0;
 			label_EffectDesc.Text = effect_label_reset;
+			// Update gen_effects
+			foreach (EffectItem effect in EffectList.Values) {
+				if (effect.gen) { gen_effects++; }
+			}
 
-			// Edit Effects Dictionary based on Professions
+			// Edit Effects Dictionary based on Professions/Traits
 			checkBox_Inventor.Enabled = MainForm.Is_Primary_Bool("Inventor");
 			checkBox_Marksman.Enabled = MainForm.Is_Primary_Bool("Marksman");
 			if (MainForm.TraitsList.Contains(Traits.Trait_Name.MAST_MISDI)) { Effect.Enable_Mast_of_MisDirect(); }
@@ -818,6 +822,8 @@ namespace OPRPCharBuild
 			catch (Exception ex) {
 				MessageBox.Show("Error in Effects to comboBox.\nReason: " + ex.Message, "Error");
 			}
+			#endregion
+
 			// DF Options
 			try {
 				if (Traitss.Contains_Trait_AtIndex(Traits.Trait_Name.DEV_FRUIT, traits_list) != -1) {
@@ -888,7 +894,6 @@ namespace OPRPCharBuild
 			catch (Exception ex) {
 				MessageBox.Show("Error in configuring Applicable Traits.\nReason: " + ex.Message, "Error");
 			}
-			#endregion
 		}
 
 		#region Event Handlers
