@@ -1,3 +1,9 @@
+v1.2.7 - 7/14/2016
+- Completed Basic Template in string
+- Changing value of Sp TP Spent adjusts Reg TP Spent
+- Scrapped the useless Help Documentation, set-up room for the Custom Tags Documentation
+- Created a Dictionary<int, string> for loading in data
+- Plan developed for Custom Template
 v1.2.6 - 7/13/2016
 - Fixed a bug on Secondary Gen Effects. Also shortened it to just "Secondary"
 - Establishing framework for Custom Template by adding static variables

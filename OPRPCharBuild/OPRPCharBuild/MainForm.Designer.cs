@@ -239,16 +239,18 @@
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-			this.helpDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.listOfCustomTagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.olderVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.characterTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolTips = new System.Windows.Forms.ToolTip(this.components);
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.toolStripButton_New = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton_Open = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
-			this.characterTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.comboBox_DFTier = new System.Windows.Forms.ComboBox();
+			this.label42 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1239,6 +1241,8 @@
 			// 
 			// groupBox9
 			// 
+			this.groupBox9.Controls.Add(this.comboBox_DFTier);
+			this.groupBox9.Controls.Add(this.label42);
 			this.groupBox9.Controls.Add(this.label35);
 			this.groupBox9.Controls.Add(this.label34);
 			this.groupBox9.Controls.Add(this.label33);
@@ -2764,17 +2768,16 @@
 			// helpToolStripMenuItem1
 			// 
 			this.helpToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.helpDocumentToolStripMenuItem});
+            this.listOfCustomTagsToolStripMenuItem});
 			this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
 			this.helpToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
 			this.helpToolStripMenuItem1.Text = "Help";
 			// 
-			// helpDocumentToolStripMenuItem
+			// listOfCustomTagsToolStripMenuItem
 			// 
-			this.helpDocumentToolStripMenuItem.Name = "helpDocumentToolStripMenuItem";
-			this.helpDocumentToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-			this.helpDocumentToolStripMenuItem.Text = "Documentation";
-			this.helpDocumentToolStripMenuItem.Click += new System.EventHandler(this.helpDocumentToolStripMenuItem_Click);
+			this.listOfCustomTagsToolStripMenuItem.Name = "listOfCustomTagsToolStripMenuItem";
+			this.listOfCustomTagsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+			this.listOfCustomTagsToolStripMenuItem.Text = "Custom Tags";
 			// 
 			// menuStrip1
 			// 
@@ -2803,9 +2806,16 @@
 			// olderVersionToolStripMenuItem
 			// 
 			this.olderVersionToolStripMenuItem.Name = "olderVersionToolStripMenuItem";
-			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+			this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
 			this.olderVersionToolStripMenuItem.Text = "Older Version";
 			this.olderVersionToolStripMenuItem.Click += new System.EventHandler(this.olderVersionToolStripMenuItem_Click);
+			// 
+			// characterTemplateToolStripMenuItem
+			// 
+			this.characterTemplateToolStripMenuItem.Name = "characterTemplateToolStripMenuItem";
+			this.characterTemplateToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+			this.characterTemplateToolStripMenuItem.Text = "Custom Template";
+			this.characterTemplateToolStripMenuItem.Click += new System.EventHandler(this.characterTemplateToolStripMenuItem_Click);
 			// 
 			// toolTips
 			// 
@@ -2856,12 +2866,32 @@
 			this.toolStripButton_Save.Text = "Save";
 			this.toolStripButton_Save.Click += new System.EventHandler(this.toolStripButton_Save_Click);
 			// 
-			// characterTemplateToolStripMenuItem
+			// comboBox_DFTier
 			// 
-			this.characterTemplateToolStripMenuItem.Name = "characterTemplateToolStripMenuItem";
-			this.characterTemplateToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-			this.characterTemplateToolStripMenuItem.Text = "Custom Template";
-			this.characterTemplateToolStripMenuItem.Click += new System.EventHandler(this.characterTemplateToolStripMenuItem_Click);
+			this.comboBox_DFTier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBox_DFTier.FormattingEnabled = true;
+			this.comboBox_DFTier.Items.AddRange(new object[] {
+            "",
+            "6",
+            "5",
+            "4",
+            "3",
+            "2",
+            "1"});
+			this.comboBox_DFTier.Location = new System.Drawing.Point(255, 57);
+			this.comboBox_DFTier.Name = "comboBox_DFTier";
+			this.comboBox_DFTier.Size = new System.Drawing.Size(43, 24);
+			this.comboBox_DFTier.TabIndex = 23;
+			// 
+			// label42
+			// 
+			this.label42.AutoSize = true;
+			this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label42.Location = new System.Drawing.Point(221, 60);
+			this.label42.Name = "label42";
+			this.label42.Size = new System.Drawing.Size(28, 13);
+			this.label42.TabIndex = 22;
+			this.label42.Text = "Tier:";
 			// 
 			// MainForm
 			// 
@@ -3062,7 +3092,6 @@
 		private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
 		private System.Windows.Forms.MenuStrip menuStrip1;
-		private System.Windows.Forms.ToolStripMenuItem helpDocumentToolStripMenuItem;
 		private System.Windows.Forms.TabPage tabPage7;
 		private System.Windows.Forms.GroupBox groupBox12;
 		private System.Windows.Forms.TextBox textBox_AP;
@@ -3159,6 +3188,9 @@
 		private System.Windows.Forms.Button button_SubCatEdit;
 		private System.Windows.Forms.Label label41;
 		private System.Windows.Forms.ToolStripMenuItem characterTemplateToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem listOfCustomTagsToolStripMenuItem;
+		private System.Windows.Forms.ComboBox comboBox_DFTier;
+		private System.Windows.Forms.Label label42;
 	}
 }
 

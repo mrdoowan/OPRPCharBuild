@@ -1052,6 +1052,10 @@ namespace OPRPCharBuild
 		}
 
 		private void numericUpDown_SpTP_ValueChanged(object sender, EventArgs e) {
+			// This is a simple "patch", will have a real fix later
+			int val = (int)(numericUpDown_Rank.Value - numericUpDown_RankBranch.Value - numericUpDown_SpTP.Value);
+			if (val < numericUpDown_RegTP.Minimum) { numericUpDown_RegTP.Value = 0; }
+			else { numericUpDown_RegTP.Value = val; }
 			Update_Note();
 		}
 

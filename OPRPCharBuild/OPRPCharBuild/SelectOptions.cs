@@ -126,7 +126,7 @@ namespace OPRPCharBuild
 				else { label_Msg.Text = MainForm.no_temp_import_msg; }
 				label_BottomHalf.Visible = true;
 				label_BottomHalf.Text = MainForm.template_filename;
-				button_Left.Text = "Preview";
+				button_Left.Text = "Source Code";
 				button_OK.Text = "Generate";
 				button_Mid.Visible = true;
 				comboBox_Options.Visible = false;

@@ -71,7 +71,7 @@
 			// 
 			// button_Left
 			// 
-			this.button_Left.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+			this.button_Left.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
 			this.button_Left.Location = new System.Drawing.Point(12, 126);
 			this.button_Left.Name = "button_Left";
 			this.button_Left.Size = new System.Drawing.Size(82, 25);
@@ -83,7 +83,7 @@
 			// 
 			// button_OK
 			// 
-			this.button_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+			this.button_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
 			this.button_OK.Location = new System.Drawing.Point(192, 126);
 			this.button_OK.Name = "button_OK";
 			this.button_OK.Size = new System.Drawing.Size(82, 25);
@@ -99,7 +99,7 @@
 			// 
 			// button_Mid
 			// 
-			this.button_Mid.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+			this.button_Mid.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
 			this.button_Mid.Location = new System.Drawing.Point(100, 126);
 			this.button_Mid.Name = "button_Mid";
 			this.button_Mid.Size = new System.Drawing.Size(86, 25);

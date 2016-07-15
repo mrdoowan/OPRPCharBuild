@@ -120,9 +120,7 @@ namespace OPRPCharBuild
 		// Variables for Templates
 		public static string template = Sheet.Basic_Template;		// Containing the entire string
 		public static string template_filename = std_template_msg;  // Containing the filename
-		public static Dictionary<int, string> CustomTags = new Dictionary<int, string>() {
-
-		};
+		public static Dictionary<int, string> CustomTags = new Dictionary<int, string>();	// This will only be updated when Template is being generated
 
 		// Class to sort ListView by number
 		public class ListViewItemNumberSort : IComparer
@@ -2087,11 +2085,115 @@ namespace OPRPCharBuild
 			}
 		}
 
+		private void Load_CustomTags_Dict() {
+			// This will add every single entry into the Dictionary
+			CustomTags.Add(1, textBox_CharacterName.Text);
+			CustomTags.Add(2, textBox_Nickname.Text);
+			CustomTags.Add(3, numericUpDown_Age.Value.ToString());
+			CustomTags.Add(4, comboBox_Gender.Text);
+			CustomTags.Add(5, textBox_Race.Text);
+			CustomTags.Add(6, comboBox_Affiliation.Text);
+			CustomTags.Add(7, textBox_Bounty.Text);
+			CustomTags.Add(8, comboBox_MarineRank.Text);
+			CustomTags.Add(9, textBox_Comm.Text);
+			CustomTags.Add(10, textBox_Threat.Text);
+			CustomTags.Add(11, textBox_Position.Text);
+			// 12 is Achievements
+			// 13 is Profession Name
+			CustomTags.Add(14, textBox_Height.Text);
+			CustomTags.Add(15, textBox_Weight.Text);
+			CustomTags.Add(16, richTextBox_Hair.Text);
+			CustomTags.Add(17, richTextBox_Eye.Text);
+			CustomTags.Add(18, richTextBox_Clothing.Text);
+			CustomTags.Add(19, richTextBox_GeneralAppear.Text);
+			CustomTags.Add(20, richTextBox_Personality.Text);
+			CustomTags.Add(21, textBox_Island.Text);
+			CustomTags.Add(22, comboBox_Region.Text);
+			CustomTags.Add(23, richTextBox_History.Text);
+			CustomTags.Add(24, richTextBox_Combat.Text);
+			// 25 is Weapon Name
+			// 26 is Item Name
+			CustomTags.Add(27, textBox_Beli.Text);
+			CustomTags.Add(28, textBox_AP.Text);
+			// 29 is AP Name
+			CustomTags.Add(30, numericUpDown_SDEarned.Value.ToString());
+			CustomTags.Add(31, textBox_SDRemain.Text);
+			CustomTags.Add(32, textBox_StatPoints.Text);
+			CustomTags.Add(33, label_SDtoSPCalculations.Text);
+			CustomTags.Add(34, textBox_UsedForStats.Text);
+			CustomTags.Add(35, numericUpDown_UsedForFort.Value.ToString());
+			CustomTags.Add(36, numericUpDown_StrengthBase.Value.ToString());
+			CustomTags.Add(37, textBox_StrengthFinal.Text);
+			CustomTags.Add(38, label_StrengthCalc.Text);
+			CustomTags.Add(39, numericUpDown_SpeedBase.Value.ToString());
+			CustomTags.Add(40, textBox_SpeedFinal.Text);
+			CustomTags.Add(41, label_SpeedCalc.Text);
+			CustomTags.Add(42, numericUpDown_StaminaBase.Value.ToString());
+			CustomTags.Add(43, textBox_StaminaFinal.Text);
+			CustomTags.Add(44, label_StaminaCalc.Text);
+			CustomTags.Add(45, numericUpDown_AccuracyBase.Value.ToString());
+			CustomTags.Add(46, textBox_AccuracyFinal.Text);
+			CustomTags.Add(47, label_AccuracyCalc.Text);
+			CustomTags.Add(48, textBox_Fortune.Text);
+			CustomTags.Add(49, label_FortuneCalc.Text);
+			// 50 is Trait Name (Gen)
+			// 51 is Trait Name (Prof)
+			CustomTags.Add(52, textBox_DFName.Text);
+			CustomTags.Add(53, comboBox_DFType.Text);
+			CustomTags.Add(54, richTextBox_DFDesc.Text);
+			CustomTags.Add(55, textBox_DFEffect.Text);
+			CustomTags.Add(56, textBox_RegTPUsed.Text);
+			CustomTags.Add(57, textBox_RegTPTotal.Text);
+			CustomTags.Add(58, label_RegTPCalc.Text);
+			CustomTags.Add(59, textBox_SpTPUsed.Text);
+			CustomTags.Add(60, textBox_SpTPTotal.Text);
+			// 61 is Sp TP Trait Name
+			CustomTags.Add(62, label_CritAnatQuick.Text);
+			// 63 is Sp Tech Category Name
+			// 64 is Tech Name
+			// 65 is Tech Rank
+			// 66 is Tech Tupe
+			// 67 is Tech Power
+			// 68 is Tech Stats
+			// 69 is Tech Reg TP Spent
+			// 70 is Tech Sp TP Spent
+			// 71 is Tech Note
+			// 72 is Tech Description
+			// 73 is Tech Effects
+			CustomTags.Add(74, textBox_TotalSD.Text);
+			CustomTags.Add(75, comboBox_DFTier.Text);
+			// 76 is Weapon Description
+			// 77 is Item Description
+			// 78 is AP Number
+			// 79 is # Traits Spent (Gen)
+			// 80 is Trait Desc (Gen)
+			// 81 is # Traits Spent (Prof)
+			// 82 is Trait Desc (Prof)
+			// 83 is Sp Trait TP Used
+			// 84 is Sp Trait TP Total
+			// 85 is Profession Primary/Secondary
+			// 86 is Profession Description
+			// 87 is Profession Primary Bonus
+			CustomTags.Add(88, "* denotes +4 Rank Mastery");
+			CustomTags.Add(89, textBox_Focus.Text);
+			// 90 is Tech AE
+			// 91 is Image URL
+			// 92 is Image Label
+			// 93 is Image Width
+			// 94 is Image Height
+			CustomTags.Add(95, gen_cap.ToString());
+			CustomTags.Add(96, prof_cap.ToString());
+			// 97 is Tech Range
+			CustomTags.Add(98, numericUpDown_SDintoStats.Value.ToString());
+			// 99 is AP Description
+		}
+
 		private void button_Generate_Click(object sender, EventArgs e) {
 			SelectOptions Generate_Window = new SelectOptions(3);
 			if (Generate_Window.Generate_Sheet_Dialog()) {
 				Sheet sheet = new Sheet(1);
-				sheet.Basic_Generate(
+				Load_CustomTags_Dict();
+				/* sheet.Basic_Generate(
 					textBox_CharacterName.Text,
 					textBox_Nickname.Text,
 					(int)numericUpDown_Age.Value,
@@ -2166,8 +2268,9 @@ namespace OPRPCharBuild
 					listView_SpTP,
 					textBox_DFEffect.Text
 					);
-				sheet.Complete_Template_Generate(version, vers_type);
+				sheet.Complete_Template_Generate(version, vers_type); */
 				sheet.ShowDialog();
+				CustomTags.Clear();	// Clear Dictionary for next entry
 			}
 		}
 
@@ -2205,12 +2308,6 @@ namespace OPRPCharBuild
 				saveStreamProject();
 				this.Text = project.filename;
 			}
-		}
-
-		private void helpDocumentToolStripMenuItem_Click(object sender, EventArgs e) {
-			Sheet help = new Sheet(2);
-			help.Set_Help_Form();
-			help.Show();
 		}
 
 		private void olderVersionToolStripMenuItem_Click(object sender, EventArgs e) {

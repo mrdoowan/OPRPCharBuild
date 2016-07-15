@@ -45,8 +45,6 @@
 			this.richTextBox_Template.Size = new System.Drawing.Size(510, 623);
 			this.richTextBox_Template.TabIndex = 0;
 			this.richTextBox_Template.Text = "";
-			this.richTextBox_Template.MouseEnter += new System.EventHandler(this.richTextBox_Template_MouseEnter);
-			this.richTextBox_Template.MouseLeave += new System.EventHandler(this.richTextBox_Template_MouseLeave);
 			// 
 			// label_Title
 			// 
