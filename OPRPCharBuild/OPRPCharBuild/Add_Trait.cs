@@ -78,6 +78,9 @@ namespace OPRPCharBuild
 				Main_Form.SelectedItems[0].SubItems[2].Text = numericUpDown_TraitGen.Value.ToString(); // Third Column: # Gen
 				Main_Form.SelectedItems[0].SubItems[3].Text = numericUpDown_TraitProf.Value.ToString();// Fourth Column: # Prof
 				Main_Form.SelectedItems[0].SubItems[4].Text = richTextBox_TraitDesc.Text; // Fifth Column: Description
+				// Sort it with the Edit
+				Main_Form.ListViewItemSorter = new MainForm.ListViewItemSorter(1);
+				Main_Form.Sort();
 				// Now add the new Trait into the TraitList
 				MainForm.TraitsList.Add(ID);
 				return ID;

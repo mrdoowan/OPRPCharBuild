@@ -1,3 +1,11 @@
+v1.2.8 - 7/19/2016
+- Finished Special Casting, Standard Custom Tags, and <color>
+- Scrapped old functions for old template
+- Tab Pages have smaller names for more tabs
+- Made a new tab for "Template" and scrapped initial plan for SelectOptions
+- Sorting a ListView based on Adding and Editing for Profession and Trait
+- Halfway implementation of Repeat Casting
+- Fixed Basic Template based on a few errors
 v1.2.7 - 7/14/2016
 - Completed Basic Template in string
 - Changing value of Sp TP Spent adjusts Reg TP Spent

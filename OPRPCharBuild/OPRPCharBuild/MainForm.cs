@@ -33,8 +33,7 @@ namespace OPRPCharBuild
 		public const string vers_type = "";
 		public const string curr_proj = "Project2";
 		public const string temp_import_msg = "A Template was imported successfully.";
-		public const string no_temp_import_msg = "No Template imported.\nImport a Template from the Main Menu Strip.";
-		public const string std_template_msg = "Standard Template selected.";
+		public const string std_template_msg = "Standard Template";
 		public static bool template_imported = false;
         private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
 		private Traits Traits = new Traits();           // For enumerations of Traits
@@ -1054,6 +1053,9 @@ namespace OPRPCharBuild
 			listView_Items.Columns.Add("Name", 100);
 			listView_Items.Columns.Add("Description", 500);
 
+			// ------ Template
+			richTextBox_Template.Text = Sheet.Basic_Template;
+
 		}
 
 		// --------------------------------------------------------------------------------------------
@@ -1769,6 +1771,23 @@ namespace OPRPCharBuild
 		#endregion
 
 		// --------------------------------------------------------------------------------------------
+		// "TECHNIQUES" Tab
+		// --------------------------------------------------------------------------------------------
+
+		#region Template Tab
+
+		private void button_ResetTemp_Click(object sender, EventArgs e) {
+			template = Sheet.Basic_Template;
+			template_filename = std_template_msg;
+			template_imported = false;
+			label_TemplateType.Text = template_filename;
+			label_TemplateType.ForeColor = Color.Green;
+			richTextBox_Template.Text = template;
+		}
+
+		#endregion
+
+		// --------------------------------------------------------------------------------------------
 		// Main Form Miscellaneous
 		// --------------------------------------------------------------------------------------------
 
@@ -2189,89 +2208,13 @@ namespace OPRPCharBuild
 		}
 
 		private void button_Generate_Click(object sender, EventArgs e) {
-			SelectOptions Generate_Window = new SelectOptions(3);
-			if (Generate_Window.Generate_Sheet_Dialog()) {
-				Sheet sheet = new Sheet(1);
-				Load_CustomTags_Dict();
-				/* sheet.Basic_Generate(
-					textBox_CharacterName.Text,
-					textBox_Nickname.Text,
-					(int)numericUpDown_Age.Value,
-					comboBox_Gender.Text,
-					textBox_Race.Text,
-					comboBox_Affiliation.Text,
-					textBox_Bounty.Text,
-					comboBox_MarineRank.Text,
-					textBox_Comm.Text,
-					textBox_Threat.Text,
-					textBox_Position.Text,
-					listBox_Achieve,
-					listView_Prof
-					);
-				sheet.Physical_Background_Generate(
-					textBox_Height.Text,
-					textBox_Weight.Text,
-					richTextBox_Hair.Text,
-					richTextBox_Eye.Text,
-					richTextBox_Clothing.Text,
-					richTextBox_GeneralAppear.Text,
-					listView_Images,
-					richTextBox_Personality.Text,
-					textBox_Island.Text,
-					comboBox_Region.Text,
-					richTextBox_History.Text
-					);
-				sheet.Combat_Generate(
-					richTextBox_Combat.Text,
-					listView_Weaponry,
-					listView_Items,
-					textBox_Beli.Text
-					);
-				sheet.Stats_Generate(
-					int.Parse(textBox_AP.Text),
-					checkedListBox1_AP,
-					(int)numericUpDown_SDEarned.Value,
-					textBox_SDRemain.Text,
-					textBox_StatPoints.Text,
-					label_SDtoSPCalculations.Text,
-					textBox_UsedForStats.Text,
-					(int)numericUpDown_UsedForFort.Value,
-					(int)numericUpDown_StrengthBase.Value,
-					textBox_StrengthFinal.Text,
-					label_StrengthCalc.Text,
-					(int)numericUpDown_SpeedBase.Value,
-					textBox_SpeedFinal.Text,
-					label_SpeedCalc.Text,
-					(int)numericUpDown_StaminaBase.Value,
-					textBox_StaminaFinal.Text,
-					label_StaminaCalc.Text,
-					(int)numericUpDown_AccuracyBase.Value,
-					textBox_AccuracyFinal.Text,
-					label_AccuracyCalc.Text,
-					textBox_Fortune.Text,
-					label_FortuneCalc.Text
-					);
-				sheet.Traits_DF_Generate(
-					listView_Traits,
-					textBox_DFName.Text,
-					comboBox_DFType.Text,
-					richTextBox_DFDesc.Text
-					);
-				sheet.Techs_Generate(
-					textBox_RegTPUsed.Text,
-					textBox_RegTPTotal.Text,
-					label_RegTPCalc.Text,
-					textBox_SpTPUsed.Text,
-					textBox_SpTPTotal.Text,
-					label_CritAnatQuick.Text,
-					TechList,
-					listView_SpTP,
-					textBox_DFEffect.Text
-					);
-				sheet.Complete_Template_Generate(version, vers_type); */
-				sheet.ShowDialog();
-				CustomTags.Clear();	// Clear Dictionary for next entry
-			}
+			Sheet sheet = new Sheet(1);
+			Load_CustomTags_Dict();
+			Sheet.color_hex = textBox_Color.Text;
+			sheet.Generate_Template(listBox_Achieve, listView_Prof, listView_Images, listView_Weaponry, listView_Items, checkedListBox1_AP,
+				listView_Traits, listView_SpTP, listView_SubCat);
+			sheet.ShowDialog();
+			CustomTags.Clear(); // Clear Dictionary now that we're done.
 		}
 
 		private void button_ResetChar_Click(object sender, EventArgs e) {
@@ -2371,9 +2314,12 @@ namespace OPRPCharBuild
 				try {
 					StreamReader sr = new StreamReader(dlgFileOpen.FileName);
 					template = sr.ReadToEnd();
-					template_filename = dlgFileOpen.FileName;
-					MessageBox.Show("Template \"" + template_filename + "\" imported successfully.", "Imported", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					template_filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
+					label_TemplateType.Text = template_filename;
+					label_TemplateType.ForeColor = Color.Blue;
+					richTextBox_Template.Text = template;
 					template_imported = true;
+					MessageBox.Show("Template \"" + template_filename + "\" imported successfully.", "Imported", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					return true;
 				}
 				catch {

@@ -110,6 +110,8 @@
 			this.label23 = new System.Windows.Forms.Label();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.groupBox9 = new System.Windows.Forms.GroupBox();
+			this.comboBox_DFTier = new System.Windows.Forms.ComboBox();
+			this.label42 = new System.Windows.Forms.Label();
 			this.label35 = new System.Windows.Forms.Label();
 			this.label34 = new System.Windows.Forms.Label();
 			this.label33 = new System.Windows.Forms.Label();
@@ -231,6 +233,16 @@
 			this.label62 = new System.Windows.Forms.Label();
 			this.textBox_RegTPUsed = new System.Windows.Forms.TextBox();
 			this.label61 = new System.Windows.Forms.Label();
+			this.tabPage8 = new System.Windows.Forms.TabPage();
+			this.button_ResetTemp = new System.Windows.Forms.Button();
+			this.label48 = new System.Windows.Forms.Label();
+			this.textBox_Color = new System.Windows.Forms.TextBox();
+			this.label47 = new System.Windows.Forms.Label();
+			this.richTextBox_Template = new System.Windows.Forms.RichTextBox();
+			this.label46 = new System.Windows.Forms.Label();
+			this.label44 = new System.Windows.Forms.Label();
+			this.label_TemplateType = new System.Windows.Forms.Label();
+			this.label43 = new System.Windows.Forms.Label();
 			this.button_Generate = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -249,8 +261,6 @@
 			this.toolStripButton_New = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton_Open = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
-			this.comboBox_DFTier = new System.Windows.Forms.ComboBox();
-			this.label42 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -283,6 +293,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowEnd)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowBegin)).BeginInit();
 			this.groupBox11.SuspendLayout();
+			this.tabPage8.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -306,6 +317,7 @@
 			this.tabControl1.Controls.Add(this.tabPage7);
 			this.tabControl1.Controls.Add(this.tabPage5);
 			this.tabControl1.Controls.Add(this.tabPage6);
+			this.tabControl1.Controls.Add(this.tabPage8);
 			this.tabControl1.Location = new System.Drawing.Point(12, 130);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
@@ -323,7 +335,7 @@
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
 			this.tabPage1.Size = new System.Drawing.Size(652, 478);
 			this.tabPage1.TabIndex = 0;
-			this.tabPage1.Text = "Basic Information";
+			this.tabPage1.Text = "Basic Info";
 			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
 			// groupBox3
@@ -765,7 +777,7 @@
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
 			this.tabPage2.Size = new System.Drawing.Size(652, 478);
 			this.tabPage2.TabIndex = 1;
-			this.tabPage2.Text = "Physical Appearance";
+			this.tabPage2.Text = "Appearance";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
 			// groupBox5
@@ -1236,7 +1248,7 @@
 			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
 			this.tabPage4.Size = new System.Drawing.Size(652, 478);
 			this.tabPage4.TabIndex = 3;
-			this.tabPage4.Text = "Abilities & Possessions";
+			this.tabPage4.Text = "Abilities";
 			this.tabPage4.UseVisualStyleBackColor = true;
 			// 
 			// groupBox9
@@ -1261,6 +1273,33 @@
 			this.groupBox9.TabStop = false;
 			this.groupBox9.Text = "Devil Fruit";
 			// 
+			// comboBox_DFTier
+			// 
+			this.comboBox_DFTier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBox_DFTier.FormattingEnabled = true;
+			this.comboBox_DFTier.Items.AddRange(new object[] {
+            "",
+            "6",
+            "5",
+            "4",
+            "3",
+            "2",
+            "1"});
+			this.comboBox_DFTier.Location = new System.Drawing.Point(255, 57);
+			this.comboBox_DFTier.Name = "comboBox_DFTier";
+			this.comboBox_DFTier.Size = new System.Drawing.Size(43, 24);
+			this.comboBox_DFTier.TabIndex = 23;
+			// 
+			// label42
+			// 
+			this.label42.AutoSize = true;
+			this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.label42.Location = new System.Drawing.Point(221, 60);
+			this.label42.Name = "label42";
+			this.label42.Size = new System.Drawing.Size(28, 13);
+			this.label42.TabIndex = 22;
+			this.label42.Text = "Tier:";
+			// 
 			// label35
 			// 
 			this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
@@ -1269,7 +1308,7 @@
 			this.label35.Name = "label35";
 			this.label35.Size = new System.Drawing.Size(185, 32);
 			this.label35.TabIndex = 21;
-			this.label35.Text = "Leave this entirely blank if your character does not have a Devil Fruit";
+			this.label35.Text = "Leave this blank if your character does not have a Devil Fruit";
 			this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label34
@@ -2131,7 +2170,7 @@
 			this.checkedListBox1_AP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
 			this.checkedListBox1_AP.FormattingEnabled = true;
 			this.checkedListBox1_AP.Items.AddRange(new object[] {
-            "Technique - Permanently increase tech point multiplier by .5",
+            "Technique - Permanently increase tech point multiplier by 0.5",
             "Trait - Trait cap raised by 1, can take Legacy Traits without training",
             "Prime Professional - May upgrade secondary profession to primary",
             "Multiskilled Professional - May take two more secondary professions",
@@ -2703,6 +2742,109 @@
 			this.label61.TabIndex = 0;
 			this.label61.Text = "Used / Total Regular Technique Points:";
 			// 
+			// tabPage8
+			// 
+			this.tabPage8.Controls.Add(this.button_ResetTemp);
+			this.tabPage8.Controls.Add(this.label48);
+			this.tabPage8.Controls.Add(this.textBox_Color);
+			this.tabPage8.Controls.Add(this.label47);
+			this.tabPage8.Controls.Add(this.richTextBox_Template);
+			this.tabPage8.Controls.Add(this.label46);
+			this.tabPage8.Controls.Add(this.label44);
+			this.tabPage8.Controls.Add(this.label_TemplateType);
+			this.tabPage8.Controls.Add(this.label43);
+			this.tabPage8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+			this.tabPage8.Location = new System.Drawing.Point(4, 22);
+			this.tabPage8.Name = "tabPage8";
+			this.tabPage8.Size = new System.Drawing.Size(652, 478);
+			this.tabPage8.TabIndex = 7;
+			this.tabPage8.Text = "Template";
+			this.tabPage8.UseVisualStyleBackColor = true;
+			// 
+			// button_ResetTemp
+			// 
+			this.button_ResetTemp.Location = new System.Drawing.Point(554, 22);
+			this.button_ResetTemp.Name = "button_ResetTemp";
+			this.button_ResetTemp.Size = new System.Drawing.Size(85, 43);
+			this.button_ResetTemp.TabIndex = 11;
+			this.button_ResetTemp.Text = "Reset Template";
+			this.button_ResetTemp.UseVisualStyleBackColor = true;
+			this.button_ResetTemp.Click += new System.EventHandler(this.button_ResetTemp_Click);
+			// 
+			// label48
+			// 
+			this.label48.AutoSize = true;
+			this.label48.Location = new System.Drawing.Point(291, 435);
+			this.label48.Name = "label48";
+			this.label48.Size = new System.Drawing.Size(215, 17);
+			this.label48.TabIndex = 14;
+			this.label48.Text = "(Leave blank if not using a color)";
+			// 
+			// textBox_Color
+			// 
+			this.textBox_Color.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+			this.textBox_Color.Location = new System.Drawing.Point(117, 434);
+			this.textBox_Color.Name = "textBox_Color";
+			this.textBox_Color.Size = new System.Drawing.Size(168, 23);
+			this.textBox_Color.TabIndex = 13;
+			this.textBox_Color.WordWrap = false;
+			// 
+			// label47
+			// 
+			this.label47.AutoSize = true;
+			this.label47.Location = new System.Drawing.Point(3, 435);
+			this.label47.Name = "label47";
+			this.label47.Size = new System.Drawing.Size(108, 17);
+			this.label47.TabIndex = 12;
+			this.label47.Text = "Hexcode Color: ";
+			// 
+			// richTextBox_Template
+			// 
+			this.richTextBox_Template.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+			this.richTextBox_Template.Location = new System.Drawing.Point(6, 83);
+			this.richTextBox_Template.Name = "richTextBox_Template";
+			this.richTextBox_Template.ReadOnly = true;
+			this.richTextBox_Template.Size = new System.Drawing.Size(633, 345);
+			this.richTextBox_Template.TabIndex = 11;
+			this.richTextBox_Template.Text = "";
+			// 
+			// label46
+			// 
+			this.label46.AutoSize = true;
+			this.label46.Location = new System.Drawing.Point(3, 63);
+			this.label46.Name = "label46";
+			this.label46.Size = new System.Drawing.Size(120, 17);
+			this.label46.TabIndex = 3;
+			this.label46.Text = "Template Preview";
+			// 
+			// label44
+			// 
+			this.label44.AutoSize = true;
+			this.label44.Location = new System.Drawing.Point(3, 35);
+			this.label44.Name = "label44";
+			this.label44.Size = new System.Drawing.Size(483, 17);
+			this.label44.TabIndex = 2;
+			this.label44.Text = "(To import a .txt Custom Template, go to Import -> Custom Template above)";
+			// 
+			// label_TemplateType
+			// 
+			this.label_TemplateType.AutoSize = true;
+			this.label_TemplateType.ForeColor = System.Drawing.Color.Green;
+			this.label_TemplateType.Location = new System.Drawing.Point(187, 9);
+			this.label_TemplateType.Name = "label_TemplateType";
+			this.label_TemplateType.Size = new System.Drawing.Size(129, 17);
+			this.label_TemplateType.TabIndex = 1;
+			this.label_TemplateType.Text = "Standard Template";
+			// 
+			// label43
+			// 
+			this.label43.AutoSize = true;
+			this.label43.Location = new System.Drawing.Point(3, 9);
+			this.label43.Name = "label43";
+			this.label43.Size = new System.Drawing.Size(178, 17);
+			this.label43.TabIndex = 0;
+			this.label43.Text = "Current Template Loaded: ";
+			// 
 			// button_Generate
 			// 
 			this.button_Generate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
@@ -2866,33 +3008,6 @@
 			this.toolStripButton_Save.Text = "Save";
 			this.toolStripButton_Save.Click += new System.EventHandler(this.toolStripButton_Save_Click);
 			// 
-			// comboBox_DFTier
-			// 
-			this.comboBox_DFTier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBox_DFTier.FormattingEnabled = true;
-			this.comboBox_DFTier.Items.AddRange(new object[] {
-            "",
-            "6",
-            "5",
-            "4",
-            "3",
-            "2",
-            "1"});
-			this.comboBox_DFTier.Location = new System.Drawing.Point(255, 57);
-			this.comboBox_DFTier.Name = "comboBox_DFTier";
-			this.comboBox_DFTier.Size = new System.Drawing.Size(43, 24);
-			this.comboBox_DFTier.TabIndex = 23;
-			// 
-			// label42
-			// 
-			this.label42.AutoSize = true;
-			this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-			this.label42.Location = new System.Drawing.Point(221, 60);
-			this.label42.Name = "label42";
-			this.label42.Size = new System.Drawing.Size(28, 13);
-			this.label42.TabIndex = 22;
-			this.label42.Text = "Tier:";
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2956,6 +3071,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowBegin)).EndInit();
 			this.groupBox11.ResumeLayout(false);
 			this.groupBox11.PerformLayout();
+			this.tabPage8.ResumeLayout(false);
+			this.tabPage8.PerformLayout();
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			this.toolStrip1.ResumeLayout(false);
@@ -3191,6 +3308,16 @@
 		private System.Windows.Forms.ToolStripMenuItem listOfCustomTagsToolStripMenuItem;
 		private System.Windows.Forms.ComboBox comboBox_DFTier;
 		private System.Windows.Forms.Label label42;
+		private System.Windows.Forms.TabPage tabPage8;
+		private System.Windows.Forms.Label label43;
+		private System.Windows.Forms.Label label_TemplateType;
+		private System.Windows.Forms.Label label44;
+		private System.Windows.Forms.Label label46;
+		private System.Windows.Forms.RichTextBox richTextBox_Template;
+		private System.Windows.Forms.Label label47;
+		private System.Windows.Forms.TextBox textBox_Color;
+		private System.Windows.Forms.Label label48;
+		private System.Windows.Forms.Button button_ResetTemp;
 	}
 }
 

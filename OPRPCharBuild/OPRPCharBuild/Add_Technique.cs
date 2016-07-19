@@ -1045,7 +1045,7 @@ namespace OPRPCharBuild
 			numericUpDown_SpTP.Maximum = numericUpDown_Rank.Value;
 			// This is a simple "patch", will have a real fix later
 			int val = (int)(numericUpDown_Rank.Value - numericUpDown_RankBranch.Value - numericUpDown_SpTP.Value);
-			if (val < numericUpDown_RegTP.Minimum) { numericUpDown_RegTP.Value = 0; }
+			if (val < 0) { numericUpDown_RegTP.Value = 0; }
 			else { numericUpDown_RegTP.Value = val; }
 			if (checkBox_DFRank4.Checked) { numericUpDown_RegTP.Value -= 4; }
 			numericUpDown_RankBranch.Maximum = numericUpDown_Rank.Value - 1; // This is hella important
@@ -1054,7 +1054,7 @@ namespace OPRPCharBuild
 		private void numericUpDown_SpTP_ValueChanged(object sender, EventArgs e) {
 			// This is a simple "patch", will have a real fix later
 			int val = (int)(numericUpDown_Rank.Value - numericUpDown_RankBranch.Value - numericUpDown_SpTP.Value);
-			if (val < numericUpDown_RegTP.Minimum) { numericUpDown_RegTP.Value = 0; }
+			if (val < 0) { numericUpDown_RegTP.Value = 0; }
 			else { numericUpDown_RegTP.Value = val; }
 			Update_Note();
 		}
@@ -1062,7 +1062,7 @@ namespace OPRPCharBuild
 		private void numericUpDown_RankBranch_ValueChanged(object sender, EventArgs e) {
 			// This is a simple "patch", will have a real fix later
 			int val = (int)(numericUpDown_Rank.Value - numericUpDown_RankBranch.Value - numericUpDown_SpTP.Value);
-			if (val < numericUpDown_RegTP.Minimum) { numericUpDown_RegTP.Value = 0; }
+			if (val < 0) { numericUpDown_RegTP.Value = 0; }
 			else { numericUpDown_RegTP.Value = val; }
 			Update_Note();
 		}

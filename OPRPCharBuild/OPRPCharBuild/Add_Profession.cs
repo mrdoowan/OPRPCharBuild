@@ -153,6 +153,9 @@ namespace OPRPCharBuild
 					item.SubItems.Add(richTextBox1_Desc.Text);      // Third column: Basic description
 					item.SubItems.Add(richTextBox2_Primary.Text);   // Fourth column: Primary bonus
 					Main_Form.Items.Add(item);
+					// Now sort.
+					Main_Form.ListViewItemSorter = new MainForm.ListViewItemSorter(1);
+					Main_Form.Sort();
 				}
 				catch (Exception e) {
 					MessageBox.Show("Can't add the same profession twice.\nReason: " + e.Message, "Exception Thrown");
@@ -197,6 +200,9 @@ namespace OPRPCharBuild
 				}
 				Main_Form.SelectedItems[0].SubItems[2].Text = richTextBox1_Desc.Text;
 				Main_Form.SelectedItems[0].SubItems[3].Text = richTextBox2_Primary.Text;
+				// Now sort.
+				Main_Form.ListViewItemSorter = new MainForm.ListViewItemSorter(1);
+				Main_Form.Sort();
 			}
 		}
 
