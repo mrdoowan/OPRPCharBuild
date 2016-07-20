@@ -1,3 +1,6 @@
+v1.2.9 - 7/19/2016
+- Custom Template implemented completely. Entering testing phase
+- Added a textbox for putting in a Rank 4 Trait
 v1.2.8 - 7/19/2016
 - Finished Special Casting, Standard Custom Tags, and <color>
 - Scrapped old functions for old template

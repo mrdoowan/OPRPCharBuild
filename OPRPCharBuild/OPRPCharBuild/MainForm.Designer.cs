@@ -234,6 +234,9 @@
 			this.textBox_RegTPUsed = new System.Windows.Forms.TextBox();
 			this.label61 = new System.Windows.Forms.Label();
 			this.tabPage8 = new System.Windows.Forms.TabPage();
+			this.label49 = new System.Windows.Forms.Label();
+			this.textBox_Rank4 = new System.Windows.Forms.TextBox();
+			this.label53 = new System.Windows.Forms.Label();
 			this.button_ResetTemp = new System.Windows.Forms.Button();
 			this.label48 = new System.Windows.Forms.Label();
 			this.textBox_Color = new System.Windows.Forms.TextBox();
@@ -2352,7 +2355,7 @@
 			this.label41.Name = "label41";
 			this.label41.Size = new System.Drawing.Size(136, 52);
 			this.label41.TabIndex = 51;
-			this.label41.Text = "Advice: Finish all your Techniques first, then make categories.";
+			this.label41.Text = "Advice: Finish all your Techniques first, and then make categories.";
 			this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// button_SubCatEdit
@@ -2744,6 +2747,9 @@
 			// 
 			// tabPage8
 			// 
+			this.tabPage8.Controls.Add(this.label49);
+			this.tabPage8.Controls.Add(this.textBox_Rank4);
+			this.tabPage8.Controls.Add(this.label53);
 			this.tabPage8.Controls.Add(this.button_ResetTemp);
 			this.tabPage8.Controls.Add(this.label48);
 			this.tabPage8.Controls.Add(this.textBox_Color);
@@ -2761,6 +2767,34 @@
 			this.tabPage8.Text = "Template";
 			this.tabPage8.UseVisualStyleBackColor = true;
 			// 
+			// label49
+			// 
+			this.label49.AutoSize = true;
+			this.label49.Location = new System.Drawing.Point(292, 441);
+			this.label49.Name = "label49";
+			this.label49.Size = new System.Drawing.Size(327, 17);
+			this.label49.TabIndex = 17;
+			this.label49.Text = "(Leave blank if no Traits that increase by 4 Ranks)";
+			// 
+			// textBox_Rank4
+			// 
+			this.textBox_Rank4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+			this.textBox_Rank4.Location = new System.Drawing.Point(118, 440);
+			this.textBox_Rank4.Name = "textBox_Rank4";
+			this.textBox_Rank4.Size = new System.Drawing.Size(168, 23);
+			this.textBox_Rank4.TabIndex = 16;
+			this.textBox_Rank4.Text = "* denotes +4 Rank Mastery";
+			this.textBox_Rank4.WordWrap = false;
+			// 
+			// label53
+			// 
+			this.label53.Location = new System.Drawing.Point(4, 440);
+			this.label53.Name = "label53";
+			this.label53.Size = new System.Drawing.Size(108, 17);
+			this.label53.TabIndex = 15;
+			this.label53.Text = "4 Rank Msg:";
+			this.label53.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
 			// button_ResetTemp
 			// 
 			this.button_ResetTemp.Location = new System.Drawing.Point(554, 22);
@@ -2774,7 +2808,7 @@
 			// label48
 			// 
 			this.label48.AutoSize = true;
-			this.label48.Location = new System.Drawing.Point(291, 435);
+			this.label48.Location = new System.Drawing.Point(292, 412);
 			this.label48.Name = "label48";
 			this.label48.Size = new System.Drawing.Size(215, 17);
 			this.label48.TabIndex = 14;
@@ -2783,7 +2817,7 @@
 			// textBox_Color
 			// 
 			this.textBox_Color.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-			this.textBox_Color.Location = new System.Drawing.Point(117, 434);
+			this.textBox_Color.Location = new System.Drawing.Point(118, 411);
 			this.textBox_Color.Name = "textBox_Color";
 			this.textBox_Color.Size = new System.Drawing.Size(168, 23);
 			this.textBox_Color.TabIndex = 13;
@@ -2791,12 +2825,12 @@
 			// 
 			// label47
 			// 
-			this.label47.AutoSize = true;
-			this.label47.Location = new System.Drawing.Point(3, 435);
+			this.label47.Location = new System.Drawing.Point(4, 412);
 			this.label47.Name = "label47";
 			this.label47.Size = new System.Drawing.Size(108, 17);
 			this.label47.TabIndex = 12;
-			this.label47.Text = "Hexcode Color: ";
+			this.label47.Text = "Hexcode Color:";
+			this.label47.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// richTextBox_Template
 			// 
@@ -2804,7 +2838,7 @@
 			this.richTextBox_Template.Location = new System.Drawing.Point(6, 83);
 			this.richTextBox_Template.Name = "richTextBox_Template";
 			this.richTextBox_Template.ReadOnly = true;
-			this.richTextBox_Template.Size = new System.Drawing.Size(633, 345);
+			this.richTextBox_Template.Size = new System.Drawing.Size(633, 322);
 			this.richTextBox_Template.TabIndex = 11;
 			this.richTextBox_Template.Text = "";
 			// 
@@ -2813,9 +2847,9 @@
 			this.label46.AutoSize = true;
 			this.label46.Location = new System.Drawing.Point(3, 63);
 			this.label46.Name = "label46";
-			this.label46.Size = new System.Drawing.Size(120, 17);
+			this.label46.Size = new System.Drawing.Size(153, 17);
 			this.label46.TabIndex = 3;
-			this.label46.Text = "Template Preview";
+			this.label46.Text = "Template Source Code";
 			// 
 			// label44
 			// 
@@ -2920,6 +2954,7 @@
 			this.listOfCustomTagsToolStripMenuItem.Name = "listOfCustomTagsToolStripMenuItem";
 			this.listOfCustomTagsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
 			this.listOfCustomTagsToolStripMenuItem.Text = "Custom Tags";
+			this.listOfCustomTagsToolStripMenuItem.Click += new System.EventHandler(this.listOfCustomTagsToolStripMenuItem_Click);
 			// 
 			// menuStrip1
 			// 
@@ -3318,6 +3353,9 @@
 		private System.Windows.Forms.TextBox textBox_Color;
 		private System.Windows.Forms.Label label48;
 		private System.Windows.Forms.Button button_ResetTemp;
+		private System.Windows.Forms.Label label49;
+		private System.Windows.Forms.TextBox textBox_Rank4;
+		private System.Windows.Forms.Label label53;
 	}
 }
 

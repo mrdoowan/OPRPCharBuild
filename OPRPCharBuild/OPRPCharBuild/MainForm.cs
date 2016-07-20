@@ -32,7 +32,6 @@ namespace OPRPCharBuild
 		public const string version = "1.0.2.2";
 		public const string vers_type = "";
 		public const string curr_proj = "Project2";
-		public const string temp_import_msg = "A Template was imported successfully.";
 		public const string std_template_msg = "Standard Template";
 		public static bool template_imported = false;
         private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
@@ -117,8 +116,6 @@ namespace OPRPCharBuild
 		}
 
 		// Variables for Templates
-		public static string template = Sheet.Basic_Template;		// Containing the entire string
-		public static string template_filename = std_template_msg;  // Containing the filename
 		public static Dictionary<int, string> CustomTags = new Dictionary<int, string>();	// This will only be updated when Template is being generated
 
 		// Class to sort ListView by number
@@ -948,7 +945,7 @@ namespace OPRPCharBuild
 			}
 			else if (loop_break) {
 				// Display Warning Message 
-				label_SubCatWarning.Text = "Some Techniques aren't in Categories! They will not be generated in the sheet!";
+				label_SubCatWarning.Text = "WARNING: Some Techniques aren't in Categories! Uncategorized Techniques will not be generated!";
 				label_SubCatWarning.ForeColor = Color.Red;
 			}
 			else {
@@ -1777,12 +1774,10 @@ namespace OPRPCharBuild
 		#region Template Tab
 
 		private void button_ResetTemp_Click(object sender, EventArgs e) {
-			template = Sheet.Basic_Template;
-			template_filename = std_template_msg;
 			template_imported = false;
-			label_TemplateType.Text = template_filename;
+			label_TemplateType.Text = std_template_msg;
 			label_TemplateType.ForeColor = Color.Green;
-			richTextBox_Template.Text = template;
+			richTextBox_Template.Text = Sheet.Basic_Template;
 		}
 
 		#endregion
@@ -1791,7 +1786,7 @@ namespace OPRPCharBuild
 		// Main Form Miscellaneous
 		// --------------------------------------------------------------------------------------------
 
-		#region Save, Open, Import, Load, Form Stuff
+		#region Save, Open, Import, Load, Form, Generate Miscellaneous
 
 		// This completely resets the form back to its Loaded state.
 		private void resetForm() {
@@ -2098,7 +2093,8 @@ namespace OPRPCharBuild
 					}
 					catch (Exception e) {
 						MessageBox.Show("Failed to deserialize. It may be because you loaded an older version." +
-							"Please Import your older version file instead.\nReason: " + e.Message);
+							"Please try to Import your older version file instead.\nReason: " + e.Message, 
+							"Failed to Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
 				}
 			}
@@ -2193,7 +2189,7 @@ namespace OPRPCharBuild
 			// 85 is Profession Primary/Secondary
 			// 86 is Profession Description
 			// 87 is Profession Primary Bonus
-			CustomTags.Add(88, "* denotes +4 Rank Mastery");
+			CustomTags.Add(88, textBox_Rank4.Text);
 			CustomTags.Add(89, textBox_Focus.Text);
 			// 90 is Tech AE
 			// 91 is Image URL
@@ -2208,11 +2204,11 @@ namespace OPRPCharBuild
 		}
 
 		private void button_Generate_Click(object sender, EventArgs e) {
-			Sheet sheet = new Sheet(1);
+			Sheet sheet = new Sheet(1, richTextBox_Template.Text);
 			Load_CustomTags_Dict();
 			Sheet.color_hex = textBox_Color.Text;
 			sheet.Generate_Template(listBox_Achieve, listView_Prof, listView_Images, listView_Weaponry, listView_Items, checkedListBox1_AP,
-				listView_Traits, listView_SpTP, listView_SubCat);
+				listView_Traits, listView_SpTP, listView_Techniques, listView_SubCat);
 			sheet.ShowDialog();
 			CustomTags.Clear(); // Clear Dictionary now that we're done.
 		}
@@ -2313,13 +2309,11 @@ namespace OPRPCharBuild
 			if (dlgFileOpen.ShowDialog() == DialogResult.OK) {
 				try {
 					StreamReader sr = new StreamReader(dlgFileOpen.FileName);
-					template = sr.ReadToEnd();
-					template_filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
-					label_TemplateType.Text = template_filename;
+					label_TemplateType.Text = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
 					label_TemplateType.ForeColor = Color.Blue;
-					richTextBox_Template.Text = template;
+					richTextBox_Template.Text = sr.ReadToEnd();
 					template_imported = true;
-					MessageBox.Show("Template \"" + template_filename + "\" imported successfully.", "Imported", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					MessageBox.Show("Template \"" + label_TemplateType.Text + "\" imported successfully.", "Imported", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					return true;
 				}
 				catch {
@@ -2330,6 +2324,10 @@ namespace OPRPCharBuild
 			else {
 				return false;
 			}
+		}
+
+		private void listOfCustomTagsToolStripMenuItem_Click(object sender, EventArgs e) {
+
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {

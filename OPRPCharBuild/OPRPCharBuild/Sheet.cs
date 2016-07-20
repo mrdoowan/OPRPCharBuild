@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
@@ -18,7 +18,7 @@ namespace OPRPCharBuild
 	public partial class Sheet : Form
 	{
 		// The Basic Template for the Tool
-		#region Basic Template
+		#region Const String Texts
 		public const string Basic_Template = "[center][big][big][big][big][font=Garamond]Character Template[/font][/big][/big][/big][/big]\n\n" +
 			"[-----][/center]\n\n" +
 			"<color>[b]Account Name:[/b]</color> [me]\n\n" +
@@ -49,29 +49,29 @@ namespace OPRPCharBuild
 			"<color>[b]History:[/b]</color> <23>\n\n" +
 			"[big][big][center][i][font=Century Gothic]Abilities and Possessions[/font][/i][/center][/big][/big]\n" +
 			"<color>[b]Combat:[/b]</color> <24>\n\n" +
-			"[table=2, Weaponry]<Weaponry><empty=25><color>[b]<25>[/b]</color></empty>[c]<empty=76><76></empty>\n</Weaponry>[/table]\n" +
-			"[table=2, Items]<Item><empty=26><color>[b]<26>[/b]</color></empty>[c]<empty=77><77></empty>\n</Item>[/table]\n" +
+			"[table=2, Weaponry, 1][center]Weapon[/center][c][center]Description[/center]<Weaponry>[c]<color>[b]<25>[/b]</color>[c]<76>\n</Weaponry>[/table]\n" +
+			"[table=2, Items, 1][center]Item[/center][c][center]Description[/center]<Item>[c]<color>[b]<26>[/b]</color>[c]<77>\n</Item>[/table]\n" +
 			"<color>[b]Beli: [/b]</color> <27>\n" +
 			"[quote=Advancement Points: <28>]<AP><29> (<78> AP) - <99>\n</AP>[/quote]\n" +
 			"<color>[b]SD Earned:[/b]</color> <30><equal=30,74> / <74></equal>\n" +
-			"<color>[b]SD Remaining: [/b]</color> <31>\n" +
+			"<color>[b]SD Remaining:[/b]</color> <31>\n" +
 			"<color>[b]Stat Points:[/b]</color> <32> <33>\n" +
-			"<color>[b][list][*][i]Used for Stats:[/i] <34>\n" +
+			"<color>[list][*][i]Used for Stats:[/i] <34>\n" +
 			"[*][i]Used for Fortune:[/i] <35>\n" +
 			"[list][*][i]Strength:[/i] <37><equal=36,37> <38></equal>\n" +
 			"[*][i]Speed:[/i] <40><equal=39,40> <41></equal>\n" +
 			"[*][i]Stamina:[/i] <43><equal=42,43> <44></equal>\n" +
 			"[*][i]Accuracy:[/i] <46><equal=45,46> <47></equal>\n" +
 			"[*]<color>[b][i]Fortune:[/i][/b]</color> <48> <49>[/list][/list]\n" +
-			"[table]<color>[b]Traits:[/b]</color> <95> General, <96> Professional[/table][table=2]<color>[b][u]General[/u][/b]</color>[c]<Trait_G><color>[b]<50> - (<79> Trait<plural=79>s</plural><zero=81>, <81> Professional</zero>):[/b]</color> - <80>\n\n</Trait_G>" +
-			"[c]<color>[b][u]Professional[/u][/b]</color>[c]<Trait_P><color>[b]<51> - (<81> Trait<plural=81>s</plural>):[/b]</color> - <82>\n\n</Trait_P>[/table]\n" +
+			"[table]<color>[b]Traits:[/b]</color> <95> General, <96> Professional[/table][table=2]<color>[b][u]General[/u][/b]</color>[c]<Trait_G><color>[b]<50> (<79> Trait<plural=79>s</plural><zero=81>, <81> Professional</zero>)[/b]</color> - <80>\n\n</Trait_G>" +
+			"[c]<color>[b][u]Professional[/u][/b]</color>[c]<Trait_P><color>[b]<51> (<81> Trait<plural=81>s</plural>)[/b]</color> - <82>\n\n</Trait_P>[/table]\n" +
 			"[quote=Devil Fruit]<color>[b]Devil Fruit Name: [/b]</color> <52>\n" +
 			"<color>[b]Devil Fruit Type:[/b]</color> <53>\n" +
 			"<color>[b]Devil Fruit Ability:[/b]</color> <54>[/quote]\n\n" +
 			"[center][big][big][i][font=Century Gothic]Techniques[/font][/i][/big][/big][/center]\n" +
 			"<color>[b]Used/Total Regular Technique Points:[/b]</color> <56> / <57> <58>\n" +
 			"<color>[b]Used/Total Special Technique Points:[/b]</color> <59> / <60> <zero=60>[list]<SpTrait>[*]<61>: <83> / <84>\n</SpTrait>[/list]</zero>\n\n" +
-			"[table]<88>\n\n<empty=62><62>\n\n</empty><empty=55>[u]DF Free Effect:[/u] <55>\n\n</empty>[/table]" +
+			"[table]<empty=88><88>\n\n</empty><empty=62><62>\n\n</empty><empty=55>[u]DF Free Effect:[/u] <55>\n\n</empty>[/table]" +
 			"<TechTable>[table=2, <63>, 1][center]<color>[b][u]Name/Type/Range/Power/Stats/TP[/u][/b]</color>[/center][c]\n" +
 			"[center]<color>[b][u]Description/Notes[/u][/b]</color>[/center]\n" +
 			"<Technique>[c]<color>[b]<64>[/b]</color> (<65>)\n" +
@@ -82,10 +82,12 @@ namespace OPRPCharBuild
 			"[u]TP Spent:[/u] <69>R<zero=70> | <70>S</zero>\n" +
 			"[c]<empty=71><71>\n\n[hr]\n</empty>" +
 			"[u]Description:[/u] <72>\n" +
-			"<empty=73>[u]Effects:[/u] <73>\n</Technique>[/table]</TechTable>\n" +
+			"<empty=73>[u]Effects:[/u] <73>\n</empty></Technique>[/table]\n\n</TechTable>\n" +
 			"[center][big][big][i][font=Century Gothic]Development History[/font][/i][/big][/big][/center]\n" +
 			"<color>[b]Gains/Losses:[/b]</color> \n" +
 			"[spoiler=Edit Log]Edit Log goes here[/spoiler]";
+
+		public const string Custom_Template_Documentation = "";
 
 		#endregion
 
@@ -99,7 +101,7 @@ namespace OPRPCharBuild
 			InitializeComponent();
 			option = option_;
 			if (option != 1) { label1.Visible = false; }
-			else { Template = MainForm.template; }
+			else { Template = text_; }
 			richTextBox_Template.Text = text_;
 		}
 
@@ -117,7 +119,7 @@ namespace OPRPCharBuild
 		// 4) Lastly, replace ALL (use Regex) <color> tags
 
 		public void Generate_Template(ListBox Achievements, ListView Profs, ListView Images, ListView Weaponry, ListView Items, CheckedListBox AP,
-			ListView Traitss, ListView SpTraits, ListView Categories) {
+			ListView Traitss, ListView SpTraits, ListView Techs, ListView Categories) {
 			// ------- Step 1) 
 			Template = Call_Special_Cast_Funcs(Template, MainForm.CustomTags);
 			// ------- Step 2) 
@@ -167,31 +169,48 @@ namespace OPRPCharBuild
 				Template = Repeat_Casting(Template, "SpTrait", SpTraits);
 			}
 			if (Template.Contains("<TechTable>") && Template.Contains("</TechTable>")) {
-
+				Template = Repeat_Casting(Template, "TechTable", Categories);
 			}
 			if (Template.Contains("<Technique>") && Template.Contains("</Technique>")) {
-
+				if (Categories.Items.Count == 0) {  // 0 (or 1) Categories pretty much mean list out all the Techniques
+					int end_row = Techs.Items.Count - 1;
+					Template = Repeat_Casting(Template, "Technique", Techs, 0, end_row);
+				}
+				else {
+					foreach (ListViewItem Category in Categories.Items) {
+						// Repeat for each Category, which should tackle all <Technique>
+						int beg_row = int.Parse(Category.SubItems[0].Text);
+						int end_row = int.Parse(Category.SubItems[1].Text);
+						// Just to double check.
+						if (Template.Contains("<Technique>") && Template.Contains("</Technique>")) {
+							Template = Repeat_Casting(Template, "Technique", Techs, beg_row, end_row);
+						}
+					}
+				}
 			}
 			// ------- Step 4) 
 			if (string.IsNullOrWhiteSpace(color_hex)) {
-				Template = Regex.Replace(Template, "<color>", "");
-				Template = Regex.Replace(Template, "</color>", "");
+				Template = Template.Replace("<color>", "");
+				Template = Template.Replace("</color>", "");
 			}
 			else {
 				string BBCode_Color = "[color=#" + color_hex + "]";
-				Template = Regex.Replace(Template, "<color>", BBCode_Color);
-				Template = Regex.Replace(Template, "</color>", "[/color]");
+				Template = Template.Replace("<color>", BBCode_Color);
+				Template = Template.Replace("</color>", "[/color]");
 			}
-			richTextBox_Template.Text = Template;
+			// Last Note addition
+			Template += "[center][small]This Character Template was generated by the[url=http://s1.zetaboards.com/One_Piece_RP/topic/6060583/1/]OPRP Character Builder[/url] v" + MainForm.version + MainForm.vers_type + '\n';
+			Template += "[b]Note to Mods:[/b] Calculations should be done correctly if not bugged or altered by [me]. Regardless, please double check.[/small][/center]";
+            richTextBox_Template.Text = Template;
 		}
 
 		#region Generate_Template Helper
 		// CODE DUPLICATION LEGGO :'(
 
 		// The List object variable type depends on the List currently being used. Ensure that this is correct.
-		private string Repeat_Casting(string Temp, string casting, object List) {
-			string start_casting = "<" + casting + ">";	// <REPEAT>
-			string end_casting = "</" + casting + ">";	// </REPEAT>
+		private string Repeat_Casting(string Temp, string casting, object List, int beg_row = 0, int end_row = 0) {
+			string start_casting = "<" + casting + ">"; // <REPEAT>
+			string end_casting = "</" + casting + ">";  // </REPEAT>
 			int beg_cast = Temp.IndexOf(start_casting);
 			int beg_index = beg_cast + start_casting.Length;          // Index after '>'
 			int end_index = Temp.IndexOf(end_casting); // Assume it won't be -1
@@ -200,7 +219,7 @@ namespace OPRPCharBuild
 			switch (casting) {
 				case "Achievement":
 					ListBox Achievements = (ListBox)List;
-                    for (int i = 0; i < Achievements.Items.Count; ++i) {
+					for (int i = 0; i < Achievements.Items.Count; ++i) {
 						RepeatTags.Add(12, (string)Achievements.Items[i]); // Load Dictionary
 						Repeat_String(old_str, ref new_str);
 						RepeatTags.Clear();     // Clear Dict
@@ -209,7 +228,7 @@ namespace OPRPCharBuild
 				case "Profession":
 					ListView Profs = (ListView)List;
 					foreach (ListViewItem Prof in Profs.Items) {
-						RepeatTags.Add(13, Prof.SubItems[0].Text);	// Load Dictionary
+						RepeatTags.Add(13, Prof.SubItems[0].Text);  // Load Dictionary
 						RepeatTags.Add(85, Prof.SubItems[1].Text);
 						RepeatTags.Add(86, Prof.SubItems[2].Text);
 						RepeatTags.Add(87, Prof.SubItems[3].Text);
@@ -225,7 +244,7 @@ namespace OPRPCharBuild
 						RepeatTags.Add(93, Imagee.SubItems[3].Text);
 						RepeatTags.Add(94, Imagee.SubItems[4].Text);
 						Repeat_String(old_str, ref new_str);
-						RepeatTags.Clear();		// Clear Dict
+						RepeatTags.Clear();     // Clear Dict
 					}
 					break;
 				case "Weaponry":
@@ -249,7 +268,7 @@ namespace OPRPCharBuild
 				case "AP":
 					CheckedListBox AP = (CheckedListBox)List;
 					foreach (int index in AP.CheckedIndices) {
-						switch (index) {	// Load Dictionary
+						switch (index) {    // Load Dictionary
 							case 0:
 								RepeatTags.Add(29, "Technique");
 								RepeatTags.Add(78, "1");
@@ -264,8 +283,8 @@ namespace OPRPCharBuild
 								RepeatTags.Add(29, "Prime Professional");
 								RepeatTags.Add(78, "1");
 								RepeatTags.Add(99, "May upgrade secondary profession to primary");
-                                break;
-                            case 3:
+								break;
+							case 3:
 								RepeatTags.Add(29, "Multiskilled Professional");
 								RepeatTags.Add(78, "1");
 								RepeatTags.Add(99, "May take two more secondary professions");
@@ -281,7 +300,7 @@ namespace OPRPCharBuild
 						Repeat_String(old_str, ref new_str);
 						RepeatTags.Clear();     // Clear Dict
 					}
-                    break;
+					break;
 				case "Trait_G":
 					ListView Traits_G = (ListView)List;
 					foreach (ListViewItem trait in Traits_G.Items) {
@@ -317,20 +336,71 @@ namespace OPRPCharBuild
 						RepeatTags.Clear();
 					}
 					break;
+				case "TechTable":
+					ListView Categories1 = (ListView)List;
+					if (Categories1.Items.Count == 0) {     // Just use Standard Techniques
+						RepeatTags.Add(63, "Techniques");
+						Repeat_String(old_str, ref new_str);
+						RepeatTags.Clear();
+					}
+					foreach (ListViewItem Category in Categories1.Items) {
+						RepeatTags.Add(63, Category.SubItems[2].Text); // Load Dictionary
+						Repeat_String(old_str, ref new_str);
+						RepeatTags.Clear();
+					}
+					break;
+				case "Technique":
+					ListView Techniques = (ListView)List;
+					for (int i = beg_row; i < end_row + 1; ++i) {
+						string TechName = Techniques.Items[i].SubItems[0].Text;
+						MainForm.TechInfo Technique = MainForm.TechList[TechName];
+						// Load Dictionary
+						RepeatTags.Add(64, TechName);
+						string rank = Technique.rank.ToString();
+						if (If_Treat_Rank4(Technique.rank_Trait)) { rank += "*"; }
+						if (Technique.Cyborg_Boosts[2]) { rank += " + 12"; }
+						else if (Technique.Cyborg_Boosts[1]) { rank += " + 8"; }
+						else if (Technique.Cyborg_Boosts[0]) { rank += " + 4"; }
+						RepeatTags.Add(65, rank);
+						RepeatTags.Add(66, Technique.type);
+						RepeatTags.Add(97, Technique.range);
+						RepeatTags.Add(67, Technique.power);
+						RepeatTags.Add(68, TechStats_Into_String(Technique.stats));
+						RepeatTags.Add(69, Technique.regTP.ToString());
+						RepeatTags.Add(70, Technique.spTP.ToString());
+						RepeatTags.Add(71, Technique.note);
+						RepeatTags.Add(72, Technique.desc);
+						RepeatTags.Add(73, TechEffects_Into_String(Technique.effectList));
+						// --------------
+						Repeat_String(old_str, ref new_str);
+						RepeatTags.Clear();
+					}
+					break;
 				default:
 					break;
 			}
-			new_str = new_str.TrimEnd('\n', ' ');           // Trim any newlines or spaces
-			Temp = Temp.Replace(old_str, new_str);  // Make replacement
-			Temp = Temp.Replace(start_casting, "");
-			Temp = Temp.Replace(end_casting, "");
+			new_str = new_str.TrimEnd('\n', ' ');   // Trim any newlines or spaces
+			Temp = ReplaceFirst(Temp, old_str, new_str);  // Make replacement
+			Temp = ReplaceFirst(Temp, start_casting, "");
+			Temp = ReplaceFirst(Temp, end_casting, "");
 			return Temp;
 		}
 
+		// Thanks Stackoverflow for ReplaceFirst()
+		// Only replaces the first instance of the specified string "search"
+		public string ReplaceFirst(string text, string search, string replace) {
+			int pos = text.IndexOf(search);
+			if (pos < 0) {
+				return text;
+			}
+			return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
+		}
+
+		// Modify the string between <REPEAT></REPEAT>
 		private void Repeat_String(string repeat_str, ref string new_str) {
 			repeat_str = Call_Special_Cast_Funcs(repeat_str, RepeatTags);   // Filter out Special Casting
 			foreach (int key in RepeatTags.Keys) {  // Replace Tags
-				if (repeat_str.Contains("<" + key + ">")) { repeat_str = repeat_str.Replace("<" + key + ">", RepeatTags[key]); }
+				if (repeat_str.Contains("<" + key + ">")) { repeat_str = repeat_str.Replace("<" + key + ">", Make_NA(RepeatTags[key])); }
 			}
 			new_str += repeat_str;  // Append appropriately
 		}
@@ -579,26 +649,6 @@ namespace OPRPCharBuild
 			return effectsMsg;
 		}
 
-		#endregion
-
-		#region Old Method
-		/* public void Complete_Template_Generate(string version, string vers_type) {
-			template.Write("[center][big][big][i][font=Century Gothic]Development History[/font][/i][/big][/big][/center]\n");
-			template.Write("[b]Gains/Losses:[/b] \n");
-			template.Write('\n');
-			template.Write("[spoiler=Edit Log]Edit Log goes here[/spoiler]\n");
-			template.Write('\n');
-			template.Write("[center][small]This Character Template was generated by the [url=http://s1.zetaboards.com/One_Piece_RP/topic/6060583/1/]OPRP Character Builder[/url] v" + version + vers_type + '\n');
-			template.Write("[b]Note to Mods:[/b] Calculations should be done correctly if not bugged or altered by [me].\n");
-			template.Write("Regardless, please double check.[/small][/center]");
-			// Transfer entire stream into readable textbox
-			richTextBox_Template.Text = template.ToString();
-			// Reset/Clear Stringwriter
-			template.GetStringBuilder().Length = 0;
-			template.Dispose();
-		}
-
-		*/
 		#endregion
 	}
 }
