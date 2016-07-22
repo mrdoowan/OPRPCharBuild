@@ -264,6 +264,7 @@
 			this.toolStripButton_New = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton_Open = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
+			this.button_MoreTemplate = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -1316,14 +1317,14 @@
 			// 
 			// label34
 			// 
-			this.label34.AutoSize = true;
 			this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
 			this.label34.ForeColor = System.Drawing.Color.Purple;
 			this.label34.Location = new System.Drawing.Point(427, 194);
 			this.label34.Name = "label34";
-			this.label34.Size = new System.Drawing.Size(159, 13);
+			this.label34.Size = new System.Drawing.Size(185, 13);
 			this.label34.TabIndex = 20;
 			this.label34.Text = "(Only applicable for T1/T2 fruits)";
+			this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label33
 			// 
@@ -2747,6 +2748,7 @@
 			// 
 			// tabPage8
 			// 
+			this.tabPage8.Controls.Add(this.button_MoreTemplate);
 			this.tabPage8.Controls.Add(this.label49);
 			this.tabPage8.Controls.Add(this.textBox_Rank4);
 			this.tabPage8.Controls.Add(this.label53);
@@ -2797,9 +2799,9 @@
 			// 
 			// button_ResetTemp
 			// 
-			this.button_ResetTemp.Location = new System.Drawing.Point(554, 22);
+			this.button_ResetTemp.Location = new System.Drawing.Point(469, 22);
 			this.button_ResetTemp.Name = "button_ResetTemp";
-			this.button_ResetTemp.Size = new System.Drawing.Size(85, 43);
+			this.button_ResetTemp.Size = new System.Drawing.Size(79, 43);
 			this.button_ResetTemp.TabIndex = 11;
 			this.button_ResetTemp.Text = "Reset Template";
 			this.button_ResetTemp.UseVisualStyleBackColor = true;
@@ -2856,9 +2858,9 @@
 			this.label44.AutoSize = true;
 			this.label44.Location = new System.Drawing.Point(3, 35);
 			this.label44.Name = "label44";
-			this.label44.Size = new System.Drawing.Size(483, 17);
+			this.label44.Size = new System.Drawing.Size(440, 17);
 			this.label44.TabIndex = 2;
-			this.label44.Text = "(To import a .txt Custom Template, go to Import -> Custom Template above)";
+			this.label44.Text = "(To import a .txt Custom Template, go to Import -> Custom Template)";
 			// 
 			// label_TemplateType
 			// 
@@ -2996,7 +2998,9 @@
 			// 
 			// toolTips
 			// 
-			this.toolTips.AutomaticDelay = 50;
+			this.toolTips.AutoPopDelay = 10000;
+			this.toolTips.InitialDelay = 50;
+			this.toolTips.ReshowDelay = 100;
 			// 
 			// toolStrip1
 			// 
@@ -3042,6 +3046,17 @@
 			this.toolStripButton_Save.Size = new System.Drawing.Size(23, 22);
 			this.toolStripButton_Save.Text = "Save";
 			this.toolStripButton_Save.Click += new System.EventHandler(this.toolStripButton_Save_Click);
+			// 
+			// button_MoreTemplate
+			// 
+			this.button_MoreTemplate.Location = new System.Drawing.Point(554, 22);
+			this.button_MoreTemplate.Name = "button_MoreTemplate";
+			this.button_MoreTemplate.Size = new System.Drawing.Size(85, 43);
+			this.button_MoreTemplate.TabIndex = 18;
+			this.button_MoreTemplate.Text = "More Templates";
+			this.toolTips.SetToolTip(this.button_MoreTemplate, "This will take you to the Zetaboards topic");
+			this.button_MoreTemplate.UseVisualStyleBackColor = true;
+			this.button_MoreTemplate.Click += new System.EventHandler(this.button_MoreTemplate_Click);
 			// 
 			// MainForm
 			// 
@@ -3356,6 +3371,7 @@
 		private System.Windows.Forms.Label label49;
 		private System.Windows.Forms.TextBox textBox_Rank4;
 		private System.Windows.Forms.Label label53;
+		private System.Windows.Forms.Button button_MoreTemplate;
 	}
 }
 

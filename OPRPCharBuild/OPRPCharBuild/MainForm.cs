@@ -29,7 +29,7 @@ namespace OPRPCharBuild
 
 		#region Member Variables and Structs
 
-		public const string version = "1.0.2.2";
+		public const string version = "1.2.9";
 		public const string vers_type = "";
 		public const string curr_proj = "Project2";
 		public const string std_template_msg = "Standard Template";
@@ -266,19 +266,6 @@ namespace OPRPCharBuild
 			else {
 				return false;
 			}
-		}
-
-		// Returns the Index of the listview_SubCat if the row is between any Row Begin and Row End
-		// Returns -1 if the row is not between any Row Begin and Row End
-		private int Is_Row_In_SubCatTable(int row) {
-			foreach (ListViewItem item in listView_SubCat.Items) {
-				int begin = int.Parse(item.SubItems[0].Text);
-				int end = int.Parse(item.SubItems[1].Text);
-				if (row >= begin && row <= end) {
-					return item.Index;
-				}
-			}
-			return -1;
 		}
 
 		#endregion
@@ -1360,25 +1347,25 @@ namespace OPRPCharBuild
 				string message = "You have " + SD + " SD earned. Calculations:\n+ 500,000 (Starting Beli)";
 				if (SD <= 50) {
 					beli += (uint)(250000 * SD);
-					message += "\n+ " + Commas_To_Value((uint)(250000 * SD)) + " (250,000/SD for first 50)";
+					message += "\n+ " + Commas_To_Value((uint)(250000 * SD)) + " (250,000 / SD for first 50)";
 				}
 				else {
 					beli += 250000 * 50;
-					message += "\n+ " + Commas_To_Value((uint)(250000 * 50)) + " (250,000/SD for first 50)";
+					message += "\n+ " + Commas_To_Value((uint)(250000 * 50)) + " (250,000 / SD for first 50)";
 				}
 				SD -= 50;
 				if (result == DialogResult.No) {
 					// In the GL, it's 500,000 per SD
 					if (SD > 0) {
 						beli += (uint)(500000 * SD);
-						message += "\n+ " + Commas_To_Value((uint)(500000 * SD)) + " (500,000/SD in GL)";
+						message += "\n+ " + Commas_To_Value((uint)(500000 * SD)) + " (500,000 / SD in GL)";
 					}
 				}
 				else {
 					// In the Blues, it's 500,000 per SD
 					if (SD > 0) {
 						beli += (uint)(250000 * SD);
-						message += "\n+ " + Commas_To_Value((uint)(250000 * SD)) + " (250,000/SD in GL)";
+						message += "\n+ " + Commas_To_Value((uint)(250000 * SD)) + " (250,000 / SD in GL)";
 					}
 				}
 				// Apply beli trait / professional boosts (do not stack)
@@ -1678,6 +1665,19 @@ namespace OPRPCharBuild
 			}
 		}
 
+		// Returns the Index of the listview_SubCat if the row is between any Row Begin and Row End
+		// Returns -1 if the row is not between any Row Begin and Row End
+		private int Is_Row_In_SubCatTable(int row) {
+			foreach (ListViewItem item in listView_SubCat.Items) {
+				int begin = int.Parse(item.SubItems[0].Text);
+				int end = int.Parse(item.SubItems[1].Text);
+				if (row >= begin && row <= end) {
+					return item.Index;
+				}
+			}
+			return -1;
+		}
+
 		private void button_SubCatAdd_Click(object sender, EventArgs e) {
 			if (numericUpDown_RowEnd.Value < numericUpDown_RowBegin.Value) {
 				MessageBox.Show("Row Begin must be a lower value (or equal to) than Row End.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1778,6 +1778,18 @@ namespace OPRPCharBuild
 			label_TemplateType.Text = std_template_msg;
 			label_TemplateType.ForeColor = Color.Green;
 			richTextBox_Template.Text = Sheet.Basic_Template;
+		}
+
+		private void button_MoreTemplate_Click(object sender, EventArgs e) {
+			try {
+				if (MessageBox.Show("Would you like to open a browser to the Zetaboard page?", "Custom Templates",
+					MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
+					Process.Start("http://s1.zetaboards.com/One_Piece_RP/topic/6153426/1/");
+                }
+            }
+			catch (Exception ex) {
+				MessageBox.Show("Error in opening up Zetaboards site.\nReason: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 		#endregion

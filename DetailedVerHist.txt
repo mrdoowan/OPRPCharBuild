@@ -1,3 +1,5 @@
+v1.2.10 - 7/20/2016
+- Added a button to link to the Zetaboards topic for More Templates
 v1.2.9 - 7/19/2016
 - Custom Template implemented completely. Entering testing phase
 - Added a textbox for putting in a Rank 4 Trait
