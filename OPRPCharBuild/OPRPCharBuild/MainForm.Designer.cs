@@ -234,6 +234,7 @@
 			this.textBox_RegTPUsed = new System.Windows.Forms.TextBox();
 			this.label61 = new System.Windows.Forms.Label();
 			this.tabPage8 = new System.Windows.Forms.TabPage();
+			this.button_MoreTemplate = new System.Windows.Forms.Button();
 			this.label49 = new System.Windows.Forms.Label();
 			this.textBox_Rank4 = new System.Windows.Forms.TextBox();
 			this.label53 = new System.Windows.Forms.Label();
@@ -253,8 +254,6 @@
 			this.label37 = new System.Windows.Forms.Label();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-			this.listOfCustomTagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.olderVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -264,7 +263,6 @@
 			this.toolStripButton_New = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton_Open = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
-			this.button_MoreTemplate = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -2769,6 +2767,17 @@
 			this.tabPage8.Text = "Template";
 			this.tabPage8.UseVisualStyleBackColor = true;
 			// 
+			// button_MoreTemplate
+			// 
+			this.button_MoreTemplate.Location = new System.Drawing.Point(554, 22);
+			this.button_MoreTemplate.Name = "button_MoreTemplate";
+			this.button_MoreTemplate.Size = new System.Drawing.Size(85, 43);
+			this.button_MoreTemplate.TabIndex = 18;
+			this.button_MoreTemplate.Text = "More Templates";
+			this.toolTips.SetToolTip(this.button_MoreTemplate, "This will take you to the Zetaboards topic");
+			this.button_MoreTemplate.UseVisualStyleBackColor = true;
+			this.button_MoreTemplate.Click += new System.EventHandler(this.button_MoreTemplate_Click);
+			// 
 			// label49
 			// 
 			this.label49.AutoSize = true;
@@ -2943,28 +2952,12 @@
 			this.saveAsToolStripMenuItem.Text = "Save As...";
 			this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
 			// 
-			// helpToolStripMenuItem1
-			// 
-			this.helpToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.listOfCustomTagsToolStripMenuItem});
-			this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-			this.helpToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
-			this.helpToolStripMenuItem1.Text = "Help";
-			// 
-			// listOfCustomTagsToolStripMenuItem
-			// 
-			this.listOfCustomTagsToolStripMenuItem.Name = "listOfCustomTagsToolStripMenuItem";
-			this.listOfCustomTagsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-			this.listOfCustomTagsToolStripMenuItem.Text = "Custom Tags";
-			this.listOfCustomTagsToolStripMenuItem.Click += new System.EventHandler(this.listOfCustomTagsToolStripMenuItem_Click);
-			// 
 			// menuStrip1
 			// 
 			this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
 			this.menuStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.helpToolStripMenuItem1,
             this.importToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
@@ -3046,17 +3039,6 @@
 			this.toolStripButton_Save.Size = new System.Drawing.Size(23, 22);
 			this.toolStripButton_Save.Text = "Save";
 			this.toolStripButton_Save.Click += new System.EventHandler(this.toolStripButton_Save_Click);
-			// 
-			// button_MoreTemplate
-			// 
-			this.button_MoreTemplate.Location = new System.Drawing.Point(554, 22);
-			this.button_MoreTemplate.Name = "button_MoreTemplate";
-			this.button_MoreTemplate.Size = new System.Drawing.Size(85, 43);
-			this.button_MoreTemplate.TabIndex = 18;
-			this.button_MoreTemplate.Text = "More Templates";
-			this.toolTips.SetToolTip(this.button_MoreTemplate, "This will take you to the Zetaboards topic");
-			this.button_MoreTemplate.UseVisualStyleBackColor = true;
-			this.button_MoreTemplate.Click += new System.EventHandler(this.button_MoreTemplate_Click);
 			// 
 			// MainForm
 			// 
@@ -3257,7 +3239,6 @@
 		private System.Windows.Forms.TextBox textBox_SpTPUsed;
 		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
 		private System.Windows.Forms.MenuStrip menuStrip1;
 		private System.Windows.Forms.TabPage tabPage7;
 		private System.Windows.Forms.GroupBox groupBox12;
@@ -3355,7 +3336,6 @@
 		private System.Windows.Forms.Button button_SubCatEdit;
 		private System.Windows.Forms.Label label41;
 		private System.Windows.Forms.ToolStripMenuItem characterTemplateToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem listOfCustomTagsToolStripMenuItem;
 		private System.Windows.Forms.ComboBox comboBox_DFTier;
 		private System.Windows.Forms.Label label42;
 		private System.Windows.Forms.TabPage tabPage8;

@@ -13,7 +13,6 @@ namespace OPRPCharBuild
 {
 
 	// Option 1: Generate Character Sheet
-	// Option 2: List of Custom Tags
 
 	public partial class Sheet : Form
 	{
@@ -49,10 +48,10 @@ namespace OPRPCharBuild
 			"<color>[b]History:[/b]</color> <23>\n\n" +
 			"[big][big][center][i][font=Century Gothic]Abilities and Possessions[/font][/i][/center][/big][/big]\n" +
 			"<color>[b]Combat:[/b]</color> <24>\n\n" +
-			"[table=2, Weaponry, 1][center]Weapon[/center][c][center]Description[/center]<Weaponry>[c]<color>[b]<25>[/b]</color>[c]<76>\n</Weaponry>[/table]\n" +
-			"[table=2, Items, 1][center]Item[/center][c][center]Description[/center]<Item>[c]<color>[b]<26>[/b]</color>[c]<77>\n</Item>[/table]\n" +
+			"[b]Weaponry:[/b] [list]<Weaponry>[*][b]<25>:[/b] <76>\n\n</Weaponry>[/list]\n" +
+			"[b]Items:[/b][list]<Item>[*][b]<26>:[/b] <77>\n\n</Item>[/list]\n" +
 			"<color>[b]Beli: [/b]</color> <27>\n" +
-			"[quote=Advancement Points: <28>]<AP><29> (<78> AP) - <99>\n</AP>[/quote]\n" +
+			"<color>[b]Advancement Points:[/b]</color> <28>\n" +
 			"<color>[b]SD Earned:[/b]</color> <30><equal=30,74> / <74></equal>\n" +
 			"<color>[b]SD Remaining:[/b]</color> <31>\n" +
 			"<color>[b]Stat Points:[/b]</color> <32> <33>\n" +
@@ -63,15 +62,19 @@ namespace OPRPCharBuild
 			"[*][i]Stamina:[/i] <43><equal=42,43> <44></equal>\n" +
 			"[*][i]Accuracy:[/i] <46><equal=45,46> <47></equal>\n" +
 			"[*]<color>[b][i]Fortune:[/i][/b]</color> <48> <49>[/list][/list]\n" +
-			"[table]<color>[b]Traits:[/b]</color> <95> General, <96> Professional[/table][table=2]<color>[b][u]General[/u][/b]</color>[c]<Trait_G><color>[b]<50> (<79> Trait<plural=79>s</plural><zero=81>, <81> Professional</zero>)[/b]</color> - <80>\n\n</Trait_G>" +
-			"[c]<color>[b][u]Professional[/u][/b]</color>[c]<Trait_P><color>[b]<51> (<81> Trait<plural=81>s</plural>)[/b]</color> - <82>\n\n</Trait_P>[/table]\n" +
+			"<color>[b]Traits:[/b]</color>\n\n" + 
+			"<Trait_G><color>[b]<50> (<79> General Trait<plural=79>s</plural><zero=81>, <81> Professional</zero>)[/b]</color> - <80>\n\n</Trait_G>\n\n" +
+			"<Trait_P><color>[b]<51> (<81> Professional Trait<plural=81>s</plural>)[/b]</color> - <82>\n\n</Trait_P>\n\n" +
+			"<AP><color>[b]<29> (<78> AP)[/b]</color> - <99>\n\n</AP>\n\n" + 
 			"[quote=Devil Fruit]<color>[b]Devil Fruit Name: [/b]</color> <52>\n" +
 			"<color>[b]Devil Fruit Type:[/b]</color> <53>\n" +
-			"<color>[b]Devil Fruit Ability:[/b]</color> <54>[/quote]\n\n" +
+			"<color>[b]Devil Fruit Ability:[/b]</color> <54>" +
+			"<empty=55>\n<color>[b]Devil Fruit Free Effect:[/b]</color> <55></empty>[/quote]\n\n" +
 			"[center][big][big][i][font=Century Gothic]Techniques[/font][/i][/big][/big][/center]\n" +
-			"<color>[b]Used/Total Regular Technique Points:[/b]</color> <56> / <57> <58>\n" +
-			"<color>[b]Used/Total Special Technique Points:[/b]</color> <59> / <60> <zero=60>[list]<SpTrait>[*]<61>: <83> / <84>\n</SpTrait>[/list]</zero>\n\n" +
-			"[table]<empty=88><88>\n\n</empty><empty=62><62>\n\n</empty><empty=55>[u]DF Free Effect:[/u] <55>\n\n</empty>[/table]" +
+			"<color>[b]Regular Technique Points:[/b]</color> <57> <58>\n" + 
+			"<color>[b]Used Regular Technique Points:[/b]</color> <56>\n" +
+			"<color>[b]Special Technique Points:[/b]</color> <60>\n" +
+			"<color>[b]Used Special Technique Points:[/b]</color> <59> <zero=60>[list]<SpTrait>[*]<61>: <83> / <84>\n</SpTrait>[/list]</zero>\n\n" +
 			"<TechTable>[table=2, <63>, 1][center]<color>[b][u]Name/Type/Range/Power/Stats/TP[/u][/b]</color>[/center][c]\n" +
 			"[center]<color>[b][u]Description/Notes[/u][/b]</color>[/center]\n" +
 			"<Technique>[c]<color>[b]<64>[/b]</color> (<65>)\n" +
@@ -83,11 +86,9 @@ namespace OPRPCharBuild
 			"[c]<empty=71><71>\n\n[hr]\n</empty>" +
 			"[u]Description:[/u] <72>\n\n" +
 			"<empty=73>[u]Effects:[/u] <73>\n</empty></Technique>[/table]\n\n</TechTable>\n" +
-			"[center][big][big][i][font=Century Gothic]Development History[/font][/i][/big][/big][/center]\n" +
+			"[center][big][big][i][font=Century Gothic]Development History[/font][/i][/big][/big][/center]\n\n" +
 			"<color>[b]Gains/Losses:[/b]</color> \n" +
 			"[spoiler=Edit Log]Edit Log goes here[/spoiler]";
-
-		public const string Custom_Template_Documentation = "";
 
 		#endregion
 
@@ -116,7 +117,7 @@ namespace OPRPCharBuild
 		//		a. Check for <IMG0_URL> and increment as necessary 
 		// 3) For Repeat Casting, take the substring, store them into variables based on Standard Custom Tags, handle Special Casting, and then replace and loop.
 		//		NOTE: Make a Dictionary that constantly changes here
-		// 4) Lastly, replace ALL (use Regex) <color> tags
+		// 4) Lastly, replace ALL <color> tags
 
 		public void Generate_Template(ListBox Achievements, ListView Profs, ListView Images, ListView Weaponry, ListView Items, CheckedListBox AP,
 			ListView Traitss, ListView SpTraits, ListView Techs, ListView Categories) {
@@ -388,6 +389,7 @@ namespace OPRPCharBuild
 
 		// Thanks Stackoverflow for ReplaceFirst()
 		// Only replaces the first instance of the specified string "search"
+		// Need ReplaceFirst() because of TechTable and Techniques is repeated. If we use Repeat, it replaces ALL <Technique> instead of separate
 		public string ReplaceFirst(string text, string search, string replace) {
 			int pos = text.IndexOf(search);
 			if (pos < 0) {

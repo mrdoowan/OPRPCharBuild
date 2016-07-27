@@ -1,3 +1,6 @@
+v1.2.11 - 7/27/2016
+- Changed Basic Template to better reflect the original template
+- Completely scrapped the Help Menustrip
 v1.2.10 - 7/20/2016
 - Added a button to link to the Zetaboards topic for More Templates
 v1.2.9 - 7/19/2016

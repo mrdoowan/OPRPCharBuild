@@ -2338,10 +2338,6 @@ namespace OPRPCharBuild
 			}
 		}
 
-		private void listOfCustomTagsToolStripMenuItem_Click(object sender, EventArgs e) {
-
-		}
-
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
 			// Check to save before closing the program
 			if (!upgrading) {
