@@ -29,7 +29,7 @@ namespace OPRPCharBuild
 
 		#region Member Variables and Structs
 
-		public const string version = "1.2.9";
+		public const string version = "1.2.12";
 		public const string vers_type = "";
 		public const string curr_proj = "Project2";
 		public const string std_template_msg = "Standard Template";
@@ -204,11 +204,11 @@ namespace OPRPCharBuild
 				WC.Headers.Add("Content-Type", header_msg);
 				string version_page = WC.DownloadString("https://raw.githubusercontent.com/mrdoowan/OPRPCharBuild/master/CurrentVer.txt");
 				string[] latest = version_page.Split('.');
-				// There should only be 3 numbers. (IMPLEMENT AFTER v1.3.0)
-				/* if (current.Length != latest.Length) {
-					MessageBox.Show("Current and Latest version Length are not equal.", "Report Bug", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				// Since we are looping through Current length, Current should not be bigger than Latest
+				if (current.Length > latest.Length) {
+					MessageBox.Show("The current Length is greater than latest Length.", "Report Bug", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					return;
-				} */
+				}
 				for (int i = 0; i < current.Length; ++i) {
 					// We do nothing if the current version is greater than latest version
 					if (int.Parse(current[i]) > int.Parse(latest[i])) {
@@ -238,7 +238,7 @@ namespace OPRPCharBuild
 				WC.Headers.Add("Content-Type", header_msg);
 				string message = WC.DownloadString("https://raw.githubusercontent.com/mrdoowan/OPRPCharBuild/master/BugMessage.txt");
 				if (!string.IsNullOrWhiteSpace(message)) {
-					MessageBox.Show("Current bugs in v" + version + "\n\n" + message, "Bug Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+					MessageBox.Show("Current Bugs:\n\n" + message, "Bug Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				}
 				WC.Dispose();
 			}

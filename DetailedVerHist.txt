@@ -1,3 +1,8 @@
+v1.2.12 - 7/28/2016
+- Fixed Bug when Branching a Mastery Trait in adding a * to the label
+- Fixed an unhandled exception when adding a Technique with N/A Power
+- Changed location of Inventor/Marksman Primary checkbox to near the Range comboBox
+- Slight edits on checking version change
 v1.2.11 - 7/27/2016
 - Changed Basic Template to better reflect the original template
 - Completely scrapped the Help Menustrip

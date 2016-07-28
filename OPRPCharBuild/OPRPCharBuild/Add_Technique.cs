@@ -35,7 +35,6 @@ namespace OPRPCharBuild
 		private string edit_SpTrait;
 		private string edit_RankTrait;
 		private string edit_Note;
-		private string edit_power;
 
 		// Devil Fruit section
 		private string DF_name;
@@ -229,7 +228,6 @@ namespace OPRPCharBuild
 			From_TechStats_to_Form(Stats.sta, ref numericUpDown_Sta, ref checkBox_PlusSta, ref checkBox_MinusSta);
 			From_TechStats_to_Form(Stats.acc, ref numericUpDown_Acc, ref checkBox_PlusAcc, ref checkBox_MinusAcc);
 			checkBox_NA.Checked = Tech.NA_power;
-			edit_power = Tech.power.ToString();				// (If Power was set customized, we want to keep that number.)
 			if (!Tech.NA_power) {
 				// If N/A Power is not selected
 				// Adding onto ListView for effects
@@ -717,9 +715,6 @@ namespace OPRPCharBuild
 				MessageBox.Show("Error in Adding Special TP Traits to comboBox.\nReason: " + ex.Message, "Error");
 			}
 
-			// Put in power value from before
-			textBox_Power.Text = edit_power;
-
 			// Fill in the ListView columns
 			listView_Effects.View = View.Details;
 			listView_Effects.FullRowSelect = true;
@@ -915,44 +910,49 @@ namespace OPRPCharBuild
 			int free_DF = 0;
 			if (checkBox_DFRank4.Checked) { free_DF = 4; }
 			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_AffectRank.Text);
-			if (Has_4RanksHigher_Trait(ID)) {
-				curr_rank += 4;
+			try {
+				if (Has_4RanksHigher_Trait(ID)) {
+					curr_rank += 4;
+				}
+				if (string.IsNullOrWhiteSpace(textBox_Name.Text)) {
+					MessageBox.Show("Technique needs a Name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (MainForm.TechList.ContainsKey(textBox_Name.Text)) {
+					MessageBox.Show("Can't add 2 Techniques with the same name!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (checkBox_Branched.Checked &&
+					(numericUpDown_RankBranch.Value == 0 || string.IsNullOrWhiteSpace(textBox_TechBranched.Text))) {
+					MessageBox.Show("Technique Branch incomplete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if ((numericUpDown_Rank.Value - numericUpDown_RankBranch.Value) != (numericUpDown_RegTP.Value + numericUpDown_SpTP.Value + free_DF) &&
+					(!checkBox_ZoanSig.Checked && !checkBox_SigTech.Checked)) {
+					MessageBox.Show("TP Spent doesn't add up correctly.\n" +
+						numericUpDown_Rank.Value + " (Rank) - " + numericUpDown_RankBranch.Value + " (Branch) = " + (numericUpDown_Rank.Value - numericUpDown_RankBranch.Value) + '\n' +
+						numericUpDown_RegTP.Value + " (Reg TP) + " + numericUpDown_SpTP.Value + " (Sp TP) = " + (numericUpDown_RegTP.Value + numericUpDown_SpTP.Value),
+						"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (string.IsNullOrWhiteSpace(comboBox_Type.Text)) {
+					MessageBox.Show("Technique needs a Type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (string.IsNullOrWhiteSpace(comboBox_Range.Text)) {
+					MessageBox.Show("Technique needs a Range.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (!string.IsNullOrWhiteSpace(textBox_Power.Text) && int.Parse(textBox_Power.Text) < 0) {
+					MessageBox.Show("Power is below 0.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (!All_Numbers(textBox_Power.Text)) {
+					MessageBox.Show("Power should only have numbers!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (min_rank > curr_rank) {
+					MessageBox.Show("Effect costs are ineligible at its current rank.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else {
+					this.Close();
+					button_clicked = true;
+				}
 			}
-			if (string.IsNullOrWhiteSpace(textBox_Name.Text)) {
-				MessageBox.Show("Technique needs a Name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-			else if (MainForm.TechList.ContainsKey(textBox_Name.Text)) {
-				MessageBox.Show("Can't add 2 Techniques with the same name!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-			else if (checkBox_Branched.Checked &&
-				(numericUpDown_RankBranch.Value == 0 || string.IsNullOrWhiteSpace(textBox_TechBranched.Text))) {
-				MessageBox.Show("Technique Branch incomplete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-			else if ((numericUpDown_Rank.Value - numericUpDown_RankBranch.Value) != (numericUpDown_RegTP.Value + numericUpDown_SpTP.Value + free_DF) &&
-				(!checkBox_ZoanSig.Checked && !checkBox_SigTech.Checked)) {
-				MessageBox.Show("TP Spent doesn't add up correctly.\n" + 
-					numericUpDown_Rank.Value + " (Rank) - " + numericUpDown_RankBranch.Value + " (Branch) = " + (numericUpDown_Rank.Value - numericUpDown_RankBranch.Value) + '\n' +
-					numericUpDown_RegTP.Value + " (Reg TP) + " + numericUpDown_SpTP.Value + " (Sp TP) = " + (numericUpDown_RegTP.Value + numericUpDown_SpTP.Value),
-					"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-			else if (string.IsNullOrWhiteSpace(comboBox_Type.Text)) {
-				MessageBox.Show("Technique needs a Type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-			else if (string.IsNullOrWhiteSpace(comboBox_Range.Text)) {
-				MessageBox.Show("Technique needs a Range.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-			else if (int.Parse(textBox_Power.Text) < 0) {
-				MessageBox.Show("Power is below 0.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-			else if (!All_Numbers(textBox_Power.Text)) {
-				MessageBox.Show("Power should only have numbers!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-			else if (min_rank > curr_rank) {
-				MessageBox.Show("Effect costs are ineligible at its current rank.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-			else {
-				this.Close();
-				button_clicked = true;
+			catch (Exception ex) {
+				MessageBox.Show("Error in adding Technique.\nReason: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -1072,11 +1072,11 @@ namespace OPRPCharBuild
 		}
 
 		private void comboBox_AffectRank_SelectedIndexChanged(object sender, EventArgs e) {
-			if (!string.IsNullOrWhiteSpace(comboBox_AffectRank.Text)) {
+			if (!string.IsNullOrWhiteSpace(comboBox_AffectRank.Text) && !label_MaxRank.Text.Contains('*')) {
 				label_MaxRank.Text = label_MaxRank.Text.TrimEnd(']');
 				label_MaxRank.Text += "*]";
 			}
-			else {
+			else if (string.IsNullOrWhiteSpace(comboBox_AffectRank.Text)) {
 				// Nothing selected.
 				label_MaxRank.Text = label_MaxRank.Text.TrimEnd('*', ']');
 				label_MaxRank.Text += ']';
