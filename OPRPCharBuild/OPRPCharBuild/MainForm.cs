@@ -29,7 +29,7 @@ namespace OPRPCharBuild
 
 		#region Member Variables and Structs
 
-		public const string version = "1.2.13";
+		public const string version = "1.3.0";
 		public const string vers_type = "";
 		public const string curr_proj = "Project2";
 		public const string std_template_msg = "Standard Template";

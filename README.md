@@ -18,6 +18,13 @@ Based on OPRP usernames
 Version History
 ---------------
 
+### v1.3.0
+
+* Custom Character Template completely implemented
+* Categorization of Techniques
+* Traits ordered by Type
+* Overall bugfixes
+
 ### v1.2.2
 
 * Hotfixed Bug: Editing a Profession and canceling changes would accidentally remove the Profession from data, but it wouldn't visually display that.

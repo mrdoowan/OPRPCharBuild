@@ -67,7 +67,7 @@ namespace OPRPCharBuild
 			"<color>[b]Traits:[/b]</color>\n\n" + 
 			"<Trait_G><color>[b]<50> (<79> General Trait<plural=79>s</plural><zero=81>, <81> Professional</zero>)[/b]</color> - <80>\n\n</Trait_G>\n\n" +
 			"<Trait_P><color>[b]<51> (<81> Professional Trait<plural=81>s</plural>)[/b]</color> - <82>\n\n</Trait_P>\n\n" +
-			"<AP><color>[b]<29> (<78> AP)[/b]</color> - <99>\n\n</AP>\n\n" + 
+			"<zero=28><AP><color>[b]<29> (<78> AP)[/b]</color> - <99>\n\n</AP>\n\n</zero>" + 
 			"[quote=Devil Fruit]<color>[b]Devil Fruit Name: [/b]</color> <52>\n" +
 			"<color>[b]Devil Fruit Type:[/b]</color> <53>\n" +
 			"<color>[b]Devil Fruit Ability:[/b]</color> <54>" +
@@ -76,7 +76,7 @@ namespace OPRPCharBuild
 			"<color>[b]Regular Technique Points:[/b]</color> <57> <58>\n" + 
 			"<color>[b]Used Regular Technique Points:[/b]</color> <56>\n" +
 			"<color>[b]Special Technique Points:[/b]</color> <60>\n" +
-			"<color>[b]Used Special Technique Points:[/b]</color> <59> <zero=60>[list]<SpTrait>[*]<61>: <83> / <84>\n</SpTrait>[/list]</zero>\n" +
+			"<color>[b]Used Special Technique Points:[/b]</color> <59> <zero=60>[list]<SpTrait>[*]<61>: <83> / <84>\n</SpTrait>[/list]</zero>\n\n" +
 			"<empty=88><88>\n</empty>" +
 			"<empty=62><62>\n</empty>" +
 			"<empty=55>[u]DF Free Effect:[/u] <55>\n</empty>\n" +
