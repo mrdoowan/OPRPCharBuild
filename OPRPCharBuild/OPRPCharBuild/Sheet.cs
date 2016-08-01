@@ -41,26 +41,28 @@ namespace OPRPCharBuild
 			"<color>[b]Eyes:[/b]</color> <17>\n\n" +
 			"<color>[b]Clothing/Accessories:[/b]</color> <18>\n\n" +
 			"<color>[b]General Appearance:[/b]</color> <19>\n\n" +
-			"<Image>[spoiler=<92>][img<empty=93>=<93>,<94></empty]<91>[/img][/spoiler]\n</Image>" +
+			"<Image>[spoiler<empty=92>=<92></empty>][img<empty=93>=<93>,<94></empty>]<91>[/img][/spoiler]\n</Image>" +
 			"[center][big][big][i][font=Century Gothic]The Character[/font][/i][/big][/big][/center]\n" +
 			"<color>[b]Personality:[/b]</color> <20>\n\n" +
 			"<color>[b]Hometown:[/b]</color> <21>, <22>\n\n" +
 			"<color>[b]History:[/b]</color> <23>\n\n" +
 			"[big][big][center][i][font=Century Gothic]Abilities and Possessions[/font][/i][/center][/big][/big]\n" +
 			"<color>[b]Combat:[/b]</color> <24>\n\n" +
-			"[b]Weaponry:[/b] [list]<Weaponry>[*][b]<25>:[/b] <76>\n\n</Weaponry>[/list]\n" +
-			"[b]Items:[/b][list]<Item>[*][b]<26>:[/b] <77>\n\n</Item>[/list]\n" +
+			"[table=2, Weaponry, 1][center]Weapon[/center][c][center]Description[/center]<Weaponry>[c]<color>[b]<25>[/b]</color>[c]<76>\n" +
+			"</Weaponry>[/table]\n" + 
+			"[table=2, Items, 1][center]Item[/center][c][center]Description[/center]<Item>[c]<color>[b]<26>[/b]</color>[c]<77>\n" + 
+			"</Item>[/table]\n" + 
 			"<color>[b]Beli: [/b]</color> <27>\n" +
 			"<color>[b]Advancement Points:[/b]</color> <28>\n" +
 			"<color>[b]SD Earned:[/b]</color> <30><equal=30,74> / <74></equal>\n" +
 			"<color>[b]SD Remaining:[/b]</color> <31>\n" +
 			"<color>[b]Stat Points:[/b]</color> <32> <33>\n" +
-			"<color>[list][*][i]Used for Stats:[/i] <34>\n" +
-			"[*][i]Used for Fortune:[/i] <35>\n" +
-			"[list][*][i]Strength:[/i] <37><equal=36,37> <38></equal>\n" +
-			"[*][i]Speed:[/i] <40><equal=39,40> <41></equal>\n" +
-			"[*][i]Stamina:[/i] <43><equal=42,43> <44></equal>\n" +
-			"[*][i]Accuracy:[/i] <46><equal=45,46> <47></equal>\n" +
+			"[list][*]<color>[i]Used for Stats:[/i]</color> <34>\n" +
+			"[*]<color>[i]Used for Fortune:[/i]</color> <35>\n" +
+			"[list][*]<color>[i]Strength:[/i]</color> <37><equal=36,37> <38></equal>\n" +
+			"[*]<color>[i]Speed:[/i]</color> <40><equal=39,40> <41></equal>\n" +
+			"[*]<color>[i]Stamina:[/i]</color> <43><equal=42,43> <44></equal>\n" +
+			"[*]<color>[i]Accuracy:[/i]</color> <46><equal=45,46> <47></equal>\n" +
 			"[*]<color>[b][i]Fortune:[/i][/b]</color> <48> <49>[/list][/list]\n" +
 			"<color>[b]Traits:[/b]</color>\n\n" + 
 			"<Trait_G><color>[b]<50> (<79> General Trait<plural=79>s</plural><zero=81>, <81> Professional</zero>)[/b]</color> - <80>\n\n</Trait_G>\n\n" +
@@ -74,7 +76,10 @@ namespace OPRPCharBuild
 			"<color>[b]Regular Technique Points:[/b]</color> <57> <58>\n" + 
 			"<color>[b]Used Regular Technique Points:[/b]</color> <56>\n" +
 			"<color>[b]Special Technique Points:[/b]</color> <60>\n" +
-			"<color>[b]Used Special Technique Points:[/b]</color> <59> <zero=60>[list]<SpTrait>[*]<61>: <83> / <84>\n</SpTrait>[/list]</zero>\n\n" +
+			"<color>[b]Used Special Technique Points:[/b]</color> <59> <zero=60>[list]<SpTrait>[*]<61>: <83> / <84>\n</SpTrait>[/list]</zero>\n" +
+			"<empty=88><88>\n</empty>" +
+			"<empty=62><62>\n</empty>" +
+			"<empty=55>[u]DF Free Effect:[/u] <55>\n</empty>\n" +
 			"<TechTable>[table=2, <63>, 1][center]<color>[b][u]Name/Type/Range/Power/Stats/TP[/u][/b]</color>[/center][c]\n" +
 			"[center]<color>[b][u]Description/Notes[/u][/b]</color>[/center]\n" +
 			"<Technique>[c]<color>[b]<64>[/b]</color> (<65>)\n" +
@@ -87,7 +92,7 @@ namespace OPRPCharBuild
 			"[u]Description:[/u] <72>\n\n" +
 			"<empty=73>[u]Effects:[/u] <73>\n</empty></Technique>[/table]\n\n</TechTable>\n" +
 			"[center][big][big][i][font=Century Gothic]Development History[/font][/i][/big][/big][/center]\n\n" +
-			"<color>[b]Gains/Losses:[/b]</color> \n" +
+			"<color>[b]Gains/Losses:[/b]</color> \n\n" +
 			"[spoiler=Edit Log]Edit Log goes here[/spoiler]";
 
 		#endregion
@@ -136,10 +141,18 @@ namespace OPRPCharBuild
 				else { Template = Template.Replace(cast, Image.SubItems[1].Text); }
 				cast = "<IMG" + i + "_LABEL>";
 				if (Template.Contains(cast)) { Template = Template.Replace(cast, Image.SubItems[0].Text); }
-				cast = "<IMG" + i + "_W>";
-				if (Template.Contains(cast)) { Template = Template.Replace(cast, Image.SubItems[3].Text); }
-				cast = "<IMG" + i + "_H>";
-				if (Template.Contains(cast)) { Template = Template.Replace(cast, Image.SubItems[4].Text); }
+				if (Image.SubItems[2].Text == "No") { // Full Res is No
+					cast = "<IMG" + i + "_W>";
+					if (Template.Contains(cast)) { Template = Template.Replace(cast, Image.SubItems[3].Text); }
+					cast = "<IMG" + i + "_H>";
+					if (Template.Contains(cast)) { Template = Template.Replace(cast, Image.SubItems[4].Text); }
+				}
+				else { // When Full Res is Yes
+					cast = "<IMG" + i + "_W>,<IMG" + i + "_H>";
+					if (Template.Contains(cast)) { Template = Template.Replace(cast, ""); }
+					cast = "<IMG" + i + "_W>, <IMG" + i + "_H>"; // Redundant I know.
+					if (Template.Contains(cast)) { Template = Template.Replace(cast, ""); }
+				}
 			}
 			// ------- Step 3) 
 			if (Template.Contains("<Achievement>") && Template.Contains("</Achievement>")) {

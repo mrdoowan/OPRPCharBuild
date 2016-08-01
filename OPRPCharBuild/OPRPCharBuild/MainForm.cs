@@ -29,7 +29,7 @@ namespace OPRPCharBuild
 
 		#region Member Variables and Structs
 
-		public const string version = "1.2.12";
+		public const string version = "1.2.13";
 		public const string vers_type = "";
 		public const string curr_proj = "Project2";
 		public const string std_template_msg = "Standard Template";
@@ -1340,9 +1340,9 @@ namespace OPRPCharBuild
 		private void button_Standardize_Click(object sender, EventArgs e) {
 			DialogResult result = new DialogResult();
 			result = DialogResult.Yes;
-			result = MessageBox.Show("Is your character scooping in the Blues?", "Beli Standardization", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+			result = MessageBox.Show("Is your character scooping in the Grand Line?", "Beli Standardization", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 			if (result != DialogResult.Cancel) {
-				int SD = (int)numericUpDown_SDEarned.Value;
+				int SD = int.Parse(textBox_TotalSD.Text);
 				uint beli = 500000;
 				string message = "You have " + SD + " SD earned. Calculations:\n+ 500,000 (Starting Beli)";
 				if (SD <= 50) {
@@ -1354,7 +1354,7 @@ namespace OPRPCharBuild
 					message += "\n+ " + Commas_To_Value((uint)(250000 * 50)) + " (250,000 / SD for first 50)";
 				}
 				SD -= 50;
-				if (result == DialogResult.No) {
+				if (result == DialogResult.Yes) {
 					// In the GL, it's 500,000 per SD
 					if (SD > 0) {
 						beli += (uint)(500000 * SD);
@@ -1427,6 +1427,11 @@ namespace OPRPCharBuild
 			// Also set the maximum value of Used for Fortune = Stat Points / 4
 			numericUpDown_UsedForFort.Maximum = int.Parse(textBox_StatPoints.Text) / 4;
 			Update_Fortune();
+			// Also set the maximum value of all Base Stats = Stat Points / 2
+			numericUpDown_StrengthBase.Maximum = int.Parse(textBox_StatPoints.Text) / 2;
+			numericUpDown_SpeedBase.Maximum = int.Parse(textBox_StatPoints.Text) / 2;
+			numericUpDown_StaminaBase.Maximum = int.Parse(textBox_StatPoints.Text) / 2;
+			numericUpDown_AccuracyBase.Maximum = int.Parse(textBox_StatPoints.Text) / 2;
 		}
 
 		private void numericUpDown_UsedForFort_ValueChanged(object sender, EventArgs e) {

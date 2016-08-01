@@ -1,3 +1,8 @@
+v1.3.0 - 8/1/2016
+- Patch Release
+- Added appropriate maximum Stats to each Base Stat
+- Standardizing Beli is from Total SD, not SD w/o AP
+- Updated Full Res casting slightly. Also updated Basic Template.
 v1.2.12 - 7/28/2016
 - Fixed Bug when Branching a Mastery Trait in adding a * to the label
 - Fixed an unhandled exception when adding a Technique with N/A Power
