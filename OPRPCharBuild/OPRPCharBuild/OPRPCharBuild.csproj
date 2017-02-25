@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -33,7 +34,6 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -129,7 +129,8 @@
     <Compile Include="Sheet.Designer.cs">
       <DependentUpon>Sheet.cs</DependentUpon>
     </Compile>
-    <Compile Include="Traits.cs" />
+    <Compile Include="TraitName.cs" />
+    <Compile Include="TraitClass.cs" />
     <EmbeddedResource Include="Add_Achievement.resx">
       <DependentUpon>Add_Achievement.cs</DependentUpon>
     </EmbeddedResource>

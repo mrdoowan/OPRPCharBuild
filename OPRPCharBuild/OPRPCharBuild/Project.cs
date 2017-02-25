@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 // This contains files of older revisions.
+// REMOVE OLDEST PROJECT DONT NEED ANYMORE
 
 #pragma warning disable CS0649
 
@@ -13,31 +11,12 @@ using System.Windows.Forms;
 namespace OPRPCharBuild
 {
 	[Serializable()]
-	public class Project2
+	public class Project2 : Project
 	{
 		// Default constructor
 		public Project2() { }
-
-		public string filename;
-		public string location;
-
+        
 		// List of structs
-
-		[Serializable()]
-		public struct Professions
-		{
-			public string name;
-			public string primary;
-			public string desc;
-			public string bonus;
-
-			public Professions(string name_, string pri_, string desc_, string bonus_) {
-				name = name_;
-				primary = pri_;
-				desc = desc_;
-				bonus = bonus_;
-			}
-		}
 
 		[Serializable()]
 		public struct Image
@@ -56,37 +35,7 @@ namespace OPRPCharBuild
 				img_height = imgHeight_;
 			}
 		}
-
-		[Serializable()]
-		public struct Equipment
-		{
-			public string name;
-			public string desc;
-
-			public Equipment(string name_, string desc_) {
-				name = name_;
-				desc = desc_;
-			}
-		}
-
-		[Serializable()]
-		public struct Trait
-		{
-			public string name;
-			public string type;
-			public string gen_num;
-			public string prof_num;
-			public string desc;
-
-			public Trait(string name_, string type_, string gen_, string prof_, string desc_) {
-				name = name_;
-				type = type_;
-				gen_num = gen_;
-				prof_num = prof_;
-				desc = desc_;
-			}
-		}
-
+        
 		[Serializable()]
 		public struct Effect
 		{
@@ -157,6 +106,7 @@ namespace OPRPCharBuild
 				notes = notes_;
 				desc = desc_;
 			}
+
 
 		}
 
@@ -590,14 +540,26 @@ namespace OPRPCharBuild
 			public string primary;
 			public string desc;
 			public string bonus;
-		}
+
+            public Professions(string name_, string pri_, string desc_, string bonus_) {
+                name = name_;
+                primary = pri_;
+                desc = desc_;
+                bonus = bonus_;
+            }
+        }
 
 		[Serializable()]
 		public struct Equipment
 		{
 			public string name;
 			public string desc;
-		}
+
+            public Equipment(string name_, string desc_) {
+                name = name_;
+                desc = desc_;
+            }
+        }
 
 		[Serializable()]
 		public struct Trait
@@ -607,7 +569,15 @@ namespace OPRPCharBuild
 			public string gen_num;
 			public string prof_num;
 			public string desc;
-		}
+
+            public Trait(string name_, string type_, string gen_, string prof_, string desc_) {
+                name = name_;
+                type = type_;
+                gen_num = gen_;
+                prof_num = prof_;
+                desc = desc_;
+            }
+        }
 
 		[Serializable()]
 		public struct Tech

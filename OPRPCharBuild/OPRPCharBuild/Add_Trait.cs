@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OPRPCharBuild
@@ -15,7 +10,7 @@ namespace OPRPCharBuild
 		// Utilized for grabbing information from traits
 		private bool button_clicked;
 
-		Traits Traitss = new Traits();
+        TraitClass Trait = new TraitClass();
 		public Add_Trait() {
 			InitializeComponent();
 			button_clicked = false;
@@ -23,13 +18,13 @@ namespace OPRPCharBuild
 
 		// Now functions
 
-		public Traits.Trait_Name NewDialog(ref ListView Main_Form) {
+		public TraitName NewDialog(ref ListView Main_Form) {
 			this.ShowDialog();
 			if (button_clicked) {
 				// All the necessary information is in. We can update the ListView in Main_Form
 				ListViewItem item = new ListViewItem();
 				string name = comboBox_TraitName.Text;
-				Traits.Trait_Name ID = Traitss.get_TraitID(name);
+				TraitName ID = Trait.getTraitID(name);
 				// Adding the specification to the string name, if there is one.
 				if (Spec_Enabled(ID)) {
 					name = name.Replace("SPEC", textBox_TraitSpec.Text);
@@ -47,15 +42,27 @@ namespace OPRPCharBuild
 				MainForm.TraitsList.Add(ID);
 				return ID;
 			}
-			return Traits.Trait_Name.CUSTOM;
+			return TraitName.CUSTOM;
 		}
 
-		public Traits.Trait_Name EditDialog(ref ListView Main_Form) {
+        // With any Trait Names with [SPEC], we need to do the proper replace
+        private string filterSpec(ref string name) {
+            if (name.Contains('[') && name.Contains(']')) {
+                int firstIndexSpec = name.IndexOf('[') + 1;
+                string specName = name.Substring(firstIndexSpec, 
+                    name.IndexOf(']') - firstIndexSpec);
+                name.Replace(specName, "SPEC");
+                return specName;
+            }
+            return "";
+        }
+
+		public TraitName EditDialog(ref ListView Main_Form) {
 			this.Text = "Edit Trait";
 			button_TraitAdd.Text = "Edit";
 			// Put what's Edited into the Dialog Box first.
 			string name = Main_Form.SelectedItems[0].SubItems[0].Text;
-			string spec = Traitss.Trait_Name_From_ListView(ref name);
+			string spec = filterSpec(ref name);
 			comboBox_TraitName.Text = name;
 			comboBox_TraitType.Text = Main_Form.SelectedItems[0].SubItems[1].Text;
 			numericUpDown_TraitGen.Value = int.Parse(Main_Form.SelectedItems[0].SubItems[2].Text);
@@ -65,11 +72,11 @@ namespace OPRPCharBuild
 			this.ShowDialog();
 			if (button_clicked) {
 				// Remove the initial Trait from the TraitsList first
-				MainForm.TraitsList.Remove(Traitss.get_TraitID(name));
+				MainForm.TraitsList.Remove(Trait.getTraitID(name));
 				// Put the information back into the ListView
 				// Name first
 				name = comboBox_TraitName.Text;
-				Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_TraitName.Text);
+				TraitName ID = Trait.getTraitID(comboBox_TraitName.Text);
 				if (Spec_Enabled(ID)) {
 					name = name.Replace("SPEC", textBox_TraitSpec.Text);
 				}
@@ -85,7 +92,7 @@ namespace OPRPCharBuild
 				MainForm.TraitsList.Add(ID);
 				return ID;
 			}
-			return Traits.Trait_Name.CUSTOM;
+			return TraitName.CUSTOM;
 		}
 
 		// To change the note and remind the users
@@ -101,7 +108,7 @@ namespace OPRPCharBuild
 		}
 
 		private void comboBox_TraitName_SelectedIndexChanged(object sender, EventArgs e) {
-			Traits.Trait_Name ID = Traitss.get_TraitID(comboBox_TraitName.Text);
+			TraitName ID = Trait.getTraitID(comboBox_TraitName.Text);
 			if (Spec_Enabled(ID)) {
 				textBox_TraitSpec.Enabled = true;
 			}
@@ -114,23 +121,21 @@ namespace OPRPCharBuild
 		private void comboBox_TraitName_SelectionChangeCommitted(object sender, EventArgs e) {
 			// When we close the comboBox, that means we selected a trait.
 			// Utilize this to copy and display information.
-			if (Traitss.get_TraitID(comboBox_TraitName.SelectedItem.ToString()) != Traits.Trait_Name.CUSTOM) {
-				Traitss.trait_info_load(comboBox_TraitName.SelectedItem.ToString()); // Load into variable
-				comboBox_TraitType.Text = Traitss.get_trait_type();
-				numericUpDown_TraitGen.Value = Traitss.get_gen_num();
-				numericUpDown_TraitProf.Value = Traitss.get_prof_num();
-				richTextBox_TraitDesc.Text = Traitss.get_trait_desc();
+			if (Trait.loadTrait(comboBox_TraitName.SelectedItem.ToString()) != TraitName.CUSTOM) {
+				numericUpDown_TraitGen.Value = Trait.getGenNum();
+				numericUpDown_TraitProf.Value = Trait.getProfNum();
+				richTextBox_TraitDesc.Text = Trait.getTraitDesc();
 			}
 		}
 
-		private bool Spec_Enabled(Traits.Trait_Name ID) {
-			return (ID == Traits.Trait_Name.MARTIAL_MASTERY ||
-				ID == Traits.Trait_Name.ADV_MARTIAL_CLASS ||
-				ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
-				ID == Traits.Trait_Name.FISHMAN ||
-				ID == Traits.Trait_Name.DAZZLE_PERF ||
-				ID == Traits.Trait_Name.GRAND_MARTIAL ||
-				ID == Traits.Trait_Name.SIG_TECH);
+		private bool Spec_Enabled(TraitName ID) {
+			return (ID == TraitName.MARTIAL_MASTERY ||
+				ID == TraitName.ADV_MARTIAL_CLASS ||
+				ID == TraitName.ADV_MARTIAL_MASTERY ||
+				ID == TraitName.FISHMAN ||
+				ID == TraitName.DAZZLE_PERF ||
+				ID == TraitName.GRAND_MARTIAL ||
+				ID == TraitName.SIG_TECH);
 		}
 
 		private void comboBox_TraitType_SelectedIndexChanged(object sender, EventArgs e) {

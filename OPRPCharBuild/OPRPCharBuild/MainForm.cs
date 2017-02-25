@@ -47,7 +47,7 @@ namespace OPRPCharBuild
 		// Dictionary is fine because string values SHOULD be unique
 		public static Dictionary<string, bool> ProfList = new Dictionary<string, bool>();
 		// Just a List of Trait_ID will suffice to bind to its ListView
-		public static List<Traits.Trait_Name> TraitsList = new List<Traits.Trait_Name>();
+		public static List<TraitName> TraitsList = new List<TraitName>();
 		// Techniques. My favorite. The struct TechInfo is designed to load all the information to Add_Technique form
 		public static Dictionary<string, TechInfo> TechList = new Dictionary<string, TechInfo>();
 		public struct TechInfo
@@ -439,7 +439,7 @@ namespace OPRPCharBuild
 				calc += " + (" + numericUpDown_UsedForFort.Value + " / 5 * 3)";
 			}
 			// Then Fortune from Fate of Emperor
-			int index = Traits.Contains_Trait_AtIndex(Traits.Trait_Name.FATE_EMP, listView_Traits);
+			int index = Traits.Contains_Trait_AtIndex(TraitName.FATE_EMP, listView_Traits);
 			if (index != -1) {
 				// # Gen Traits is Column 2
 				int traits = int.Parse(listView_Traits.Items[index].SubItems[2].Text);
@@ -507,7 +507,7 @@ namespace OPRPCharBuild
 		}
 
 		// This is only for stats though.
-		private void Add_Fated_Stats(ref int stat, ref string calc, Traits.Trait_Name fated) {
+		private void Add_Fated_Stats(ref int stat, ref string calc, TraitName fated) {
 			int index = Traits.Contains_Trait_AtIndex(fated, listView_Traits);
 			if (index != -1) {
 				int Traits = int.Parse(listView_Traits.Items[index].SubItems[2].Text);
@@ -522,20 +522,20 @@ namespace OPRPCharBuild
 			int final = base_stat;
 			string calc = "[" + base_stat;
 			// Do the base stats first.
-			if (Traits.Contains_Trait_AtIndex(Traits.Trait_Name.MIGHT_STR, listView_Traits) != -1 ||
-				(Traits.Contains_Trait_AtIndex(Traits.Trait_Name.FISHMAN, listView_Traits) != -1 && Traits.Contains_Trait_AtIndex(Traits.Trait_Name.SUP_STR, listView_Traits) == -1 && Traits.Contains_Trait_AtIndex(Traits.Trait_Name.MON_STR, listView_Traits) == -1) ||
-				(Traits.Contains_Trait_AtIndex(Traits.Trait_Name.DWARF, listView_Traits) != -1) && Traits.Contains_Trait_AtIndex(Traits.Trait_Name.SUP_STR, listView_Traits) == -1 && Traits.Contains_Trait_AtIndex(Traits.Trait_Name.MON_STR, listView_Traits) == -1) {
+			if (Traits.Contains_Trait_AtIndex(TraitName.MIGHT_STR, listView_Traits) != -1 ||
+				(Traits.Contains_Trait_AtIndex(TraitName.FISHMAN, listView_Traits) != -1 && Traits.Contains_Trait_AtIndex(TraitName.SUP_STR, listView_Traits) == -1 && Traits.Contains_Trait_AtIndex(TraitName.MON_STR, listView_Traits) == -1) ||
+				(Traits.Contains_Trait_AtIndex(TraitName.DWARF, listView_Traits) != -1) && Traits.Contains_Trait_AtIndex(TraitName.SUP_STR, listView_Traits) == -1 && Traits.Contains_Trait_AtIndex(TraitName.MON_STR, listView_Traits) == -1) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
 
 			}
-			else if (Traits.Contains_Trait_AtIndex(Traits.Trait_Name.SUP_STR, listView_Traits) != -1) {
+			else if (Traits.Contains_Trait_AtIndex(TraitName.SUP_STR, listView_Traits) != -1) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.4);
 			}
-			else if (Traits.Contains_Trait_AtIndex(Traits.Trait_Name.MON_STR, listView_Traits) != -1) {
+			else if (Traits.Contains_Trait_AtIndex(TraitName.MON_STR, listView_Traits) != -1) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.6);
 			}
 			// And then lastly, the Fated Trait.
-			Add_Fated_Stats(ref final, ref calc, Traits.Trait_Name.FATE_STR);
+			Add_Fated_Stats(ref final, ref calc, TraitName.FATE_STR);
 			textBox_StrengthFinal.Text = final.ToString();
 			calc += ']';
 			label_StrengthCalc.Text = calc;
@@ -551,19 +551,19 @@ namespace OPRPCharBuild
 			int final = base_stat;
 			string calc = "[" + base_stat;
 			// Do the base stats first.
-			if (Traits.Contains_Trait_AtIndex(Traits.Trait_Name.GREAT_SPE, listView_Traits) != -1 ||
-				(Traits.Contains_Trait_AtIndex(Traits.Trait_Name.MERFOLK, listView_Traits) != -1 && Traits.Contains_Trait_AtIndex(Traits.Trait_Name.SON_SPE, listView_Traits) == -1 && Traits.Contains_Trait_AtIndex(Traits.Trait_Name.LUD_SPE, listView_Traits) == -1)) {
+			if (Traits.Contains_Trait_AtIndex(TraitName.GREAT_SPE, listView_Traits) != -1 ||
+				(Traits.Contains_Trait_AtIndex(TraitName.MERFOLK, listView_Traits) != -1 && Traits.Contains_Trait_AtIndex(TraitName.SON_SPE, listView_Traits) == -1 && Traits.Contains_Trait_AtIndex(TraitName.LUD_SPE, listView_Traits) == -1)) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
 
 			}
-			else if (Traits.Contains_Trait_AtIndex(Traits.Trait_Name.SON_SPE, listView_Traits) != -1) {
+			else if (Traits.Contains_Trait_AtIndex(TraitName.SON_SPE, listView_Traits) != -1) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.4);
 			}
-			else if (Traits.Contains_Trait_AtIndex(Traits.Trait_Name.LUD_SPE, listView_Traits) != -1) {
+			else if (Traits.Contains_Trait_AtIndex(TraitName.LUD_SPE, listView_Traits) != -1) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.6);
 			}
 			// And then lastly, the Fated Trait.
-			Add_Fated_Stats(ref final, ref calc, Traits.Trait_Name.FATE_SWIFT);
+			Add_Fated_Stats(ref final, ref calc, TraitName.FATE_SWIFT);
 			textBox_SpeedFinal.Text = final.ToString();
 			calc += ']';
 			label_SpeedCalc.Text = calc;
@@ -579,17 +579,17 @@ namespace OPRPCharBuild
 			int final = base_stat;
 			string calc = "[" + base_stat;
 			// Do the base stats first.
-			if (Traits.Contains_Trait_AtIndex(Traits.Trait_Name.BEAR_STAM, listView_Traits) != -1) {
+			if (Traits.Contains_Trait_AtIndex(TraitName.BEAR_STAM, listView_Traits) != -1) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
 			}
-			else if (Traits.Contains_Trait_AtIndex(Traits.Trait_Name.MAM_STAM, listView_Traits) != -1) {
+			else if (Traits.Contains_Trait_AtIndex(TraitName.MAM_STAM, listView_Traits) != -1) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.4);
 			}
-			else if (Traits.Contains_Trait_AtIndex(Traits.Trait_Name.GIANT_STAM, listView_Traits) != -1) {
+			else if (Traits.Contains_Trait_AtIndex(TraitName.GIANT_STAM, listView_Traits) != -1) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.6);
 			}
 			// And then lastly, the Fated Trait.
-			Add_Fated_Stats(ref final, ref calc, Traits.Trait_Name.FATE_MIGHT);
+			Add_Fated_Stats(ref final, ref calc, TraitName.FATE_MIGHT);
 			textBox_StaminaFinal.Text = final.ToString();
 			calc += ']';
 			label_StaminaCalc.Text = calc;
@@ -605,18 +605,18 @@ namespace OPRPCharBuild
 			int final = base_stat;
 			string calc = "[" + base_stat;
 			// Do the base stats first.
-			if (Traits.Contains_Trait_AtIndex(Traits.Trait_Name.KEEN_ACC, listView_Traits) != -1) {
+			if (Traits.Contains_Trait_AtIndex(TraitName.KEEN_ACC, listView_Traits) != -1) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
 
 			}
-			else if (Traits.Contains_Trait_AtIndex(Traits.Trait_Name.SUP_ACC, listView_Traits) != -1) {
+			else if (Traits.Contains_Trait_AtIndex(TraitName.SUP_ACC, listView_Traits) != -1) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.4);
 			}
-			else if (Traits.Contains_Trait_AtIndex(Traits.Trait_Name.FLAW_ACC, listView_Traits) != -1) {
+			else if (Traits.Contains_Trait_AtIndex(TraitName.FLAW_ACC, listView_Traits) != -1) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.6);
 			}
 			// And then lastly, the Fated Trait.
-			Add_Fated_Stats(ref final, ref calc, Traits.Trait_Name.FATE_CUN);
+			Add_Fated_Stats(ref final, ref calc, TraitName.FATE_CUN);
 			textBox_AccuracyFinal.Text = final.ToString();
 			calc += ']';
 			label_AccuracyCalc.Text = calc;
@@ -663,12 +663,12 @@ namespace OPRPCharBuild
 			int total = (int)((double)fortune * multiplier);
 			calc += multiplier;
 			// Now check if we have any Traits that add to this.
-			if (Traits.Contains_Trait_AtIndex(Traits.Trait_Name.TECH_MAST, listView_Traits) != -1) {
+			if (Traits.Contains_Trait_AtIndex(TraitName.TECH_MAST, listView_Traits) != -1) {
 				// Increase by 100% of Fortune
 				total += fortune;
 				calc += " + " + fortune;
 			}
-			else if (Traits.Contains_Trait_AtIndex(Traits.Trait_Name.TECH_ADEPT, listView_Traits) != -1) {
+			else if (Traits.Contains_Trait_AtIndex(TraitName.TECH_ADEPT, listView_Traits) != -1) {
 				// Increase by 40% of Fortune
                 total += (int)((double)fortune * 0.4);
 				calc += " + (" + fortune + " * 0.4)";
@@ -706,7 +706,7 @@ namespace OPRPCharBuild
 			// Use inside Update_SpTrait_Table() at the very end
 		}
 
-		private void Add_Item_SpTrait_Table(Traits.Trait_Name trait, ListView traits_list, int fortune, int divisor) {
+		private void Add_Item_SpTrait_Table(TraitName trait, ListView traits_list, int fortune, int divisor) {
 			// Add to Sp. Trait from the ListView of Traits.
 			int index = Traits.Contains_Trait_AtIndex(trait, traits_list);
 			ListViewItem item = new ListViewItem();
@@ -717,61 +717,61 @@ namespace OPRPCharBuild
 			listView_SpTP.Items.Add(item);
 		}
 
-		private void Update_SpTrait_Table_Traits(Traits.Trait_Name ID) {
+		private void Update_SpTrait_Table_Traits(TraitName ID) {
 			// Need a parameter of what Special Trait was ADDED!!!
 			// First check to see if the Sp. TP Trait is in the list
 			// If so, add the trait into the ListView Special and add correspondingly.
 			int fortune = int.Parse(textBox_Fortune.Text);
-			if (ID == Traits.Trait_Name.SUP_SENSE) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.SUP_SENSE, listView_Traits, fortune, 4);
+			if (ID == TraitName.SUP_SENSE) {
+				Add_Item_SpTrait_Table(TraitName.SUP_SENSE, listView_Traits, fortune, 4);
 			}
-			else if (ID == Traits.Trait_Name.STR_SPIRIT) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.STR_SPIRIT, listView_Traits, fortune, 2);
+			else if (ID == TraitName.STR_SPIRIT) {
+				Add_Item_SpTrait_Table(TraitName.STR_SPIRIT, listView_Traits, fortune, 2);
 			}
-			else if (ID == Traits.Trait_Name.ROK_SAV) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.ROK_SAV, listView_Traits, fortune, 2);
+			else if (ID == TraitName.ROK_SAV) {
+				Add_Item_SpTrait_Table(TraitName.ROK_SAV, listView_Traits, fortune, 2);
 			}
-			else if (ID == Traits.Trait_Name.ANTI_WEAPON) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.ANTI_WEAPON, listView_Traits, fortune, 2);
+			else if (ID == TraitName.ANTI_WEAPON) {
+				Add_Item_SpTrait_Table(TraitName.ANTI_WEAPON, listView_Traits, fortune, 2);
 			}
-			else if (ID == Traits.Trait_Name.ADV_MARTIAL_CLASS) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.ADV_MARTIAL_CLASS, listView_Traits, fortune, 4);
+			else if (ID == TraitName.ADV_MARTIAL_CLASS) {
+				Add_Item_SpTrait_Table(TraitName.ADV_MARTIAL_CLASS, listView_Traits, fortune, 4);
 			}
-			else if (ID == Traits.Trait_Name.UNCIV_ENG) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.UNCIV_ENG, listView_Traits, fortune, 2);
+			else if (ID == TraitName.UNCIV_ENG) {
+				Add_Item_SpTrait_Table(TraitName.UNCIV_ENG, listView_Traits, fortune, 2);
 			}
-			else if (ID == Traits.Trait_Name.SIEGE_WAR) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.SIEGE_WAR, listView_Traits, fortune, 2);
+			else if (ID == TraitName.SIEGE_WAR) {
+				Add_Item_SpTrait_Table(TraitName.SIEGE_WAR, listView_Traits, fortune, 2);
 			}
-			else if (ID == Traits.Trait_Name.BRILL_MIND) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.BRILL_MIND, listView_Traits, fortune, 2);
+			else if (ID == TraitName.BRILL_MIND) {
+				Add_Item_SpTrait_Table(TraitName.BRILL_MIND, listView_Traits, fortune, 2);
 			}
-			else if (ID == Traits.Trait_Name.L_O_R) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.L_O_R, listView_Traits, fortune, 2);
+			else if (ID == TraitName.L_O_R) {
+				Add_Item_SpTrait_Table(TraitName.L_O_R, listView_Traits, fortune, 2);
 			}
-			else if (ID == Traits.Trait_Name.FOOD_WAR) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.FOOD_WAR, listView_Traits, fortune, 2);
+			else if (ID == TraitName.FOOD_WAR) {
+				Add_Item_SpTrait_Table(TraitName.FOOD_WAR, listView_Traits, fortune, 2);
 			}
-			else if (ID == Traits.Trait_Name.COOK_FIGHT) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.COOK_FIGHT, listView_Traits, fortune, 4);
+			else if (ID == TraitName.COOK_FIGHT) {
+				Add_Item_SpTrait_Table(TraitName.COOK_FIGHT, listView_Traits, fortune, 4);
 			}
-			else if (ID == Traits.Trait_Name.DAZZLE_PERF) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.DAZZLE_PERF, listView_Traits, fortune, 2);
+			else if (ID == TraitName.DAZZLE_PERF) {
+				Add_Item_SpTrait_Table(TraitName.DAZZLE_PERF, listView_Traits, fortune, 2);
 			}
-			else if (ID == Traits.Trait_Name.SKILL_MED) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.SKILL_MED, listView_Traits, fortune, 2);
+			else if (ID == TraitName.SKILL_MED) {
+				Add_Item_SpTrait_Table(TraitName.SKILL_MED, listView_Traits, fortune, 2);
 			}
-			else if (ID == Traits.Trait_Name.MED_MAL) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.MED_MAL, listView_Traits, fortune, 2);
+			else if (ID == TraitName.MED_MAL) {
+				Add_Item_SpTrait_Table(TraitName.MED_MAL, listView_Traits, fortune, 2);
 			}
-			else if (ID == Traits.Trait_Name.POIS_KILL) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.POIS_KILL, listView_Traits, fortune, 2);
+			else if (ID == TraitName.POIS_KILL) {
+				Add_Item_SpTrait_Table(TraitName.POIS_KILL, listView_Traits, fortune, 2);
 			}
-			else if (ID == Traits.Trait_Name.FROM_SHAD) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.FROM_SHAD, listView_Traits, fortune, 2);
+			else if (ID == TraitName.FROM_SHAD) {
+				Add_Item_SpTrait_Table(TraitName.FROM_SHAD, listView_Traits, fortune, 2);
 			}
-			else if (ID == Traits.Trait_Name.SLEIGHT) {
-				Add_Item_SpTrait_Table(Traits.Trait_Name.SLEIGHT, listView_Traits, fortune, 2);
+			else if (ID == TraitName.SLEIGHT) {
+				Add_Item_SpTrait_Table(TraitName.SLEIGHT, listView_Traits, fortune, 2);
 			}
 			// Likewise, if a trait is removed, we have to check each SpTrait.
 			// For the parameter, just put CUSTOM
@@ -799,12 +799,12 @@ namespace OPRPCharBuild
 			// Nest loop this.
 			foreach (ListViewItem Sp_Trait in listView_SpTP.Items) {
 				string name1 = Sp_Trait.SubItems[0].Text;
-				Traits.Trait_Name ID_Sp = Traits.get_TraitID(name1);
+				TraitName ID_Sp = Traits.get_TraitID(name1);
 				int used = 0;
 				foreach (ListViewItem Tech in listView_Techniques.Items) {
 					// Column 4 is Special Trait
 					string tech_trait = Tech.SubItems[4].Text;
-					Traits.Trait_Name ID_Tech = Traits.get_TraitID(tech_trait);
+					TraitName ID_Tech = Traits.get_TraitID(tech_trait);
 					if (ID_Sp == ID_Tech) {
 						used += int.Parse(Tech.SubItems[3].Text); // Column 3 is Sp. TP
 					}
@@ -832,7 +832,7 @@ namespace OPRPCharBuild
 		}
 
 		// Helper function for Update_CritAnatQuick_Msg()
-		private void Print_Applied_Msg(ref string msg, Traits.Trait_Name trait_ID, string trait_Name) {
+		private void Print_Applied_Msg(ref string msg, TraitName trait_ID, string trait_Name) {
 			int points = int.Parse(textBox_RegTPTotal.Text) / 4;
 			int num = 0;
 			msg += trait_Name + ": ";
@@ -855,14 +855,14 @@ namespace OPRPCharBuild
 		private void Update_CritAnatQuick_Msg() {
 			string msg = "";
 			int points = int.Parse(textBox_Fortune.Text) / 4;
-			if (TraitsList.Contains(Traits.Trait_Name.CRIT_HIT)) {
-				Print_Applied_Msg(ref msg, Traits.Trait_Name.CRIT_HIT, "Critical Hit");
+			if (TraitsList.Contains(TraitName.CRIT_HIT)) {
+				Print_Applied_Msg(ref msg, TraitName.CRIT_HIT, "Critical Hit");
 			}
-			if (TraitsList.Contains(Traits.Trait_Name.ANAT_STRIKE)) {
-				Print_Applied_Msg(ref msg, Traits.Trait_Name.ANAT_STRIKE, "Anatomical Strike");
+			if (TraitsList.Contains(TraitName.ANAT_STRIKE)) {
+				Print_Applied_Msg(ref msg, TraitName.ANAT_STRIKE, "Anatomical Strike");
 			}
-			if (TraitsList.Contains(Traits.Trait_Name.QUICKSTRIKE)) {
-				Print_Applied_Msg(ref msg, Traits.Trait_Name.QUICKSTRIKE, "Quickstrike");
+			if (TraitsList.Contains(TraitName.QUICKSTRIKE)) {
+				Print_Applied_Msg(ref msg, TraitName.QUICKSTRIKE, "Quickstrike");
 			}
 			// Trim the newline
 			msg = msg.TrimEnd('\n');
@@ -1474,7 +1474,6 @@ namespace OPRPCharBuild
 
 		#endregion
 
-
 		// --------------------------------------------------------------------------------------------
 		// "TRAITS" Tab
 		// --------------------------------------------------------------------------------------------
@@ -1482,7 +1481,7 @@ namespace OPRPCharBuild
 		#region Traits Tab
 
 		// Put ID as Custom if we're deleting
-		private void All_Update_Functions_Traits(Traits.Trait_Name ID) {
+		private void All_Update_Functions_Traits(TraitName ID) {
 			Update_Traits_Count_Label();
 			Update_Fortune();
 			Update_Strength_Final();
@@ -1498,9 +1497,9 @@ namespace OPRPCharBuild
 		private void button11_TraitAdd_Click(object sender, EventArgs e) {
 			// Traits "Add" button from the MainForm
 			Add_Trait TraitWin = new Add_Trait();
-			Traits.Trait_Name ID = TraitWin.NewDialog(ref listView_Traits);
+			TraitName ID = TraitWin.NewDialog(ref listView_Traits);
 			// And lastly all Update functions
-			if (ID != Traits.Trait_Name.CUSTOM) { All_Update_Functions_Traits(ID); }
+			if (ID != TraitName.CUSTOM) { All_Update_Functions_Traits(ID); }
 		}
 
 		private void button_TraitsEdit_Click(object sender, EventArgs e) {
@@ -1508,9 +1507,9 @@ namespace OPRPCharBuild
 			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
 			if (listView_Traits.SelectedItems.Count == 1) {
 				Add_Trait TraitWin = new Add_Trait();
-				Traits.Trait_Name ID = TraitWin.EditDialog(ref listView_Traits);
+				TraitName ID = TraitWin.EditDialog(ref listView_Traits);
 				// All corresponding Update functions (same as Add)
-				if (ID != Traits.Trait_Name.CUSTOM) { All_Update_Functions_Traits(ID); }
+				if (ID != TraitName.CUSTOM) { All_Update_Functions_Traits(ID); }
             }
 		}
 
@@ -1522,7 +1521,7 @@ namespace OPRPCharBuild
 			// Remove trait from TraitList
 			TraitsList.Remove(Traits.get_TraitID(name));
 			// All update Functions
-			All_Update_Functions_Traits(Traits.Trait_Name.CUSTOM);
+			All_Update_Functions_Traits(TraitName.CUSTOM);
 		}
 
 		#endregion
@@ -1566,7 +1565,7 @@ namespace OPRPCharBuild
 			if (!string.IsNullOrWhiteSpace(TechName)) {
 				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
 				TechInfo Selected = TechList[TechName];
-				if (Selected.Roku != Rokushiki.RokuName.NONE && !TraitsList.Contains(Traits.Trait_Name.ROK_MAST)) {
+				if (Selected.Roku != Rokushiki.RokuName.NONE && !TraitsList.Contains(TraitName.ROK_MAST)) {
 					// ^If the Selected Technique is Rokushiki and character does not have Rokushiki Master
 					MessageBox.Show("You can't edit a Rokushiki Technique without the Rokushiki Master Trait!", "Error",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1594,7 +1593,7 @@ namespace OPRPCharBuild
 			if (!string.IsNullOrWhiteSpace(TechName)) {
 				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
 				TechInfo Selected = TechList[TechName];
-				if (Selected.Roku != Rokushiki.RokuName.NONE && !TraitsList.Contains(Traits.Trait_Name.ROK_MAST)) {
+				if (Selected.Roku != Rokushiki.RokuName.NONE && !TraitsList.Contains(TraitName.ROK_MAST)) {
 					// ^If the Selected Technique is Rokushiki and character does not have Rokushiki Master
 					MessageBox.Show("You can't edit a Rokushiki Technique without the Rokushiki Master Trait!", "Error",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1879,7 +1878,7 @@ namespace OPRPCharBuild
 			Update_Traits_Cap();
 			Update_Total_RegTP();
 			Update_Used_RegTP();
-			Update_SpTrait_Table_Traits(Traits.Trait_Name.CUSTOM);
+			Update_SpTrait_Table_Traits(TraitName.CUSTOM);
 
 		}
 
@@ -2018,7 +2017,7 @@ namespace OPRPCharBuild
 			Update_TechNum();
 			foreach (ListViewItem eachitem in listView_Traits.Items) {
 				string name = eachitem.SubItems[0].Text;
-				Traits.Trait_Name ID = Traits.get_TraitID(name);
+				TraitName ID = Traits.get_TraitID(name);
 				Update_SpTrait_Table_Traits(ID);
 			}
 			Update_SpTrait_Table_Values();

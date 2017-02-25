@@ -204,7 +204,7 @@
             "Rokushiki Master",
             "Rokushiki Savant",
             "Siege Warfare",
-            "Signature Technique [SPEC]",
+            "Signature Technique",
             "Skill in Upgrades",
             "Skilled Use of Medicines",
             "Sleight of Hand",
