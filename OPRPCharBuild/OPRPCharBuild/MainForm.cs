@@ -1,12 +1,12 @@
-﻿using System;
+﻿/*
+ This MainForm should only contain Event Handlers
+ Everything else should be in its own file or class
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Collections;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -24,7 +24,7 @@ namespace OPRPCharBuild
 		}
 
 		// --------------------------------------------------------------------------------------------
-		// PUBLIC / PRIVATE MEMBER STRUCTS, FUNCTIONS, AND VARIABLES
+		// CONST MEMBER VARIABLES
 		// --------------------------------------------------------------------------------------------
 
 		#region Member Variables and Structs
@@ -35,19 +35,7 @@ namespace OPRPCharBuild
 		public const string std_template_msg = "Standard Template";
 		public static bool template_imported = false;
         private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
-		private Traits Traits = new Traits();           // For enumerations of Traits
-		private Project2 project = new Project2();      // State of save file
-		private Project project1 = new Project();   // Used to import an old file and transfer to newest project
 		private bool upgrading = false;				// Used when upgrading
-		private int gen_cap = 0;					// To carry across Trait functions
-		private int prof_cap = 0;
-		private int gen_curr = 0;					// May need this eventually for "algorithmic" upgrade, but who cares
-		private int prof_curr = 0;
-		// Hold a list of Professions that is "bound" to the ListView. String is the name, and bool is if it's primary or not.
-		// Dictionary is fine because string values SHOULD be unique
-		public static Dictionary<string, bool> ProfList = new Dictionary<string, bool>();
-		// Just a List of Trait_ID will suffice to bind to its ListView
-		public static List<TraitName> TraitsList = new List<TraitName>();
 		// Techniques. My favorite. The struct TechInfo is designed to load all the information to Add_Technique form
 		public static Dictionary<string, TechInfo> TechList = new Dictionary<string, TechInfo>();
 		public struct TechInfo

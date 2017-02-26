@@ -101,7 +101,9 @@
     <Compile Include="Add_Trait.Designer.cs">
       <DependentUpon>Add_Trait.cs</DependentUpon>
     </Compile>
-    <Compile Include="Effects.cs" />
+    <Compile Include="Character.cs" />
+    <Compile Include="Database.cs" />
+    <Compile Include="Effect.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,8 +131,8 @@
     <Compile Include="Sheet.Designer.cs">
       <DependentUpon>Sheet.cs</DependentUpon>
     </Compile>
-    <Compile Include="TraitName.cs" />
-    <Compile Include="TraitClass.cs" />
+    <Compile Include="Technique.cs" />
+    <Compile Include="Trait.cs" />
     <EmbeddedResource Include="Add_Achievement.resx">
       <DependentUpon>Add_Achievement.cs</DependentUpon>
     </EmbeddedResource>
