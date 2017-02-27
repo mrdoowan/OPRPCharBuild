@@ -15,7 +15,6 @@ namespace OPRPCharBuild
         // -------------------------------------------------------------------
         // MEMBER VARIABLES
         // -------------------------------------------------------------------
-
         private string name;
         private int genNum;
         private int profNum;

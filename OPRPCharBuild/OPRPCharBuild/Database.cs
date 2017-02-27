@@ -14,6 +14,89 @@ namespace OPRPCharBuild
     public static class Database
     {
         // -------------------------------------------------------------------
+        // PROFESSION
+        // -------------------------------------------------------------------
+
+        static private Dictionary<string, Profession> profDict = new Dictionary<string, Profession>() {
+			#region Profession Database
+			{"Weapon Specialist", new Profession("Weapon Specialist",
+                "A much more general fighter-type profession, a Weapon Specialist" +
+                " is someone who has to a large or small degree devoted his/her life to the mastery of a single weapon " +
+                "or weapon type, such as Swords, Axes or Whips. This profession applies generally to melee weapons.",
+                "Characters with this profession have access to certain additional traits" +
+                " and may create \"Stance\" techniques.")},
+            {"Martial Artist", new Profession("Martial Artist",
+                "A Martial Artist is someone who specializes in hand-to-hand combat, completely " +
+                "or very close to unarmed. They usually have good insight in the aspects of weight, balance and movement of the body.",
+                "Characters with this profession have access to certain additional traits" +
+                " and may create \"Stance\" techniques.")},
+            {"Marksman", new Profession("Marksman",
+                "The profession of Marksman provides sound experience and insight in calculating range," +
+                " distance and wind elements and their impact on the path of a projectile. It is a general trait that applies to guns, " +
+                "slingshots, cannons, rifles and the like. People without this profession will have little to no luck in firing cannonballs " +
+                "where they are supposed to go under normal battle conditions.",
+                "Characters with this profession have access to certain additional traits and their range " +
+                "techniques will have the effect costs of the tier below with short range being free.")},
+            {"Smith", new Profession("Smith",
+                "A Smith is a man or woman who makes weapons and tools out of metal. Generally swords, since they " +
+                "fetch the best price, but it is in no way limited to this. Making cannons and parts for inventors is also part of their business, " +
+                "and they also get good knowledge within metallurgy which allows them to make custom materials or mix new ones together.",
+                "A smith is proficient in any melee weapon they make, and have no maximum rank limit for martial " +
+                "techniques involving these weapons. They have access to certain additional traits as well.")},
+            {"Carpenter", new Profession("Carpenter",
+                "A Carpenter is someone who makes a living crafting things such as ships, submarines, buildings and other " +
+                "physical structures with expertise and materials not privy to non-carpenters. Carpenters are the only ones capable of creating ships with techniques.",
+                "A carpenter is proficient in the use of the tools of their trade as weapons, and have no maximum rank " +
+                "limit for martial techniques involving these tools. Furthermore, carpenters are able to use techniques that enable the rapid construction " +
+                "of basic, temporary structures such as walls, bridges and ladders. Carpenters have access to certain additional traits.")},
+            {"Inventor", new Profession("Inventor",
+                "An Inventor is a man or woman with knowledge in how various mechanical devices work. They have good " +
+                "insight in how blueprints work, and can upgrade weapons, build gadgets and battle engines if they have enough materials.",
+                "Inventors gain the ability to create explosives that they may use in battle and the AoE of their " +
+                "explosive techniques will have the effect costs of the tier below with short AoE being free. Inventors have access to certain additional traits.")},
+            {"Chef", new Profession("Chef",
+                "A Chef, Cook, Bartender or any other distinct related profession gives kitchen skills and knowledge about " +
+                "food, flavoring, ingredients, drink, and nutrients. They are masters at making the most out of whatever ingredients are available, and " +
+                "know how to create a balanced diet for the crew that will keep everyone in fighting trim.",
+                "Chefs can also create foods which strengthen those who eat it, granting buffs to their allies.")},
+            {"Entertainer", new Profession("Entertainer",
+                "An Entertainer makes his/her living through putting on shows. This profession is always specialized " +
+                "towards a specific type, and includes Dancer, Musician, Juggler and many more. Knowledge granted is job-specific.",
+                "Entertainers can use their performance skills, be they song, dance or anything else, to influence " +
+                "others and use them as various buffs.")},
+            {"Doctor", new Profession("Doctor",
+                "A Doctor, on a ship or otherwise, gains large medical knowledge. Suturing and cleaning wounds, " +
+                "making bandages out of various materials and preparing drugs, is all part of a Doctor's job. Doctors are the only ones capable " +
+                "of healing serious injuries on the crew.",
+                "Doctors have the ability to create drugs and toxins that can buff allies or debuff enemies.")},
+            {"Assassin", new Profession("Assassin",
+                "The Assassin profession gives stealth skills, the ability to move silently through areas without " +
+                "being detected. It also gives general poison knowledge. An Assassin generally has little actual combat experience, since their " +
+                "victims don't fight back, and as such don't fare that well in a true fight.",
+                "Assassins are able to create poisons that debuff, and have access to stealth techniques. Additionally " +
+                "they will be proficient in small weapons such as daggers or blow darts.")},
+            {"Thief", new Profession("Thief",
+                "The Thief is a job closely related to the assassin. They both provide stealth capabilities, though a " +
+                "Thief gains lockpicking skills instead of poison knowledge, can generally know their way around the ways of barter and trade, and " +
+                "pickpocketing. Thieves don't have it hard to find 'underground info' in most cities, either.",
+                "Thieves will gain an extra 10% in Beli rewards in all Storylines they complete (for themselves). They " +
+                "also have access to stealth techniques.")},
+            {"Merchant", new Profession("Merchant",
+                "Merchants are fairly charismatic people who are skilled in both bargaining and selling things to others. " +
+                "Their expertise means that they are very knowledgeable of the economy, and deal with all manner of merchandise. Additionally, " +
+                "they they tend to be well-connected in trading circles.",
+                "Merchants can get a 15% discount on any purchases they make, no matter what the item, for themselves. " +
+                "Additionally, a merchant may purchase any item that is available to be purchased, regardless of the normal requirements.")},
+            {"Error", new Profession("Error", "Error", "Error")}
+			#endregion
+		};
+
+        static public Profession getProfession(string name) {
+            try { return profDict[name]; }
+            catch { return profDict["Error"]; }
+        }
+
+        // -------------------------------------------------------------------
         // TRAITS
         // -------------------------------------------------------------------
         static private Dictionary<string, Trait> traitDict = new Dictionary<string, Trait>() {
@@ -139,7 +222,7 @@ namespace OPRPCharBuild
             {"Uncivil Engineering", new Trait("Treasure Hunter", 0, 1, "With their knack for discovering hidden items that don’t necessarily belong to them, these thieves are very skilled in looking for treasures. Thus, in their SLs, they will always get an extra little item. It could be something quirky, or it could be something rare.")},
             {"Weak Point Sighted", new Trait("Weak Point Sighted", 0, 1, "With all their experience in building things and taking them apart, these characters are able to pinpoint the weaknesses in architecture and can easily figure out how to do the most damage to weapons, ships, buildings and other large constructions.")},
             {"Weathermancy", new Trait("Weathermancy", 3, 0, "After the learning of skills of weather manipulation and creation, the character may - through the use of tools and gadgets - actively perform feats such as summoning lightning bolts, hail, rain, etc. They require an weapon/item to serve as a conduit for such techniques.")},
-            {"NONE", new Trait("NONE", 0, 0, "BLANK")} // Default Blank
+            {"Error", new Trait("Error", 0, 0, "Error")} // Default Blank
             #endregion
         };
 
@@ -147,7 +230,7 @@ namespace OPRPCharBuild
         // Assume good input
         static public Trait getTrait(string name) {
             try { return traitDict[name]; }
-            catch { return traitDict["NONE"]; }
+            catch { return traitDict["Error"]; }
         }
 
         // -------------------------------------------------------------------
@@ -169,14 +252,14 @@ namespace OPRPCharBuild
                 "By kicking off of the air itself, the user of this technique can seemingly fly or \"Air Walk.\" The user of this technique may remain airborn indefinitely, but must land in the following post if they attack or are attacked (if there is no land within range, they spend the next post falling until they can resume use of Geppo). If the technique's user is significantly encumbered, or if they lack use of one of their legs, they must land periodically, being able to sustain flight with this technique for no more than three consecutive rounds. (Personal 'Flight')") },
             { "Rokuogan", new Rokushiki("Rokuogan", 44, "Offensive", "Melee", 20, 0, 0, -22, -22,
                 "Using principles of all six Rokushiki techniques, this technique executes a devastating close-range attack. Though it must be used on a target no more than a yard from the user, this technique creates a shockwave that bypasses almost any and all forms of physical defense, doing internal damage to it's victim as if they were unarmoured and made of ordinary flesh and blood (though it does not bypass some devil fruit abilities on it's own). Additionally, the shock of this attack is particularly incapacitating, weakening the target's constitution significantly. (Inbuilt Critical Hit, Defense Bypassing)") },
-            { "None", new Rokushiki("None", 0, "None", "None", 0, 0, 0, 0, 0, "None") }
+            { "Error", new Rokushiki("Error", 0, "Error", "Error", 0, 0, 0, 0, 0, "Error") }
             #endregion
         };
 
         // Getter function of Rokushiki dictionary
         static public Rokushiki getRoku(string name) {
             try { return rokuDict[name]; }
-            catch { return rokuDict["None"]; }
+            catch { return rokuDict["Error"]; }
         }
 
         // -------------------------------------------------------------------

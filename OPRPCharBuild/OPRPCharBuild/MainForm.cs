@@ -35,76 +35,11 @@ namespace OPRPCharBuild
 		public const string std_template_msg = "Standard Template";
 		public static bool template_imported = false;
         private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
-		private bool upgrading = false;				// Used when upgrading
-		// Techniques. My favorite. The struct TechInfo is designed to load all the information to Add_Technique form
-		public static Dictionary<string, TechInfo> TechList = new Dictionary<string, TechInfo>();
-		public struct TechInfo
-		{
-			public Rokushiki.RokuName Roku;
-			public int rank;
-			public int regTP;
-			public int spTP;
-			public string rank_Trait;
-			public string sp_Trait;
-			public string app_Traits;
-			public string tech_Branch;
-			public int rank_Branch;
-			public string type;
-			public string range;
-			public TechStats stats;
-			public bool NA_power;
-			public Dictionary<string, Add_Technique.EffectItem> effectList;
-			public string power;
-			public List<bool> DF_checkBox;
-			public List<bool> Cyborg_Boosts;
-			public string note;
-			public string desc;
-
-			// Constructor
-			public TechInfo(Rokushiki.RokuName Roku_, int rank_, int regTP_, int spTP_, string rankTrait_, string spTrait_, string appTraits_,
-				string techBranch_, int rankBranch_, string type_, string range_, TechStats stats_, bool NA_,
-				Dictionary<string, Add_Technique.EffectItem> effectList_, string power_, List<bool> DF_, List<bool> Cyborg_,
-				string note_, string desc_) {
-				Roku = Roku_;
-				rank = rank_;
-				regTP = regTP_;
-				spTP = spTP_;
-				rank_Trait = rankTrait_;
-				app_Traits = appTraits_;
-				sp_Trait = spTrait_;
-				tech_Branch = techBranch_;
-				rank_Branch = rankBranch_;
-				type = type_;
-				range = range_;
-				stats = stats_;
-				NA_power = NA_;
-				effectList = effectList_;
-				power = power_;
-				DF_checkBox = DF_;
-				Cyborg_Boosts = Cyborg_;
-				note = note_;
-				desc = desc_;
-			}
-		}
-
-		public struct TechStats
-		{
-			public int str;
-			public int spe;
-			public int sta;
-			public int acc;
-
-			// Constructor
-			public TechStats(int str_, int spe_, int sta_, int acc_) {
-				str = str_;
-				spe = spe_;
-				sta = sta_;
-				acc = acc_;
-			}
-		}
-
-		// Variables for Templates
-		public static Dictionary<int, string> CustomTags = new Dictionary<int, string>();	// This will only be updated when Template is being generated
+		private bool upgrading = false;             // Used when upgrading
+        // #TODO: Character template here
+        Character character = new Character();
+        // Variables for Templates (Do I need to store in Database?)
+        public static Dictionary<int, string> CustomTags = new Dictionary<int, string>();	// This will only be updated when Template is being generated
 
 		// Class to sort ListView by number
 		public class ListViewItemNumberSort : IComparer

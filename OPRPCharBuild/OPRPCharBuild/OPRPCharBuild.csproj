@@ -101,17 +101,21 @@
     <Compile Include="Add_Trait.Designer.cs">
       <DependentUpon>Add_Trait.cs</DependentUpon>
     </Compile>
+    <Compile Include="Category.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="DevilFruit.cs" />
     <Compile Include="Effect.cs" />
+    <Compile Include="Equipment.cs" />
+    <Compile Include="Image.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Profession.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -132,6 +136,7 @@
       <DependentUpon>Sheet.cs</DependentUpon>
     </Compile>
     <Compile Include="Technique.cs" />
+    <Compile Include="Stats.cs" />
     <Compile Include="Trait.cs" />
     <EmbeddedResource Include="Add_Achievement.resx">
       <DependentUpon>Add_Achievement.cs</DependentUpon>
