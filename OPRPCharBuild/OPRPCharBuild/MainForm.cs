@@ -1,6 +1,7 @@
 ﻿/*
- This MainForm should only contain Event Handlers
- Everything else should be in its own file or class
+ * This MainForm should only contain Event Handlers
+ * Everything else should be in its own file or class
+ * Have a function that stores all Textbox into the Character class
  */
 
 using System;
@@ -27,7 +28,7 @@ namespace OPRPCharBuild
 		// CONST MEMBER VARIABLES
 		// --------------------------------------------------------------------------------------------
 
-		#region Member Variables and Structs
+		#region Member Variables
 
 		public const string version = "1.3.0";
 		public const string vers_type = "";
@@ -36,10 +37,11 @@ namespace OPRPCharBuild
 		public static bool template_imported = false;
         private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
 		private bool upgrading = false;             // Used when upgrading
-        // #TODO: Character template here
-        Character character = new Character();
-        // Variables for Templates (Do I need to store in Database?)
-        public static Dictionary<int, string> CustomTags = new Dictionary<int, string>();	// This will only be updated when Template is being generated
+        // Character Class
+        Character profile = new Character();
+        // Variables for Templates (Do I need to store this in Database.cs?)
+        public static Dictionary<int, string> CustomTags = new Dictionary<int, string>();	
+        // This will only be updated when Template is being generated
 
 		// Class to sort ListView by number
 		public class ListViewItemNumberSort : IComparer
@@ -869,10 +871,6 @@ namespace OPRPCharBuild
 
 		#endregion
 
-		// --------------------------------------------------------------------------------------------
-		// EVENT HANDLERS
-		// --------------------------------------------------------------------------------------------
-
 		// This only occurs once before the form is displayed for the first time.
 		private void MainForm_Load(object sender, EventArgs e) {
 			this.Text = "OPRP Character Builder";
@@ -976,8 +974,8 @@ namespace OPRPCharBuild
 			string affiliation = comboBox_Affiliation.Text;
 			if (affiliation == "Pirate") {
 				textBox_Bounty.Enabled = true;
-				textBox_Comm.Enabled = false;
-				textBox_Comm.Clear();
+				numericUpDown_Comm.Enabled = false;
+                numericUpDown_Comm.Value = 0;
 				comboBox_MarineRank.Enabled = false;
 				comboBox_MarineRank.SelectedIndex = -1;
 				textBox_Threat.Enabled = false;
@@ -986,7 +984,7 @@ namespace OPRPCharBuild
 			else if (affiliation == "Marine") {
 				textBox_Bounty.Enabled = false;
 				textBox_Bounty.Clear();
-				textBox_Comm.Enabled = true;
+				numericUpDown_Comm.Enabled = true;
 				comboBox_MarineRank.Enabled = true;
 				textBox_Threat.Enabled = false;
 				textBox_Threat.Clear();
@@ -994,8 +992,8 @@ namespace OPRPCharBuild
 			else if (affiliation == "Bounty Hunter" || affiliation == "Other") {
 				textBox_Bounty.Enabled = false;
 				textBox_Bounty.Clear();
-				textBox_Comm.Enabled = false;
-				textBox_Comm.Clear();
+				numericUpDown_Comm.Enabled = false;
+                numericUpDown_Comm.Value = 0;
 				comboBox_MarineRank.Enabled = false;
 				comboBox_MarineRank.SelectedIndex = -1;
 				textBox_Threat.Enabled = true;
@@ -1003,8 +1001,8 @@ namespace OPRPCharBuild
 			else {
 				textBox_Bounty.Enabled = false;
 				textBox_Bounty.Clear();
-				textBox_Comm.Enabled = false;
-				textBox_Comm.Clear();
+				numericUpDown_Comm.Enabled = false;
+                numericUpDown_Comm.Value = 0;
 				comboBox_MarineRank.Enabled = false;
 				comboBox_MarineRank.SelectedIndex = -1;
 				textBox_Threat.Enabled = false;
@@ -1012,7 +1010,48 @@ namespace OPRPCharBuild
 			}
 		}
 
-		private void button3_AchieveAdd_Click(object sender, EventArgs e) {
+        private void numericUpDown_Comm_ValueChanged(object sender, EventArgs e) {
+            comboBox_MarineRank.Items.Clear();
+            if (numericUpDown_Comm.Value >= 300) {
+                string[] admiral = { "Fleet Admiral", "Admiral", "Vice Admiral" };
+                comboBox_MarineRank.Items.AddRange(admiral);
+            }
+            else if (numericUpDown_Comm.Value >= 200) {
+                comboBox_MarineRank.Items.Add("Rear Admiral");
+            }
+            else if (numericUpDown_Comm.Value >= 100) {
+                comboBox_MarineRank.Items.Add("Commodore");
+            }
+            else if (numericUpDown_Comm.Value >= 65) {
+                comboBox_MarineRank.Items.Add("Captain");
+            }
+            else if (numericUpDown_Comm.Value >= 35) {
+                comboBox_MarineRank.Items.Add("Commander");
+            }
+            else if (numericUpDown_Comm.Value >= 20) {
+                comboBox_MarineRank.Items.Add("Lieutenant Commander");
+            }
+            else if (numericUpDown_Comm.Value >= 15) {
+                comboBox_MarineRank.Items.Add("Lieutenant");
+            }
+            else if (numericUpDown_Comm.Value >= 10) {
+                comboBox_MarineRank.Items.Add("Junior Lieutenant");
+            }
+            else if (numericUpDown_Comm.Value >= 5) {
+                comboBox_MarineRank.Items.Add("Ensign");
+            }
+            else {
+                string[] begRanks = {"Chief Warrant Officer",
+                    "Master Chief Petty Officer", "Chief Petty Officer",
+                    "Petty Officer", "Seaman", "Seaman Apprentice",
+                    "Seaman Recruit", "Apprentice", "Chore Boy"};
+                comboBox_MarineRank.Items.AddRange(begRanks);
+            }
+            // Set to 0
+            comboBox_MarineRank.SelectedIndex = 0;
+        }
+
+        private void button3_AchieveAdd_Click(object sender, EventArgs e) {
 			// Achievement "Add" button from the MainForm
 			Add_Achievement AchievementWin = new Add_Achievement();
 			AchievementWin.NewDialog(ref listBox_Achieve);
@@ -1694,10 +1733,6 @@ namespace OPRPCharBuild
 
 		#endregion
 
-		// --------------------------------------------------------------------------------------------
-		// "TECHNIQUES" Tab
-		// --------------------------------------------------------------------------------------------
-
 		#region Template Tab
 
 		private void button_ResetTemp_Click(object sender, EventArgs e) {
@@ -1738,7 +1773,7 @@ namespace OPRPCharBuild
 			textBox_Position.Clear();
 			comboBox_Affiliation.SelectedIndex = -1;
 			textBox_Bounty.Clear();
-			textBox_Comm.Clear();
+			numericUpDown_Comm.Clear();
 			comboBox_MarineRank.SelectedIndex = -1;
 			textBox_Threat.Clear();
 			listBox_Achieve.Items.Clear();
@@ -1816,7 +1851,7 @@ namespace OPRPCharBuild
 				textBox_Position.Text,
 				comboBox_Affiliation.Text,
 				textBox_Bounty.Text,
-				textBox_Comm.Text,
+				numericUpDown_Comm.Text,
 				comboBox_MarineRank.Text,
 				textBox_Threat.Text,
 				listBox_Achieve,
@@ -1873,7 +1908,7 @@ namespace OPRPCharBuild
 			  ref textBox_Position,
 			  ref comboBox_Affiliation,
 			  ref textBox_Bounty,
-			  ref textBox_Comm,
+			  ref numericUpDown_Comm,
 			  ref comboBox_MarineRank,
 			  ref textBox_Threat,
 			  ref listBox_Achieve,
@@ -2049,7 +2084,7 @@ namespace OPRPCharBuild
 			CustomTags.Add(6, comboBox_Affiliation.Text);
 			CustomTags.Add(7, textBox_Bounty.Text);
 			CustomTags.Add(8, comboBox_MarineRank.Text);
-			CustomTags.Add(9, textBox_Comm.Text);
+			CustomTags.Add(9, numericUpDown_Comm.Text);
 			CustomTags.Add(10, textBox_Threat.Text);
 			CustomTags.Add(11, textBox_Position.Text);
 			// 12 is Achievements
@@ -2281,6 +2316,6 @@ namespace OPRPCharBuild
 			}
 		}
 
-		#endregion
-	}
+        #endregion
+    }
 }

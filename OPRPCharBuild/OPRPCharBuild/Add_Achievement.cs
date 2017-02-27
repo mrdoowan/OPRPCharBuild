@@ -27,7 +27,7 @@ namespace OPRPCharBuild
 				// Prompt the user to make fill in something first.
 				this.richTextBox1.BackColor = Color.FromArgb(255, 128, 128);
 				red_text = true;
-				MessageBox.Show("Please do not enter in a blank Achievement.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Please fill out an Achievement.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else {
 				this.Close();
@@ -35,9 +35,10 @@ namespace OPRPCharBuild
 			}
 		}
 
-		public void NewDialog(ref ListBox Main_Form) {
+		public void NewDialog(ref ListBox Main_Form, ref Character profile) {
 			this.ShowDialog();
 			if (button_clicked) {
+                profile.achievements.Add(richTextBox1.Text);
 				Main_Form.Items.Add(richTextBox1.Text);
 			}
 		}

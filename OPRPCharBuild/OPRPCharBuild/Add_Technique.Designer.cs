@@ -78,6 +78,8 @@
             this.checkBox_NA = new System.Windows.Forms.CheckBox();
             this.listView_Effects = new System.Windows.Forms.ListView();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.richTextBox_CustNotes = new System.Windows.Forms.RichTextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.richTextBox_Note = new System.Windows.Forms.RichTextBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.richTextBox_DF = new System.Windows.Forms.RichTextBox();
@@ -100,9 +102,10 @@
             this.checkBox_QuickStrike = new System.Windows.Forms.CheckBox();
             this.checkBox_Fuel1 = new System.Windows.Forms.CheckBox();
             this.toolTip_Roku = new System.Windows.Forms.ToolTip(this.components);
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.comboBox_StatOpt = new System.Windows.Forms.ComboBox();
+            this.button_LoadStats = new System.Windows.Forms.Button();
+            this.textBox_Stats = new System.Windows.Forms.TextBox();
+            this.button_ResetStats = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
@@ -383,13 +386,13 @@
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label12.Location = new System.Drawing.Point(9, 79);
+            this.label12.Location = new System.Drawing.Point(3, 79);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(34, 13);
+            this.label12.Size = new System.Drawing.Size(43, 21);
             this.label12.TabIndex = 51;
             this.label12.Text = "Stats:";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label15
             // 
@@ -519,7 +522,10 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.button_ResetStats);
+            this.groupBox3.Controls.Add(this.textBox_Stats);
+            this.groupBox3.Controls.Add(this.button_LoadStats);
+            this.groupBox3.Controls.Add(this.comboBox_StatOpt);
             this.groupBox3.Controls.Add(this.checkBox_Inventor);
             this.groupBox3.Controls.Add(this.checkBox_Marksman);
             this.groupBox3.Controls.Add(this.label9);
@@ -723,7 +729,7 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.richTextBox1);
+            this.groupBox5.Controls.Add(this.richTextBox_CustNotes);
             this.groupBox5.Controls.Add(this.label20);
             this.groupBox5.Controls.Add(this.richTextBox_Note);
             this.groupBox5.Controls.Add(this.label15);
@@ -735,6 +741,27 @@
             this.groupBox5.TabIndex = 73;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Text";
+            // 
+            // richTextBox_CustNotes
+            // 
+            this.richTextBox_CustNotes.BackColor = System.Drawing.SystemColors.Window;
+            this.richTextBox_CustNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.richTextBox_CustNotes.Location = new System.Drawing.Point(72, 67);
+            this.richTextBox_CustNotes.Name = "richTextBox_CustNotes";
+            this.richTextBox_CustNotes.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richTextBox_CustNotes.Size = new System.Drawing.Size(357, 50);
+            this.richTextBox_CustNotes.TabIndex = 63;
+            this.richTextBox_CustNotes.Text = "";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label20.Location = new System.Drawing.Point(8, 67);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(63, 13);
+            this.label20.TabIndex = 62;
+            this.label20.Text = "Your Notes:";
             // 
             // richTextBox_Note
             // 
@@ -997,33 +1024,55 @@
             this.toolTip_Roku.InitialDelay = 50;
             this.toolTip_Roku.ReshowDelay = 100;
             // 
-            // richTextBox1
+            // comboBox_StatOpt
             // 
-            this.richTextBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.richTextBox1.Location = new System.Drawing.Point(72, 67);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox1.Size = new System.Drawing.Size(357, 50);
-            this.richTextBox1.TabIndex = 63;
-            this.richTextBox1.Text = "";
+            this.comboBox_StatOpt.FormattingEnabled = true;
+            this.comboBox_StatOpt.Items.AddRange(new object[] {
+            "Self",
+            "Melee",
+            "Short",
+            "Medium",
+            "Long",
+            "Very Long",
+            "Short AoE",
+            "Medium AoE",
+            "Long AoE"});
+            this.comboBox_StatOpt.Location = new System.Drawing.Point(52, 80);
+            this.comboBox_StatOpt.Name = "comboBox_StatOpt";
+            this.comboBox_StatOpt.Size = new System.Drawing.Size(153, 21);
+            this.comboBox_StatOpt.TabIndex = 116;
+            this.toolTips.SetToolTip(this.comboBox_StatOpt, "Selecting a Range will load its Effects. Press \"Add\" after selecting.");
             // 
-            // label20
+            // button_LoadStats
             // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label20.Location = new System.Drawing.Point(8, 67);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(63, 13);
-            this.label20.TabIndex = 62;
-            this.label20.Text = "Your Notes:";
+            this.button_LoadStats.Location = new System.Drawing.Point(52, 107);
+            this.button_LoadStats.Name = "button_LoadStats";
+            this.button_LoadStats.Size = new System.Drawing.Size(72, 21);
+            this.button_LoadStats.TabIndex = 117;
+            this.button_LoadStats.Text = "Load Stats";
+            this.button_LoadStats.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // textBox_Stats
             // 
-            this.textBox1.Location = new System.Drawing.Point(49, 82);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(325, 20);
-            this.textBox1.TabIndex = 115;
+            this.textBox_Stats.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_Stats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox_Stats.Location = new System.Drawing.Point(228, 80);
+            this.textBox_Stats.Multiline = true;
+            this.textBox_Stats.Name = "textBox_Stats";
+            this.textBox_Stats.ReadOnly = true;
+            this.textBox_Stats.Size = new System.Drawing.Size(198, 48);
+            this.textBox_Stats.TabIndex = 118;
+            this.textBox_Stats.Text = "N/A";
+            this.textBox_Stats.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // button_ResetStats
+            // 
+            this.button_ResetStats.Location = new System.Drawing.Point(133, 107);
+            this.button_ResetStats.Name = "button_ResetStats";
+            this.button_ResetStats.Size = new System.Drawing.Size(72, 21);
+            this.button_ResetStats.TabIndex = 119;
+            this.button_ResetStats.Text = "Reset Stats";
+            this.button_ResetStats.UseVisualStyleBackColor = true;
             // 
             // Add_Technique
             // 
@@ -1148,8 +1197,11 @@
 		private System.Windows.Forms.CheckBox checkBox_Inventor;
 		private System.Windows.Forms.CheckBox checkBox_Marksman;
 		private System.Windows.Forms.CheckBox checkBox_AutoCalc;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextBox_CustNotes;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button_LoadStats;
+        private System.Windows.Forms.ComboBox comboBox_StatOpt;
+        private System.Windows.Forms.TextBox textBox_Stats;
+        private System.Windows.Forms.Button button_ResetStats;
     }
 }
