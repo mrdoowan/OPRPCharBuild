@@ -24,6 +24,20 @@ namespace OPRPCharBuild
         public string desc;
 
         // Default Constructor
+        public Rokushiki() {
+            name = "";
+            baseRank = 0;
+            type = "";
+            range = "";
+            basePower = 0;
+            str = 0;
+            spe = 0;
+            sta = 0;
+            acc = 0;
+            desc = "";
+        }
+
+        // Initializing Constructor
         public Rokushiki(string name_, int rank_, string type_, string range_, int power_,
                 int str_, int spe_, int sta_, int acc_, string desc_) {
             name = name_;

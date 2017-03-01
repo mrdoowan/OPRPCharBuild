@@ -8,12 +8,15 @@ namespace OPRPCharBuild
 {
     public class Technique
     {
+        public string name;
         public Rokushiki roku;
         public int rank;
         public int regTP;
         public int spTP;
         public string rankTrait;
         public string specialTrait;
+        public string appTrait;     // Crit Hit, Quickstrike, Anat Strike
+        public bool sigTech;
         public string branchTech;
         public int branchRank;
         public string type;
@@ -29,18 +32,40 @@ namespace OPRPCharBuild
         public string customNote;
         public string description;
 
-        // Constructor
-        public Technique(Rokushiki roku_, int rank_, int reg_, int sp_,
-            string rankTr_, string spTr_, string brTech_, int brRank_,
-            string type_, string range_, Stats stats_, bool auto_,
-            bool NApow_, List<Effect> eff_, string pow_, List<bool> DFs_,
-            List<bool> cyborg_, string note_, string custom_, string desc_) {
+        // Initialized Constructor
+        public Technique(string name_, 
+            Rokushiki roku_, 
+            int rank_, 
+            int reg_, 
+            int sp_,
+            string rankTr_, 
+            string spTr_, 
+            string appTr_, 
+            bool sig_, 
+            string brTech_, 
+            int brRank_, 
+            string type_, 
+            string range_, 
+            Stats stats_, 
+            bool auto_,
+            bool NApow_,
+            List<Effect> eff_, 
+            string pow_, 
+            List<bool> DFs_,
+            List<bool> cyborg_, 
+            string note_, 
+            string custom_, 
+            string desc_) {
+            // ---------------
+            name = name_;
             roku = roku_;
             rank = rank_;
             regTP = reg_;
             spTP = sp_;
             rankTrait = rankTr_;
             specialTrait = spTr_;
+            appTrait = appTr_;
+            sigTech = sig_;
             branchTech = brTech_;
             branchRank = brRank_;
             type = type_;

@@ -35,10 +35,9 @@ namespace OPRPCharBuild
 			}
 		}
 
-		public void NewDialog(ref ListBox Main_Form, ref Character profile) {
+		public void NewDialog(ref ListBox Main_Form) {
 			this.ShowDialog();
 			if (button_clicked) {
-                profile.achievements.Add(richTextBox1.Text);
 				Main_Form.Items.Add(richTextBox1.Text);
 			}
 		}
@@ -46,7 +45,8 @@ namespace OPRPCharBuild
 		public void EditDialogue(ref ListBox Main_Form, int index) {
 			this.Text = "Edit Achievement";
 			button1.Text = "Edit";
-			richTextBox1.Text = Main_Form.Items[index].ToString();
+            string oldAch = Main_Form.Items[index].ToString();
+            richTextBox1.Text = oldAch;
 			this.ShowDialog();
 			if (button_clicked) {
 				Main_Form.Items[index] = richTextBox1.Text;

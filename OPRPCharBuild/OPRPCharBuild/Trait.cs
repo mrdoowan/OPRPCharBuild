@@ -12,15 +12,12 @@ namespace OPRPCharBuild
 {
     public class Trait
     {
-        // -------------------------------------------------------------------
-        // MEMBER VARIABLES
-        // -------------------------------------------------------------------
-        private string name;
-        private int genNum;
-        private int profNum;
-        private string desc;
+        public string name;
+        public int genNum;
+        public int profNum;
+        public string desc;
 
-        // Constructor
+        // Full initialized Constructor
         public Trait(string name_, int gen_, int prof_, string desc_) {
             name = name_;
             genNum = gen_;
@@ -28,20 +25,22 @@ namespace OPRPCharBuild
             desc = desc_;
         }
 
-        // -------------------------------------------------------------------
-        // Constructor & Functions
-        // -------------------------------------------------------------------
-
-        public int getGenNum() {
-            return genNum;
-        }
-
-        public int getProfNum() {
-            return profNum;
-        }
-
-        public string getTraitDesc() {
-            return desc;
+        public int getTotalTraits() {
+            return genNum + profNum;
         }
     }
+
+    // To keep track of use of Special Traits
+    public class SpTrait
+    {
+        public string name;
+        public int usedTP;
+        public int totalTP;
+
+        public SpTrait(string name_, int used_, int tot_) {
+            name = name_;
+            usedTP = used_;
+            totalTP = tot_;
+        }
+    };
 }

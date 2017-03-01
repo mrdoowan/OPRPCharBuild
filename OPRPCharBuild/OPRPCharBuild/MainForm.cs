@@ -25,53 +25,38 @@ namespace OPRPCharBuild
 		}
 
 		// --------------------------------------------------------------------------------------------
-		// CONST MEMBER VARIABLES
+		// MEMBER VARIABLES
 		// --------------------------------------------------------------------------------------------
 
 		#region Member Variables
 
-		public const string version = "1.3.0";
-		public const string vers_type = "";
-		public const string curr_proj = "Project2";
-		public const string std_template_msg = "Standard Template";
-		public static bool template_imported = false;
-        private const string website = "https://github.com/mrdoowan/OPRPCharBuild/releases";
-		private bool upgrading = false;             // Used when upgrading
+		public const string VERSION = "1.3.0";
+		public const string VERS_TYPE = "";
+		public const string STD_TEMPLATE_MSG = "Standard Template";
+        private const string WEBSITE = "https://github.com/mrdoowan/OPRPCharBuild/releases";
+        public static bool template_imported = false;
+        private static bool upgrading = false;             // Used when upgrading
         // Character Class
+        // The following will update the Character Class at real-time:
+        // Professions, Traits, and Techniques
         Character profile = new Character();
-        // Variables for Templates (Do I need to store this in Database.cs?)
-        public static Dictionary<int, string> CustomTags = new Dictionary<int, string>();	
-        // This will only be updated when Template is being generated
+        // Variables for Templates
+        public static Dictionary<int, string> CustomTags = new Dictionary<int, string>();
+        // Variables that need their data type here instead of in Character
+        int genCurr, genCap, profCurr, profCap;
+        private Dictionary<string, Profession> profList = new Dictionary<string, Profession>();
+        private Dictionary<string, Trait> traitList = new Dictionary<string, Trait>();
+        private Dictionary<string, Technique> techList = new Dictionary<string, Technique>();
+        // Sp Table dictionary that won't be stored in Character
+        private Dictionary<string, SpTrait> spTraitList = new Dictionary<string, SpTrait>();
 
-		// Class to sort ListView by number
-		public class ListViewItemNumberSort : IComparer
-		{
-			private int col; 
-			public ListViewItemNumberSort(int column) { col = column; }
-			public int Compare(object x, object y) {
-				int nx = int.Parse((x as ListViewItem).SubItems[col].Text);
-				int ny = int.Parse((y as ListViewItem).SubItems[col].Text);
-				return nx.CompareTo(ny);
-			}
-		}
+        #endregion
 
-		// Class to sort ListView by Text based on selected Column
-		public class ListViewItemSorter : IComparer
-		{
-			private int col;
-			public ListViewItemSorter(int column) { col = column; }
-			public int Compare(object x, object y) {
-				return string.Compare(((ListViewItem)x).SubItems[col].Text, ((ListViewItem)y).SubItems[col].Text);
-			}
-		}
+        #region General Functions
 
-		#endregion
-
-		#region General Functions
-
-		// General function for Deleting an Item from ListView
-		// Returns the string Name of the Item, specifically for finding Key values in Dictionary
-		public static string Delete_ListViewItem(ref ListView list) {
+        // General function for Deleting an Item from ListView
+        // Returns the string Name of the Item, specifically for finding Key values in Dictionary
+        public static string Delete_ListViewItem(ref ListView list) {
 			if (list.SelectedItems.Count == 1) {
 				string key = list.SelectedItems[0].SubItems[0].Text;	// Typically the key value is always the name
 				foreach (ListViewItem eachItem in list.SelectedItems) {
@@ -123,7 +108,7 @@ namespace OPRPCharBuild
 			// -------------------------------------
 			WebClient WC = new WebClient();
 			try {
-				string[] current = version.Split('.');
+				string[] current = VERSION.Split('.');
 				// Get latest version from site
 				string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " UpdateCheck " + Environment.OSVersion;
 				WC.Headers.Add("Content-Type", header_msg);
@@ -146,7 +131,7 @@ namespace OPRPCharBuild
 				// If we've arrived at this point, that means it needs updating.
 				if (MessageBox.Show("An update to v" + version_page + " is available. Would you like to close this application and download the newest version?", "New Version",
 					MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
-					Process.Start(website);
+					Process.Start(WEBSITE);
 					Process.Start("http://s1.zetaboards.com/One_Piece_RP/topic/6060583/1/");
 					upgrading = true;
 					Application.Exit();
@@ -174,42 +159,43 @@ namespace OPRPCharBuild
 
 		// Returns true if Prof is in the List and it's Primary
 		// Returns false otherwise
-		public static bool Is_Prof_Primary(string name) {
-			if (ProfList.ContainsKey(name)) {
-				if (ProfList[name]) {
+		private bool Is_Prof_Primary(string name) {
+			if (profList.ContainsKey(name)) {
+				if (profList[name].primary) {
 					return true;
 				}
 			}
 			return false;
 		}
 
-		// Sets Primary bool variables for certain situations
-		public static bool Is_Primary_Bool(string prof) {
-			if (Is_Prof_Primary(prof)) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
+        // Makes the Devil Fruit class based on what's initialized
+        private DevilFruit makeDFClass() {
+            return new DevilFruit(textBox_DFName.Text,
+                comboBox_DFType.Text,
+                int.Parse(comboBox_DFTier.Text),
+                richTextBox_DFDesc.Text,
+                textBox_DFEffect.Text);
+        }
 
-		#endregion
+        #endregion
 
-		#region Update Functions
+        #region Update Functions
 
-		// Whenever a trait is added or deleted, we update the displayed number of Traits
-		private void Update_Traits_Count_Label() {
+        #region Update Trait Functions
+
+        // Whenever a trait is added or deleted, we update the displayed number of Traits
+        private void Update_Traits_Count_Label() {
 			int gen = 0;    // 2nd Column
 			int prof = 0;   // 3rd Column
-			foreach (ListViewItem eachItem in listView_Traits.Items) {
-				gen += int.Parse(eachItem.SubItems[2].Text);
-				prof += int.Parse(eachItem.SubItems[3].Text);
-			}
-			gen_curr = gen;
-			prof_curr = prof;
+            foreach (Trait trait in traitList.Values) {
+                gen += trait.genNum;
+                prof += trait.profNum;
+            }
+			genCurr = gen;
+			profCurr = prof;
 			label58_TraitsCurrent.Text = "You currently have " + gen + " General Trait(s) and " +
 				prof + " Professional Trait(s)";
-			if (gen_curr == gen_cap && prof_curr == prof_cap) {
+			if (genCurr == genCap && profCurr == profCap) {
 				label58_TraitsCurrent.ForeColor = Color.Green;
 			}
 			else {
@@ -266,15 +252,15 @@ namespace OPRPCharBuild
 				gen++;
 			}
 			// Update label and global variable.
-			gen_cap = gen;
-			prof_cap = prof;
+			genCap = gen;
+			profCap = prof;
 			// Update Focus
 			int focus = 1 + gen / 2;
 			textBox_Focus.Text = focus.ToString();
 			// Update Traits Message
 			label59_TraitsCalc.Text = "Your current cap is " + gen +
 				" General Trait(s) and " + prof + " Professional Trait(s)";
-			if (gen_curr == gen_cap && prof_curr == prof_cap) {
+			if (genCurr == genCap && profCurr == profCap) {
 				label58_TraitsCurrent.ForeColor = Color.Green;
 			}
 			else {
@@ -282,11 +268,16 @@ namespace OPRPCharBuild
 			}
 		}
 
-		private void Update_AP_Count() {
+        #endregion
+
+        #region Update Stats Functions
+
+        private void Update_AP_Count() {
 			int AP_num = checkedListBox1_AP.CheckedItems.Count;
-			if (checkedListBox1_AP.CheckedIndices.Contains(1)) {
-				AP_num++;
-				// This is 2 AP
+			if (checkedListBox1_AP.CheckedIndices.Contains(1) || 
+                checkedListBox1_AP.CheckedIndices.Contains(5)) {
+                // These are 2 AP
+                AP_num++;
 			}
 			textBox_AP.Text = AP_num.ToString();
 			int SD = AP_num * 50;
@@ -328,7 +319,7 @@ namespace OPRPCharBuild
 			}
 			calc += ']';
 			textBox_StatPoints.Text = SP.ToString();
-			label_SDtoSPCalculations.Text = calc;
+			textBox_SDtoSPCalc.Text = calc;
 			// Used when SD into Stats is changed
 		}
 
@@ -364,11 +355,10 @@ namespace OPRPCharBuild
 				calc += " + (" + numericUpDown_UsedForFort.Value + " / 5 * 3)";
 			}
 			// Then Fortune from Fate of Emperor
-			int index = Traits.Contains_Trait_AtIndex(TraitName.FATE_EMP, listView_Traits);
-			if (index != -1) {
-				// # Gen Traits is Column 2
-				int traits = int.Parse(listView_Traits.Items[index].SubItems[2].Text);
-				fortune += traits;
+			if (traitList.ContainsKey(Database.TR_FATEEM)) {
+                // # Gen Traits is Column 2
+                int traits = traitList[Database.TR_FATEEM].genNum;
+                fortune += traits;
 				calc += " + " + traits;
 			}
 			calc += ']';
@@ -411,7 +401,7 @@ namespace OPRPCharBuild
 			}
 			else {
 				// Maxes out at base stat 75
-				// And for some reason I can't do arithmetic operations with two doubles or
+				// I can't do arithmetic operations with two doubles or
 				// it screws up by like 9 decimal places >_>
 				if (multiplier == 1.2) {
 					multiplier = 0.2;
@@ -431,11 +421,10 @@ namespace OPRPCharBuild
 			}
 		}
 
-		// This is only for stats though.
-		private void Add_Fated_Stats(ref int stat, ref string calc, TraitName fated) {
-			int index = Traits.Contains_Trait_AtIndex(fated, listView_Traits);
-			if (index != -1) {
-				int Traits = int.Parse(listView_Traits.Items[index].SubItems[2].Text);
+		// This is only for changing stats by Fated
+		private void Add_Fated_Stats(ref int stat, ref string calc, string fated) {
+			if (traitList.ContainsKey(fated)) {
+                int Traits = traitList[fated].genNum;
 				stat += 3 * Traits;
 				calc += " + (3 * " + Traits + ")";
 			}
@@ -447,20 +436,20 @@ namespace OPRPCharBuild
 			int final = base_stat;
 			string calc = "[" + base_stat;
 			// Do the base stats first.
-			if (Traits.Contains_Trait_AtIndex(TraitName.MIGHT_STR, listView_Traits) != -1 ||
-				(Traits.Contains_Trait_AtIndex(TraitName.FISHMAN, listView_Traits) != -1 && Traits.Contains_Trait_AtIndex(TraitName.SUP_STR, listView_Traits) == -1 && Traits.Contains_Trait_AtIndex(TraitName.MON_STR, listView_Traits) == -1) ||
-				(Traits.Contains_Trait_AtIndex(TraitName.DWARF, listView_Traits) != -1) && Traits.Contains_Trait_AtIndex(TraitName.SUP_STR, listView_Traits) == -1 && Traits.Contains_Trait_AtIndex(TraitName.MON_STR, listView_Traits) == -1) {
+            if (traitList.ContainsKey(Database.TR_STR3RD)) {
+                Stat_Multiplier_Trait(ref final, ref calc, 1.6);
+            }
+            else if (traitList.ContainsKey(Database.TR_STR2ND)) {
+                Stat_Multiplier_Trait(ref final, ref calc, 1.4);
+            }
+			else if (traitList.ContainsKey(Database.TR_STR1ST) || 
+                traitList.ContainsKey(Database.TR_FISHMA) ||
+                traitList.ContainsKey(Database.TR_DWARF)) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
 
 			}
-			else if (Traits.Contains_Trait_AtIndex(TraitName.SUP_STR, listView_Traits) != -1) {
-				Stat_Multiplier_Trait(ref final, ref calc, 1.4);
-			}
-			else if (Traits.Contains_Trait_AtIndex(TraitName.MON_STR, listView_Traits) != -1) {
-				Stat_Multiplier_Trait(ref final, ref calc, 1.6);
-			}
 			// And then lastly, the Fated Trait.
-			Add_Fated_Stats(ref final, ref calc, TraitName.FATE_STR);
+			Add_Fated_Stats(ref final, ref calc, Database.TR_FATEST);
 			textBox_StrengthFinal.Text = final.ToString();
 			calc += ']';
 			label_StrengthCalc.Text = calc;
@@ -476,19 +465,19 @@ namespace OPRPCharBuild
 			int final = base_stat;
 			string calc = "[" + base_stat;
 			// Do the base stats first.
-			if (Traits.Contains_Trait_AtIndex(TraitName.GREAT_SPE, listView_Traits) != -1 ||
-				(Traits.Contains_Trait_AtIndex(TraitName.MERFOLK, listView_Traits) != -1 && Traits.Contains_Trait_AtIndex(TraitName.SON_SPE, listView_Traits) == -1 && Traits.Contains_Trait_AtIndex(TraitName.LUD_SPE, listView_Traits) == -1)) {
+            if (traitList.ContainsKey(Database.TR_SPE3RD)) {
+                Stat_Multiplier_Trait(ref final, ref calc, 1.6);
+            }
+            else if (traitList.ContainsKey(Database.TR_SPE2ND)) {
+                Stat_Multiplier_Trait(ref final, ref calc, 1.4);
+            }
+			else if (traitList.ContainsKey(Database.TR_SPE1ST) ||
+				traitList.ContainsKey(Database.TR_MERFOL)) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
 
 			}
-			else if (Traits.Contains_Trait_AtIndex(TraitName.SON_SPE, listView_Traits) != -1) {
-				Stat_Multiplier_Trait(ref final, ref calc, 1.4);
-			}
-			else if (Traits.Contains_Trait_AtIndex(TraitName.LUD_SPE, listView_Traits) != -1) {
-				Stat_Multiplier_Trait(ref final, ref calc, 1.6);
-			}
 			// And then lastly, the Fated Trait.
-			Add_Fated_Stats(ref final, ref calc, TraitName.FATE_SWIFT);
+			Add_Fated_Stats(ref final, ref calc, Database.TR_FATESW);
 			textBox_SpeedFinal.Text = final.ToString();
 			calc += ']';
 			label_SpeedCalc.Text = calc;
@@ -504,17 +493,17 @@ namespace OPRPCharBuild
 			int final = base_stat;
 			string calc = "[" + base_stat;
 			// Do the base stats first.
-			if (Traits.Contains_Trait_AtIndex(TraitName.BEAR_STAM, listView_Traits) != -1) {
+            if (traitList.ContainsKey(Database.TR_STA3RD)) {
+                Stat_Multiplier_Trait(ref final, ref calc, 1.6);
+            }
+			else if (traitList.ContainsKey(Database.TR_STA2ND)) {
+                Stat_Multiplier_Trait(ref final, ref calc, 1.4);
+			}
+			else if (traitList.ContainsKey(Database.TR_STA1ST)) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
 			}
-			else if (Traits.Contains_Trait_AtIndex(TraitName.MAM_STAM, listView_Traits) != -1) {
-				Stat_Multiplier_Trait(ref final, ref calc, 1.4);
-			}
-			else if (Traits.Contains_Trait_AtIndex(TraitName.GIANT_STAM, listView_Traits) != -1) {
-				Stat_Multiplier_Trait(ref final, ref calc, 1.6);
-			}
 			// And then lastly, the Fated Trait.
-			Add_Fated_Stats(ref final, ref calc, TraitName.FATE_MIGHT);
+			Add_Fated_Stats(ref final, ref calc, Database.TR_FATEMI);
 			textBox_StaminaFinal.Text = final.ToString();
 			calc += ']';
 			label_StaminaCalc.Text = calc;
@@ -530,18 +519,18 @@ namespace OPRPCharBuild
 			int final = base_stat;
 			string calc = "[" + base_stat;
 			// Do the base stats first.
-			if (Traits.Contains_Trait_AtIndex(TraitName.KEEN_ACC, listView_Traits) != -1) {
+            if (traitList.ContainsKey(Database.TR_ACC3RD)) {
+                Stat_Multiplier_Trait(ref final, ref calc, 1.6);
+            }
+            else if (traitList.ContainsKey(Database.TR_ACC2ND)) {
+                Stat_Multiplier_Trait(ref final, ref calc, 1.4);
+            }
+			else if (traitList.ContainsKey(Database.TR_ACC1ST)) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
 
 			}
-			else if (Traits.Contains_Trait_AtIndex(TraitName.SUP_ACC, listView_Traits) != -1) {
-				Stat_Multiplier_Trait(ref final, ref calc, 1.4);
-			}
-			else if (Traits.Contains_Trait_AtIndex(TraitName.FLAW_ACC, listView_Traits) != -1) {
-				Stat_Multiplier_Trait(ref final, ref calc, 1.6);
-			}
 			// And then lastly, the Fated Trait.
-			Add_Fated_Stats(ref final, ref calc, TraitName.FATE_CUN);
+			Add_Fated_Stats(ref final, ref calc, Database.TR_FATECU);
 			textBox_AccuracyFinal.Text = final.ToString();
 			calc += ']';
 			label_AccuracyCalc.Text = calc;
@@ -551,12 +540,15 @@ namespace OPRPCharBuild
 			// Used when Traits are removed.
 		}
 
-		private void Update_Used_RegTP() {
+        #endregion 
+
+        #region Update RegTP Functions
+
+        private void Update_Used_RegTP() {
 			int used = 0;
-			foreach (ListViewItem eachitem in listView_Techniques.Items) {
-				// Column 2 is regTP
-				used += int.Parse(eachitem.SubItems[2].Text);
-			}
+            foreach (Technique tech in techList.Values) {
+                used += tech.regTP;
+            }
 			textBox_RegTPUsed.Text = used.ToString();
 			// Used when Techniques are added.
 			// Used when Techniques are edited.
@@ -578,9 +570,15 @@ namespace OPRPCharBuild
 			else if (SD_Earned > 350 && SD_Earned <= 450) {
 				multiplier = 3.5;
 			}
-			else if (SD_Earned > 450) {
+			else if (SD_Earned > 450 && SD_Earned <= 600) {
 				multiplier = 4.0;
 			}
+            else if (SD_Earned > 600 && SD_Earned <= 800) {
+                multiplier = 4.5;
+            }
+            else if (SD_Earned > 800) {
+                multiplier = 5.0;
+            }
 			// Check AP
 			if ((checkedListBox1_AP.CheckedIndices.Contains(0))) {
 				multiplier += 0.5;
@@ -588,12 +586,12 @@ namespace OPRPCharBuild
 			int total = (int)((double)fortune * multiplier);
 			calc += multiplier;
 			// Now check if we have any Traits that add to this.
-			if (Traits.Contains_Trait_AtIndex(TraitName.TECH_MAST, listView_Traits) != -1) {
+			if (traitList.ContainsKey(Database.TR_TECHMA)) {
 				// Increase by 100% of Fortune
 				total += fortune;
 				calc += " + " + fortune;
 			}
-			else if (Traits.Contains_Trait_AtIndex(TraitName.TECH_ADEPT, listView_Traits) != -1) {
+			else if (traitList.ContainsKey(Database.TR_TECHAD)) {
 				// Increase by 40% of Fortune
                 total += (int)((double)fortune * 0.4);
 				calc += " + (" + fortune + " * 0.4)";
@@ -606,171 +604,148 @@ namespace OPRPCharBuild
 			// Used when Fortune is updated.
 			// Used when SD Earned is changed
 			// Used when a Trait is added.
-			// Used when Traits are edited
 			// Used when a Trait is removed.
 		}
 
-		private void Update_Used_SpTP() {
+        #endregion
+
+        #region Update SpTP Functions
+
+        // HELPER FUNCTION
+        private void Update_SpTrait_UsedOver() {
+            // After update of those values, we will then check to see if Used > Total
+            foreach (ListViewItem Sp_Trait in listView_SpTP.Items) {
+                if (int.Parse(Sp_Trait.SubItems[1].Text) > int.Parse(Sp_Trait.SubItems[2].Text)) {
+                    Sp_Trait.SubItems[1].BackColor = Color.FromArgb(255, 128, 128);
+                }
+                else {
+                    Sp_Trait.SubItems[1].BackColor = SystemColors.Control;
+                }
+            }
+        }
+
+        // HELPER FUNCTION
+        private void Update_Used_SpTP() {
+            // Updates the Used SpTP Textbox
 			int used = 0;
-			// Use the Special Trait list instead
-			foreach (ListViewItem eachitem in listView_SpTP.Items) {
-				// Column 1 is Sp.TP used
-				used += int.Parse(eachitem.SubItems[1].Text);
-			}
+            foreach (SpTrait spTrait in spTraitList.Values) {
+                used += spTrait.usedTP;
+            }
 			textBox_SpTPUsed.Text = used.ToString();
-			// Use inside Update_SpTrait_Table() at the very end
 		}
 
-		private void Update_Total_SpTP() {
-			int total_SP = 0;
-			foreach (ListViewItem eachItem in listView_SpTP.Items) {
-				// Total SpTP is in 3rd column
-				total_SP += int.Parse(eachItem.SubItems[2].Text);
-			}
+        // HELPER FUNCTION
+        private void Update_Total_SpTP() {
+            // Updates the Total SpTP Textbox
+            int total_SP = 0;
+            foreach (SpTrait spTrait in spTraitList.Values) {
+                total_SP += spTrait.totalTP;
+            }
 			textBox_SpTPTotal.Text = total_SP.ToString();
-			// Use inside Update_SpTrait_Table() at the very end
 		}
 
-		private void Add_Item_SpTrait_Table(TraitName trait, ListView traits_list, int fortune, int divisor) {
-			// Add to Sp. Trait from the ListView of Traits.
-			int index = Traits.Contains_Trait_AtIndex(trait, traits_list);
-			ListViewItem item = new ListViewItem();
-			item.SubItems[0].Text = traits_list.Items[index].SubItems[0].Text;  // 1st column: Trait Name
-			item.SubItems.Add("0");                             // 2nd column: Used Sp. TP
-			item.SubItems.Add((fortune / divisor).ToString());  // 3rd column: Total Sp. TP
-																// Add item into the Sp. Table
-			listView_SpTP.Items.Add(item);
-		}
-
-		private void Update_SpTrait_Table_Traits(TraitName ID) {
-			// Need a parameter of what Special Trait was ADDED!!!
+		private void Add_SpTrait(string traitName) {
 			// First check to see if the Sp. TP Trait is in the list
 			// If so, add the trait into the ListView Special and add correspondingly.
 			int fortune = int.Parse(textBox_Fortune.Text);
-			if (ID == TraitName.SUP_SENSE) {
-				Add_Item_SpTrait_Table(TraitName.SUP_SENSE, listView_Traits, fortune, 4);
-			}
-			else if (ID == TraitName.STR_SPIRIT) {
-				Add_Item_SpTrait_Table(TraitName.STR_SPIRIT, listView_Traits, fortune, 2);
-			}
-			else if (ID == TraitName.ROK_SAV) {
-				Add_Item_SpTrait_Table(TraitName.ROK_SAV, listView_Traits, fortune, 2);
-			}
-			else if (ID == TraitName.ANTI_WEAPON) {
-				Add_Item_SpTrait_Table(TraitName.ANTI_WEAPON, listView_Traits, fortune, 2);
-			}
-			else if (ID == TraitName.ADV_MARTIAL_CLASS) {
-				Add_Item_SpTrait_Table(TraitName.ADV_MARTIAL_CLASS, listView_Traits, fortune, 4);
-			}
-			else if (ID == TraitName.UNCIV_ENG) {
-				Add_Item_SpTrait_Table(TraitName.UNCIV_ENG, listView_Traits, fortune, 2);
-			}
-			else if (ID == TraitName.SIEGE_WAR) {
-				Add_Item_SpTrait_Table(TraitName.SIEGE_WAR, listView_Traits, fortune, 2);
-			}
-			else if (ID == TraitName.BRILL_MIND) {
-				Add_Item_SpTrait_Table(TraitName.BRILL_MIND, listView_Traits, fortune, 2);
-			}
-			else if (ID == TraitName.L_O_R) {
-				Add_Item_SpTrait_Table(TraitName.L_O_R, listView_Traits, fortune, 2);
-			}
-			else if (ID == TraitName.FOOD_WAR) {
-				Add_Item_SpTrait_Table(TraitName.FOOD_WAR, listView_Traits, fortune, 2);
-			}
-			else if (ID == TraitName.COOK_FIGHT) {
-				Add_Item_SpTrait_Table(TraitName.COOK_FIGHT, listView_Traits, fortune, 4);
-			}
-			else if (ID == TraitName.DAZZLE_PERF) {
-				Add_Item_SpTrait_Table(TraitName.DAZZLE_PERF, listView_Traits, fortune, 2);
-			}
-			else if (ID == TraitName.SKILL_MED) {
-				Add_Item_SpTrait_Table(TraitName.SKILL_MED, listView_Traits, fortune, 2);
-			}
-			else if (ID == TraitName.MED_MAL) {
-				Add_Item_SpTrait_Table(TraitName.MED_MAL, listView_Traits, fortune, 2);
-			}
-			else if (ID == TraitName.POIS_KILL) {
-				Add_Item_SpTrait_Table(TraitName.POIS_KILL, listView_Traits, fortune, 2);
-			}
-			else if (ID == TraitName.FROM_SHAD) {
-				Add_Item_SpTrait_Table(TraitName.FROM_SHAD, listView_Traits, fortune, 2);
-			}
-			else if (ID == TraitName.SLEIGHT) {
-				Add_Item_SpTrait_Table(TraitName.SLEIGHT, listView_Traits, fortune, 2);
-			}
-			// Likewise, if a trait is removed, we have to check each SpTrait.
-			// For the parameter, just put CUSTOM
-			int cur_ind = 0;
-			foreach (ListViewItem eachItem in listView_SpTP.Items) {
-				// Locate index of SpTraits first.
-				string name = eachItem.SubItems[0].Text; // Name of Sp. Trait
-				if (Traits.Contains_Trait_AtIndex(Traits.get_TraitID(name), listView_Traits) == -1) {
-					// That means we couldn't find the SpTrait in the Trait listView
-					// So we delete it from the SpTrait Table
-					listView_SpTP.Items[cur_ind].Remove();
-					break;
-				}
-				cur_ind++;
-			}
+            int divisor = Database.getSpTraitDiv(traitName);
+            if (divisor > 1) {
+                // Add Sp. Trait to the Dict
+                int traitNum = traitList[traitName].getTotalTraits();
+                int totTP = (fortune / divisor) * traitNum;
+                SpTrait addTrait = new SpTrait(traitName, 0, totTP);
+                spTraitList.Add(traitName, addTrait);
+                // Add Sp. Trait to the ListView of SpTraits
+                ListViewItem item = new ListViewItem();
+                item.SubItems[0].Text = traitName;      // 1st column: Trait Name
+                item.SubItems.Add("0");                 // 2nd column: Used Sp. TP
+                item.SubItems.Add(totTP.ToString());    // 3rd column: Total Sp. TP
+                listView_SpTP.Items.Add(item);
+            }
 			// Lastly update the Total SpTP
 			Update_Total_SpTP();
 			// Used when a Trait is added.
-			// Used when a Trait is edited
-			// Used when a Trait is removed.
 		}
 
-		private void Update_SpTrait_Table_Values() {
-			// Update values inside the table based on Techniques or Fortune edited.
-			// Nest loop this.
-			foreach (ListViewItem Sp_Trait in listView_SpTP.Items) {
-				string name1 = Sp_Trait.SubItems[0].Text;
-				TraitName ID_Sp = Traits.get_TraitID(name1);
-				int used = 0;
-				foreach (ListViewItem Tech in listView_Techniques.Items) {
-					// Column 4 is Special Trait
-					string tech_trait = Tech.SubItems[4].Text;
-					TraitName ID_Tech = Traits.get_TraitID(tech_trait);
-					if (ID_Sp == ID_Tech) {
-						used += int.Parse(Tech.SubItems[3].Text); // Column 3 is Sp. TP
-					}
-				}
-				Sp_Trait.SubItems[1].Text = used.ToString();
-			}
-			Update_Total_SpTP();
+        private void Remove_SpTrait(string traitName) {
+            // Remove from Dict
+            spTraitList.Remove(traitName);
+            // Remove from ListView
+            foreach (ListViewItem spTrait in listView_SpTP.Items) {
+                if (spTrait.SubItems[0].Text == traitName) {
+                    spTrait.Remove();
+                    break;
+                }
+            }
+            Update_Total_SpTP();
+            Update_Used_SpTP();
+            // Used when a Trait is removed.
+        }
+
+        private void Update_SpTraitTable_Total() {
+            // This updates all the Total Sp Traits
+            int fortune = int.Parse(textBox_Fortune.Text);
+            foreach (ListViewItem spTrait in listView_SpTP.Items) {
+                string name = spTrait.SubItems[0].Text;
+                int traitNum = traitList[name].getTotalTraits();
+                int divisor = Database.getSpTraitDiv(name);
+                int totTP = (fortune / divisor) * traitNum;
+                spTraitList[name].totalTP = totTP;
+                // Edit ListView
+                spTrait.SubItems[2].Text = totTP.ToString();
+            }
+            // Update the Total textboxes
+            Update_Total_SpTP();
+            // After update of those values, we will then check to see if Used > Total
+            Update_SpTrait_UsedOver();
+            // Used when Fortune is updated.
+        }
+
+        private void Update_SpTraitTable_Used(string traitName) {
+            // Update values inside the table based on Techniques or Fortune edited.
+            // Update SpTraitList first, then the ListView
+            if (string.IsNullOrWhiteSpace(traitName)) { return; }
+            int used = 0;
+            foreach (Technique tech in techList.Values) {
+                if (tech.specialTrait == traitName) {
+                    used += tech.spTP;
+                }
+            }
+            foreach (ListViewItem spTrait in listView_SpTP.Items) {
+                if (spTrait.SubItems[0].Text == traitName) {
+                    spTrait.SubItems[1].Text = used.ToString();
+                    break;
+                }
+            }
+            // Update the Used textboxes
 			Update_Used_SpTP();
-			// After update of those values, we will then check to see if Used > Total
-			foreach (ListViewItem Sp_Trait in listView_SpTP.Items) {
-				if (int.Parse(Sp_Trait.SubItems[1].Text) > int.Parse(Sp_Trait.SubItems[2].Text)) {
-					Sp_Trait.SubItems[1].BackColor = Color.FromArgb(255, 128, 128);
-				}
-				else {
-					Sp_Trait.SubItems[1].BackColor = SystemColors.Control;
-				}
-			}
-			// Used when Fortune is updated.
-			// Used when a Trait is added.
-			// Used when a Trait is edited
-			// Used when a Trait is removed.
-			// Used when a Technique is added.
-			// Used when a Technique is edited.
-			// Used when a Technique is removed.
-		}
+            // After update of those values, we will then check to see if Used > Total
+            Update_SpTrait_UsedOver();
+            // Used when a Technique is added.
+            // Used when a Technique is edited.
+            // Used when a Technique is branched.
+            // Used when a Technique is removed.
+        }
 
-		// Helper function for Update_CritAnatQuick_Msg()
-		private void Print_Applied_Msg(ref string msg, TraitName trait_ID, string trait_Name) {
+        #endregion
+
+        #region Update Tech Misc Functions
+
+        // Helper function for Update_CritAnatQuick_Msg()
+        private void Print_Applied_Msg(ref string msg, string name) {
 			int points = int.Parse(textBox_RegTPTotal.Text) / 4;
 			int num = 0;
-			msg += trait_Name + ": ";
-			for (int i = 0; i < TraitsList.Count; ++i) {
-				if (TraitsList[i] == trait_ID) {
-					num++;
-				}
-			}
+			msg += name + ": ";
+            // How many Traits of the there are of the same Trait
+			if (traitList.ContainsKey(name)) {
+                num += traitList[name].genNum;
+                num += traitList[name].profNum;
+            }
 			int total = num * points;
 			int used = 0;
-			foreach (TechInfo Tech_Info in TechList.Values) {
-				if (Tech_Info.app_Traits.Contains(trait_Name)) {
-					used += Tech_Info.regTP;
+			foreach (Technique tech in techList.Values) {
+				if (tech.appTrait.Contains(name)) {
+					used += tech.regTP;
 				}
 			}
 			msg += used + " / " + total + '\n';
@@ -780,14 +755,14 @@ namespace OPRPCharBuild
 		private void Update_CritAnatQuick_Msg() {
 			string msg = "";
 			int points = int.Parse(textBox_Fortune.Text) / 4;
-			if (TraitsList.Contains(TraitName.CRIT_HIT)) {
-				Print_Applied_Msg(ref msg, TraitName.CRIT_HIT, "Critical Hit");
+			if (traitList.ContainsKey(Database.TR_CRITHI)) {
+				Print_Applied_Msg(ref msg, Database.TR_CRITHI);
 			}
-			if (TraitsList.Contains(TraitName.ANAT_STRIKE)) {
-				Print_Applied_Msg(ref msg, TraitName.ANAT_STRIKE, "Anatomical Strike");
+			if (traitList.ContainsKey(Database.TR_ANASTR)) {
+				Print_Applied_Msg(ref msg, Database.TR_ANASTR);
 			}
-			if (TraitsList.Contains(TraitName.QUICKSTRIKE)) {
-				Print_Applied_Msg(ref msg, TraitName.QUICKSTRIKE, "Quickstrike");
+			if (traitList.ContainsKey(Database.TR_QUICKS)) {
+				Print_Applied_Msg(ref msg, Database.TR_QUICKS);
 			}
 			// Trim the newline
 			msg = msg.TrimEnd('\n');
@@ -804,7 +779,6 @@ namespace OPRPCharBuild
 			// Updated when Technique is Branched
 			// Updated when Technique is Removed
 			// Updated when a Trait is added.
-			// Updated when a Trait is edited
 			// Updated when a Trait is removed.
 			// Updated when Total Reg TP is Changed.
 
@@ -828,8 +802,12 @@ namespace OPRPCharBuild
 			// Updated when Technique is Removed
 		}
 
-		// Checks to make sure that all Techniques are in Categories
-		private void Update_SubCatWarning() {
+        #endregion
+
+        #region Update Category Functions
+
+        // Checks to make sure that all Techniques are in Categories
+        private void Update_SubCatWarning() {
 			bool loop_break = false;
 			for (int i = 0; i < listView_SubCat.Items.Count; ++i) {
 				ListViewItem category = listView_SubCat.Items[i];
@@ -869,13 +847,15 @@ namespace OPRPCharBuild
 			// Updated when a SubCategory is Removed
 		}
 
-		#endregion
+        #endregion
 
-		// This only occurs once before the form is displayed for the first time.
-		private void MainForm_Load(object sender, EventArgs e) {
+        #endregion
+
+        // This only occurs once before the form is displayed for the first time.
+        private void MainForm_Load(object sender, EventArgs e) {
 			this.Text = "OPRP Character Builder";
 			label_Title.Text = "OPRP Character Builder";
-			label1.Text = "OPRP Character Builder v" + version + vers_type + " designed by Solo";
+			label1.Text = "OPRP Character Builder v" + VERSION + VERS_TYPE + " designed by Solo";
 
 			// Check for updates of a New Version or Bug Messages
 			Check_Update();
@@ -892,9 +872,9 @@ namespace OPRPCharBuild
 			// ------ Images
 			listView_Images.View = View.Details;
 			listView_Images.FullRowSelect = true;
-
-			listView_Images.Columns.Add("Label", 150);
-			listView_Images.Columns.Add("URL", 200);
+            
+            listView_Images.Columns.Add("URL", 200);
+            listView_Images.Columns.Add("Label", 150);
 			listView_Images.Columns.Add("FullRes", 30);
 			listView_Images.Columns.Add("Width", 40);
 			listView_Images.Columns.Add("Height", 40);
@@ -1102,7 +1082,7 @@ namespace OPRPCharBuild
 		private void button4_ProfAdd_Click(object sender, EventArgs e) {
 			// Profession "Add" button from the MainForm
 			Add_Profession ProfessionWin = new Add_Profession();
-			ProfessionWin.NewDialog(ref listView_Prof);
+			ProfessionWin.NewDialog(ref listView_Prof, ref profList);
 		}
 
 		private void button_ProfEdit_Click(object sender, EventArgs e) {
@@ -1111,7 +1091,7 @@ namespace OPRPCharBuild
 			try {
 				if (listView_Prof.SelectedItems.Count == 1) {
 					Add_Profession ProfessionWin = new Add_Profession();
-					ProfessionWin.EditDialog(ref listView_Prof);
+					ProfessionWin.EditDialog(ref listView_Prof, ref profList);
 				}
 			}
 			catch (Exception ex) {
@@ -1125,7 +1105,7 @@ namespace OPRPCharBuild
 			try {
 				string Prof = Delete_ListViewItem(ref listView_Prof);
 				if (!string.IsNullOrWhiteSpace(Prof)) {
-					ProfList.Remove(Prof);
+					profList.Remove(Prof);
 				}
             }
 			catch (Exception ex) {
@@ -1164,8 +1144,8 @@ namespace OPRPCharBuild
 			}
 			else {
 				ListViewItem image = new ListViewItem();
-				image.SubItems[0].Text = textBox_ImageLabel.Text;
-				image.SubItems.Add(textBox_ImageURL.Text);
+				image.SubItems[0].Text = textBox_ImageURL.Text;
+				image.SubItems.Add(textBox_ImageLabel.Text);
 				if (checkBox_FullRes.Checked) {
 					image.SubItems.Add("Yes");
 					image.SubItems.Add("");
@@ -1176,6 +1156,7 @@ namespace OPRPCharBuild
 					image.SubItems.Add(numericUpDown_Width.Value.ToString());
 					image.SubItems.Add(numericUpDown_Height.Value.ToString());
 				}
+                // Add to ListView
 				listView_Images.Items.Add(image);
 				// Clear the information
 				textBox_ImageLabel.Clear();
@@ -1188,8 +1169,8 @@ namespace OPRPCharBuild
 			// Traits "Edit" button from the MainForm
 			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
 			if (listView_Images.SelectedItems.Count == 1) {
-				textBox_ImageLabel.Text = listView_Images.SelectedItems[0].SubItems[0].Text;
-				textBox_ImageURL.Text = listView_Images.SelectedItems[0].SubItems[1].Text;
+				textBox_ImageURL.Text = listView_Images.SelectedItems[0].SubItems[0].Text;
+				textBox_ImageLabel.Text = listView_Images.SelectedItems[0].SubItems[1].Text;
 				if (listView_Images.SelectedItems[0].SubItems[2].Text == "No") {
 					checkBox_FullRes.Checked = false;
 					numericUpDown_Width.Value = int.Parse(listView_Images.SelectedItems[0].SubItems[3].Text);
@@ -1198,12 +1179,13 @@ namespace OPRPCharBuild
 				else {
 					checkBox_FullRes.Checked = true;
 				}
+                // Delete from ListView
 				Delete_ListViewItem(ref listView_Images);
 			}
 		}
 
 		private void button_ImageDelete_Click(object sender, EventArgs e) {
-			// Image "Delete" button from the MainForm
+			// Image "Delete" button
 			Delete_ListViewItem(ref listView_Images);
 		}
 
@@ -1427,7 +1409,7 @@ namespace OPRPCharBuild
 
 		private void textBox_Fortune_TextChanged(object sender, EventArgs e) {
 			Update_Total_RegTP();
-			Update_SpTrait_Table_Values();
+			Update_SpTraitTable_Total();
 		}
 
 		private void textBox_UsedForStats_TextChanged(object sender, EventArgs e) {
@@ -1442,8 +1424,8 @@ namespace OPRPCharBuild
 
 		#region Traits Tab
 
-		// Put ID as Custom if we're deleting
-		private void All_Update_Functions_Traits(TraitName ID) {
+		// Put name as None if we're deleting
+		private void All_Update_Functions_Traits() {
 			Update_Traits_Count_Label();
 			Update_Fortune();
 			Update_Strength_Final();
@@ -1451,27 +1433,17 @@ namespace OPRPCharBuild
 			Update_Speed_Final();
 			Update_Accuracy_Final();
 			Update_Total_RegTP();
-			Update_SpTrait_Table_Traits(ID);
-			Update_SpTrait_Table_Values();
 			Update_CritAnatQuick_Msg();
 		}
 
 		private void button11_TraitAdd_Click(object sender, EventArgs e) {
 			// Traits "Add" button from the MainForm
 			Add_Trait TraitWin = new Add_Trait();
-			TraitName ID = TraitWin.NewDialog(ref listView_Traits);
+			string name = TraitWin.NewDialog(ref listView_Traits, ref traitList);
 			// And lastly all Update functions
-			if (ID != TraitName.CUSTOM) { All_Update_Functions_Traits(ID); }
-		}
-
-		private void button_TraitsEdit_Click(object sender, EventArgs e) {
-			// Traits "Edit" button from the MainForm
-			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
-			if (listView_Traits.SelectedItems.Count == 1) {
-				Add_Trait TraitWin = new Add_Trait();
-				TraitName ID = TraitWin.EditDialog(ref listView_Traits);
-				// All corresponding Update functions (same as Add)
-				if (ID != TraitName.CUSTOM) { All_Update_Functions_Traits(ID); }
+			if (name != null) {
+                All_Update_Functions_Traits();
+                Add_SpTrait(name);
             }
 		}
 
@@ -1480,10 +1452,11 @@ namespace OPRPCharBuild
 			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
 			if (listView_Traits.SelectedItems.Count == 0) { return; }
 			string name = Delete_ListViewItem(ref listView_Traits);
-			// Remove trait from TraitList
-			TraitsList.Remove(Traits.get_TraitID(name));
+            // Remove trait from traitList
+            traitList.Remove(name);
 			// All update Functions
-			All_Update_Functions_Traits(TraitName.CUSTOM);
+			All_Update_Functions_Traits();
+            Remove_SpTrait(name);
 		}
 
 		#endregion
@@ -1494,8 +1467,8 @@ namespace OPRPCharBuild
 
 		#region Techniques Tab
 
-		private void All_Update_Functions_Techs() {
-			Update_SpTrait_Table_Values();
+		private void All_Update_Functions_Techs(string name) {
+            Update_SpTraitTable_Used(name);
 			Update_Used_RegTP();
 			Update_CritAnatQuick_Msg();
 			Update_TechNum();
@@ -1511,12 +1484,13 @@ namespace OPRPCharBuild
 			// Technique "Add" button from the MainForm
 			int max_rank = int.Parse(textBox_Fortune.Text) / 2;
 			int num_items = listView_Techniques.Items.Count;
-			if (num_items == 0) { num_items++; } // What if it's empty?
-			Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP, 
-				textBox_DFName.Text, comboBox_DFType.Text, richTextBox_DFDesc.Text, textBox_DFEffect.Text);
-			TechniqueWin.NewDialog(ref listView_Techniques, null, new TechInfo(), false, num_items - 1);
+			if (num_items == 0) { num_items++; } // What if empty?
+			Add_Technique TechniqueWin = new Add_Technique(max_rank, profList, 
+                traitList, spTraitList, makeDFClass());
+			string newName = TechniqueWin.NewDialog(ref listView_Techniques, ref techList, 
+                null, false, num_items - 1);
 			// Update functions go below
-			All_Update_Functions_Techs();
+			All_Update_Functions_Techs(newName);
 		}
 
 		private void button_TechBranch_Click(object sender, EventArgs e) {
@@ -1526,24 +1500,28 @@ namespace OPRPCharBuild
 			int index = listView_Techniques.SelectedIndices[0];
 			if (!string.IsNullOrWhiteSpace(TechName)) {
 				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
-				TechInfo Selected = TechList[TechName];
-				if (Selected.Roku != Rokushiki.RokuName.NONE && !TraitsList.Contains(TraitName.ROK_MAST)) {
+				Technique selTech = techList[TechName];
+				if (!string.IsNullOrWhiteSpace(selTech.roku.name) && 
+                    !traitList.ContainsKey(Database.TR_ROKUMA)) {
 					// ^If the Selected Technique is Rokushiki and character does not have Rokushiki Master
-					MessageBox.Show("You can't edit a Rokushiki Technique without the Rokushiki Master Trait!", "Error",
+					MessageBox.Show("You can't edit a Rokushiki Technique without the Rokushiki Master Trait.", "Error",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
-				else if (Selected.rank + 4 > max_rank) {
+				else if (selTech.rank + 4 > max_rank) {
 					// A branched technique must have at least 4 ranks from the Technique they are branching from
 					MessageBox.Show("A branched Technique must be 4 ranks higher than the Technique they are branching from\n" +
 						"Branching this Technique would cause you to go over your Max Rank [" + max_rank + "]", "Error",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 				else {
-					Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP,
-					textBox_DFName.Text, comboBox_DFType.Text, richTextBox_DFDesc.Text, textBox_DFEffect.Text);
-					TechniqueWin.NewDialog(ref listView_Techniques, TechName, Selected, true, index);
-					// Update functions go below
-					All_Update_Functions_Techs();
+					Add_Technique TechniqueWin = new Add_Technique(max_rank, profList, traitList, 
+                        spTraitList, makeDFClass());
+                    string newName = TechniqueWin.NewDialog(ref listView_Techniques, 
+                        ref techList, selTech, true, index);
+                    // Update functions go below
+                    if (string.IsNullOrWhiteSpace(newName)) {
+                        All_Update_Functions_Techs(newName);
+                    }
 				}
 			}
 		}
@@ -1554,19 +1532,23 @@ namespace OPRPCharBuild
 			string TechName = listView_Techniques.SelectedItems[0].SubItems[0].Text;
 			if (!string.IsNullOrWhiteSpace(TechName)) {
 				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
-				TechInfo Selected = TechList[TechName];
-				if (Selected.Roku != Rokushiki.RokuName.NONE && !TraitsList.Contains(TraitName.ROK_MAST)) {
+                Technique selTech = techList[TechName];
+                if (!string.IsNullOrWhiteSpace(selTech.roku.name) &&
+                    !traitList.ContainsKey(Database.TR_ROKUMA)) {
 					// ^If the Selected Technique is Rokushiki and character does not have Rokushiki Master
 					MessageBox.Show("You can't edit a Rokushiki Technique without the Rokushiki Master Trait!", "Error",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 				else {
-					Add_Technique TechniqueWin = new Add_Technique(max_rank, listView_Traits, listView_SpTP,
-					textBox_DFName.Text, comboBox_DFType.Text, richTextBox_DFDesc.Text, textBox_DFEffect.Text);
-					TechniqueWin.EditDialog(ref listView_Techniques, TechName, Selected);
-					// Update functions go below
-					All_Update_Functions_Techs();
-				}
+                    Add_Technique TechniqueWin = new Add_Technique(max_rank, profList, traitList,
+                        spTraitList, makeDFClass());
+                    string newName = TechniqueWin.EditDialog(ref listView_Techniques, 
+                        ref techList, selTech);
+                    // Update functions go below
+                    if (string.IsNullOrWhiteSpace(newName)) {
+                        All_Update_Functions_Techs(newName);
+                    }
+                }
 			}
 		}
 
@@ -1580,10 +1562,10 @@ namespace OPRPCharBuild
 				try {
 					string TechName = Delete_ListViewItem(ref listView_Techniques);
 					if (!string.IsNullOrWhiteSpace(TechName)) {
-						TechList.Remove(TechName);
+						techList.Remove(TechName);
 					}
 					// Update functions go below
-					All_Update_Functions_Techs();
+					All_Update_Functions_Techs(TechName);
 				}
 				catch (Exception ex) {
 					MessageBox.Show("Error in Deleting Technique\nReason: " + ex.Message, "Exception Thrown");
@@ -1737,7 +1719,7 @@ namespace OPRPCharBuild
 
 		private void button_ResetTemp_Click(object sender, EventArgs e) {
 			template_imported = false;
-			label_TemplateType.Text = std_template_msg;
+			label_TemplateType.Text = STD_TEMPLATE_MSG;
 			label_TemplateType.ForeColor = Color.Green;
 			richTextBox_Template.Text = Sheet.Basic_Template;
 		}
@@ -2108,7 +2090,7 @@ namespace OPRPCharBuild
 			CustomTags.Add(30, numericUpDown_SDEarned.Value.ToString());
 			CustomTags.Add(31, textBox_SDRemain.Text);
 			CustomTags.Add(32, textBox_StatPoints.Text);
-			CustomTags.Add(33, label_SDtoSPCalculations.Text);
+			CustomTags.Add(33, textBox_SDtoSPCalc.Text);
 			CustomTags.Add(34, textBox_UsedForStats.Text);
 			CustomTags.Add(35, numericUpDown_UsedForFort.Value.ToString());
 			CustomTags.Add(36, numericUpDown_StrengthBase.Value.ToString());
@@ -2170,8 +2152,8 @@ namespace OPRPCharBuild
 			// 92 is Image Label
 			// 93 is Image Width
 			// 94 is Image Height
-			CustomTags.Add(95, gen_cap.ToString());
-			CustomTags.Add(96, prof_cap.ToString());
+			CustomTags.Add(95, genCap.ToString());
+			CustomTags.Add(96, profCap.ToString());
 			// 97 is Tech Range
 			CustomTags.Add(98, numericUpDown_SDintoStats.Value.ToString());
 			// 99 is AP Description
@@ -2317,5 +2299,27 @@ namespace OPRPCharBuild
 		}
 
         #endregion
+    }
+
+    // Class to sort ListView by number
+    public class ListViewItemNumberSort : IComparer
+    {
+        private int col;
+        public ListViewItemNumberSort(int column) { col = column; }
+        public int Compare(object x, object y) {
+            int nx = int.Parse((x as ListViewItem).SubItems[col].Text);
+            int ny = int.Parse((y as ListViewItem).SubItems[col].Text);
+            return nx.CompareTo(ny);
+        }
+    }
+
+    // Class to sort ListView by Text based on selected Column
+    public class ListViewItemSorter : IComparer
+    {
+        private int col;
+        public ListViewItemSorter(int column) { col = column; }
+        public int Compare(object x, object y) {
+            return string.Compare(((ListViewItem)x).SubItems[col].Text, ((ListViewItem)y).SubItems[col].Text);
+        }
     }
 }

@@ -1,4 +1,10 @@
 The following needs to be tested after implementing v1.4.0:
 - Saving Character
 - Marine Ranks
-- 
+- ALL the ListViews that directly affect Character
+	- Professions
+	- Traits
+	- Techniques
+- Master of Misdirection
+- Custom Notes
+- Tech Stats

@@ -13,7 +13,7 @@ namespace OPRPCharBuild
         // -------------------------------------------------------------------
         public string label;
         public string url;
-        public string full_res;
+        public string full_res;     // Only "Yes" and "No" for ListView
         public string img_width;
         public string img_height;
 

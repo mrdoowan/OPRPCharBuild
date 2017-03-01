@@ -45,6 +45,7 @@
             this.button_AchieveDelete = new System.Windows.Forms.Button();
             this.listBox_Achieve = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.numericUpDown_Comm = new System.Windows.Forms.NumericUpDown();
             this.comboBox_MarineRank = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.textBox_Threat = new System.Windows.Forms.TextBox();
@@ -143,6 +144,7 @@
             this.label26 = new System.Windows.Forms.Label();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.textBox_SDtoSPCalc = new System.Windows.Forms.TextBox();
             this.textBox_Focus = new System.Windows.Forms.TextBox();
             this.label39 = new System.Windows.Forms.Label();
             this.textBox_TotalSD = new System.Windows.Forms.TextBox();
@@ -175,7 +177,6 @@
             this.textBox_UsedForStats = new System.Windows.Forms.TextBox();
             this.label74 = new System.Windows.Forms.Label();
             this.label75 = new System.Windows.Forms.Label();
-            this.label_SDtoSPCalculations = new System.Windows.Forms.Label();
             this.textBox_StatPoints = new System.Windows.Forms.TextBox();
             this.label77 = new System.Windows.Forms.Label();
             this.numericUpDown_SDintoStats = new System.Windows.Forms.NumericUpDown();
@@ -189,7 +190,6 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label32 = new System.Windows.Forms.Label();
-            this.button_TraitsEdit = new System.Windows.Forms.Button();
             this.label59_TraitsCalc = new System.Windows.Forms.Label();
             this.label58_TraitsCurrent = new System.Windows.Forms.Label();
             this.button_TraitsDelete = new System.Windows.Forms.Button();
@@ -262,12 +262,12 @@
             this.toolStripButton_New = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_Open = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
-            this.numericUpDown_Comm = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Comm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Age)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -298,7 +298,6 @@
             this.tabPage8.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Comm)).BeginInit();
             this.SuspendLayout();
             // 
             // label_Title
@@ -335,7 +334,7 @@
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(652, 478);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Info";
@@ -527,6 +526,19 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Basic Information";
+            // 
+            // numericUpDown_Comm
+            // 
+            this.numericUpDown_Comm.Location = new System.Drawing.Point(356, 146);
+            this.numericUpDown_Comm.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDown_Comm.Name = "numericUpDown_Comm";
+            this.numericUpDown_Comm.Size = new System.Drawing.Size(42, 23);
+            this.numericUpDown_Comm.TabIndex = 23;
+            this.numericUpDown_Comm.ValueChanged += new System.EventHandler(this.numericUpDown_Comm_ValueChanged);
             // 
             // comboBox_MarineRank
             // 
@@ -770,7 +782,7 @@
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(652, 478);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Appearance";
@@ -1128,7 +1140,7 @@
             this.tabPage3.Controls.Add(this.groupBox6);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(652, 478);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Background";
@@ -1241,7 +1253,7 @@
             this.tabPage4.Controls.Add(this.groupBox7);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(652, 478);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Abilities";
@@ -1633,6 +1645,7 @@
             // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.textBox_SDtoSPCalc);
             this.groupBox12.Controls.Add(this.textBox_Focus);
             this.groupBox12.Controls.Add(this.label39);
             this.groupBox12.Controls.Add(this.textBox_TotalSD);
@@ -1665,7 +1678,6 @@
             this.groupBox12.Controls.Add(this.textBox_UsedForStats);
             this.groupBox12.Controls.Add(this.label74);
             this.groupBox12.Controls.Add(this.label75);
-            this.groupBox12.Controls.Add(this.label_SDtoSPCalculations);
             this.groupBox12.Controls.Add(this.textBox_StatPoints);
             this.groupBox12.Controls.Add(this.label77);
             this.groupBox12.Controls.Add(this.numericUpDown_SDintoStats);
@@ -1683,6 +1695,19 @@
             this.groupBox12.TabIndex = 14;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Statistics";
+            // 
+            // textBox_SDtoSPCalc
+            // 
+            this.textBox_SDtoSPCalc.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox_SDtoSPCalc.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_SDtoSPCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_SDtoSPCalc.Location = new System.Drawing.Point(193, 197);
+            this.textBox_SDtoSPCalc.Multiline = true;
+            this.textBox_SDtoSPCalc.Name = "textBox_SDtoSPCalc";
+            this.textBox_SDtoSPCalc.ReadOnly = true;
+            this.textBox_SDtoSPCalc.Size = new System.Drawing.Size(399, 16);
+            this.textBox_SDtoSPCalc.TabIndex = 57;
+            this.textBox_SDtoSPCalc.Text = "[32 + 0]";
             // 
             // textBox_Focus
             // 
@@ -2071,16 +2096,6 @@
             this.label75.TabIndex = 26;
             this.label75.Text = "Used for Stats:";
             // 
-            // label_SDtoSPCalculations
-            // 
-            this.label_SDtoSPCalculations.AutoSize = true;
-            this.label_SDtoSPCalculations.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_SDtoSPCalculations.Location = new System.Drawing.Point(190, 200);
-            this.label_SDtoSPCalculations.Name = "label_SDtoSPCalculations";
-            this.label_SDtoSPCalculations.Size = new System.Drawing.Size(43, 13);
-            this.label_SDtoSPCalculations.TabIndex = 24;
-            this.label_SDtoSPCalculations.Text = "[32 + 0]";
-            // 
             // textBox_StatPoints
             // 
             this.textBox_StatPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
@@ -2170,10 +2185,12 @@
             "Trait - Trait cap raised by 1, can take Legacy Traits without training",
             "Prime Professional - May upgrade secondary profession to primary",
             "Multiskilled Professional - May take two more secondary professions",
+            "NPC - May have an additional trait NPC active in their topics",
+            "Haki - May take an additional Haki Color Specialization",
             "Devil Fruit - Choose a Myth Zoan, gained without DF SL"});
             this.checkedListBox1_AP.Location = new System.Drawing.Point(193, 52);
             this.checkedListBox1_AP.Name = "checkedListBox1_AP";
-            this.checkedListBox1_AP.Size = new System.Drawing.Size(399, 64);
+            this.checkedListBox1_AP.Size = new System.Drawing.Size(399, 109);
             this.checkedListBox1_AP.TabIndex = 8;
             this.checkedListBox1_AP.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_AP_SelectedIndexChanged);
             // 
@@ -2202,7 +2219,7 @@
             this.tabPage5.Controls.Add(this.groupBox10);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Size = new System.Drawing.Size(652, 478);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Traits";
@@ -2211,7 +2228,6 @@
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.label32);
-            this.groupBox10.Controls.Add(this.button_TraitsEdit);
             this.groupBox10.Controls.Add(this.label59_TraitsCalc);
             this.groupBox10.Controls.Add(this.label58_TraitsCurrent);
             this.groupBox10.Controls.Add(this.button_TraitsDelete);
@@ -2237,16 +2253,6 @@
     "tead.\r\nFor Special TP, just use the name of a current Special Trait and treat it" +
     " as a custom one.";
             this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // button_TraitsEdit
-            // 
-            this.button_TraitsEdit.Location = new System.Drawing.Point(457, 327);
-            this.button_TraitsEdit.Name = "button_TraitsEdit";
-            this.button_TraitsEdit.Size = new System.Drawing.Size(75, 23);
-            this.button_TraitsEdit.TabIndex = 26;
-            this.button_TraitsEdit.Text = "Edit";
-            this.button_TraitsEdit.UseVisualStyleBackColor = true;
-            this.button_TraitsEdit.Click += new System.EventHandler(this.button_TraitsEdit_Click);
             // 
             // label59_TraitsCalc
             // 
@@ -2281,7 +2287,7 @@
             // 
             // button_TraitAdd
             // 
-            this.button_TraitAdd.Location = new System.Drawing.Point(376, 327);
+            this.button_TraitAdd.Location = new System.Drawing.Point(457, 327);
             this.button_TraitAdd.Name = "button_TraitAdd";
             this.button_TraitAdd.Size = new System.Drawing.Size(75, 23);
             this.button_TraitAdd.TabIndex = 3;
@@ -2310,7 +2316,7 @@
             this.tabPage6.Controls.Add(this.groupBox11);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage6.Size = new System.Drawing.Size(652, 478);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Techniques";
@@ -3036,19 +3042,6 @@
             this.toolStripButton_Save.Text = "Save";
             this.toolStripButton_Save.Click += new System.EventHandler(this.toolStripButton_Save_Click);
             // 
-            // numericUpDown_Comm
-            // 
-            this.numericUpDown_Comm.Location = new System.Drawing.Point(356, 146);
-            this.numericUpDown_Comm.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDown_Comm.Name = "numericUpDown_Comm";
-            this.numericUpDown_Comm.Size = new System.Drawing.Size(42, 23);
-            this.numericUpDown_Comm.TabIndex = 23;
-            this.numericUpDown_Comm.ValueChanged += new System.EventHandler(this.numericUpDown_Comm_ValueChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3076,6 +3069,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Comm)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Age)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
@@ -3118,7 +3112,6 @@
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Comm)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3237,7 +3230,6 @@
 		private System.Windows.Forms.Button button_ProfEdit;
 		private System.Windows.Forms.Button button_ItemsEdit;
 		private System.Windows.Forms.Button button_WeaponEdit;
-		private System.Windows.Forms.Button button_TraitsEdit;
 		private System.Windows.Forms.Button button_TechEdit;
 		private System.Windows.Forms.Button button_ResetChar;
 		private System.Windows.Forms.NumericUpDown numericUpDown_Height;
@@ -3279,7 +3271,6 @@
 		private System.Windows.Forms.TextBox textBox_UsedForStats;
 		private System.Windows.Forms.Label label74;
 		private System.Windows.Forms.Label label75;
-		private System.Windows.Forms.Label label_SDtoSPCalculations;
 		private System.Windows.Forms.TextBox textBox_StatPoints;
 		private System.Windows.Forms.Label label77;
 		private System.Windows.Forms.NumericUpDown numericUpDown_SDintoStats;
@@ -3362,6 +3353,7 @@
 		private System.Windows.Forms.Label label53;
 		private System.Windows.Forms.Button button_MoreTemplate;
         private System.Windows.Forms.NumericUpDown numericUpDown_Comm;
+        private System.Windows.Forms.TextBox textBox_SDtoSPCalc;
     }
 }
 

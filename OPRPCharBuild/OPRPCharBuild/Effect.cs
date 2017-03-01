@@ -27,5 +27,31 @@ namespace OPRPCharBuild
             minRank = minRank_;
             desc = desc_;
         }
-	}
+
+        // Constructor for just the name
+        public Effect(string name_) {
+            name = name_;
+            general = true;
+            cost = 0;
+            minRank = 0;
+            desc = "";
+        }
+
+        // Overrides Removal
+        public override bool Equals(object obj) {
+            if (obj == null) return false;
+            Effect objAsEffect = obj as Effect;
+            if (objAsEffect == null) return false;
+            else return Equals(objAsEffect);
+        }
+
+        public override int GetHashCode() {
+            return name.GetHashCode();
+        }
+
+        public bool Equals(Effect other) {
+            if (other == null) return false;
+            return (name.Equals(other.name));
+        }
+    }
 }

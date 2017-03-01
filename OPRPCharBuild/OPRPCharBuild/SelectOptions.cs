@@ -17,7 +17,7 @@ namespace OPRPCharBuild
 		private int option;
 		private bool Has_Roku_Master;
 		private int max_rank;                   // The current max rank the character is able to have. (if base rank of tech is above max rank, nope)
-		private Rokushiki.RokuName Sel_Roku;    // The selected Rokushiki for loading
+		private Rokushiki Sel_Roku;             // The selected Rokushiki for loading
 		private string Custom_Name;
 		private string Sel_Version;
 		private bool OK_clicked;
@@ -49,7 +49,7 @@ namespace OPRPCharBuild
 			}
 		}
 
-		public string Rokushiki_Load_Dialog(ref Rokushiki.RokuName Selected, ref string Roku_Name) {
+		public string Rokushiki_Load_Dialog(ref Rokushiki Selected, ref string Roku_Name) {
 			this.ShowDialog();
 			if (string.IsNullOrWhiteSpace(Custom_Name)) {
 				// No Custom Name was selected
@@ -91,7 +91,7 @@ namespace OPRPCharBuild
 				comboBox_Options.Items.Add(ProjectStr);
 
 				// Set other variables
-				label_Msg.Text = "Current .oprp File Extension Form is: " + MainForm.curr_proj + "\nSelect version of the file you want to import.";
+				label_Msg.Text = "Current .oprp File Extension Form is: " + MainForm.VERSION + "\nSelect version of the file you want to import.";
 				button_OK.Text = "Import";
 			}
 			else if (option == 2) {
@@ -165,13 +165,12 @@ namespace OPRPCharBuild
 				Rokushiki Roku = new Rokushiki();
 				if (!string.IsNullOrWhiteSpace(comboBox_Options.Text)) {
 					// That means we selected a Rokushiki Technique
-					Sel_Roku = Roku.Get_RokuEnum(comboBox_Options.Text);
-					Rokushiki.RokuInfo Info_Roku = Roku.Get_RokuInfo(Sel_Roku);
-					if (Info_Roku.baseRank > max_rank) {
+					Sel_Roku = Database.getRoku(comboBox_Options.Text);
+					if (Sel_Roku.baseRank > max_rank) {
 						button_Left.Enabled = false;
 						button_OK.Enabled = false;
 						label_Msg.ForeColor = Color.Red;
-						label_Msg.Text = Info_Roku.name + "'s Base Rank is " + Info_Roku.baseRank + '\n'
+						label_Msg.Text = Sel_Roku.name + "'s Base Rank is " + Sel_Roku.baseRank + '\n'
 							+ "You can only make Techniques at Max Rank " + max_rank;
 					}
 					else {
@@ -180,7 +179,7 @@ namespace OPRPCharBuild
 						}
 						button_OK.Enabled = true;
 						label_Msg.ForeColor = SystemColors.ControlText;
-						label_Msg.Text = Info_Roku.name + "'s Base Rank is " + Info_Roku.baseRank + '\n';
+						label_Msg.Text = Sel_Roku.name + "'s Base Rank is " + Sel_Roku.baseRank + '\n';
 					}
 				}
 			}

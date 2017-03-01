@@ -62,6 +62,10 @@
             this.textBox_StaticRokuMsg = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button_ResetStats = new System.Windows.Forms.Button();
+            this.textBox_Stats = new System.Windows.Forms.TextBox();
+            this.button_LoadStats = new System.Windows.Forms.Button();
+            this.comboBox_StatOpt = new System.Windows.Forms.ComboBox();
             this.checkBox_Inventor = new System.Windows.Forms.CheckBox();
             this.checkBox_Marksman = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -102,10 +106,6 @@
             this.checkBox_QuickStrike = new System.Windows.Forms.CheckBox();
             this.checkBox_Fuel1 = new System.Windows.Forms.CheckBox();
             this.toolTip_Roku = new System.Windows.Forms.ToolTip(this.components);
-            this.comboBox_StatOpt = new System.Windows.Forms.ComboBox();
-            this.button_LoadStats = new System.Windows.Forms.Button();
-            this.textBox_Stats = new System.Windows.Forms.TextBox();
-            this.button_ResetStats = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
@@ -540,6 +540,58 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Specifics";
             // 
+            // button_ResetStats
+            // 
+            this.button_ResetStats.Location = new System.Drawing.Point(133, 107);
+            this.button_ResetStats.Name = "button_ResetStats";
+            this.button_ResetStats.Size = new System.Drawing.Size(72, 21);
+            this.button_ResetStats.TabIndex = 119;
+            this.button_ResetStats.Text = "Reset Stats";
+            this.button_ResetStats.UseVisualStyleBackColor = true;
+            this.button_ResetStats.Click += new System.EventHandler(this.button_ResetStats_Click);
+            // 
+            // textBox_Stats
+            // 
+            this.textBox_Stats.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_Stats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox_Stats.Location = new System.Drawing.Point(228, 80);
+            this.textBox_Stats.Multiline = true;
+            this.textBox_Stats.Name = "textBox_Stats";
+            this.textBox_Stats.ReadOnly = true;
+            this.textBox_Stats.Size = new System.Drawing.Size(198, 48);
+            this.textBox_Stats.TabIndex = 118;
+            this.textBox_Stats.Text = "N/A";
+            this.textBox_Stats.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // button_LoadStats
+            // 
+            this.button_LoadStats.Location = new System.Drawing.Point(52, 107);
+            this.button_LoadStats.Name = "button_LoadStats";
+            this.button_LoadStats.Size = new System.Drawing.Size(72, 21);
+            this.button_LoadStats.TabIndex = 117;
+            this.button_LoadStats.Text = "Load Stats";
+            this.button_LoadStats.UseVisualStyleBackColor = true;
+            this.button_LoadStats.Click += new System.EventHandler(this.button_LoadStats_Click);
+            // 
+            // comboBox_StatOpt
+            // 
+            this.comboBox_StatOpt.FormattingEnabled = true;
+            this.comboBox_StatOpt.Items.AddRange(new object[] {
+            "Self",
+            "Melee",
+            "Short",
+            "Medium",
+            "Long",
+            "Very Long",
+            "Short AoE",
+            "Medium AoE",
+            "Long AoE"});
+            this.comboBox_StatOpt.Location = new System.Drawing.Point(52, 80);
+            this.comboBox_StatOpt.Name = "comboBox_StatOpt";
+            this.comboBox_StatOpt.Size = new System.Drawing.Size(153, 21);
+            this.comboBox_StatOpt.TabIndex = 116;
+            this.toolTips.SetToolTip(this.comboBox_StatOpt, "Selecting a Range will load its Effects. Press \"Add\" after selecting.");
+            // 
             // checkBox_Inventor
             // 
             this.checkBox_Inventor.AutoSize = true;
@@ -647,7 +699,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label17.Location = new System.Drawing.Point(219, 18);
+            this.label17.Location = new System.Drawing.Point(215, 18);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(28, 13);
             this.label17.TabIndex = 109;
@@ -656,14 +708,14 @@
             // 
             // numericUpDown_Cost
             // 
-            this.numericUpDown_Cost.Location = new System.Drawing.Point(214, 33);
+            this.numericUpDown_Cost.Location = new System.Drawing.Point(208, 33);
             this.numericUpDown_Cost.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
             this.numericUpDown_Cost.Name = "numericUpDown_Cost";
-            this.numericUpDown_Cost.Size = new System.Drawing.Size(39, 20);
+            this.numericUpDown_Cost.Size = new System.Drawing.Size(45, 20);
             this.numericUpDown_Cost.TabIndex = 108;
             this.toolTips.SetToolTip(this.numericUpDown_Cost, "REMINDER: Only change this value if different Tiers or utilizing Rokushiki Master" +
         "");
@@ -691,7 +743,7 @@
             this.comboBox_Effect.Text = "Effects";
             this.toolTip_Roku.SetToolTip(this.comboBox_Effect, "Do NOT add Effects that the Rokushiki Tech already contains by default. You are a" +
         "ble to upgrade, though.");
-            this.toolTips.SetToolTip(this.comboBox_Effect, "No Custom Effects. Use another Effect that acts as a substitution");
+            this.toolTips.SetToolTip(this.comboBox_Effect, "All Custom Effects are treated as General.");
             this.comboBox_Effect.SelectedIndexChanged += new System.EventHandler(this.comboBox_Effect_SelectedIndexChanged);
             // 
             // button_EffectRemove
@@ -1023,56 +1075,6 @@
             this.toolTip_Roku.AutoPopDelay = 10000;
             this.toolTip_Roku.InitialDelay = 50;
             this.toolTip_Roku.ReshowDelay = 100;
-            // 
-            // comboBox_StatOpt
-            // 
-            this.comboBox_StatOpt.FormattingEnabled = true;
-            this.comboBox_StatOpt.Items.AddRange(new object[] {
-            "Self",
-            "Melee",
-            "Short",
-            "Medium",
-            "Long",
-            "Very Long",
-            "Short AoE",
-            "Medium AoE",
-            "Long AoE"});
-            this.comboBox_StatOpt.Location = new System.Drawing.Point(52, 80);
-            this.comboBox_StatOpt.Name = "comboBox_StatOpt";
-            this.comboBox_StatOpt.Size = new System.Drawing.Size(153, 21);
-            this.comboBox_StatOpt.TabIndex = 116;
-            this.toolTips.SetToolTip(this.comboBox_StatOpt, "Selecting a Range will load its Effects. Press \"Add\" after selecting.");
-            // 
-            // button_LoadStats
-            // 
-            this.button_LoadStats.Location = new System.Drawing.Point(52, 107);
-            this.button_LoadStats.Name = "button_LoadStats";
-            this.button_LoadStats.Size = new System.Drawing.Size(72, 21);
-            this.button_LoadStats.TabIndex = 117;
-            this.button_LoadStats.Text = "Load Stats";
-            this.button_LoadStats.UseVisualStyleBackColor = true;
-            // 
-            // textBox_Stats
-            // 
-            this.textBox_Stats.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox_Stats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox_Stats.Location = new System.Drawing.Point(228, 80);
-            this.textBox_Stats.Multiline = true;
-            this.textBox_Stats.Name = "textBox_Stats";
-            this.textBox_Stats.ReadOnly = true;
-            this.textBox_Stats.Size = new System.Drawing.Size(198, 48);
-            this.textBox_Stats.TabIndex = 118;
-            this.textBox_Stats.Text = "N/A";
-            this.textBox_Stats.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // button_ResetStats
-            // 
-            this.button_ResetStats.Location = new System.Drawing.Point(133, 107);
-            this.button_ResetStats.Name = "button_ResetStats";
-            this.button_ResetStats.Size = new System.Drawing.Size(72, 21);
-            this.button_ResetStats.TabIndex = 119;
-            this.button_ResetStats.Text = "Reset Stats";
-            this.button_ResetStats.UseVisualStyleBackColor = true;
             // 
             // Add_Technique
             // 

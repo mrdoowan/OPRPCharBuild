@@ -17,22 +17,22 @@ namespace OPRPCharBuild
         // --------------------------------------------------------------------
         // MEMBER VARIABLES
         // --------------------------------------------------------------------
-        public string version;
+        private string version;
 
         // Basic Information Tab
-        public string charName;
-        public string nickName;
-        public int age;
-        public string gender;
-        public string race;
-        public string position;
-        public string affiliation;
-        public string bounty;
-        public string commendation;
-        public string rank;
-        public string threat;
-        public List<string> achievements = new List<string>();
-        public Dictionary<string, bool> profDict = new Dictionary<string, bool>();
+        private string charName;
+        private string nickName;
+        private int age;
+        private string gender;
+        private string race;
+        private string position;
+        private string affiliation;
+        private string bounty;
+        private string commendation;
+        private string rank;
+        private string threat;
+        private List<string> achievements = new List<string>();
+        private List<Profession> profDict = new List<Profession>();
 
         // Physical Appearance Tab
         private string height;
@@ -41,8 +41,8 @@ namespace OPRPCharBuild
         private string eye;
         private string clothing;
         private string appearance;
-        public List<Image> images = new List<Image>();
-
+        private List<Image> images = new List<Image>();
+       
         // Backcground Tab
         private string island;
         private string region;
@@ -50,23 +50,30 @@ namespace OPRPCharBuild
         private string history;
 
         // Combat & Stats Tab
-        public string combat;
-        public List<Equipment> weaponry = new List<Equipment>();
-        public List<Equipment> items = new List<Equipment>();
-        public string beli;
-        public int SD_Earned;
-        public int SDtoSP;
-        public List<bool> AP = new List<bool>();
-        public int usedFortune;
-        public Stats stats;
-        public DevilFruit DF;
+        private string combat;
+        private List<Equipment> weaponry = new List<Equipment>();
+        private List<Equipment> items = new List<Equipment>();
+        private string beli;
+        private int SD_Earned;
+        private int SDtoSP;
+        private bool[] AP = new bool[5] {
+            false, false, false, false, false
+        };
+        private int usedFortune;
+        private Stats stats;
+        private DevilFruit DF;
 
         // Traits Tab
-        public List<Trait> traitsList = new List<Trait>();
+        private Dictionary<string, Trait> traitsList = new Dictionary<string, Trait>();
 
         // Technique Tab
-        public List<Technique> techList = new List<Technique>();
-        public List<Category> categoryList = new List<Category>();
+        private Dictionary<string, Technique> techList = new Dictionary<string, Technique>();
+        private Dictionary<string, Category> categoryList = new Dictionary<string, Category>();
+
+        // Template Tab
+        private string template;
+        private string hexColor;
+        private string masteryMsg;
 
         // Default Constructor
         public Character() { }
