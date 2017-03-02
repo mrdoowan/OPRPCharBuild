@@ -367,24 +367,24 @@ namespace OPRPCharBuild
 					ListView Techniques = (ListView)List;
 					for (int i = beg_row; i < end_row + 1; ++i) {
 						string TechName = Techniques.Items[i].SubItems[0].Text;
-						MainForm.TechInfo Technique = MainForm.TechList[TechName];
+						Technique tech = MainForm.TechList[TechName];
 						// Load Dictionary
 						RepeatTags.Add(64, TechName);
-						string rank = Technique.rank.ToString();
-						if (If_Treat_Rank4(Technique.rank_Trait)) { rank += "*"; }
-						if (Technique.Cyborg_Boosts[2]) { rank += " + 12"; }
-						else if (Technique.Cyborg_Boosts[1]) { rank += " + 8"; }
-						else if (Technique.Cyborg_Boosts[0]) { rank += " + 4"; }
+						string rank = tech.rank.ToString();
+						if (If_Treat_Rank4(tech.rankTrait)) { rank += "*"; }
+						if (tech.cyborgBoosts[2]) { rank += " + 12"; }
+						else if (tech.cyborgBoosts[1]) { rank += " + 8"; }
+						else if (tech.cyborgBoosts[0]) { rank += " + 4"; }
 						RepeatTags.Add(65, rank);
-						RepeatTags.Add(66, Technique.type);
-						RepeatTags.Add(97, Technique.range);
-						RepeatTags.Add(67, Technique.power);
-						RepeatTags.Add(68, TechStats_Into_String(Technique.stats));
-						RepeatTags.Add(69, Technique.regTP.ToString());
-						RepeatTags.Add(70, Technique.spTP.ToString());
-						RepeatTags.Add(71, Technique.note);
-						RepeatTags.Add(72, Technique.desc);
-						RepeatTags.Add(73, TechEffects_Into_String(Technique.effectList));
+						RepeatTags.Add(66, tech.type);
+						RepeatTags.Add(97, tech.range);
+						RepeatTags.Add(67, tech.power);
+						RepeatTags.Add(68, tech.stats.techStr);
+						RepeatTags.Add(69, tech.regTP.ToString());
+						RepeatTags.Add(70, tech.spTP.ToString());
+						RepeatTags.Add(71, tech.note);
+						RepeatTags.Add(72, tech.description);
+						RepeatTags.Add(73, TechEffects_Into_String(tech.effects));
 						// --------------
 						Repeat_String(old_str, ref new_str);
 						RepeatTags.Clear();
@@ -613,52 +613,41 @@ namespace OPRPCharBuild
 			}
 		}
 
-		private bool If_Treat_Rank4(string techTrait) {
-			Traits Trait = new Traits();
-			Traits.Trait_Name ID = Trait.get_TraitID(techTrait);
-			return (ID == Traits.Trait_Name.MARTIAL_MASTERY || ID == Traits.Trait_Name.ADV_MARTIAL_MASTERY ||
-					ID == Traits.Trait_Name.ADV_MARTIAL_CLASS || ID == Traits.Trait_Name.STANCE_MAST ||
-					ID == Traits.Trait_Name.ADV_STANCE_MASTERY || ID == Traits.Trait_Name.ART_OF_STEALTH ||
-					ID == Traits.Trait_Name.ANTI_STEALTH || ID == Traits.Trait_Name.DWARF);
-		}
+        // If any Trait Names has [SPEC], return it WITH [SPEC] (Test?)
+        private string stringSpec(string name) {
+            if (name.Contains('[') && name.Contains(']')) {
+                int firstIndexSpec = name.IndexOf('[') + 1;
+                string specName = name.Substring(firstIndexSpec,
+                    name.IndexOf(']') - firstIndexSpec);
+                name.Replace(specName, "SPEC");
+            }
+            return name;
+        }
 
-		private string TechStats_Into_String(MainForm.TechStats Stats) {
-			string statsMsg = "";
-			if (Stats.str != 0) {
-				if (Stats.str > 0) { statsMsg += "+"; }
-				statsMsg += Stats.str + " Str";
-			}
-			if (Stats.spe != 0) {
-				if (!string.IsNullOrEmpty(statsMsg)) { statsMsg += ", "; }
-				if (Stats.spe > 0) { statsMsg += "+"; }
-				statsMsg += Stats.spe + " Spe";
-			}
-			if (Stats.sta != 0) {
-				if (!string.IsNullOrEmpty(statsMsg)) { statsMsg += ", "; }
-				if (Stats.spe > 0) { statsMsg += "+"; }
-				statsMsg += Stats.sta + " Sta";
-			}
-			if (Stats.acc != 0) {
-				if (!string.IsNullOrEmpty(statsMsg)) { statsMsg += ", "; }
-				if (Stats.acc > 0) { statsMsg += "+"; }
-				statsMsg += Stats.acc + " Acc";
-			}
-			if (string.IsNullOrEmpty(statsMsg)) { return "N/A"; }
-			return statsMsg;
-		}
+        private bool If_Treat_Rank4(string techTrait) {
+            // This is tricky because of [SPEC]
+            string traitSpec = stringSpec(techTrait);
+            if (traitSpec == Database.TR_MASTER || traitSpec == Database.TR_ADVMAS ||
+                traitSpec == Database.TR_ADVCLA || traitSpec == Database.TR_STAMAS ||
+                traitSpec == Database.TR_ADVSTA || traitSpec == Database.TR_ARTSTE ||
+                traitSpec == Database.TR_ANTIST || traitSpec == Database.TR_DWARF) {
+                return true;
+            }
+            return false;
+        }
+        
 
-		private string TechEffects_Into_String(Dictionary<string, Add_Technique.EffectItem> Effects) {
+		private string TechEffects_Into_String(List<Effect> Effects) {
 			string effectsMsg = "";
 			int i = 0;
-			foreach (string effectName in Effects.Keys) {
+			foreach (Effect eff in Effects) {
 				if (i > 0) {
 					effectsMsg += ", ";
 				}
-				Add_Technique.EffectItem effectInfo = Effects[effectName];
-				effectsMsg += effectName;
+				effectsMsg += eff.name;
 				effectsMsg += " [";
-				if (!effectInfo.gen) { effectsMsg += "-"; }
-				effectsMsg += effectInfo.cost + "]";
+				if (!eff.general) { effectsMsg += "-"; }
+				effectsMsg += eff.cost + "]";
 				i++;
 			}
 			return effectsMsg;

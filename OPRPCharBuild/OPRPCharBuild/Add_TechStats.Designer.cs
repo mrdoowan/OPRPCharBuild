@@ -81,7 +81,7 @@
             0,
             -2147483648});
             this.numericUpDown_Str.Name = "numericUpDown_Str";
-            this.numericUpDown_Str.Size = new System.Drawing.Size(48, 26);
+            this.numericUpDown_Str.Size = new System.Drawing.Size(48, 22);
             this.numericUpDown_Str.TabIndex = 5;
             this.numericUpDown_Str.ValueChanged += new System.EventHandler(this.numericUpDown_Str_ValueChanged);
             // 
@@ -99,7 +99,7 @@
             0,
             -2147483648});
             this.numericUpDown_Spe.Name = "numericUpDown_Spe";
-            this.numericUpDown_Spe.Size = new System.Drawing.Size(48, 26);
+            this.numericUpDown_Spe.Size = new System.Drawing.Size(48, 22);
             this.numericUpDown_Spe.TabIndex = 7;
             this.numericUpDown_Spe.ValueChanged += new System.EventHandler(this.numericUpDown_Spe_ValueChanged);
             // 
@@ -126,7 +126,7 @@
             0,
             -2147483648});
             this.numericUpDown_Sta.Name = "numericUpDown_Sta";
-            this.numericUpDown_Sta.Size = new System.Drawing.Size(48, 26);
+            this.numericUpDown_Sta.Size = new System.Drawing.Size(48, 22);
             this.numericUpDown_Sta.TabIndex = 9;
             this.numericUpDown_Sta.ValueChanged += new System.EventHandler(this.numericUpDown_Sta_ValueChanged);
             // 
@@ -153,7 +153,7 @@
             0,
             -2147483648});
             this.numericUpDown_Acc.Name = "numericUpDown_Acc";
-            this.numericUpDown_Acc.Size = new System.Drawing.Size(48, 26);
+            this.numericUpDown_Acc.Size = new System.Drawing.Size(48, 22);
             this.numericUpDown_Acc.TabIndex = 11;
             this.numericUpDown_Acc.ValueChanged += new System.EventHandler(this.numericUpDown_Acc_ValueChanged);
             // 
@@ -190,7 +190,7 @@
             this.textBox_BuffCalc.Location = new System.Drawing.Point(158, 68);
             this.textBox_BuffCalc.Name = "textBox_BuffCalc";
             this.textBox_BuffCalc.ReadOnly = true;
-            this.textBox_BuffCalc.Size = new System.Drawing.Size(197, 19);
+            this.textBox_BuffCalc.Size = new System.Drawing.Size(197, 15);
             this.textBox_BuffCalc.TabIndex = 16;
             this.textBox_BuffCalc.Text = "CALCULATION";
             this.textBox_BuffCalc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -201,7 +201,7 @@
             this.textBox_DebuffCalc.Location = new System.Drawing.Point(158, 124);
             this.textBox_DebuffCalc.Name = "textBox_DebuffCalc";
             this.textBox_DebuffCalc.ReadOnly = true;
-            this.textBox_DebuffCalc.Size = new System.Drawing.Size(197, 19);
+            this.textBox_DebuffCalc.Size = new System.Drawing.Size(197, 15);
             this.textBox_DebuffCalc.TabIndex = 17;
             this.textBox_DebuffCalc.Text = "CALCULATION";
             this.textBox_DebuffCalc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -221,14 +221,9 @@
             // 
             this.comboBox_AoE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_AoE.FormattingEnabled = true;
-            this.comboBox_AoE.Items.AddRange(new object[] {
-            "",
-            "Short AoE",
-            "Medium AoE",
-            "Long AoE"});
             this.comboBox_AoE.Location = new System.Drawing.Point(101, 36);
             this.comboBox_AoE.Name = "comboBox_AoE";
-            this.comboBox_AoE.Size = new System.Drawing.Size(162, 28);
+            this.comboBox_AoE.Size = new System.Drawing.Size(162, 24);
             this.comboBox_AoE.TabIndex = 19;
             this.comboBox_AoE.SelectedIndexChanged += new System.EventHandler(this.comboBox_Range_SelectedIndexChanged);
             // 
@@ -244,7 +239,7 @@
             // label_MajorBuff
             // 
             this.label_MajorBuff.ForeColor = System.Drawing.Color.OrangeRed;
-            this.label_MajorBuff.Location = new System.Drawing.Point(269, 36);
+            this.label_MajorBuff.Location = new System.Drawing.Point(269, 33);
             this.label_MajorBuff.Name = "label_MajorBuff";
             this.label_MajorBuff.Size = new System.Drawing.Size(86, 24);
             this.label_MajorBuff.TabIndex = 21;
@@ -255,17 +250,16 @@
             // label_PostDur
             // 
             this.label_PostDur.ForeColor = System.Drawing.Color.DarkGoldenrod;
-            this.label_PostDur.Location = new System.Drawing.Point(15, 181);
+            this.label_PostDur.Location = new System.Drawing.Point(15, 179);
             this.label_PostDur.Name = "label_PostDur";
             this.label_PostDur.Size = new System.Drawing.Size(259, 24);
             this.label_PostDur.TabIndex = 22;
-            this.label_PostDur.Text = "Has a # Post Duration";
             this.label_PostDur.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.label_PostDur.Visible = false;
             // 
             // Add_TechStats
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(367, 213);
             this.Controls.Add(this.label_PostDur);

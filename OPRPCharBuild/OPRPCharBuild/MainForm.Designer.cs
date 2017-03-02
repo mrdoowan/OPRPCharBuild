@@ -2821,9 +2821,9 @@
             this.label48.AutoSize = true;
             this.label48.Location = new System.Drawing.Point(292, 412);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(215, 17);
+            this.label48.Size = new System.Drawing.Size(357, 17);
             this.label48.TabIndex = 14;
-            this.label48.Text = "(Leave blank if not using a color)";
+            this.label48.Text = "(Leave blank if not using a color. Include # if using Hex)";
             // 
             // textBox_Color
             // 

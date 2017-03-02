@@ -35,6 +35,11 @@ namespace OPRPCharBuild
 									// Updated when an Effect is removed
 		private bool has_4Ranks;	// For Traits that treat 4 ranks higher
 
+        // Branching variables
+        private bool branch;
+        private bool editing;
+        Technique replicating;  // This is the Technique we're either Editing or Branching off of
+
         // Tech List by names
         private List<string> techNames = new List<string>();
 
@@ -45,9 +50,9 @@ namespace OPRPCharBuild
         Stats techStats = new Stats();
 
 		// Used when editing Dialogue for comboBox SpTrait, Rank Trait, and Note
-		private string edit_SpTrait;
+		/* private string edit_SpTrait;
 		private string edit_RankTrait;
-		private string edit_Note;
+		private string edit_Note; */
 
         // Devil Fruit section
         DevilFruit DF;
@@ -58,7 +63,7 @@ namespace OPRPCharBuild
 		private bool Has_RokuMaster = false;
 
 		public Add_Technique(int MaxRank, Dictionary<string, Profession> pList, Dictionary<string, Trait> tList,
-            Dictionary<string, SpTrait> SpList, DevilFruit DF_) {
+            Dictionary<string, SpTrait> SpList, DevilFruit DF_, bool branch_, bool edit_, Technique repl_) {
 			InitializeComponent();
 			button_clicked = false;
 			max_rank = MaxRank;
@@ -67,6 +72,9 @@ namespace OPRPCharBuild
 			spTraitsList = SpList;
             profList = pList;
             DF = DF_;
+            branch = branch_;
+            editing = edit_;
+            replicating = repl_;
 			gen_effects = 0;
             if (traitsList.ContainsKey(Database.TR_ROKUMA)) {
                 Has_RokuMaster = true;
@@ -132,7 +140,7 @@ namespace OPRPCharBuild
 			}
 		}
 
-		// This goes from the Dictionary to Add_Technique Form
+		// This goes from the Technique Class to Add_Technique Form
 		// Take into account of Rokushiki here
 		private void Copy_Data_To_Form(Technique Tech) {
 			// Put the Tech being edited into the Dialog Box first. Take it from the Dictionary
@@ -151,8 +159,8 @@ namespace OPRPCharBuild
 			numericUpDown_Rank.Value = Tech.rank;
 			numericUpDown_RegTP.Value = Tech.regTP;
 			numericUpDown_SpTP.Value = Tech.spTP;
-			edit_SpTrait = Tech.specialTrait;           // (Need items initialized in comboBox FIRST, then Add_Technique Form initializes)
-			edit_RankTrait = Tech.rankTrait;            // (Need items initialized in comboBox FIRST, then Add_Technique Form initializes)
+			comboBox_SpTrait.Text = Tech.specialTrait;
+			comboBox_AffectRank.Text = Tech.rankTrait;
 			if (Tech.sigTech) { // Sig Tech
 				numericUpDown_Rank.Value = max_rank;
 				numericUpDown_Rank.Enabled = false;
@@ -210,7 +218,13 @@ namespace OPRPCharBuild
 			checkBox_Fuel1.Checked = Tech.cyborgBoosts[0];
 			checkBox_Fuel2.Checked = Tech.cyborgBoosts[1];
 			checkBox_Fuel3.Checked = Tech.cyborgBoosts[2];
-			edit_Note = Tech.note;
+            // Checkboxes for the App Traits
+            if (Tech.note.Contains(Database.TR_SIGTEC) && checkBox_SigTech.Enabled) { checkBox_SigTech.Checked = true; }
+            if (Tech.note.Contains(Database.TR_CRITHI) && checkBox_CritHit.Enabled) { checkBox_CritHit.Checked = true; }
+            if (Tech.note.Contains(Database.TR_ANASTR) && checkBox_AnatStrike.Enabled) { checkBox_AnatStrike.Checked = true; }
+            if (Tech.note.Contains(Database.TR_QUICKS) && checkBox_QuickStrike.Enabled) { checkBox_QuickStrike.Checked = true; }
+            // Now put in the Tech.note
+            richTextBox_Note.Text = Tech.note;
             // (Need Update Functions from Add_Technique_Load_Form first, and THEN edit it in)
             richTextBox_CustNotes.Text = Tech.customNote;
 			richTextBox_Desc.Text = Tech.description;
@@ -250,16 +264,6 @@ namespace OPRPCharBuild
             return false;
         }
 
-        // Check if a string has all numbers
-        private bool All_Numbers(string power) {
-            for (int i = 0 ; i < power.Length ; ++i) {
-                if (!char.IsNumber(power[i])) {
-                    return false;
-                }
-            }
-            return true;
-        }
-
         // This is to simplify the function from the Database
         private Effect getEffect(string effName) {
             return Database.getEffect(effName, checkBox_Marksman.Checked,
@@ -280,26 +284,9 @@ namespace OPRPCharBuild
 
 		#region Dialog Functions for Prompting Form
 
-		public string NewDialog(ref ListView Main_Form, ref Dictionary<string, Technique> techList,
-            Technique Tech, bool branch, int index) {
-            if (branch) {
-				// If we're branching a Technique, we want to duplicate, and then modify.
-				try {
-                    // TODO: Move this around properly
-					Copy_Data_To_Form(Tech);
-					// Now modify
-					textBox_Name.Clear();
-					ListViewItem sel_item = Main_Form.SelectedItems[0];
-					int rank = int.Parse(sel_item.SubItems[1].Text);
-					checkBox_Branched.Checked = true;
-                    numericUpDown_Rank.Value = rank + 4;
-					textBox_TechBranched.Text = sel_item.SubItems[0].Text;
-					numericUpDown_RankBranch.Value = rank;
-				}
-				catch (Exception e) {
-					MessageBox.Show("There was a problem branching Technique\nReason: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				}
-			}
+		public string NewDialog(ref ListView Main_Form, ref Dictionary<string, Technique> techList, int index) {
+            // Save names of TechNames
+            techNames.AddRange(techList.Keys.ToArray());
 			this.ShowDialog();      // This calls the Add_Technique_Load function
             if (button_clicked) {
 				// Add the Form into Dictionary
@@ -325,20 +312,15 @@ namespace OPRPCharBuild
 		}
 
 		// You can customize Rokushiki by Editing a Technique
-		public string EditDialog(ref ListView Main_Form, ref Dictionary<string, Technique> techList,
-            Technique Tech) {
+		public string EditDialog(ref ListView Main_Form, ref Dictionary<string, Technique> techList) {
 			button_AddTech.Text = "Edit";
-            // TODO: Move this around Properly
-            try { Copy_Data_To_Form(Tech); }
-			catch (Exception ex) {
-				MessageBox.Show("There was an error copying from Dictionary to Tech Form.\nReason: " + ex.Message, "Exception Thrown");
-				return null;
-			}
+            // Save names of TechNames
+            techNames.AddRange(techList.Keys.ToArray());
 			// Save copy of Technique
-			Technique techInfo = techList[Tech.name];
+			Technique techInfo = techList[replicating.name];
 			// Remove initial item from Dictionary first so we can avoid conflict of names
 			// Why? Take a look at the Event Handler button_AddTech_Click()
-			if (!techList.Remove(Tech.name)) {
+			if (!techList.Remove(replicating.name)) {
 				MessageBox.Show("Couldn't remove from the Dictionary because TechName was null!", "Report Bug");
 			}
 			this.ShowDialog();          // This calls the Add_Technique_Load function
@@ -361,7 +343,7 @@ namespace OPRPCharBuild
 			}
 			else {
 				// This means we canceled changes, so add the Technique back.
-				techList.Add(Tech.name, techInfo);
+				techList.Add(replicating.name, techInfo);
 			}
             return null;
 		}
@@ -404,6 +386,8 @@ namespace OPRPCharBuild
 				if (checkBox_DFEffect.Checked) { message += " - [b]Free DF Effect applied[/b]"; }
 				message += "\n";
 			}
+            // Stats message
+            if (!string.IsNullOrWhiteSpace(techStats.duration)) { message += "- " + techStats.duration + '\n'; }
 			// Cyborg message
 			if (checkBox_Fuel3.Checked) { message += "- [i]Cyborg Technique[/i] - uses 3 Fuel Charges (+12 Rank)\n"; }
 			else if (checkBox_Fuel2.Checked) { message += "- [i]Cyborg Technique[/i] - uses 2 Fuel Charges (+8 Rank)\n"; }
@@ -418,11 +402,7 @@ namespace OPRPCharBuild
 			if (checkBox_QuickStrike.Checked) { message += "- [i]" + Database.TR_QUICKS + " Technique[/i]\n"; }
 			message = message.TrimEnd('\n'); // Remove the last \n
 			richTextBox_Note.Text = message;
-			// Used when Sig is checked/unchecked
-			// Used when Branched From text is changed.
-			// Used when Branched points is changed.
-			// Used when Special Trait is selected.
-			// Used when Sp. TP is changed.
+			// Used in every application above
 		}
 
 		private void Update_Power_Value() {
@@ -551,7 +531,8 @@ namespace OPRPCharBuild
 		#endregion
 
 		// This only occurs once before the form is displayed for the first time. (This occurs right when this.ShowDialog() is called)
-		// We'll need this to set some Maximums or comboBox lists based on the Main_Form
+        // The form Loading should only enable, initialize text, and add items into comboboxes!
+		// Copy Data to Form should be called after everything is loaded
 		private void Add_Technique_Load(object sender, EventArgs e) {
 			// Set Maximum Values of NumericUpDown
 			numericUpDown_Rank.Maximum = max_rank;
@@ -566,8 +547,7 @@ namespace OPRPCharBuild
                     comboBox_AffectRank.Items.Add(traitName);
                 }
             }
-			if (string.IsNullOrWhiteSpace(edit_RankTrait)) { comboBox_AffectRank.SelectedIndex = -1; }
-			else { comboBox_AffectRank.Text = edit_RankTrait; }
+			comboBox_AffectRank.SelectedIndex = -1;
 
 			// Add Special TP Traits
 			foreach (string traitName in spTraitsList.Keys) {
@@ -578,9 +558,49 @@ namespace OPRPCharBuild
 				numericUpDown_SpTP.Enabled = true;
 				label_SpTraitUsed.Text = "Sp. TP Trait";
 				comboBox_SpTrait.Enabled = true;
-				if (string.IsNullOrWhiteSpace(edit_SpTrait)) { comboBox_SpTrait.SelectedIndex = -1; }
-				else { comboBox_SpTrait.Text = edit_SpTrait; }
+				comboBox_SpTrait.SelectedIndex = -1;
 			}
+
+            // Add Stats into comboBox based on character
+            comboBox_StatOpt.Items.Add(Database.BUF_WILLPO);
+            if ((profList.ContainsKey(Database.PROF_WA) && profList[Database.PROF_WA].primary) ||
+                (profList.ContainsKey(Database.PROF_MS) && profList[Database.PROF_MS].primary)) {
+                comboBox_StatOpt.Items.Add(Database.BUF_STANCE);
+            }
+            if (traitsList.ContainsKey(Database.TR_LIFRET)) {
+                comboBox_StatOpt.Items.Add(Database.BUF_LIFRET);
+            }
+            if ((profList.ContainsKey(Database.PROF_DO) && profList[Database.PROF_DO].primary) ||
+                (profList.ContainsKey(Database.PROF_AS) && profList[Database.PROF_AS].primary) ||
+                traitsList.ContainsKey(Database.TR_BAKBAD)) {
+                comboBox_StatOpt.Items.Add(Database.BUF_POISON);
+            }
+            if (profList.ContainsKey(Database.PROF_DO) && profList[Database.PROF_DO].primary) {
+                comboBox_StatOpt.Items.Add(Database.BUF_DRUG);
+            }
+            if (traitsList.ContainsKey(Database.TR_CRITHI) || traitsList.ContainsKey(Database.TR_ANASTR) ||
+                traitsList.ContainsKey(Database.TR_QUICKS)) {
+                comboBox_StatOpt.Items.Add(Database.BUF_CRITHI);
+            }
+            if (profList.ContainsKey(Database.PROF_EN) && profList[Database.PROF_EN].primary) {
+                comboBox_StatOpt.Items.Add(Database.BUF_PERFOR);
+            }
+            if (profList.ContainsKey(Database.PROF_CH) && profList[Database.PROF_CH].primary) {
+                comboBox_StatOpt.Items.Add(Database.BUF_FOOD);
+            }
+            if (DF.type == "Zoan" || DF.type == "Ancient Zoan" || DF.type == "Myth Zoan") {
+                comboBox_StatOpt.Items.Add(Database.BUF_ZOAN);
+            }
+            if (!string.IsNullOrWhiteSpace(DF.name)) {
+                comboBox_StatOpt.Items.Add(Database.BUF_DFBUFF);
+                comboBox_StatOpt.Items.Add(Database.BUF_DFDEBU);
+            }
+            if (traitsList.ContainsKey(Database.TR_AWHAKI)) {
+                comboBox_StatOpt.Items.Add(Database.BUF_OBHAKI);
+            }
+            if (traitsList.ContainsKey(Database.TR_CQHAKI)) {
+                comboBox_StatOpt.Items.Add(Database.BUF_CQHAKI);
+            }
 
 			// Fill in the ListView columns
 			listView_Effects.View = View.Details;
@@ -601,10 +621,6 @@ namespace OPRPCharBuild
             // Add Effects into the ComboBox based on certain criteria
             // Add Effects accessible for everyone
             List<string> effectsComboList = Database.getAccessEffects();
-            // Disarm effect if there is an Anti-Weapon Specialist Trait
-            if (traitsList.ContainsKey(Database.TR_ANTIWS)) {
-                effectsComboList.Add(Database.EFF_DISAR);
-            }
             // Add Stealth Effects
             if (profList.ContainsKey(Database.PROF_AS)) {
                 if (profList[Database.PROF_AS].primary) {
@@ -638,6 +654,9 @@ namespace OPRPCharBuild
             if (traitsList.ContainsKey(Database.TR_BATSUI)) {
                 effectsComboList.Add(Database.EFF_BSUIT);
             }
+            // now AddRange into the combobox
+            comboBox_Effect.Items.AddRange(effectsComboList.ToArray());
+
 			if (has_4Ranks) { max_rank -= 4; }
 
 			// DF Options
@@ -678,23 +697,36 @@ namespace OPRPCharBuild
 				MessageBox.Show("Error in configuring Cyborg Options.\nReason: " + ex.Message, "Error");
 			}
 			// Applicable Traits & Note
-			try {
-				if (traitsList.ContainsKey(Database.TR_SIGTEC)) { checkBox_SigTech.Enabled = true; }
-				if (traitsList.ContainsKey(Database.TR_CRITHI)) { checkBox_CritHit.Enabled = true; }
-				if (traitsList.ContainsKey(Database.TR_ANASTR)) { checkBox_AnatStrike.Enabled = true; }
-				if (traitsList.ContainsKey(Database.TR_QUICKS)) { checkBox_QuickStrike.Enabled = true; }
-				// Now we check the Box if "Note" contains the String
-				if (string.IsNullOrWhiteSpace(edit_Note)) { edit_Note = ""; } // To prevent unhandled Exception
-				if (edit_Note.Contains(Database.TR_SIGTEC) && checkBox_SigTech.Enabled) { checkBox_SigTech.Checked = true; }
-				if (edit_Note.Contains(Database.TR_CRITHI) && checkBox_CritHit.Enabled) { checkBox_CritHit.Checked = true; }
-				if (edit_Note.Contains(Database.TR_ANASTR) && checkBox_AnatStrike.Enabled) { checkBox_AnatStrike.Checked = true; }
-				if (edit_Note.Contains(Database.TR_QUICKS) && checkBox_QuickStrike.Enabled) { checkBox_QuickStrike.Checked = true; }
-				Update_Note();	// Update note after.
-			}
-			catch (Exception ex) {
-				MessageBox.Show("Error in configuring Applicable Traits.\nReason: " + ex.Message, "Error");
-			}
-		}
+			if (traitsList.ContainsKey(Database.TR_SIGTEC)) { checkBox_SigTech.Enabled = true; }
+			if (traitsList.ContainsKey(Database.TR_CRITHI)) { checkBox_CritHit.Enabled = true; }
+			if (traitsList.ContainsKey(Database.TR_ANASTR)) { checkBox_AnatStrike.Enabled = true; }
+			if (traitsList.ContainsKey(Database.TR_QUICKS)) { checkBox_QuickStrike.Enabled = true; }
+
+            // Now everything is loaded: We can call Copy_Dict_To_Form
+            // If we're branching a Technique, we want to duplicate, and then modify.
+            if (branch) {
+                try {
+                    // TODO: Move this around properly
+                    Copy_Data_To_Form(replicating);
+                    // Now modify
+                    textBox_Name.Clear();
+                    int rank = replicating.rank;
+                    checkBox_Branched.Checked = true;
+                    numericUpDown_Rank.Value = rank + 4;
+                    textBox_TechBranched.Text = replicating.name;
+                    numericUpDown_RankBranch.Value = rank;
+                }
+                catch (Exception ex) {
+                    MessageBox.Show("There was a problem branching Technique\nReason: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (editing) {
+                try { Copy_Data_To_Form(replicating); }
+                catch (Exception ex) {
+                    MessageBox.Show("There was an error copying from Dictionary to Tech Form.\nReason: " + ex.Message, "Exception Thrown");
+                }
+            }
+        }
 
 		#region Event Handlers
 
@@ -724,9 +756,6 @@ namespace OPRPCharBuild
 						numericUpDown_Rank.Value + " (Rank) - " + numericUpDown_RankBranch.Value + " (Branch) = " + (numericUpDown_Rank.Value - numericUpDown_RankBranch.Value) + '\n' +
 						numericUpDown_RegTP.Value + " (Reg TP) + " + numericUpDown_SpTP.Value + " (Sp TP) = " + (numericUpDown_RegTP.Value + numericUpDown_SpTP.Value),
 						"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				}
-				else if (!All_Numbers(textBox_Power.Text)) {
-					MessageBox.Show("Power should only have numbers!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 				else {
 					this.Close();
@@ -868,16 +897,48 @@ namespace OPRPCharBuild
 			Update_Note();
         }
 
-
+        // Load Stats
         private void button_LoadStats_Click(object sender, EventArgs e) {
-
+            int rank = (int)numericUpDown_Rank.Value;
+            string statopt = comboBox_StatOpt.Text;
+            if (statopt == Database.BUF_WILLPO && rank < 14) {
+                MessageBox.Show("Can't have a Willpower Buff that is <R14", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            // For Crit Hit/Anat/Quickstrike, power is followed instead
+            if (statopt == Database.BUF_CRITHI) {
+                rank = int.Parse(textBox_Power.Text);
+            }
+            // Rank 1 Tech isn't allowed
+            if (rank < 2) {
+                MessageBox.Show("<R2 buffs/debuffs are not possible.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            Add_TechStats statsWin = new Add_TechStats(statopt, rank);
+            textBox_Stats.Text = statsWin.LoadDialog(ref techStats, textBox_Stats.Text);
+            Update_Note();
         }
 
+        // Reset Stats
         private void button_ResetStats_Click(object sender, EventArgs e) {
-
+            techStats = new Stats();
+            textBox_Stats.Text = "N/A";
+            Update_Note();
         }
 
-		private void checkBox_NA_CheckedChanged(object sender, EventArgs e) {
+        private void textBox_Power_TextChanged(object sender, EventArgs e) {
+            try { int.Parse(textBox_Power.Text); }
+            catch {
+                MessageBox.Show("Only numerical values are allowed.\nSetting Auto Calculate back on.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                checkBox_AutoCalc.Checked = true;
+                Update_Power_Value();
+            }
+        }
+
+        private void checkBox_NA_CheckedChanged(object sender, EventArgs e) {
 			if (checkBox_NA.Checked) {
 				listView_Effects.Enabled = false;
 				listView_Effects.Clear();
@@ -1142,35 +1203,7 @@ namespace OPRPCharBuild
 			Update_Signature_Enable();
 			Update_Note();
 		}
-
-		private void checkBox_MentFort_CheckedChanged(object sender, EventArgs e) {
-			Update_Note();
-		}
-
-		private void checkBox_BakingBad_CheckedChanged(object sender, EventArgs e) {
-			Update_Note();
-		}
-
-		private void checkBox_PowSpeak_CheckedChanged(object sender, EventArgs e) {
-			Update_Note();
-		}
-
-		private void checkBox_CrowdCont_CheckedChanged(object sender, EventArgs e) {
-			Update_Note();
-		}
-
-		private void checkBox_LifeReturn_CheckedChanged(object sender, EventArgs e) {
-			Update_Note();
-		}
-
-		private void checkBox_FormAndFunc_CheckedChanged(object sender, EventArgs e) {
-			Update_Note();
-		}
-
-		private void checkBox_Haki_CheckedChanged(object sender, EventArgs e) {
-			Update_Note();
-		}
-
+        
 		private void checkBox_AnatStrike_CheckedChanged(object sender, EventArgs e) {
 			Update_Note();
 		}
@@ -1182,11 +1215,7 @@ namespace OPRPCharBuild
 		private void checkBox_QuickStrike_CheckedChanged(object sender, EventArgs e) {
 			Update_Note();
 		}
-
-		private void checkBox_SpIngred_CheckedChanged(object sender, EventArgs e) {
-			Update_Note();
-		}
-
+        
 		// REMINDER: Rokushiki Techniques CANNOT be applied with Mastery. Therefore, it's Rank will always be what it is.
 		private void button_Rokushiki_Click(object sender, EventArgs e) {
 			DialogResult result = MessageBox.Show("This will overwrite some parts of the Form. Are you sure you want to Load a Rokushiki Technique?", "Reminder",
@@ -1263,5 +1292,6 @@ namespace OPRPCharBuild
 		}
 
         #endregion
+        
     }
 }

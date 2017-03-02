@@ -1486,9 +1486,8 @@ namespace OPRPCharBuild
 			int num_items = listView_Techniques.Items.Count;
 			if (num_items == 0) { num_items++; } // What if empty?
 			Add_Technique TechniqueWin = new Add_Technique(max_rank, profList, 
-                traitList, spTraitList, makeDFClass());
-			string newName = TechniqueWin.NewDialog(ref listView_Techniques, ref techList, 
-                null, false, num_items - 1);
+                traitList, spTraitList, makeDFClass(), false, false, null);
+			string newName = TechniqueWin.NewDialog(ref listView_Techniques, ref techList, num_items - 1);
 			// Update functions go below
 			All_Update_Functions_Techs(newName);
 		}
@@ -1515,9 +1514,8 @@ namespace OPRPCharBuild
 				}
 				else {
 					Add_Technique TechniqueWin = new Add_Technique(max_rank, profList, traitList, 
-                        spTraitList, makeDFClass());
-                    string newName = TechniqueWin.NewDialog(ref listView_Techniques, 
-                        ref techList, selTech, true, index);
+                        spTraitList, makeDFClass(), true, false, selTech);
+                    string newName = TechniqueWin.NewDialog(ref listView_Techniques, ref techList, index);
                     // Update functions go below
                     if (string.IsNullOrWhiteSpace(newName)) {
                         All_Update_Functions_Techs(newName);
@@ -1541,9 +1539,8 @@ namespace OPRPCharBuild
 				}
 				else {
                     Add_Technique TechniqueWin = new Add_Technique(max_rank, profList, traitList,
-                        spTraitList, makeDFClass());
-                    string newName = TechniqueWin.EditDialog(ref listView_Techniques, 
-                        ref techList, selTech);
+                        spTraitList, makeDFClass(), false, true, selTech);
+                    string newName = TechniqueWin.EditDialog(ref listView_Techniques, ref techList);
                     // Update functions go below
                     if (string.IsNullOrWhiteSpace(newName)) {
                         All_Update_Functions_Techs(newName);
@@ -1755,12 +1752,12 @@ namespace OPRPCharBuild
 			textBox_Position.Clear();
 			comboBox_Affiliation.SelectedIndex = -1;
 			textBox_Bounty.Clear();
-			numericUpDown_Comm.Clear();
+            numericUpDown_Comm.Value = 0;
 			comboBox_MarineRank.SelectedIndex = -1;
 			textBox_Threat.Clear();
 			listBox_Achieve.Items.Clear();
 			listView_Prof.Items.Clear();
-			ProfList.Clear();
+			profList.Clear();
 			// Physical Appearance
 			textBox_Height.Clear();
 			textBox_Weight.Clear();
@@ -1800,12 +1797,12 @@ namespace OPRPCharBuild
 			numericUpDown_AccuracyBase.Value = 1;
 			// Traits & Techs
 			listView_Traits.Items.Clear();
-			TraitsList.Clear();
+			traitList.Clear();
 			listView_SpTP.Items.Clear();
 			label_CritAnatQuick.Text = "";
 			listView_Techniques.Items.Clear();
 			Update_TechNum();
-			TechList.Clear();
+			techList.Clear();
 			listView_SubCat.Items.Clear();
 			textBox_SubCat.Clear();
 			// Update Functions (that are still needed)

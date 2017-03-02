@@ -15,13 +15,13 @@ namespace OPRPCharBuild
         public int type;
         public bool majorBuff;
         public bool stdTable;
-        public bool prof;       // Does this follow a duration?
+        public bool duration;       // Does this follow a duration?
 
         public StatAlter(int type_, bool major_, bool std_, bool prof_) {
             type = type_;
             majorBuff = major_;
             stdTable = std_;
-            prof = prof_;
+            duration = prof_;
         }
     }
 }
