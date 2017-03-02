@@ -161,7 +161,7 @@ namespace OPRPCharBuild
             TR_DIHAKI = "Disciplined Haki",
             TR_DWARF = "Dwarf",
             TR_ESCART = "Escape Artist",
-            TR_FISHMA = "Fishman [SPEC]",
+            TR_FISHMA = "Fishman",
             TR_FOODWA = "Food of Warriors",
             TR_FORFUR = "Forge Furnace",
             TR_FORMAS = "Forging Master",
@@ -345,14 +345,25 @@ namespace OPRPCharBuild
             #endregion
         };
 
+        // If any Trait Names has [SPEC], return it WITH [SPEC] (Test?)
+        static public string stringSpec(string name) {
+            if (name.Contains('[') && name.Contains(']')) {
+                int firstIndexSpec = name.IndexOf('[') + 1;
+                string specName = name.Substring(firstIndexSpec,
+                    name.IndexOf(']') - firstIndexSpec);
+                name.Replace(specName, "SPEC");
+            }
+            return name;
+        }
+
         // Getter function of the Trait dictionary
-        // Assume good input
-        static public Trait getTrait(string name) {
-            try { return traitDict[name]; }
+        // Assume good input.
+        static public Trait getTrait(string traitName) {
+            try { return traitDict[traitName]; }
             catch { return null; }
         }
 
-        // Puts all the Trait names into a List
+        // Puts all the Trait names into a List for comboBox
         static public List<string> getTraitNames() {
             List<string> listTraits = new List<string>();
             foreach (string name in traitDict.Keys) {
@@ -388,8 +399,11 @@ namespace OPRPCharBuild
             #endregion
         };
 
-        static public int getSpTraitDiv(string name) {
-            try { return spTraitDiv[name]; }
+        // Getter function of spTraitDiv dictionary
+        // Take into account of [SPEC] as well
+        static public int getSpTraitDiv(string traitName) {
+            string specName = stringSpec(traitName);
+            try { return spTraitDiv[specName]; }
             catch { return 1; }
         }
 

@@ -612,7 +612,7 @@ namespace OPRPCharBuild
         #region Update SpTP Functions
 
         // HELPER FUNCTION
-        private void Update_SpTrait_UsedOver() {
+        private void Update_SpTrait_UsedOverTotal() {
             // After update of those values, we will then check to see if Used > Total
             foreach (ListViewItem Sp_Trait in listView_SpTP.Items) {
                 if (int.Parse(Sp_Trait.SubItems[1].Text) > int.Parse(Sp_Trait.SubItems[2].Text)) {
@@ -697,7 +697,7 @@ namespace OPRPCharBuild
             // Update the Total textboxes
             Update_Total_SpTP();
             // After update of those values, we will then check to see if Used > Total
-            Update_SpTrait_UsedOver();
+            Update_SpTrait_UsedOverTotal();
             // Used when Fortune is updated.
         }
 
@@ -720,7 +720,7 @@ namespace OPRPCharBuild
             // Update the Used textboxes
 			Update_Used_SpTP();
             // After update of those values, we will then check to see if Used > Total
-            Update_SpTrait_UsedOver();
+            Update_SpTrait_UsedOverTotal();
             // Used when a Technique is added.
             // Used when a Technique is edited.
             // Used when a Technique is branched.
@@ -738,8 +738,7 @@ namespace OPRPCharBuild
 			msg += name + ": ";
             // How many Traits of the there are of the same Trait
 			if (traitList.ContainsKey(name)) {
-                num += traitList[name].genNum;
-                num += traitList[name].profNum;
+                num += traitList[name].getTotalTraits();
             }
 			int total = num * points;
 			int used = 0;
@@ -939,7 +938,7 @@ namespace OPRPCharBuild
 			listView_Items.Columns.Add("Description", 500);
 
 			// ------ Template
-			richTextBox_Template.Text = Sheet.Basic_Template;
+			richTextBox_Template.Text = Sheet.BASIC_TEMPLATE;
 
 		}
 
@@ -1718,7 +1717,7 @@ namespace OPRPCharBuild
 			template_imported = false;
 			label_TemplateType.Text = STD_TEMPLATE_MSG;
 			label_TemplateType.ForeColor = Color.Green;
-			richTextBox_Template.Text = Sheet.Basic_Template;
+			richTextBox_Template.Text = Sheet.BASIC_TEMPLATE;
 		}
 
 		private void button_MoreTemplate_Click(object sender, EventArgs e) {
@@ -1774,13 +1773,14 @@ namespace OPRPCharBuild
 			comboBox_Region.SelectedIndex = -1;
 			richTextBox_Personality.Clear();
 			richTextBox_History.Clear();
-			// Combat
+			// Abilities
 			richTextBox_Combat.Clear();
 			listView_Weaponry.Items.Clear();
 			listView_Items.Items.Clear();
 			textBox_Beli.Clear();
 			textBox_DFName.Clear();
 			comboBox_DFType.SelectedIndex = -1;
+            comboBox_DFTier.SelectedIndex = -1;
 			richTextBox_DFDesc.Clear();
 			textBox_DFEffect.Clear();
 			// Stats
@@ -1795,18 +1795,24 @@ namespace OPRPCharBuild
 			numericUpDown_SpeedBase.Value = 1;
 			numericUpDown_StaminaBase.Value = 1;
 			numericUpDown_AccuracyBase.Value = 1;
-			// Traits & Techs
+			// Traits
 			listView_Traits.Items.Clear();
 			traitList.Clear();
+            // Techniques
 			listView_SpTP.Items.Clear();
-			label_CritAnatQuick.Text = "";
+            spTraitList.Clear();
+            label_CritAnatQuick.Text = "";
 			listView_Techniques.Items.Clear();
 			Update_TechNum();
 			techList.Clear();
 			listView_SubCat.Items.Clear();
 			textBox_SubCat.Clear();
-			// Update Functions (that are still needed)
-			Update_AP_Count();
+            // Templates
+            richTextBox_Template.Text = Sheet.BASIC_TEMPLATE;
+            textBox_Color.Clear();
+            textBox_Rank4.Text = "* denotes +4 Rank Mastery";
+            // Update Functions (that are still needed)
+            Update_AP_Count();
 			Update_Strength_Final();
 			Update_Speed_Final();
 			Update_Stamina_Final();
@@ -1815,13 +1821,13 @@ namespace OPRPCharBuild
 			Update_Traits_Cap();
 			Update_Total_RegTP();
 			Update_Used_RegTP();
-			Update_SpTrait_Table_Traits(TraitName.CUSTOM);
-
+            textBox_SpTPTotal.Text = "0";
+            textBox_SpTPUsed.Text = "0";
 		}
 
 		// Saves the form into a serialized object so that only the tool recognizes the Saved Form
 		private void saveFormToProject() {
-			project.SaveProject_Basic(
+			profile.SaveProject_Basic(
 				textBox_CharacterName.Text,
 				textBox_Nickname.Text,
 				(int)numericUpDown_Age.Value,
@@ -1836,7 +1842,7 @@ namespace OPRPCharBuild
 				listBox_Achieve,
 				listView_Prof
 				);
-			project.SaveProject_Physical(
+			profile.SaveProject_Physical(
 				textBox_Height.Text,
 				textBox_Weight.Text,
 				richTextBox_Hair.Text,
@@ -1845,13 +1851,13 @@ namespace OPRPCharBuild
 				richTextBox_GeneralAppear.Text,
 				listView_Images
 				);
-			project.SaveProject_Background(
+			profile.SaveProject_Background(
 				textBox_Island.Text,
 				comboBox_Region.Text,
 				richTextBox_Personality.Text,
 				richTextBox_History.Text
 				);
-			project.SaveProject_Combat(
+			profile.SaveProject_Combat(
 				richTextBox_Combat.Text,
 				listView_Weaponry,
 				listView_Items,
@@ -1861,7 +1867,7 @@ namespace OPRPCharBuild
 				richTextBox_DFDesc.Text,
 				textBox_DFEffect.Text
 				);
-			project.SaveProject_Stats(
+			profile.SaveProject_Stats(
 				(int)numericUpDown_SDEarned.Value,
 				(int)numericUpDown_SDintoStats.Value,
 				checkedListBox1_AP,
@@ -1871,14 +1877,14 @@ namespace OPRPCharBuild
 				(int)numericUpDown_StaminaBase.Value,
 				(int)numericUpDown_AccuracyBase.Value
 				);
-			project.SaveProject_Traits(listView_Traits);
-			project.SaveProject_Tech(TechList, listView_Techniques);
+			profile.SaveProject_Traits(listView_Traits);
+			profile.SaveProject_Tech(TechList, listView_Techniques);
 		}
 
 		// Loads from serialized object and puts it into form
 		private void loadProjectToForm() {
 			try {
-				project.LoadProject_Basic(
+				profile.LoadProject_Basic(
 			  ref textBox_CharacterName,
 			  ref textBox_Nickname,
 			  ref numericUpDown_Age,
@@ -1896,7 +1902,7 @@ namespace OPRPCharBuild
 			}
 			catch (Exception ex) { MessageBox.Show("Load Basic Character Error.\nReason: " + ex.Message); }
 			try {
-				project.LoadProject_Physical(
+				profile.LoadProject_Physical(
 			  ref textBox_Height,
 			  ref textBox_Weight,
 			  ref richTextBox_Hair,
@@ -1908,7 +1914,7 @@ namespace OPRPCharBuild
 			}
 			catch (Exception ex) { MessageBox.Show("Load Physical Appearance Error.\nReason: " + ex.Message); }
 			try {
-				project.LoadProject_Background(
+				profile.LoadProject_Background(
 			  ref textBox_Island,
 			  ref comboBox_Region,
 			  ref richTextBox_Personality,
@@ -1917,7 +1923,7 @@ namespace OPRPCharBuild
 			}
 			catch (Exception ex) { MessageBox.Show("Load Character Background Error.\nReason: " + ex.Message); }
 			try {
-				project.LoadProject_Combat(
+				profile.LoadProject_Combat(
 			  ref richTextBox_Combat,
 			  ref listView_Weaponry,
 			  ref listView_Items,
@@ -1929,13 +1935,13 @@ namespace OPRPCharBuild
 			  );
 			}
 			catch (Exception ex) { MessageBox.Show("Load Combat and Abilities Error.\nReason: " + ex.Message); }
-			try { project.LoadProject_Traits(ref listView_Traits); }
+			try { profile.LoadProject_Traits(ref listView_Traits); }
 			catch (Exception ex) { MessageBox.Show("Load Traits Error.\nReason: " + ex.Message); }
-			try { project.LoadProject_Tech(ref listView_Techniques); }
+			try { profile.LoadProject_Tech(ref listView_Techniques); }
 			catch (Exception ex) { MessageBox.Show("Load Techniques Error.\nReason: " + ex.Message); }
 			// The two above need to be loaded first before Stats because some Update
 			// functions aren't in an Exception Handle
-			project.LoadProject_Stats(
+			profile.LoadProject_Stats(
 				ref numericUpDown_SDEarned,
 				ref numericUpDown_SDintoStats,
 				ref checkedListBox1_AP,
@@ -1954,24 +1960,24 @@ namespace OPRPCharBuild
 			Update_TechNum();
 			foreach (ListViewItem eachitem in listView_Traits.Items) {
 				string name = eachitem.SubItems[0].Text;
-				TraitName ID = Traits.get_TraitID(name);
-				Update_SpTrait_Table_Traits(ID);
+                Update_SpTraitTable_Total();
+                Update_SpTraitTable_Used(name);
 			}
 			Update_SpTrait_Table_Values();
 		}
 
-		// This is where serialize our project.
+		// This is where serialize our profile.
 		private void saveStreamProject() {
-			FileStream fs = File.Open(project.location, FileMode.Create);
+			FileStream fs = File.Open(profile.location, FileMode.Create);
 			BinaryFormatter formatter = new BinaryFormatter();
 			try {
-				formatter.Serialize(fs, project);
+				formatter.Serialize(fs, profile);
 			}
 			catch (SerializationException e) {
 				MessageBox.Show("Failed to serialize.\nReason: " + e.Message);
 			}
 			finally {
-				MessageBox.Show(project.filename + " successfully saved!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				MessageBox.Show(profile.filename + " successfully saved!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				fs.Close();
 			}
 		}
@@ -1986,25 +1992,25 @@ namespace OPRPCharBuild
 			}
 			if (result != DialogResult.Cancel) {
 				this.Text = "OPRP Character Builder";
-				project.filename = null;
-				project.location = null;
+				profile.filename = null;
+				profile.location = null;
 				resetForm();
 			}
 		}
 
 		private void saveCharacter() {
 			// If there is no filename (this means New), we save one.
-			if (project.filename == null) {
+			if (profile.filename == null) {
 				SaveFileDialog fileDialogSaveProject = new SaveFileDialog();
 				fileDialogSaveProject.Filter = "OPRP files (*.oprp)|*.oprp";
 				fileDialogSaveProject.Title = "Save New Project";
 				fileDialogSaveProject.OverwritePrompt = true;
 				if (fileDialogSaveProject.ShowDialog() == DialogResult.OK) {
-					project.location = fileDialogSaveProject.FileName;
-					project.filename = Path.GetFileNameWithoutExtension(fileDialogSaveProject.FileName);
+					profile.location = fileDialogSaveProject.FileName;
+					profile.filename = Path.GetFileNameWithoutExtension(fileDialogSaveProject.FileName);
 					saveFormToProject();
 					saveStreamProject();
-					this.Text = project.filename;
+					this.Text = profile.filename;
 				}
 			}
 			else {
@@ -2035,14 +2041,14 @@ namespace OPRPCharBuild
 					try {
 						FileStream fs = File.Open(dlgFileOpen.FileName, FileMode.Open);
 						BinaryFormatter formatter = new BinaryFormatter();
-						project = (Project2)formatter.Deserialize(fs);
+						profile = (Project2)formatter.Deserialize(fs);
 						fs.Close();
 						// Holy moly you need to update the save location or else you lose work.
-						project.location = dlgFileOpen.FileName;
-						project.filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
+						profile.location = dlgFileOpen.FileName;
+						profile.filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
 						resetForm();
 						loadProjectToForm();
-						this.Text = project.filename;
+						this.Text = profile.filename;
 					}
 					catch (Exception e) {
 						MessageBox.Show("Failed to deserialize. It may be because you loaded an older version." +
@@ -2194,11 +2200,11 @@ namespace OPRPCharBuild
 			fileDialogSaveProject.Title = "Save New Project";
 			fileDialogSaveProject.OverwritePrompt = true;
 			if (fileDialogSaveProject.ShowDialog() == DialogResult.OK) {
-				project.location = fileDialogSaveProject.FileName;
-				project.filename = Path.GetFileNameWithoutExtension(fileDialogSaveProject.FileName);
+				profile.location = fileDialogSaveProject.FileName;
+				profile.filename = Path.GetFileNameWithoutExtension(fileDialogSaveProject.FileName);
 				saveFormToProject();
 				saveStreamProject();
-				this.Text = project.filename;
+				this.Text = profile.filename;
 			}
 		}
 
@@ -2226,10 +2232,10 @@ namespace OPRPCharBuild
 								fs.Close();
 								project1.location = dlgFileOpen.FileName;
 								project1.filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
-								// Transfer from older project to newer project.
-								project1.Transfer_v1010toNew(ref project);
-								project.filename = null;
-								project.location = null;
+								// Transfer from older profile to newer profile.
+								project1.Transfer_v1010toNew(ref profile);
+								profile.filename = null;
+								profile.location = null;
 								resetForm();
 								loadProjectToForm();
 								this.Text = "OPRP Character Builder";

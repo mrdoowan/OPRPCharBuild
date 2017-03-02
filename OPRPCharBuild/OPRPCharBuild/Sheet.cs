@@ -18,7 +18,7 @@ namespace OPRPCharBuild
 	{
 		// The Basic Template for the Tool
 		#region Const String Texts
-		public const string Basic_Template = "[center][big][big][big][big][font=Garamond]Character Template[/font][/big][/big][/big][/big]\n\n" +
+		public const string BASIC_TEMPLATE = "[center][big][big][big][big][font=Garamond]Character Template[/font][/big][/big][/big][/big]\n\n" +
 			"[-----][/center]\n\n" +
 			"<color>[b]Account Name:[/b]</color> [me]\n\n" +
 			"[center][big][big][i][font=Century Gothic]Basic Character Information[/font][/i][/big][/big][/center]\n" +
@@ -613,20 +613,9 @@ namespace OPRPCharBuild
 			}
 		}
 
-        // If any Trait Names has [SPEC], return it WITH [SPEC] (Test?)
-        private string stringSpec(string name) {
-            if (name.Contains('[') && name.Contains(']')) {
-                int firstIndexSpec = name.IndexOf('[') + 1;
-                string specName = name.Substring(firstIndexSpec,
-                    name.IndexOf(']') - firstIndexSpec);
-                name.Replace(specName, "SPEC");
-            }
-            return name;
-        }
-
         private bool If_Treat_Rank4(string techTrait) {
             // This is tricky because of [SPEC]
-            string traitSpec = stringSpec(techTrait);
+            string traitSpec = Database.stringSpec(techTrait);
             if (traitSpec == Database.TR_MASTER || traitSpec == Database.TR_ADVMAS ||
                 traitSpec == Database.TR_ADVCLA || traitSpec == Database.TR_STAMAS ||
                 traitSpec == Database.TR_ADVSTA || traitSpec == Database.TR_ARTSTE ||

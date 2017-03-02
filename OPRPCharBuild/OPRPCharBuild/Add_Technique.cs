@@ -183,7 +183,11 @@ namespace OPRPCharBuild
 			}
 			comboBox_Type.Text = Tech.type;
 			comboBox_Range.Text = Tech.range;
+            // Stats
             techStats = Tech.stats;
+            comboBox_StatOpt.Text = Tech.stats.statsName;
+            textBox_Stats.Text = Tech.stats.techStr;
+            // Power/Effects
             checkBox_AutoCalc.Checked = Tech.autoCalc;
 			checkBox_NA.Checked = Tech.NApower;
 			if (!Tech.NApower) {
@@ -239,22 +243,11 @@ namespace OPRPCharBuild
             return "";
         }
 
-        // If any Trait Names has [SPEC], return it WITH [SPEC] (Test?)
-        private string stringSpec(string name) {
-            if (name.Contains('[') && name.Contains(']')) {
-                int firstIndexSpec = name.IndexOf('[') + 1;
-                string specName = name.Substring(firstIndexSpec,
-                    name.IndexOf(']') - firstIndexSpec);
-                name.Replace(specName, "SPEC");
-            }
-            return name;
-        }
-
         // If any Trait affects the Rank (by treating it 4 Ranks above i.e.)
         // Return true
         private bool isAffectRankTrait(string traitName) {
             // This is tricky because of [SPEC]
-            string traitSpec = stringSpec(traitName);
+            string traitSpec = Database.stringSpec(traitName);
             if (traitSpec == Database.TR_MASTER || traitSpec == Database.TR_ADVMAS ||
                 traitSpec == Database.TR_ADVCLA || traitSpec == Database.TR_STAMAS ||
                 traitSpec == Database.TR_ADVSTA || traitSpec == Database.TR_ARTSTE ||
@@ -721,7 +714,9 @@ namespace OPRPCharBuild
                 }
             }
             else if (editing) {
-                try { Copy_Data_To_Form(replicating); }
+                try {
+                    Copy_Data_To_Form(replicating);
+                }
                 catch (Exception ex) {
                     MessageBox.Show("There was an error copying from Dictionary to Tech Form.\nReason: " + ex.Message, "Exception Thrown");
                 }

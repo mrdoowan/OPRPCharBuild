@@ -2344,7 +2344,7 @@
             this.groupBox8.Size = new System.Drawing.Size(619, 196);
             this.groupBox8.TabIndex = 41;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Categories (Not yet Save-able)";
+            this.groupBox8.Text = "Categories";
             // 
             // label41
             // 
@@ -2354,7 +2354,7 @@
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(136, 52);
             this.label41.TabIndex = 51;
-            this.label41.Text = "Advice: Finish all your Techniques first, and then make categories.";
+            this.label41.Text = "Finish all your Techniques first, and then make categories.";
             this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button_SubCatEdit
@@ -2584,7 +2584,7 @@
             // 
             // textBox_SpTPTotal
             // 
-            this.textBox_SpTPTotal.Location = new System.Drawing.Point(202, 66);
+            this.textBox_SpTPTotal.Location = new System.Drawing.Point(202, 61);
             this.textBox_SpTPTotal.Name = "textBox_SpTPTotal";
             this.textBox_SpTPTotal.ReadOnly = true;
             this.textBox_SpTPTotal.Size = new System.Drawing.Size(32, 23);
@@ -2595,7 +2595,7 @@
             // 
             this.label45.AutoSize = true;
             this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.label45.Location = new System.Drawing.Point(178, 66);
+            this.label45.Location = new System.Drawing.Point(178, 61);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(18, 25);
             this.label45.TabIndex = 34;
@@ -2603,7 +2603,7 @@
             // 
             // textBox_SpTPUsed
             // 
-            this.textBox_SpTPUsed.Location = new System.Drawing.Point(140, 66);
+            this.textBox_SpTPUsed.Location = new System.Drawing.Point(140, 61);
             this.textBox_SpTPUsed.Name = "textBox_SpTPUsed";
             this.textBox_SpTPUsed.ReadOnly = true;
             this.textBox_SpTPUsed.Size = new System.Drawing.Size(32, 23);
@@ -2675,10 +2675,10 @@
             this.listView_SpTP.GridLines = true;
             this.listView_SpTP.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView_SpTP.LabelWrap = false;
-            this.listView_SpTP.Location = new System.Drawing.Point(243, 66);
+            this.listView_SpTP.Location = new System.Drawing.Point(243, 61);
             this.listView_SpTP.MultiSelect = false;
             this.listView_SpTP.Name = "listView_SpTP";
-            this.listView_SpTP.Size = new System.Drawing.Size(370, 100);
+            this.listView_SpTP.Size = new System.Drawing.Size(370, 105);
             this.listView_SpTP.TabIndex = 27;
             this.listView_SpTP.UseCompatibleStateImageBehavior = false;
             this.listView_SpTP.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.listView3_SpTP_ColumnWidthChanging);
