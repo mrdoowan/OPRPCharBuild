@@ -16,14 +16,36 @@ namespace OPRPCharBuild
         private bool button_clicked;
         private int totBuff;
         private int totDebuff;
+        private bool majorBuff;
 
         public Add_TechStats() {
             button_clicked = false;
             InitializeComponent();
         }
 
-        public string LoadDialog(string statOpt, ref Stats techStats, string textbox) {
-            switch (statOpt) {
+        public string LoadDialog(string statOpt, ref Stats techStats, int rank, string textbox) {
+            label_Rank.Text = "Rank " + rank + " Tech for " + statOpt; 
+            StatAlter alterSetting = Database.getStatAlter(statOpt);
+            // Establish Major Buff setting
+            majorBuff = alterSetting.majorBuff;
+            if (majorBuff) { label_MajorBuff.Visible = true; }
+            // Establish Duration
+            if (alterSetting.prof) {
+                label_PostDur.Visible = true;
+                label_PostDur.Text = ""; // TODO
+            }
+            if (alterSetting == null) { return textbox; }
+            // Set calculations and total Buff/Debuff
+            if (alterSetting.type == StatAlter.BUFF || alterSetting.type == StatAlter.STANCE) {
+
+            }
+            else {
+
+            }
+            if (alterSetting.type == StatAlter.DEBUFF || alterSetting.type == StatAlter.STANCE) {
+
+            }
+            else {
 
             }
             this.ShowDialog();

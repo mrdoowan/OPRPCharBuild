@@ -13,6 +13,7 @@ namespace OPRPCharBuild
         // --------------------------------------------------------------------
 
         public string statsName;    // Specifically for comboBox_StatOpt in Techniques
+        public string duration;     // Specifically for Professional Buff/Debuff
         public int strength;
         public int speed;
         public int stamina;
@@ -21,6 +22,7 @@ namespace OPRPCharBuild
         // Default Constructor
         public Stats() {
             statsName = "";
+            duration = "";
             strength = 0;
             speed = 0;
             stamina = 0;
@@ -28,8 +30,10 @@ namespace OPRPCharBuild
         }
 
         // Initialize constructor
-        public Stats(string name_, int str_, int spe_, int sta_, int acc_) {
+        public Stats(string name_, string dur_, 
+            int str_, int spe_, int sta_, int acc_) {
             statsName = name_;
+            duration = dur_;
             strength = str_;
             speed = spe_;
             stamina = sta_;

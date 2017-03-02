@@ -848,9 +848,6 @@ namespace OPRPCharBuild
         // BUFF/DEBUFFS
         // -------------------------------------------------------------------
         #region Buffs/Debuffs Consts
-        public const int BUFF = 0;
-        public const int DEBUFF = 1;
-        public const int STANCE = 2;
         public const string BUF_WILLPO = "Willpower",
             BUF_STANCE = "Stances",
             BUF_LIFRET = "Life Return",
@@ -861,9 +858,35 @@ namespace OPRPCharBuild
             BUF_FOOD = "Food",
             BUF_ROKUOG = "Rokuogan",
             BUF_ZOAN = "Zoan",
-            BUF_DEVFRU = "Other DF",
+            BUF_DFBUFF = "Other DF (Buff)",
+            BUF_DFDEBU = "Other DF (Debuff)",
             BUF_OBHAKI = "Observation Haki",
             BUF_CQHAKI = "King's Haki";
         #endregion
+
+        static private Dictionary<string, StatAlter> statDict = new Dictionary<string, StatAlter>() {
+            #region Stat Alter Database
+            { BUF_WILLPO, new StatAlter(StatAlter.BUFF, true, false, false) },
+            { BUF_STANCE, new StatAlter(StatAlter.STANCE, false, true, false) },
+            { BUF_LIFRET, new StatAlter(StatAlter.STANCE, false, true, false) },
+            { BUF_POISON, new StatAlter(StatAlter.DEBUFF, false, true, true) },
+            { BUF_DRUG, new StatAlter(StatAlter.BUFF, true, true, true) },
+            { BUF_CRITHI, new StatAlter(StatAlter.DEBUFF, false, true, true) },
+            { BUF_PERFOR, new StatAlter(StatAlter.BUFF, true, true, false) },
+            { BUF_FOOD, new StatAlter(StatAlter.BUFF, false, true, true) },
+            { BUF_ROKUOG, new StatAlter(StatAlter.DEBUFF, false, true, true) },
+            { BUF_ZOAN, new StatAlter(StatAlter.BUFF, true, false, false) },
+            { BUF_DFBUFF, new StatAlter(StatAlter.BUFF, true, true, true) },
+            { BUF_DFDEBU, new StatAlter(StatAlter.DEBUFF, false, true, true) },
+            { BUF_OBHAKI, new StatAlter(StatAlter.BUFF, true, true, false) },
+            { BUF_CQHAKI, new StatAlter(StatAlter.DEBUFF, false, true, true) }
+            #endregion
+        };
+
+        // Getter function of the StatAlter dictionary
+        static public StatAlter getStatAlter(string name) {
+            try { return statDict[name]; }
+            catch { return null; }
+        }
     }
 }

@@ -141,6 +141,7 @@
     <Compile Include="Sheet.Designer.cs">
       <DependentUpon>Sheet.cs</DependentUpon>
     </Compile>
+    <Compile Include="StatAlter.cs" />
     <Compile Include="Technique.cs" />
     <Compile Include="Stats.cs" />
     <Compile Include="Trait.cs" />

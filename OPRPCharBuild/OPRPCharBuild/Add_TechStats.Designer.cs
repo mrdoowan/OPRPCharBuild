@@ -25,7 +25,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.label1 = new System.Windows.Forms.Label();
+            this.label_Rank = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDown_Str = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown_Spe = new System.Windows.Forms.NumericUpDown();
@@ -39,7 +39,7 @@
             this.textBox_BuffCalc = new System.Windows.Forms.TextBox();
             this.textBox_DebuffCalc = new System.Windows.Forms.TextBox();
             this.button_OK = new System.Windows.Forms.Button();
-            this.comboBox_Range = new System.Windows.Forms.ComboBox();
+            this.comboBox_AoE = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label_MajorBuff = new System.Windows.Forms.Label();
             this.label_PostDur = new System.Windows.Forms.Label();
@@ -49,14 +49,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Acc)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // label_Rank
             // 
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(343, 24);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Rank # Tech for (REASON)";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Rank.Location = new System.Drawing.Point(12, 9);
+            this.label_Rank.Name = "label_Rank";
+            this.label_Rank.Size = new System.Drawing.Size(343, 24);
+            this.label_Rank.TabIndex = 0;
+            this.label_Rank.Text = "Rank # Tech for (REASON)";
+            this.label_Rank.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -81,7 +81,7 @@
             0,
             -2147483648});
             this.numericUpDown_Str.Name = "numericUpDown_Str";
-            this.numericUpDown_Str.Size = new System.Drawing.Size(48, 22);
+            this.numericUpDown_Str.Size = new System.Drawing.Size(48, 26);
             this.numericUpDown_Str.TabIndex = 5;
             this.numericUpDown_Str.ValueChanged += new System.EventHandler(this.numericUpDown_Str_ValueChanged);
             // 
@@ -99,7 +99,7 @@
             0,
             -2147483648});
             this.numericUpDown_Spe.Name = "numericUpDown_Spe";
-            this.numericUpDown_Spe.Size = new System.Drawing.Size(48, 22);
+            this.numericUpDown_Spe.Size = new System.Drawing.Size(48, 26);
             this.numericUpDown_Spe.TabIndex = 7;
             this.numericUpDown_Spe.ValueChanged += new System.EventHandler(this.numericUpDown_Spe_ValueChanged);
             // 
@@ -126,7 +126,7 @@
             0,
             -2147483648});
             this.numericUpDown_Sta.Name = "numericUpDown_Sta";
-            this.numericUpDown_Sta.Size = new System.Drawing.Size(48, 22);
+            this.numericUpDown_Sta.Size = new System.Drawing.Size(48, 26);
             this.numericUpDown_Sta.TabIndex = 9;
             this.numericUpDown_Sta.ValueChanged += new System.EventHandler(this.numericUpDown_Sta_ValueChanged);
             // 
@@ -153,7 +153,7 @@
             0,
             -2147483648});
             this.numericUpDown_Acc.Name = "numericUpDown_Acc";
-            this.numericUpDown_Acc.Size = new System.Drawing.Size(48, 22);
+            this.numericUpDown_Acc.Size = new System.Drawing.Size(48, 26);
             this.numericUpDown_Acc.TabIndex = 11;
             this.numericUpDown_Acc.ValueChanged += new System.EventHandler(this.numericUpDown_Acc_ValueChanged);
             // 
@@ -190,7 +190,7 @@
             this.textBox_BuffCalc.Location = new System.Drawing.Point(158, 68);
             this.textBox_BuffCalc.Name = "textBox_BuffCalc";
             this.textBox_BuffCalc.ReadOnly = true;
-            this.textBox_BuffCalc.Size = new System.Drawing.Size(197, 15);
+            this.textBox_BuffCalc.Size = new System.Drawing.Size(197, 19);
             this.textBox_BuffCalc.TabIndex = 16;
             this.textBox_BuffCalc.Text = "CALCULATION";
             this.textBox_BuffCalc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -201,7 +201,7 @@
             this.textBox_DebuffCalc.Location = new System.Drawing.Point(158, 124);
             this.textBox_DebuffCalc.Name = "textBox_DebuffCalc";
             this.textBox_DebuffCalc.ReadOnly = true;
-            this.textBox_DebuffCalc.Size = new System.Drawing.Size(197, 15);
+            this.textBox_DebuffCalc.Size = new System.Drawing.Size(197, 19);
             this.textBox_DebuffCalc.TabIndex = 17;
             this.textBox_DebuffCalc.Text = "CALCULATION";
             this.textBox_DebuffCalc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -217,20 +217,20 @@
             this.button_OK.UseVisualStyleBackColor = true;
             this.button_OK.Click += new System.EventHandler(this.button_OK_Click);
             // 
-            // comboBox_Range
+            // comboBox_AoE
             // 
-            this.comboBox_Range.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_Range.FormattingEnabled = true;
-            this.comboBox_Range.Items.AddRange(new object[] {
+            this.comboBox_AoE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_AoE.FormattingEnabled = true;
+            this.comboBox_AoE.Items.AddRange(new object[] {
             "",
             "Short AoE",
             "Medium AoE",
             "Long AoE"});
-            this.comboBox_Range.Location = new System.Drawing.Point(101, 36);
-            this.comboBox_Range.Name = "comboBox_Range";
-            this.comboBox_Range.Size = new System.Drawing.Size(162, 24);
-            this.comboBox_Range.TabIndex = 19;
-            this.comboBox_Range.SelectedIndexChanged += new System.EventHandler(this.comboBox_Range_SelectedIndexChanged);
+            this.comboBox_AoE.Location = new System.Drawing.Point(101, 36);
+            this.comboBox_AoE.Name = "comboBox_AoE";
+            this.comboBox_AoE.Size = new System.Drawing.Size(162, 28);
+            this.comboBox_AoE.TabIndex = 19;
+            this.comboBox_AoE.SelectedIndexChanged += new System.EventHandler(this.comboBox_Range_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -238,7 +238,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(83, 24);
             this.label6.TabIndex = 20;
-            this.label6.Text = "Range:";
+            this.label6.Text = "AoE Tier:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label_MajorBuff
@@ -265,13 +265,13 @@
             // 
             // Add_TechStats
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(367, 213);
             this.Controls.Add(this.label_PostDur);
             this.Controls.Add(this.label_MajorBuff);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.comboBox_Range);
+            this.Controls.Add(this.comboBox_AoE);
             this.Controls.Add(this.button_OK);
             this.Controls.Add(this.textBox_DebuffCalc);
             this.Controls.Add(this.textBox_BuffCalc);
@@ -285,9 +285,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.numericUpDown_Str);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label_Rank);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Add_TechStats";
             this.Text = "Stat and Debuff Tech";
@@ -302,7 +302,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_Rank;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericUpDown_Str;
         private System.Windows.Forms.NumericUpDown numericUpDown_Spe;
@@ -316,7 +316,7 @@
         private System.Windows.Forms.TextBox textBox_BuffCalc;
         private System.Windows.Forms.TextBox textBox_DebuffCalc;
         private System.Windows.Forms.Button button_OK;
-        private System.Windows.Forms.ComboBox comboBox_Range;
+        private System.Windows.Forms.ComboBox comboBox_AoE;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label_MajorBuff;
         private System.Windows.Forms.Label label_PostDur;
