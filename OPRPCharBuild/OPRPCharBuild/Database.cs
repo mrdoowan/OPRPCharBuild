@@ -404,7 +404,7 @@ namespace OPRPCharBuild
         static public int getSpTraitDiv(string traitName) {
             string specName = stringSpec(traitName);
             try { return spTraitDiv[specName]; }
-            catch { return 1; }
+            catch { return 0; }
         }
 
         // -------------------------------------------------------------------
@@ -417,7 +417,8 @@ namespace OPRPCharBuild
             ROKU_KAM = "Kami-E",
             ROKU_TEK = "Tekkai",
             ROKU_GEP = "Geppo",
-            ROKU_ROK = "Rokuogan";
+            ROKU_ROK = "Rokuogan",
+            ROKU_NON = "NONE";
         #endregion
 
         static private Dictionary<string, Rokushiki> rokuDict = new Dictionary<string, Rokushiki>() {
@@ -435,14 +436,15 @@ namespace OPRPCharBuild
             { ROKU_GEP, new Rokushiki(ROKU_GEP, 36, "Support", "Self", 0, 0, 0, 0, 0,
                 "By kicking off of the air itself, the user of this technique can seemingly fly or \"Air Walk.\" The user of this technique may remain airborn indefinitely, but must land in the following post if they attack or are attacked (if there is no land within range, they spend the next post falling until they can resume use of Geppo). If the technique's user is significantly encumbered, or if they lack use of one of their legs, they must land periodically, being able to sustain flight with this technique for no more than three consecutive rounds. (Personal 'Flight')") },
             { ROKU_ROK, new Rokushiki(ROKU_ROK, 44, "Offensive", "Melee", 20, 0, 0, -22, -22,
-                "Using principles of all six Rokushiki techniques, this technique executes a devastating close-range attack. Though it must be used on a target no more than a yard from the user, this technique creates a shockwave that bypasses almost any and all forms of physical defense, doing internal damage to it's victim as if they were unarmoured and made of ordinary flesh and blood (though it does not bypass some devil fruit abilities on it's own). Additionally, the shock of this attack is particularly incapacitating, weakening the target's constitution significantly. (Inbuilt Critical Hit, Defense Bypassing)") }
+                "Using principles of all six Rokushiki techniques, this technique executes a devastating close-range attack. Though it must be used on a target no more than a yard from the user, this technique creates a shockwave that bypasses almost any and all forms of physical defense, doing internal damage to it's victim as if they were unarmoured and made of ordinary flesh and blood (though it does not bypass some devil fruit abilities on it's own). Additionally, the shock of this attack is particularly incapacitating, weakening the target's constitution significantly. (Inbuilt Critical Hit, Defense Bypassing)") },
+            { ROKU_NON, new Rokushiki() }
             #endregion
         };
 
         // Getter function of Rokushiki dictionary
         static public Rokushiki getRoku(string name) {
             try { return rokuDict[name]; }
-            catch { return null; }
+            catch { return rokuDict[ROKU_NON]; }
         }
 
         // -------------------------------------------------------------------

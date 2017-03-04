@@ -310,13 +310,27 @@ namespace OPRPCharBuild
 				SP += 150 + 66 + convert;
 				calc += " + 150 + 66 (100/1.5) + " + convert + " (" + remain + "/2)";
 			}
-			else {
-				// 351+ SD is 3:1
+			else if (SD_in > 350 && SD_in < 800) {
+				// 351-800 SD is 3:1
 				int remain = SD_in - 150 - 100 - 100;
 				int convert = remain / 3;
 				SP += 150 + 66 + 50 + convert;
 				calc += " + 150 + 66 (100/1.5) + 50 (100/2) + " + convert + " (" + remain + "/3)";
 			}
+            else if (SD_in > 800 && SD_in < 1200) {
+                // 801-1200 SD is 4:1
+                int remain = SD_in - 150 - 100 - 100 - 450;
+                int convert = remain / 4;
+                SP += 150 + 66 + 50 + 150 + convert;
+                calc += " + 150 + 66 (100/1.5) + 50 (100/2) + 150 (450/3) + " + convert + " (" + remain + "/4)";
+            }
+            else {
+                // 1201+ SD is 5:1
+                int remain = SD_in - 150 - 100 - 100 - 450 - 400;
+                int convert = remain / 5;
+                SP += 150 + 66 + 50 + 150 + 100 + convert;
+                calc += " + 150 + 66 (100/1.5) + 50 (100/2) + 150 (450/3) + 100 (400/4) " + convert + " (" + remain + "/5)";
+            }
 			calc += ']';
 			textBox_StatPoints.Text = SP.ToString();
 			textBox_SDtoSPCalc.Text = calc;
@@ -612,7 +626,7 @@ namespace OPRPCharBuild
         #region Update SpTP Functions
 
         // HELPER FUNCTION
-        private void Update_SpTrait_UsedOverTotal() {
+        private void Helper_SpTrait_UsedOverTotal() {
             // After update of those values, we will then check to see if Used > Total
             foreach (ListViewItem Sp_Trait in listView_SpTP.Items) {
                 if (int.Parse(Sp_Trait.SubItems[1].Text) > int.Parse(Sp_Trait.SubItems[2].Text)) {
@@ -623,9 +637,8 @@ namespace OPRPCharBuild
                 }
             }
         }
-
-        // HELPER FUNCTION
-        private void Update_Used_SpTP() {
+        
+        private void Update_Used_SpTP_Textbox() {
             // Updates the Used SpTP Textbox
 			int used = 0;
             foreach (SpTrait spTrait in spTraitList.Values) {
@@ -633,9 +646,8 @@ namespace OPRPCharBuild
             }
 			textBox_SpTPUsed.Text = used.ToString();
 		}
-
-        // HELPER FUNCTION
-        private void Update_Total_SpTP() {
+        
+        private void Update_Total_SpTP_Textbox() {
             // Updates the Total SpTP Textbox
             int total_SP = 0;
             foreach (SpTrait spTrait in spTraitList.Values) {
@@ -649,7 +661,7 @@ namespace OPRPCharBuild
 			// If so, add the trait into the ListView Special and add correspondingly.
 			int fortune = int.Parse(textBox_Fortune.Text);
             int divisor = Database.getSpTraitDiv(traitName);
-            if (divisor > 1) {
+            if (divisor > 0) {
                 // Add Sp. Trait to the Dict
                 int traitNum = traitList[traitName].getTotalTraits();
                 int totTP = (fortune / divisor) * traitNum;
@@ -663,7 +675,7 @@ namespace OPRPCharBuild
                 listView_SpTP.Items.Add(item);
             }
 			// Lastly update the Total SpTP
-			Update_Total_SpTP();
+			Update_Total_SpTP_Textbox();
 			// Used when a Trait is added.
 		}
 
@@ -677,8 +689,8 @@ namespace OPRPCharBuild
                     break;
                 }
             }
-            Update_Total_SpTP();
-            Update_Used_SpTP();
+            Update_Total_SpTP_Textbox();
+            Update_Used_SpTP_Textbox();
             // Used when a Trait is removed.
         }
 
@@ -695,9 +707,9 @@ namespace OPRPCharBuild
                 spTrait.SubItems[2].Text = totTP.ToString();
             }
             // Update the Total textboxes
-            Update_Total_SpTP();
+            Update_Total_SpTP_Textbox();
             // After update of those values, we will then check to see if Used > Total
-            Update_SpTrait_UsedOverTotal();
+            Helper_SpTrait_UsedOverTotal();
             // Used when Fortune is updated.
         }
 
@@ -718,9 +730,9 @@ namespace OPRPCharBuild
                 }
             }
             // Update the Used textboxes
-			Update_Used_SpTP();
+			Update_Used_SpTP_Textbox();
             // After update of those values, we will then check to see if Used > Total
-            Update_SpTrait_UsedOverTotal();
+            Helper_SpTrait_UsedOverTotal();
             // Used when a Technique is added.
             // Used when a Technique is edited.
             // Used when a Technique is branched.
@@ -864,7 +876,7 @@ namespace OPRPCharBuild
 			listView_Prof.FullRowSelect = true;
 
 			listView_Prof.Columns.Add("Profession", 130);
-			listView_Prof.Columns.Add("Mastery", 100);
+			listView_Prof.Columns.Add("Type", 100);
 			listView_Prof.Columns.Add("Description", 200);
 			listView_Prof.Columns.Add("Primary Bonus", 200);
 
@@ -1499,7 +1511,7 @@ namespace OPRPCharBuild
 			if (!string.IsNullOrWhiteSpace(TechName)) {
 				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
 				Technique selTech = techList[TechName];
-				if (!string.IsNullOrWhiteSpace(selTech.roku.name) && 
+				if (selTech.rokuName != Database.ROKU_NON && 
                     !traitList.ContainsKey(Database.TR_ROKUMA)) {
 					// ^If the Selected Technique is Rokushiki and character does not have Rokushiki Master
 					MessageBox.Show("You can't edit a Rokushiki Technique without the Rokushiki Master Trait.", "Error",
@@ -1530,7 +1542,7 @@ namespace OPRPCharBuild
 			if (!string.IsNullOrWhiteSpace(TechName)) {
 				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
                 Technique selTech = techList[TechName];
-                if (!string.IsNullOrWhiteSpace(selTech.roku.name) &&
+                if (selTech.rokuName != Database.ROKU_NON &&
                     !traitList.ContainsKey(Database.TR_ROKUMA)) {
 					// ^If the Selected Technique is Rokushiki and character does not have Rokushiki Master
 					MessageBox.Show("You can't edit a Rokushiki Technique without the Rokushiki Master Trait!", "Error",
@@ -1810,7 +1822,7 @@ namespace OPRPCharBuild
             // Templates
             richTextBox_Template.Text = Sheet.BASIC_TEMPLATE;
             textBox_Color.Clear();
-            textBox_Rank4.Text = "* denotes +4 Rank Mastery";
+            textBox_MasteryMsg.Text = "* denotes +4 Rank Mastery";
             // Update Functions (that are still needed)
             Update_AP_Count();
 			Update_Strength_Final();
@@ -1826,8 +1838,8 @@ namespace OPRPCharBuild
 		}
 
 		// Saves the form into a serialized object so that only the tool recognizes the Saved Form
-		private void saveFormToProject() {
-			profile.SaveProject_Basic(
+		private void saveFormToCharacter() {
+			profile.saveCharBasic(
 				textBox_CharacterName.Text,
 				textBox_Nickname.Text,
 				(int)numericUpDown_Age.Value,
@@ -1836,13 +1848,13 @@ namespace OPRPCharBuild
 				textBox_Position.Text,
 				comboBox_Affiliation.Text,
 				textBox_Bounty.Text,
-				numericUpDown_Comm.Text,
+				(int)numericUpDown_Comm.Value,
 				comboBox_MarineRank.Text,
 				textBox_Threat.Text,
 				listBox_Achieve,
 				listView_Prof
 				);
-			profile.SaveProject_Physical(
+			profile.saveCharAppearance(
 				textBox_Height.Text,
 				textBox_Weight.Text,
 				richTextBox_Hair.Text,
@@ -1851,23 +1863,24 @@ namespace OPRPCharBuild
 				richTextBox_GeneralAppear.Text,
 				listView_Images
 				);
-			profile.SaveProject_Background(
+			profile.saveCharBackground(
 				textBox_Island.Text,
 				comboBox_Region.Text,
 				richTextBox_Personality.Text,
 				richTextBox_History.Text
 				);
-			profile.SaveProject_Combat(
+			profile.saveCharCombat(
 				richTextBox_Combat.Text,
 				listView_Weaponry,
 				listView_Items,
 				textBox_Beli.Text,
 				textBox_DFName.Text,
 				comboBox_DFType.Text,
+                comboBox_DFTier.Text,
 				richTextBox_DFDesc.Text,
 				textBox_DFEffect.Text
 				);
-			profile.SaveProject_Stats(
+			profile.saveCharStats(
 				(int)numericUpDown_SDEarned.Value,
 				(int)numericUpDown_SDintoStats.Value,
 				checkedListBox1_AP,
@@ -1877,14 +1890,19 @@ namespace OPRPCharBuild
 				(int)numericUpDown_StaminaBase.Value,
 				(int)numericUpDown_AccuracyBase.Value
 				);
-			profile.SaveProject_Traits(listView_Traits);
-			profile.SaveProject_Tech(TechList, listView_Techniques);
+			profile.saveCharTraits(traitList);
+			profile.saveCharTechs(techList, listView_SubCat);
+            profile.saveCharTemplate(
+                richTextBox_Template.Text,
+                textBox_Color.Text,
+                textBox_MasteryMsg.Text
+                );
 		}
 
 		// Loads from serialized object and puts it into form
 		private void loadProjectToForm() {
 			try {
-				profile.LoadProject_Basic(
+				profile.loadCharBasic(
 			  ref textBox_CharacterName,
 			  ref textBox_Nickname,
 			  ref numericUpDown_Age,
@@ -1897,12 +1915,13 @@ namespace OPRPCharBuild
 			  ref comboBox_MarineRank,
 			  ref textBox_Threat,
 			  ref listBox_Achieve,
-			  ref listView_Prof
+			  ref listView_Prof,
+              ref profList
 			  );
 			}
 			catch (Exception ex) { MessageBox.Show("Load Basic Character Error.\nReason: " + ex.Message); }
 			try {
-				profile.LoadProject_Physical(
+				profile.loadCharAppearance(
 			  ref textBox_Height,
 			  ref textBox_Weight,
 			  ref richTextBox_Hair,
@@ -1914,7 +1933,7 @@ namespace OPRPCharBuild
 			}
 			catch (Exception ex) { MessageBox.Show("Load Physical Appearance Error.\nReason: " + ex.Message); }
 			try {
-				profile.LoadProject_Background(
+				profile.loadCharBackground(
 			  ref textBox_Island,
 			  ref comboBox_Region,
 			  ref richTextBox_Personality,
@@ -1923,25 +1942,41 @@ namespace OPRPCharBuild
 			}
 			catch (Exception ex) { MessageBox.Show("Load Character Background Error.\nReason: " + ex.Message); }
 			try {
-				profile.LoadProject_Combat(
+				profile.loadCharCombat(
 			  ref richTextBox_Combat,
 			  ref listView_Weaponry,
 			  ref listView_Items,
 			  ref textBox_Beli,
 			  ref textBox_DFName,
 			  ref comboBox_DFType,
+              ref comboBox_DFTier,
 			  ref richTextBox_DFDesc,
 			  ref textBox_DFEffect
 			  );
 			}
 			catch (Exception ex) { MessageBox.Show("Load Combat and Abilities Error.\nReason: " + ex.Message); }
-			try { profile.LoadProject_Traits(ref listView_Traits); }
+			try {
+                profile.loadCharTraits(
+                    ref traitList,
+                    ref listView_Traits,
+                    ref spTraitList,
+                    int.Parse(textBox_Fortune.Text)
+                    );
+            }
 			catch (Exception ex) { MessageBox.Show("Load Traits Error.\nReason: " + ex.Message); }
-			try { profile.LoadProject_Tech(ref listView_Techniques); }
+			try {
+                profile.loadCharTechs(
+                    ref techList,
+                    ref listView_Techniques,
+                    ref spTraitList,
+                    ref listView_SpTP,
+                    ref listView_SubCat
+                    );
+            }
 			catch (Exception ex) { MessageBox.Show("Load Techniques Error.\nReason: " + ex.Message); }
 			// The two above need to be loaded first before Stats because some Update
 			// functions aren't in an Exception Handle
-			profile.LoadProject_Stats(
+			profile.loadCharStats(
 				ref numericUpDown_SDEarned,
 				ref numericUpDown_SDintoStats,
 				ref checkedListBox1_AP,
@@ -1951,6 +1986,11 @@ namespace OPRPCharBuild
 				ref numericUpDown_StaminaBase,
 				ref numericUpDown_AccuracyBase
 				);
+            profile.loadCharTemplate(
+                ref richTextBox_Template,
+                ref textBox_Color,
+                ref textBox_MasteryMsg
+                );
 			// Some update functions in which it isn't in an Exception Handle
 			Update_Traits_Count_Label();
 			Update_AP_Count();
@@ -1958,16 +1998,12 @@ namespace OPRPCharBuild
 			Update_Total_RegTP();
 			Update_Used_RegTP();
 			Update_TechNum();
-			foreach (ListViewItem eachitem in listView_Traits.Items) {
-				string name = eachitem.SubItems[0].Text;
-                Update_SpTraitTable_Total();
-                Update_SpTraitTable_Used(name);
-			}
-			Update_SpTrait_Table_Values();
+            Update_Total_SpTP_Textbox();
+            Update_Used_SpTP_Textbox();
 		}
 
 		// This is where serialize our profile.
-		private void saveStreamProject() {
+		private void savdCharactertoData() {
 			FileStream fs = File.Open(profile.location, FileMode.Create);
 			BinaryFormatter formatter = new BinaryFormatter();
 			try {
@@ -2008,15 +2044,15 @@ namespace OPRPCharBuild
 				if (fileDialogSaveProject.ShowDialog() == DialogResult.OK) {
 					profile.location = fileDialogSaveProject.FileName;
 					profile.filename = Path.GetFileNameWithoutExtension(fileDialogSaveProject.FileName);
-					saveFormToProject();
-					saveStreamProject();
+					saveFormToCharacter();
+					savdCharactertoData();
 					this.Text = profile.filename;
 				}
 			}
 			else {
-				saveFormToProject();
+				saveFormToCharacter();
 				try {
-					saveStreamProject();
+					savdCharactertoData();
 				}
 				catch (Exception e) {
 					MessageBox.Show("Failed to save.\nReason: " + e.Message);
@@ -2148,7 +2184,7 @@ namespace OPRPCharBuild
 			// 85 is Profession Primary/Secondary
 			// 86 is Profession Description
 			// 87 is Profession Primary Bonus
-			CustomTags.Add(88, textBox_Rank4.Text);
+			CustomTags.Add(88, textBox_MasteryMsg.Text);
 			CustomTags.Add(89, textBox_Focus.Text);
 			// 90 is Tech AE
 			// 91 is Image URL
@@ -2160,14 +2196,23 @@ namespace OPRPCharBuild
 			// 97 is Tech Range
 			CustomTags.Add(98, numericUpDown_SDintoStats.Value.ToString());
 			// 99 is AP Description
+            // 100 is Tech Custom Note
 		}
 
 		private void button_Generate_Click(object sender, EventArgs e) {
-			Sheet sheet = new Sheet(1, richTextBox_Template.Text);
+			Sheet sheet = new Sheet(1, richTextBox_Template.Text, techList);
 			Load_CustomTags_Dict();
 			Sheet.color_hex = textBox_Color.Text;
-			sheet.Generate_Template(listBox_Achieve, listView_Prof, listView_Images, listView_Weaponry, listView_Items, checkedListBox1_AP,
-				listView_Traits, listView_SpTP, listView_Techniques, listView_SubCat);
+			sheet.Generate_Template(listBox_Achieve, 
+                profList, 
+                listView_Images, 
+                listView_Weaponry, 
+                listView_Items, 
+                checkedListBox1_AP,
+				traitList, 
+                spTraitList, 
+                listView_Techniques, 
+                listView_SubCat);
 			sheet.ShowDialog();
 			CustomTags.Clear(); // Clear Dictionary now that we're done.
 		}
@@ -2202,13 +2247,17 @@ namespace OPRPCharBuild
 			if (fileDialogSaveProject.ShowDialog() == DialogResult.OK) {
 				profile.location = fileDialogSaveProject.FileName;
 				profile.filename = Path.GetFileNameWithoutExtension(fileDialogSaveProject.FileName);
-				saveFormToProject();
-				saveStreamProject();
+				saveFormToCharacter();
+				savdCharactertoData();
 				this.Text = profile.filename;
 			}
 		}
 
 		private void olderVersionToolStripMenuItem_Click(object sender, EventArgs e) {
+            MessageBox.Show("This is a new overhaul, so importing older versions is currently unavailable.\n" +
+                "You will have to make a new character altogether. Sorry for the inconvenience.", "Notice",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            /*
 			DialogResult result = MessageBox.Show("Save your current work before importing a Character?", "Import Project",
 			MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 			if (result == DialogResult.Yes) {
@@ -2253,6 +2302,7 @@ namespace OPRPCharBuild
 					}
 				}
 			}
+            */
 		}
 
 		private void characterTemplateToolStripMenuItem_Click(object sender, EventArgs e) {

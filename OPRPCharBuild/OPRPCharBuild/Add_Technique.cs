@@ -49,11 +49,6 @@ namespace OPRPCharBuild
         // Stats into the Technique
         Stats techStats = new Stats();
 
-		// Used when editing Dialogue for comboBox SpTrait, Rank Trait, and Note
-		/* private string edit_SpTrait;
-		private string edit_RankTrait;
-		private string edit_Note; */
-
         // Devil Fruit section
         DevilFruit DF;
         
@@ -111,7 +106,7 @@ namespace OPRPCharBuild
                 // Nothing too complicated
                 string applyTraitStr = DebuffTrait_String();
 				// Now initialize TechInfo and add into TechList
-				Technique techInfo = new Technique(name, Roku, 
+				Technique techInfo = new Technique(name, Roku.name, 
                     (int)numericUpDown_Rank.Value,
 					(int)numericUpDown_RegTP.Value, 
                     (int)numericUpDown_SpTP.Value,
@@ -145,7 +140,7 @@ namespace OPRPCharBuild
 		private void Copy_Data_To_Form(Technique Tech) {
 			// Put the Tech being edited into the Dialog Box first. Take it from the Dictionary
 			// ...This is going to suck.
-			Roku = Tech.roku;						// Establish that this is indeed a Rokushiki
+			Roku = Database.getRoku(Tech.rokuName);		// Establish that this is indeed a Rokushiki
 			if (string.IsNullOrWhiteSpace(Roku.name)) {
 				// This means we're editing a Rokushiki Technique
 				this.Text = "Technique Creator - [Rokushiki: " + Roku.name + "]";
@@ -186,7 +181,7 @@ namespace OPRPCharBuild
             // Stats
             techStats = Tech.stats;
             comboBox_StatOpt.Text = Tech.stats.statsName;
-            textBox_Stats.Text = Tech.stats.techStr;
+            textBox_Stats.Text = Tech.stats.getTechString();
             // Power/Effects
             checkBox_AutoCalc.Checked = Tech.autoCalc;
 			checkBox_NA.Checked = Tech.NApower;
@@ -223,10 +218,10 @@ namespace OPRPCharBuild
 			checkBox_Fuel2.Checked = Tech.cyborgBoosts[1];
 			checkBox_Fuel3.Checked = Tech.cyborgBoosts[2];
             // Checkboxes for the App Traits
-            if (Tech.note.Contains(Database.TR_SIGTEC) && checkBox_SigTech.Enabled) { checkBox_SigTech.Checked = true; }
-            if (Tech.note.Contains(Database.TR_CRITHI) && checkBox_CritHit.Enabled) { checkBox_CritHit.Checked = true; }
-            if (Tech.note.Contains(Database.TR_ANASTR) && checkBox_AnatStrike.Enabled) { checkBox_AnatStrike.Checked = true; }
-            if (Tech.note.Contains(Database.TR_QUICKS) && checkBox_QuickStrike.Enabled) { checkBox_QuickStrike.Checked = true; }
+            if (Tech.sigTech && checkBox_SigTech.Enabled) { checkBox_SigTech.Checked = true; }
+            if (Tech.appTrait.Contains(Database.TR_CRITHI) && checkBox_CritHit.Enabled) { checkBox_CritHit.Checked = true; }
+            if (Tech.appTrait.Contains(Database.TR_ANASTR) && checkBox_AnatStrike.Enabled) { checkBox_AnatStrike.Checked = true; }
+            if (Tech.appTrait.Contains(Database.TR_QUICKS) && checkBox_QuickStrike.Enabled) { checkBox_QuickStrike.Checked = true; }
             // Now put in the Tech.note
             richTextBox_Note.Text = Tech.note;
             // (Need Update Functions from Add_Technique_Load_Form first, and THEN edit it in)
@@ -1221,8 +1216,9 @@ namespace OPRPCharBuild
 					Rokushiki Sel_Roku = new Rokushiki();
 					string Roku_Name = "";
 					string selected_option = Roku_Window.Rokushiki_Load_Dialog(ref Sel_Roku, ref Roku_Name);
-					if (!string.IsNullOrWhiteSpace(selected_option) && !string.IsNullOrWhiteSpace(Sel_Roku.name)) {
-						// We picked a Rokushiki Technique!
+					if (!string.IsNullOrWhiteSpace(selected_option) && Sel_Roku.name != Database.ROKU_NON) {
+                        // We picked a Rokushiki Technique!
+                        Roku = Sel_Roku;
 						if (selected_option == "Add") {
 							// Close the Form and immediately add the Default Technique for Rokushiki
 							this.Close();

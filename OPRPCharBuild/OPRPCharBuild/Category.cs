@@ -11,9 +11,9 @@ namespace OPRPCharBuild
         // -------------------------------------------------------------------
         // MEMBER VARIABLES
         // -------------------------------------------------------------------
-        int rowBegin;
-        int rowEnd;
-        string name;
+        public int rowBegin;
+        public int rowEnd;
+        public string name;
 
         // Default Constructor
         public Category(int beg_, int end_, string name_) {

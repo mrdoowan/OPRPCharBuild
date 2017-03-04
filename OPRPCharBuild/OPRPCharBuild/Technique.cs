@@ -9,14 +9,14 @@ namespace OPRPCharBuild
     public class Technique
     {
         public string name;
-        public Rokushiki roku;
+        public string rokuName;
         public int rank;
         public int regTP;
         public int spTP;
         public string rankTrait;
         public string specialTrait;
         public string appTrait;     // Crit Hit, Quickstrike, Anat Strike
-        public bool sigTech;
+        public bool sigTech;        // Only for checkbox_Sig
         public string branchTech;
         public int branchRank;
         public string type;
@@ -34,7 +34,7 @@ namespace OPRPCharBuild
 
         // Initialized Constructor
         public Technique(string name_, 
-            Rokushiki roku_, 
+            string roku_, 
             int rank_, 
             int reg_, 
             int sp_,
@@ -58,7 +58,7 @@ namespace OPRPCharBuild
             string desc_) {
             // ---------------
             name = name_;
-            roku = roku_;
+            rokuName = roku_;
             rank = rank_;
             regTP = reg_;
             spTP = sp_;

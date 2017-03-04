@@ -42,5 +42,11 @@ namespace OPRPCharBuild
             usedTP = used_;
             totalTP = tot_;
         }
+
+        // For the Character.cs
+        public SpTrait(string name_, int tot_) {
+            name = name_;
+            totalTP = tot_;
+        }
     };
 }

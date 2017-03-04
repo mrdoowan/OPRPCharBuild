@@ -67,7 +67,6 @@ namespace OPRPCharBuild
             // Load Template
             this.ShowDialog();
             if (button_clicked) {
-                string finalStr = generateFinalString();
                 // Modify techStats
                 techStats.statsName = statOpt;
                 techStats.duration = label_PostDur.Text;
@@ -75,9 +74,8 @@ namespace OPRPCharBuild
                 techStats.speed = (int)numericUpDown_Spe.Value;
                 techStats.stamina = (int)numericUpDown_Sta.Value;
                 techStats.accuracy = (int)numericUpDown_Acc.Value;
-                techStats.techStr = finalStr;
                 // Return with generated String
-                return finalStr;
+                return techStats.getTechString();
             }
             else {
                 return textbox;
@@ -150,19 +148,6 @@ namespace OPRPCharBuild
             // Append the Final number
             calc += " = " + final;
             return calc;
-        }
-        
-        private string generateFinalString() {
-            string finalStr = "";
-            int str = (int)numericUpDown_Str.Value;
-            int spe = (int)numericUpDown_Spe.Value;
-            int sta = (int)numericUpDown_Sta.Value;
-            int acc = (int)numericUpDown_Acc.Value;
-            if (str > 0) { finalStr += str + " Strength, "; }
-            if (spe > 0) { finalStr += spe + " Speed, "; }
-            if (sta > 0) { finalStr += sta + " Stamina, "; }
-            if (acc > 0) { finalStr += acc + " Accuracy"; }
-            return finalStr.TrimEnd(',', ' ');
         }
 
         // If the numbers add up correctly, enable the Load Button

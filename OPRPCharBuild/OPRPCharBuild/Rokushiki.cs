@@ -25,7 +25,7 @@ namespace OPRPCharBuild
 
         // Default Constructor
         public Rokushiki() {
-            name = "";
+            name = "NONE";
             baseRank = 0;
             type = "";
             range = "";

@@ -18,7 +18,6 @@ namespace OPRPCharBuild
         public int speed;
         public int stamina;
         public int accuracy;
-        public string techStr;      // The words you see in "Stats:"
 
         // Default Constructor
         public Stats() {
@@ -28,7 +27,6 @@ namespace OPRPCharBuild
             speed = 0;
             stamina = 0;
             accuracy = 0;
-            techStr = "";
         }
 
         // Initialize constructor
@@ -40,12 +38,22 @@ namespace OPRPCharBuild
             speed = spe_;
             stamina = sta_;
             accuracy = acc_;
-            techStr = "";
         }
         
         public bool hasStats() {
             return (strength == 0 && speed == 0 && 
                 stamina == 0 && accuracy == 0);
+        }
+
+        // Generate Tech Stats string
+        public string getTechString() {
+            string finalStr = "";
+            if (strength > 0) { finalStr += strength + " Strength, "; }
+            if (speed > 0) { finalStr += speed + " Speed, "; }
+            if (stamina > 0) { finalStr += stamina + " Stamina, "; }
+            if (accuracy > 0) { finalStr += accuracy + " Accuracy"; }
+            if (string.IsNullOrWhiteSpace(finalStr)) { finalStr = "N/A"; }
+            return finalStr.TrimEnd(',', ' ');
         }
     }
 }

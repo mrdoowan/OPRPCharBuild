@@ -102,10 +102,12 @@ namespace OPRPCharBuild
 		public static string color_hex = "";
 		// This is constantly changing
 		private Dictionary<int, string> RepeatTags = new Dictionary<int, string>();
+        private Dictionary<string, Technique> techDict = new Dictionary<string, Technique>();
 
-		public Sheet(int option_, string text_ = "") {
+        public Sheet(int option_, string text_ = "", Dictionary<string, Technique> techDict_ = null) {
 			InitializeComponent();
 			option = option_;
+            techDict = techDict_;
 			if (option != 1) { label1.Visible = false; }
 			else { Template = text_; }
 			richTextBox_Template.Text = text_;
@@ -124,8 +126,17 @@ namespace OPRPCharBuild
 		//		NOTE: Make a Dictionary that constantly changes here
 		// 4) Lastly, replace ALL <color> tags
 
-		public void Generate_Template(ListBox Achievements, ListView Profs, ListView Images, ListView Weaponry, ListView Items, CheckedListBox AP,
-			ListView Traitss, ListView SpTraits, ListView Techs, ListView Categories) {
+		public void Generate_Template(
+            ListBox Achievements,
+            Dictionary<string, Profession> profList, 
+            ListView Images, 
+            ListView Weaponry, 
+            ListView Items, 
+            CheckedListBox AP,
+            Dictionary<string, Trait> traitList,
+            Dictionary<string, SpTrait> spTraitList,
+            ListView Techs, 
+            ListView Categories) {
 			// ------- Step 1) 
 			Template = Call_Special_Cast_Funcs(Template, MainForm.CustomTags);
 			// ------- Step 2) 
@@ -159,7 +170,7 @@ namespace OPRPCharBuild
 				Template = Repeat_Casting(Template, "Achievement", Achievements);
 			}
 			if (Template.Contains("<Profession>") && Template.Contains("</Profession>")) {
-				Template = Repeat_Casting(Template, "Profession", Profs);
+				Template = Repeat_Casting(Template, "Profession", profList);
 			}
 			if (Template.Contains("<Image>") && Template.Contains("</Image>")) {
 				Template = Repeat_Casting(Template, "Image", Images);
@@ -174,13 +185,13 @@ namespace OPRPCharBuild
 				Template = Repeat_Casting(Template, "AP", AP);
 			}
 			if (Template.Contains("<Trait_G>") && Template.Contains("</Trait_G>")) {
-				Template = Repeat_Casting(Template, "Trait_G", Traitss);
+				Template = Repeat_Casting(Template, "Trait_G", traitList);
 			}
 			if (Template.Contains("<Trait_P>") && Template.Contains("</Trait_P>")) {
-				Template = Repeat_Casting(Template, "Trait_P", Traitss);
+				Template = Repeat_Casting(Template, "Trait_P", traitList);
 			}
 			if (Template.Contains("<SpTrait>") && Template.Contains("</SpTrait>")) {
-				Template = Repeat_Casting(Template, "SpTrait", SpTraits);
+				Template = Repeat_Casting(Template, "SpTrait", spTraitList);
 			}
 			if (Template.Contains("<TechTable>") && Template.Contains("</TechTable>")) {
 				Template = Repeat_Casting(Template, "TechTable", Categories);
@@ -240,12 +251,13 @@ namespace OPRPCharBuild
 					}
 					break;
 				case "Profession":
-					ListView Profs = (ListView)List;
-					foreach (ListViewItem Prof in Profs.Items) {
-						RepeatTags.Add(13, Prof.SubItems[0].Text);  // Load Dictionary
-						RepeatTags.Add(85, Prof.SubItems[1].Text);
-						RepeatTags.Add(86, Prof.SubItems[2].Text);
-						RepeatTags.Add(87, Prof.SubItems[3].Text);
+                    Dictionary<string, Profession> Profs = (Dictionary<string, Profession>)List;
+					foreach (Profession Prof in Profs.Values) {
+						RepeatTags.Add(13, Prof.name);  // Load Dictionary
+                        string profPri = (Prof.primary) ? "Primary" : "Secondary";
+						RepeatTags.Add(85, profPri);
+						RepeatTags.Add(86, Prof.desc);
+						RepeatTags.Add(87, Prof.bonus);
 						Repeat_String(old_str, ref new_str);
 						RepeatTags.Clear();     // Clear Dict
 					}
@@ -316,36 +328,36 @@ namespace OPRPCharBuild
 					}
 					break;
 				case "Trait_G":
-					ListView Traits_G = (ListView)List;
-					foreach (ListViewItem trait in Traits_G.Items) {
-						if (trait.SubItems[1].Text != "Professional") {
-							RepeatTags.Add(50, trait.SubItems[0].Text);
-							RepeatTags.Add(79, trait.SubItems[2].Text);
-							RepeatTags.Add(81, trait.SubItems[3].Text);
-							RepeatTags.Add(80, trait.SubItems[4].Text);
+                    Dictionary<string, Trait> Traits_G = (Dictionary<string, Trait>)List;
+					foreach (Trait trait in Traits_G.Values) {
+						if (trait.genNum > 0) {
+							RepeatTags.Add(50, trait.name);
+							RepeatTags.Add(79, trait.genNum.ToString());
+							RepeatTags.Add(81, trait.profNum.ToString());
+							RepeatTags.Add(80, trait.desc);
 							Repeat_String(old_str, ref new_str);
 							RepeatTags.Clear();     // Clear Dict
 						}
 					}
 					break;
 				case "Trait_P":
-					ListView Traits_P = (ListView)List;
-					foreach (ListViewItem trait in Traits_P.Items) {
-						if (trait.SubItems[1].Text == "Professional") {
-							RepeatTags.Add(51, trait.SubItems[0].Text);
-							RepeatTags.Add(81, trait.SubItems[3].Text);
-							RepeatTags.Add(82, trait.SubItems[4].Text);
+                    Dictionary<string, Trait> Traits_P = (Dictionary<string, Trait>)List;
+					foreach (Trait trait in Traits_P.Values) {
+						if (trait.profNum > 0 && trait.genNum == 0) {
+							RepeatTags.Add(51, trait.name);
+							RepeatTags.Add(81, trait.profNum.ToString());
+							RepeatTags.Add(82, trait.desc);
 							Repeat_String(old_str, ref new_str);
 							RepeatTags.Clear();     // Clear Dict
 						}
 					}
 					break;
 				case "SpTrait":
-					ListView SpTraits = (ListView)List;
-					foreach (ListViewItem SpTrait in SpTraits.Items) {
-						RepeatTags.Add(61, SpTrait.SubItems[0].Text); // Load Dictionary
-						RepeatTags.Add(83, SpTrait.SubItems[1].Text);
-						RepeatTags.Add(84, SpTrait.SubItems[2].Text);
+                    Dictionary<string, SpTrait> SpTraits = (Dictionary<string, SpTrait>)List;
+					foreach (SpTrait spTrait in SpTraits.Values) {
+						RepeatTags.Add(61, spTrait.name); // Load Dictionary
+						RepeatTags.Add(83, spTrait.usedTP.ToString());
+						RepeatTags.Add(84, spTrait.totalTP.ToString());
 						Repeat_String(old_str, ref new_str);
 						RepeatTags.Clear();
 					}
@@ -367,7 +379,7 @@ namespace OPRPCharBuild
 					ListView Techniques = (ListView)List;
 					for (int i = beg_row; i < end_row + 1; ++i) {
 						string TechName = Techniques.Items[i].SubItems[0].Text;
-						Technique tech = MainForm.TechList[TechName];
+						Technique tech = techDict[TechName];
 						// Load Dictionary
 						RepeatTags.Add(64, TechName);
 						string rank = tech.rank.ToString();
@@ -379,10 +391,11 @@ namespace OPRPCharBuild
 						RepeatTags.Add(66, tech.type);
 						RepeatTags.Add(97, tech.range);
 						RepeatTags.Add(67, tech.power);
-						RepeatTags.Add(68, tech.stats.techStr);
+						RepeatTags.Add(68, tech.stats.getTechString());
 						RepeatTags.Add(69, tech.regTP.ToString());
 						RepeatTags.Add(70, tech.spTP.ToString());
 						RepeatTags.Add(71, tech.note);
+                        RepeatTags.Add(100, tech.customNote);
 						RepeatTags.Add(72, tech.description);
 						RepeatTags.Add(73, TechEffects_Into_String(tech.effects));
 						// --------------
