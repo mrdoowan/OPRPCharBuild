@@ -21,7 +21,7 @@ namespace OPRPCharBuild
         // MEMBER VARIABLES
         // --------------------------------------------------------------------
         public string filename;
-        public string location;
+        public string path;
         private string data;
         #region Const Identifiers
         private const string
@@ -392,9 +392,7 @@ namespace OPRPCharBuild
         }
 
         #endregion
-
-        #region Helper Functions
-
+        
         // This takes the string between identifier and split
         private string getParse(string begStr, string endStr, string parsing = "") {
             if (parsing == "") { parsing = data; }
@@ -403,8 +401,6 @@ namespace OPRPCharBuild
             int pTo = parsing.IndexOf(endStr, pFrom);
             return parsing.Substring(pFrom, pTo - pFrom).TrimEnd('@');
         }
-
-        #endregion
 
         #region Load Functions
 
@@ -726,11 +722,12 @@ namespace OPRPCharBuild
 
         private const string INITVECTOR = "tu89geji340t89u2";
         private const int KEYSIZE = 256;
+        private const string OPRPKEY = "OPRPxddddd2009";
 
         // Thank you to: http://stackoverflow.com/questions/17213851/an-easy-way-to-encrypt-and-decrypt-with-a-key
         // For something simple
 
-        public string encryptData(string Text, string Key) {
+        private string encryptData(string Text, string Key) {
             byte[] initVectorBytes = Encoding.UTF8.GetBytes(INITVECTOR);
             byte[] plainTextBytes = Encoding.UTF8.GetBytes(Text);
             PasswordDeriveBytes password = new PasswordDeriveBytes(Key, null);
@@ -748,7 +745,7 @@ namespace OPRPCharBuild
             return Convert.ToBase64String(Encrypted);
         }
 
-        public string decryptData(string EncryptedText, string Key) {
+        private string decryptData(string EncryptedText, string Key) {
             byte[] initVectorBytes = Encoding.ASCII.GetBytes(INITVECTOR);
             byte[] DeEncryptedText = Convert.FromBase64String(EncryptedText);
             PasswordDeriveBytes password = new PasswordDeriveBytes(Key, null);
@@ -766,6 +763,18 @@ namespace OPRPCharBuild
         }
 
         #endregion
+
+        public void saveFile() {
+            if (!File.Exists(path)) {
+                string saveData = encryptData(data, OPRPKEY);
+                File.WriteAllText(path, saveData);
+            }
+        }
+
+        public void openFile() {
+            string encrypted = File.ReadAllText(path);
+            data = decryptData(encrypted, OPRPKEY);
+        }
 
         // Default Constructor
         public Character() { }

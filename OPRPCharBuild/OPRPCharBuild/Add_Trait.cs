@@ -78,23 +78,18 @@ namespace OPRPCharBuild
 
 		private void comboBox_TraitName_SelectedIndexChanged(object sender, EventArgs e) {
             string traitName = comboBox_TraitName.Text;
-			if (traitName.Contains("SPEC")) {
+            Trait selTrait = Database.getTrait(traitName);
+            if (selTrait != null) {
+                numericUpDown_TraitGen.Value = selTrait.genNum;
+                numericUpDown_TraitProf.Value = selTrait.profNum;
+                richTextBox_TraitDesc.Text = selTrait.desc;
+            }
+            if (traitName.Contains("SPEC")) {
 				textBox_TraitSpec.Enabled = true;
 			}
 			else {
 				textBox_TraitSpec.Enabled = false;
 				textBox_TraitSpec.Clear();
-			}
-		}
-
-		private void comboBox_TraitName_SelectionChangeCommitted(object sender, EventArgs e) {
-            // When we close the comboBox, that means we selected a trait.
-            // Utilize this to copy and display information.
-            Trait selTrait = Database.getTrait(comboBox_TraitName.Text);
-			if (selTrait != null) {
-				numericUpDown_TraitGen.Value = selTrait.genNum;
-				numericUpDown_TraitProf.Value = selTrait.profNum;
-				richTextBox_TraitDesc.Text = selTrait.desc;
 			}
 		}
 
@@ -119,8 +114,7 @@ namespace OPRPCharBuild
 		}
 
 		private bool Zero_Traits() {
-			return ((numericUpDown_TraitGen.Enabled && numericUpDown_TraitGen.Value == 0) ||
-				(numericUpDown_TraitProf.Enabled && numericUpDown_TraitProf.Value == 0));
+			return (numericUpDown_TraitGen.Value == 0 && numericUpDown_TraitProf.Value == 0);
 		}
 
 	}

@@ -46,6 +46,11 @@ namespace OPRPCharBuild
             // Establish Major Buff setting
             majorBuff = alterSetting.majorBuff;
             if (majorBuff) { label_MajorBuff.Visible = true; }
+            // Set techStats
+            numericUpDown_Str.Value = techStats.strength;
+            numericUpDown_Spe.Value = techStats.speed;
+            numericUpDown_Sta.Value = techStats.stamina;
+            numericUpDown_Acc.Value = techStats.accuracy;
             // Establish Duration
             if (alterSetting.duration) {
                 label_PostDur.Visible = true;
@@ -184,18 +189,22 @@ namespace OPRPCharBuild
             // Set calculations and total Buff/Debuff
             if (alterSetting.type == StatAlter.BUFF || alterSetting.type == StatAlter.STANCE) {
                 totBuff = calcBuffNum(rank, statOpt, true, comboBox_AoE.Text);
+                label_TotBuff.Text = "Total Buff: " + totBuff;
                 textBox_BuffCalc.Text = calcBuffString(rank, statOpt, true, comboBox_AoE.Text, totBuff);
             }
             else {
                 totBuff = 0;
+                label_TotBuff.Text = "Total Buff: " + totBuff;
                 textBox_BuffCalc.Text = "0 = 0";
             }
             if (alterSetting.type == StatAlter.DEBUFF || alterSetting.type == StatAlter.STANCE) {
                 totDebuff = calcBuffNum(rank, statOpt, false, comboBox_AoE.Text);
+                label_TotDebuff.Text = "Total Debuff: " + totDebuff;
                 textBox_DebuffCalc.Text = calcBuffString(rank, statOpt, false, comboBox_AoE.Text, totDebuff);
             }
             else {
                 totDebuff = 0;
+                label_TotDebuff.Text = "Total Debuff: " + totDebuff;
                 textBox_DebuffCalc.Text = "0 = 0";
             }
         }

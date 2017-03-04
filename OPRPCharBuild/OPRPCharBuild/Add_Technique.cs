@@ -891,6 +891,12 @@ namespace OPRPCharBuild
         private void button_LoadStats_Click(object sender, EventArgs e) {
             int rank = (int)numericUpDown_Rank.Value;
             string statopt = comboBox_StatOpt.Text;
+            if (Roku.name == Database.ROKU_ROK) { statopt = Database.BUF_ROKUOG; }
+            if (string.IsNullOrWhiteSpace(statopt)) {
+                MessageBox.Show("Stat Option not selected.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if (statopt == Database.BUF_WILLPO && rank < 14) {
                 MessageBox.Show("Can't have a Willpower Buff that is <R14", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1161,7 +1167,8 @@ namespace OPRPCharBuild
 		}
 
 		private void comboBox_Range_SelectedIndexChanged(object sender, EventArgs e) {
-			Effect rangeEff = getEffect(comboBox_Effect.Text);
+            if (comboBox_Range.Text == "Self") { return; }
+            Effect rangeEff = getEffect(comboBox_Range.Text);
             if (rangeEff.name == Database.EFF_SHORT ||
                 rangeEff.name == Database.EFF_MEDIU || rangeEff.name == Database.EFF_LONG ||
                 rangeEff.name == Database.EFF_VLONG || rangeEff.name == Database.EFF_SHAOE ||
@@ -1232,7 +1239,13 @@ namespace OPRPCharBuild
 							comboBox_SpTrait.SelectedIndex = -1;
 							comboBox_Type.Text = Sel_Roku.type;
 							comboBox_Range.Text = Sel_Roku.range;
-							// TODO: Stats
+							if (Roku.name == Database.ROKU_ROK) {
+                                techStats = new Stats(Database.BUF_ROKUOG, "4 Post Duration", 0, 0, -22, -22);
+                                textBox_Stats.Text = techStats.getTechString();
+                            }
+                            else {
+                                textBox_Stats.Text = "N/A";
+                            }
 							checkBox_NA.Checked = false;
 							checkBox_Branched.Checked = false;
 							checkBox_DFTechEnable.Checked = false;
@@ -1264,8 +1277,17 @@ namespace OPRPCharBuild
 							numericUpDown_RegTP.Value = Sel_Roku.baseRank;
 							comboBox_Type.Text = Sel_Roku.type;
 							comboBox_Range.Text = Sel_Roku.range;
-							// TODO: Tech Stats
-							checkBox_Branched.Checked = false;
+                            comboBox_StatOpt.Enabled = false;
+                            button_ResetStats.Enabled = false;
+                            if (Roku.name == Database.ROKU_ROK) {
+                                techStats = new Stats(Database.BUF_ROKUOG, "6 Post Duration", 0, 0, -22, -22);
+                                textBox_Stats.Text = techStats.getTechString();
+                            }
+                            else {
+                                textBox_Stats.Text = "N/A";
+                                button_LoadStats.Enabled = false;
+                            }
+                            checkBox_Branched.Checked = false;
 							effList.Clear();
 							listView_Effects.Items.Clear();
 							textBox_Power.Text = Sel_Roku.basePower.ToString();

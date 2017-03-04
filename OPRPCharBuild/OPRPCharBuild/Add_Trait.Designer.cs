@@ -81,7 +81,6 @@
             // 
             // numericUpDown_TraitProf
             // 
-            this.numericUpDown_TraitProf.Enabled = false;
             this.numericUpDown_TraitProf.Location = new System.Drawing.Point(511, 43);
             this.numericUpDown_TraitProf.Maximum = new decimal(new int[] {
             5,
@@ -94,7 +93,6 @@
             // 
             // numericUpDown_TraitGen
             // 
-            this.numericUpDown_TraitGen.Enabled = false;
             this.numericUpDown_TraitGen.Location = new System.Drawing.Point(511, 13);
             this.numericUpDown_TraitGen.Maximum = new decimal(new int[] {
             7,
@@ -116,7 +114,6 @@
             this.comboBox_TraitName.Sorted = true;
             this.comboBox_TraitName.TabIndex = 27;
             this.comboBox_TraitName.SelectedIndexChanged += new System.EventHandler(this.comboBox_TraitName_SelectedIndexChanged);
-            this.comboBox_TraitName.SelectionChangeCommitted += new System.EventHandler(this.comboBox_TraitName_SelectionChangeCommitted);
             this.comboBox_TraitName.MouseLeave += new System.EventHandler(this.comboBox_TraitName_MouseLeave);
             this.comboBox_TraitName.MouseMove += new System.Windows.Forms.MouseEventHandler(this.comboBox_TraitName_MouseMove);
             // 

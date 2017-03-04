@@ -13,12 +13,12 @@ namespace OPRPCharBuild
         // -------------------------------------------------------------------
         public string name;
         public string type;
-        public int tier;
+        public string tier;
         public string description;
         public string freeEffect;
 
         // Default Constructor
-        public DevilFruit(string name_, string type_, int tier_, string desc_, 
+        public DevilFruit(string name_, string type_, string tier_, string desc_, 
             string free_) {
             name = name_;
             type = type_;

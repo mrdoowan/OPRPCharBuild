@@ -172,7 +172,7 @@ namespace OPRPCharBuild
         private DevilFruit makeDFClass() {
             return new DevilFruit(textBox_DFName.Text,
                 comboBox_DFType.Text,
-                int.Parse(comboBox_DFTier.Text),
+                comboBox_DFTier.Text,
                 richTextBox_DFDesc.Text,
                 textBox_DFEffect.Text);
         }
@@ -1900,7 +1900,7 @@ namespace OPRPCharBuild
 		}
 
 		// Loads from serialized object and puts it into form
-		private void loadProjectToForm() {
+		private void loadCharacterToForm() {
 			try {
 				profile.loadCharBasic(
 			  ref textBox_CharacterName,
@@ -2004,17 +2004,15 @@ namespace OPRPCharBuild
 
 		// This is where serialize our profile.
 		private void savdCharactertoData() {
-			FileStream fs = File.Open(profile.location, FileMode.Create);
-			BinaryFormatter formatter = new BinaryFormatter();
 			try {
-				formatter.Serialize(fs, profile);
+                profile.saveFile();
 			}
 			catch (SerializationException e) {
-				MessageBox.Show("Failed to serialize.\nReason: " + e.Message);
+				MessageBox.Show("Failed to save.\nReason: " + e.Message);
 			}
 			finally {
-				MessageBox.Show(profile.filename + " successfully saved!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				fs.Close();
+				MessageBox.Show(profile.filename + " successfully saved!", "Saved",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 		}
 
@@ -2029,7 +2027,7 @@ namespace OPRPCharBuild
 			if (result != DialogResult.Cancel) {
 				this.Text = "OPRP Character Builder";
 				profile.filename = null;
-				profile.location = null;
+				profile.path = null;
 				resetForm();
 			}
 		}
@@ -2042,7 +2040,7 @@ namespace OPRPCharBuild
 				fileDialogSaveProject.Title = "Save New Project";
 				fileDialogSaveProject.OverwritePrompt = true;
 				if (fileDialogSaveProject.ShowDialog() == DialogResult.OK) {
-					profile.location = fileDialogSaveProject.FileName;
+					profile.path = fileDialogSaveProject.FileName;
 					profile.filename = Path.GetFileNameWithoutExtension(fileDialogSaveProject.FileName);
 					saveFormToCharacter();
 					savdCharactertoData();
@@ -2075,15 +2073,11 @@ namespace OPRPCharBuild
 				dlgFileOpen.RestoreDirectory = true;
 				if (dlgFileOpen.ShowDialog() == DialogResult.OK) {
 					try {
-						FileStream fs = File.Open(dlgFileOpen.FileName, FileMode.Open);
-						BinaryFormatter formatter = new BinaryFormatter();
-						profile = (Project2)formatter.Deserialize(fs);
-						fs.Close();
-						// Holy moly you need to update the save location or else you lose work.
-						profile.location = dlgFileOpen.FileName;
+						profile.path = dlgFileOpen.FileName;
 						profile.filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
+                        profile.openFile();
 						resetForm();
-						loadProjectToForm();
+						loadCharacterToForm();
 						this.Text = profile.filename;
 					}
 					catch (Exception e) {
@@ -2245,7 +2239,7 @@ namespace OPRPCharBuild
 			fileDialogSaveProject.Title = "Save New Project";
 			fileDialogSaveProject.OverwritePrompt = true;
 			if (fileDialogSaveProject.ShowDialog() == DialogResult.OK) {
-				profile.location = fileDialogSaveProject.FileName;
+				profile.path = fileDialogSaveProject.FileName;
 				profile.filename = Path.GetFileNameWithoutExtension(fileDialogSaveProject.FileName);
 				saveFormToCharacter();
 				savdCharactertoData();

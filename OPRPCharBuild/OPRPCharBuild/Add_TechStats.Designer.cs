@@ -172,7 +172,7 @@
             this.label_TotBuff.Name = "label_TotBuff";
             this.label_TotBuff.Size = new System.Drawing.Size(200, 24);
             this.label_TotBuff.TabIndex = 12;
-            this.label_TotBuff.Text = "Total Buff:";
+            this.label_TotBuff.Text = "Total Buff: ";
             this.label_TotBuff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_TotDebuff
@@ -181,7 +181,7 @@
             this.label_TotDebuff.Name = "label_TotDebuff";
             this.label_TotDebuff.Size = new System.Drawing.Size(200, 24);
             this.label_TotDebuff.TabIndex = 13;
-            this.label_TotDebuff.Text = "Total Debuff:";
+            this.label_TotDebuff.Text = "Total Debuff: ";
             this.label_TotDebuff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBox_BuffCalc
