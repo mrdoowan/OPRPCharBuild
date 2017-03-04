@@ -30,7 +30,7 @@ namespace OPRPCharBuild
 
 		#region Member Variables
 
-		public const string VERSION = "1.3.0";
+		public const string VERSION = "1.4.0";
 		public const string VERS_TYPE = "";
 		public const string STD_TEMPLATE_MSG = "Standard Template";
         private const string WEBSITE = "https://github.com/mrdoowan/OPRPCharBuild/releases";
@@ -694,7 +694,7 @@ namespace OPRPCharBuild
             // Used when a Trait is removed.
         }
 
-        private void Update_SpTraitTable_Total() {
+        private void Update_SpTraitTableAndDict_Total() {
             // This updates all the Total Sp Traits
             int fortune = int.Parse(textBox_Fortune.Text);
             foreach (ListViewItem spTrait in listView_SpTP.Items) {
@@ -702,6 +702,7 @@ namespace OPRPCharBuild
                 int traitNum = traitList[name].getTotalTraits();
                 int divisor = Database.getSpTraitDiv(name);
                 int totTP = (fortune / divisor) * traitNum;
+                // Edit spTraitList
                 spTraitList[name].totalTP = totTP;
                 // Edit ListView
                 spTrait.SubItems[2].Text = totTP.ToString();
@@ -713,7 +714,7 @@ namespace OPRPCharBuild
             // Used when Fortune is updated.
         }
 
-        private void Update_SpTraitTable_Used(string traitName) {
+        private void Update_SpTraitTableAndDict_Used(string traitName) {
             // Update values inside the table based on Techniques or Fortune edited.
             // Update SpTraitList first, then the ListView
             if (string.IsNullOrWhiteSpace(traitName)) { return; }
@@ -723,6 +724,9 @@ namespace OPRPCharBuild
                     used += tech.spTP;
                 }
             }
+            // Edit spTraitList
+            spTraitList[traitName].usedTP = used;
+            // Edit ListView
             foreach (ListViewItem spTrait in listView_SpTP.Items) {
                 if (spTrait.SubItems[0].Text == traitName) {
                     spTrait.SubItems[1].Text = used.ToString();
@@ -864,12 +868,12 @@ namespace OPRPCharBuild
 
         // This only occurs once before the form is displayed for the first time.
         private void MainForm_Load(object sender, EventArgs e) {
-			this.Text = "OPRP Character Builder";
-			label_Title.Text = "OPRP Character Builder";
+            this.Text = "OPRP Character Builder";
+			//label_Title.Text = "OPRP Character Builder";
 			label1.Text = "OPRP Character Builder v" + VERSION + VERS_TYPE + " designed by Solo";
 
 			// Check for updates of a New Version or Bug Messages
-			Check_Update();
+			//Check_Update();
 
 			// ------ Professions
 			listView_Prof.View = View.Details;
@@ -1420,7 +1424,7 @@ namespace OPRPCharBuild
 
 		private void textBox_Fortune_TextChanged(object sender, EventArgs e) {
 			Update_Total_RegTP();
-			Update_SpTraitTable_Total();
+			Update_SpTraitTableAndDict_Total();
 		}
 
 		private void textBox_UsedForStats_TextChanged(object sender, EventArgs e) {
@@ -1478,8 +1482,8 @@ namespace OPRPCharBuild
 
 		#region Techniques Tab
 
-		private void All_Update_Functions_Techs(string name) {
-            Update_SpTraitTable_Used(name);
+		private void All_Update_Functions_Techs(string traitName) {
+            Update_SpTraitTableAndDict_Used(traitName);
 			Update_Used_RegTP();
 			Update_CritAnatQuick_Msg();
 			Update_TechNum();
@@ -1499,8 +1503,11 @@ namespace OPRPCharBuild
 			Add_Technique TechniqueWin = new Add_Technique(max_rank, profList, 
                 traitList, spTraitList, makeDFClass(), false, false, null);
 			string newName = TechniqueWin.NewDialog(ref listView_Techniques, ref techList, num_items - 1);
-			// Update functions go below
-			All_Update_Functions_Techs(newName);
+            // Update functions go below
+            if (!string.IsNullOrWhiteSpace(newName)) {
+                string spTrait = techList[newName].specialTrait;
+                All_Update_Functions_Techs(spTrait);
+            }
 		}
 
 		private void button_TechBranch_Click(object sender, EventArgs e) {
@@ -1528,8 +1535,9 @@ namespace OPRPCharBuild
                         spTraitList, makeDFClass(), true, false, selTech);
                     string newName = TechniqueWin.NewDialog(ref listView_Techniques, ref techList, index);
                     // Update functions go below
-                    if (string.IsNullOrWhiteSpace(newName)) {
-                        All_Update_Functions_Techs(newName);
+                    if (!string.IsNullOrWhiteSpace(newName)) {
+                        string spTrait = techList[newName].specialTrait;
+                        All_Update_Functions_Techs(spTrait);
                     }
 				}
 			}
@@ -1553,8 +1561,9 @@ namespace OPRPCharBuild
                         spTraitList, makeDFClass(), false, true, selTech);
                     string newName = TechniqueWin.EditDialog(ref listView_Techniques, ref techList);
                     // Update functions go below
-                    if (string.IsNullOrWhiteSpace(newName)) {
-                        All_Update_Functions_Techs(newName);
+                    if (!string.IsNullOrWhiteSpace(newName)) {
+                        string spTrait = techList[newName].specialTrait;
+                        All_Update_Functions_Techs(spTrait);
                     }
                 }
 			}
@@ -1569,11 +1578,13 @@ namespace OPRPCharBuild
 			if (result == DialogResult.Yes) {
 				try {
 					string TechName = Delete_ListViewItem(ref listView_Techniques);
+                    string spTrait = "";
 					if (!string.IsNullOrWhiteSpace(TechName)) {
-						techList.Remove(TechName);
+                        spTrait = techList[TechName].specialTrait;
+                        techList.Remove(TechName);
 					}
 					// Update functions go below
-					All_Update_Functions_Techs(TechName);
+					All_Update_Functions_Techs(spTrait);
 				}
 				catch (Exception ex) {
 					MessageBox.Show("Error in Deleting Technique\nReason: " + ex.Message, "Exception Thrown");
@@ -1839,7 +1850,8 @@ namespace OPRPCharBuild
 
 		// Saves the form into a serialized object so that only the tool recognizes the Saved Form
 		private void saveFormToCharacter() {
-			profile.saveCharBasic(
+            profile.saveCharResetData();
+            profile.saveCharBasic(
 				textBox_CharacterName.Text,
 				textBox_Nickname.Text,
 				(int)numericUpDown_Age.Value,
@@ -1852,7 +1864,7 @@ namespace OPRPCharBuild
 				comboBox_MarineRank.Text,
 				textBox_Threat.Text,
 				listBox_Achieve,
-				listView_Prof
+				profList
 				);
 			profile.saveCharAppearance(
 				textBox_Height.Text,
@@ -1954,17 +1966,33 @@ namespace OPRPCharBuild
 			  ref textBox_DFEffect
 			  );
 			}
+
 			catch (Exception ex) { MessageBox.Show("Load Combat and Abilities Error.\nReason: " + ex.Message); }
-			try {
+            try {
+                profile.loadCharStats(
+                ref numericUpDown_SDEarned,
+                ref numericUpDown_SDintoStats,
+                ref checkedListBox1_AP,
+                ref numericUpDown_UsedForFort,
+                ref numericUpDown_StrengthBase,
+                ref numericUpDown_SpeedBase,
+                ref numericUpDown_StaminaBase,
+                ref numericUpDown_AccuracyBase
+                );
+            }
+            catch (Exception ex) { MessageBox.Show("Load Stats Error.\nReason: " + ex.Message); }
+            try {
                 profile.loadCharTraits(
                     ref traitList,
                     ref listView_Traits,
                     ref spTraitList,
                     int.Parse(textBox_Fortune.Text)
                     );
+                listView_Traits.ListViewItemSorter = new ListViewItemSorter(1);
+                listView_Traits.Sort();
             }
 			catch (Exception ex) { MessageBox.Show("Load Traits Error.\nReason: " + ex.Message); }
-			try {
+            try {
                 profile.loadCharTechs(
                     ref techList,
                     ref listView_Techniques,
@@ -1973,19 +2001,7 @@ namespace OPRPCharBuild
                     ref listView_SubCat
                     );
             }
-			catch (Exception ex) { MessageBox.Show("Load Techniques Error.\nReason: " + ex.Message); }
-			// The two above need to be loaded first before Stats because some Update
-			// functions aren't in an Exception Handle
-			profile.loadCharStats(
-				ref numericUpDown_SDEarned,
-				ref numericUpDown_SDintoStats,
-				ref checkedListBox1_AP,
-				ref numericUpDown_UsedForFort,
-				ref numericUpDown_StrengthBase,
-				ref numericUpDown_SpeedBase,
-				ref numericUpDown_StaminaBase,
-				ref numericUpDown_AccuracyBase
-				);
+            catch (Exception ex) { MessageBox.Show("Load Techniques Error.\nReason: " + ex.Message); }
             profile.loadCharTemplate(
                 ref richTextBox_Template,
                 ref textBox_Color,

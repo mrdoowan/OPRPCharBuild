@@ -143,17 +143,22 @@ namespace OPRPCharBuild
             // Template Tab
             TEMPLATE = "[TEMPLATE]",
             COLOR = "[COLOR]",
-            MASTERYMSG = "[MASTMSG]",
-            // Split Strings
-            SPLIT1 = "%%%",
-            SPLIT2 = "@@@";
+            MASTERYMSG = "[MASTMSG]";
         #endregion
+        // Split Strings
+        private const string
+            SPLIT1 = "%%%",
+            SPLIT2 = "@@@",
+            SPLIT3 = "^^^";
         // Every [] inside ends with a %%%
         // For Tags <> inside, use the @@@ to separate
-        // Use Regex to parse through
-        private const string SPLIT2PATTERN = @"\b" + SPLIT2 + "\b";
+        // For Tags <> inside another <>, use the ^^^ to separate
 
         #region Saving Functions
+        
+        public void saveCharResetData() {
+            data = "";
+        }
 
         public void saveCharBasic(string charName_,
             string nickName_,
@@ -167,7 +172,7 @@ namespace OPRPCharBuild
             string rank_,
             string threat_,
             ListBox achieve_,
-            ListView prof_) {
+            Dictionary<string, Profession> prof_) {
             StringBuilder sb = new StringBuilder();
             sb.Append(CHARNAME + charName_ + SPLIT1);
             sb.Append(NICKNAME + nickName_ + SPLIT1);
@@ -187,13 +192,11 @@ namespace OPRPCharBuild
             }
             sb.Append(TAG_END_ACHIEVE);
             sb.Append(TAG_STA_PROF);
-            foreach (ListViewItem prof in prof_.Items) {
-                sb.Append(PROF_NAME + prof.SubItems[0].Text + SPLIT1);
-                bool primary = false;
-                if (prof.SubItems[1].Text == "Primary") { primary = true; }
-                sb.Append(PROF_PRIM + primary + SPLIT1);
-                sb.Append(PROF_DESC + prof.SubItems[2].Text + SPLIT1);
-                sb.Append(PROF_BONU + prof.SubItems[3].Text + SPLIT1);
+            foreach (Profession prof in prof_.Values) {
+                sb.Append(PROF_NAME + prof.name + SPLIT1);
+                sb.Append(PROF_PRIM + prof.primary + SPLIT1);
+                sb.Append(PROF_DESC + prof.desc + SPLIT1);
+                sb.Append(PROF_BONU + prof.bonus + SPLIT1);
                 sb.Append(SPLIT2);
             }
             sb.Append(TAG_END_PROF);
@@ -252,7 +255,7 @@ namespace OPRPCharBuild
             string DFType_,
             string DFTier_,
             string DFDesc_,
-            string DFEff_) {
+            string DFEffe_) {
             StringBuilder sb = new StringBuilder();
             sb.Append(COMBAT + comb_ + SPLIT1);
             sb.Append(TAG_STA_WEAPON);
@@ -269,6 +272,12 @@ namespace OPRPCharBuild
                 sb.Append(SPLIT2);
             }
             sb.Append(TAG_END_ITEM);
+            sb.Append(BELI + beli_ + SPLIT1);
+            sb.Append(DF_NAME + DFName_ + SPLIT1);
+            sb.Append(DF_TYPE + DFType_ + SPLIT1);
+            sb.Append(DF_TIER + DFTier_ + SPLIT1);
+            sb.Append(DF_DESC + DFDesc_ + SPLIT1);
+            sb.Append(DF_EFFE + DFEffe_ + SPLIT1);
             // Put into String
             data += sb.ToString();
         }
@@ -348,7 +357,7 @@ namespace OPRPCharBuild
                     sb.Append(EFFECT_COST + eff.cost + SPLIT1);
                     sb.Append(EFFECT_MINRANK + eff.minRank + SPLIT1);
                     sb.Append(EFFECT_DESC + eff.desc + SPLIT1);
-                    sb.Append(SPLIT2);
+                    sb.Append(SPLIT3);
                 }
                 sb.Append(TAG_END_EFFECT);
                 sb.Append(TECH_POWER + tech.power + SPLIT1);
@@ -402,6 +411,18 @@ namespace OPRPCharBuild
             return parsing.Substring(pFrom, pTo - pFrom).TrimEnd('@');
         }
 
+        // Predicate for RemoveAll.
+        private static bool emptyString(string s) {
+            return s == "";
+        }
+
+        private string[] splitStringbyString(string whole, string splitter) {
+            string[] result = whole.Split(new string[] { splitter }, StringSplitOptions.None);
+            List<string> listResult = result.ToList();
+            listResult.RemoveAll(emptyString);
+            return listResult.ToArray();
+        }
+
         #region Load Functions
 
         public void loadCharBasic(ref TextBox charName,
@@ -430,24 +451,25 @@ namespace OPRPCharBuild
             rank.Text = getParse(RANK, SPLIT1);
             threat.Text = getParse(THREAT, SPLIT1);
             string achieveStr = getParse(TAG_STA_ACHIEVE, TAG_END_ACHIEVE);
-            string[] achievements = Regex.Split(achieveStr, SPLIT2PATTERN);
+            string[] achievements = splitStringbyString(achieveStr, SPLIT2);
             achieve.Items.Clear();
             for (int i = 0; i < achievements.Length; ++i) {
                 achieve.Items.Add(achievements[i]);
             }
             string profStr = getParse(TAG_STA_PROF, TAG_END_PROF);
-            string[] profArr = Regex.Split(profStr, SPLIT2PATTERN);
+            string[] profArr = splitStringbyString(profStr, SPLIT2);
             prof.Items.Clear();
             profList.Clear();
             for (int i = 0; i < profArr.Length; ++i) {
                 string profName = getParse(PROF_NAME, SPLIT1, profArr[i]);
                 string profPrim = getParse(PROF_PRIM, SPLIT1, profArr[i]);
-                bool primary = (profPrim == "Primary") ? true : false;
+                bool primary = (profPrim == "True") ? true : false;
                 string profDesc = getParse(PROF_DESC, SPLIT1, profArr[i]);
                 string profBonu = getParse(PROF_BONU, SPLIT1, profArr[i]);
                 profList.Add(profName, new Profession(profName, primary, profDesc, profBonu));
                 ListViewItem item = new ListViewItem();
                 item.SubItems[0].Text = profName;
+                profPrim = (primary) ? "Primary" : "Secondary";
                 item.SubItems.Add(profPrim);
                 item.SubItems.Add(profDesc);
                 item.SubItems.Add(profBonu);
@@ -469,7 +491,7 @@ namespace OPRPCharBuild
             clothing.Text = getParse(CLOTHING, SPLIT1);
             appear.Text = getParse(APPEARANCE, SPLIT1);
             string imgStr = getParse(TAG_STA_IMAG, TAG_END_IMAG);
-            string[] imgArr = Regex.Split(imgStr, SPLIT2PATTERN);
+            string[] imgArr = splitStringbyString(imgStr, SPLIT2);
             images.Items.Clear();
             for (int i = 0; i < imgArr.Length; ++i) {
                 ListViewItem item = new ListViewItem();
@@ -503,7 +525,7 @@ namespace OPRPCharBuild
             ref TextBox DFEffe) {
             combat.Text = getParse(COMBAT, SPLIT1);
             string weaponStr = getParse(TAG_STA_WEAPON, TAG_END_WEAPON);
-            string[] weaponArr = Regex.Split(weaponStr, SPLIT2PATTERN);
+            string[] weaponArr = splitStringbyString(weaponStr, SPLIT2);
             weapon.Items.Clear();
             for (int i = 0; i < weaponArr.Length; ++i) {
                 ListViewItem item = new ListViewItem();
@@ -512,7 +534,7 @@ namespace OPRPCharBuild
                 weapon.Items.Add(item);
             }
             string itemStr = getParse(TAG_STA_ITEM, TAG_END_ITEM);
-            string[] itemArr = Regex.Split(itemStr, SPLIT2PATTERN);
+            string[] itemArr = splitStringbyString(itemStr, SPLIT2);
             items.Items.Clear();
             for (int i = 0; i < itemArr.Length; ++i) {
                 ListViewItem item = new ListViewItem();
@@ -556,7 +578,7 @@ namespace OPRPCharBuild
             ref Dictionary<string, SpTrait> spTraits,
             int fortune) {
             string traitsStr = getParse(TAG_STA_TRAIT, TAG_END_TRAIT);
-            string[] traitsArr = Regex.Split(traitsStr, SPLIT2PATTERN);
+            string[] traitsArr = splitStringbyString(traitsStr, SPLIT2);
             traits.Clear();
             traitsTbl.Items.Clear();
             for (int i = 0; i < traitsArr.Length; ++i) {
@@ -595,7 +617,7 @@ namespace OPRPCharBuild
             ref ListView spTraitTbl,
             ref ListView catTbl) {
             string techStr = getParse(TAG_STA_TECH, TAG_END_TECH);
-            string[] techArr = Regex.Split(techStr, SPLIT2PATTERN);
+            string[] techArr = splitStringbyString(techStr, SPLIT2);
             techs.Clear();
             techTbl.Items.Clear();
             for (int i = 0; i < techArr.Length; ++i) {
@@ -622,14 +644,14 @@ namespace OPRPCharBuild
                 bool auto = bool.Parse(getParse(TECH_AUTOCALC, SPLIT1, techArr[i]));
                 bool NA = bool.Parse(getParse(TECH_NAPOWER, SPLIT1, techArr[i]));
                 string effStr = getParse(TAG_STA_EFFECT, TAG_END_EFFECT, techArr[i]);
-                string[] effArr = Regex.Split(effStr, SPLIT2PATTERN);
+                string[] effArr = splitStringbyString(effStr, SPLIT3);
                 List<Effect> effList = new List<Effect>();
                 for (int j = 0; j < effArr.Length; ++j) {
-                    string effName = getParse(EFFECT_NAME, SPLIT1, effArr[i]);
-                    bool effGen = bool.Parse(getParse(EFFECT_GEN, SPLIT1, effArr[i]));
-                    int effCost = int.Parse(getParse(EFFECT_COST, SPLIT1, effArr[i]));
-                    int effMin = int.Parse(getParse(EFFECT_MINRANK, SPLIT1, effArr[i]));
-                    string effDesc = getParse(EFFECT_DESC, SPLIT1, effArr[i]);
+                    string effName = getParse(EFFECT_NAME, SPLIT1, effArr[j]);
+                    bool effGen = bool.Parse(getParse(EFFECT_GEN, SPLIT1, effArr[j]));
+                    int effCost = int.Parse(getParse(EFFECT_COST, SPLIT1, effArr[j]));
+                    int effMin = int.Parse(getParse(EFFECT_MINRANK, SPLIT1, effArr[j]));
+                    string effDesc = getParse(EFFECT_DESC, SPLIT1, effArr[j]);
                     effList.Add(new Effect(effName, effGen, effCost, effMin, effDesc));
                 }
                 string power = getParse(TECH_POWER, SPLIT1, techArr[i]);
@@ -697,7 +719,7 @@ namespace OPRPCharBuild
             }
             // Do the CatTbl
             string catStr = getParse(TAG_STA_CAT, TAG_END_CAT);
-            string[] catArr = Regex.Split(catStr, SPLIT2PATTERN);
+            string[] catArr = splitStringbyString(catStr, SPLIT2);
             catTbl.Items.Clear();
             for (int i = 0; i < catArr.Length; ++i) {
                 ListViewItem item = new ListViewItem();
@@ -765,9 +787,9 @@ namespace OPRPCharBuild
         #endregion
 
         public void saveFile() {
-            if (!File.Exists(path)) {
-                string saveData = encryptData(data, OPRPKEY);
-                File.WriteAllText(path, saveData);
+            string saveData = encryptData(data, OPRPKEY);
+            using (StreamWriter newTask = new StreamWriter(path, false)) {
+                newTask.Write(saveData);
             }
         }
 

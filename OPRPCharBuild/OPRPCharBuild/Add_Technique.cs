@@ -141,7 +141,7 @@ namespace OPRPCharBuild
 			// Put the Tech being edited into the Dialog Box first. Take it from the Dictionary
 			// ...This is going to suck.
 			Roku = Database.getRoku(Tech.rokuName);		// Establish that this is indeed a Rokushiki
-			if (string.IsNullOrWhiteSpace(Roku.name)) {
+			if (Roku.name != Database.ROKU_NON) {
 				// This means we're editing a Rokushiki Technique
 				this.Text = "Technique Creator - [Rokushiki: " + Roku.name + "]";
 				label_TechFormMsg.Visible = true;
@@ -302,8 +302,6 @@ namespace OPRPCharBuild
 		// You can customize Rokushiki by Editing a Technique
 		public string EditDialog(ref ListView Main_Form, ref Dictionary<string, Technique> techList) {
 			button_AddTech.Text = "Edit";
-            // Save names of TechNames
-            techNames.AddRange(techList.Keys.ToArray());
 			// Save copy of Technique
 			Technique techInfo = techList[replicating.name];
 			// Remove initial item from Dictionary first so we can avoid conflict of names
@@ -311,7 +309,9 @@ namespace OPRPCharBuild
 			if (!techList.Remove(replicating.name)) {
 				MessageBox.Show("Couldn't remove from the Dictionary because TechName was null!", "Report Bug");
 			}
-			this.ShowDialog();          // This calls the Add_Technique_Load function
+            // Save names of TechNames
+            techNames.AddRange(techList.Keys.ToArray());
+            this.ShowDialog();          // This calls the Add_Technique_Load function
             if (button_clicked) {
 				// Now re-add the same item into the Dictionary
 				Add_Form_to_Dictionary(ref techList);
@@ -357,7 +357,7 @@ namespace OPRPCharBuild
 		private void Update_Note() {
 			string message = "";
 			// Rokushiki Message
-			if (!string.IsNullOrWhiteSpace(Roku.name)) {
+			if (Roku.name != Database.ROKU_NON) {
 				if (!checkBox_Branched.Checked) { message += "- [i]Basic " + Roku.name + "[/i]\n"; }
 				else { message += "- [i]Branched " + Roku.name + "[/i]\n"; }
 			}
@@ -396,7 +396,7 @@ namespace OPRPCharBuild
 		private void Update_Power_Value() {
             if (checkBox_AutoCalc.Checked) {
                 int power = 0;
-                if (string.IsNullOrWhiteSpace(Roku.name)) {
+                if (Roku.name == Database.ROKU_NON) {
                     // No Rokushiki
                     power = (int)numericUpDown_Rank.Value;
                     if (isAffectRankTrait(comboBox_AffectRank.Text)) {
@@ -925,6 +925,7 @@ namespace OPRPCharBuild
         }
 
         private void textBox_Power_TextChanged(object sender, EventArgs e) {
+            if (string.IsNullOrWhiteSpace(textBox_Power.Text)) { return; } // Blank is fine.
             try { int.Parse(textBox_Power.Text); }
             catch {
                 MessageBox.Show("Only numerical values are allowed.\nSetting Auto Calculate back on.", "Error",

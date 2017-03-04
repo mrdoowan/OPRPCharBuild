@@ -241,6 +241,8 @@ namespace OPRPCharBuild
         private void comboBox_Range_SelectedIndexChanged(object sender, EventArgs e) {
             StatAlter alterSetting = Database.getStatAlter(statOpt);
             setCalcAndLabels(alterSetting);
+            if (checkValid()) { button_OK.Enabled = true; }
+            else { button_OK.Enabled = false; }
         }
 
         #endregion
