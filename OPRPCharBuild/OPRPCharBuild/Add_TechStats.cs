@@ -62,7 +62,7 @@ namespace OPRPCharBuild
                     if (rank >= 44) { duration = 6; }
                     else if (rank >= 28) { duration = 5; }
                     else if (rank >= 14) { duration = 4; }
-                    label_PostDur.Text = duration + " Post Duration";
+                    label_PostDur.Text = duration + " Round Duration";
                 }
             }
             // Set calculations and total Buff/Debuff
@@ -106,7 +106,7 @@ namespace OPRPCharBuild
                 else { return decRank * 0.70; }
             }
             // Standard Table
-            if (rank >= 44) { return decRank; }
+            if (rank >= 44 || statOpt == Database.BUF_ZOAN) { return decRank; }
             else if (rank >= 28) { return decRank * 0.85; }
             else if (rank >= 14) { return decRank * 0.70; }
             else { return decRank * 0.60; }
@@ -115,16 +115,26 @@ namespace OPRPCharBuild
         private int calcBuffNum(int rank, string statOpt, bool buff, string AoE) {
             double tblNum = calcStdTable(rank, statOpt);
             // Is this a Life Return Debuff?
-            if (statOpt == Database.BUF_LIFRET && !buff) { return (int)(tblNum * 0.50); }
-            else if (AoE == Database.EFF_SHAOE) { return (int)(tblNum * 0.80); }
-            else if (AoE == Database.EFF_MDAOE) { return (int)(tblNum * 0.60); }
-            else if (AoE == Database.EFF_LOAOE ||
-                statOpt == Database.BUF_FOOD) { return (int)(tblNum * 0.40); }
+            if (statOpt == Database.BUF_LIFRET && !buff) {
+                return (int)(tblNum * 0.50);
+            }
+            else if ((AoE == Database.EFF_SHAOE && statOpt != Database.BUF_CQHAKI) ||
+                (AoE == Database.EFF_MDAOE && statOpt == Database.BUF_CQHAKI)) {
+                return (int)(tblNum * 0.80);
+            }
+            else if ((AoE == Database.EFF_MDAOE && statOpt != Database.BUF_CQHAKI) ||
+                (AoE == Database.EFF_LOAOE && statOpt == Database.BUF_CQHAKI)) {
+                return (int)(tblNum * 0.60);
+            }
+            else if (AoE == Database.EFF_LOAOE || statOpt == Database.BUF_FOOD) {
+                return (int)(tblNum * 0.40);
+            }
             return (int)tblNum;
         }
 
         private string calcBuffString(int rank, string statOpt, bool buff, string AoE, int final) {
             string calc = rank.ToString() + " * ";
+            // ----- First Multiplier
             // Willpower Buff Table (one Tier lower)
             if (statOpt == Database.BUF_WILLPO) {
                 if (rank >= 44) { calc += "85%"; }
@@ -139,17 +149,28 @@ namespace OPRPCharBuild
                 else { calc += "70%"; }
             }
             // Standard Table
-            if (statOpt == Database.BUF_ZOAN || rank >= 44) { calc += "100%"; }
+            else if (statOpt == Database.BUF_ZOAN || rank >= 44) { calc += "100%"; }
             else if (rank >= 28) { calc += "85%"; }
             else if (rank >= 14) { calc += "70%"; }
             else { calc += "60%"; }
+            // ----- Second Multiplier
             // Is this a Life Return debuff?
             if (statOpt == Database.BUF_LIFRET && !buff) { calc += " * 50%"; }
             // Apply any AoE
-            else if (AoE == Database.EFF_SHAOE) { calc += " * 80%"; }
-            else if (AoE == Database.EFF_MDAOE) { calc += " * 60%"; }
-            else if (AoE == Database.EFF_LOAOE || 
-                statOpt == Database.BUF_FOOD) { calc += " * 40%"; }
+            else if (AoE == Database.EFF_SHAOE && statOpt == Database.BUF_CQHAKI) {
+                calc += " * 100%";
+            }
+            else if ((AoE == Database.EFF_SHAOE && statOpt != Database.BUF_CQHAKI) ||
+                (AoE == Database.EFF_MDAOE && statOpt == Database.BUF_CQHAKI)) {
+                calc += " * 80%";
+            }
+            else if ((AoE == Database.EFF_MDAOE && statOpt != Database.BUF_CQHAKI) ||
+                (AoE == Database.EFF_LOAOE && statOpt == Database.BUF_CQHAKI)) {
+                calc += " * 60%";
+            }
+            else if (AoE == Database.EFF_LOAOE || statOpt == Database.BUF_FOOD) {
+                calc += " * 40%";
+            }
             // Append the Final number
             calc += " = " + final;
             return calc;

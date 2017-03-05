@@ -351,7 +351,7 @@ namespace OPRPCharBuild
                 int firstIndexSpec = name.IndexOf('[') + 1;
                 string specName = name.Substring(firstIndexSpec,
                     name.IndexOf(']') - firstIndexSpec);
-                name.Replace(specName, "SPEC");
+                name = name.Replace(specName, "SPEC");
             }
             return name;
         }
@@ -382,7 +382,7 @@ namespace OPRPCharBuild
             { TR_STRSPI, 2 },
             { TR_ROKUSA, 2 },
             { TR_ANTIWS, 2 },
-            { TR_ADVMAS, 4 },
+            { TR_ADVCLA, 4 },
             { TR_UNCENG, 2 },
             { TR_SIEWAR, 2 },
             { TR_BRILMI, 2 },

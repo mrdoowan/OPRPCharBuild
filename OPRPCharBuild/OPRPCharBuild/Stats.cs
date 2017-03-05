@@ -48,11 +48,29 @@ namespace OPRPCharBuild
         // Generate Tech Stats string
         public string getTechString() {
             string finalStr = "";
-            if (strength != 0) { finalStr += strength + " Strength, "; }
-            if (speed != 0) { finalStr += speed + " Speed, "; }
-            if (stamina != 0) { finalStr += stamina + " Stamina, "; }
-            if (accuracy != 0) { finalStr += accuracy + " Accuracy"; }
-            if (string.IsNullOrWhiteSpace(finalStr)) { finalStr = "N/A"; }
+            if (strength != 0) {
+                finalStr += strength + " ";
+                if (strength > 0) { finalStr += "+"; }
+                finalStr += "Strength, ";
+            }
+            if (speed != 0) {
+                finalStr += speed + " ";
+                if (speed > 0) { finalStr += "+"; }
+                finalStr += "Speed, ";
+            }
+            if (stamina != 0) {
+                finalStr += stamina + " ";
+                if (stamina > 0) { finalStr += "+"; }
+                finalStr += "Stamina, ";
+            }
+            if (accuracy != 0) {
+                finalStr += accuracy + " ";
+                if (accuracy > 0) { finalStr += "+"; }
+                finalStr += " Accuracy";
+            }
+            if (string.IsNullOrWhiteSpace(finalStr)) {
+                finalStr = "N/A";
+            }
             return finalStr.TrimEnd(',', ' ');
         }
     }
