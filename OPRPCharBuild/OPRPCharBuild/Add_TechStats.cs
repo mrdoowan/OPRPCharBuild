@@ -30,11 +30,12 @@ namespace OPRPCharBuild
             rank = rank_;
             // Add to Combobox
             comboBox_AoE.Items.AddRange(new string[] {
-                "",
+                "No AoE",
                 Database.EFF_SHAOE,
                 Database.EFF_MDAOE,
                 Database.EFF_LOAOE
             });
+            comboBox_AoE.SelectedIndex = 0;
         }
 
         public string LoadDialog(ref Stats techStats, string textbox) {

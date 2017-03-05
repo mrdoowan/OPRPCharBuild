@@ -15,7 +15,6 @@ namespace OPRPCharBuild
         public int spTP;
         public string rankTrait;
         public string specialTrait;
-        public string appTrait;     // Crit Hit, Quickstrike, Anat Strike
         public bool sigTech;        // Only for checkbox_Sig
         public string branchTech;
         public int branchRank;
@@ -39,8 +38,7 @@ namespace OPRPCharBuild
             int reg_, 
             int sp_,
             string rankTr_, 
-            string spTr_, 
-            string appTr_, 
+            string spTr_,
             bool sig_, 
             string brTech_, 
             int brRank_, 
@@ -64,7 +62,6 @@ namespace OPRPCharBuild
             spTP = sp_;
             rankTrait = rankTr_;
             specialTrait = spTr_;
-            appTrait = appTr_;
             sigTech = sig_;
             branchTech = brTech_;
             branchRank = brRank_;

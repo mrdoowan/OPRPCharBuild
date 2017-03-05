@@ -103,8 +103,6 @@ namespace OPRPCharBuild
 				    checkBox_Fuel2.Checked,
 				    checkBox_Fuel3.Checked
 				};
-                // Nothing too complicated
-                string applyTraitStr = DebuffTrait_String();
 				// Now initialize TechInfo and add into TechList
 				Technique techInfo = new Technique(name, Roku.name, 
                     (int)numericUpDown_Rank.Value,
@@ -112,7 +110,6 @@ namespace OPRPCharBuild
                     (int)numericUpDown_SpTP.Value,
 					comboBox_AffectRank.Text, 
                     comboBox_SpTrait.Text,
-                    applyTraitStr, 
                     checkBox_SigTech.Checked,
                     textBox_TechBranched.Text,
                     (int)numericUpDown_RankBranch.Value,
@@ -217,11 +214,8 @@ namespace OPRPCharBuild
 			checkBox_Fuel1.Checked = Tech.cyborgBoosts[0];
 			checkBox_Fuel2.Checked = Tech.cyborgBoosts[1];
 			checkBox_Fuel3.Checked = Tech.cyborgBoosts[2];
-            // Checkboxes for the App Traits
+            // Checkboxes for the Signature Traits
             if (Tech.sigTech && checkBox_SigTech.Enabled) { checkBox_SigTech.Checked = true; }
-            if (Tech.appTrait.Contains(Database.TR_CRITHI) && checkBox_CritHit.Enabled) { checkBox_CritHit.Checked = true; }
-            if (Tech.appTrait.Contains(Database.TR_ANASTR) && checkBox_AnatStrike.Enabled) { checkBox_AnatStrike.Checked = true; }
-            if (Tech.appTrait.Contains(Database.TR_QUICKS) && checkBox_QuickStrike.Enabled) { checkBox_QuickStrike.Checked = true; }
             // Now put in the Tech.note
             richTextBox_Note.Text = Tech.note;
             // (Need Update Functions from Add_Technique_Load_Form first, and THEN edit it in)
@@ -229,14 +223,6 @@ namespace OPRPCharBuild
 			richTextBox_Desc.Text = Tech.description;
 			// Now proceed to edit it.
 		}
-
-        // Print out the string corresponding to either Crit Hit, Anat, Quickstrike
-        private string DebuffTrait_String() {
-            if (checkBox_CritHit.Checked) { return Database.TR_CRITHI; }
-            else if (checkBox_AnatStrike.Checked) { return Database.TR_ANASTR; }
-            else if (checkBox_QuickStrike.Checked) { return Database.TR_QUICKS; }
-            return "";
-        }
 
         // If any Trait affects the Rank (by treating it 4 Ranks above i.e.)
         // Return true
@@ -286,12 +272,11 @@ namespace OPRPCharBuild
 				item.SubItems.Add(numericUpDown_RegTP.Value.ToString());// Column 2: Reg TP
 				item.SubItems.Add(numericUpDown_SpTP.Value.ToString()); // Column 3: Sp. TP
 				item.SubItems.Add(comboBox_SpTrait.Text);               // Column 4: Sp. Trait
-				item.SubItems.Add(DebuffTrait_String());                // Column 5: App. Traits
-				item.SubItems.Add(textBox_TechBranched.Text);           // Column 6: Branched From
-				item.SubItems.Add(comboBox_Type.Text);                  // Column 7: Type
-				item.SubItems.Add(comboBox_Range.Text);                 // Column 8: Range
-				item.SubItems.Add(textBox_Stats.Text);                  // Column 9: Stats
-				item.SubItems.Add(textBox_Power.Text);                  // Column 10: Power
+				item.SubItems.Add(textBox_TechBranched.Text);           // Column 5: Branched From
+				item.SubItems.Add(comboBox_Type.Text);                  // Column 6: Type
+				item.SubItems.Add(comboBox_Range.Text);                 // Column 7: Range
+				item.SubItems.Add(textBox_Stats.Text);                  // Column 8: Stats
+				item.SubItems.Add(textBox_Power.Text);                  // Column 9: Power
 				if (Main_Form.Items.Count - 1 == index || Main_Form.Items.Count == 0) { Main_Form.Items.Add(item); } // That means we're inserting at the very end of the index
 				else { Main_Form.Items.Insert(index + 1, item); }           // Add the entire damn thing
                 return textBox_Name.Text;
@@ -321,12 +306,11 @@ namespace OPRPCharBuild
 				Main_Form.SelectedItems[0].SubItems[2].Text = numericUpDown_RegTP.Value.ToString(); // Column 2: Reg TP
 				Main_Form.SelectedItems[0].SubItems[3].Text = numericUpDown_SpTP.Value.ToString();  // Column 3: Sp. TP
 				Main_Form.SelectedItems[0].SubItems[4].Text = comboBox_SpTrait.Text;                // Column 4: Sp. Trait
-				Main_Form.SelectedItems[0].SubItems[5].Text = DebuffTrait_String();					// Column 5: App. Traits
-				Main_Form.SelectedItems[0].SubItems[6].Text = textBox_TechBranched.Text;            // Column 6: Branched From
-				Main_Form.SelectedItems[0].SubItems[7].Text = comboBox_Type.Text;                   // Column 7: Type
-				Main_Form.SelectedItems[0].SubItems[8].Text = comboBox_Range.Text;                  // Column 8: Range
-				Main_Form.SelectedItems[0].SubItems[9].Text = textBox_Stats.Text;					// Column 9: Stats
-				Main_Form.SelectedItems[0].SubItems[10].Text = textBox_Power.Text;					// Column 10: Power
+				Main_Form.SelectedItems[0].SubItems[6].Text = textBox_TechBranched.Text;            // Column 5: Branched From
+				Main_Form.SelectedItems[0].SubItems[7].Text = comboBox_Type.Text;                   // Column 6: Type
+				Main_Form.SelectedItems[0].SubItems[8].Text = comboBox_Range.Text;                  // Column 7: Range
+				Main_Form.SelectedItems[0].SubItems[9].Text = textBox_Stats.Text;					// Column 8: Stats
+				Main_Form.SelectedItems[0].SubItems[10].Text = textBox_Power.Text;					// Column 9: Power
                 return textBox_Name.Text;
 			}
 			else {
@@ -385,9 +369,9 @@ namespace OPRPCharBuild
 			// Special TP usage.
 			if (numericUpDown_SpTP.Value > 0) { message += "- Special TP from [i]" + comboBox_SpTrait.Text + "[/i]\n"; }
 			// Any other Technique
-			if (checkBox_CritHit.Checked) { message += "- [i]" + Database.TR_CRITHI + " Technique[/i]\n"; }
-			if (checkBox_AnatStrike.Checked) { message += "- [i]" + Database.TR_ANASTR + " Technique[/i]\n"; }
-			if (checkBox_QuickStrike.Checked) { message += "- [i]" + Database.TR_QUICKS + " Technique[/i]\n"; }
+			if (techStats.statsName == Database.BUF_CRITHI) { message += "- [i]" + Database.TR_CRITHI + " Technique[/i]\n"; }
+			if (techStats.statsName == Database.BUF_ANASTR) { message += "- [i]" + Database.TR_ANASTR + " Technique[/i]\n"; }
+			if (techStats.statsName == Database.BUF_QUICKS) { message += "- [i]" + Database.TR_QUICKS + " Technique[/i]\n"; }
 			message = message.TrimEnd('\n'); // Remove the last \n
 			richTextBox_Note.Text = message;
 			// Used in every application above
@@ -566,9 +550,14 @@ namespace OPRPCharBuild
             if (profList.ContainsKey(Database.PROF_DO) && profList[Database.PROF_DO].primary) {
                 comboBox_StatOpt.Items.Add(Database.BUF_DRUG);
             }
-            if (traitsList.ContainsKey(Database.TR_CRITHI) || traitsList.ContainsKey(Database.TR_ANASTR) ||
-                traitsList.ContainsKey(Database.TR_QUICKS)) {
+            if (traitsList.ContainsKey(Database.TR_CRITHI)) {
                 comboBox_StatOpt.Items.Add(Database.BUF_CRITHI);
+            }
+            if (traitsList.ContainsKey(Database.TR_ANASTR)) {
+                comboBox_StatOpt.Items.Add(Database.BUF_ANASTR);
+            }
+            if (traitsList.ContainsKey(Database.TR_QUICKS)) {
+                comboBox_StatOpt.Items.Add(Database.BUF_QUICKS);
             }
             if (profList.ContainsKey(Database.PROF_EN) && profList[Database.PROF_EN].primary) {
                 comboBox_StatOpt.Items.Add(Database.BUF_PERFOR);
@@ -684,11 +673,8 @@ namespace OPRPCharBuild
 			catch (Exception ex) {
 				MessageBox.Show("Error in configuring Cyborg Options.\nReason: " + ex.Message, "Error");
 			}
-			// Applicable Traits & Note
+			// Signature Technique Trait
 			if (traitsList.ContainsKey(Database.TR_SIGTEC)) { checkBox_SigTech.Enabled = true; }
-			if (traitsList.ContainsKey(Database.TR_CRITHI)) { checkBox_CritHit.Enabled = true; }
-			if (traitsList.ContainsKey(Database.TR_ANASTR)) { checkBox_AnatStrike.Enabled = true; }
-			if (traitsList.ContainsKey(Database.TR_QUICKS)) { checkBox_QuickStrike.Enabled = true; }
 
             // Now everything is loaded: We can call Copy_Dict_To_Form
             // If we're branching a Technique, we want to duplicate, and then modify.
@@ -812,9 +798,6 @@ namespace OPRPCharBuild
                 checkBox_Fuel2.Checked = false;
                 checkBox_Fuel3.Checked = false;
                 checkBox_SigTech.Checked = false;
-                checkBox_CritHit.Checked = false;
-                checkBox_AnatStrike.Checked = false;
-                checkBox_QuickStrike.Checked = false;
                 // The rest
                 richTextBox_Note.Clear();
                 richTextBox_CustNotes.Clear();
@@ -1202,18 +1185,6 @@ namespace OPRPCharBuild
 			Update_Note();
 		}
         
-		private void checkBox_AnatStrike_CheckedChanged(object sender, EventArgs e) {
-			Update_Note();
-		}
-
-		private void checkBox_CritHit_CheckedChanged(object sender, EventArgs e) {
-			Update_Note();
-		}
-
-		private void checkBox_QuickStrike_CheckedChanged(object sender, EventArgs e) {
-			Update_Note();
-		}
-        
 		// REMINDER: Rokushiki Techniques CANNOT be applied with Mastery. Therefore, it's Rank will always be what it is.
 		private void button_Rokushiki_Click(object sender, EventArgs e) {
 			DialogResult result = MessageBox.Show("This will overwrite some parts of the Form. Are you sure you want to Load a Rokushiki Technique?", "Reminder",
@@ -1254,9 +1225,6 @@ namespace OPRPCharBuild
 							checkBox_Fuel2.Checked = false;
 							checkBox_Fuel3.Checked = false;
 							checkBox_SigTech.Checked = false;
-							checkBox_CritHit.Checked = false;
-							checkBox_AnatStrike.Checked = false;
-							checkBox_QuickStrike.Checked = false;
 							effList.Clear();
 							listView_Effects.Items.Clear();
 							textBox_Power.Text = Sel_Roku.basePower.ToString();

@@ -759,8 +759,8 @@ namespace OPRPCharBuild
 			int total = num * points;
 			int used = 0;
 			foreach (Technique tech in techList.Values) {
-				if (tech.appTrait.Contains(name)) {
-					used += tech.regTP;
+				if (tech.stats.statsName.Contains(name)) {
+					used += tech.rank;
 				}
 			}
 			msg += used + " / " + total + '\n';
@@ -922,12 +922,11 @@ namespace OPRPCharBuild
 			listView_Techniques.Columns.Add("Reg TP", 50);          // 2
 			listView_Techniques.Columns.Add("Sp. TP", 50);          // 3
 			listView_Techniques.Columns.Add("Sp. Trait", 75);       // 4
-			listView_Techniques.Columns.Add("Applied Traits", 150); // 5
-			listView_Techniques.Columns.Add("Branched From", 100);  // 6
-			listView_Techniques.Columns.Add("Type", 75);            // 7
-			listView_Techniques.Columns.Add("Range", 75);           // 8
-			listView_Techniques.Columns.Add("Stats", 75);           // 9
-			listView_Techniques.Columns.Add("Power", 50);           // 10
+			listView_Techniques.Columns.Add("Branched From", 100);  // 5
+			listView_Techniques.Columns.Add("Type", 75);            // 6
+			listView_Techniques.Columns.Add("Range", 75);           // 7
+			listView_Techniques.Columns.Add("Stats", 75);           // 8
+			listView_Techniques.Columns.Add("Power", 50);           // 9
 
 			// ------ Tech Category Table
 			label_SubCatMsg.Text = "No Valid Category Selected";

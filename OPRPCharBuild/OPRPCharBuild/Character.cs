@@ -107,7 +107,6 @@ namespace OPRPCharBuild
             TECH_SPTP = "[TECH_SPTP]",
             TECH_RANKTRAIT = "[TECH_RKTR]",
             TECH_SPTRAIT = "[TECH_SPTR]",
-            TECH_APPTRAIT = "[TECH_APTR]",
             TECH_SIGTECH = "[TECH_SIG]",
             TECH_BRANCHTECH = "[TECH_BRTECH]",
             TECH_BRANCHRANK = "[TECH_BRRANK]",
@@ -336,7 +335,6 @@ namespace OPRPCharBuild
                 sb.Append(TECH_SPTP + tech.spTP + SPLIT1);
                 sb.Append(TECH_RANKTRAIT + tech.rankTrait + SPLIT1);
                 sb.Append(TECH_SPTRAIT + tech.specialTrait + SPLIT1);
-                sb.Append(TECH_APPTRAIT + tech.appTrait + SPLIT1);
                 sb.Append(TECH_SIGTECH + tech.sigTech + SPLIT1);
                 sb.Append(TECH_BRANCHTECH + tech.branchTech + SPLIT1);
                 sb.Append(TECH_BRANCHRANK + tech.branchRank + SPLIT1);
@@ -408,6 +406,7 @@ namespace OPRPCharBuild
             int pFrom = parsing.IndexOf(begStr) + begStr.Length;
             if (pFrom == -1) { return ""; }
             int pTo = parsing.IndexOf(endStr, pFrom);
+            if (pTo == -1) { return ""; }
             return parsing.Substring(pFrom, pTo - pFrom).TrimEnd('@');
         }
 
@@ -628,7 +627,6 @@ namespace OPRPCharBuild
                 int spTP = int.Parse(getParse(TECH_SPTP, SPLIT1, techArr[i]));
                 string rankTr = getParse(TECH_RANKTRAIT, SPLIT1, techArr[i]);
                 string specTr = getParse(TECH_SPTRAIT, SPLIT1, techArr[i]);
-                string appTr = getParse(TECH_APPTRAIT, SPLIT1, techArr[i]);
                 bool sigTech = bool.Parse(getParse(TECH_SIGTECH, SPLIT1, techArr[i]));
                 string brTech = getParse(TECH_BRANCHTECH, SPLIT1, techArr[i]);
                 int brRank = int.Parse(getParse(TECH_BRANCHRANK, SPLIT1, techArr[i]));
@@ -675,8 +673,7 @@ namespace OPRPCharBuild
                 // ADD IT ALL UP. WOW.
                 techs.Add(name, new Technique(name, rokuName, rank,
                     regTP, spTP,
-                    rankTr, specTr,
-                    appTr, sigTech,
+                    rankTr, specTr, sigTech,
                     brTech, brRank,
                     type, range,
                     techStats,
@@ -692,7 +689,6 @@ namespace OPRPCharBuild
                 item.SubItems.Add(regTP.ToString());
                 item.SubItems.Add(spTP.ToString());
                 item.SubItems.Add(specTr);
-                item.SubItems.Add(appTr);
                 item.SubItems.Add(brTech);
                 item.SubItems.Add(type);
                 item.SubItems.Add(range);
