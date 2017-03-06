@@ -180,9 +180,9 @@ namespace OPRPCharBuild
             comboBox_StatOpt.Text = Tech.stats.statsName;
             textBox_Stats.Text = Tech.stats.getTechString();
             // Power/Effects
+            checkBox_NA.Checked = Tech.NApower;
             checkBox_AutoCalc.Checked = Tech.autoCalc;
-			checkBox_NA.Checked = Tech.NApower;
-			if (!Tech.NApower) {
+            if (!Tech.NApower) {
 				// If N/A Power is not selected
 				// Adding onto ListView for effects
 				foreach (Effect effect in Tech.effects) {
@@ -199,9 +199,11 @@ namespace OPRPCharBuild
 					}
 					listView_Effects.Items.Add(item);
 				}
+                // Update Power after Effects are added
+                Update_Power_Value();
 			}
-			// DF Options
-			if (Tech.note.Contains("Devil Fruit")) {
+            // DF Options
+            if (Tech.note.Contains("Devil Fruit")) {
 				checkBox_DFTechEnable.Enabled = true;
 				checkBox_DFTechEnable.Checked = true;
 			}
@@ -885,17 +887,15 @@ namespace OPRPCharBuild
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            // For Crit Hit/Anat/Quickstrike, power is followed instead
-            if (statopt == Database.BUF_CRITHI) {
-                rank = int.Parse(textBox_Power.Text);
-            }
             // Rank 1 Tech isn't allowed
             if (rank < 2) {
                 MessageBox.Show("<R2 buffs/debuffs are not possible.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            Add_TechStats statsWin = new Add_TechStats(statopt, rank);
+            int power = int.Parse(textBox_Power.Text);
+            string range = comboBox_Range.Text;
+            Add_TechStats statsWin = new Add_TechStats(statopt, rank, power, range);
             textBox_Stats.Text = statsWin.LoadDialog(ref techStats, textBox_Stats.Text);
             Update_Note();
         }
@@ -916,6 +916,10 @@ namespace OPRPCharBuild
                 checkBox_AutoCalc.Checked = true;
                 Update_Power_Value();
             }
+        }
+
+        private void checkBox_AutoCalc_CheckedChanged(object sender, EventArgs e) {
+            Update_Power_Value();
         }
 
         private void checkBox_NA_CheckedChanged(object sender, EventArgs e) {
@@ -1274,6 +1278,5 @@ namespace OPRPCharBuild
 		}
 
         #endregion
-        
     }
 }

@@ -20,26 +20,33 @@ namespace OPRPCharBuild
 
         // Used to transfer across variables
         private int rank;
+        private int power;
         private string statOpt;
 
-        public Add_TechStats(string opt_, int rank_) {
+        private const string SINGLE = "Single";
+
+        public Add_TechStats(string opt_, int rank_, int pow_, string range_) {
             button_clicked = false;
             InitializeComponent();
             // Set Variables
             statOpt = opt_;
             rank = rank_;
+            power = pow_;
             // Add to Combobox
             comboBox_AoE.Items.AddRange(new string[] {
-                "No AoE",
+                SINGLE,
                 Database.EFF_SHAOE,
                 Database.EFF_MDAOE,
                 Database.EFF_LOAOE
             });
-            comboBox_AoE.SelectedIndex = 0;
+            if (range_ == Database.EFF_SHAOE) { comboBox_AoE.Text = range_; }
+            else if (range_ == Database.EFF_MDAOE) { comboBox_AoE.Text = range_; }
+            else if (range_ == Database.EFF_LOAOE) { comboBox_AoE.Text = range_; }
         }
 
         public string LoadDialog(ref Stats techStats, string textbox) {
-            if (statOpt == Database.BUF_CRITHI) { label_Rank.Text = rank + " Power"; }
+            if (statOpt == Database.BUF_CRITHI || statOpt == Database.BUF_ANASTR ||
+                statOpt == Database.BUF_QUICKS) { label_Rank.Text = power + " Power"; }
             else { label_Rank.Text = "Rank " + rank; }
             label_Rank.Text += " Tech for " + statOpt; 
             StatAlter alterSetting = Database.getStatAlter(statOpt);
@@ -69,7 +76,9 @@ namespace OPRPCharBuild
             // Set calculations and total Buff/Debuff
             setCalcAndLabels(alterSetting);
             // Food is Long AoE, so disable
-            if (statOpt == Database.BUF_FOOD) { comboBox_AoE.Enabled = false; }
+            if (statOpt == Database.BUF_DRUG) { comboBox_AoE.Text = SINGLE; }
+            else if (statOpt == Database.BUF_FOOD) { comboBox_AoE.Text = Database.EFF_LOAOE; }
+            if (statOpt == Database.BUF_FOOD || statOpt == Database.BUF_DRUG) { comboBox_AoE.Enabled = false; }
             // Load Template
             this.ShowDialog();
             if (button_clicked) {
@@ -91,30 +100,33 @@ namespace OPRPCharBuild
         #region Helper Functions
 
         // Calculates based on Standard Table
-        private double calcStdTable(int rank, string statOpt) {
-            double decRank = rank;
+        // HELPER function for calcBuffNum()
+        private double calcStdTable(int rankBuff, string statOpt) {
+            double decRank = rankBuff;
             // Willpower Buff Table (one Tier lower)
             if (statOpt == Database.BUF_WILLPO) {
-                if (rank >= 44) { return decRank * 0.85; }
-                else if (rank >= 28) { return decRank * 0.70; }
-                else if (rank >= 14) { return decRank * 0.60; }
+                if (rankBuff >= 44) { return decRank * 0.85; }
+                else if (rankBuff >= 28) { return decRank * 0.70; }
+                else if (rankBuff >= 14) { return decRank * 0.60; }
                 // Should never get here
             }
             // Obs Haki Buff Table (one Tier higher)
             else if (statOpt == Database.BUF_OBHAKI) {
-                if (rank >= 28) { return decRank; }
-                else if (rank >= 14) { return decRank * 0.85; }
+                if (rankBuff >= 28) { return decRank; }
+                else if (rankBuff >= 14) { return decRank * 0.85; }
                 else { return decRank * 0.70; }
             }
             // Standard Table
-            if (rank >= 44 || statOpt == Database.BUF_ZOAN) { return decRank; }
-            else if (rank >= 28) { return decRank * 0.85; }
-            else if (rank >= 14) { return decRank * 0.70; }
+            if (rankBuff >= 44 || statOpt == Database.BUF_ZOAN) { return decRank; }
+            else if (rankBuff >= 28) { return decRank * 0.85; }
+            else if (rankBuff >= 14) { return decRank * 0.70; }
             else { return decRank * 0.60; }
         }
 
-        private int calcBuffNum(int rank, string statOpt, bool buff, string AoE) {
-            double tblNum = calcStdTable(rank, statOpt);
+        private int calcBuffNum(int rankBuff, bool buff, string AoE) {
+            double tblNum = (statOpt == Database.BUF_CRITHI ||
+                statOpt == Database.BUF_ANASTR ||
+                statOpt == Database.BUF_QUICKS) ? calcStdTable(power, statOpt) : calcStdTable(rankBuff, statOpt);
             // Is this a Life Return Debuff?
             if (statOpt == Database.BUF_LIFRET && !buff) {
                 return (int)(tblNum * 0.50);
@@ -133,26 +145,29 @@ namespace OPRPCharBuild
             return (int)tblNum;
         }
 
-        private string calcBuffString(int rank, string statOpt, bool buff, string AoE, int final) {
-            string calc = rank.ToString() + " * ";
+        private string calcBuffString(int rankBuff, bool buff, string AoE, int final) {
+            string calc = (statOpt == Database.BUF_CRITHI ||
+                statOpt == Database.BUF_ANASTR ||
+                statOpt == Database.BUF_QUICKS) ? power.ToString() : rankBuff.ToString();
+            calc += " * ";
             // ----- First Multiplier
             // Willpower Buff Table (one Tier lower)
             if (statOpt == Database.BUF_WILLPO) {
-                if (rank >= 44) { calc += "85%"; }
-                else if (rank >= 28) { calc += "70%"; }
-                else if (rank >= 14) { calc += "60%"; }
+                if (rankBuff >= 44) { calc += "85%"; }
+                else if (rankBuff >= 28) { calc += "70%"; }
+                else if (rankBuff >= 14) { calc += "60%"; }
                 // Should never get here
             }
             // Obs Haki Buff Table (one Tier higher)
             else if (statOpt == Database.BUF_OBHAKI) {
-                if (rank >= 28) { calc += "100%"; }
-                else if (rank >= 14) { calc += "85%"; }
+                if (rankBuff >= 28) { calc += "100%"; }
+                else if (rankBuff >= 14) { calc += "85%"; }
                 else { calc += "70%"; }
             }
             // Standard Table
-            else if (statOpt == Database.BUF_ZOAN || rank >= 44) { calc += "100%"; }
-            else if (rank >= 28) { calc += "85%"; }
-            else if (rank >= 14) { calc += "70%"; }
+            else if (statOpt == Database.BUF_ZOAN || rankBuff >= 44) { calc += "100%"; }
+            else if (rankBuff >= 28) { calc += "85%"; }
+            else if (rankBuff >= 14) { calc += "70%"; }
             else { calc += "60%"; }
             // ----- Second Multiplier
             // Is this a Life Return debuff?
@@ -210,9 +225,9 @@ namespace OPRPCharBuild
         private void setCalcAndLabels(StatAlter alterSetting) {
             // Set calculations and total Buff/Debuff
             if (alterSetting.type == StatAlter.BUFF || alterSetting.type == StatAlter.STANCE) {
-                totBuff = calcBuffNum(rank, statOpt, true, comboBox_AoE.Text);
+                totBuff = calcBuffNum(rank, true, comboBox_AoE.Text);
                 label_TotBuff.Text = "Total Buff: " + totBuff;
-                textBox_BuffCalc.Text = calcBuffString(rank, statOpt, true, comboBox_AoE.Text, totBuff);
+                textBox_BuffCalc.Text = calcBuffString(rank, true, comboBox_AoE.Text, totBuff);
             }
             else {
                 totBuff = 0;
@@ -220,9 +235,9 @@ namespace OPRPCharBuild
                 textBox_BuffCalc.Text = "0 = 0";
             }
             if (alterSetting.type == StatAlter.DEBUFF || alterSetting.type == StatAlter.STANCE) {
-                totDebuff = calcBuffNum(rank, statOpt, false, comboBox_AoE.Text);
+                totDebuff = calcBuffNum(rank, false, comboBox_AoE.Text);
                 label_TotDebuff.Text = "Total Debuff: " + totDebuff;
-                textBox_DebuffCalc.Text = calcBuffString(rank, statOpt, false, comboBox_AoE.Text, totDebuff);
+                textBox_DebuffCalc.Text = calcBuffString(rank, false, comboBox_AoE.Text, totDebuff);
             }
             else {
                 totDebuff = 0;
