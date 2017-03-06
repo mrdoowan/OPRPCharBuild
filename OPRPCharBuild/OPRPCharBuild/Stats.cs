@@ -49,24 +49,20 @@ namespace OPRPCharBuild
         public string getTechString() {
             string finalStr = "";
             if (strength != 0) {
-                finalStr += strength + " ";
                 if (strength > 0) { finalStr += "+"; }
-                finalStr += "Strength, ";
+                finalStr += strength + " Strength, ";
             }
             if (speed != 0) {
-                finalStr += speed + " ";
                 if (speed > 0) { finalStr += "+"; }
-                finalStr += "Speed, ";
+                finalStr += speed + " Speed, ";
             }
             if (stamina != 0) {
-                finalStr += stamina + " ";
                 if (stamina > 0) { finalStr += "+"; }
-                finalStr += "Stamina, ";
+                finalStr += stamina + " Stamina, ";
             }
             if (accuracy != 0) {
-                finalStr += accuracy + " ";
                 if (accuracy > 0) { finalStr += "+"; }
-                finalStr += " Accuracy";
+                finalStr += accuracy + " Accuracy";
             }
             if (string.IsNullOrWhiteSpace(finalStr)) {
                 finalStr = "N/A";

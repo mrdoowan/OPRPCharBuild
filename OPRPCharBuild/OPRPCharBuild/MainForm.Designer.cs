@@ -255,7 +255,6 @@
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.olderVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.characterTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTips = new System.Windows.Forms.ToolTip(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -334,7 +333,7 @@
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(652, 478);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Info";
@@ -782,7 +781,7 @@
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(652, 478);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Appearance";
@@ -1140,7 +1139,7 @@
             this.tabPage3.Controls.Add(this.groupBox6);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(652, 478);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Background";
@@ -1253,7 +1252,7 @@
             this.tabPage4.Controls.Add(this.groupBox7);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(652, 478);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Abilities";
@@ -2219,7 +2218,7 @@
             this.tabPage5.Controls.Add(this.groupBox10);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Size = new System.Drawing.Size(652, 478);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Traits";
@@ -2316,7 +2315,7 @@
             this.tabPage6.Controls.Add(this.groupBox11);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage6.Size = new System.Drawing.Size(652, 478);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Techniques";
@@ -2934,7 +2933,7 @@
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(488, 20);
             this.label37.TabIndex = 9;
-            this.label37.Text = "Updated per Rules as of February 2017";
+            this.label37.Text = "Updated to the February 2017 Patch";
             this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // fileToolStripMenuItem
@@ -2970,18 +2969,10 @@
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.olderVersionToolStripMenuItem,
             this.characterTemplateToolStripMenuItem});
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.importToolStripMenuItem.Text = "Import";
-            // 
-            // olderVersionToolStripMenuItem
-            // 
-            this.olderVersionToolStripMenuItem.Name = "olderVersionToolStripMenuItem";
-            this.olderVersionToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.olderVersionToolStripMenuItem.Text = "Older Version";
-            this.olderVersionToolStripMenuItem.Click += new System.EventHandler(this.olderVersionToolStripMenuItem_Click);
             // 
             // characterTemplateToolStripMenuItem
             // 
@@ -3295,7 +3286,6 @@
 		private System.Windows.Forms.Button button_Standardize;
 		private System.Windows.Forms.Button button_TechBranch;
 		private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem olderVersionToolStripMenuItem;
 		private System.Windows.Forms.Button button_ImageDelete;
 		private System.Windows.Forms.Button button_ImageAdd;
 		private System.Windows.Forms.TextBox textBox_ImageLabel;

@@ -12,19 +12,16 @@ namespace OPRPCharBuild
 {
 	public partial class SelectOptions : Form
 	{
-		// OPTION 1 is Importing Character
+		// OPTION 1 is ??? (used to be Importing)
 		// OPTION 2 is Rokushiki
 		private int option;
 		private bool Has_Roku_Master;
 		private int max_rank;                   // The current max rank the character is able to have. (if base rank of tech is above max rank, nope)
 		private Rokushiki Sel_Roku;             // The selected Rokushiki for loading
 		private string Custom_Name;
-		private string Sel_Version;
 		private bool OK_clicked;
 		private bool Left_clicked;
 		private string Template_Name;
-
-		public const string ProjectStr = "v1.1.0 (Project)";
 
 		// Default Constructor
 		public SelectOptions(int option_, bool RokuMaster_ = false, int maxRank_ = 0, string template_ = null) {
@@ -38,16 +35,6 @@ namespace OPRPCharBuild
 		}
 
 		#region Dialog Functions
-
-		public string Import_Version_Dialog() {
-			this.ShowDialog();
-			if (OK_clicked) {
-				return Sel_Version;
-			}
-			else {
-				return null;
-			}
-		}
 
 		public string Rokushiki_Load_Dialog(ref Rokushiki Selected, ref string Roku_Name) {
 			this.ShowDialog();
@@ -79,22 +66,7 @@ namespace OPRPCharBuild
 
 		// When this.ShowDialog() is called
 		private void SelectOptions_Load(object sender, EventArgs e) {
-			if (option == 1) {
-				// Import previous version option.
-				this.Text = "Import Older Files";
-				textBox_Name.Visible = false;
-				label_Name.Visible = false;
-				button_Left.Visible = false;
-				toolTip1.Active = false;
-
-				// Add previous versions.
-				comboBox_Options.Items.Add(ProjectStr);
-
-				// Set other variables
-				label_Msg.Text = "Current .oprp File Extension Form is: " + MainForm.VERSION + "\nSelect version of the file you want to import.";
-				button_OK.Text = "Import";
-			}
-			else if (option == 2) {
+			if (option == 2) {
 				// Select Rokushiki option.
 				this.Text = "Rokushiki Technique";
 				label_Msg.Text = "Select the Rokushiki Technique you would like to Add.";
@@ -139,17 +111,7 @@ namespace OPRPCharBuild
 
 		// Button to Add/Import/Generate depending on Option
 		private void button_OK_Click(object sender, EventArgs e) {
-			if (option == 1) {
-				// For Importing
-				string Version_Selected = comboBox_Options.Text;
-				if (comboBox_Options.SelectedIndex == -1) { MessageBox.Show("Please select a version before continuing.", "Error"); }
-				else {
-					Sel_Version = comboBox_Options.Text;
-					this.Close();
-					OK_clicked = true;
-				}
-			}
-			else if (option == 2) {
+			if (option == 2) {
 				// For Adding Rokushiki
 				if (comboBox_Options.SelectedIndex == -1) { MessageBox.Show("Please select a Rokushiki Technique to Add before continuing.", "Error"); }
 				else {

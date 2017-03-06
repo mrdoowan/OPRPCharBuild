@@ -199,9 +199,10 @@ namespace OPRPCharBuild
 					}
 					listView_Effects.Items.Add(item);
 				}
-                // Update Power after Effects are added
+                // Update Power and MinRank after Effects are added
                 Update_Power_Value();
-			}
+                Update_MinRank();
+            }
             // DF Options
             if (Tech.note.Contains("Devil Fruit")) {
 				checkBox_DFTechEnable.Enabled = true;
@@ -308,11 +309,11 @@ namespace OPRPCharBuild
 				Main_Form.SelectedItems[0].SubItems[2].Text = numericUpDown_RegTP.Value.ToString(); // Column 2: Reg TP
 				Main_Form.SelectedItems[0].SubItems[3].Text = numericUpDown_SpTP.Value.ToString();  // Column 3: Sp. TP
 				Main_Form.SelectedItems[0].SubItems[4].Text = comboBox_SpTrait.Text;                // Column 4: Sp. Trait
-				Main_Form.SelectedItems[0].SubItems[6].Text = textBox_TechBranched.Text;            // Column 5: Branched From
-				Main_Form.SelectedItems[0].SubItems[7].Text = comboBox_Type.Text;                   // Column 6: Type
-				Main_Form.SelectedItems[0].SubItems[8].Text = comboBox_Range.Text;                  // Column 7: Range
-				Main_Form.SelectedItems[0].SubItems[9].Text = textBox_Stats.Text;					// Column 8: Stats
-				Main_Form.SelectedItems[0].SubItems[10].Text = textBox_Power.Text;					// Column 9: Power
+				Main_Form.SelectedItems[0].SubItems[5].Text = textBox_TechBranched.Text;            // Column 5: Branched From
+				Main_Form.SelectedItems[0].SubItems[6].Text = comboBox_Type.Text;                   // Column 6: Type
+				Main_Form.SelectedItems[0].SubItems[7].Text = comboBox_Range.Text;                  // Column 7: Range
+				Main_Form.SelectedItems[0].SubItems[8].Text = textBox_Stats.Text;					// Column 8: Stats
+				Main_Form.SelectedItems[0].SubItems[9].Text = textBox_Power.Text;					// Column 9: Power
                 return textBox_Name.Text;
 			}
 			else {
@@ -360,7 +361,20 @@ namespace OPRPCharBuild
 				if (checkBox_DFEffect.Checked) { message += " - [b]Free DF Effect applied[/b]"; }
 				message += "\n";
 			}
-            // Stats message
+            // Stats names
+            if (techStats.statsName == Database.BUF_WILLPO || techStats.statsName == Database.BUF_LIFRET ||
+                techStats.statsName == Database.BUF_DRUG || techStats.statsName == Database.BUF_PERFOR ||
+                techStats.statsName == Database.BUF_FOOD || techStats.statsName == Database.BUF_OBHAKI) {
+                message += "- [i]" + techStats.statsName + " Buff[/i]\n";
+            }
+            else if (techStats.statsName == Database.BUF_POISON || techStats.statsName == Database.BUF_CQHAKI) {
+                message += "- [i]" + techStats.statsName + " Debuff[/i]\n";
+            }
+            else if (techStats.statsName == Database.BUF_CRITHI || techStats.statsName == Database.BUF_ANASTR ||
+                techStats.statsName == Database.BUF_QUICKS || techStats.statsName == Database.BUF_STANCE) {
+                message += "- [i]" + techStats.statsName + " Technique[/i]\n";
+            }
+            // Stats Duration
             if (!string.IsNullOrWhiteSpace(techStats.duration)) { message += "- " + techStats.duration + '\n'; }
 			// Cyborg message
 			if (checkBox_Fuel3.Checked) { message += "- [i]Cyborg Technique[/i] - uses 3 Fuel Charges (+12 Rank)\n"; }
@@ -370,10 +384,6 @@ namespace OPRPCharBuild
 			if (!string.IsNullOrWhiteSpace(comboBox_AffectRank.Text)) { message += "- [i]" + comboBox_AffectRank.Text + " Technique*[/i]\n"; }
 			// Special TP usage.
 			if (numericUpDown_SpTP.Value > 0) { message += "- Special TP from [i]" + comboBox_SpTrait.Text + "[/i]\n"; }
-			// Any other Technique
-			if (techStats.statsName == Database.BUF_CRITHI) { message += "- [i]" + Database.TR_CRITHI + " Technique[/i]\n"; }
-			if (techStats.statsName == Database.BUF_ANASTR) { message += "- [i]" + Database.TR_ANASTR + " Technique[/i]\n"; }
-			if (techStats.statsName == Database.BUF_QUICKS) { message += "- [i]" + Database.TR_QUICKS + " Technique[/i]\n"; }
 			message = message.TrimEnd('\n'); // Remove the last \n
 			richTextBox_Note.Text = message;
 			// Used in every application above
@@ -535,6 +545,14 @@ namespace OPRPCharBuild
 				comboBox_SpTrait.SelectedIndex = -1;
 			}
 
+            // Enable Marksman primary or Inventor primary
+            if (profList.ContainsKey(Database.PROF_MS) && profList[Database.PROF_MS].primary) {
+                checkBox_Marksman.Enabled = true;
+            }
+            if (profList.ContainsKey(Database.PROF_IN) && profList[Database.PROF_IN].primary) {
+                checkBox_Inventor.Enabled = true;
+            }
+
             // Add Stats into comboBox based on character
             comboBox_StatOpt.Items.Add(Database.BUF_WILLPO);
             if ((profList.ContainsKey(Database.PROF_WA) && profList[Database.PROF_WA].primary) ||
@@ -658,7 +676,7 @@ namespace OPRPCharBuild
 			try {
 				if (traitsList.ContainsKey(Database.TR_BASCYB)) {
 					label_Cyborg.Text = "[Basic Cyborg]";
-					checkBox_SigTech.Enabled = true;
+                    checkBox_Fuel1.Enabled = true;
 				}
 				else if (traitsList.ContainsKey(Database.TR_ADVCYB)) {
 					label_Cyborg.Text = "[Advanced Cyborg]";
@@ -893,7 +911,8 @@ namespace OPRPCharBuild
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            int power = int.Parse(textBox_Power.Text);
+            int power = 0;
+            if (!checkBox_NA.Checked) { power = int.Parse(textBox_Power.Text); }
             string range = comboBox_Range.Text;
             Add_TechStats statsWin = new Add_TechStats(statopt, rank, power, range);
             textBox_Stats.Text = statsWin.LoadDialog(ref techStats, textBox_Stats.Text);

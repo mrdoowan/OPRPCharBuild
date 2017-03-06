@@ -111,7 +111,6 @@
             this.comboBox_TraitName.Location = new System.Drawing.Point(113, 12);
             this.comboBox_TraitName.Name = "comboBox_TraitName";
             this.comboBox_TraitName.Size = new System.Drawing.Size(346, 24);
-            this.comboBox_TraitName.Sorted = true;
             this.comboBox_TraitName.TabIndex = 27;
             this.comboBox_TraitName.SelectedIndexChanged += new System.EventHandler(this.comboBox_TraitName_SelectedIndexChanged);
             this.comboBox_TraitName.MouseLeave += new System.EventHandler(this.comboBox_TraitName_MouseLeave);

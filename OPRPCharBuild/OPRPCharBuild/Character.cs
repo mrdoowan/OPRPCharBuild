@@ -557,14 +557,14 @@ namespace OPRPCharBuild
             ref NumericUpDown spe,
             ref NumericUpDown sta,
             ref NumericUpDown acc) {
-            SDEarn.Value = int.Parse(getParse(SDEARNED, SPLIT1));
-            SD2SP.Value = int.Parse(getParse(SDTOSP, SPLIT1));
             string[] APArr = getParse(APBOOL, SPLIT1).TrimEnd(',').Split(',');
-            for (int i = 0; i < AP.Items.Count; ++i) {
+            for (int i = 0 ; i < AP.Items.Count ; ++i) {
                 try { AP.SetItemChecked(i, bool.Parse(APArr[i])); }
                 catch { AP.SetItemChecked(i, false); }
                 // In case APArr[i] goes out of index
             }
+            SDEarn.Value = int.Parse(getParse(SDEARNED, SPLIT1));
+            SD2SP.Value = int.Parse(getParse(SDTOSP, SPLIT1));
             usedFort.Value = int.Parse(getParse(USEDFORTUNE, SPLIT1));
             str.Value = int.Parse(getParse(STRENGTH, SPLIT1));
             spe.Value = int.Parse(getParse(SPEED, SPLIT1));

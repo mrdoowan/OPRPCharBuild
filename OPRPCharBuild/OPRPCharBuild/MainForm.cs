@@ -310,14 +310,14 @@ namespace OPRPCharBuild
 				SP += 150 + 66 + convert;
 				calc += " + 150 + 66 (100/1.5) + " + convert + " (" + remain + "/2)";
 			}
-			else if (SD_in > 350 && SD_in < 800) {
+			else if (SD_in > 350 && SD_in <= 800) {
 				// 351-800 SD is 3:1
 				int remain = SD_in - 150 - 100 - 100;
 				int convert = remain / 3;
 				SP += 150 + 66 + 50 + convert;
 				calc += " + 150 + 66 (100/1.5) + 50 (100/2) + " + convert + " (" + remain + "/3)";
 			}
-            else if (SD_in > 800 && SD_in < 1200) {
+            else if (SD_in > 800 && SD_in <= 1200) {
                 // 801-1200 SD is 4:1
                 int remain = SD_in - 150 - 100 - 100 - 450;
                 int convert = remain / 4;
@@ -760,7 +760,7 @@ namespace OPRPCharBuild
 			int used = 0;
 			foreach (Technique tech in techList.Values) {
 				if (tech.stats.statsName.Contains(name)) {
-					used += tech.rank;
+					used += tech.regTP;
 				}
 			}
 			msg += used + " / " + total + '\n';
@@ -769,7 +769,6 @@ namespace OPRPCharBuild
 		// This is only for Critical Hit, Anatomical Strike, and Quickstrike
 		private void Update_CritAnatQuick_Msg() {
 			string msg = "";
-			int points = int.Parse(textBox_Fortune.Text) / 4;
 			if (traitList.ContainsKey(Database.TR_CRITHI)) {
 				Print_Applied_Msg(ref msg, Database.TR_CRITHI);
 			}
@@ -869,7 +868,7 @@ namespace OPRPCharBuild
         // This only occurs once before the form is displayed for the first time.
         private void MainForm_Load(object sender, EventArgs e) {
             this.Text = "OPRP Character Builder";
-			//label_Title.Text = "OPRP Character Builder";
+			label_Title.Text = "OPRP Character Builder";
 			label1.Text = "OPRP Character Builder v" + VERSION + VERS_TYPE + " designed by Solo";
 
 			// Check for updates of a New Version or Bug Messages
@@ -1300,7 +1299,7 @@ namespace OPRPCharBuild
 			result = DialogResult.Yes;
 			result = MessageBox.Show("Is your character scooping in the Grand Line?", "Beli Standardization", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 			if (result != DialogResult.Cancel) {
-				int SD = int.Parse(textBox_TotalSD.Text);
+				int SD = (int)numericUpDown_SDEarned.Value;
 				uint beli = 500000;
 				string message = "You have " + SD + " SD earned. Calculations:\n+ 500,000 (Starting Beli)";
 				if (SD <= 50) {
@@ -1441,7 +1440,7 @@ namespace OPRPCharBuild
 		// Put name as None if we're deleting
 		private void All_Update_Functions_Traits() {
 			Update_Traits_Count_Label();
-			Update_Fortune();
+            Update_Fortune();
 			Update_Strength_Final();
 			Update_Stamina_Final();
 			Update_Speed_Final();
@@ -1812,6 +1811,7 @@ namespace OPRPCharBuild
 				checkedListBox1_AP.SetItemChecked(i, false);
 			}
 			textBox_AP.Text = "0";
+            textBox_Focus.Text = "0";
 			numericUpDown_UsedForFort.Value = 0;
 			numericUpDown_StrengthBase.Value = 1;
 			numericUpDown_SpeedBase.Value = 1;
@@ -2010,7 +2010,12 @@ namespace OPRPCharBuild
 			Update_Traits_Count_Label();
 			Update_AP_Count();
 			Update_TotalSD();
-			Update_Total_RegTP();
+            Update_Strength_Final();
+            Update_Speed_Final();
+            Update_Stamina_Final();
+            Update_Accuracy_Final();
+            Update_Fortune();
+            Update_Total_RegTP();
 			Update_Used_RegTP();
 			Update_TechNum();
             Update_Total_SpTP_Textbox();
@@ -2260,58 +2265,6 @@ namespace OPRPCharBuild
 				savdCharactertoData();
 				this.Text = profile.filename;
 			}
-		}
-
-		private void olderVersionToolStripMenuItem_Click(object sender, EventArgs e) {
-            MessageBox.Show("This is a new overhaul, so importing older versions is currently unavailable.\n" +
-                "You will have to make a new character altogether. Sorry for the inconvenience.", "Notice",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-            /*
-			DialogResult result = MessageBox.Show("Save your current work before importing a Character?", "Import Project",
-			MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-			if (result == DialogResult.Yes) {
-				saveCharacter();
-			}
-			if (result != DialogResult.Cancel) {
-				SelectOptions Import_Window = new SelectOptions(1, false, 0);
-				string selected_version = Import_Window.Import_Version_Dialog();
-				if (!string.IsNullOrWhiteSpace(selected_version)) {
-					OpenFileDialog dlgFileOpen = new OpenFileDialog();
-					dlgFileOpen.Filter = "OPRP files (*.oprp)|*.oprp";
-					dlgFileOpen.Title = "Open Project";
-					dlgFileOpen.RestoreDirectory = true;
-					if (dlgFileOpen.ShowDialog() == DialogResult.OK) {
-						FileStream fs = File.Open(dlgFileOpen.FileName, FileMode.Open);
-						BinaryFormatter formatter = new BinaryFormatter();
-						// v1.1.0 (Project)
-						if (selected_version == SelectOptions.ProjectStr) {
-							try {
-								project1 = (Project)formatter.Deserialize(fs);
-								fs.Close();
-								project1.location = dlgFileOpen.FileName;
-								project1.filename = Path.GetFileNameWithoutExtension(dlgFileOpen.FileName);
-								// Transfer from older profile to newer profile.
-								project1.Transfer_v1010toNew(ref profile);
-								profile.filename = null;
-								profile.location = null;
-								resetForm();
-								loadProjectToForm();
-								this.Text = "OPRP Character Builder";
-								MessageBox.Show("Character imported successfully!\n\nFew notes:\n" +
-									"- Edit every single one of your Techniques for Effects, Range, Branching, DF Options, and new \"Traits Affect Tech\"\n" +
-									"- Do not make Custom Trait names or the tool won't recognize them. Edit the custom name into the generated Sheet instead.\n" +
-									"- In this new version, many dangerous coding techniques were used. Please report any bugs ASAP as it could potentially corrupt .oprp data." +
-									" Please save backups as often as possible. Bugs will be MUCH MORE evident in this version.");
-							}
-							catch (Exception ex) {
-								MessageBox.Show("Failed to import / deserialize into " + curr_proj + " due to Internal issue.\nReason: " + ex.Message);
-							}
-						}
-						// v1.2.0 - v1.3.0 (Project2)
-					}
-				}
-			}
-            */
 		}
 
 		private void characterTemplateToolStripMenuItem_Click(object sender, EventArgs e) {
