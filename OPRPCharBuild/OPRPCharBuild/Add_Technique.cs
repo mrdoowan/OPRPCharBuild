@@ -33,7 +33,6 @@ namespace OPRPCharBuild
 		private int gen_effects;    // To keep track how many General Effects there currently are for Secondary Gen Effects
 									// Updated when an Effect is added
 									// Updated when an Effect is removed
-		private bool has_4Ranks;	// For Traits that treat 4 ranks higher
 
         // Branching variables
         private bool branch;
@@ -73,12 +72,6 @@ namespace OPRPCharBuild
 			gen_effects = 0;
             if (traitsList.ContainsKey(Database.TR_ROKUMA)) {
                 Has_RokuMaster = true;
-            }
-            foreach (string traitName in traitsList.Keys) {
-                if (isAffectRankTrait(traitName)) {
-				    has_4Ranks = true;
-                    break;
-			    }
             }
 		}
 
@@ -198,7 +191,8 @@ namespace OPRPCharBuild
 						item.SubItems.Add("No");
 					}
 					listView_Effects.Items.Add(item);
-				}
+                    if (effect.general) { gen_effects++; }
+                }
                 // Update Power and MinRank after Effects are added
                 Update_Power_Value();
                 Update_MinRank();
@@ -374,6 +368,14 @@ namespace OPRPCharBuild
                 techStats.statsName == Database.BUF_QUICKS || techStats.statsName == Database.BUF_STANCE) {
                 message += "- [i]" + techStats.statsName + " Technique[/i]\n";
             }
+            // Constructs Duration
+            if (effList.Contains(getEffect(Database.EFF_CONST))) {
+                int duration = 6;
+                if (numericUpDown_Rank.Value < 14) { duration = 3; }
+                else if (numericUpDown_Rank.Value < 28) { duration = 4; }
+                else if (numericUpDown_Rank.Value < 44) { duration = 5; }
+                message += "- " + duration + " Post Duration\n";
+            }
             // Stats Duration
             if (!string.IsNullOrWhiteSpace(techStats.duration)) { message += "- " + techStats.duration + '\n'; }
 			// Cyborg message
@@ -390,7 +392,7 @@ namespace OPRPCharBuild
 		}
 
 		private void Update_Power_Value() {
-            if (checkBox_AutoCalc.Checked) {
+            if (checkBox_AutoCalc.Checked && !checkBox_NA.Checked) {
                 int power = 0;
                 if (Roku.name == Database.ROKU_NON) {
                     // No Rokushiki
@@ -432,8 +434,10 @@ namespace OPRPCharBuild
                 }
             }
             catch {
-                // Most likely a formatting issue. Flag it red anyways
-                textBox_Power.BackColor = Color.FromArgb(255, 128, 128);
+                if (!string.IsNullOrWhiteSpace(textBox_Power.Text)) {
+                    // Most likely a formatting issue. Flag it red anyways
+                    textBox_Power.BackColor = Color.FromArgb(255, 128, 128);
+                }
             }
 			// Used when Trait Affecting Tech is changed
 			// Used when Rank is changed
@@ -610,10 +614,6 @@ namespace OPRPCharBuild
 			comboBox_Effect.Text = "Effects";
 			numericUpDown_Cost.Value = 0;
 			label_EffectDesc.Text = EFFECT_LABEL_STRING;
-			// Update gen_effects
-			foreach (Effect effect in effList) {
-				if (effect.general) { gen_effects++; }
-			}
 
             // Add Effects into the ComboBox based on certain criteria
             // Add Effects accessible for everyone
@@ -653,8 +653,6 @@ namespace OPRPCharBuild
             }
             // now AddRange into the combobox
             comboBox_Effect.Items.AddRange(effectsComboList.ToArray());
-
-			if (has_4Ranks) { max_rank -= 4; }
 
 			// DF Options
 			try {
@@ -1105,6 +1103,7 @@ namespace OPRPCharBuild
 				// Update functions
 				Update_MinRank();
 				Update_Power_Value();
+                Update_Note();
 			}
 			catch (Exception ex) {
 				MessageBox.Show("Error in adding Effects.\nReason: " + ex.Message, "Bug");
@@ -1148,7 +1147,10 @@ namespace OPRPCharBuild
 			}
 			label_EffectDesc.Text = EFFECT_LABEL_STRING;
 			label_EffectDesc.ForeColor = SystemColors.ControlText;
+            // Update Functions
+            Update_Note();
 		}
+
 		private void comboBox_Effect_SelectedIndexChanged(object sender, EventArgs e) {
 			// Due to selecting from a set List, we're going to assume everything is fine
 			Effect effect = getEffect(comboBox_Effect.Text);

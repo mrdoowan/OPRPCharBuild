@@ -32,7 +32,6 @@ namespace OPRPCharBuild
         #endregion
 
         static private Dictionary<string, Profession> profDict = new Dictionary<string, Profession>() {
-			#region Profession Database
 			{PROF_WA, new Profession(PROF_WA,
                 "A much more general fighter-type profession, a Weapon Specialist" +
                 " is someone who has to a large or small degree devoted his/her life to the mastery of a single weapon " +
@@ -101,7 +100,6 @@ namespace OPRPCharBuild
                 "they they tend to be well-connected in trading circles.",
                 "Merchants can get a 15% discount on any purchases they make, no matter what the item, for themselves. " +
                 "Additionally, a merchant may purchase any item that is available to be purchased, regardless of the normal requirements.")}
-			#endregion
 		};
 
         static public Profession getProfession(string name) {
@@ -219,7 +217,6 @@ namespace OPRPCharBuild
         #endregion
 
         static private Dictionary<string, Trait> traitDict = new Dictionary<string, Trait>() {
-            #region Traits Database
             { TR_STR1ST, new Trait(TR_STR1ST, 1, 0, "This character's strength is boosted by 20%.") },
             { TR_STR2ND, new Trait(TR_STR2ND, 2, 0, "This character's strength is boosted by 40%.") },
             { TR_STR3RD, new Trait(TR_STR3RD, 3, 0, "This character's strength is boosted by 60%.") },
@@ -285,7 +282,7 @@ namespace OPRPCharBuild
             { TR_GRANDM, new Trait(TR_GRANDM, 0, 2, "This character has achieved a legendary skill with his weapon/weapon class/form of attack. They are masters of their art beyond question, and are able to perform supernatural feats using their skill alone. Grandmaster ____'s mastery techniques allow them to cut/hit fluid and insubstantial substances, such as air, fire, water, or even light.") },
             { TR_GURU, new Trait(TR_GURU, 1, 0, "This character gains special technique points equal to 1/2 of their fortune, which can only be used on Life Return techniques.") },
             { TR_HAGSEA, new Trait(TR_HAGSEA, 0, 1, "There are financially crafty people out there and these carpenters are at the top of the game when it comes to the ship market. These carpenters are capable of negotiating the cost of 4 ranks off of any ship technique they may make for their ships. (Ship Techniques will be special technologies that a ship utilizes that can be quantified as a technique a sudden boost in speed, a weapon such as the Gaon cannon.") },
-            { TR_HAMRAG, new Trait(TR_HAMRAG, 0, 1, "Knowing how to make things also means knowing how to them. Some smiths come to revel in this destructive aspect of their trade even more than usual, becoming masters in ing down anything with a form. The character is able to freeform ing objects of up to iron hardness, and can er harder substances as if they were one tier lower in terms of technique rank. They remain unable to destroy unable quality materials, but may temporarily damage them (disabled for the duration of that SL) instead of breaking them.") },
+            { TR_HAMRAG, new Trait(TR_HAMRAG, 0, 1, "Knowing how to make things also means knowing how to break them. Some smiths come to revel in this destructive aspect of their trade even more than usual, becoming masters in breaking down anything with a form. The character is able to freeform breaking objects of up to iron hardness, and can break harder substances as if they were one tier lower in terms of technique rank.") },
             { TR_HARDFI, new Trait(TR_HARDFI, 0, 1, "Through excessive training in ing planks, punching rocks, and all those durability-building exercises, the character’s arms, up to their elbows, and their legs, up to their knees, have gained flesh that is as hard as iron, making them much more resistant to physical damage.") },
             { TR_HORTWA, new Trait(TR_HORTWA, 3, 0, "The character has become accustomed to using pop green seeds and as such is now able to utilise these seeds to bloom various flowers nearly instantly. The character can use these plants to make anything varying from a plant net to a large man-eating flower.") },
             { TR_INTRAI, new Trait(TR_INTRAI, 0, 1, "This is the equivalent of Fated for the character’s Professional Skills, but no paths exist for this. General traits may not be spent to purchase In-Training.") },
@@ -342,7 +339,6 @@ namespace OPRPCharBuild
             { TR_UNCENG, new Trait(TR_UNCENG, 0, 1, "Characters with this trait are undisputed masters of rapidly fabricating objects. They get Special Technique Points equal to half their Fortune for this specific purpose. ") },
             { TR_WEAKSI, new Trait(TR_WEAKSI, 0, 1, "With all their experience in building things and taking them apart, these characters are able to pinpoint the weaknesses in architecture and can easily figure out how to do the most damage to weapons, ships, buildings and other large constructions.") },
             { TR_WEATHR, new Trait(TR_WEATHR, 3, 0, "After the learning of skills of weather manipulation and creation, the character may - through the use of tools and gadgets - actively perform feats such as summoning lightning bolts, hail, rain, etc. They require an weapon/item to serve as a conduit for such techniques.") }
-            #endregion
         };
 
         // If any Trait Names has [SPEC], return it WITH [SPEC] (Test?)
@@ -377,7 +373,6 @@ namespace OPRPCharBuild
         // -------------------------------------------------------------------
 
         static private Dictionary<string, int> spTraitDiv = new Dictionary<string, int>() {
-            #region Sp Traits Database
             { TR_SUPSEN, 4 },
             { TR_STRSPI, 2 },
             { TR_ROKUSA, 2 },
@@ -396,7 +391,6 @@ namespace OPRPCharBuild
             { TR_FRSHAD, 2 },
             { TR_SLEIGH, 2 },
             { TR_GURU, 2 }
-            #endregion
         };
 
         // Getter function of spTraitDiv dictionary
@@ -424,11 +418,11 @@ namespace OPRPCharBuild
         static private Dictionary<string, Rokushiki> rokuDict = new Dictionary<string, Rokushiki>() {
             #region Rokushiki Database
             { ROKU_SHI, new Rokushiki(ROKU_SHI, 22, "Offensive", "Melee", 4, 0, 0, 0, 0,
-                "This technique is an improved melee strike. The damage done by the user's finger (or other small appendage) is treated as both blunt and piercing, generally using the more favourable of the two damage types when the other would not be as effective. Additionally, the attack is quick and nearly invisible to the naked eye, executed at bullet-like speeds. (Damage Type Change, Piercing, Super-Speed).") },
+                "This technique is an improved melee strike. The damage done by the user's finger (or other small appendage) is treated as both blunt and piercing, generally using the more favourable of the two damage types when the other would not be as effective. Additionally, the attack is quick and difficult to track, executed at bullet-like speeds. (Damage Type Change, Piercing, Quick)") },
             { ROKU_RAN, new Rokushiki(ROKU_RAN, 22, "Offensive", "Long", 8, 0, 0, 0, 0,
                 "By kicking fast enough, the user literally \"cuts\" their air with their foot. The projectile is different from standard ranged melee, possessing a keen cutting edge and unusual longevity. A Rankyaku shockwave will continue moving until it reaches the edge of it's range or impacts with an obstacle harder than stone. (Damage Type Change, Piercing, Shockwave, Long Range)") },
             { ROKU_SOR, new Rokushiki(ROKU_SOR, 28, "Support", "Self", 0, 0, 0, 0, 0,
-                "Once per post, an individual can use this technique to put on momentary bursts of speed that make them invisible to the untrained naked eye. The user may move to any location that they could normally move to in a single post, but they do so near-instantaneously. During this movement, they cannot be seen by anybody who's accuracy is less than double this technique's rank, appearing as a blurred streak to anybody who's accuracy is above that point. If attacked while moving by a foe who's speed is less than this technique's rank, the attack can be passively dodged without any expenditure of Focus. Attacks cannot be made while moving with Soru. (Super-Speed, Perception Formula)") },
+                "Once per post, an individual can use this technique to put on momentary bursts of speed. The user may move to any location that they could normally move to in a single post, but they do so near-instantaneously. During this movement, they cannot be seen by anybody who's accuracy is less than double this technique's rank, appearing as a blurred streak to anybody who's accuracy is above that point. If attacked while moving by a foe who's speed is less than this technique's rank, the attack can be passively dodged without any expenditure of Focus. Attacks cannot be made while moving with Soru. (Quick, Perception Formula)") },
             { ROKU_KAM, new Rokushiki(ROKU_KAM, 32, "Defensive", "Self", 20, 0, 0, 0, 0,
                 "Using instinct-driven, reflexive movements and loosening up all of their muscles, the user dodges an attack much the way a piece of paper in the breeze does. While in use, this technique reduces the effective accuracy of any targeted attack made against the user by a value equal to this technique's power. If this would reduce the accuracy of that attack to 0, the attack can be passively dodged without any expenditure of Focus. Attacks can not be made while using Kami-E. (Paperlike, Fullbody, Dodging Formula)") },
             { ROKU_TEK, new Rokushiki(ROKU_TEK, 32, "Defensive", "Self", 22, 0, 0, 0, 0,
@@ -467,7 +461,7 @@ namespace OPRPCharBuild
             EFF_FLAVR = "Flavor",
             EFF_SPRIT = "Spirit Generated Illusions",
             EFF_SECON = "Secondary",
-            EFF_SPEED = "Speed",
+            EFF_QUICK = "Speed",
             EFF_PIERC = "Piercing",
             EFF_AFTER = "After-Image",
             EFF_ADAFT = "Additional After-Image",
@@ -477,7 +471,7 @@ namespace OPRPCharBuild
             EFF_DISAB = "Disables",
             EFF_SENSI = "Sensory Overload (Single)",
             EFF_SENMU = "Sensory Overload (Multiple)",
-            EFF_SUPSP = "Super-Speed",
+            EFF_LASER = "Laser",
             EFF_DEFBY = "Defense Bypassing",
             EFF_SPEBL = "Specific Type Block",
             EFF_STBRE = "Starter Tier Breaking",
@@ -539,7 +533,6 @@ namespace OPRPCharBuild
         #endregion
 
         static private Dictionary<string, Effect> effectDict = new Dictionary<string, Effect>() {
-			#region Effects Database
             { EFF_MELEE, new Effect(EFF_MELEE, false, 0, 0, MELEE_DESC) },
             { EFF_SHORT, new Effect(EFF_SHORT, false, 4, 4, SHORT_DESC) },
             { EFF_MEDIU, new Effect(EFF_MEDIU, false, 8, 16, MEDIU_DESC) },
@@ -578,8 +571,8 @@ namespace OPRPCharBuild
                 "Technique flair that does not grant any advantage other than making things look fancier. The higher the rank, the more exotic.") },
             { EFF_SPRIT, new Effect(EFF_SPRIT, true, 14, 28,
                 "Eye catching illusions that have significance, lasting only momentarily in battle but can shock or intimidate foes. Asura is a good example for these effects.") },
-            { EFF_SPEED, new Effect(EFF_SPEED, false, 4, 4,
-                "Techniques that focus more on striking an opponent as quickly as possible rather than with sheer force thus they often don't hit as hard as techniques of similar rank but come out faster.") },
+            { EFF_QUICK, new Effect(EFF_QUICK, false, 8, 8,
+                "Techniques that focus more on striking an opponent as quickly as possible at the expense of power thus they often don't hit as hard as techniques of similar rank but come out faster.") },
             { EFF_PIERC, new Effect(EFF_PIERC, false, 8, 8,
                 "Techniques that hold great penetrative force. These attacks are able to pass through an object with ease assuming they are not equivalent to a tier material. With each thing these attacks pass through they lose a significant amount of power.") },
             { EFF_AFTER, new Effect(EFF_AFTER, false, 8, 14,
@@ -598,8 +591,8 @@ namespace OPRPCharBuild
                 "Disable techniques which target a specific sense or multiple senses. Examples can be blinding flashes or deafening noises.") },
             { EFF_SENMU, new Effect(EFF_SENMU, false, 30, 30,
                 "Disable techniques which target a specific sense or multiple senses. Examples can be blinding flashes or deafening noises.") },
-            { EFF_SUPSP, new Effect(EFF_SUPSP, false, 28, 28,
-                "Techniques which move at speeds that do not fall under the Speed Statistic such as Lasers or Soru. They are not impossible to avoid, the more Speed/Accuracy, the less difficulty it will be with dealing with these types of attacks and abilities though they will always be perceived as blurred attacks or narrowly avoided.") },
+            { EFF_LASER, new Effect(EFF_LASER, false, 28, 44,
+                " Techniques which are beams fired at the speed of light. They shoot in straight lines and tend to only be narrowly avoided. New World Cyborg lasers get this effect for free. This effect is restricted to Lasers from Cyborgs & Inventors.") },
             { EFF_DEFBY, new Effect(EFF_DEFBY, false, 28, 28,
                 "Techniques which bypass Defensive Type Techniques by transferring damage through blocks on contact or creating shockwaves that attack an opponent internally.") },
             { EFF_SPEBL, new Effect(EFF_SPEBL, false, 28, 28,
@@ -686,7 +679,6 @@ namespace OPRPCharBuild
                 "(STEALTH) - Blending in to the environment through masterful knowledge of the surroundings and the perception of others. At this high rank, it becomes possible to blend in seemingly with mere open space. Consumes 1/2 AE in order to keep active.") },
             { EFF_SECON, new Effect(EFF_SECON, false, 4, 4,
                 "A cost when using more than two General Effects, paid each time an extra secondary general effect is added.") }
-			#endregion 
 		};
 
         // Getter function of the Effects dictionary, taking into account of bonuses
@@ -769,7 +761,7 @@ namespace OPRPCharBuild
                 EFF_ELDMG,
                 EFF_FLAVR,
                 EFF_SPRIT,
-                EFF_SPEED,
+                EFF_QUICK,
                 EFF_PIERC,
                 EFF_AFTER,
                 EFF_ADAFT,
@@ -779,7 +771,7 @@ namespace OPRPCharBuild
                 EFF_DISAB,
                 EFF_SENSI,
                 EFF_SENMU,
-                EFF_SUPSP,
+                EFF_LASER,
                 EFF_DEFBY,
                 EFF_SPEBL,
                 EFF_STBRE,
@@ -884,7 +876,6 @@ namespace OPRPCharBuild
         #endregion
 
         static private Dictionary<string, StatAlter> statDict = new Dictionary<string, StatAlter>() {
-            #region Stat Alter Database
             { BUF_WILLPO, new StatAlter(StatAlter.BUFF, true, false, false) },
             { BUF_STANCE, new StatAlter(StatAlter.STANCE, false, true, false) },
             { BUF_LIFRET, new StatAlter(StatAlter.STANCE, false, true, false) },
@@ -901,7 +892,6 @@ namespace OPRPCharBuild
             { BUF_DFDEBU, new StatAlter(StatAlter.DEBUFF, false, true, true) },
             { BUF_OBHAKI, new StatAlter(StatAlter.BUFF, true, true, false) },
             { BUF_CQHAKI, new StatAlter(StatAlter.DEBUFF, false, true, true) }
-            #endregion
         };
 
         // Getter function of the StatAlter dictionary

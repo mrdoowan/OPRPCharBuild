@@ -202,10 +202,16 @@ namespace OPRPCharBuild
                 sta != 0 && acc != 0) { return false; }
             if (majorBuff) {
                 // Following rules of Major Buffs
-                if (str > (totBuff / 2 + 1) ||
-                    spe > (totBuff / 2 + 1) ||
-                    sta > (totBuff / 2 + 1) ||
-                    acc > (totBuff / 2 + 1)) {
+                // Even number
+                if (totBuff % 2 == 0 && (str > (totBuff / 2) ||
+                    spe > (totBuff / 2) || sta > (totBuff / 2) ||
+                    acc > (totBuff / 2))) {
+                    return false;
+                }
+                // Odd number
+                else if (totBuff % 2 == 1 && (str > (totBuff / 2 + 1) ||
+                    spe > (totBuff / 2 + 1) || sta > (totBuff / 2 + 1) ||
+                    acc > (totBuff / 2 + 1))) {
                     return false;
                 }
             }
