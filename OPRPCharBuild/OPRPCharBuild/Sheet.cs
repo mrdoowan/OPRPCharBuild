@@ -219,7 +219,7 @@ namespace OPRPCharBuild
 				Template = Template.Replace("</color>", "");
 			}
 			else {
-				string BBCode_Color = "[color=#" + color_hex + "]";
+				string BBCode_Color = "[color=" + color_hex + "]";
 				Template = Template.Replace("<color>", BBCode_Color);
 				Template = Template.Replace("</color>", "[/color]");
 			}

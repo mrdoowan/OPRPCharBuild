@@ -461,7 +461,7 @@ namespace OPRPCharBuild
             EFF_FLAVR = "Flavor",
             EFF_SPRIT = "Spirit Generated Illusions",
             EFF_SECON = "Secondary",
-            EFF_QUICK = "Speed",
+            EFF_QUICK = "Quick",
             EFF_PIERC = "Piercing",
             EFF_AFTER = "After-Image",
             EFF_ADAFT = "Additional After-Image",

@@ -368,6 +368,11 @@ namespace OPRPCharBuild
                 techStats.statsName == Database.BUF_QUICKS || techStats.statsName == Database.BUF_STANCE) {
                 message += "- [i]" + techStats.statsName + " Technique[/i]\n";
             }
+            // Stats Duration
+            if (!string.IsNullOrWhiteSpace(techStats.duration)) {
+                message = message.TrimEnd('\n');
+                message += ", " + techStats.duration + '\n';
+            }
             // Constructs Duration
             if (effList.Contains(getEffect(Database.EFF_CONST))) {
                 int duration = 6;
@@ -376,8 +381,6 @@ namespace OPRPCharBuild
                 else if (numericUpDown_Rank.Value < 44) { duration = 5; }
                 message += "- " + duration + " Post Duration\n";
             }
-            // Stats Duration
-            if (!string.IsNullOrWhiteSpace(techStats.duration)) { message += "- " + techStats.duration + '\n'; }
 			// Cyborg message
 			if (checkBox_Fuel3.Checked) { message += "- [i]Cyborg Technique[/i] - uses 3 Fuel Charges (+12 Rank)\n"; }
 			else if (checkBox_Fuel2.Checked) { message += "- [i]Cyborg Technique[/i] - uses 2 Fuel Charges (+8 Rank)\n"; }
