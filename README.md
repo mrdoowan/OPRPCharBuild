@@ -1,3 +1,4 @@
+.
 # OPRP Character Builder
 
 This is a tool written in C# for Windows 7/8/8.1/10 using .NET Framework 4.5
@@ -17,6 +18,15 @@ Based on OPRP usernames
 
 Version History
 ---------------
+
+### v1.5.0
+* Updated from April 2017 update
+
+### v1.4.0
+* Character Template, Categories, 
+* New implementation for saving .oprp files that no longer requires importing from older versions. That does mean v1.3.0 .oprp files no longer work.
+* Code completely refactored
+* Updated from February 2017 update
 
 ### v1.3.0
 
