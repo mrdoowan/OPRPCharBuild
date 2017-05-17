@@ -233,6 +233,7 @@
             this.textBox_RegTPUsed = new System.Windows.Forms.TextBox();
             this.label61 = new System.Windows.Forms.Label();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.button_LoadTemp = new System.Windows.Forms.Button();
             this.button_MoreTemplate = new System.Windows.Forms.Button();
             this.label49 = new System.Windows.Forms.Label();
             this.textBox_MasteryMsg = new System.Windows.Forms.TextBox();
@@ -243,7 +244,6 @@
             this.label47 = new System.Windows.Forms.Label();
             this.richTextBox_Template = new System.Windows.Forms.RichTextBox();
             this.label46 = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
             this.label_TemplateType = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
             this.button_Generate = new System.Windows.Forms.Button();
@@ -251,16 +251,12 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button_ResetChar = new System.Windows.Forms.Button();
             this.label37 = new System.Windows.Forms.Label();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.characterTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTips = new System.Windows.Forms.ToolTip(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton_New = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_Open = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_SaveAs = new System.Windows.Forms.ToolStripButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -295,7 +291,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowBegin)).BeginInit();
             this.groupBox11.SuspendLayout();
             this.tabPage8.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -304,7 +299,7 @@
             this.label_Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.label_Title.Location = new System.Drawing.Point(93, 49);
             this.label_Title.Name = "label_Title";
-            this.label_Title.Size = new System.Drawing.Size(494, 31);
+            this.label_Title.Size = new System.Drawing.Size(670, 31);
             this.label_Title.TabIndex = 3;
             this.label_Title.Text = "Title";
             this.label_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -322,7 +317,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 130);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(660, 504);
+            this.tabControl1.Size = new System.Drawing.Size(843, 504);
             this.tabControl1.TabIndex = 4;
             // 
             // tabPage1
@@ -334,7 +329,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(652, 478);
+            this.tabPage1.Size = new System.Drawing.Size(835, 478);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Info";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -348,9 +343,9 @@
             this.groupBox3.Controls.Add(this.button_ProfAdd);
             this.groupBox3.Controls.Add(this.listView_Prof);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox3.Location = new System.Drawing.Point(6, 384);
+            this.groupBox3.Location = new System.Drawing.Point(6, 357);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(619, 205);
+            this.groupBox3.Size = new System.Drawing.Size(806, 205);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Professions";
@@ -358,7 +353,7 @@
             // button_DownProf
             // 
             this.button_DownProf.Image = ((System.Drawing.Image)(resources.GetObject("button_DownProf.Image")));
-            this.button_DownProf.Location = new System.Drawing.Point(587, 54);
+            this.button_DownProf.Location = new System.Drawing.Point(774, 55);
             this.button_DownProf.Name = "button_DownProf";
             this.button_DownProf.Size = new System.Drawing.Size(26, 26);
             this.button_DownProf.TabIndex = 13;
@@ -367,7 +362,7 @@
             // 
             // button_ProfEdit
             // 
-            this.button_ProfEdit.Location = new System.Drawing.Point(457, 175);
+            this.button_ProfEdit.Location = new System.Drawing.Point(644, 176);
             this.button_ProfEdit.Name = "button_ProfEdit";
             this.button_ProfEdit.Size = new System.Drawing.Size(75, 23);
             this.button_ProfEdit.TabIndex = 4;
@@ -378,7 +373,7 @@
             // button_UpProf
             // 
             this.button_UpProf.Image = ((System.Drawing.Image)(resources.GetObject("button_UpProf.Image")));
-            this.button_UpProf.Location = new System.Drawing.Point(587, 22);
+            this.button_UpProf.Location = new System.Drawing.Point(774, 23);
             this.button_UpProf.Name = "button_UpProf";
             this.button_UpProf.Size = new System.Drawing.Size(26, 26);
             this.button_UpProf.TabIndex = 12;
@@ -387,7 +382,7 @@
             // 
             // button_ProfDelete
             // 
-            this.button_ProfDelete.Location = new System.Drawing.Point(538, 175);
+            this.button_ProfDelete.Location = new System.Drawing.Point(725, 176);
             this.button_ProfDelete.Name = "button_ProfDelete";
             this.button_ProfDelete.Size = new System.Drawing.Size(75, 23);
             this.button_ProfDelete.TabIndex = 3;
@@ -397,7 +392,7 @@
             // 
             // button_ProfAdd
             // 
-            this.button_ProfAdd.Location = new System.Drawing.Point(376, 175);
+            this.button_ProfAdd.Location = new System.Drawing.Point(563, 176);
             this.button_ProfAdd.Name = "button_ProfAdd";
             this.button_ProfAdd.Size = new System.Drawing.Size(75, 23);
             this.button_ProfAdd.TabIndex = 3;
@@ -412,10 +407,10 @@
             this.listView_Prof.FullRowSelect = true;
             this.listView_Prof.GridLines = true;
             this.listView_Prof.LabelWrap = false;
-            this.listView_Prof.Location = new System.Drawing.Point(6, 22);
+            this.listView_Prof.Location = new System.Drawing.Point(6, 23);
             this.listView_Prof.MultiSelect = false;
             this.listView_Prof.Name = "listView_Prof";
-            this.listView_Prof.Size = new System.Drawing.Size(575, 147);
+            this.listView_Prof.Size = new System.Drawing.Size(762, 147);
             this.listView_Prof.TabIndex = 0;
             this.listView_Prof.UseCompatibleStateImageBehavior = false;
             // 
@@ -428,9 +423,9 @@
             this.groupBox2.Controls.Add(this.button_AchieveDelete);
             this.groupBox2.Controls.Add(this.listBox_Achieve);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox2.Location = new System.Drawing.Point(6, 217);
+            this.groupBox2.Location = new System.Drawing.Point(6, 190);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(619, 161);
+            this.groupBox2.Size = new System.Drawing.Size(806, 161);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Achievements";
@@ -438,7 +433,7 @@
             // button_DownAchieve
             // 
             this.button_DownAchieve.Image = ((System.Drawing.Image)(resources.GetObject("button_DownAchieve.Image")));
-            this.button_DownAchieve.Location = new System.Drawing.Point(587, 54);
+            this.button_DownAchieve.Location = new System.Drawing.Point(774, 54);
             this.button_DownAchieve.Name = "button_DownAchieve";
             this.button_DownAchieve.Size = new System.Drawing.Size(26, 26);
             this.button_DownAchieve.TabIndex = 11;
@@ -447,7 +442,7 @@
             // 
             // button_AchieveEdit
             // 
-            this.button_AchieveEdit.Location = new System.Drawing.Point(457, 132);
+            this.button_AchieveEdit.Location = new System.Drawing.Point(644, 132);
             this.button_AchieveEdit.Name = "button_AchieveEdit";
             this.button_AchieveEdit.Size = new System.Drawing.Size(75, 23);
             this.button_AchieveEdit.TabIndex = 3;
@@ -458,7 +453,7 @@
             // button_UpAchieve
             // 
             this.button_UpAchieve.Image = ((System.Drawing.Image)(resources.GetObject("button_UpAchieve.Image")));
-            this.button_UpAchieve.Location = new System.Drawing.Point(587, 22);
+            this.button_UpAchieve.Location = new System.Drawing.Point(774, 22);
             this.button_UpAchieve.Name = "button_UpAchieve";
             this.button_UpAchieve.Size = new System.Drawing.Size(26, 26);
             this.button_UpAchieve.TabIndex = 10;
@@ -467,7 +462,7 @@
             // 
             // button_AchieveAdd
             // 
-            this.button_AchieveAdd.Location = new System.Drawing.Point(376, 132);
+            this.button_AchieveAdd.Location = new System.Drawing.Point(563, 132);
             this.button_AchieveAdd.Name = "button_AchieveAdd";
             this.button_AchieveAdd.Size = new System.Drawing.Size(75, 23);
             this.button_AchieveAdd.TabIndex = 2;
@@ -477,7 +472,7 @@
             // 
             // button_AchieveDelete
             // 
-            this.button_AchieveDelete.Location = new System.Drawing.Point(538, 132);
+            this.button_AchieveDelete.Location = new System.Drawing.Point(725, 132);
             this.button_AchieveDelete.Name = "button_AchieveDelete";
             this.button_AchieveDelete.Size = new System.Drawing.Size(75, 23);
             this.button_AchieveDelete.TabIndex = 1;
@@ -491,7 +486,7 @@
             this.listBox_Achieve.ItemHeight = 16;
             this.listBox_Achieve.Location = new System.Drawing.Point(6, 22);
             this.listBox_Achieve.Name = "listBox_Achieve";
-            this.listBox_Achieve.Size = new System.Drawing.Size(575, 68);
+            this.listBox_Achieve.Size = new System.Drawing.Size(762, 100);
             this.listBox_Achieve.TabIndex = 0;
             // 
             // groupBox1
@@ -521,14 +516,14 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(619, 205);
+            this.groupBox1.Size = new System.Drawing.Size(806, 178);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Basic Information";
             // 
             // numericUpDown_Comm
             // 
-            this.numericUpDown_Comm.Location = new System.Drawing.Point(356, 146);
+            this.numericUpDown_Comm.Location = new System.Drawing.Point(446, 117);
             this.numericUpDown_Comm.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -565,7 +560,7 @@
             "Vice Admiral",
             "Admiral",
             "Fleet Admiral"});
-            this.comboBox_MarineRank.Location = new System.Drawing.Point(446, 145);
+            this.comboBox_MarineRank.Location = new System.Drawing.Point(536, 116);
             this.comboBox_MarineRank.Name = "comboBox_MarineRank";
             this.comboBox_MarineRank.Size = new System.Drawing.Size(167, 24);
             this.comboBox_MarineRank.TabIndex = 22;
@@ -574,7 +569,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label12.Location = new System.Drawing.Point(404, 150);
+            this.label12.Location = new System.Drawing.Point(494, 121);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(36, 13);
             this.label12.TabIndex = 21;
@@ -583,7 +578,7 @@
             // textBox_Threat
             // 
             this.textBox_Threat.Enabled = false;
-            this.textBox_Threat.Location = new System.Drawing.Point(356, 175);
+            this.textBox_Threat.Location = new System.Drawing.Point(446, 146);
             this.textBox_Threat.Name = "textBox_Threat";
             this.textBox_Threat.Size = new System.Drawing.Size(42, 23);
             this.textBox_Threat.TabIndex = 20;
@@ -591,7 +586,7 @@
             // textBox_Bounty
             // 
             this.textBox_Bounty.Enabled = false;
-            this.textBox_Bounty.Location = new System.Drawing.Point(356, 115);
+            this.textBox_Bounty.Location = new System.Drawing.Point(446, 86);
             this.textBox_Bounty.Name = "textBox_Bounty";
             this.textBox_Bounty.Size = new System.Drawing.Size(121, 23);
             this.textBox_Bounty.TabIndex = 18;
@@ -600,7 +595,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label11.Location = new System.Drawing.Point(309, 180);
+            this.label11.Location = new System.Drawing.Point(399, 151);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(41, 13);
             this.label11.TabIndex = 17;
@@ -610,7 +605,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label10.Location = new System.Drawing.Point(270, 150);
+            this.label10.Location = new System.Drawing.Point(360, 121);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(80, 13);
             this.label10.TabIndex = 16;
@@ -620,7 +615,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label9.Location = new System.Drawing.Point(307, 120);
+            this.label9.Location = new System.Drawing.Point(397, 91);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(43, 13);
             this.label9.TabIndex = 15;
@@ -628,7 +623,7 @@
             // 
             // textBox_Position
             // 
-            this.textBox_Position.Location = new System.Drawing.Point(70, 175);
+            this.textBox_Position.Location = new System.Drawing.Point(70, 145);
             this.textBox_Position.Name = "textBox_Position";
             this.textBox_Position.Size = new System.Drawing.Size(196, 23);
             this.textBox_Position.TabIndex = 14;
@@ -643,7 +638,7 @@
             "Marine",
             "Bounty Hunter",
             "Other"});
-            this.comboBox_Affiliation.Location = new System.Drawing.Point(356, 85);
+            this.comboBox_Affiliation.Location = new System.Drawing.Point(446, 56);
             this.comboBox_Affiliation.Name = "comboBox_Affiliation";
             this.comboBox_Affiliation.Size = new System.Drawing.Size(121, 24);
             this.comboBox_Affiliation.TabIndex = 13;
@@ -656,14 +651,14 @@
             "Male",
             "Female",
             "Neutral"});
-            this.comboBox_Gender.Location = new System.Drawing.Point(70, 115);
+            this.comboBox_Gender.Location = new System.Drawing.Point(70, 85);
             this.comboBox_Gender.Name = "comboBox_Gender";
             this.comboBox_Gender.Size = new System.Drawing.Size(121, 24);
             this.comboBox_Gender.TabIndex = 12;
             // 
             // numericUpDown_Age
             // 
-            this.numericUpDown_Age.Location = new System.Drawing.Point(70, 86);
+            this.numericUpDown_Age.Location = new System.Drawing.Point(70, 56);
             this.numericUpDown_Age.Maximum = new decimal(new int[] {
             70,
             0,
@@ -685,30 +680,30 @@
             // 
             // textBox_Race
             // 
-            this.textBox_Race.Location = new System.Drawing.Point(70, 145);
+            this.textBox_Race.Location = new System.Drawing.Point(70, 115);
             this.textBox_Race.Name = "textBox_Race";
             this.textBox_Race.Size = new System.Drawing.Size(121, 23);
             this.textBox_Race.TabIndex = 10;
             // 
             // textBox_Nickname
             // 
-            this.textBox_Nickname.Location = new System.Drawing.Point(70, 55);
+            this.textBox_Nickname.Location = new System.Drawing.Point(446, 27);
             this.textBox_Nickname.Name = "textBox_Nickname";
-            this.textBox_Nickname.Size = new System.Drawing.Size(543, 23);
+            this.textBox_Nickname.Size = new System.Drawing.Size(354, 23);
             this.textBox_Nickname.TabIndex = 8;
             // 
             // textBox_CharacterName
             // 
             this.textBox_CharacterName.Location = new System.Drawing.Point(70, 27);
             this.textBox_CharacterName.Name = "textBox_CharacterName";
-            this.textBox_CharacterName.Size = new System.Drawing.Size(543, 23);
+            this.textBox_CharacterName.Size = new System.Drawing.Size(306, 23);
             this.textBox_CharacterName.TabIndex = 1;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label8.Location = new System.Drawing.Point(17, 180);
+            this.label8.Location = new System.Drawing.Point(17, 150);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(47, 13);
             this.label8.TabIndex = 7;
@@ -718,7 +713,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label7.Location = new System.Drawing.Point(298, 90);
+            this.label7.Location = new System.Drawing.Point(388, 61);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(52, 13);
             this.label7.TabIndex = 6;
@@ -728,7 +723,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label6.Location = new System.Drawing.Point(28, 150);
+            this.label6.Location = new System.Drawing.Point(28, 120);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(36, 13);
             this.label6.TabIndex = 5;
@@ -738,7 +733,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label5.Location = new System.Drawing.Point(19, 120);
+            this.label5.Location = new System.Drawing.Point(19, 90);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(45, 13);
             this.label5.TabIndex = 4;
@@ -748,7 +743,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label4.Location = new System.Drawing.Point(35, 90);
+            this.label4.Location = new System.Drawing.Point(35, 60);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 13);
             this.label4.TabIndex = 3;
@@ -758,7 +753,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label3.Location = new System.Drawing.Point(6, 60);
+            this.label3.Location = new System.Drawing.Point(382, 32);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 13);
             this.label3.TabIndex = 2;
@@ -782,7 +777,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(652, 478);
+            this.tabPage2.Size = new System.Drawing.Size(835, 478);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Appearance";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -812,14 +807,14 @@
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox5.Location = new System.Drawing.Point(6, 169);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(619, 468);
+            this.groupBox5.Size = new System.Drawing.Size(806, 468);
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Appearance";
             // 
             // button_ImageEdit
             // 
-            this.button_ImageEdit.Location = new System.Drawing.Point(462, 429);
+            this.button_ImageEdit.Location = new System.Drawing.Point(660, 425);
             this.button_ImageEdit.Name = "button_ImageEdit";
             this.button_ImageEdit.Size = new System.Drawing.Size(67, 23);
             this.button_ImageEdit.TabIndex = 29;
@@ -829,7 +824,7 @@
             // 
             // button_ImageDelete
             // 
-            this.button_ImageDelete.Location = new System.Drawing.Point(535, 429);
+            this.button_ImageDelete.Location = new System.Drawing.Point(733, 425);
             this.button_ImageDelete.Name = "button_ImageDelete";
             this.button_ImageDelete.Size = new System.Drawing.Size(67, 23);
             this.button_ImageDelete.TabIndex = 28;
@@ -839,7 +834,7 @@
             // 
             // button_ImageAdd
             // 
-            this.button_ImageAdd.Location = new System.Drawing.Point(389, 429);
+            this.button_ImageAdd.Location = new System.Drawing.Point(587, 425);
             this.button_ImageAdd.Name = "button_ImageAdd";
             this.button_ImageAdd.Size = new System.Drawing.Size(67, 23);
             this.button_ImageAdd.TabIndex = 27;
@@ -849,16 +844,16 @@
             // 
             // textBox_ImageLabel
             // 
-            this.textBox_ImageLabel.Location = new System.Drawing.Point(387, 396);
+            this.textBox_ImageLabel.Location = new System.Drawing.Point(459, 396);
             this.textBox_ImageLabel.Name = "textBox_ImageLabel";
-            this.textBox_ImageLabel.Size = new System.Drawing.Size(215, 23);
+            this.textBox_ImageLabel.Size = new System.Drawing.Size(341, 23);
             this.textBox_ImageLabel.TabIndex = 25;
             // 
             // label31
             // 
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label31.Location = new System.Drawing.Point(345, 401);
+            this.label31.Location = new System.Drawing.Point(417, 401);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(36, 13);
             this.label31.TabIndex = 26;
@@ -901,17 +896,17 @@
             this.listView_Images.FullRowSelect = true;
             this.listView_Images.GridLines = true;
             this.listView_Images.LabelWrap = false;
-            this.listView_Images.Location = new System.Drawing.Point(128, 244);
+            this.listView_Images.Location = new System.Drawing.Point(128, 238);
             this.listView_Images.MultiSelect = false;
             this.listView_Images.Name = "listView_Images";
-            this.listView_Images.Size = new System.Drawing.Size(474, 146);
+            this.listView_Images.Size = new System.Drawing.Size(672, 146);
             this.listView_Images.TabIndex = 21;
             this.listView_Images.UseCompatibleStateImageBehavior = false;
             // 
             // numericUpDown_Height
             // 
             this.numericUpDown_Height.Enabled = false;
-            this.numericUpDown_Height.Location = new System.Drawing.Point(286, 430);
+            this.numericUpDown_Height.Location = new System.Drawing.Point(358, 425);
             this.numericUpDown_Height.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -934,7 +929,7 @@
             // numericUpDown_Width
             // 
             this.numericUpDown_Width.Enabled = false;
-            this.numericUpDown_Width.Location = new System.Drawing.Point(180, 430);
+            this.numericUpDown_Width.Location = new System.Drawing.Point(252, 425);
             this.numericUpDown_Width.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -960,7 +955,7 @@
             this.checkBox_FullRes.Checked = true;
             this.checkBox_FullRes.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox_FullRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.checkBox_FullRes.Location = new System.Drawing.Point(30, 433);
+            this.checkBox_FullRes.Location = new System.Drawing.Point(102, 428);
             this.checkBox_FullRes.Name = "checkBox_FullRes";
             this.checkBox_FullRes.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBox_FullRes.Size = new System.Drawing.Size(95, 17);
@@ -973,7 +968,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label21.Location = new System.Drawing.Point(239, 434);
+            this.label21.Location = new System.Drawing.Point(311, 429);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(41, 13);
             this.label21.TabIndex = 17;
@@ -983,7 +978,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label20.Location = new System.Drawing.Point(136, 434);
+            this.label20.Location = new System.Drawing.Point(208, 429);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(38, 13);
             this.label20.TabIndex = 11;
@@ -993,7 +988,7 @@
             // 
             this.textBox_ImageURL.Location = new System.Drawing.Point(128, 396);
             this.textBox_ImageURL.Name = "textBox_ImageURL";
-            this.textBox_ImageURL.Size = new System.Drawing.Size(211, 23);
+            this.textBox_ImageURL.Size = new System.Drawing.Size(283, 23);
             this.textBox_ImageURL.TabIndex = 11;
             // 
             // label19
@@ -1008,10 +1003,10 @@
             // 
             // richTextBox_GeneralAppear
             // 
-            this.richTextBox_GeneralAppear.Location = new System.Drawing.Point(128, 136);
+            this.richTextBox_GeneralAppear.Location = new System.Drawing.Point(128, 130);
             this.richTextBox_GeneralAppear.Name = "richTextBox_GeneralAppear";
             this.richTextBox_GeneralAppear.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_GeneralAppear.Size = new System.Drawing.Size(474, 102);
+            this.richTextBox_GeneralAppear.Size = new System.Drawing.Size(672, 102);
             this.richTextBox_GeneralAppear.TabIndex = 13;
             this.richTextBox_GeneralAppear.Text = "";
             // 
@@ -1027,10 +1022,10 @@
             // 
             // richTextBox_Clothing
             // 
-            this.richTextBox_Clothing.Location = new System.Drawing.Point(128, 28);
+            this.richTextBox_Clothing.Location = new System.Drawing.Point(128, 22);
             this.richTextBox_Clothing.Name = "richTextBox_Clothing";
             this.richTextBox_Clothing.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_Clothing.Size = new System.Drawing.Size(474, 102);
+            this.richTextBox_Clothing.Size = new System.Drawing.Size(672, 102);
             this.richTextBox_Clothing.TabIndex = 11;
             this.richTextBox_Clothing.Text = "";
             // 
@@ -1057,17 +1052,17 @@
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox4.Location = new System.Drawing.Point(6, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(619, 157);
+            this.groupBox4.Size = new System.Drawing.Size(806, 157);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Features";
             // 
             // richTextBox_Eye
             // 
-            this.richTextBox_Eye.Location = new System.Drawing.Point(367, 60);
+            this.richTextBox_Eye.Location = new System.Drawing.Point(459, 60);
             this.richTextBox_Eye.Name = "richTextBox_Eye";
             this.richTextBox_Eye.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_Eye.Size = new System.Drawing.Size(235, 90);
+            this.richTextBox_Eye.Size = new System.Drawing.Size(341, 90);
             this.richTextBox_Eye.TabIndex = 10;
             this.richTextBox_Eye.Text = "";
             // 
@@ -1076,29 +1071,29 @@
             this.richTextBox_Hair.Location = new System.Drawing.Point(74, 60);
             this.richTextBox_Hair.Name = "richTextBox_Hair";
             this.richTextBox_Hair.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_Hair.Size = new System.Drawing.Size(235, 90);
+            this.richTextBox_Hair.Size = new System.Drawing.Size(337, 90);
             this.richTextBox_Hair.TabIndex = 9;
             this.richTextBox_Hair.Text = "";
             // 
             // textBox_Weight
             // 
-            this.textBox_Weight.Location = new System.Drawing.Point(367, 25);
+            this.textBox_Weight.Location = new System.Drawing.Point(459, 25);
             this.textBox_Weight.Name = "textBox_Weight";
-            this.textBox_Weight.Size = new System.Drawing.Size(100, 23);
+            this.textBox_Weight.Size = new System.Drawing.Size(206, 23);
             this.textBox_Weight.TabIndex = 8;
             // 
             // textBox_Height
             // 
             this.textBox_Height.Location = new System.Drawing.Point(74, 25);
             this.textBox_Height.Name = "textBox_Height";
-            this.textBox_Height.Size = new System.Drawing.Size(100, 23);
+            this.textBox_Height.Size = new System.Drawing.Size(172, 23);
             this.textBox_Height.TabIndex = 7;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label16.Location = new System.Drawing.Point(328, 60);
+            this.label16.Location = new System.Drawing.Point(420, 55);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(33, 13);
             this.label16.TabIndex = 6;
@@ -1118,7 +1113,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label13.Location = new System.Drawing.Point(317, 30);
+            this.label13.Location = new System.Drawing.Point(409, 25);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(44, 13);
             this.label13.TabIndex = 4;
@@ -1140,7 +1135,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(652, 478);
+            this.tabPage3.Size = new System.Drawing.Size(835, 478);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Background";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1158,7 +1153,7 @@
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox6.Location = new System.Drawing.Point(6, 6);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(619, 469);
+            this.groupBox6.Size = new System.Drawing.Size(823, 469);
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "The Character";
@@ -1168,7 +1163,7 @@
             this.richTextBox_History.Location = new System.Drawing.Point(71, 222);
             this.richTextBox_History.Name = "richTextBox_History";
             this.richTextBox_History.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_History.Size = new System.Drawing.Size(542, 241);
+            this.richTextBox_History.Size = new System.Drawing.Size(746, 241);
             this.richTextBox_History.TabIndex = 17;
             this.richTextBox_History.Text = "";
             // 
@@ -1177,7 +1172,7 @@
             this.richTextBox_Personality.Location = new System.Drawing.Point(71, 69);
             this.richTextBox_Personality.Name = "richTextBox_Personality";
             this.richTextBox_Personality.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_Personality.Size = new System.Drawing.Size(542, 147);
+            this.richTextBox_Personality.Size = new System.Drawing.Size(746, 147);
             this.richTextBox_Personality.TabIndex = 16;
             this.richTextBox_Personality.Text = "";
             // 
@@ -1253,7 +1248,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(652, 478);
+            this.tabPage4.Size = new System.Drawing.Size(835, 478);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Abilities";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1275,7 +1270,7 @@
             this.groupBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox9.Location = new System.Drawing.Point(6, 526);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(619, 226);
+            this.groupBox9.Size = new System.Drawing.Size(806, 226);
             this.groupBox9.TabIndex = 14;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Devil Fruit";
@@ -1311,9 +1306,9 @@
             // 
             this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label35.ForeColor = System.Drawing.Color.Purple;
-            this.label35.Location = new System.Drawing.Point(427, 22);
+            this.label35.Location = new System.Drawing.Point(618, 20);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(185, 32);
+            this.label35.Size = new System.Drawing.Size(173, 32);
             this.label35.TabIndex = 21;
             this.label35.Text = "Leave this blank if your character does not have a Devil Fruit";
             this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1322,9 +1317,9 @@
             // 
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label34.ForeColor = System.Drawing.Color.Purple;
-            this.label34.Location = new System.Drawing.Point(427, 194);
+            this.label34.Location = new System.Drawing.Point(618, 189);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(185, 13);
+            this.label34.Size = new System.Drawing.Size(173, 16);
             this.label34.TabIndex = 20;
             this.label34.Text = "(Only applicable for T1/T2 fruits)";
             this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1343,14 +1338,14 @@
             // 
             this.textBox_DFEffect.Location = new System.Drawing.Point(70, 189);
             this.textBox_DFEffect.Name = "textBox_DFEffect";
-            this.textBox_DFEffect.Size = new System.Drawing.Size(351, 23);
+            this.textBox_DFEffect.Size = new System.Drawing.Size(542, 23);
             this.textBox_DFEffect.TabIndex = 18;
             // 
             // richTextBox_DFDesc
             // 
             this.richTextBox_DFDesc.Location = new System.Drawing.Point(70, 87);
             this.richTextBox_DFDesc.Name = "richTextBox_DFDesc";
-            this.richTextBox_DFDesc.Size = new System.Drawing.Size(351, 96);
+            this.richTextBox_DFDesc.Size = new System.Drawing.Size(542, 96);
             this.richTextBox_DFDesc.TabIndex = 17;
             this.richTextBox_DFDesc.Text = "";
             // 
@@ -1404,7 +1399,7 @@
             // 
             this.textBox_DFName.Location = new System.Drawing.Point(70, 27);
             this.textBox_DFName.Name = "textBox_DFName";
-            this.textBox_DFName.Size = new System.Drawing.Size(351, 23);
+            this.textBox_DFName.Size = new System.Drawing.Size(542, 23);
             this.textBox_DFName.TabIndex = 8;
             // 
             // groupBox7
@@ -1431,14 +1426,14 @@
             this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox7.Location = new System.Drawing.Point(6, 6);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(619, 514);
+            this.groupBox7.Size = new System.Drawing.Size(806, 514);
             this.groupBox7.TabIndex = 2;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Fighting Methods and Equipment";
             // 
             // button_Standardize
             // 
-            this.button_Standardize.Location = new System.Drawing.Point(206, 482);
+            this.button_Standardize.Location = new System.Drawing.Point(238, 482);
             this.button_Standardize.Name = "button_Standardize";
             this.button_Standardize.Size = new System.Drawing.Size(92, 23);
             this.button_Standardize.TabIndex = 23;
@@ -1451,7 +1446,7 @@
             // button_DownItem
             // 
             this.button_DownItem.Image = ((System.Drawing.Image)(resources.GetObject("button_DownItem.Image")));
-            this.button_DownItem.Location = new System.Drawing.Point(587, 353);
+            this.button_DownItem.Location = new System.Drawing.Point(774, 353);
             this.button_DownItem.Name = "button_DownItem";
             this.button_DownItem.Size = new System.Drawing.Size(26, 26);
             this.button_DownItem.TabIndex = 22;
@@ -1461,7 +1456,7 @@
             // button_UpItem
             // 
             this.button_UpItem.Image = ((System.Drawing.Image)(resources.GetObject("button_UpItem.Image")));
-            this.button_UpItem.Location = new System.Drawing.Point(587, 321);
+            this.button_UpItem.Location = new System.Drawing.Point(774, 321);
             this.button_UpItem.Name = "button_UpItem";
             this.button_UpItem.Size = new System.Drawing.Size(26, 26);
             this.button_UpItem.TabIndex = 21;
@@ -1471,7 +1466,7 @@
             // button_DownWeapon
             // 
             this.button_DownWeapon.Image = ((System.Drawing.Image)(resources.GetObject("button_DownWeapon.Image")));
-            this.button_DownWeapon.Location = new System.Drawing.Point(587, 183);
+            this.button_DownWeapon.Location = new System.Drawing.Point(774, 183);
             this.button_DownWeapon.Name = "button_DownWeapon";
             this.button_DownWeapon.Size = new System.Drawing.Size(26, 26);
             this.button_DownWeapon.TabIndex = 20;
@@ -1481,7 +1476,7 @@
             // button_UpWeapon
             // 
             this.button_UpWeapon.Image = ((System.Drawing.Image)(resources.GetObject("button_UpWeapon.Image")));
-            this.button_UpWeapon.Location = new System.Drawing.Point(587, 151);
+            this.button_UpWeapon.Location = new System.Drawing.Point(774, 151);
             this.button_UpWeapon.Name = "button_UpWeapon";
             this.button_UpWeapon.Size = new System.Drawing.Size(26, 26);
             this.button_UpWeapon.TabIndex = 19;
@@ -1490,7 +1485,7 @@
             // 
             // button_ItemsEdit
             // 
-            this.button_ItemsEdit.Location = new System.Drawing.Point(464, 464);
+            this.button_ItemsEdit.Location = new System.Drawing.Point(651, 464);
             this.button_ItemsEdit.Name = "button_ItemsEdit";
             this.button_ItemsEdit.Size = new System.Drawing.Size(75, 23);
             this.button_ItemsEdit.TabIndex = 18;
@@ -1500,7 +1495,7 @@
             // 
             // button_WeaponEdit
             // 
-            this.button_WeaponEdit.Location = new System.Drawing.Point(464, 287);
+            this.button_WeaponEdit.Location = new System.Drawing.Point(651, 287);
             this.button_WeaponEdit.Name = "button_WeaponEdit";
             this.button_WeaponEdit.Size = new System.Drawing.Size(75, 23);
             this.button_WeaponEdit.TabIndex = 17;
@@ -1515,10 +1510,10 @@
             this.listView_Items.FullRowSelect = true;
             this.listView_Items.GridLines = true;
             this.listView_Items.LabelWrap = false;
-            this.listView_Items.Location = new System.Drawing.Point(71, 321);
+            this.listView_Items.Location = new System.Drawing.Point(70, 321);
             this.listView_Items.MultiSelect = false;
             this.listView_Items.Name = "listView_Items";
-            this.listView_Items.Size = new System.Drawing.Size(510, 137);
+            this.listView_Items.Size = new System.Drawing.Size(700, 137);
             this.listView_Items.TabIndex = 16;
             this.listView_Items.UseCompatibleStateImageBehavior = false;
             // 
@@ -1532,7 +1527,7 @@
             this.listView_Weaponry.Location = new System.Drawing.Point(71, 151);
             this.listView_Weaponry.MultiSelect = false;
             this.listView_Weaponry.Name = "listView_Weaponry";
-            this.listView_Weaponry.Size = new System.Drawing.Size(510, 130);
+            this.listView_Weaponry.Size = new System.Drawing.Size(700, 130);
             this.listView_Weaponry.TabIndex = 15;
             this.listView_Weaponry.UseCompatibleStateImageBehavior = false;
             // 
@@ -1540,7 +1535,7 @@
             // 
             this.textBox_Beli.Location = new System.Drawing.Point(70, 482);
             this.textBox_Beli.Name = "textBox_Beli";
-            this.textBox_Beli.Size = new System.Drawing.Size(121, 23);
+            this.textBox_Beli.Size = new System.Drawing.Size(162, 23);
             this.textBox_Beli.TabIndex = 14;
             this.textBox_Beli.Text = "500,000";
             // 
@@ -1566,7 +1561,7 @@
             // 
             // button_ItemsAdd
             // 
-            this.button_ItemsAdd.Location = new System.Drawing.Point(391, 464);
+            this.button_ItemsAdd.Location = new System.Drawing.Point(578, 464);
             this.button_ItemsAdd.Name = "button_ItemsAdd";
             this.button_ItemsAdd.Size = new System.Drawing.Size(67, 23);
             this.button_ItemsAdd.TabIndex = 11;
@@ -1576,7 +1571,7 @@
             // 
             // button_ItemsDelete
             // 
-            this.button_ItemsDelete.Location = new System.Drawing.Point(545, 464);
+            this.button_ItemsDelete.Location = new System.Drawing.Point(732, 464);
             this.button_ItemsDelete.Name = "button_ItemsDelete";
             this.button_ItemsDelete.Size = new System.Drawing.Size(67, 23);
             this.button_ItemsDelete.TabIndex = 10;
@@ -1596,7 +1591,7 @@
             // 
             // button_WeaponAdd
             // 
-            this.button_WeaponAdd.Location = new System.Drawing.Point(391, 287);
+            this.button_WeaponAdd.Location = new System.Drawing.Point(578, 287);
             this.button_WeaponAdd.Name = "button_WeaponAdd";
             this.button_WeaponAdd.Size = new System.Drawing.Size(67, 23);
             this.button_WeaponAdd.TabIndex = 7;
@@ -1606,7 +1601,7 @@
             // 
             // button_WeaponDelete
             // 
-            this.button_WeaponDelete.Location = new System.Drawing.Point(545, 287);
+            this.button_WeaponDelete.Location = new System.Drawing.Point(732, 287);
             this.button_WeaponDelete.Name = "button_WeaponDelete";
             this.button_WeaponDelete.Size = new System.Drawing.Size(67, 23);
             this.button_WeaponDelete.TabIndex = 6;
@@ -1616,9 +1611,9 @@
             // 
             // richTextBox_Combat
             // 
-            this.richTextBox_Combat.Location = new System.Drawing.Point(71, 29);
+            this.richTextBox_Combat.Location = new System.Drawing.Point(70, 29);
             this.richTextBox_Combat.Name = "richTextBox_Combat";
-            this.richTextBox_Combat.Size = new System.Drawing.Size(542, 96);
+            this.richTextBox_Combat.Size = new System.Drawing.Size(701, 96);
             this.richTextBox_Combat.TabIndex = 4;
             this.richTextBox_Combat.Text = "";
             // 
@@ -1637,7 +1632,7 @@
             this.tabPage7.Controls.Add(this.groupBox12);
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(652, 478);
+            this.tabPage7.Size = new System.Drawing.Size(835, 478);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "Stats";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -1690,7 +1685,7 @@
             this.groupBox12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox12.Location = new System.Drawing.Point(3, 3);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(619, 409);
+            this.groupBox12.Size = new System.Drawing.Size(829, 409);
             this.groupBox12.TabIndex = 14;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Statistics";
@@ -1704,7 +1699,7 @@
             this.textBox_SDtoSPCalc.Multiline = true;
             this.textBox_SDtoSPCalc.Name = "textBox_SDtoSPCalc";
             this.textBox_SDtoSPCalc.ReadOnly = true;
-            this.textBox_SDtoSPCalc.Size = new System.Drawing.Size(399, 16);
+            this.textBox_SDtoSPCalc.Size = new System.Drawing.Size(359, 16);
             this.textBox_SDtoSPCalc.TabIndex = 57;
             this.textBox_SDtoSPCalc.Text = "[32 + 0]";
             // 
@@ -1762,7 +1757,7 @@
             // 
             this.label_FortuneCalc.AutoSize = true;
             this.label_FortuneCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_FortuneCalc.Location = new System.Drawing.Point(366, 382);
+            this.label_FortuneCalc.Location = new System.Drawing.Point(354, 384);
             this.label_FortuneCalc.Name = "label_FortuneCalc";
             this.label_FortuneCalc.Size = new System.Drawing.Size(42, 13);
             this.label_FortuneCalc.TabIndex = 51;
@@ -1771,7 +1766,7 @@
             // label_GenerateCheck
             // 
             this.label_GenerateCheck.ForeColor = System.Drawing.Color.Red;
-            this.label_GenerateCheck.Location = new System.Drawing.Point(20, 313);
+            this.label_GenerateCheck.Location = new System.Drawing.Point(15, 315);
             this.label_GenerateCheck.Name = "label_GenerateCheck";
             this.label_GenerateCheck.Size = new System.Drawing.Size(209, 60);
             this.label_GenerateCheck.TabIndex = 6;
@@ -1782,7 +1777,7 @@
             // 
             this.label_AccuracyCalc.AutoSize = true;
             this.label_AccuracyCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_AccuracyCalc.Location = new System.Drawing.Point(430, 355);
+            this.label_AccuracyCalc.Location = new System.Drawing.Point(418, 357);
             this.label_AccuracyCalc.Name = "label_AccuracyCalc";
             this.label_AccuracyCalc.Size = new System.Drawing.Size(19, 13);
             this.label_AccuracyCalc.TabIndex = 50;
@@ -1792,7 +1787,7 @@
             // 
             this.label_StaminaCalc.AutoSize = true;
             this.label_StaminaCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_StaminaCalc.Location = new System.Drawing.Point(430, 325);
+            this.label_StaminaCalc.Location = new System.Drawing.Point(418, 327);
             this.label_StaminaCalc.Name = "label_StaminaCalc";
             this.label_StaminaCalc.Size = new System.Drawing.Size(19, 13);
             this.label_StaminaCalc.TabIndex = 49;
@@ -1802,7 +1797,7 @@
             // 
             this.label_SpeedCalc.AutoSize = true;
             this.label_SpeedCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_SpeedCalc.Location = new System.Drawing.Point(430, 296);
+            this.label_SpeedCalc.Location = new System.Drawing.Point(418, 298);
             this.label_SpeedCalc.Name = "label_SpeedCalc";
             this.label_SpeedCalc.Size = new System.Drawing.Size(19, 13);
             this.label_SpeedCalc.TabIndex = 48;
@@ -1812,7 +1807,7 @@
             // 
             this.label_StrengthCalc.AutoSize = true;
             this.label_StrengthCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_StrengthCalc.Location = new System.Drawing.Point(430, 265);
+            this.label_StrengthCalc.Location = new System.Drawing.Point(418, 267);
             this.label_StrengthCalc.Name = "label_StrengthCalc";
             this.label_StrengthCalc.Size = new System.Drawing.Size(19, 13);
             this.label_StrengthCalc.TabIndex = 47;
@@ -1822,7 +1817,7 @@
             // 
             this.label63.AutoSize = true;
             this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label63.Location = new System.Drawing.Point(378, 237);
+            this.label63.Location = new System.Drawing.Point(366, 239);
             this.label63.Name = "label63";
             this.label63.Size = new System.Drawing.Size(38, 17);
             this.label63.TabIndex = 46;
@@ -1831,7 +1826,7 @@
             // textBox_AccuracyFinal
             // 
             this.textBox_AccuracyFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_AccuracyFinal.Location = new System.Drawing.Point(369, 353);
+            this.textBox_AccuracyFinal.Location = new System.Drawing.Point(357, 355);
             this.textBox_AccuracyFinal.Name = "textBox_AccuracyFinal";
             this.textBox_AccuracyFinal.ReadOnly = true;
             this.textBox_AccuracyFinal.Size = new System.Drawing.Size(55, 20);
@@ -1841,7 +1836,7 @@
             // textBox_StaminaFinal
             // 
             this.textBox_StaminaFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_StaminaFinal.Location = new System.Drawing.Point(369, 323);
+            this.textBox_StaminaFinal.Location = new System.Drawing.Point(357, 325);
             this.textBox_StaminaFinal.Name = "textBox_StaminaFinal";
             this.textBox_StaminaFinal.ReadOnly = true;
             this.textBox_StaminaFinal.Size = new System.Drawing.Size(55, 20);
@@ -1851,7 +1846,7 @@
             // textBox_SpeedFinal
             // 
             this.textBox_SpeedFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_SpeedFinal.Location = new System.Drawing.Point(369, 293);
+            this.textBox_SpeedFinal.Location = new System.Drawing.Point(357, 295);
             this.textBox_SpeedFinal.Name = "textBox_SpeedFinal";
             this.textBox_SpeedFinal.ReadOnly = true;
             this.textBox_SpeedFinal.Size = new System.Drawing.Size(55, 20);
@@ -1861,7 +1856,7 @@
             // textBox_StrengthFinal
             // 
             this.textBox_StrengthFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_StrengthFinal.Location = new System.Drawing.Point(369, 263);
+            this.textBox_StrengthFinal.Location = new System.Drawing.Point(357, 265);
             this.textBox_StrengthFinal.Name = "textBox_StrengthFinal";
             this.textBox_StrengthFinal.ReadOnly = true;
             this.textBox_StrengthFinal.Size = new System.Drawing.Size(55, 20);
@@ -1871,7 +1866,7 @@
             // textBox_Fortune
             // 
             this.textBox_Fortune.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_Fortune.Location = new System.Drawing.Point(296, 382);
+            this.textBox_Fortune.Location = new System.Drawing.Point(284, 384);
             this.textBox_Fortune.Name = "textBox_Fortune";
             this.textBox_Fortune.ReadOnly = true;
             this.textBox_Fortune.Size = new System.Drawing.Size(55, 20);
@@ -1882,7 +1877,7 @@
             // numericUpDown_AccuracyBase
             // 
             this.numericUpDown_AccuracyBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.numericUpDown_AccuracyBase.Location = new System.Drawing.Point(296, 353);
+            this.numericUpDown_AccuracyBase.Location = new System.Drawing.Point(284, 355);
             this.numericUpDown_AccuracyBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1906,7 +1901,7 @@
             // numericUpDown_StaminaBase
             // 
             this.numericUpDown_StaminaBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.numericUpDown_StaminaBase.Location = new System.Drawing.Point(296, 323);
+            this.numericUpDown_StaminaBase.Location = new System.Drawing.Point(284, 325);
             this.numericUpDown_StaminaBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1930,7 +1925,7 @@
             // numericUpDown_SpeedBase
             // 
             this.numericUpDown_SpeedBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.numericUpDown_SpeedBase.Location = new System.Drawing.Point(296, 293);
+            this.numericUpDown_SpeedBase.Location = new System.Drawing.Point(284, 295);
             this.numericUpDown_SpeedBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1954,7 +1949,7 @@
             // numericUpDown_StrengthBase
             // 
             this.numericUpDown_StrengthBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.numericUpDown_StrengthBase.Location = new System.Drawing.Point(296, 263);
+            this.numericUpDown_StrengthBase.Location = new System.Drawing.Point(284, 265);
             this.numericUpDown_StrengthBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1979,7 +1974,7 @@
             // 
             this.label67.AutoSize = true;
             this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label67.Location = new System.Drawing.Point(301, 236);
+            this.label67.Location = new System.Drawing.Point(289, 238);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(40, 17);
             this.label67.TabIndex = 36;
@@ -1989,7 +1984,7 @@
             // 
             this.label68.AutoSize = true;
             this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label68.Location = new System.Drawing.Point(244, 385);
+            this.label68.Location = new System.Drawing.Point(232, 387);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(46, 13);
             this.label68.TabIndex = 35;
@@ -1999,7 +1994,7 @@
             // 
             this.label69.AutoSize = true;
             this.label69.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label69.Location = new System.Drawing.Point(235, 355);
+            this.label69.Location = new System.Drawing.Point(223, 357);
             this.label69.Name = "label69";
             this.label69.Size = new System.Drawing.Size(55, 13);
             this.label69.TabIndex = 34;
@@ -2009,7 +2004,7 @@
             // 
             this.label70.AutoSize = true;
             this.label70.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label70.Location = new System.Drawing.Point(242, 325);
+            this.label70.Location = new System.Drawing.Point(230, 327);
             this.label70.Name = "label70";
             this.label70.Size = new System.Drawing.Size(48, 13);
             this.label70.TabIndex = 33;
@@ -2019,7 +2014,7 @@
             // 
             this.label71.AutoSize = true;
             this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label71.Location = new System.Drawing.Point(249, 295);
+            this.label71.Location = new System.Drawing.Point(237, 297);
             this.label71.Name = "label71";
             this.label71.Size = new System.Drawing.Size(41, 13);
             this.label71.TabIndex = 32;
@@ -2029,7 +2024,7 @@
             // 
             this.label72.AutoSize = true;
             this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label72.Location = new System.Drawing.Point(240, 265);
+            this.label72.Location = new System.Drawing.Point(228, 267);
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(50, 13);
             this.label72.TabIndex = 31;
@@ -2189,7 +2184,7 @@
             "Devil Fruit - Choose a Myth Zoan, gained without DF SL"});
             this.checkedListBox1_AP.Location = new System.Drawing.Point(193, 52);
             this.checkedListBox1_AP.Name = "checkedListBox1_AP";
-            this.checkedListBox1_AP.Size = new System.Drawing.Size(399, 109);
+            this.checkedListBox1_AP.Size = new System.Drawing.Size(359, 109);
             this.checkedListBox1_AP.TabIndex = 8;
             this.checkedListBox1_AP.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_AP_SelectedIndexChanged);
             // 
@@ -2219,7 +2214,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(652, 478);
+            this.tabPage5.Size = new System.Drawing.Size(835, 478);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Traits";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -2235,7 +2230,7 @@
             this.groupBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox10.Location = new System.Drawing.Point(6, 6);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(619, 469);
+            this.groupBox10.Size = new System.Drawing.Size(823, 469);
             this.groupBox10.TabIndex = 3;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Traits";
@@ -2257,7 +2252,7 @@
             // 
             this.label59_TraitsCalc.AutoSize = true;
             this.label59_TraitsCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label59_TraitsCalc.Location = new System.Drawing.Point(230, 379);
+            this.label59_TraitsCalc.Location = new System.Drawing.Point(426, 379);
             this.label59_TraitsCalc.Name = "label59_TraitsCalc";
             this.label59_TraitsCalc.Size = new System.Drawing.Size(383, 16);
             this.label59_TraitsCalc.TabIndex = 22;
@@ -2268,7 +2263,7 @@
             this.label58_TraitsCurrent.AutoSize = true;
             this.label58_TraitsCurrent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label58_TraitsCurrent.ForeColor = System.Drawing.Color.Red;
-            this.label58_TraitsCurrent.Location = new System.Drawing.Point(230, 363);
+            this.label58_TraitsCurrent.Location = new System.Drawing.Point(426, 363);
             this.label58_TraitsCurrent.Name = "label58_TraitsCurrent";
             this.label58_TraitsCurrent.Size = new System.Drawing.Size(383, 16);
             this.label58_TraitsCurrent.TabIndex = 21;
@@ -2276,7 +2271,7 @@
             // 
             // button_TraitsDelete
             // 
-            this.button_TraitsDelete.Location = new System.Drawing.Point(538, 327);
+            this.button_TraitsDelete.Location = new System.Drawing.Point(734, 327);
             this.button_TraitsDelete.Name = "button_TraitsDelete";
             this.button_TraitsDelete.Size = new System.Drawing.Size(75, 23);
             this.button_TraitsDelete.TabIndex = 3;
@@ -2286,7 +2281,7 @@
             // 
             // button_TraitAdd
             // 
-            this.button_TraitAdd.Location = new System.Drawing.Point(457, 327);
+            this.button_TraitAdd.Location = new System.Drawing.Point(653, 327);
             this.button_TraitAdd.Name = "button_TraitAdd";
             this.button_TraitAdd.Size = new System.Drawing.Size(75, 23);
             this.button_TraitAdd.TabIndex = 3;
@@ -2301,10 +2296,10 @@
             this.listView_Traits.FullRowSelect = true;
             this.listView_Traits.GridLines = true;
             this.listView_Traits.LabelWrap = false;
-            this.listView_Traits.Location = new System.Drawing.Point(6, 22);
+            this.listView_Traits.Location = new System.Drawing.Point(9, 22);
             this.listView_Traits.MultiSelect = false;
             this.listView_Traits.Name = "listView_Traits";
-            this.listView_Traits.Size = new System.Drawing.Size(607, 299);
+            this.listView_Traits.Size = new System.Drawing.Size(800, 299);
             this.listView_Traits.TabIndex = 0;
             this.listView_Traits.UseCompatibleStateImageBehavior = false;
             // 
@@ -2316,7 +2311,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(652, 478);
+            this.tabPage6.Size = new System.Drawing.Size(835, 478);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Techniques";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -2340,7 +2335,7 @@
             this.groupBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox8.Location = new System.Drawing.Point(6, 419);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(619, 196);
+            this.groupBox8.Size = new System.Drawing.Size(806, 196);
             this.groupBox8.TabIndex = 41;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Categories";
@@ -2349,16 +2344,16 @@
             // 
             this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label41.ForeColor = System.Drawing.Color.Indigo;
-            this.label41.Location = new System.Drawing.Point(477, 99);
+            this.label41.Location = new System.Drawing.Point(676, 99);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(136, 52);
+            this.label41.Size = new System.Drawing.Size(124, 52);
             this.label41.TabIndex = 51;
             this.label41.Text = "Finish all your Techniques first, and then make categories.";
             this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button_SubCatEdit
             // 
-            this.button_SubCatEdit.Location = new System.Drawing.Point(315, 128);
+            this.button_SubCatEdit.Location = new System.Drawing.Point(595, 99);
             this.button_SubCatEdit.Name = "button_SubCatEdit";
             this.button_SubCatEdit.Size = new System.Drawing.Size(75, 23);
             this.button_SubCatEdit.TabIndex = 50;
@@ -2371,7 +2366,7 @@
             this.label_RowNum.AutoSize = true;
             this.label_RowNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label_RowNum.ForeColor = System.Drawing.Color.Blue;
-            this.label_RowNum.Location = new System.Drawing.Point(312, 17);
+            this.label_RowNum.Location = new System.Drawing.Point(425, 17);
             this.label_RowNum.Name = "label_RowNum";
             this.label_RowNum.Size = new System.Drawing.Size(220, 13);
             this.label_RowNum.TabIndex = 42;
@@ -2381,9 +2376,9 @@
             // 
             this.label_SubCatWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label_SubCatWarning.ForeColor = System.Drawing.Color.OrangeRed;
-            this.label_SubCatWarning.Location = new System.Drawing.Point(312, 154);
+            this.label_SubCatWarning.Location = new System.Drawing.Point(425, 154);
             this.label_SubCatWarning.Name = "label_SubCatWarning";
-            this.label_SubCatWarning.Size = new System.Drawing.Size(301, 39);
+            this.label_SubCatWarning.Size = new System.Drawing.Size(375, 39);
             this.label_SubCatWarning.TabIndex = 49;
             this.label_SubCatWarning.Text = "Note: Adding no Categories will automatically put all Techniques into one table.\r" +
     "\n";
@@ -2391,7 +2386,7 @@
             // 
             // numericUpDown_RowEnd
             // 
-            this.numericUpDown_RowEnd.Location = new System.Drawing.Point(514, 36);
+            this.numericUpDown_RowEnd.Location = new System.Drawing.Point(627, 36);
             this.numericUpDown_RowEnd.Maximum = new decimal(new int[] {
             0,
             0,
@@ -2403,7 +2398,7 @@
             // 
             // numericUpDown_RowBegin
             // 
-            this.numericUpDown_RowBegin.Location = new System.Drawing.Point(401, 36);
+            this.numericUpDown_RowBegin.Location = new System.Drawing.Point(514, 36);
             this.numericUpDown_RowBegin.Maximum = new decimal(new int[] {
             0,
             0,
@@ -2415,15 +2410,15 @@
             // 
             // textBox_SubCat
             // 
-            this.textBox_SubCat.Location = new System.Drawing.Point(401, 65);
+            this.textBox_SubCat.Location = new System.Drawing.Point(514, 65);
             this.textBox_SubCat.Name = "textBox_SubCat";
-            this.textBox_SubCat.Size = new System.Drawing.Size(212, 23);
+            this.textBox_SubCat.Size = new System.Drawing.Size(286, 23);
             this.textBox_SubCat.TabIndex = 47;
             // 
             // label40
             // 
             this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label40.Location = new System.Drawing.Point(311, 62);
+            this.label40.Location = new System.Drawing.Point(424, 62);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(84, 28);
             this.label40.TabIndex = 46;
@@ -2432,7 +2427,7 @@
             // 
             // button_SubCatAdd
             // 
-            this.button_SubCatAdd.Location = new System.Drawing.Point(401, 99);
+            this.button_SubCatAdd.Location = new System.Drawing.Point(514, 99);
             this.button_SubCatAdd.Name = "button_SubCatAdd";
             this.button_SubCatAdd.Size = new System.Drawing.Size(75, 23);
             this.button_SubCatAdd.TabIndex = 45;
@@ -2442,7 +2437,7 @@
             // 
             // button_SubCatClear
             // 
-            this.button_SubCatClear.Location = new System.Drawing.Point(315, 99);
+            this.button_SubCatClear.Location = new System.Drawing.Point(428, 99);
             this.button_SubCatClear.Name = "button_SubCatClear";
             this.button_SubCatClear.Size = new System.Drawing.Size(75, 23);
             this.button_SubCatClear.TabIndex = 43;
@@ -2465,7 +2460,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label38.Location = new System.Drawing.Point(454, 40);
+            this.label38.Location = new System.Drawing.Point(567, 40);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(54, 13);
             this.label38.TabIndex = 44;
@@ -2475,7 +2470,7 @@
             // 
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label36.Location = new System.Drawing.Point(333, 40);
+            this.label36.Location = new System.Drawing.Point(446, 40);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(62, 13);
             this.label36.TabIndex = 43;
@@ -2492,7 +2487,7 @@
             this.listView_SubCat.Location = new System.Drawing.Point(6, 22);
             this.listView_SubCat.MultiSelect = false;
             this.listView_SubCat.Name = "listView_SubCat";
-            this.listView_SubCat.Size = new System.Drawing.Size(300, 129);
+            this.listView_SubCat.Size = new System.Drawing.Size(412, 129);
             this.listView_SubCat.TabIndex = 43;
             this.listView_SubCat.UseCompatibleStateImageBehavior = false;
             this.listView_SubCat.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.listView_SubCat_ColumnWidthChanging);
@@ -2523,7 +2518,7 @@
             this.groupBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox11.Location = new System.Drawing.Point(6, 6);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(619, 407);
+            this.groupBox11.Size = new System.Drawing.Size(806, 407);
             this.groupBox11.TabIndex = 3;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Techniques";
@@ -2534,7 +2529,7 @@
             this.label_CritAnatQuick.ForeColor = System.Drawing.Color.Purple;
             this.label_CritAnatQuick.Location = new System.Drawing.Point(9, 92);
             this.label_CritAnatQuick.Name = "label_CritAnatQuick";
-            this.label_CritAnatQuick.Size = new System.Drawing.Size(225, 63);
+            this.label_CritAnatQuick.Size = new System.Drawing.Size(293, 63);
             this.label_CritAnatQuick.TabIndex = 40;
             this.label_CritAnatQuick.Text = "Critical Hit, Anatomical Strike, and Quickstrike Points";
             this.label_CritAnatQuick.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2553,7 +2548,7 @@
             // 
             // button_TechBranch
             // 
-            this.button_TechBranch.Location = new System.Drawing.Point(372, 378);
+            this.button_TechBranch.Location = new System.Drawing.Point(559, 378);
             this.button_TechBranch.Name = "button_TechBranch";
             this.button_TechBranch.Size = new System.Drawing.Size(75, 23);
             this.button_TechBranch.TabIndex = 39;
@@ -2564,7 +2559,7 @@
             // button_DownTech
             // 
             this.button_DownTech.Image = ((System.Drawing.Image)(resources.GetObject("button_DownTech.Image")));
-            this.button_DownTech.Location = new System.Drawing.Point(587, 204);
+            this.button_DownTech.Location = new System.Drawing.Point(774, 204);
             this.button_DownTech.Name = "button_DownTech";
             this.button_DownTech.Size = new System.Drawing.Size(26, 26);
             this.button_DownTech.TabIndex = 38;
@@ -2574,7 +2569,7 @@
             // button_UpTech
             // 
             this.button_UpTech.Image = ((System.Drawing.Image)(resources.GetObject("button_UpTech.Image")));
-            this.button_UpTech.Location = new System.Drawing.Point(587, 172);
+            this.button_UpTech.Location = new System.Drawing.Point(774, 172);
             this.button_UpTech.Name = "button_UpTech";
             this.button_UpTech.Size = new System.Drawing.Size(26, 26);
             this.button_UpTech.TabIndex = 37;
@@ -2583,7 +2578,7 @@
             // 
             // textBox_SpTPTotal
             // 
-            this.textBox_SpTPTotal.Location = new System.Drawing.Point(202, 61);
+            this.textBox_SpTPTotal.Location = new System.Drawing.Point(270, 61);
             this.textBox_SpTPTotal.Name = "textBox_SpTPTotal";
             this.textBox_SpTPTotal.ReadOnly = true;
             this.textBox_SpTPTotal.Size = new System.Drawing.Size(32, 23);
@@ -2594,7 +2589,7 @@
             // 
             this.label45.AutoSize = true;
             this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.label45.Location = new System.Drawing.Point(178, 61);
+            this.label45.Location = new System.Drawing.Point(246, 61);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(18, 25);
             this.label45.TabIndex = 34;
@@ -2602,7 +2597,7 @@
             // 
             // textBox_SpTPUsed
             // 
-            this.textBox_SpTPUsed.Location = new System.Drawing.Point(140, 61);
+            this.textBox_SpTPUsed.Location = new System.Drawing.Point(208, 61);
             this.textBox_SpTPUsed.Name = "textBox_SpTPUsed";
             this.textBox_SpTPUsed.ReadOnly = true;
             this.textBox_SpTPUsed.Size = new System.Drawing.Size(32, 23);
@@ -2612,7 +2607,7 @@
             // 
             // button_TechEdit
             // 
-            this.button_TechEdit.Location = new System.Drawing.Point(453, 378);
+            this.button_TechEdit.Location = new System.Drawing.Point(640, 378);
             this.button_TechEdit.Name = "button_TechEdit";
             this.button_TechEdit.Size = new System.Drawing.Size(75, 23);
             this.button_TechEdit.TabIndex = 32;
@@ -2622,7 +2617,7 @@
             // 
             // button_TechDelete
             // 
-            this.button_TechDelete.Location = new System.Drawing.Point(534, 378);
+            this.button_TechDelete.Location = new System.Drawing.Point(721, 378);
             this.button_TechDelete.Name = "button_TechDelete";
             this.button_TechDelete.Size = new System.Drawing.Size(75, 23);
             this.button_TechDelete.TabIndex = 30;
@@ -2632,7 +2627,7 @@
             // 
             // button_TechAdd
             // 
-            this.button_TechAdd.Location = new System.Drawing.Point(291, 378);
+            this.button_TechAdd.Location = new System.Drawing.Point(478, 378);
             this.button_TechAdd.Name = "button_TechAdd";
             this.button_TechAdd.Size = new System.Drawing.Size(75, 23);
             this.button_TechAdd.TabIndex = 31;
@@ -2651,7 +2646,7 @@
             this.listView_Techniques.Location = new System.Drawing.Point(6, 172);
             this.listView_Techniques.MultiSelect = false;
             this.listView_Techniques.Name = "listView_Techniques";
-            this.listView_Techniques.Size = new System.Drawing.Size(575, 200);
+            this.listView_Techniques.Size = new System.Drawing.Size(760, 200);
             this.listView_Techniques.TabIndex = 29;
             this.listView_Techniques.UseCompatibleStateImageBehavior = false;
             this.listView_Techniques.SelectedIndexChanged += new System.EventHandler(this.listView_Techniques_SelectedIndexChanged);
@@ -2674,10 +2669,10 @@
             this.listView_SpTP.GridLines = true;
             this.listView_SpTP.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView_SpTP.LabelWrap = false;
-            this.listView_SpTP.Location = new System.Drawing.Point(243, 61);
+            this.listView_SpTP.Location = new System.Drawing.Point(311, 61);
             this.listView_SpTP.MultiSelect = false;
             this.listView_SpTP.Name = "listView_SpTP";
-            this.listView_SpTP.Size = new System.Drawing.Size(370, 105);
+            this.listView_SpTP.Size = new System.Drawing.Size(455, 105);
             this.listView_SpTP.TabIndex = 27;
             this.listView_SpTP.UseCompatibleStateImageBehavior = false;
             this.listView_SpTP.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.listView3_SpTP_ColumnWidthChanging);
@@ -2686,11 +2681,11 @@
             // 
             this.label64.AutoSize = true;
             this.label64.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label64.Location = new System.Drawing.Point(6, 66);
+            this.label64.Location = new System.Drawing.Point(71, 66);
             this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(128, 13);
+            this.label64.Size = new System.Drawing.Size(131, 13);
             this.label64.TabIndex = 26;
-            this.label64.Text = "Special Technique Points";
+            this.label64.Text = "Special Technique Points:";
             // 
             // label_RegTPCalc
             // 
@@ -2745,6 +2740,7 @@
             // 
             // tabPage8
             // 
+            this.tabPage8.Controls.Add(this.button_LoadTemp);
             this.tabPage8.Controls.Add(this.button_MoreTemplate);
             this.tabPage8.Controls.Add(this.label49);
             this.tabPage8.Controls.Add(this.textBox_MasteryMsg);
@@ -2755,20 +2751,29 @@
             this.tabPage8.Controls.Add(this.label47);
             this.tabPage8.Controls.Add(this.richTextBox_Template);
             this.tabPage8.Controls.Add(this.label46);
-            this.tabPage8.Controls.Add(this.label44);
             this.tabPage8.Controls.Add(this.label_TemplateType);
             this.tabPage8.Controls.Add(this.label43);
             this.tabPage8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Size = new System.Drawing.Size(652, 478);
+            this.tabPage8.Size = new System.Drawing.Size(835, 478);
             this.tabPage8.TabIndex = 7;
             this.tabPage8.Text = "Template";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
+            // button_LoadTemp
+            // 
+            this.button_LoadTemp.Location = new System.Drawing.Point(569, 22);
+            this.button_LoadTemp.Name = "button_LoadTemp";
+            this.button_LoadTemp.Size = new System.Drawing.Size(79, 43);
+            this.button_LoadTemp.TabIndex = 19;
+            this.button_LoadTemp.Text = "Load Template";
+            this.button_LoadTemp.UseVisualStyleBackColor = true;
+            this.button_LoadTemp.Click += new System.EventHandler(this.button_LoadTemp_Click);
+            // 
             // button_MoreTemplate
             // 
-            this.button_MoreTemplate.Location = new System.Drawing.Point(554, 22);
+            this.button_MoreTemplate.Location = new System.Drawing.Point(739, 22);
             this.button_MoreTemplate.Name = "button_MoreTemplate";
             this.button_MoreTemplate.Size = new System.Drawing.Size(85, 43);
             this.button_MoreTemplate.TabIndex = 18;
@@ -2780,7 +2785,7 @@
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(292, 441);
+            this.label49.Location = new System.Drawing.Point(475, 443);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(327, 17);
             this.label49.TabIndex = 17;
@@ -2791,7 +2796,7 @@
             this.textBox_MasteryMsg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.textBox_MasteryMsg.Location = new System.Drawing.Point(118, 440);
             this.textBox_MasteryMsg.Name = "textBox_MasteryMsg";
-            this.textBox_MasteryMsg.Size = new System.Drawing.Size(168, 23);
+            this.textBox_MasteryMsg.Size = new System.Drawing.Size(351, 23);
             this.textBox_MasteryMsg.TabIndex = 16;
             this.textBox_MasteryMsg.Text = "* denotes +4 Rank Mastery";
             this.textBox_MasteryMsg.WordWrap = false;
@@ -2807,7 +2812,7 @@
             // 
             // button_ResetTemp
             // 
-            this.button_ResetTemp.Location = new System.Drawing.Point(469, 22);
+            this.button_ResetTemp.Location = new System.Drawing.Point(654, 22);
             this.button_ResetTemp.Name = "button_ResetTemp";
             this.button_ResetTemp.Size = new System.Drawing.Size(79, 43);
             this.button_ResetTemp.TabIndex = 11;
@@ -2818,7 +2823,7 @@
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(292, 412);
+            this.label48.Location = new System.Drawing.Point(475, 414);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(357, 17);
             this.label48.TabIndex = 14;
@@ -2829,7 +2834,7 @@
             this.textBox_Color.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.textBox_Color.Location = new System.Drawing.Point(118, 411);
             this.textBox_Color.Name = "textBox_Color";
-            this.textBox_Color.Size = new System.Drawing.Size(168, 23);
+            this.textBox_Color.Size = new System.Drawing.Size(351, 23);
             this.textBox_Color.TabIndex = 13;
             this.textBox_Color.WordWrap = false;
             // 
@@ -2848,7 +2853,7 @@
             this.richTextBox_Template.Location = new System.Drawing.Point(6, 83);
             this.richTextBox_Template.Name = "richTextBox_Template";
             this.richTextBox_Template.ReadOnly = true;
-            this.richTextBox_Template.Size = new System.Drawing.Size(633, 322);
+            this.richTextBox_Template.Size = new System.Drawing.Size(818, 322);
             this.richTextBox_Template.TabIndex = 11;
             this.richTextBox_Template.Text = "";
             // 
@@ -2860,15 +2865,6 @@
             this.label46.Size = new System.Drawing.Size(153, 17);
             this.label46.TabIndex = 3;
             this.label46.Text = "Template Source Code";
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(3, 35);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(440, 17);
-            this.label44.TabIndex = 2;
-            this.label44.Text = "(To import a .txt Custom Template, go to Import -> Custom Template)";
             // 
             // label_TemplateType
             // 
@@ -2892,7 +2888,7 @@
             // button_Generate
             // 
             this.button_Generate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.button_Generate.Location = new System.Drawing.Point(536, 640);
+            this.button_Generate.Location = new System.Drawing.Point(715, 640);
             this.button_Generate.Name = "button_Generate";
             this.button_Generate.Size = new System.Drawing.Size(136, 32);
             this.button_Generate.TabIndex = 5;
@@ -2918,7 +2914,7 @@
             // button_ResetChar
             // 
             this.button_ResetChar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.button_ResetChar.Location = new System.Drawing.Point(394, 640);
+            this.button_ResetChar.Location = new System.Drawing.Point(573, 640);
             this.button_ResetChar.Name = "button_ResetChar";
             this.button_ResetChar.Size = new System.Drawing.Size(136, 32);
             this.button_ResetChar.TabIndex = 8;
@@ -2931,55 +2927,10 @@
             this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label37.Location = new System.Drawing.Point(99, 91);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(488, 20);
+            this.label37.Size = new System.Drawing.Size(664, 20);
             this.label37.TabIndex = 9;
-            this.label37.Text = "Updated to the February 2017 Patch";
+            this.label37.Text = "Updated to the April 2017 Patch";
             this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveAsToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // saveAsToolStripMenuItem
-            // 
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
-            this.saveAsToolStripMenuItem.Text = "Save As...";
-            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
-            this.menuStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.importToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(684, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.characterTemplateToolStripMenuItem});
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
-            this.importToolStripMenuItem.Text = "Import";
-            // 
-            // characterTemplateToolStripMenuItem
-            // 
-            this.characterTemplateToolStripMenuItem.Name = "characterTemplateToolStripMenuItem";
-            this.characterTemplateToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.characterTemplateToolStripMenuItem.Text = "Custom Template";
-            this.characterTemplateToolStripMenuItem.Click += new System.EventHandler(this.characterTemplateToolStripMenuItem_Click);
             // 
             // toolTips
             // 
@@ -2995,11 +2946,12 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton_New,
             this.toolStripButton_Open,
-            this.toolStripButton_Save});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this.toolStripButton_Save,
+            this.toolStripButton_SaveAs});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(684, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(867, 27);
             this.toolStrip1.TabIndex = 10;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -3033,12 +2985,22 @@
             this.toolStripButton_Save.Text = "Save";
             this.toolStripButton_Save.Click += new System.EventHandler(this.toolStripButton_Save_Click);
             // 
+            // toolStripButton_SaveAs
+            // 
+            this.toolStripButton_SaveAs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_SaveAs.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_SaveAs.Image")));
+            this.toolStripButton_SaveAs.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_SaveAs.Name = "toolStripButton_SaveAs";
+            this.toolStripButton_SaveAs.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButton_SaveAs.Text = "Save As";
+            this.toolStripButton_SaveAs.ToolTipText = "Save As";
+            this.toolStripButton_SaveAs.Click += new System.EventHandler(this.toolStripButton_SaveAs_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(684, 681);
+            this.ClientSize = new System.Drawing.Size(867, 681);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.label37);
             this.Controls.Add(this.button_ResetChar);
@@ -3046,9 +3008,7 @@
             this.Controls.Add(this.button_Generate);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label_Title);
-            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "OPRP Character Builder";
@@ -3099,8 +3059,6 @@
             this.groupBox11.PerformLayout();
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -3229,9 +3187,6 @@
 		private System.Windows.Forms.TextBox textBox_SpTPTotal;
 		private System.Windows.Forms.Label label45;
 		private System.Windows.Forms.TextBox textBox_SpTPUsed;
-		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
-		private System.Windows.Forms.MenuStrip menuStrip1;
 		private System.Windows.Forms.TabPage tabPage7;
 		private System.Windows.Forms.GroupBox groupBox12;
 		private System.Windows.Forms.TextBox textBox_AP;
@@ -3285,7 +3240,6 @@
 		private System.Windows.Forms.ToolTip toolTips;
 		private System.Windows.Forms.Button button_Standardize;
 		private System.Windows.Forms.Button button_TechBranch;
-		private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
 		private System.Windows.Forms.Button button_ImageDelete;
 		private System.Windows.Forms.Button button_ImageAdd;
 		private System.Windows.Forms.TextBox textBox_ImageLabel;
@@ -3325,13 +3279,11 @@
 		private System.Windows.Forms.Label label39;
 		private System.Windows.Forms.Button button_SubCatEdit;
 		private System.Windows.Forms.Label label41;
-		private System.Windows.Forms.ToolStripMenuItem characterTemplateToolStripMenuItem;
 		private System.Windows.Forms.ComboBox comboBox_DFTier;
 		private System.Windows.Forms.Label label42;
 		private System.Windows.Forms.TabPage tabPage8;
 		private System.Windows.Forms.Label label43;
 		private System.Windows.Forms.Label label_TemplateType;
-		private System.Windows.Forms.Label label44;
 		private System.Windows.Forms.Label label46;
 		private System.Windows.Forms.RichTextBox richTextBox_Template;
 		private System.Windows.Forms.Label label47;
@@ -3344,6 +3296,8 @@
 		private System.Windows.Forms.Button button_MoreTemplate;
         private System.Windows.Forms.NumericUpDown numericUpDown_Comm;
         private System.Windows.Forms.TextBox textBox_SDtoSPCalc;
+        private System.Windows.Forms.Button button_LoadTemp;
+        private System.Windows.Forms.ToolStripButton toolStripButton_SaveAs;
     }
 }
 

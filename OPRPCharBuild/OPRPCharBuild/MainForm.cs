@@ -30,7 +30,7 @@ namespace OPRPCharBuild
 
 		#region Member Variables
 
-		public const string VERSION = "1.4.0";
+		public const string VERSION = "1.5.0";
 		public const string VERS_TYPE = "";
 		public const string STD_TEMPLATE_MSG = "Standard Template";
         private const string WEBSITE = "https://github.com/mrdoowan/OPRPCharBuild/releases";
@@ -880,43 +880,43 @@ namespace OPRPCharBuild
 
 			listView_Prof.Columns.Add("Profession", 130);
 			listView_Prof.Columns.Add("Type", 100);
-			listView_Prof.Columns.Add("Description", 200);
-			listView_Prof.Columns.Add("Primary Bonus", 200);
+			listView_Prof.Columns.Add("Description", 265);
+			listView_Prof.Columns.Add("Primary Bonus", 265);
 
 			// ------ Images
 			listView_Images.View = View.Details;
 			listView_Images.FullRowSelect = true;
             
-            listView_Images.Columns.Add("URL", 200);
-            listView_Images.Columns.Add("Label", 150);
-			listView_Images.Columns.Add("FullRes", 30);
-			listView_Images.Columns.Add("Width", 40);
-			listView_Images.Columns.Add("Height", 40);
+            listView_Images.Columns.Add("URL", 300);
+            listView_Images.Columns.Add("Label", 200);
+			listView_Images.Columns.Add("FullRes", 60);
+			listView_Images.Columns.Add("Width", 55);
+			listView_Images.Columns.Add("Height", 55);
 
 			// ------ Traits
 			listView_Traits.View = View.Details;
 			listView_Traits.FullRowSelect = true;
 
 			listView_Traits.Columns.Add("Trait Name", 200);
-			listView_Traits.Columns.Add("Type", 100);
+			listView_Traits.Columns.Add("Type", 150);
 			listView_Traits.Columns.Add("# Gen", 50);
 			listView_Traits.Columns.Add("# Prof", 50);
-			listView_Traits.Columns.Add("Description", 200);
+			listView_Traits.Columns.Add("Description", 350);
 
 			// ------ Special Techniques
 			listView_SpTP.View = View.Details;
 			listView_SpTP.FullRowSelect = true;
 
-			listView_SpTP.Columns.Add("Sp. Trait Name", 250);
-			listView_SpTP.Columns.Add("Used", 50);
-			listView_SpTP.Columns.Add("Total", 50);
+			listView_SpTP.Columns.Add("Sp. Trait Name", 305);
+			listView_SpTP.Columns.Add("Used", 75);
+			listView_SpTP.Columns.Add("Total", 75);
 
 			// ------ Technique Table
 			listView_Techniques.View = View.Details;
 			listView_Techniques.FullRowSelect = true;
 			label_CritAnatQuick.Text = "";
 
-			listView_Techniques.Columns.Add("Tech Name", 250);      // 0
+			listView_Techniques.Columns.Add("Tech Name", 160);      // 0
 			listView_Techniques.Columns.Add("Rank", 50);            // 1
 			listView_Techniques.Columns.Add("Reg TP", 50);          // 2
 			listView_Techniques.Columns.Add("Sp. TP", 50);          // 3
@@ -941,15 +941,15 @@ namespace OPRPCharBuild
 			listView_Weaponry.View = View.Details;
 			listView_Weaponry.FullRowSelect = true;
 
-			listView_Weaponry.Columns.Add("Name", 100);
-			listView_Weaponry.Columns.Add("Description", 500);
+			listView_Weaponry.Columns.Add("Name", 150);
+			listView_Weaponry.Columns.Add("Description", 550);
 
 			// ------ Items Table
 			listView_Items.View = View.Details;
 			listView_Items.FullRowSelect = true;
 
-			listView_Items.Columns.Add("Name", 100);
-			listView_Items.Columns.Add("Description", 500);
+			listView_Items.Columns.Add("Name", 150);
+			listView_Items.Columns.Add("Description", 550);
 
 			// ------ Template
 			richTextBox_Template.Text = Sheet.BASIC_TEMPLATE;
@@ -1730,11 +1730,15 @@ namespace OPRPCharBuild
 			e.NewWidth = listView_SubCat.Columns[e.ColumnIndex].Width;
 		}
 
-		#endregion
+        #endregion
 
-		#region Template Tab
+        #region Template Tab
 
-		private void button_ResetTemp_Click(object sender, EventArgs e) {
+        private void button_LoadTemp_Click(object sender, EventArgs e) {
+            Import_Template();
+        }
+
+        private void button_ResetTemp_Click(object sender, EventArgs e) {
 			template_imported = false;
 			label_TemplateType.Text = STD_TEMPLATE_MSG;
 			label_TemplateType.ForeColor = Color.Green;
@@ -2253,23 +2257,19 @@ namespace OPRPCharBuild
 			saveCharacter();
 		}
 
-		private void saveAsToolStripMenuItem_Click(object sender, EventArgs e) {
-			SaveFileDialog fileDialogSaveProject = new SaveFileDialog();
-			fileDialogSaveProject.Filter = "OPRP files (*.oprp)|*.oprp";
-			fileDialogSaveProject.Title = "Save New Project";
-			fileDialogSaveProject.OverwritePrompt = true;
-			if (fileDialogSaveProject.ShowDialog() == DialogResult.OK) {
-				profile.path = fileDialogSaveProject.FileName;
-				profile.filename = Path.GetFileNameWithoutExtension(fileDialogSaveProject.FileName);
-				saveFormToCharacter();
-				savdCharactertoData();
-				this.Text = profile.filename;
-			}
-		}
-
-		private void characterTemplateToolStripMenuItem_Click(object sender, EventArgs e) {
-			Import_Template();
-		}
+        private void toolStripButton_SaveAs_Click(object sender, EventArgs e) {
+            SaveFileDialog fileDialogSaveProject = new SaveFileDialog();
+            fileDialogSaveProject.Filter = "OPRP files (*.oprp)|*.oprp";
+            fileDialogSaveProject.Title = "Save New Project";
+            fileDialogSaveProject.OverwritePrompt = true;
+            if (fileDialogSaveProject.ShowDialog() == DialogResult.OK) {
+                profile.path = fileDialogSaveProject.FileName;
+                profile.filename = Path.GetFileNameWithoutExtension(fileDialogSaveProject.FileName);
+                saveFormToCharacter();
+                savdCharactertoData();
+                this.Text = profile.filename;
+            }
+        }
 
 		// Returns True if Template imported successfully, False otherwise
 		private bool Import_Template() {
