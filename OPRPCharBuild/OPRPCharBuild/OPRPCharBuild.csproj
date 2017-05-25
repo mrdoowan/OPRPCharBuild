@@ -113,6 +113,12 @@
     <Compile Include="Add_Profession.Designer.cs">
       <DependentUpon>Add_Profession.cs</DependentUpon>
     </Compile>
+    <Compile Include="Add_Source.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Add_Source.Designer.cs">
+      <DependentUpon>Add_Source.cs</DependentUpon>
+    </Compile>
     <Compile Include="Add_Technique.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,12 +165,14 @@
     <Compile Include="SelectOptions.Designer.cs">
       <DependentUpon>SelectOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Serialize.cs" />
     <Compile Include="Sheet.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Sheet.Designer.cs">
       <DependentUpon>Sheet.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source.cs" />
     <Compile Include="StatAlter.cs" />
     <Compile Include="Technique.cs" />
     <Compile Include="Stats.cs" />
@@ -177,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Add_Profession.resx">
       <DependentUpon>Add_Profession.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Add_Source.resx">
+      <DependentUpon>Add_Source.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Add_Technique.resx">
       <DependentUpon>Add_Technique.cs</DependentUpon>

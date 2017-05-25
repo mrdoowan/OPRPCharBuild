@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -25,7 +26,6 @@ namespace OPRPCharBuild
         private string data;
         #region Const Identifiers
         private const string
-            // These should all be 5 characters
             // Basic Information Tab
             CHARNAME = "[NAMECH]",
             NICKNAME = "[NAMENI]",
@@ -139,6 +139,19 @@ namespace OPRPCharBuild
             CAT_ROWBEG = "[CAT_ROWBEG]",
             CAT_ROWEND = "[CAT_ROWEND]",
             CAT_NAME = "[CAT_NAME]",
+            // Sources Tab
+            TAG_STA_SOURCE = "<SOURCE>",
+            TAG_END_SOURCE = "</SOURCE>",
+            SOURCE_YYYY = "[SOU_YYYY]", // year
+            SOURCE_MM = "[SOU_MM]",     // month
+            SOURCE_DD = "[SOU_DD]",     // day
+            SOURCE_HASDATE = "[SOURCE_HAS]",
+            SOURCE_DATEFORMAT = "[SOU_FORMAT]", // true if NA
+            SOURCE_TITLE = "[SOU_TITLE]",
+            SOURCE_URL = "[SOU_URL]",
+            SOURCE_SD = "[SOU_SD]",
+            SOURCE_BELI = "[SOU_BELI]",
+            SOURCE_NOTE = "[SOU_NOTE]",
             // Template Tab
             TEMPLATE = "[TEMPLATE]",
             COLOR = "[COLOR]",
@@ -387,6 +400,31 @@ namespace OPRPCharBuild
             data += sb.ToString();
         }
 
+        // bool devH if we're saving on devH instead
+        public string saveCharSources(Dictionary<string, Source> sources_,
+            RadioButton NADateFormat_, 
+            bool devH) {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(SOURCE_DATEFORMAT + NADateFormat_.Checked + SPLIT1);
+            sb.Append(TAG_STA_SOURCE);
+            foreach (Source source in sources_.Values) {
+                sb.Append(SOURCE_YYYY + source.date.Year + SPLIT1);
+                sb.Append(SOURCE_MM + source.date.Month + SPLIT1);
+                sb.Append(SOURCE_DD + source.date.Day + SPLIT1);
+                sb.Append(SOURCE_HASDATE + source.noDate + SPLIT1);
+                sb.Append(SOURCE_TITLE + source.title + SPLIT1);
+                sb.Append(SOURCE_URL + source.URL + SPLIT1);
+                sb.Append(SOURCE_SD + source.SD + SPLIT1);
+                sb.Append(SOURCE_BELI + source.beli + SPLIT1);
+                sb.Append(SOURCE_NOTE + source.notes + SPLIT1);
+                sb.Append(SPLIT2);
+            }
+            sb.Append(TAG_END_SOURCE);
+            // Put into String
+            if (!devH) { data += sb.ToString(); return ""; }
+            else { return sb.ToString(); }
+        }
+
         public void saveCharTemplate(string temp_,
             string color_,
             string msg_) {
@@ -415,11 +453,26 @@ namespace OPRPCharBuild
             return s == "";
         }
 
+        // Splitting into an array of strings
         private string[] splitStringbyString(string whole, string splitter) {
             string[] result = whole.Split(new string[] { splitter }, StringSplitOptions.None);
             List<string> listResult = result.ToList();
             listResult.RemoveAll(emptyString);
             return listResult.ToArray();
+        }
+
+        // Our version of int.TryParse that returns zero upon failure of parsing
+        private int TryParseInt(string parsing) {
+            int num = 0;
+            if (!int.TryParse(parsing, out num)) { return 0; }
+            return num;
+        }
+
+        // Our version of bool.TryParse that automatically returns false upon failure
+        private bool TryParseBool(string parsing) {
+            bool boolean = false;
+            if (!bool.TryParse(parsing, out boolean)) { return false; }
+            return boolean;
         }
 
         #region Load Functions
@@ -440,13 +493,13 @@ namespace OPRPCharBuild
             ref Dictionary<string, Profession> profList) {
             charName.Text = getParse(CHARNAME, SPLIT1);
             nickName.Text = getParse(NICKNAME, SPLIT1);
-            age.Value = int.Parse(getParse(AGE, SPLIT1));
+            age.Value = TryParseInt(getParse(AGE, SPLIT1));
             gender.Text = getParse(GENDER, SPLIT1);
             race.Text = getParse(RACE, SPLIT1);
             pos.Text= getParse(POSITION, SPLIT1);
             aff.Text = getParse(AFFILIATION, SPLIT1);
             bounty.Text = getParse(BOUNTY, SPLIT1);
-            comm.Value = int.Parse(getParse(COMMENDATION, SPLIT1));
+            comm.Value = TryParseInt(getParse(COMMENDATION, SPLIT1));
             rank.Text = getParse(RANK, SPLIT1);
             threat.Text = getParse(THREAT, SPLIT1);
             string achieveStr = getParse(TAG_STA_ACHIEVE, TAG_END_ACHIEVE);
@@ -559,17 +612,17 @@ namespace OPRPCharBuild
             ref NumericUpDown acc) {
             string[] APArr = getParse(APBOOL, SPLIT1).TrimEnd(',').Split(',');
             for (int i = 0 ; i < AP.Items.Count ; ++i) {
-                try { AP.SetItemChecked(i, bool.Parse(APArr[i])); }
+                try { AP.SetItemChecked(i, TryParseBool(APArr[i])); }
                 catch { AP.SetItemChecked(i, false); }
                 // In case APArr[i] goes out of index
             }
-            SDEarn.Value = int.Parse(getParse(SDEARNED, SPLIT1));
-            SD2SP.Value = int.Parse(getParse(SDTOSP, SPLIT1));
-            usedFort.Value = int.Parse(getParse(USEDFORTUNE, SPLIT1));
-            str.Value = int.Parse(getParse(STRENGTH, SPLIT1));
-            spe.Value = int.Parse(getParse(SPEED, SPLIT1));
-            sta.Value = int.Parse(getParse(STAMINA, SPLIT1));
-            acc.Value = int.Parse(getParse(ACCURACY, SPLIT1));
+            SDEarn.Value = TryParseInt(getParse(SDEARNED, SPLIT1));
+            SD2SP.Value = TryParseInt(getParse(SDTOSP, SPLIT1));
+            usedFort.Value = TryParseInt(getParse(USEDFORTUNE, SPLIT1));
+            str.Value = TryParseInt(getParse(STRENGTH, SPLIT1));
+            spe.Value = TryParseInt(getParse(SPEED, SPLIT1));
+            sta.Value = TryParseInt(getParse(STAMINA, SPLIT1));
+            acc.Value = TryParseInt(getParse(ACCURACY, SPLIT1));
         }
         
         public void loadCharTraits(ref Dictionary<string, Trait> traits,
@@ -582,8 +635,8 @@ namespace OPRPCharBuild
             traitsTbl.Items.Clear();
             for (int i = 0; i < traitsArr.Length; ++i) {
                 string name = getParse(TRAIT_NAME, SPLIT1, traitsArr[i]);
-                int gen = int.Parse(getParse(TRAIT_GENE, SPLIT1, traitsArr[i]));
-                int prof = int.Parse(getParse(TRAIT_PROF, SPLIT1, traitsArr[i]));
+                int gen = TryParseInt(getParse(TRAIT_GENE, SPLIT1, traitsArr[i]));
+                int prof = TryParseInt(getParse(TRAIT_PROF, SPLIT1, traitsArr[i]));
                 string desc = getParse(TRAIT_DESC, SPLIT1, traitsArr[i]);
                 traits.Add(name, new Trait(name, gen, prof, desc));
                 ListViewItem item = new ListViewItem();
@@ -622,33 +675,33 @@ namespace OPRPCharBuild
             for (int i = 0; i < techArr.Length; ++i) {
                 string name = getParse(TECH_NAME, SPLIT1, techArr[i]);
                 string rokuName = getParse(TECH_ROKU, SPLIT1, techArr[i]);
-                int rank = int.Parse(getParse(TECH_RANK, SPLIT1, techArr[i]));
-                int regTP = int.Parse(getParse(TECH_REGTP, SPLIT1, techArr[i]));
-                int spTP = int.Parse(getParse(TECH_SPTP, SPLIT1, techArr[i]));
+                int rank = TryParseInt(getParse(TECH_RANK, SPLIT1, techArr[i]));
+                int regTP = TryParseInt(getParse(TECH_REGTP, SPLIT1, techArr[i]));
+                int spTP = TryParseInt(getParse(TECH_SPTP, SPLIT1, techArr[i]));
                 string rankTr = getParse(TECH_RANKTRAIT, SPLIT1, techArr[i]);
                 string specTr = getParse(TECH_SPTRAIT, SPLIT1, techArr[i]);
-                bool sigTech = bool.Parse(getParse(TECH_SIGTECH, SPLIT1, techArr[i]));
+                bool sigTech = TryParseBool(getParse(TECH_SIGTECH, SPLIT1, techArr[i]));
                 string brTech = getParse(TECH_BRANCHTECH, SPLIT1, techArr[i]);
-                int brRank = int.Parse(getParse(TECH_BRANCHRANK, SPLIT1, techArr[i]));
+                int brRank = TryParseInt(getParse(TECH_BRANCHRANK, SPLIT1, techArr[i]));
                 string type = getParse(TECH_TYPE, SPLIT1, techArr[i]);
                 string range = getParse(TECH_RANGE, SPLIT1, techArr[i]);
                 string statName = getParse(TECH_STAT_NAME, SPLIT1, techArr[i]);
                 string statDur = getParse(TECH_STAT_DURA, SPLIT1, techArr[i]);
-                int statStr = int.Parse(getParse(TECH_STAT_STR, SPLIT1, techArr[i]));
-                int statSpe = int.Parse(getParse(TECH_STAT_SPE, SPLIT1, techArr[i]));
-                int statSta = int.Parse(getParse(TECH_STAT_STA, SPLIT1, techArr[i]));
-                int statAcc = int.Parse(getParse(TECH_STAT_ACC, SPLIT1, techArr[i]));
+                int statStr = TryParseInt(getParse(TECH_STAT_STR, SPLIT1, techArr[i]));
+                int statSpe = TryParseInt(getParse(TECH_STAT_SPE, SPLIT1, techArr[i]));
+                int statSta = TryParseInt(getParse(TECH_STAT_STA, SPLIT1, techArr[i]));
+                int statAcc = TryParseInt(getParse(TECH_STAT_ACC, SPLIT1, techArr[i]));
                 Stats techStats = new Stats(statName, statDur, statStr, statSpe, statSta, statAcc);
-                bool auto = bool.Parse(getParse(TECH_AUTOCALC, SPLIT1, techArr[i]));
-                bool NA = bool.Parse(getParse(TECH_NAPOWER, SPLIT1, techArr[i]));
+                bool auto = TryParseBool(getParse(TECH_AUTOCALC, SPLIT1, techArr[i]));
+                bool NA = TryParseBool(getParse(TECH_NAPOWER, SPLIT1, techArr[i]));
                 string effStr = getParse(TAG_STA_EFFECT, TAG_END_EFFECT, techArr[i]);
                 string[] effArr = splitStringbyString(effStr, SPLIT3);
                 List<Effect> effList = new List<Effect>();
                 for (int j = 0; j < effArr.Length; ++j) {
                     string effName = getParse(EFFECT_NAME, SPLIT1, effArr[j]);
-                    bool effGen = bool.Parse(getParse(EFFECT_GEN, SPLIT1, effArr[j]));
-                    int effCost = int.Parse(getParse(EFFECT_COST, SPLIT1, effArr[j]));
-                    int effMin = int.Parse(getParse(EFFECT_MINRANK, SPLIT1, effArr[j]));
+                    bool effGen = TryParseBool(getParse(EFFECT_GEN, SPLIT1, effArr[j]));
+                    int effCost = TryParseInt(getParse(EFFECT_COST, SPLIT1, effArr[j]));
+                    int effMin = TryParseInt(getParse(EFFECT_MINRANK, SPLIT1, effArr[j]));
                     string effDesc = getParse(EFFECT_DESC, SPLIT1, effArr[j]);
                     effList.Add(new Effect(effName, effGen, effCost, effMin, effDesc));
                 }
@@ -656,14 +709,14 @@ namespace OPRPCharBuild
                 string[] DFBoolArr = getParse(TECH_DF, SPLIT1, techArr[i]).TrimEnd(',').Split(',');
                 List<bool> DFBoolList = new List<bool>();
                 for (int j = 0; j < DFBoolArr.Length; ++j) {
-                    try { DFBoolList.Add(bool.Parse(DFBoolArr[j])); }
+                    try { DFBoolList.Add(TryParseBool(DFBoolArr[j])); }
                     catch { DFBoolList.Add(false); }
                     // In case APArr[i] goes out of index
                 }
                 string[] cyborgArr = getParse(TECH_CYBORG, SPLIT1, techArr[i]).TrimEnd(',').Split(',');
                 List<bool> cyborgList = new List<bool>();
                 for (int j = 0; j < cyborgArr.Length; ++j) {
-                    try { cyborgList.Add(bool.Parse(cyborgArr[j])); }
+                    try { cyborgList.Add(TryParseBool(cyborgArr[j])); }
                     catch { cyborgList.Add(false); }
                     // In case cyborgArr[i] goes out of index
                 }
@@ -725,7 +778,46 @@ namespace OPRPCharBuild
                 catTbl.Items.Add(item);
             }
         }
-        
+
+        // bool devH if we're saving on devH instead
+        public void loadCharSources(ref Dictionary<string, Source> sources,
+            ref DataGridView dgv_Sources,
+            ref RadioButton NADate, 
+            bool devH,
+            string data_in = "") {
+            if (devH) { data = data_in; }
+            bool NAcheck = TryParseBool(getParse(SOURCE_DATEFORMAT, SPLIT1));
+            NADate.Checked = NAcheck;
+            string sourceStr = getParse(TAG_STA_SOURCE, TAG_END_SOURCE);
+            string[] sourceArr = splitStringbyString(sourceStr, SPLIT2);
+            sources.Clear();
+            dgv_Sources.Rows.Clear();
+            dgv_Sources.Refresh();
+            for (int i = 0; i < sourceArr.Length; ++i) {
+                int year = TryParseInt(getParse(SOURCE_YYYY, SPLIT1, sourceArr[i]));
+                int month = TryParseInt(getParse(SOURCE_MM, SPLIT1, sourceArr[i]));
+                int day = TryParseInt(getParse(SOURCE_DD, SPLIT1, sourceArr[i]));
+                bool noDate = TryParseBool(getParse(SOURCE_HASDATE, SPLIT1, sourceArr[i]));
+                string title = getParse(SOURCE_TITLE, SPLIT1, sourceArr[i]);
+                string URL = getParse(SOURCE_URL, SPLIT1, sourceArr[i]);
+                int SD = TryParseInt(getParse(SOURCE_SD, SPLIT1, sourceArr[i]));
+                int beli = TryParseInt(getParse(SOURCE_BELI, SPLIT1, sourceArr[i]));
+                string notes = getParse(SOURCE_NOTE, SPLIT1, sourceArr[i]);
+                DateTime date = new DateTime(year, month, day);
+                Source add_Source = new Source(date, noDate, title, URL, SD, beli, notes);
+                sources.Add(title, add_Source);
+                // add to dgv
+                CultureInfo culture = NAcheck ? new CultureInfo("en-US") : new CultureInfo("en-GB");
+                string date_str = (!noDate) ? date.ToString("d", culture) : "";
+                string SD_str = (SD > 0) ? SD.ToString() : "";
+                string beli_str = (beli != 0) ? beli.ToString("N0") : "";
+                DataGridViewButtonColumn button = new DataGridViewButtonColumn();
+                dgv_Sources.Rows.Insert(0, button, date_str, title, URL,
+                    SD_str, beli_str, notes);
+                dgv_Sources.Rows[0].Cells[0].Value = "X";
+            }
+        }
+
         public void loadCharTemplate(ref RichTextBox template,
             ref TextBox color,
             ref TextBox msg) {
@@ -736,54 +828,11 @@ namespace OPRPCharBuild
 
         #endregion
 
-        #region Encrypting/Decrypting
-
-        private const string INITVECTOR = "tu89geji340t89u2";
-        private const int KEYSIZE = 256;
+        // For unique purposes of Character
         private const string OPRPKEY = "OPRPxddddd2009";
 
-        // Thank you to: http://stackoverflow.com/questions/17213851/an-easy-way-to-encrypt-and-decrypt-with-a-key
-        // For something simple
-
-        private string encryptData(string Text, string Key) {
-            byte[] initVectorBytes = Encoding.UTF8.GetBytes(INITVECTOR);
-            byte[] plainTextBytes = Encoding.UTF8.GetBytes(Text);
-            PasswordDeriveBytes password = new PasswordDeriveBytes(Key, null);
-            byte[] keyBytes = password.GetBytes(KEYSIZE / 8);
-            RijndaelManaged symmetricKey = new RijndaelManaged();
-            symmetricKey.Mode = CipherMode.CBC;
-            ICryptoTransform encryptor = symmetricKey.CreateEncryptor(keyBytes, initVectorBytes);
-            MemoryStream memoryStream = new MemoryStream();
-            CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write);
-            cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
-            cryptoStream.FlushFinalBlock();
-            byte[] Encrypted = memoryStream.ToArray();
-            memoryStream.Close();
-            cryptoStream.Close();
-            return Convert.ToBase64String(Encrypted);
-        }
-
-        private string decryptData(string EncryptedText, string Key) {
-            byte[] initVectorBytes = Encoding.ASCII.GetBytes(INITVECTOR);
-            byte[] DeEncryptedText = Convert.FromBase64String(EncryptedText);
-            PasswordDeriveBytes password = new PasswordDeriveBytes(Key, null);
-            byte[] keyBytes = password.GetBytes(KEYSIZE / 8);
-            RijndaelManaged symmetricKey = new RijndaelManaged();
-            symmetricKey.Mode = CipherMode.CBC;
-            ICryptoTransform decryptor = symmetricKey.CreateDecryptor(keyBytes, initVectorBytes);
-            MemoryStream memoryStream = new MemoryStream(DeEncryptedText);
-            CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
-            byte[] plainTextBytes = new byte[DeEncryptedText.Length];
-            int decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
-            memoryStream.Close();
-            cryptoStream.Close();
-            return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
-        }
-
-        #endregion
-
         public void saveFile() {
-            string saveData = encryptData(data, OPRPKEY);
+            string saveData = Serialize.encryptData(data, OPRPKEY);
             using (StreamWriter newTask = new StreamWriter(path, false)) {
                 newTask.Write(saveData);
             }
@@ -791,7 +840,7 @@ namespace OPRPCharBuild
 
         public void openFile() {
             string encrypted = File.ReadAllText(path);
-            data = decryptData(encrypted, OPRPKEY);
+            data = Serialize.decryptData(encrypted, OPRPKEY);
         }
 
         // Default Constructor

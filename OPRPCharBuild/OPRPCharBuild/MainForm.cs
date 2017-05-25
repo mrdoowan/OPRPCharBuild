@@ -10,11 +10,11 @@ using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.Net;
 using System.Reflection;
 using System.Diagnostics;
+using System.Linq;
 
 namespace OPRPCharBuild
 {
@@ -49,6 +49,8 @@ namespace OPRPCharBuild
         private Dictionary<string, Technique> techList = new Dictionary<string, Technique>();
         // Sp Table dictionary that won't be stored in Character
         private Dictionary<string, SpTrait> spTraitList = new Dictionary<string, SpTrait>();
+        // Sources
+        private Dictionary<string, Source> sourceList = new Dictionary<string, Source>();
 
         #endregion
 
@@ -1757,16 +1759,208 @@ namespace OPRPCharBuild
 			}
 		}
 
-		#endregion
+        #endregion
 
-		// --------------------------------------------------------------------------------------------
-		// Main Form Miscellaneous
-		// --------------------------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------------------
+        // "SOURCES" Tab
+        // --------------------------------------------------------------------------------------------
 
-		#region Save, Open, Import, Load, Form, Generate Miscellaneous
+        #region Sources Tab
+        
+        // NOTE: IN V1.7.0 A LIST WILL BE BINDED TO A BINDINGSOURCE
 
-		// This completely resets the form back to its Loaded state.
-		private void resetForm() {
+        // Helper function for changing the SD numericupdown
+        private void update_SD_Sources() {
+            if (checkBox_CalcSD.Checked) {
+                int totalSD = 0;
+                foreach (Source source in sourceList.Values) {
+                    totalSD += source.SD;
+                }
+                numericUpDown_SDEarned.Value = totalSD;
+            }
+        }
+
+        // Remembering the state of the dateTimeStamp check
+        bool timeStampBool = false;
+
+        // Adds a Source
+        private void button_AddSource_Click(object sender, EventArgs e) {
+            // Add Windows Dialog and check if confirmed
+            Add_Source source_Win = new Add_Source();
+            source_Win.new_Dialog(ref dgv_Sources, ref sourceList, 
+                ref timeStampBool, radioButton_DateNA.Checked);
+            // Update current SD if checked
+            update_SD_Sources();
+        }
+
+        // Edits a row
+        private void dataGridView_Sources_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
+            if (dgv_Sources.SelectedRows.Count > 0) {
+                Add_Source source_Win = new Add_Source();
+                source_Win.edit_Dialog(ref dgv_Sources, ref sourceList, radioButton_DateNA.Checked);
+            }
+            // Update current SD if checked
+            update_SD_Sources();
+        }
+
+        // Deletes a row
+        private void dataGridView_Sources_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+            try {
+                DataGridView dgv = (DataGridView)sender;
+                DataGridViewRow item = dgv.Rows[e.RowIndex];
+                if (dgv.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0) {
+                    // Remove from Dict
+                    string del_title = item.Cells[2].Value.ToString();
+                    sourceList.Remove(del_title);
+                    // Button Clicked for that row.
+                    dgv.Rows.RemoveAt(item.Index);
+                    dgv.Refresh();
+                    // Update current SD if checked
+                    update_SD_Sources();
+                }
+            }
+            catch { } // Any implicit clicking exception errors
+        }
+
+        private const string DEVH_KEY = "OPRPdevHMay2017";
+
+        // Loads the devh file, overriding the dgv and sourceList
+        private void button_LoadDevH_Click(object sender, EventArgs e) {
+            if (MessageBox.Show("Are you sure you want to overwrite the current existing Sources?", "Load DevH",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) {
+                return;
+            }
+            OpenFileDialog dlgFileOpen = new OpenFileDialog();
+            dlgFileOpen.Filter = "DEVH files (*.devh)|*.devh";
+            dlgFileOpen.Title = "Open Development History";
+            dlgFileOpen.RestoreDirectory = true;
+            if (dlgFileOpen.ShowDialog() == DialogResult.OK) {
+                string devH_data;
+                try {
+                    string path = dlgFileOpen.FileName;
+                    string encrypted = File.ReadAllText(path);
+                    devH_data = Serialize.decryptData(encrypted, DEVH_KEY);
+                    profile.loadCharSources(ref sourceList, ref dgv_Sources,
+                        ref radioButton_DateNA, true, devH_data);
+                }
+                catch (Exception ex) {
+                    MessageBox.Show("Failed to deserialize.\nReason: " + ex.Message,
+                        "Failed to Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        // Saves the current sourceList into a devh file
+        private void button_SaveDevH_Click(object sender, EventArgs e) {
+            SaveFileDialog fileDialogSaveProject = new SaveFileDialog();
+            fileDialogSaveProject.Filter = "DEVH files (*.devh)|*.devh";
+            fileDialogSaveProject.Title = "Save New Development History";
+            fileDialogSaveProject.OverwritePrompt = true;
+            if (fileDialogSaveProject.ShowDialog() == DialogResult.OK) {
+                // #TODO: Parse sourceList into data
+                string data = profile.saveCharSources(sourceList, radioButton_DateNA, true);
+                string path = fileDialogSaveProject.FileName;
+                string saveData = Serialize.encryptData(data, DEVH_KEY);
+                using (StreamWriter newTask = new StreamWriter(path, false)) {
+                    newTask.Write(saveData);
+                }
+            }
+        }
+
+        // Change SD numericupdown value when True
+        private void checkBox_CalcSD_CheckedChanged(object sender, EventArgs e) {
+            update_SD_Sources();
+        }
+
+        // Changes date format to NA (MM/DD/YYYY) when True in dgv
+        private void radioButton_DateNA_CheckedChanged(object sender, EventArgs e) {
+            foreach (DataGridViewRow row in dgv_Sources.Rows) {
+                string[] date = row.Cells[1].Value.ToString().Split('/');
+                // Standard swap
+                string temp = date[0];
+                date[0] = date[1];
+                date[1] = temp;
+                row.Cells[1].Value = string.Join("/", date);
+            }
+        }
+
+        // Changes date format to EU (DD/MM/YYYY) when True in dgv
+        private void radioButton_DateEU_CheckedChanged(object sender, EventArgs e) {
+            foreach (DataGridViewRow row in dgv_Sources.Rows) {
+                string[] date = row.Cells[1].Value.ToString().Split('/');
+                // Standard swap
+                string temp = date[0];
+                date[0] = date[1];
+                date[1] = temp;
+                row.Cells[1].Value = string.Join("/", date);
+            }
+        }
+
+        // Moves Row up
+        private void button_UpSource_Click(object sender, EventArgs e) {
+            try {
+                int rowIndex = dgv_Sources.SelectedCells[0].OwningRow.Index;
+                if (rowIndex == 0) { return; }
+                // get index of the column for the selected cell
+                DataGridViewRow selectedRow = dgv_Sources.Rows[rowIndex];
+                dgv_Sources.Rows.Remove(selectedRow);
+                dgv_Sources.Rows.Insert(rowIndex - 1, selectedRow);
+                dgv_Sources.Rows[rowIndex - 1].Selected = true;
+            }
+            catch { }
+        }
+
+        // Moves Row down
+        private void button_DownSource_Click(object sender, EventArgs e) {
+            try {
+                int totalRows = dgv_Sources.Rows.Count;
+                int rowIndex = dgv_Sources.SelectedCells[0].OwningRow.Index;
+                if (rowIndex == totalRows - 1) { return; }
+                // get index of the column for the selected cell
+                DataGridViewRow selectedRow = dgv_Sources.Rows[rowIndex];
+                dgv_Sources.Rows.Remove(selectedRow);
+                dgv_Sources.Rows.Insert(rowIndex + 1, selectedRow);
+                dgv_Sources.Rows[rowIndex + 1].Selected = true;
+            }
+            catch { }
+        }
+
+        // Sorts all the rows by date
+        private void dataGridView_Sources_SortCompare(object sender, DataGridViewSortCompareEventArgs e) {
+            if (e.Column.Index == 1) {
+                e.Handled = true;
+                e.SortResult = compareDates(e.CellValue1, e.CellValue2);
+            }
+        }
+
+        // Comparator function for the sorting
+        private int compareDates(object o1, object o2) {
+            // Need to sort based on either NA or EU date
+            int[] dateFormat = (radioButton_DateNA.Checked) ? new int[3] { 2, 0, 1 } : new int[3] { 2, 1, 0 };
+            string[] date1 = o1.ToString().Split('/');
+            string[] date2 = o2.ToString().Split('/');
+            // 3 Dates to reresent Month, Day, Year
+            int result = 0;
+            for (int i = 0; i < 3; ++i) {
+                int ind = dateFormat[i];
+                result = int.Parse(date1[ind]).CompareTo(int.Parse(date2[ind]));
+                // 0 means the number is the same
+                if (result == 0) { continue; }
+                else { break; }
+            }
+            return result;
+        }
+
+        #endregion
+
+        // --------------------------------------------------------------------------------------------
+        // Main Form Miscellaneous
+        // --------------------------------------------------------------------------------------------
+
+        #region Save, Open, Import, Load, Form, Generate Miscellaneous
+
+        // This completely resets the form back to its Loaded state.
+        private void resetForm() {
 			// Basic Character
 			textBox_CharacterName.Clear();
 			textBox_Nickname.Clear();
@@ -1833,6 +2027,10 @@ namespace OPRPCharBuild
 			techList.Clear();
 			listView_SubCat.Items.Clear();
 			textBox_SubCat.Clear();
+            // Sources
+            dgv_Sources.Rows.Clear();
+            dgv_Sources.Refresh();
+            sourceList.Clear();
             // Templates
             richTextBox_Template.Text = Sheet.BASIC_TEMPLATE;
             textBox_Color.Clear();
@@ -1907,6 +2105,7 @@ namespace OPRPCharBuild
 				);
 			profile.saveCharTraits(traitList);
 			profile.saveCharTechs(techList, listView_SubCat);
+            profile.saveCharSources(sourceList, radioButton_DateNA, false);
             profile.saveCharTemplate(
                 richTextBox_Template.Text,
                 textBox_Color.Text,
@@ -2005,6 +2204,15 @@ namespace OPRPCharBuild
                     );
             }
             catch (Exception ex) { MessageBox.Show("Load Techniques Error.\nReason: " + ex.Message); }
+            try {
+                profile.loadCharSources(
+                    ref sourceList,
+                    ref dgv_Sources,
+                    ref radioButton_DateNA,
+                    false
+                    );
+            }
+            catch (Exception ex) { MessageBox.Show("Load Techniques Error.\nReason: " + ex.Message); }
             profile.loadCharTemplate(
                 ref richTextBox_Template,
                 ref textBox_Color,
@@ -2027,7 +2235,7 @@ namespace OPRPCharBuild
 		}
 
 		// This is where serialize our profile.
-		private void savdCharactertoData() {
+		private void saveCharactertoData() {
 			try {
                 profile.saveFile();
 			}
@@ -2067,14 +2275,14 @@ namespace OPRPCharBuild
 					profile.path = fileDialogSaveProject.FileName;
 					profile.filename = Path.GetFileNameWithoutExtension(fileDialogSaveProject.FileName);
 					saveFormToCharacter();
-					savdCharactertoData();
+					saveCharactertoData();
 					this.Text = profile.filename;
 				}
 			}
 			else {
 				saveFormToCharacter();
 				try {
-					savdCharactertoData();
+					saveCharactertoData();
 				}
 				catch (Exception e) {
 					MessageBox.Show("Failed to save.\nReason: " + e.Message);
@@ -2105,8 +2313,7 @@ namespace OPRPCharBuild
 						this.Text = profile.filename;
 					}
 					catch (Exception e) {
-						MessageBox.Show("Failed to deserialize. It may be because you loaded an older version." +
-							"Please try to Import your older version file instead.\nReason: " + e.Message, 
+						MessageBox.Show("Failed to deserialize.\nReason: " + e.Message, 
 							"Failed to Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
 				}
@@ -2266,7 +2473,7 @@ namespace OPRPCharBuild
                 profile.path = fileDialogSaveProject.FileName;
                 profile.filename = Path.GetFileNameWithoutExtension(fileDialogSaveProject.FileName);
                 saveFormToCharacter();
-                savdCharactertoData();
+                saveCharactertoData();
                 this.Text = profile.filename;
             }
         }

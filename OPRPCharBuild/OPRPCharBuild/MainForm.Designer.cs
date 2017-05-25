@@ -27,9 +27,10 @@
 		private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label_Title = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage_Basic = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button_DownProf = new System.Windows.Forms.Button();
             this.button_ProfEdit = new System.Windows.Forms.Button();
@@ -67,7 +68,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage_Appear = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button_ImageEdit = new System.Windows.Forms.Button();
             this.button_ImageDelete = new System.Windows.Forms.Button();
@@ -98,7 +99,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage_Background = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.richTextBox_History = new System.Windows.Forms.RichTextBox();
             this.richTextBox_Personality = new System.Windows.Forms.RichTextBox();
@@ -108,7 +109,7 @@
             this.label25 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage_Abilities = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.comboBox_DFTier = new System.Windows.Forms.ComboBox();
             this.label42 = new System.Windows.Forms.Label();
@@ -142,7 +143,7 @@
             this.button_WeaponDelete = new System.Windows.Forms.Button();
             this.richTextBox_Combat = new System.Windows.Forms.RichTextBox();
             this.label26 = new System.Windows.Forms.Label();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabPage_Stats = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.textBox_SDtoSPCalc = new System.Windows.Forms.TextBox();
             this.textBox_Focus = new System.Windows.Forms.TextBox();
@@ -187,7 +188,7 @@
             this.checkedListBox1_AP = new System.Windows.Forms.CheckedListBox();
             this.label80 = new System.Windows.Forms.Label();
             this.label81 = new System.Windows.Forms.Label();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabPage_Traits = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label32 = new System.Windows.Forms.Label();
             this.label59_TraitsCalc = new System.Windows.Forms.Label();
@@ -195,7 +196,7 @@
             this.button_TraitsDelete = new System.Windows.Forms.Button();
             this.button_TraitAdd = new System.Windows.Forms.Button();
             this.listView_Traits = new System.Windows.Forms.ListView();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tabPage_Techniques = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label41 = new System.Windows.Forms.Label();
             this.button_SubCatEdit = new System.Windows.Forms.Button();
@@ -232,7 +233,26 @@
             this.label62 = new System.Windows.Forms.Label();
             this.textBox_RegTPUsed = new System.Windows.Forms.TextBox();
             this.label61 = new System.Windows.Forms.Label();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.tabPage_Sources = new System.Windows.Forms.TabPage();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.label44 = new System.Windows.Forms.Label();
+            this.radioButton_DateEU = new System.Windows.Forms.RadioButton();
+            this.radioButton_DateNA = new System.Windows.Forms.RadioButton();
+            this.button_LoadDevH = new System.Windows.Forms.Button();
+            this.button_AddSource = new System.Windows.Forms.Button();
+            this.checkBox_CalcSD = new System.Windows.Forms.CheckBox();
+            this.button_SaveDevH = new System.Windows.Forms.Button();
+            this.dgv_Sources = new System.Windows.Forms.DataGridView();
+            this.deleteRow = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.sourceDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceURL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceSD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceBeli = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button_DownSource = new System.Windows.Forms.Button();
+            this.button_UpSource = new System.Windows.Forms.Button();
+            this.tabPage_Template = new System.Windows.Forms.TabPage();
             this.button_LoadTemp = new System.Windows.Forms.Button();
             this.button_MoreTemplate = new System.Windows.Forms.Button();
             this.label49 = new System.Windows.Forms.Label();
@@ -258,23 +278,23 @@
             this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_SaveAs = new System.Windows.Forms.ToolStripButton();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPage_Basic.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Comm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Age)).BeginInit();
-            this.tabPage2.SuspendLayout();
+            this.tabPage_Appear.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Height)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Width)).BeginInit();
             this.groupBox4.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tabPage_Background.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            this.tabPage4.SuspendLayout();
+            this.tabPage_Abilities.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox7.SuspendLayout();
-            this.tabPage7.SuspendLayout();
+            this.tabPage_Stats.SuspendLayout();
             this.groupBox12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_AccuracyBase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_StaminaBase)).BeginInit();
@@ -283,14 +303,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_UsedForFort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SDintoStats)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SDEarned)).BeginInit();
-            this.tabPage5.SuspendLayout();
+            this.tabPage_Traits.SuspendLayout();
             this.groupBox10.SuspendLayout();
-            this.tabPage6.SuspendLayout();
+            this.tabPage_Techniques.SuspendLayout();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowBegin)).BeginInit();
             this.groupBox11.SuspendLayout();
-            this.tabPage8.SuspendLayout();
+            this.tabPage_Sources.SuspendLayout();
+            this.groupBox13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Sources)).BeginInit();
+            this.tabPage_Template.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -306,33 +329,34 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage7);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Controls.Add(this.tabPage6);
-            this.tabControl1.Controls.Add(this.tabPage8);
+            this.tabControl1.Controls.Add(this.tabPage_Basic);
+            this.tabControl1.Controls.Add(this.tabPage_Appear);
+            this.tabControl1.Controls.Add(this.tabPage_Background);
+            this.tabControl1.Controls.Add(this.tabPage_Abilities);
+            this.tabControl1.Controls.Add(this.tabPage_Stats);
+            this.tabControl1.Controls.Add(this.tabPage_Traits);
+            this.tabControl1.Controls.Add(this.tabPage_Techniques);
+            this.tabControl1.Controls.Add(this.tabPage_Sources);
+            this.tabControl1.Controls.Add(this.tabPage_Template);
             this.tabControl1.Location = new System.Drawing.Point(12, 130);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(843, 504);
             this.tabControl1.TabIndex = 4;
             // 
-            // tabPage1
+            // tabPage_Basic
             // 
-            this.tabPage1.AutoScroll = true;
-            this.tabPage1.Controls.Add(this.groupBox3);
-            this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(835, 478);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Basic Info";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage_Basic.AutoScroll = true;
+            this.tabPage_Basic.Controls.Add(this.groupBox3);
+            this.tabPage_Basic.Controls.Add(this.groupBox2);
+            this.tabPage_Basic.Controls.Add(this.groupBox1);
+            this.tabPage_Basic.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_Basic.Name = "tabPage_Basic";
+            this.tabPage_Basic.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_Basic.Size = new System.Drawing.Size(835, 478);
+            this.tabPage_Basic.TabIndex = 0;
+            this.tabPage_Basic.Text = "Basic Info";
+            this.tabPage_Basic.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -769,18 +793,18 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Name:";
             // 
-            // tabPage2
+            // tabPage_Appear
             // 
-            this.tabPage2.AutoScroll = true;
-            this.tabPage2.Controls.Add(this.groupBox5);
-            this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(835, 478);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Appearance";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage_Appear.AutoScroll = true;
+            this.tabPage_Appear.Controls.Add(this.groupBox5);
+            this.tabPage_Appear.Controls.Add(this.groupBox4);
+            this.tabPage_Appear.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_Appear.Name = "tabPage_Appear";
+            this.tabPage_Appear.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_Appear.Size = new System.Drawing.Size(835, 478);
+            this.tabPage_Appear.TabIndex = 1;
+            this.tabPage_Appear.Text = "Appearance";
+            this.tabPage_Appear.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 
@@ -1129,16 +1153,16 @@
             this.label14.TabIndex = 3;
             this.label14.Text = "Height:";
             // 
-            // tabPage3
+            // tabPage_Background
             // 
-            this.tabPage3.Controls.Add(this.groupBox6);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(835, 478);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Background";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage_Background.Controls.Add(this.groupBox6);
+            this.tabPage_Background.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_Background.Name = "tabPage_Background";
+            this.tabPage_Background.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_Background.Size = new System.Drawing.Size(835, 478);
+            this.tabPage_Background.TabIndex = 2;
+            this.tabPage_Background.Text = "Background";
+            this.tabPage_Background.UseVisualStyleBackColor = true;
             // 
             // groupBox6
             // 
@@ -1240,18 +1264,18 @@
             this.label23.TabIndex = 9;
             this.label23.Text = "Island:";
             // 
-            // tabPage4
+            // tabPage_Abilities
             // 
-            this.tabPage4.AutoScroll = true;
-            this.tabPage4.Controls.Add(this.groupBox9);
-            this.tabPage4.Controls.Add(this.groupBox7);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(835, 478);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Abilities";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage_Abilities.AutoScroll = true;
+            this.tabPage_Abilities.Controls.Add(this.groupBox9);
+            this.tabPage_Abilities.Controls.Add(this.groupBox7);
+            this.tabPage_Abilities.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_Abilities.Name = "tabPage_Abilities";
+            this.tabPage_Abilities.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_Abilities.Size = new System.Drawing.Size(835, 478);
+            this.tabPage_Abilities.TabIndex = 3;
+            this.tabPage_Abilities.Text = "Abilities";
+            this.tabPage_Abilities.UseVisualStyleBackColor = true;
             // 
             // groupBox9
             // 
@@ -1627,15 +1651,15 @@
             this.label26.TabIndex = 3;
             this.label26.Text = "Combat:";
             // 
-            // tabPage7
+            // tabPage_Stats
             // 
-            this.tabPage7.Controls.Add(this.groupBox12);
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(835, 478);
-            this.tabPage7.TabIndex = 6;
-            this.tabPage7.Text = "Stats";
-            this.tabPage7.UseVisualStyleBackColor = true;
+            this.tabPage_Stats.Controls.Add(this.groupBox12);
+            this.tabPage_Stats.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_Stats.Name = "tabPage_Stats";
+            this.tabPage_Stats.Size = new System.Drawing.Size(835, 478);
+            this.tabPage_Stats.TabIndex = 6;
+            this.tabPage_Stats.Text = "Stats";
+            this.tabPage_Stats.UseVisualStyleBackColor = true;
             // 
             // groupBox12
             // 
@@ -2208,16 +2232,16 @@
             this.label81.Text = "SD Earned (w/o AP):";
             this.label81.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // tabPage5
+            // tabPage_Traits
             // 
-            this.tabPage5.Controls.Add(this.groupBox10);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(835, 478);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Traits";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.tabPage_Traits.Controls.Add(this.groupBox10);
+            this.tabPage_Traits.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_Traits.Name = "tabPage_Traits";
+            this.tabPage_Traits.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_Traits.Size = new System.Drawing.Size(835, 478);
+            this.tabPage_Traits.TabIndex = 4;
+            this.tabPage_Traits.Text = "Traits";
+            this.tabPage_Traits.UseVisualStyleBackColor = true;
             // 
             // groupBox10
             // 
@@ -2303,18 +2327,18 @@
             this.listView_Traits.TabIndex = 0;
             this.listView_Traits.UseCompatibleStateImageBehavior = false;
             // 
-            // tabPage6
+            // tabPage_Techniques
             // 
-            this.tabPage6.AutoScroll = true;
-            this.tabPage6.Controls.Add(this.groupBox8);
-            this.tabPage6.Controls.Add(this.groupBox11);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(835, 478);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Techniques";
-            this.tabPage6.UseVisualStyleBackColor = true;
+            this.tabPage_Techniques.AutoScroll = true;
+            this.tabPage_Techniques.Controls.Add(this.groupBox8);
+            this.tabPage_Techniques.Controls.Add(this.groupBox11);
+            this.tabPage_Techniques.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_Techniques.Name = "tabPage_Techniques";
+            this.tabPage_Techniques.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_Techniques.Size = new System.Drawing.Size(835, 478);
+            this.tabPage_Techniques.TabIndex = 5;
+            this.tabPage_Techniques.Text = "Techniques";
+            this.tabPage_Techniques.UseVisualStyleBackColor = true;
             // 
             // groupBox8
             // 
@@ -2738,28 +2762,240 @@
             this.label61.TabIndex = 0;
             this.label61.Text = "Used / Total Regular Technique Points:";
             // 
-            // tabPage8
+            // tabPage_Sources
             // 
-            this.tabPage8.Controls.Add(this.button_LoadTemp);
-            this.tabPage8.Controls.Add(this.button_MoreTemplate);
-            this.tabPage8.Controls.Add(this.label49);
-            this.tabPage8.Controls.Add(this.textBox_MasteryMsg);
-            this.tabPage8.Controls.Add(this.label53);
-            this.tabPage8.Controls.Add(this.button_ResetTemp);
-            this.tabPage8.Controls.Add(this.label48);
-            this.tabPage8.Controls.Add(this.textBox_Color);
-            this.tabPage8.Controls.Add(this.label47);
-            this.tabPage8.Controls.Add(this.richTextBox_Template);
-            this.tabPage8.Controls.Add(this.label46);
-            this.tabPage8.Controls.Add(this.label_TemplateType);
-            this.tabPage8.Controls.Add(this.label43);
-            this.tabPage8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Size = new System.Drawing.Size(835, 478);
-            this.tabPage8.TabIndex = 7;
-            this.tabPage8.Text = "Template";
-            this.tabPage8.UseVisualStyleBackColor = true;
+            this.tabPage_Sources.Controls.Add(this.groupBox13);
+            this.tabPage_Sources.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_Sources.Name = "tabPage_Sources";
+            this.tabPage_Sources.Size = new System.Drawing.Size(835, 478);
+            this.tabPage_Sources.TabIndex = 8;
+            this.tabPage_Sources.Text = "Sources";
+            this.tabPage_Sources.UseVisualStyleBackColor = true;
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.label44);
+            this.groupBox13.Controls.Add(this.radioButton_DateEU);
+            this.groupBox13.Controls.Add(this.radioButton_DateNA);
+            this.groupBox13.Controls.Add(this.button_LoadDevH);
+            this.groupBox13.Controls.Add(this.button_AddSource);
+            this.groupBox13.Controls.Add(this.checkBox_CalcSD);
+            this.groupBox13.Controls.Add(this.button_SaveDevH);
+            this.groupBox13.Controls.Add(this.dgv_Sources);
+            this.groupBox13.Controls.Add(this.button_DownSource);
+            this.groupBox13.Controls.Add(this.button_UpSource);
+            this.groupBox13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox13.Location = new System.Drawing.Point(3, 3);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(829, 472);
+            this.groupBox13.TabIndex = 0;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "Development History";
+            // 
+            // label44
+            // 
+            this.label44.ForeColor = System.Drawing.Color.Green;
+            this.label44.Location = new System.Drawing.Point(6, 342);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(785, 127);
+            this.label44.TabIndex = 97;
+            this.label44.Text = "Development History can be saved and carried over to another .oprp file.\r\nSaving " +
+    "a .devh is only necessary when scooping to a brand new character\r\nTwo rows CANNO" +
+    "T have the same title";
+            this.label44.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // radioButton_DateEU
+            // 
+            this.radioButton_DateEU.AutoSize = true;
+            this.radioButton_DateEU.Location = new System.Drawing.Point(119, 316);
+            this.radioButton_DateEU.Name = "radioButton_DateEU";
+            this.radioButton_DateEU.Size = new System.Drawing.Size(112, 21);
+            this.radioButton_DateEU.TabIndex = 96;
+            this.radioButton_DateEU.Text = "DD/MM/YYYY";
+            this.radioButton_DateEU.UseVisualStyleBackColor = true;
+            this.radioButton_DateEU.CheckedChanged += new System.EventHandler(this.radioButton_DateEU_CheckedChanged);
+            // 
+            // radioButton_DateNA
+            // 
+            this.radioButton_DateNA.AutoSize = true;
+            this.radioButton_DateNA.Checked = true;
+            this.radioButton_DateNA.Location = new System.Drawing.Point(6, 316);
+            this.radioButton_DateNA.Name = "radioButton_DateNA";
+            this.radioButton_DateNA.Size = new System.Drawing.Size(112, 21);
+            this.radioButton_DateNA.TabIndex = 95;
+            this.radioButton_DateNA.TabStop = true;
+            this.radioButton_DateNA.Text = "MM/DD/YYYY";
+            this.radioButton_DateNA.UseVisualStyleBackColor = true;
+            this.radioButton_DateNA.CheckedChanged += new System.EventHandler(this.radioButton_DateNA_CheckedChanged);
+            // 
+            // button_LoadDevH
+            // 
+            this.button_LoadDevH.Location = new System.Drawing.Point(585, 314);
+            this.button_LoadDevH.Name = "button_LoadDevH";
+            this.button_LoadDevH.Size = new System.Drawing.Size(100, 25);
+            this.button_LoadDevH.TabIndex = 63;
+            this.button_LoadDevH.Text = "Load .devh";
+            this.button_LoadDevH.UseVisualStyleBackColor = true;
+            this.button_LoadDevH.Click += new System.EventHandler(this.button_LoadDevH_Click);
+            // 
+            // button_AddSource
+            // 
+            this.button_AddSource.Location = new System.Drawing.Point(691, 314);
+            this.button_AddSource.Name = "button_AddSource";
+            this.button_AddSource.Size = new System.Drawing.Size(100, 25);
+            this.button_AddSource.TabIndex = 62;
+            this.button_AddSource.Text = "Add";
+            this.button_AddSource.UseVisualStyleBackColor = true;
+            this.button_AddSource.Click += new System.EventHandler(this.button_AddSource_Click);
+            // 
+            // checkBox_CalcSD
+            // 
+            this.checkBox_CalcSD.AutoSize = true;
+            this.checkBox_CalcSD.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox_CalcSD.Location = new System.Drawing.Point(237, 317);
+            this.checkBox_CalcSD.Name = "checkBox_CalcSD";
+            this.checkBox_CalcSD.Size = new System.Drawing.Size(236, 21);
+            this.checkBox_CalcSD.TabIndex = 60;
+            this.checkBox_CalcSD.Text = "Calculate and change current SD";
+            this.checkBox_CalcSD.UseVisualStyleBackColor = true;
+            this.checkBox_CalcSD.CheckedChanged += new System.EventHandler(this.checkBox_CalcSD_CheckedChanged);
+            // 
+            // button_SaveDevH
+            // 
+            this.button_SaveDevH.Location = new System.Drawing.Point(479, 314);
+            this.button_SaveDevH.Name = "button_SaveDevH";
+            this.button_SaveDevH.Size = new System.Drawing.Size(100, 25);
+            this.button_SaveDevH.TabIndex = 59;
+            this.button_SaveDevH.Text = "Save .devh";
+            this.toolTips.SetToolTip(this.button_SaveDevH, "Used to carry across scoops");
+            this.button_SaveDevH.UseVisualStyleBackColor = true;
+            this.button_SaveDevH.Click += new System.EventHandler(this.button_SaveDevH_Click);
+            // 
+            // dgv_Sources
+            // 
+            this.dgv_Sources.AllowUserToAddRows = false;
+            this.dgv_Sources.AllowUserToDeleteRows = false;
+            this.dgv_Sources.AllowUserToResizeRows = false;
+            this.dgv_Sources.BackgroundColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_Sources.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv_Sources.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Sources.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.deleteRow,
+            this.sourceDate,
+            this.sourceTitle,
+            this.sourceURL,
+            this.sourceSD,
+            this.sourceBeli,
+            this.sourceNotes});
+            this.dgv_Sources.Location = new System.Drawing.Point(6, 19);
+            this.dgv_Sources.MultiSelect = false;
+            this.dgv_Sources.Name = "dgv_Sources";
+            this.dgv_Sources.ReadOnly = true;
+            this.dgv_Sources.RowHeadersVisible = false;
+            this.dgv_Sources.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_Sources.Size = new System.Drawing.Size(785, 289);
+            this.dgv_Sources.TabIndex = 41;
+            this.dgv_Sources.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Sources_CellContentClick);
+            this.dgv_Sources.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Sources_CellDoubleClick);
+            this.dgv_Sources.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridView_Sources_SortCompare);
+            // 
+            // deleteRow
+            // 
+            this.deleteRow.HeaderText = "X";
+            this.deleteRow.Name = "deleteRow";
+            this.deleteRow.ReadOnly = true;
+            this.deleteRow.Width = 20;
+            // 
+            // sourceDate
+            // 
+            this.sourceDate.HeaderText = "Date";
+            this.sourceDate.Name = "sourceDate";
+            this.sourceDate.ReadOnly = true;
+            // 
+            // sourceTitle
+            // 
+            this.sourceTitle.HeaderText = "Title";
+            this.sourceTitle.Name = "sourceTitle";
+            this.sourceTitle.ReadOnly = true;
+            this.sourceTitle.Width = 175;
+            // 
+            // sourceURL
+            // 
+            this.sourceURL.HeaderText = "URL";
+            this.sourceURL.Name = "sourceURL";
+            this.sourceURL.ReadOnly = true;
+            this.sourceURL.Width = 150;
+            // 
+            // sourceSD
+            // 
+            this.sourceSD.HeaderText = "SD";
+            this.sourceSD.Name = "sourceSD";
+            this.sourceSD.ReadOnly = true;
+            this.sourceSD.Width = 50;
+            // 
+            // sourceBeli
+            // 
+            this.sourceBeli.HeaderText = "Beli";
+            this.sourceBeli.Name = "sourceBeli";
+            this.sourceBeli.ReadOnly = true;
+            this.sourceBeli.Width = 120;
+            // 
+            // sourceNotes
+            // 
+            this.sourceNotes.HeaderText = "Notes";
+            this.sourceNotes.Name = "sourceNotes";
+            this.sourceNotes.ReadOnly = true;
+            this.sourceNotes.Width = 167;
+            // 
+            // button_DownSource
+            // 
+            this.button_DownSource.Image = ((System.Drawing.Image)(resources.GetObject("button_DownSource.Image")));
+            this.button_DownSource.Location = new System.Drawing.Point(797, 54);
+            this.button_DownSource.Name = "button_DownSource";
+            this.button_DownSource.Size = new System.Drawing.Size(26, 26);
+            this.button_DownSource.TabIndex = 40;
+            this.button_DownSource.UseVisualStyleBackColor = true;
+            this.button_DownSource.Click += new System.EventHandler(this.button_DownSource_Click);
+            // 
+            // button_UpSource
+            // 
+            this.button_UpSource.Image = ((System.Drawing.Image)(resources.GetObject("button_UpSource.Image")));
+            this.button_UpSource.Location = new System.Drawing.Point(797, 22);
+            this.button_UpSource.Name = "button_UpSource";
+            this.button_UpSource.Size = new System.Drawing.Size(26, 26);
+            this.button_UpSource.TabIndex = 39;
+            this.button_UpSource.UseVisualStyleBackColor = true;
+            this.button_UpSource.Click += new System.EventHandler(this.button_UpSource_Click);
+            // 
+            // tabPage_Template
+            // 
+            this.tabPage_Template.Controls.Add(this.button_LoadTemp);
+            this.tabPage_Template.Controls.Add(this.button_MoreTemplate);
+            this.tabPage_Template.Controls.Add(this.label49);
+            this.tabPage_Template.Controls.Add(this.textBox_MasteryMsg);
+            this.tabPage_Template.Controls.Add(this.label53);
+            this.tabPage_Template.Controls.Add(this.button_ResetTemp);
+            this.tabPage_Template.Controls.Add(this.label48);
+            this.tabPage_Template.Controls.Add(this.textBox_Color);
+            this.tabPage_Template.Controls.Add(this.label47);
+            this.tabPage_Template.Controls.Add(this.richTextBox_Template);
+            this.tabPage_Template.Controls.Add(this.label46);
+            this.tabPage_Template.Controls.Add(this.label_TemplateType);
+            this.tabPage_Template.Controls.Add(this.label43);
+            this.tabPage_Template.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.tabPage_Template.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_Template.Name = "tabPage_Template";
+            this.tabPage_Template.Size = new System.Drawing.Size(835, 478);
+            this.tabPage_Template.TabIndex = 7;
+            this.tabPage_Template.Text = "Template";
+            this.tabPage_Template.UseVisualStyleBackColor = true;
             // 
             // button_LoadTemp
             // 
@@ -3015,29 +3251,29 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.tabPage_Basic.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Comm)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Age)).EndInit();
-            this.tabPage2.ResumeLayout(false);
+            this.tabPage_Appear.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Height)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Width)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
+            this.tabPage_Background.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
+            this.tabPage_Abilities.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
-            this.tabPage7.ResumeLayout(false);
+            this.tabPage_Stats.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_AccuracyBase)).EndInit();
@@ -3047,18 +3283,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_UsedForFort)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SDintoStats)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SDEarned)).EndInit();
-            this.tabPage5.ResumeLayout(false);
+            this.tabPage_Traits.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
-            this.tabPage6.ResumeLayout(false);
+            this.tabPage_Techniques.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowEnd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowBegin)).EndInit();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
-            this.tabPage8.ResumeLayout(false);
-            this.tabPage8.PerformLayout();
+            this.tabPage_Sources.ResumeLayout(false);
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Sources)).EndInit();
+            this.tabPage_Template.ResumeLayout(false);
+            this.tabPage_Template.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -3070,12 +3310,12 @@
 
 		private System.Windows.Forms.Label label_Title;
 		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TabPage tabPage1;
-		private System.Windows.Forms.TabPage tabPage2;
-		private System.Windows.Forms.TabPage tabPage3;
-		private System.Windows.Forms.TabPage tabPage4;
-		private System.Windows.Forms.TabPage tabPage5;
-		private System.Windows.Forms.TabPage tabPage6;
+		private System.Windows.Forms.TabPage tabPage_Basic;
+		private System.Windows.Forms.TabPage tabPage_Appear;
+		private System.Windows.Forms.TabPage tabPage_Background;
+		private System.Windows.Forms.TabPage tabPage_Abilities;
+		private System.Windows.Forms.TabPage tabPage_Traits;
+		private System.Windows.Forms.TabPage tabPage_Techniques;
 		private System.Windows.Forms.Button button_Generate;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.GroupBox groupBox1;
@@ -3187,7 +3427,7 @@
 		private System.Windows.Forms.TextBox textBox_SpTPTotal;
 		private System.Windows.Forms.Label label45;
 		private System.Windows.Forms.TextBox textBox_SpTPUsed;
-		private System.Windows.Forms.TabPage tabPage7;
+		private System.Windows.Forms.TabPage tabPage_Stats;
 		private System.Windows.Forms.GroupBox groupBox12;
 		private System.Windows.Forms.TextBox textBox_AP;
 		private System.Windows.Forms.Label label_FortuneCalc;
@@ -3281,7 +3521,7 @@
 		private System.Windows.Forms.Label label41;
 		private System.Windows.Forms.ComboBox comboBox_DFTier;
 		private System.Windows.Forms.Label label42;
-		private System.Windows.Forms.TabPage tabPage8;
+		private System.Windows.Forms.TabPage tabPage_Template;
 		private System.Windows.Forms.Label label43;
 		private System.Windows.Forms.Label label_TemplateType;
 		private System.Windows.Forms.Label label46;
@@ -3298,6 +3538,25 @@
         private System.Windows.Forms.TextBox textBox_SDtoSPCalc;
         private System.Windows.Forms.Button button_LoadTemp;
         private System.Windows.Forms.ToolStripButton toolStripButton_SaveAs;
+        private System.Windows.Forms.TabPage tabPage_Sources;
+        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.Button button_DownSource;
+        private System.Windows.Forms.Button button_UpSource;
+        private System.Windows.Forms.DataGridView dgv_Sources;
+        private System.Windows.Forms.CheckBox checkBox_CalcSD;
+        private System.Windows.Forms.Button button_SaveDevH;
+        private System.Windows.Forms.Button button_LoadDevH;
+        private System.Windows.Forms.Button button_AddSource;
+        private System.Windows.Forms.RadioButton radioButton_DateEU;
+        private System.Windows.Forms.RadioButton radioButton_DateNA;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.DataGridViewButtonColumn deleteRow;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sourceDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sourceTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sourceURL;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sourceSD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sourceBeli;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sourceNotes;
     }
 }
 
