@@ -41,7 +41,7 @@ namespace OPRPCharBuild
 			"<color>[b]Eyes:[/b]</color> <17>\n\n" +
 			"<color>[b]Clothing/Accessories:[/b]</color> <18>\n\n" +
 			"<color>[b]General Appearance:[/b]</color> <19>\n\n" +
-			"<Image>[spoiler<empty=92>=<92></empty>][img<empty=93>=<93>,<94></empty>]<91>[/img][/spoiler]\n</Image>" +
+			"<Image>[spoiler<empty=92>=<92></empty>][img<empty=93>=<93>,<94></empty>]<91>[/img][/spoiler]\n\n</Image>" +
 			"[center][big][big][i][font=Century Gothic]The Character[/font][/i][/big][/big][/center]\n" +
 			"<color>[b]Personality:[/b]</color> <20>\n\n" +
 			"<color>[b]Hometown:[/b]</color> <21>, <22>\n\n" +
@@ -88,11 +88,15 @@ namespace OPRPCharBuild
 			"[u]Power:[/u] <67>\n" +
 			"[u]Stats:[/u] <68>\n" +
 			"[u]TP Spent:[/u] <69>R<zero=70> | <70>S</zero>\n" +
-			"[c]<empty=71><71>\n\n[hr]\n</empty>" +
-			"[u]Description:[/u] <72>\n\n" +
-			"<empty=73>[u]Effects:[/u] <73>\n</empty></Technique>[/table]\n\n</TechTable>\n" +
+			"[c]<empty=100><100></empty>\n" +
+            "<empty=71><71>\n\n[hr]\n</empty>" +
+			"[u]Description:[/u] <72>\n" +
+			"<empty=73>\n" +
+            "[u]Effects:[/u] <73>\n</empty>\n</Technique>\n\n[/table]\n\n</TechTable>\n\n" +
 			"[center][big][big][i][font=Century Gothic]Development History[/font][/i][/big][/big][/center]\n\n" +
-			"<color>[b]Gains/Losses:[/b]</color> \n\n" +
+            "[table=5, Sources]<color>[b][u]Date[/u][/b]</color>[c]<color>[b][u]Link[/u][/b]</color>[c]<color>[b][u]SD[/u][/b]</color>[c]<color>[b][u]Beli[/u][/b]</color>[c]<color>[b][u]Notes/Item/Fame/Misc[/u][/b]</color>\n" +
+            "<Sources>[c]<empty=101><101></empty>[c]<empty=103>[url=<103>]</empty><102><empty=103>[/url]</empty>[c]<empty=104><104></empty>[c]<empty=105><105></empty>[c]<empty=106><106></empty>\n" +
+            "</Sources>[/table]" +
 			"[spoiler=Edit Log]Edit Log goes here[/spoiler]";
 
 		#endregion
@@ -136,7 +140,8 @@ namespace OPRPCharBuild
             Dictionary<string, Trait> traitList,
             Dictionary<string, SpTrait> spTraitList,
             ListView Techs, 
-            ListView Categories) {
+            ListView Categories,
+            DataGridView Sources) {
 			// ------- Step 1) 
 			Template = Call_Special_Cast_Funcs(Template, MainForm.CustomTags);
 			// ------- Step 2) 
@@ -149,10 +154,10 @@ namespace OPRPCharBuild
 				ListViewItem Image = Images.Items[i];
 				string cast = "<IMG" + i + "_URL>";
 				if (!Template.Contains(cast)) { continue; }
-				else { Template = Template.Replace(cast, Image.SubItems[1].Text); }
+				else { Template = Template.Replace(cast, Image.SubItems[0].Text); }
 				cast = "<IMG" + i + "_LABEL>";
-				if (Template.Contains(cast)) { Template = Template.Replace(cast, Image.SubItems[0].Text); }
-				if (Image.SubItems[2].Text == "No") { // Full Res is No
+				if (Template.Contains(cast)) { Template = Template.Replace(cast, Image.SubItems[1].Text); }
+				if (Image.SubItems[2].Text == "False") { // Full Res is No
 					cast = "<IMG" + i + "_W>";
 					if (Template.Contains(cast)) { Template = Template.Replace(cast, Image.SubItems[3].Text); }
 					cast = "<IMG" + i + "_H>";
@@ -213,6 +218,9 @@ namespace OPRPCharBuild
 					}
 				}
 			}
+            if (Template.Contains("<Sources>") && Template.Contains("</Sources>")) {
+                Template = Repeat_Casting(Template, "Sources", Sources);
+            }
 			// ------- Step 4) 
 			if (string.IsNullOrWhiteSpace(color_hex)) {
 				Template = Template.Replace("<color>", "");
@@ -262,8 +270,8 @@ namespace OPRPCharBuild
 				case "Image":
 					ListView Images = (ListView)List;
 					foreach (ListViewItem Imagee in Images.Items) {
-						RepeatTags.Add(91, Imagee.SubItems[1].Text); // Load Dictionary
-						RepeatTags.Add(92, Imagee.SubItems[0].Text);
+						RepeatTags.Add(91, Imagee.SubItems[0].Text); // Load Dictionary
+						RepeatTags.Add(92, Imagee.SubItems[1].Text);
 						RepeatTags.Add(93, Imagee.SubItems[3].Text);
 						RepeatTags.Add(94, Imagee.SubItems[4].Text);
 						Repeat_String(old_str, ref new_str);
@@ -400,6 +408,19 @@ namespace OPRPCharBuild
 						RepeatTags.Clear();
 					}
 					break;
+                case "Sources":
+                    DataGridView Sources = (DataGridView)List;
+                    foreach (DataGridViewRow source in Sources.Rows) {
+                        RepeatTags.Add(101, source.Cells[1].Value.ToString());
+                        RepeatTags.Add(102, source.Cells[2].Value.ToString());
+                        RepeatTags.Add(103, source.Cells[3].Value.ToString());
+                        RepeatTags.Add(104, source.Cells[4].Value.ToString());
+                        RepeatTags.Add(105, source.Cells[5].Value.ToString());
+                        RepeatTags.Add(106, source.Cells[6].Value.ToString());
+                        Repeat_String(old_str, ref new_str);
+                        RepeatTags.Clear();
+                    }
+                    break;
 				default:
 					break;
 			}

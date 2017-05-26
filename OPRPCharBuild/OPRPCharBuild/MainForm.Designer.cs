@@ -27,7 +27,7 @@
 		private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label_Title = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_Basic = new System.Windows.Forms.TabPage();
@@ -277,6 +277,7 @@
             this.toolStripButton_Open = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_SaveAs = new System.Windows.Forms.ToolStripButton();
+            this.checkBox_CalcBeli = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage_Basic.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -2774,6 +2775,7 @@
             // 
             // groupBox13
             // 
+            this.groupBox13.Controls.Add(this.checkBox_CalcBeli);
             this.groupBox13.Controls.Add(this.label44);
             this.groupBox13.Controls.Add(this.radioButton_DateEU);
             this.groupBox13.Controls.Add(this.radioButton_DateNA);
@@ -2795,9 +2797,9 @@
             // label44
             // 
             this.label44.ForeColor = System.Drawing.Color.Green;
-            this.label44.Location = new System.Drawing.Point(6, 342);
+            this.label44.Location = new System.Drawing.Point(6, 368);
             this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(785, 127);
+            this.label44.Size = new System.Drawing.Size(785, 101);
             this.label44.TabIndex = 97;
             this.label44.Text = "Development History can be saved and carried over to another .oprp file.\r\nSaving " +
     "a .devh is only necessary when scooping to a brand new character\r\nTwo rows CANNO" +
@@ -2877,14 +2879,14 @@
             this.dgv_Sources.AllowUserToDeleteRows = false;
             this.dgv_Sources.AllowUserToResizeRows = false;
             this.dgv_Sources.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_Sources.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_Sources.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgv_Sources.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Sources.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.deleteRow,
@@ -3232,6 +3234,18 @@
             this.toolStripButton_SaveAs.ToolTipText = "Save As";
             this.toolStripButton_SaveAs.Click += new System.EventHandler(this.toolStripButton_SaveAs_Click);
             // 
+            // checkBox_CalcBeli
+            // 
+            this.checkBox_CalcBeli.AutoSize = true;
+            this.checkBox_CalcBeli.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox_CalcBeli.Location = new System.Drawing.Point(233, 344);
+            this.checkBox_CalcBeli.Name = "checkBox_CalcBeli";
+            this.checkBox_CalcBeli.Size = new System.Drawing.Size(240, 21);
+            this.checkBox_CalcBeli.TabIndex = 98;
+            this.checkBox_CalcBeli.Text = "Calculate and change current Beli";
+            this.checkBox_CalcBeli.UseVisualStyleBackColor = true;
+            this.checkBox_CalcBeli.CheckedChanged += new System.EventHandler(this.checkBox_CalcBeli_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3557,6 +3571,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceSD;
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceBeli;
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceNotes;
+        private System.Windows.Forms.CheckBox checkBox_CalcBeli;
     }
 }
 

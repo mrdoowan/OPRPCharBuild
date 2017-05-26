@@ -27,7 +27,6 @@ namespace OPRPCharBuild
                 string.IsNullOrWhiteSpace(richTextBox_NoteSource.Text)) {
                 MessageBox.Show("Can't submit an empty Source.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (textBox_TitleSource.Text)
             else {
                 this.Close();
                 button_clicked = true;
@@ -49,7 +48,12 @@ namespace OPRPCharBuild
                     int beli = (int)numericUpDown_BeliSource.Value;
                     string notes = richTextBox_NoteSource.Text;
                     Source add_Source = new Source(date, noDate, title, URL, SD, beli, notes);
-                    sourceDict.Add(title, add_Source);
+                    try { sourceDict.Add(title, add_Source); }
+                    catch {
+                        MessageBox.Show("Can't add two titles of the same name.", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    this.Close();
                     // Add into dgv
                     CultureInfo culture = dateNAFormat ? new CultureInfo("en-US") : new CultureInfo("en-GB");
                     string date_str = (!noDate) ? date.ToString("d", culture) : "";

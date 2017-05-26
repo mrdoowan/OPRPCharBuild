@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -153,6 +154,7 @@ namespace OPRPCharBuild
             SOURCE_BELI = "[SOU_BELI]",
             SOURCE_NOTE = "[SOU_NOTE]",
             // Template Tab
+            TEMPLATE_NAME = "[TEMP_NAME]",
             TEMPLATE = "[TEMPLATE]",
             COLOR = "[COLOR]",
             MASTERYMSG = "[MASTMSG]";
@@ -425,10 +427,12 @@ namespace OPRPCharBuild
             else { return sb.ToString(); }
         }
 
-        public void saveCharTemplate(string temp_,
+        public void saveCharTemplate(string tempName_,
+            string temp_,
             string color_,
             string msg_) {
             StringBuilder sb = new StringBuilder();
+            sb.Append(TEMPLATE_NAME + tempName_ + SPLIT1);
             sb.Append(TEMPLATE + temp_ + SPLIT1);
             sb.Append(COLOR + color_ + SPLIT1);
             sb.Append(MASTERYMSG + msg_ + SPLIT1);
@@ -818,9 +822,13 @@ namespace OPRPCharBuild
             }
         }
 
-        public void loadCharTemplate(ref RichTextBox template,
+        public void loadCharTemplate(ref Label tempName,
+            ref RichTextBox template,
             ref TextBox color,
             ref TextBox msg) {
+            tempName.Text = getParse(TEMPLATE_NAME, SPLIT1);
+            if (string.IsNullOrWhiteSpace(tempName.Text)) { tempName.Text = "Standard Template"; }
+            else { tempName.ForeColor = Color.Blue; }
             template.Text = getParse(TEMPLATE, SPLIT1);
             color.Text = getParse(COLOR, SPLIT1);
             msg.Text = getParse(MASTERYMSG, SPLIT1);

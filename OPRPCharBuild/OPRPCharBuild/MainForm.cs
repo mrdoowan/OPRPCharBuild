@@ -14,7 +14,6 @@ using System.Runtime.Serialization;
 using System.Net;
 using System.Reflection;
 using System.Diagnostics;
-using System.Linq;
 
 namespace OPRPCharBuild
 {
@@ -30,7 +29,7 @@ namespace OPRPCharBuild
 
 		#region Member Variables
 
-		public const string VERSION = "1.5.0";
+		public const string VERSION = "1.6.0";
 		public const string VERS_TYPE = "";
 		public const string STD_TEMPLATE_MSG = "Standard Template";
         private const string WEBSITE = "https://github.com/mrdoowan/OPRPCharBuild/releases";
@@ -1780,6 +1779,23 @@ namespace OPRPCharBuild
             }
         }
 
+        // Helper function for changing Beli textbox
+        private void update_Beli_Sources() {
+            if (checkBox_CalcBeli.Checked) {
+                int totalBeli = 0;
+                foreach (Source source in sourceList.Values) {
+                    totalBeli += source.beli;
+                }
+                textBox_Beli.Text = totalBeli.ToString("N0");
+            }
+        }
+
+        // Combining update_source functions
+        private void update_All_Sources() {
+            update_SD_Sources();
+            update_Beli_Sources();
+        }
+
         // Remembering the state of the dateTimeStamp check
         bool timeStampBool = false;
 
@@ -1790,7 +1806,7 @@ namespace OPRPCharBuild
             source_Win.new_Dialog(ref dgv_Sources, ref sourceList, 
                 ref timeStampBool, radioButton_DateNA.Checked);
             // Update current SD if checked
-            update_SD_Sources();
+            update_All_Sources();
         }
 
         // Edits a row
@@ -1800,7 +1816,7 @@ namespace OPRPCharBuild
                 source_Win.edit_Dialog(ref dgv_Sources, ref sourceList, radioButton_DateNA.Checked);
             }
             // Update current SD if checked
-            update_SD_Sources();
+            update_All_Sources();
         }
 
         // Deletes a row
@@ -1816,7 +1832,7 @@ namespace OPRPCharBuild
                     dgv.Rows.RemoveAt(item.Index);
                     dgv.Refresh();
                     // Update current SD if checked
-                    update_SD_Sources();
+                    update_All_Sources();
                 }
             }
             catch { } // Any implicit clicking exception errors
@@ -1872,27 +1888,35 @@ namespace OPRPCharBuild
             update_SD_Sources();
         }
 
+        private void checkBox_CalcBeli_CheckedChanged(object sender, EventArgs e) {
+            update_Beli_Sources();
+        }
+
         // Changes date format to NA (MM/DD/YYYY) when True in dgv
         private void radioButton_DateNA_CheckedChanged(object sender, EventArgs e) {
-            foreach (DataGridViewRow row in dgv_Sources.Rows) {
-                string[] date = row.Cells[1].Value.ToString().Split('/');
-                // Standard swap
-                string temp = date[0];
-                date[0] = date[1];
-                date[1] = temp;
-                row.Cells[1].Value = string.Join("/", date);
+            if (radioButton_DateNA.Checked) {
+                foreach (DataGridViewRow row in dgv_Sources.Rows) {
+                    string[] date = row.Cells[1].Value.ToString().Split('/');
+                    // Standard swap
+                    string temp = date[0];
+                    date[0] = date[1];
+                    date[1] = temp;
+                    row.Cells[1].Value = string.Join("/", date);
+                }
             }
         }
 
         // Changes date format to EU (DD/MM/YYYY) when True in dgv
         private void radioButton_DateEU_CheckedChanged(object sender, EventArgs e) {
-            foreach (DataGridViewRow row in dgv_Sources.Rows) {
-                string[] date = row.Cells[1].Value.ToString().Split('/');
-                // Standard swap
-                string temp = date[0];
-                date[0] = date[1];
-                date[1] = temp;
-                row.Cells[1].Value = string.Join("/", date);
+            if (radioButton_DateEU.Checked) {
+                foreach (DataGridViewRow row in dgv_Sources.Rows) {
+                    string[] date = row.Cells[1].Value.ToString().Split('/');
+                    // Standard swap
+                    string temp = date[0];
+                    date[0] = date[1];
+                    date[1] = temp;
+                    row.Cells[1].Value = string.Join("/", date);
+                }
             }
         }
 
@@ -2032,6 +2056,8 @@ namespace OPRPCharBuild
             dgv_Sources.Refresh();
             sourceList.Clear();
             // Templates
+            label_TemplateType.Text = "Standard Template";
+            label_TemplateType.ForeColor = Color.Green;
             richTextBox_Template.Text = Sheet.BASIC_TEMPLATE;
             textBox_Color.Clear();
             textBox_MasteryMsg.Text = "* denotes +4 Rank Mastery";
@@ -2107,6 +2133,7 @@ namespace OPRPCharBuild
 			profile.saveCharTechs(techList, listView_SubCat);
             profile.saveCharSources(sourceList, radioButton_DateNA, false);
             profile.saveCharTemplate(
+                label_TemplateType.Text,
                 richTextBox_Template.Text,
                 textBox_Color.Text,
                 textBox_MasteryMsg.Text
@@ -2214,6 +2241,7 @@ namespace OPRPCharBuild
             }
             catch (Exception ex) { MessageBox.Show("Load Techniques Error.\nReason: " + ex.Message); }
             profile.loadCharTemplate(
+                ref label_TemplateType,
                 ref richTextBox_Template,
                 ref textBox_Color,
                 ref textBox_MasteryMsg
@@ -2232,7 +2260,8 @@ namespace OPRPCharBuild
 			Update_TechNum();
             Update_Total_SpTP_Textbox();
             Update_Used_SpTP_Textbox();
-		}
+            Update_CritAnatQuick_Msg();
+        }
 
 		// This is where serialize our profile.
 		private void saveCharactertoData() {
@@ -2422,6 +2451,12 @@ namespace OPRPCharBuild
 			CustomTags.Add(98, numericUpDown_SDintoStats.Value.ToString());
 			// 99 is AP Description
             // 100 is Tech Custom Note
+            // 101 is DevH Date
+            // 102 is DevH Title
+            // 103 is DevH URL
+            // 104 is DevH SD
+            // 105 is DevH Beli
+            // 106 is DevH Note
 		}
 
 		private void button_Generate_Click(object sender, EventArgs e) {
@@ -2437,7 +2472,8 @@ namespace OPRPCharBuild
 				traitList, 
                 spTraitList, 
                 listView_Techniques, 
-                listView_SubCat);
+                listView_SubCat,
+                dgv_Sources);
 			sheet.ShowDialog();
 			CustomTags.Clear(); // Clear Dictionary now that we're done.
 		}

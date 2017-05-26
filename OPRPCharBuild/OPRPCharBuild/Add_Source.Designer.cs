@@ -65,6 +65,7 @@
             this.numericUpDown_BeliSource.Name = "numericUpDown_BeliSource";
             this.numericUpDown_BeliSource.Size = new System.Drawing.Size(118, 23);
             this.numericUpDown_BeliSource.TabIndex = 107;
+            this.numericUpDown_BeliSource.ThousandsSeparator = true;
             // 
             // checkBox_Datestamp
             // 
