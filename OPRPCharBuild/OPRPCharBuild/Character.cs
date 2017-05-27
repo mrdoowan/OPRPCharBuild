@@ -827,7 +827,7 @@ namespace OPRPCharBuild
             ref TextBox color,
             ref TextBox msg) {
             tempName.Text = getParse(TEMPLATE_NAME, SPLIT1);
-            if (string.IsNullOrWhiteSpace(tempName.Text)) { tempName.Text = "Standard Template"; }
+            if (tempName.Text == "Standard Template") { tempName.ForeColor = Color.Green; }
             else { tempName.ForeColor = Color.Blue; }
             template.Text = getParse(TEMPLATE, SPLIT1);
             color.Text = getParse(COLOR, SPLIT1);

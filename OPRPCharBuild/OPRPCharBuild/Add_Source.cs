@@ -34,9 +34,7 @@ namespace OPRPCharBuild
         }
 
         // Adds a new source by prompting the Dialog Box
-        public void new_Dialog(ref DataGridView dgv, ref Dictionary<string, Source> sourceDict, 
-            ref bool dateStampBool, bool dateNAFormat) {
-            checkBox_Datestamp.Checked = dateStampBool;
+        public void new_Dialog(ref DataGridView dgv, ref Dictionary<string, Source> sourceDict, bool dateNAFormat) {
             this.ShowDialog();
             if (button_clicked) {
                 try {
@@ -63,7 +61,6 @@ namespace OPRPCharBuild
                     dgv.Rows.Insert(0, button, date_str, title, URL,
                         SD_str, beli_str, notes);
                     dgv.Rows[0].Cells[0].Value = "X"; // Setting text
-                    dateStampBool = checkBox_Datestamp.Checked;    
                 }
                 catch (Exception ex) {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -84,8 +81,8 @@ namespace OPRPCharBuild
             numericUpDown_SDSource.Value = edit_Source.SD;
             numericUpDown_BeliSource.Value = edit_Source.beli;
             richTextBox_NoteSource.Text = edit_Source.notes;
-            if (string.IsNullOrWhiteSpace(date_str)) { dateTimePicker_DateStamp.Value = edit_Source.date; }
-            else { checkBox_Datestamp.Checked = false; }
+            if (!string.IsNullOrWhiteSpace(date_str)) { dateTimePicker_DateStamp.Value = edit_Source.date; }
+            else { checkBox_Datestamp.Checked = true; }
             this.ShowDialog();
             if (button_clicked) {
                 // Remove initial item from Dictionary

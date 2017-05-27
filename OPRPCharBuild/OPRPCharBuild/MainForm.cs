@@ -1803,15 +1803,14 @@ namespace OPRPCharBuild
         private void button_AddSource_Click(object sender, EventArgs e) {
             // Add Windows Dialog and check if confirmed
             Add_Source source_Win = new Add_Source();
-            source_Win.new_Dialog(ref dgv_Sources, ref sourceList, 
-                ref timeStampBool, radioButton_DateNA.Checked);
+            source_Win.new_Dialog(ref dgv_Sources, ref sourceList, radioButton_DateNA.Checked);
             // Update current SD if checked
             update_All_Sources();
         }
 
         // Edits a row
         private void dataGridView_Sources_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
-            if (dgv_Sources.SelectedRows.Count > 0) {
+            if (dgv_Sources.SelectedRows.Count > 0 && e.ColumnIndex != 0) {
                 Add_Source source_Win = new Add_Source();
                 source_Win.edit_Dialog(ref dgv_Sources, ref sourceList, radioButton_DateNA.Checked);
             }
@@ -1860,7 +1859,7 @@ namespace OPRPCharBuild
                         ref radioButton_DateNA, true, devH_data);
                 }
                 catch (Exception ex) {
-                    MessageBox.Show("Failed to deserialize.\nReason: " + ex.Message,
+                    MessageBox.Show("Failed to load.\nReason: " + ex.Message,
                         "Failed to Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -1873,12 +1872,19 @@ namespace OPRPCharBuild
             fileDialogSaveProject.Title = "Save New Development History";
             fileDialogSaveProject.OverwritePrompt = true;
             if (fileDialogSaveProject.ShowDialog() == DialogResult.OK) {
-                // #TODO: Parse sourceList into data
-                string data = profile.saveCharSources(sourceList, radioButton_DateNA, true);
-                string path = fileDialogSaveProject.FileName;
-                string saveData = Serialize.encryptData(data, DEVH_KEY);
-                using (StreamWriter newTask = new StreamWriter(path, false)) {
-                    newTask.Write(saveData);
+                try {
+                    string data = profile.saveCharSources(sourceList, radioButton_DateNA, true);
+                    string path = fileDialogSaveProject.FileName;
+                    string saveData = Serialize.encryptData(data, DEVH_KEY);
+                    using (StreamWriter newTask = new StreamWriter(path, false)) {
+                        newTask.Write(saveData);
+                    }
+                    MessageBox.Show("Development History saved successfully!", "Success",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex) {
+                    MessageBox.Show("Failed to save.\nReason: " + ex.Message,
+                        "Failed to Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
