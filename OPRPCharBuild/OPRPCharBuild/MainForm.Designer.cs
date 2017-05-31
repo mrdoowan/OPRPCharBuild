@@ -235,6 +235,7 @@
             this.label61 = new System.Windows.Forms.Label();
             this.tabPage_Sources = new System.Windows.Forms.TabPage();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.checkBox_CalcBeli = new System.Windows.Forms.CheckBox();
             this.label44 = new System.Windows.Forms.Label();
             this.radioButton_DateEU = new System.Windows.Forms.RadioButton();
             this.radioButton_DateNA = new System.Windows.Forms.RadioButton();
@@ -243,13 +244,6 @@
             this.checkBox_CalcSD = new System.Windows.Forms.CheckBox();
             this.button_SaveDevH = new System.Windows.Forms.Button();
             this.dgv_Sources = new System.Windows.Forms.DataGridView();
-            this.deleteRow = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.sourceDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceURL = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceSD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceBeli = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_DownSource = new System.Windows.Forms.Button();
             this.button_UpSource = new System.Windows.Forms.Button();
             this.tabPage_Template = new System.Windows.Forms.TabPage();
@@ -277,7 +271,13 @@
             this.toolStripButton_Open = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_SaveAs = new System.Windows.Forms.ToolStripButton();
-            this.checkBox_CalcBeli = new System.Windows.Forms.CheckBox();
+            this.deleteRow = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.sourceDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceURL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceSD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceBeli = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage_Basic.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -2794,6 +2794,18 @@
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "Development History";
             // 
+            // checkBox_CalcBeli
+            // 
+            this.checkBox_CalcBeli.AutoSize = true;
+            this.checkBox_CalcBeli.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox_CalcBeli.Location = new System.Drawing.Point(233, 344);
+            this.checkBox_CalcBeli.Name = "checkBox_CalcBeli";
+            this.checkBox_CalcBeli.Size = new System.Drawing.Size(240, 21);
+            this.checkBox_CalcBeli.TabIndex = 98;
+            this.checkBox_CalcBeli.Text = "Calculate and change current Beli";
+            this.checkBox_CalcBeli.UseVisualStyleBackColor = true;
+            this.checkBox_CalcBeli.CheckedChanged += new System.EventHandler(this.checkBox_CalcBeli_CheckedChanged);
+            // 
             // label44
             // 
             this.label44.ForeColor = System.Drawing.Color.Green;
@@ -2801,9 +2813,7 @@
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(785, 101);
             this.label44.TabIndex = 97;
-            this.label44.Text = "Development History can be saved and carried over to another .oprp file.\r\nSaving " +
-    "a .devh is only necessary when scooping to a brand new character\r\nTwo rows CANNO" +
-    "T have the same title";
+            this.label44.Text = resources.GetString("label44.Text");
             this.label44.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // radioButton_DateEU
@@ -2907,54 +2917,6 @@
             this.dgv_Sources.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Sources_CellContentClick);
             this.dgv_Sources.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Sources_CellDoubleClick);
             this.dgv_Sources.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridView_Sources_SortCompare);
-            // 
-            // deleteRow
-            // 
-            this.deleteRow.HeaderText = "X";
-            this.deleteRow.Name = "deleteRow";
-            this.deleteRow.ReadOnly = true;
-            this.deleteRow.Width = 20;
-            // 
-            // sourceDate
-            // 
-            this.sourceDate.HeaderText = "Date";
-            this.sourceDate.Name = "sourceDate";
-            this.sourceDate.ReadOnly = true;
-            // 
-            // sourceTitle
-            // 
-            this.sourceTitle.HeaderText = "Title";
-            this.sourceTitle.Name = "sourceTitle";
-            this.sourceTitle.ReadOnly = true;
-            this.sourceTitle.Width = 175;
-            // 
-            // sourceURL
-            // 
-            this.sourceURL.HeaderText = "URL";
-            this.sourceURL.Name = "sourceURL";
-            this.sourceURL.ReadOnly = true;
-            this.sourceURL.Width = 150;
-            // 
-            // sourceSD
-            // 
-            this.sourceSD.HeaderText = "SD";
-            this.sourceSD.Name = "sourceSD";
-            this.sourceSD.ReadOnly = true;
-            this.sourceSD.Width = 50;
-            // 
-            // sourceBeli
-            // 
-            this.sourceBeli.HeaderText = "Beli";
-            this.sourceBeli.Name = "sourceBeli";
-            this.sourceBeli.ReadOnly = true;
-            this.sourceBeli.Width = 120;
-            // 
-            // sourceNotes
-            // 
-            this.sourceNotes.HeaderText = "Notes";
-            this.sourceNotes.Name = "sourceNotes";
-            this.sourceNotes.ReadOnly = true;
-            this.sourceNotes.Width = 167;
             // 
             // button_DownSource
             // 
@@ -3234,17 +3196,53 @@
             this.toolStripButton_SaveAs.ToolTipText = "Save As";
             this.toolStripButton_SaveAs.Click += new System.EventHandler(this.toolStripButton_SaveAs_Click);
             // 
-            // checkBox_CalcBeli
+            // deleteRow
             // 
-            this.checkBox_CalcBeli.AutoSize = true;
-            this.checkBox_CalcBeli.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox_CalcBeli.Location = new System.Drawing.Point(233, 344);
-            this.checkBox_CalcBeli.Name = "checkBox_CalcBeli";
-            this.checkBox_CalcBeli.Size = new System.Drawing.Size(240, 21);
-            this.checkBox_CalcBeli.TabIndex = 98;
-            this.checkBox_CalcBeli.Text = "Calculate and change current Beli";
-            this.checkBox_CalcBeli.UseVisualStyleBackColor = true;
-            this.checkBox_CalcBeli.CheckedChanged += new System.EventHandler(this.checkBox_CalcBeli_CheckedChanged);
+            this.deleteRow.HeaderText = "X";
+            this.deleteRow.Name = "deleteRow";
+            this.deleteRow.ReadOnly = true;
+            this.deleteRow.Width = 20;
+            // 
+            // sourceDate
+            // 
+            this.sourceDate.HeaderText = "Date";
+            this.sourceDate.Name = "sourceDate";
+            this.sourceDate.ReadOnly = true;
+            // 
+            // sourceTitle
+            // 
+            this.sourceTitle.HeaderText = "Title";
+            this.sourceTitle.Name = "sourceTitle";
+            this.sourceTitle.ReadOnly = true;
+            this.sourceTitle.Width = 175;
+            // 
+            // sourceURL
+            // 
+            this.sourceURL.HeaderText = "URL";
+            this.sourceURL.Name = "sourceURL";
+            this.sourceURL.ReadOnly = true;
+            this.sourceURL.Width = 150;
+            // 
+            // sourceSD
+            // 
+            this.sourceSD.HeaderText = "SD";
+            this.sourceSD.Name = "sourceSD";
+            this.sourceSD.ReadOnly = true;
+            this.sourceSD.Width = 50;
+            // 
+            // sourceBeli
+            // 
+            this.sourceBeli.HeaderText = "Beli";
+            this.sourceBeli.Name = "sourceBeli";
+            this.sourceBeli.ReadOnly = true;
+            this.sourceBeli.Width = 120;
+            // 
+            // sourceNotes
+            // 
+            this.sourceNotes.HeaderText = "Notes";
+            this.sourceNotes.Name = "sourceNotes";
+            this.sourceNotes.ReadOnly = true;
+            this.sourceNotes.Width = 165;
             // 
             // MainForm
             // 
@@ -3260,6 +3258,8 @@
             this.Controls.Add(this.label_Title);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(883, 720);
+            this.MinimumSize = new System.Drawing.Size(883, 720);
             this.Name = "MainForm";
             this.Text = "OPRP Character Builder";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -3564,6 +3564,7 @@
         private System.Windows.Forms.RadioButton radioButton_DateEU;
         private System.Windows.Forms.RadioButton radioButton_DateNA;
         private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.CheckBox checkBox_CalcBeli;
         private System.Windows.Forms.DataGridViewButtonColumn deleteRow;
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceTitle;
@@ -3571,7 +3572,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceSD;
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceBeli;
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceNotes;
-        private System.Windows.Forms.CheckBox checkBox_CalcBeli;
     }
 }
 

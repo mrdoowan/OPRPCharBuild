@@ -67,20 +67,16 @@ namespace OPRPCharBuild
 					if (checkBox1.Checked) {
 						primary = true;
 					}
-                    Profession addProf = new Profession(name, primary,
+                    Profession addProf = new Profession(name, primary, textBox1.Text,
                         richTextBox1_Desc.Text, richTextBox2_Primary.Text);
 					profDict.Add(name, addProf);
 					// Check above for any Exceptions
 					ListViewItem item = new ListViewItem();
-					item.SubItems[0].Text = comboBox1.Text;     // First column: Profession (Why does it do this?)
-					if (primary) {                    // Second column: Primary/Secondary
-						item.SubItems.Add("Primary");
-					}
-					else {
-						item.SubItems.Add("Secondary");
-					}
-					item.SubItems.Add(richTextBox1_Desc.Text);      // Third column: Basic description
-					item.SubItems.Add(richTextBox2_Primary.Text);   // Fourth column: Primary bonus
+                    item.SubItems[0].Text = (string.IsNullOrWhiteSpace(textBox1.Text)) ? comboBox1.Text : textBox1.Text;
+                                                                            // First Column: Profession Name
+					item.SubItems.Add((primary) ? "Primary" : "Secondary"); // Second column: Primary/Secondary
+                    item.SubItems.Add(richTextBox1_Desc.Text);              // Third column: Basic description
+					item.SubItems.Add(richTextBox2_Primary.Text);           // Fourth column: Primary bonus
 					Main_Form.Items.Add(item);
 					// Now sort.
 					Main_Form.ListViewItemSorter = new ListViewItemSorter(1);
@@ -97,15 +93,12 @@ namespace OPRPCharBuild
 			button1.Text = "Edit";
 			// Put what's Edited into the Dialog Box first.
 			string prof_name = Main_Form.SelectedItems[0].SubItems[0].Text;
+            Profession sel_prof = profDict[prof_name];
 			comboBox1.Text = prof_name;
-			if (Main_Form.SelectedItems[0].SubItems[1].Text == "Primary") {
-				checkBox1.Checked = true;
-			}
-			else if (Main_Form.SelectedItems[0].SubItems[1].Text == "Secondary") {
-				checkBox1.Checked = false;
-			}
-			richTextBox1_Desc.Text = Main_Form.SelectedItems[0].SubItems[2].Text;
-			richTextBox2_Primary.Text = Main_Form.SelectedItems[0].SubItems[3].Text;
+			checkBox1.Checked = sel_prof.primary;
+            textBox1.Text = sel_prof.custom;
+			richTextBox1_Desc.Text = sel_prof.desc;
+			richTextBox2_Primary.Text = sel_prof.bonus;
 			// Now proceed to edit it.
 			this.ShowDialog();
 			if (button_clicked) {
@@ -116,7 +109,7 @@ namespace OPRPCharBuild
 				if (checkBox1.Checked) {
 					primary = true;
 				}
-                Profession editProf = new Profession(name, primary,
+                Profession editProf = new Profession(name, primary, textBox1.Text,
                     richTextBox1_Desc.Text, richTextBox2_Primary.Text);
 				try { profDict.Add(name, editProf); }
 				catch (Exception e) {
@@ -124,12 +117,7 @@ namespace OPRPCharBuild
                     return;
 				}
 				Main_Form.SelectedItems[0].SubItems[0].Text = comboBox1.Text;
-				if (primary) {
-					Main_Form.SelectedItems[0].SubItems[1].Text = "Primary";
-				}
-				else {
-					Main_Form.SelectedItems[0].SubItems[1].Text = "Secondary";
-				}
+                Main_Form.SelectedItems[0].SubItems[1].Text = (primary) ? "Primary" : "Secondary";
 				Main_Form.SelectedItems[0].SubItems[2].Text = richTextBox1_Desc.Text;
 				Main_Form.SelectedItems[0].SubItems[3].Text = richTextBox2_Primary.Text;
 				// Now sort.

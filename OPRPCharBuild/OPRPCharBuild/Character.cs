@@ -9,10 +9,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OPRPCharBuild
@@ -44,6 +41,7 @@ namespace OPRPCharBuild
             TAG_STA_PROF = "<PROF>",
             TAG_END_PROF = "</PROF>",
             PROF_NAME = "[PR_NAME]",
+            PROF_CUST = "[PR_CUST]",
             PROF_PRIM = "[PR_PRIM]",
             PROF_DESC = "[PR_DESC]",
             PROF_BONU = "[PR_BONU]",
@@ -209,6 +207,7 @@ namespace OPRPCharBuild
             foreach (Profession prof in prof_.Values) {
                 sb.Append(PROF_NAME + prof.name + SPLIT1);
                 sb.Append(PROF_PRIM + prof.primary + SPLIT1);
+                sb.Append(PROF_CUST + prof.custom + SPLIT1);
                 sb.Append(PROF_DESC + prof.desc + SPLIT1);
                 sb.Append(PROF_BONU + prof.bonus + SPLIT1);
                 sb.Append(SPLIT2);
@@ -519,10 +518,11 @@ namespace OPRPCharBuild
             for (int i = 0; i < profArr.Length; ++i) {
                 string profName = getParse(PROF_NAME, SPLIT1, profArr[i]);
                 string profPrim = getParse(PROF_PRIM, SPLIT1, profArr[i]);
+                string profCust = getParse(PROF_CUST, SPLIT1, profArr[i]);
                 bool primary = (profPrim == "True") ? true : false;
                 string profDesc = getParse(PROF_DESC, SPLIT1, profArr[i]);
                 string profBonu = getParse(PROF_BONU, SPLIT1, profArr[i]);
-                profList.Add(profName, new Profession(profName, primary, profDesc, profBonu));
+                profList.Add(profName, new Profession(profName, primary, profCust, profDesc, profBonu));
                 ListViewItem item = new ListViewItem();
                 item.SubItems[0].Text = profName;
                 profPrim = (primary) ? "Primary" : "Secondary";

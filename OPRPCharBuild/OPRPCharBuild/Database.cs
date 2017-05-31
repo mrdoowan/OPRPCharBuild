@@ -605,7 +605,7 @@ namespace OPRPCharBuild
                 "A technique capable of breaking a single weapon or piece of armour of High Tier Material (i.e. Titanium).") },
             { EFF_ARHAK, new Effect(EFF_ARHAK, false, 6, 14,
                 "User creates a coat of hardened armour around a pair of limbs or a weapon. Offers passive defensive benefit equal to technique power. At Rank 28 and beyond, Armaments Haki gains the passive ability to strike a devil fruit user's real body whilst this buff is active on them.") },
-            { EFF_ELCOA, new Effect(EFF_ELCOA, false, 14, 28,
+            { EFF_ELCOA, new Effect(EFF_ELCOA, false, 28, 28,
                 "User has developed a technique to generate and bind a type of element to a pair of limbs or a weapon. Grants the passive benefits of the element, and a passive offensive benefit equal to technique power.") },
             { EFF_FULLB, new Effect(EFF_FULLB, false, 10, 20,
                 "The cost of extending an effect of a technique from limbs to the entire body. Effects such as Tekkai, Armaments Haki amongst others use this.") },
