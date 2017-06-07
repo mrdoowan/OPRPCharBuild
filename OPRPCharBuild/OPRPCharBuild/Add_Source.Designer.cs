@@ -70,11 +70,13 @@
             // checkBox_Datestamp
             // 
             this.checkBox_Datestamp.AutoSize = true;
+            this.checkBox_Datestamp.Checked = true;
+            this.checkBox_Datestamp.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox_Datestamp.Location = new System.Drawing.Point(62, 112);
             this.checkBox_Datestamp.Name = "checkBox_Datestamp";
-            this.checkBox_Datestamp.Size = new System.Drawing.Size(160, 21);
+            this.checkBox_Datestamp.Size = new System.Drawing.Size(124, 21);
             this.checkBox_Datestamp.TabIndex = 106;
-            this.checkBox_Datestamp.Text = "Don\'t add Datestamp";
+            this.checkBox_Datestamp.Text = "Add Datestamp";
             this.checkBox_Datestamp.UseVisualStyleBackColor = true;
             // 
             // richTextBox_NoteSource

@@ -645,12 +645,10 @@ namespace OPRPCharBuild
 		}
 
         private bool If_Treat_Rank4(string techTrait) {
-            // This is tricky because of [SPEC]
-            string traitSpec = Database.stringSpec(techTrait);
-            if (traitSpec == Database.TR_MASTER || traitSpec == Database.TR_ADVMAS ||
-                traitSpec == Database.TR_ADVCLA || traitSpec == Database.TR_STAMAS ||
-                traitSpec == Database.TR_ADVSTA || traitSpec == Database.TR_ARTSTE ||
-                traitSpec == Database.TR_ANTIST || traitSpec == Database.TR_DWARF) {
+            if (techTrait == Database.TR_MASTER || techTrait == Database.TR_ADVMAS ||
+                techTrait == Database.TR_ADVCLA || techTrait == Database.TR_STAMAS ||
+                techTrait == Database.TR_ADVSTA || techTrait == Database.TR_ARTSTE ||
+                techTrait == Database.TR_ANTIST || techTrait == Database.TR_DWARF) {
                 return true;
             }
             return false;

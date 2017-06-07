@@ -34,12 +34,13 @@ namespace OPRPCharBuild
         }
 
         // Adds a new source by prompting the Dialog Box
-        public void new_Dialog(ref DataGridView dgv, ref Dictionary<string, Source> sourceDict, bool dateNAFormat) {
+        public void new_Dialog(ref DataGridView dgv, ref Dictionary<string, Source> sourceDict,
+            bool dateNAFormat, ref bool rememberCheck) {
             this.ShowDialog();
             if (button_clicked) {
                 try {
                     DateTime date = dateTimePicker_DateStamp.Value.Date;
-                    bool noDate = checkBox_Datestamp.Checked;
+                    bool noDate = !checkBox_Datestamp.Checked;
                     string title = textBox_TitleSource.Text;
                     string URL = textBox_URLSource.Text;
                     int SD = (int)numericUpDown_SDSource.Value;
@@ -51,7 +52,6 @@ namespace OPRPCharBuild
                         MessageBox.Show("Can't add two titles of the same name.", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    this.Close();
                     // Add into dgv
                     CultureInfo culture = dateNAFormat ? new CultureInfo("en-US") : new CultureInfo("en-GB");
                     string date_str = (!noDate) ? date.ToString("d", culture) : "";
@@ -61,6 +61,7 @@ namespace OPRPCharBuild
                     dgv.Rows.Insert(0, button, date_str, title, URL,
                         SD_str, beli_str, notes);
                     dgv.Rows[0].Cells[0].Value = "X"; // Setting text
+                    rememberCheck = checkBox_Datestamp.Checked;
                 }
                 catch (Exception ex) {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -70,9 +71,10 @@ namespace OPRPCharBuild
 
         // Double clicking should load the Dialog of the row's information
         public void edit_Dialog(ref DataGridView dgv, ref Dictionary<string, Source> sourceDict, 
-            bool dateNAFormat) {
+            bool dateNAFormat, ref bool rememberCheck) {
             this.Text = "Edit Source";
             // Load edit from row
+            checkBox_Datestamp.Checked = rememberCheck;
             string title = dgv.SelectedRows[0].Cells[2].Value.ToString();
             string date_str = dgv.SelectedRows[0].Cells[1].Value.ToString();
             Source edit_Source = sourceDict[title];
@@ -82,14 +84,14 @@ namespace OPRPCharBuild
             numericUpDown_BeliSource.Value = edit_Source.beli;
             richTextBox_NoteSource.Text = edit_Source.notes;
             if (!string.IsNullOrWhiteSpace(date_str)) { dateTimePicker_DateStamp.Value = edit_Source.date; }
-            else { checkBox_Datestamp.Checked = true; }
+            else { checkBox_Datestamp.Checked = false; }
             this.ShowDialog();
             if (button_clicked) {
                 // Remove initial item from Dictionary
                 sourceDict.Remove(title);
                 try {
                     DateTime new_date = dateTimePicker_DateStamp.Value.Date;
-                    bool noDate = checkBox_Datestamp.Checked;
+                    bool noDate = !checkBox_Datestamp.Checked;
                     CultureInfo culture = dateNAFormat ? new CultureInfo("en-US") : new CultureInfo("en-GB");
                     string new_title = textBox_TitleSource.Text;
                     string new_URL = textBox_URLSource.Text;
@@ -106,6 +108,7 @@ namespace OPRPCharBuild
                     // Add to Dict
                     Source new_source = new Source(new_date, noDate, new_title, new_URL, new_SD, new_beli, new_note);
                     sourceDict.Add(new_title, new_source);
+                    rememberCheck = checkBox_Datestamp.Checked;
                 }
                 catch (Exception ex) {
                     sourceDict.Add(title, edit_Source); // Re-add

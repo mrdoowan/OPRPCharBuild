@@ -68,6 +68,7 @@
             this.comboBox_StatOpt = new System.Windows.Forms.ComboBox();
             this.checkBox_Inventor = new System.Windows.Forms.CheckBox();
             this.checkBox_Marksman = new System.Windows.Forms.CheckBox();
+            this.checkBox_SigTech = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.checkBox_AutoCalc = new System.Windows.Forms.CheckBox();
             this.textBox_Power = new System.Windows.Forms.TextBox();
@@ -97,12 +98,12 @@
             this.checkBox_Fuel3 = new System.Windows.Forms.CheckBox();
             this.checkBox_Fuel2 = new System.Windows.Forms.CheckBox();
             this.label_Cyborg = new System.Windows.Forms.Label();
-            this.checkBox_SigTech = new System.Windows.Forms.CheckBox();
             this.toolTips = new System.Windows.Forms.ToolTip(this.components);
             this.label_TechFormMsg = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.checkBox_Fuel1 = new System.Windows.Forms.CheckBox();
             this.toolTip_Roku = new System.Windows.Forms.ToolTip(this.components);
+            this.label_Focus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
@@ -454,13 +455,14 @@
             // 
             this.label_MaxRank.Location = new System.Drawing.Point(93, 18);
             this.label_MaxRank.Name = "label_MaxRank";
-            this.label_MaxRank.Size = new System.Drawing.Size(152, 19);
+            this.label_MaxRank.Size = new System.Drawing.Size(97, 19);
             this.label_MaxRank.TabIndex = 65;
             this.label_MaxRank.Text = "[Max Rank: 0]";
             this.label_MaxRank.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label_Focus);
             this.groupBox1.Controls.Add(this.button_Rokushiki);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.numericUpDown_Rank);
@@ -481,7 +483,7 @@
             this.groupBox1.Size = new System.Drawing.Size(435, 105);
             this.groupBox1.TabIndex = 69;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Points and Rank";
+            this.groupBox1.Text = "TP and Rank";
             // 
             // button_Rokushiki
             // 
@@ -608,6 +610,19 @@
             this.toolTips.SetToolTip(this.checkBox_Marksman, "Check this to lower the Range costs.");
             this.checkBox_Marksman.UseVisualStyleBackColor = true;
             this.checkBox_Marksman.CheckedChanged += new System.EventHandler(this.checkBox_Marksman_CheckedChanged);
+            // 
+            // checkBox_SigTech
+            // 
+            this.checkBox_SigTech.AutoSize = true;
+            this.checkBox_SigTech.Enabled = false;
+            this.checkBox_SigTech.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.checkBox_SigTech.Location = new System.Drawing.Point(96, 19);
+            this.checkBox_SigTech.Name = "checkBox_SigTech";
+            this.checkBox_SigTech.Size = new System.Drawing.Size(99, 17);
+            this.checkBox_SigTech.TabIndex = 84;
+            this.checkBox_SigTech.Text = "Signature Tech";
+            this.checkBox_SigTech.UseVisualStyleBackColor = true;
+            this.checkBox_SigTech.CheckedChanged += new System.EventHandler(this.checkBox_SigTech_CheckedChanged);
             // 
             // groupBox4
             // 
@@ -963,19 +978,6 @@
             this.label_Cyborg.Text = "[No Cyborg Trait]";
             this.label_Cyborg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox_SigTech
-            // 
-            this.checkBox_SigTech.AutoSize = true;
-            this.checkBox_SigTech.Enabled = false;
-            this.checkBox_SigTech.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.checkBox_SigTech.Location = new System.Drawing.Point(96, 19);
-            this.checkBox_SigTech.Name = "checkBox_SigTech";
-            this.checkBox_SigTech.Size = new System.Drawing.Size(99, 17);
-            this.checkBox_SigTech.TabIndex = 84;
-            this.checkBox_SigTech.Text = "Signature Tech";
-            this.checkBox_SigTech.UseVisualStyleBackColor = true;
-            this.checkBox_SigTech.CheckedChanged += new System.EventHandler(this.checkBox_SigTech_CheckedChanged);
-            // 
             // toolTips
             // 
             this.toolTips.AutoPopDelay = 10000;
@@ -1024,6 +1026,15 @@
             this.toolTip_Roku.AutoPopDelay = 10000;
             this.toolTip_Roku.InitialDelay = 50;
             this.toolTip_Roku.ReshowDelay = 100;
+            // 
+            // label_Focus
+            // 
+            this.label_Focus.Location = new System.Drawing.Point(196, 18);
+            this.label_Focus.Name = "label_Focus";
+            this.label_Focus.Size = new System.Drawing.Size(75, 19);
+            this.label_Focus.TabIndex = 77;
+            this.label_Focus.Text = "[Focus: 0]";
+            this.label_Focus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Add_Technique
             // 
@@ -1151,5 +1162,6 @@
         private System.Windows.Forms.ComboBox comboBox_StatOpt;
         private System.Windows.Forms.TextBox textBox_Stats;
         private System.Windows.Forms.Button button_ResetStats;
+        private System.Windows.Forms.Label label_Focus;
     }
 }

@@ -26,18 +26,27 @@
 		/// </summary>
 		private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label_Title = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_Basic = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.dgv_Professions = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_DownProf = new System.Windows.Forms.Button();
             this.button_ProfEdit = new System.Windows.Forms.Button();
             this.button_UpProf = new System.Windows.Forms.Button();
             this.button_ProfDelete = new System.Windows.Forms.Button();
             this.button_ProfAdd = new System.Windows.Forms.Button();
-            this.listView_Prof = new System.Windows.Forms.ListView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button_DownAchieve = new System.Windows.Forms.Button();
             this.button_AchieveEdit = new System.Windows.Forms.Button();
@@ -190,12 +199,21 @@
             this.label81 = new System.Windows.Forms.Label();
             this.tabPage_Traits = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.dgv_Traits = new System.Windows.Forms.DataGridView();
+            this.Trait_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_Custom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_GenNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_ProfNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_Desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button_TraitsDown = new System.Windows.Forms.Button();
+            this.button_TraitsUp = new System.Windows.Forms.Button();
+            this.button_EditTrait = new System.Windows.Forms.Button();
             this.label32 = new System.Windows.Forms.Label();
             this.label59_TraitsCalc = new System.Windows.Forms.Label();
             this.label58_TraitsCurrent = new System.Windows.Forms.Label();
             this.button_TraitsDelete = new System.Windows.Forms.Button();
             this.button_TraitAdd = new System.Windows.Forms.Button();
-            this.listView_Traits = new System.Windows.Forms.ListView();
             this.tabPage_Techniques = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label41 = new System.Windows.Forms.Label();
@@ -213,6 +231,7 @@
             this.label36 = new System.Windows.Forms.Label();
             this.listView_SubCat = new System.Windows.Forms.ListView();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.dgv_Techniques = new System.Windows.Forms.DataGridView();
             this.label_CritAnatQuick = new System.Windows.Forms.Label();
             this.label_TechCount = new System.Windows.Forms.Label();
             this.button_TechBranch = new System.Windows.Forms.Button();
@@ -224,7 +243,6 @@
             this.button_TechEdit = new System.Windows.Forms.Button();
             this.button_TechDelete = new System.Windows.Forms.Button();
             this.button_TechAdd = new System.Windows.Forms.Button();
-            this.listView_Techniques = new System.Windows.Forms.ListView();
             this.label66 = new System.Windows.Forms.Label();
             this.listView_SpTP = new System.Windows.Forms.ListView();
             this.label64 = new System.Windows.Forms.Label();
@@ -244,6 +262,13 @@
             this.checkBox_CalcSD = new System.Windows.Forms.CheckBox();
             this.button_SaveDevH = new System.Windows.Forms.Button();
             this.dgv_Sources = new System.Windows.Forms.DataGridView();
+            this.deleteRow = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.sourceDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceURL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceSD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceBeli = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_DownSource = new System.Windows.Forms.Button();
             this.button_UpSource = new System.Windows.Forms.Button();
             this.tabPage_Template = new System.Windows.Forms.TabPage();
@@ -271,16 +296,20 @@
             this.toolStripButton_Open = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_SaveAs = new System.Windows.Forms.ToolStripButton();
-            this.deleteRow = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.sourceDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceURL = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceSD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceBeli = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechRank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechRegTP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechSpTP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechSpTrait = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechBranch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechRange = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechStats = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage_Basic.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Professions)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Comm)).BeginInit();
@@ -306,11 +335,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SDEarned)).BeginInit();
             this.tabPage_Traits.SuspendLayout();
             this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Traits)).BeginInit();
             this.tabPage_Techniques.SuspendLayout();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowBegin)).BeginInit();
             this.groupBox11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Techniques)).BeginInit();
             this.tabPage_Sources.SuspendLayout();
             this.groupBox13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Sources)).BeginInit();
@@ -361,12 +392,12 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.dgv_Professions);
             this.groupBox3.Controls.Add(this.button_DownProf);
             this.groupBox3.Controls.Add(this.button_ProfEdit);
             this.groupBox3.Controls.Add(this.button_UpProf);
             this.groupBox3.Controls.Add(this.button_ProfDelete);
             this.groupBox3.Controls.Add(this.button_ProfAdd);
-            this.groupBox3.Controls.Add(this.listView_Prof);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox3.Location = new System.Drawing.Point(6, 357);
             this.groupBox3.Name = "groupBox3";
@@ -374,6 +405,70 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Professions";
+            // 
+            // dgv_Professions
+            // 
+            this.dgv_Professions.AllowUserToAddRows = false;
+            this.dgv_Professions.AllowUserToDeleteRows = false;
+            this.dgv_Professions.AllowUserToResizeRows = false;
+            this.dgv_Professions.BackgroundColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_Professions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv_Professions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Professions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5});
+            this.dgv_Professions.Location = new System.Drawing.Point(11, 23);
+            this.dgv_Professions.MultiSelect = false;
+            this.dgv_Professions.Name = "dgv_Professions";
+            this.dgv_Professions.ReadOnly = true;
+            this.dgv_Professions.RowHeadersVisible = false;
+            this.dgv_Professions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_Professions.Size = new System.Drawing.Size(757, 147);
+            this.dgv_Professions.TabIndex = 42;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Profession";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Custom";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Type";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 201;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "Bonus";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 202;
             // 
             // button_DownProf
             // 
@@ -424,20 +519,6 @@
             this.button_ProfAdd.Text = "Add";
             this.button_ProfAdd.UseVisualStyleBackColor = true;
             this.button_ProfAdd.Click += new System.EventHandler(this.button4_ProfAdd_Click);
-            // 
-            // listView_Prof
-            // 
-            this.listView_Prof.AllowColumnReorder = true;
-            this.listView_Prof.AutoArrange = false;
-            this.listView_Prof.FullRowSelect = true;
-            this.listView_Prof.GridLines = true;
-            this.listView_Prof.LabelWrap = false;
-            this.listView_Prof.Location = new System.Drawing.Point(6, 23);
-            this.listView_Prof.MultiSelect = false;
-            this.listView_Prof.Name = "listView_Prof";
-            this.listView_Prof.Size = new System.Drawing.Size(762, 147);
-            this.listView_Prof.TabIndex = 0;
-            this.listView_Prof.UseCompatibleStateImageBehavior = false;
             // 
             // groupBox2
             // 
@@ -2246,12 +2327,15 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.dgv_Traits);
+            this.groupBox10.Controls.Add(this.button_TraitsDown);
+            this.groupBox10.Controls.Add(this.button_TraitsUp);
+            this.groupBox10.Controls.Add(this.button_EditTrait);
             this.groupBox10.Controls.Add(this.label32);
             this.groupBox10.Controls.Add(this.label59_TraitsCalc);
             this.groupBox10.Controls.Add(this.label58_TraitsCurrent);
             this.groupBox10.Controls.Add(this.button_TraitsDelete);
             this.groupBox10.Controls.Add(this.button_TraitAdd);
-            this.groupBox10.Controls.Add(this.listView_Traits);
             this.groupBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox10.Location = new System.Drawing.Point(6, 6);
             this.groupBox10.Name = "groupBox10";
@@ -2260,17 +2344,119 @@
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Traits";
             // 
+            // dgv_Traits
+            // 
+            this.dgv_Traits.AllowUserToAddRows = false;
+            this.dgv_Traits.AllowUserToDeleteRows = false;
+            this.dgv_Traits.AllowUserToResizeRows = false;
+            this.dgv_Traits.BackgroundColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dgv_Traits.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgv_Traits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Traits.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Trait_Name,
+            this.Trait_Custom,
+            this.Trait_Type,
+            this.Trait_GenNum,
+            this.Trait_ProfNum,
+            this.Trait_Desc});
+            this.dgv_Traits.Location = new System.Drawing.Point(6, 22);
+            this.dgv_Traits.MultiSelect = false;
+            this.dgv_Traits.Name = "dgv_Traits";
+            this.dgv_Traits.ReadOnly = true;
+            this.dgv_Traits.RowHeadersVisible = false;
+            this.dgv_Traits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_Traits.Size = new System.Drawing.Size(779, 299);
+            this.dgv_Traits.TabIndex = 43;
+            this.dgv_Traits.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgv_Traits_SortCompare);
+            // 
+            // Trait_Name
+            // 
+            this.Trait_Name.HeaderText = "Trait";
+            this.Trait_Name.Name = "Trait_Name";
+            this.Trait_Name.ReadOnly = true;
+            this.Trait_Name.Width = 150;
+            // 
+            // Trait_Custom
+            // 
+            this.Trait_Custom.HeaderText = "Custom";
+            this.Trait_Custom.Name = "Trait_Custom";
+            this.Trait_Custom.ReadOnly = true;
+            this.Trait_Custom.Width = 150;
+            // 
+            // Trait_Type
+            // 
+            this.Trait_Type.HeaderText = "Type";
+            this.Trait_Type.Name = "Trait_Type";
+            this.Trait_Type.ReadOnly = true;
+            this.Trait_Type.Width = 120;
+            // 
+            // Trait_GenNum
+            // 
+            this.Trait_GenNum.HeaderText = "# Gen";
+            this.Trait_GenNum.Name = "Trait_GenNum";
+            this.Trait_GenNum.ReadOnly = true;
+            this.Trait_GenNum.Width = 55;
+            // 
+            // Trait_ProfNum
+            // 
+            this.Trait_ProfNum.HeaderText = "# Prof";
+            this.Trait_ProfNum.Name = "Trait_ProfNum";
+            this.Trait_ProfNum.ReadOnly = true;
+            this.Trait_ProfNum.Width = 55;
+            // 
+            // Trait_Desc
+            // 
+            this.Trait_Desc.HeaderText = "Description";
+            this.Trait_Desc.Name = "Trait_Desc";
+            this.Trait_Desc.ReadOnly = true;
+            this.Trait_Desc.Width = 244;
+            // 
+            // button_TraitsDown
+            // 
+            this.button_TraitsDown.Image = ((System.Drawing.Image)(resources.GetObject("button_TraitsDown.Image")));
+            this.button_TraitsDown.Location = new System.Drawing.Point(791, 54);
+            this.button_TraitsDown.Name = "button_TraitsDown";
+            this.button_TraitsDown.Size = new System.Drawing.Size(26, 26);
+            this.button_TraitsDown.TabIndex = 42;
+            this.button_TraitsDown.UseVisualStyleBackColor = true;
+            this.button_TraitsDown.Click += new System.EventHandler(this.button_TraitsDown_Click);
+            // 
+            // button_TraitsUp
+            // 
+            this.button_TraitsUp.Image = ((System.Drawing.Image)(resources.GetObject("button_TraitsUp.Image")));
+            this.button_TraitsUp.Location = new System.Drawing.Point(791, 22);
+            this.button_TraitsUp.Name = "button_TraitsUp";
+            this.button_TraitsUp.Size = new System.Drawing.Size(26, 26);
+            this.button_TraitsUp.TabIndex = 41;
+            this.button_TraitsUp.UseVisualStyleBackColor = true;
+            this.button_TraitsUp.Click += new System.EventHandler(this.button_TraitsUp_Click);
+            // 
+            // button_EditTrait
+            // 
+            this.button_EditTrait.Location = new System.Drawing.Point(653, 327);
+            this.button_EditTrait.Name = "button_EditTrait";
+            this.button_EditTrait.Size = new System.Drawing.Size(75, 23);
+            this.button_EditTrait.TabIndex = 29;
+            this.button_EditTrait.Text = "Edit";
+            this.button_EditTrait.UseVisualStyleBackColor = true;
+            this.button_EditTrait.Click += new System.EventHandler(this.button_EditTrait_Click);
+            // 
             // label32
             // 
             this.label32.AutoSize = true;
             this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.Location = new System.Drawing.Point(6, 413);
+            this.label32.ForeColor = System.Drawing.Color.Green;
+            this.label32.Location = new System.Drawing.Point(6, 363);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(551, 32);
+            this.label32.Size = new System.Drawing.Size(247, 16);
             this.label32.TabIndex = 28;
-            this.label32.Text = "NOTE: Do NOT make Custom Trait names. Edit Trait names in the generated Sheet ins" +
-    "tead.\r\nFor Special TP, just use the name of a current Special Trait and treat it" +
-    " as a custom one.";
+            this.label32.Text = "You can click on \"Type\" to sort the Traits";
             this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label59_TraitsCalc
@@ -2306,27 +2492,13 @@
             // 
             // button_TraitAdd
             // 
-            this.button_TraitAdd.Location = new System.Drawing.Point(653, 327);
+            this.button_TraitAdd.Location = new System.Drawing.Point(572, 327);
             this.button_TraitAdd.Name = "button_TraitAdd";
             this.button_TraitAdd.Size = new System.Drawing.Size(75, 23);
             this.button_TraitAdd.TabIndex = 3;
             this.button_TraitAdd.Text = "Add";
             this.button_TraitAdd.UseVisualStyleBackColor = true;
             this.button_TraitAdd.Click += new System.EventHandler(this.button11_TraitAdd_Click);
-            // 
-            // listView_Traits
-            // 
-            this.listView_Traits.AllowColumnReorder = true;
-            this.listView_Traits.AutoArrange = false;
-            this.listView_Traits.FullRowSelect = true;
-            this.listView_Traits.GridLines = true;
-            this.listView_Traits.LabelWrap = false;
-            this.listView_Traits.Location = new System.Drawing.Point(9, 22);
-            this.listView_Traits.MultiSelect = false;
-            this.listView_Traits.Name = "listView_Traits";
-            this.listView_Traits.Size = new System.Drawing.Size(800, 299);
-            this.listView_Traits.TabIndex = 0;
-            this.listView_Traits.UseCompatibleStateImageBehavior = false;
             // 
             // tabPage_Techniques
             // 
@@ -2520,6 +2692,7 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.dgv_Techniques);
             this.groupBox11.Controls.Add(this.label_CritAnatQuick);
             this.groupBox11.Controls.Add(this.label_TechCount);
             this.groupBox11.Controls.Add(this.button_TechBranch);
@@ -2531,7 +2704,6 @@
             this.groupBox11.Controls.Add(this.button_TechEdit);
             this.groupBox11.Controls.Add(this.button_TechDelete);
             this.groupBox11.Controls.Add(this.button_TechAdd);
-            this.groupBox11.Controls.Add(this.listView_Techniques);
             this.groupBox11.Controls.Add(this.label66);
             this.groupBox11.Controls.Add(this.listView_SpTP);
             this.groupBox11.Controls.Add(this.label64);
@@ -2547,6 +2719,48 @@
             this.groupBox11.TabIndex = 3;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Techniques";
+            // 
+            // dgv_Techniques
+            // 
+            this.dgv_Techniques.AllowUserToAddRows = false;
+            this.dgv_Techniques.AllowUserToDeleteRows = false;
+            this.dgv_Techniques.AllowUserToResizeRows = false;
+            this.dgv_Techniques.BackgroundColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dgv_Techniques.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgv_Techniques.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Techniques.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvRow_TechName,
+            this.dgvRow_TechRank,
+            this.dgvRow_TechRegTP,
+            this.dgvRow_TechSpTP,
+            this.dgvRow_TechSpTrait,
+            this.dgvRow_TechBranch,
+            this.dgvRow_TechType,
+            this.dgvRow_TechRange,
+            this.dgvRow_TechStats,
+            this.dgvRow_TechPower});
+            this.dgv_Techniques.Location = new System.Drawing.Point(9, 173);
+            this.dgv_Techniques.MultiSelect = false;
+            this.dgv_Techniques.Name = "dgv_Techniques";
+            this.dgv_Techniques.ReadOnly = true;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_Techniques.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgv_Techniques.RowHeadersVisible = false;
+            this.dgv_Techniques.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_Techniques.Size = new System.Drawing.Size(757, 199);
+            this.dgv_Techniques.TabIndex = 44;
             // 
             // label_CritAnatQuick
             // 
@@ -2659,22 +2873,6 @@
             this.button_TechAdd.Text = "Add";
             this.button_TechAdd.UseVisualStyleBackColor = true;
             this.button_TechAdd.Click += new System.EventHandler(this.button14_TechAdd_Click);
-            // 
-            // listView_Techniques
-            // 
-            this.listView_Techniques.AllowColumnReorder = true;
-            this.listView_Techniques.AutoArrange = false;
-            this.listView_Techniques.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.listView_Techniques.FullRowSelect = true;
-            this.listView_Techniques.GridLines = true;
-            this.listView_Techniques.HideSelection = false;
-            this.listView_Techniques.Location = new System.Drawing.Point(6, 172);
-            this.listView_Techniques.MultiSelect = false;
-            this.listView_Techniques.Name = "listView_Techniques";
-            this.listView_Techniques.Size = new System.Drawing.Size(760, 200);
-            this.listView_Techniques.TabIndex = 29;
-            this.listView_Techniques.UseCompatibleStateImageBehavior = false;
-            this.listView_Techniques.SelectedIndexChanged += new System.EventHandler(this.listView_Techniques_SelectedIndexChanged);
             // 
             // label66
             // 
@@ -2889,14 +3087,14 @@
             this.dgv_Sources.AllowUserToDeleteRows = false;
             this.dgv_Sources.AllowUserToResizeRows = false;
             this.dgv_Sources.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_Sources.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_Sources.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgv_Sources.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Sources.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.deleteRow,
@@ -2918,10 +3116,58 @@
             this.dgv_Sources.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Sources_CellDoubleClick);
             this.dgv_Sources.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridView_Sources_SortCompare);
             // 
+            // deleteRow
+            // 
+            this.deleteRow.HeaderText = "X";
+            this.deleteRow.Name = "deleteRow";
+            this.deleteRow.ReadOnly = true;
+            this.deleteRow.Width = 20;
+            // 
+            // sourceDate
+            // 
+            this.sourceDate.HeaderText = "Date";
+            this.sourceDate.Name = "sourceDate";
+            this.sourceDate.ReadOnly = true;
+            // 
+            // sourceTitle
+            // 
+            this.sourceTitle.HeaderText = "Title";
+            this.sourceTitle.Name = "sourceTitle";
+            this.sourceTitle.ReadOnly = true;
+            this.sourceTitle.Width = 175;
+            // 
+            // sourceURL
+            // 
+            this.sourceURL.HeaderText = "URL";
+            this.sourceURL.Name = "sourceURL";
+            this.sourceURL.ReadOnly = true;
+            this.sourceURL.Width = 150;
+            // 
+            // sourceSD
+            // 
+            this.sourceSD.HeaderText = "SD";
+            this.sourceSD.Name = "sourceSD";
+            this.sourceSD.ReadOnly = true;
+            this.sourceSD.Width = 50;
+            // 
+            // sourceBeli
+            // 
+            this.sourceBeli.HeaderText = "Beli";
+            this.sourceBeli.Name = "sourceBeli";
+            this.sourceBeli.ReadOnly = true;
+            this.sourceBeli.Width = 120;
+            // 
+            // sourceNotes
+            // 
+            this.sourceNotes.HeaderText = "Notes";
+            this.sourceNotes.Name = "sourceNotes";
+            this.sourceNotes.ReadOnly = true;
+            this.sourceNotes.Width = 165;
+            // 
             // button_DownSource
             // 
             this.button_DownSource.Image = ((System.Drawing.Image)(resources.GetObject("button_DownSource.Image")));
-            this.button_DownSource.Location = new System.Drawing.Point(797, 54);
+            this.button_DownSource.Location = new System.Drawing.Point(797, 51);
             this.button_DownSource.Name = "button_DownSource";
             this.button_DownSource.Size = new System.Drawing.Size(26, 26);
             this.button_DownSource.TabIndex = 40;
@@ -2931,7 +3177,7 @@
             // button_UpSource
             // 
             this.button_UpSource.Image = ((System.Drawing.Image)(resources.GetObject("button_UpSource.Image")));
-            this.button_UpSource.Location = new System.Drawing.Point(797, 22);
+            this.button_UpSource.Location = new System.Drawing.Point(797, 19);
             this.button_UpSource.Name = "button_UpSource";
             this.button_UpSource.Size = new System.Drawing.Size(26, 26);
             this.button_UpSource.TabIndex = 39;
@@ -3196,53 +3442,74 @@
             this.toolStripButton_SaveAs.ToolTipText = "Save As";
             this.toolStripButton_SaveAs.Click += new System.EventHandler(this.toolStripButton_SaveAs_Click);
             // 
-            // deleteRow
+            // dgvRow_TechName
             // 
-            this.deleteRow.HeaderText = "X";
-            this.deleteRow.Name = "deleteRow";
-            this.deleteRow.ReadOnly = true;
-            this.deleteRow.Width = 20;
+            this.dgvRow_TechName.HeaderText = "Tech Name";
+            this.dgvRow_TechName.Name = "dgvRow_TechName";
+            this.dgvRow_TechName.ReadOnly = true;
+            this.dgvRow_TechName.Width = 153;
             // 
-            // sourceDate
+            // dgvRow_TechRank
             // 
-            this.sourceDate.HeaderText = "Date";
-            this.sourceDate.Name = "sourceDate";
-            this.sourceDate.ReadOnly = true;
+            this.dgvRow_TechRank.HeaderText = "Rank";
+            this.dgvRow_TechRank.Name = "dgvRow_TechRank";
+            this.dgvRow_TechRank.ReadOnly = true;
+            this.dgvRow_TechRank.Width = 50;
             // 
-            // sourceTitle
+            // dgvRow_TechRegTP
             // 
-            this.sourceTitle.HeaderText = "Title";
-            this.sourceTitle.Name = "sourceTitle";
-            this.sourceTitle.ReadOnly = true;
-            this.sourceTitle.Width = 175;
+            this.dgvRow_TechRegTP.HeaderText = "Reg TP";
+            this.dgvRow_TechRegTP.Name = "dgvRow_TechRegTP";
+            this.dgvRow_TechRegTP.ReadOnly = true;
+            this.dgvRow_TechRegTP.Width = 50;
             // 
-            // sourceURL
+            // dgvRow_TechSpTP
             // 
-            this.sourceURL.HeaderText = "URL";
-            this.sourceURL.Name = "sourceURL";
-            this.sourceURL.ReadOnly = true;
-            this.sourceURL.Width = 150;
+            this.dgvRow_TechSpTP.HeaderText = "Sp. TP";
+            this.dgvRow_TechSpTP.Name = "dgvRow_TechSpTP";
+            this.dgvRow_TechSpTP.ReadOnly = true;
+            this.dgvRow_TechSpTP.Width = 50;
             // 
-            // sourceSD
+            // dgvRow_TechSpTrait
             // 
-            this.sourceSD.HeaderText = "SD";
-            this.sourceSD.Name = "sourceSD";
-            this.sourceSD.ReadOnly = true;
-            this.sourceSD.Width = 50;
+            this.dgvRow_TechSpTrait.HeaderText = "Sp. Trait";
+            this.dgvRow_TechSpTrait.Name = "dgvRow_TechSpTrait";
+            this.dgvRow_TechSpTrait.ReadOnly = true;
+            this.dgvRow_TechSpTrait.Width = 75;
             // 
-            // sourceBeli
+            // dgvRow_TechBranch
             // 
-            this.sourceBeli.HeaderText = "Beli";
-            this.sourceBeli.Name = "sourceBeli";
-            this.sourceBeli.ReadOnly = true;
-            this.sourceBeli.Width = 120;
+            this.dgvRow_TechBranch.HeaderText = "Branched From";
+            this.dgvRow_TechBranch.Name = "dgvRow_TechBranch";
+            this.dgvRow_TechBranch.ReadOnly = true;
             // 
-            // sourceNotes
+            // dgvRow_TechType
             // 
-            this.sourceNotes.HeaderText = "Notes";
-            this.sourceNotes.Name = "sourceNotes";
-            this.sourceNotes.ReadOnly = true;
-            this.sourceNotes.Width = 165;
+            this.dgvRow_TechType.HeaderText = "Type";
+            this.dgvRow_TechType.Name = "dgvRow_TechType";
+            this.dgvRow_TechType.ReadOnly = true;
+            this.dgvRow_TechType.Width = 75;
+            // 
+            // dgvRow_TechRange
+            // 
+            this.dgvRow_TechRange.HeaderText = "Range";
+            this.dgvRow_TechRange.Name = "dgvRow_TechRange";
+            this.dgvRow_TechRange.ReadOnly = true;
+            this.dgvRow_TechRange.Width = 75;
+            // 
+            // dgvRow_TechStats
+            // 
+            this.dgvRow_TechStats.HeaderText = "Stats";
+            this.dgvRow_TechStats.Name = "dgvRow_TechStats";
+            this.dgvRow_TechStats.ReadOnly = true;
+            this.dgvRow_TechStats.Width = 75;
+            // 
+            // dgvRow_TechPower
+            // 
+            this.dgvRow_TechPower.HeaderText = "Power";
+            this.dgvRow_TechPower.Name = "dgvRow_TechPower";
+            this.dgvRow_TechPower.ReadOnly = true;
+            this.dgvRow_TechPower.Width = 50;
             // 
             // MainForm
             // 
@@ -3267,6 +3534,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage_Basic.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Professions)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -3300,6 +3568,7 @@
             this.tabPage_Traits.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Traits)).EndInit();
             this.tabPage_Techniques.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
@@ -3307,6 +3576,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowBegin)).EndInit();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Techniques)).EndInit();
             this.tabPage_Sources.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
@@ -3359,7 +3629,6 @@
 		private System.Windows.Forms.ListBox listBox_Achieve;
 		private System.Windows.Forms.Button button_AchieveAdd;
 		private System.Windows.Forms.Button button_AchieveDelete;
-		private System.Windows.Forms.ListView listView_Prof;
 		private System.Windows.Forms.Button button_ProfDelete;
 		private System.Windows.Forms.Button button_ProfAdd;
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
@@ -3412,7 +3681,6 @@
 		private System.Windows.Forms.GroupBox groupBox10;
 		private System.Windows.Forms.Button button_TraitsDelete;
 		private System.Windows.Forms.Button button_TraitAdd;
-		private System.Windows.Forms.ListView listView_Traits;
 		private System.Windows.Forms.Label label59_TraitsCalc;
 		private System.Windows.Forms.Label label58_TraitsCurrent;
 		private System.Windows.Forms.GroupBox groupBox11;
@@ -3425,7 +3693,6 @@
 		private System.Windows.Forms.Label label61;
 		private System.Windows.Forms.Button button_TechDelete;
 		private System.Windows.Forms.Button button_TechAdd;
-		private System.Windows.Forms.ListView listView_Techniques;
 		private System.Windows.Forms.Label label66;
 		private System.Windows.Forms.ListView listView_Items;
 		private System.Windows.Forms.ListView listView_Weaponry;
@@ -3572,6 +3839,33 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceSD;
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceBeli;
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceNotes;
+        private System.Windows.Forms.Button button_EditTrait;
+        private System.Windows.Forms.DataGridView dgv_Professions;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridView dgv_Traits;
+        private System.Windows.Forms.Button button_TraitsDown;
+        private System.Windows.Forms.Button button_TraitsUp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_Name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_Custom;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_Type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_GenNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_ProfNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_Desc;
+        private System.Windows.Forms.DataGridView dgv_Techniques;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechRank;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechRegTP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechSpTP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechSpTrait;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechBranch;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechRange;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechStats;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechPower;
     }
 }
 

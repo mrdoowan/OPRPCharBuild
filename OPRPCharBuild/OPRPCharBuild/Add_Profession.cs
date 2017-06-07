@@ -35,18 +35,18 @@ namespace OPRPCharBuild
         
 		private void button1_Click(object sender, EventArgs e) {
 			// Only want the appropriate changes to be made, so we add a bool
-			if (string.IsNullOrWhiteSpace(comboBox1.Text) ||
+			if (string.IsNullOrWhiteSpace(comboBox_Prof.Text) ||
 				string.IsNullOrWhiteSpace(richTextBox1_Desc.Text) ||
-				(string.IsNullOrWhiteSpace(richTextBox2_Primary.Text) && checkBox1.Checked)) {
-				if (string.IsNullOrWhiteSpace(comboBox1.Text)) {
-					comboBox1.BackColor = Color.FromArgb(255, 128, 128);
+				(string.IsNullOrWhiteSpace(richTextBox2_Primary.Text) && checkBox_Primary.Checked)) {
+				if (string.IsNullOrWhiteSpace(comboBox_Prof.Text)) {
+					comboBox_Prof.BackColor = Color.FromArgb(255, 128, 128);
 					red_name = true;
 				}
 				if (string.IsNullOrWhiteSpace(richTextBox1_Desc.Text)) {
 					richTextBox1_Desc.BackColor = Color.FromArgb(255, 128, 128);
 					red_desc = true;
 				}
-				if ((string.IsNullOrWhiteSpace(richTextBox2_Primary.Text) && checkBox1.Enabled)) {
+				if ((string.IsNullOrWhiteSpace(richTextBox2_Primary.Text) && checkBox_Primary.Enabled)) {
 					richTextBox2_Primary.BackColor = Color.FromArgb(255, 128, 128);
 					red_bon = true;
 				}
@@ -58,29 +58,19 @@ namespace OPRPCharBuild
 			}
 		}
 
-		public void NewDialog(ref ListView Main_Form, ref Dictionary<string, Profession> profDict) {
+		public void NewDialog(ref DataGridView dgv, ref Dictionary<string, Profession> profDict) {
 			this.ShowDialog();
 			if (button_clicked) {
 				try {
-					string name = comboBox1.Text;
-					bool primary = false;
-					if (checkBox1.Checked) {
-						primary = true;
-					}
-                    Profession addProf = new Profession(name, primary, textBox1.Text,
+					string name = comboBox_Prof.Text;
+					bool primary = checkBox_Primary.Checked;
+                    Profession addProf = new Profession(name, primary, textBox_Custom.Text,
                         richTextBox1_Desc.Text, richTextBox2_Primary.Text);
 					profDict.Add(name, addProf);
-					// Check above for any Exceptions
-					ListViewItem item = new ListViewItem();
-                    item.SubItems[0].Text = (string.IsNullOrWhiteSpace(textBox1.Text)) ? comboBox1.Text : textBox1.Text;
-                                                                            // First Column: Profession Name
-					item.SubItems.Add((primary) ? "Primary" : "Secondary"); // Second column: Primary/Secondary
-                    item.SubItems.Add(richTextBox1_Desc.Text);              // Third column: Basic description
-					item.SubItems.Add(richTextBox2_Primary.Text);           // Fourth column: Primary bonus
-					Main_Form.Items.Add(item);
-					// Now sort.
-					Main_Form.ListViewItemSorter = new ListViewItemSorter(1);
-					Main_Form.Sort();
+                    // Add into dgv
+                    string bool_str = (primary) ? "Primary" : "Secondary";
+                    dgv.Rows.Insert(0, name, textBox_Custom.Text, bool_str,
+                        richTextBox1_Desc.Text, richTextBox2_Primary.Text);
 				}
 				catch (Exception e) {
 					MessageBox.Show("Can't add the same profession twice.\nReason: " + e.Message, "Exception Thrown");
@@ -88,72 +78,77 @@ namespace OPRPCharBuild
 			}
 		}
 
-		public void EditDialog(ref ListView Main_Form, ref Dictionary<string, Profession> profDict) {
+		public void EditDialog(ref DataGridView dgv, ref Dictionary<string, Profession> profDict) {
 			this.Text = "Edit Profession";
-			button1.Text = "Edit";
-			// Put what's Edited into the Dialog Box first.
-			string prof_name = Main_Form.SelectedItems[0].SubItems[0].Text;
+			button_Add.Text = "Edit";
+            // Put what's Edited into the Dialog Box first.
+            string prof_name = dgv.SelectedRows[0].Cells[0].Value.ToString();
             Profession sel_prof = profDict[prof_name];
-			comboBox1.Text = prof_name;
-			checkBox1.Checked = sel_prof.primary;
-            textBox1.Text = sel_prof.custom;
+			comboBox_Prof.Text = prof_name;
+			checkBox_Primary.Checked = sel_prof.primary;
+            textBox_Custom.Text = sel_prof.custom;
 			richTextBox1_Desc.Text = sel_prof.desc;
 			richTextBox2_Primary.Text = sel_prof.bonus;
 			// Now proceed to edit it.
 			this.ShowDialog();
 			if (button_clicked) {
-				// Remove initial item from Dictionary
-				profDict.Remove(prof_name);
-				string name = comboBox1.Text;
-				bool primary = false;
-				if (checkBox1.Checked) {
-					primary = true;
-				}
-                Profession editProf = new Profession(name, primary, textBox1.Text,
-                    richTextBox1_Desc.Text, richTextBox2_Primary.Text);
-				try { profDict.Add(name, editProf); }
-				catch (Exception e) {
-					MessageBox.Show("Can't add the same profession twice.\nReason: " + e.Message, "Exception Thrown");
+                try {
+                    // Remove initial item from Dictionary
+                    profDict.Remove(prof_name);
+                    string name = comboBox_Prof.Text;
+                    bool primary = checkBox_Primary.Checked;
+                    // Add to dgv
+                    dgv.SelectedRows[0].Cells[0].Value = (string.IsNullOrWhiteSpace(textBox_Custom.Text)) ? comboBox_Prof.Text : textBox_Custom.Text;
+                    dgv.SelectedRows[0].Cells[1].Value = textBox_Custom.Text;
+                    dgv.SelectedRows[0].Cells[2].Value = (primary) ? "Primary" : "Secondary";
+                    dgv.SelectedRows[0].Cells[3].Value = richTextBox1_Desc.Text;
+                    dgv.SelectedRows[0].Cells[4].Value = richTextBox2_Primary.Text;
+                    // Add to Dict
+                    Profession editProf = new Profession(name, primary, textBox_Custom.Text,
+                        richTextBox1_Desc.Text, richTextBox2_Primary.Text);
+                    profDict.Add(name, editProf);
+                }
+                catch (Exception e) {
+                    profDict.Add(prof_name, sel_prof); // Re-Add
+                    dgv.SelectedRows[0].Cells[0].Value = prof_name;
+                    dgv.SelectedRows[0].Cells[1].Value = sel_prof.custom;
+                    dgv.SelectedRows[0].Cells[2].Value = (sel_prof.primary) ? "Primary" : "Secondary";
+                    dgv.SelectedRows[0].Cells[3].Value = sel_prof.desc;
+                    dgv.SelectedRows[0].Cells[4].Value = sel_prof.bonus;
+                    MessageBox.Show("Can't add the same profession twice.\nReason: " + e.Message, "Exception Thrown");
                     return;
-				}
-				Main_Form.SelectedItems[0].SubItems[0].Text = comboBox1.Text;
-                Main_Form.SelectedItems[0].SubItems[1].Text = (primary) ? "Primary" : "Secondary";
-				Main_Form.SelectedItems[0].SubItems[2].Text = richTextBox1_Desc.Text;
-				Main_Form.SelectedItems[0].SubItems[3].Text = richTextBox2_Primary.Text;
-				// Now sort.
-				Main_Form.ListViewItemSorter = new ListViewItemSorter(1);
-				Main_Form.Sort();
-			}
+                }
+            }
 		}
 
 		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
 			// If any of the listed professions were selected, immediately give the Descriptions
-			string Prof = comboBox1.Text;
+			string Prof = comboBox_Prof.Text;
             Profession selProf = Database.getProfession(Prof);
             richTextBox1_Desc.Text = selProf.desc;
 			richTextBox2_Primary.Text = selProf.bonus;
-			if (!checkBox1.Checked) {
+			if (!checkBox_Primary.Checked) {
 				richTextBox2_Primary.Clear();
 			}
 			// To clear the possible red background
 			if (red_name) {
-				comboBox1.BackColor = Color.FromArgb(255, 255, 255);
+				comboBox_Prof.BackColor = Color.FromArgb(255, 255, 255);
 				red_name = false;
 			}
 		}
 
 		private void comboBox1_TextUpdate(object sender, EventArgs e) {
 			if (red_name) {
-				comboBox1.BackColor = Color.FromArgb(255, 255, 255);
+				comboBox_Prof.BackColor = Color.FromArgb(255, 255, 255);
 				red_name = false;
 			}
 		}
 
 		private void checkBox1_CheckedChanged(object sender, EventArgs e) {
 			// Only used to disable / enable the Primary Text Box
-			if (checkBox1.Checked) {
+			if (checkBox_Primary.Checked) {
 				richTextBox2_Primary.Enabled = true;
-                Profession prof = Database.getProfession(comboBox1.Text);
+                Profession prof = Database.getProfession(comboBox_Prof.Text);
 				if (prof != null)
 					richTextBox2_Primary.Text = prof.bonus;
 			}

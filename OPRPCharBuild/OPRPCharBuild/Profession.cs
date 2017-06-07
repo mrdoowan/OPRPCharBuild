@@ -35,5 +35,9 @@ namespace OPRPCharBuild
             desc = desc_;
             bonus = bonus_;
         }
+
+        public string getProfName() {
+            return (string.IsNullOrWhiteSpace(custom)) ? name : custom;
+        }
     }
 }

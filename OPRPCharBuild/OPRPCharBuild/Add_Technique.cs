@@ -224,12 +224,10 @@ namespace OPRPCharBuild
         // If any Trait affects the Rank (by treating it 4 Ranks above i.e.)
         // Return true
         private bool isAffectRankTrait(string traitName) {
-            // This is tricky because of [SPEC]
-            string traitSpec = Database.stringSpec(traitName);
-            if (traitSpec == Database.TR_MASTER || traitSpec == Database.TR_ADVMAS ||
-                traitSpec == Database.TR_ADVCLA || traitSpec == Database.TR_STAMAS ||
-                traitSpec == Database.TR_ADVSTA || traitSpec == Database.TR_ARTSTE ||
-                traitSpec == Database.TR_ANTIST || traitSpec == Database.TR_DWARF) {
+            if (traitName == Database.TR_MASTER || traitName == Database.TR_ADVMAS ||
+                traitName == Database.TR_ADVCLA || traitName == Database.TR_STAMAS ||
+                traitName == Database.TR_ADVSTA || traitName == Database.TR_ARTSTE ||
+                traitName == Database.TR_ANTIST || traitName == Database.TR_DWARF) {
                 return true;
             }
             return false;
@@ -1043,18 +1041,22 @@ namespace OPRPCharBuild
         private void checkBox_Marksman_CheckedChanged(object sender, EventArgs e) {
             // Checks if there's a Range loaded. Only adjust Cost
             Effect effect = getEffect(comboBox_Effect.Text);
-            if (effect.name == Database.EFF_SHORT || effect.name == Database.EFF_MEDIU || 
-                effect.name == Database.EFF_LONG || effect.name == Database.EFF_VLONG) {
-                numericUpDown_Cost.Value = effect.cost;
+            if (effect != null) {
+                if (effect.name == Database.EFF_SHORT || effect.name == Database.EFF_MEDIU ||
+                    effect.name == Database.EFF_LONG || effect.name == Database.EFF_VLONG) {
+                    numericUpDown_Cost.Value = effect.cost;
+                }
             }
 		}
 
 		private void checkBox_Inventor_CheckedChanged(object sender, EventArgs e) {
             // Checks if there's a AoE loaded. Only adjust Cost
             Effect effect = getEffect(comboBox_Effect.Text);
-            if (effect.name == Database.EFF_SHAOE || effect.name == Database.EFF_MDAOE || 
-                effect.name == Database.EFF_LOAOE) {
-                numericUpDown_Cost.Value = effect.cost;
+            if (effect != null) {
+                if (effect.name == Database.EFF_SHAOE || effect.name == Database.EFF_MDAOE ||
+                    effect.name == Database.EFF_LOAOE) {
+                    numericUpDown_Cost.Value = effect.cost;
+                }
             }
         }
         

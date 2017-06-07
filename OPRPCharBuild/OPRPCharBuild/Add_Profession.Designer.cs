@@ -26,30 +26,30 @@
 		/// </summary>
 		private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Add_Profession));
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_Add = new System.Windows.Forms.Button();
             this.richTextBox1_Desc = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.comboBox_Prof = new System.Windows.Forms.ComboBox();
+            this.checkBox_Primary = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.richTextBox2_Primary = new System.Windows.Forms.RichTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox_Custom = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // button1
+            // button_Add
             // 
-            this.button1.Location = new System.Drawing.Point(466, 325);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 28);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Add";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button_Add.Location = new System.Drawing.Point(466, 325);
+            this.button_Add.Margin = new System.Windows.Forms.Padding(4);
+            this.button_Add.Name = "button_Add";
+            this.button_Add.Size = new System.Drawing.Size(100, 28);
+            this.button_Add.TabIndex = 9;
+            this.button_Add.Text = "Add";
+            this.button_Add.UseVisualStyleBackColor = true;
+            this.button_Add.Click += new System.EventHandler(this.button1_Click);
             // 
             // richTextBox1_Desc
             // 
@@ -82,10 +82,10 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Name:";
             // 
-            // comboBox1
+            // comboBox_Prof
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.comboBox_Prof.FormattingEnabled = true;
+            this.comboBox_Prof.Items.AddRange(new object[] {
             "Weapon Specialist",
             "Martial Artist",
             "Marksman",
@@ -98,25 +98,25 @@
             "Assassin",
             "Thief",
             "Merchant"});
-            this.comboBox1.Location = new System.Drawing.Point(130, 11);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(147, 24);
-            this.comboBox1.TabIndex = 10;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            this.comboBox1.TextUpdate += new System.EventHandler(this.comboBox1_TextUpdate);
+            this.comboBox_Prof.Location = new System.Drawing.Point(130, 11);
+            this.comboBox_Prof.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox_Prof.Name = "comboBox_Prof";
+            this.comboBox_Prof.Size = new System.Drawing.Size(147, 24);
+            this.comboBox_Prof.TabIndex = 10;
+            this.comboBox_Prof.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox_Prof.TextUpdate += new System.EventHandler(this.comboBox1_TextUpdate);
             // 
-            // checkBox1
+            // checkBox_Primary
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(456, 14);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(75, 21);
-            this.checkBox1.TabIndex = 11;
-            this.checkBox1.Text = "Primary";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBox_Primary.AutoSize = true;
+            this.checkBox_Primary.Location = new System.Drawing.Point(456, 14);
+            this.checkBox_Primary.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox_Primary.Name = "checkBox_Primary";
+            this.checkBox_Primary.Size = new System.Drawing.Size(75, 21);
+            this.checkBox_Primary.TabIndex = 11;
+            this.checkBox_Primary.Text = "Primary";
+            this.checkBox_Primary.UseVisualStyleBackColor = true;
+            this.checkBox_Primary.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label3
             // 
@@ -159,12 +159,12 @@
             this.label5.TabIndex = 15;
             this.label5.Text = "Custom Name:";
             // 
-            // textBox1
+            // textBox_Custom
             // 
-            this.textBox1.Location = new System.Drawing.Point(130, 49);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(147, 23);
-            this.textBox1.TabIndex = 16;
+            this.textBox_Custom.Location = new System.Drawing.Point(130, 49);
+            this.textBox_Custom.Name = "textBox_Custom";
+            this.textBox_Custom.Size = new System.Drawing.Size(147, 23);
+            this.textBox_Custom.TabIndex = 16;
             // 
             // label6
             // 
@@ -181,14 +181,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(579, 366);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBox_Custom);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.richTextBox2_Primary);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.checkBox_Primary);
+            this.Controls.Add(this.comboBox_Prof);
+            this.Controls.Add(this.button_Add);
             this.Controls.Add(this.richTextBox1_Desc);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -204,17 +204,17 @@
 
 		#endregion
 
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button button_Add;
 		private System.Windows.Forms.RichTextBox richTextBox1_Desc;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.ComboBox comboBox1;
-		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.ComboBox comboBox_Prof;
+		private System.Windows.Forms.CheckBox checkBox_Primary;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.RichTextBox richTextBox2_Primary;
 		private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox_Custom;
         private System.Windows.Forms.Label label6;
     }
 }

@@ -93,6 +93,7 @@ namespace OPRPCharBuild
             TAG_STA_TRAIT = "<TRAIT>",
             TAG_END_TRAIT = "</TRAIT>",
             TRAIT_NAME = "[TR_NAME]",
+            TRAIT_CUST = "[TR_CUST]",
             TRAIT_GENE = "[TR_GENE]",
             TRAIT_PROF = "[TR_PROF]",
             TRAIT_DESC = "[TR_DESC]",
@@ -327,6 +328,7 @@ namespace OPRPCharBuild
             sb.Append(TAG_STA_TRAIT);
             foreach (Trait trait in traits_.Values) {
                 sb.Append(TRAIT_NAME + trait.name + SPLIT1);
+                sb.Append(TRAIT_CUST + trait.custom + SPLIT1);
                 sb.Append(TRAIT_GENE + trait.genNum + SPLIT1);
                 sb.Append(TRAIT_PROF + trait.profNum + SPLIT1);
                 sb.Append(TRAIT_DESC + trait.desc + SPLIT1);
@@ -492,7 +494,7 @@ namespace OPRPCharBuild
             ref ComboBox rank,
             ref TextBox threat,
             ref ListBox achieve,
-            ref ListView prof,
+            ref DataGridView prof,
             ref Dictionary<string, Profession> profList) {
             charName.Text = getParse(CHARNAME, SPLIT1);
             nickName.Text = getParse(NICKNAME, SPLIT1);
@@ -513,7 +515,8 @@ namespace OPRPCharBuild
             }
             string profStr = getParse(TAG_STA_PROF, TAG_END_PROF);
             string[] profArr = splitStringbyString(profStr, SPLIT2);
-            prof.Items.Clear();
+            prof.Rows.Clear();
+            prof.Refresh();
             profList.Clear();
             for (int i = 0; i < profArr.Length; ++i) {
                 string profName = getParse(PROF_NAME, SPLIT1, profArr[i]);
@@ -523,13 +526,8 @@ namespace OPRPCharBuild
                 string profDesc = getParse(PROF_DESC, SPLIT1, profArr[i]);
                 string profBonu = getParse(PROF_BONU, SPLIT1, profArr[i]);
                 profList.Add(profName, new Profession(profName, primary, profCust, profDesc, profBonu));
-                ListViewItem item = new ListViewItem();
-                item.SubItems[0].Text = profName;
-                profPrim = (primary) ? "Primary" : "Secondary";
-                item.SubItems.Add(profPrim);
-                item.SubItems.Add(profDesc);
-                item.SubItems.Add(profBonu);
-                prof.Items.Add(item);
+                string pri_Str = (primary) ? "Primary" : "Secondary";
+                prof.Rows.Insert(0, profName, profCust, pri_Str, profDesc, profBonu);
             }
         }
 
@@ -630,19 +628,20 @@ namespace OPRPCharBuild
         }
         
         public void loadCharTraits(ref Dictionary<string, Trait> traits,
-            ref ListView traitsTbl, 
+            ref DataGridView dgv_traits, 
             ref Dictionary<string, SpTrait> spTraits,
             int fortune) {
             string traitsStr = getParse(TAG_STA_TRAIT, TAG_END_TRAIT);
             string[] traitsArr = splitStringbyString(traitsStr, SPLIT2);
             traits.Clear();
-            traitsTbl.Items.Clear();
+            dgv_traits.Rows.Clear();
             for (int i = 0; i < traitsArr.Length; ++i) {
                 string name = getParse(TRAIT_NAME, SPLIT1, traitsArr[i]);
+                string custom = getParse(TRAIT_CUST, SPLIT1, traitsArr[i]);
                 int gen = TryParseInt(getParse(TRAIT_GENE, SPLIT1, traitsArr[i]));
                 int prof = TryParseInt(getParse(TRAIT_PROF, SPLIT1, traitsArr[i]));
                 string desc = getParse(TRAIT_DESC, SPLIT1, traitsArr[i]);
-                traits.Add(name, new Trait(name, gen, prof, desc));
+                traits.Add(name, new Trait(name, custom, gen, prof, desc));
                 ListViewItem item = new ListViewItem();
                 item.SubItems[0].Text = name;
                 string type = (gen > 0 && prof > 0) ? "General / Professional" :
@@ -651,7 +650,7 @@ namespace OPRPCharBuild
                 item.SubItems.Add(gen.ToString());
                 item.SubItems.Add(prof.ToString());
                 item.SubItems.Add(desc);
-                traitsTbl.Items.Add(item);
+                dgv_traits.Rows.Insert(0, name, custom, type, gen, prof, desc);
             }
             // Only add the Total for Sp Trait.
             // Edit theh Sp Trait later

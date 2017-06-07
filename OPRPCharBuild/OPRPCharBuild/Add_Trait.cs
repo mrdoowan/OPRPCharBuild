@@ -20,61 +20,85 @@ namespace OPRPCharBuild
 
 		// Now functions
 
-		public string NewDialog(ref ListView Main_Form, ref Dictionary<string, Trait> traitList) {
+        // Returns the name of the new Trait. If no Trait (or invalid) was selected, return null
+		public string NewDialog(ref DataGridView dgv, ref Dictionary<string, Trait> traitList) {
 			this.ShowDialog();
 			if (button_clicked) {
 				// All the necessary information is in. We can update the ListView in Main_Form
 				ListViewItem item = new ListViewItem();
 				string name = comboBox_TraitName.Text;
-				// Adding the specification to the string name, if there is one.
-				name = name.Replace("SPEC", textBox_TraitSpec.Text);
+                string custom = textBox_CustomName.Text;
                 int gen = (int)numericUpDown_TraitGen.Value;
                 int prof = (int)numericUpDown_TraitProf.Value;
-                // Add to your Trait type here
-                string traitType;
-                if (gen > 0 && prof > 0) {
-                    traitType = "General / Professional";
-                }
-                else if (prof > 0) {
-                    traitType = "Professional";
-                }
-                else {
-                    traitType = "General";
-                }
+                // Add Trait type here
+                string traitType = (gen > 0 && prof > 0) ? "General / Professional" :
+                    (prof > 0) ? "Professional" : "General";
                 string desc = richTextBox_TraitDesc.Text;
-                // Add in the Item into ListView
-                item.SubItems[0].Text = name;       // First Column: Trait Name
-				item.SubItems.Add(traitType);       // Second Column: Trait Type
-				item.SubItems.Add(gen.ToString());  // Third Column: # Gen
-				item.SubItems.Add(prof.ToString()); // Fourth Column: # Prof
-				item.SubItems.Add(desc);            // Fifth Column: Description
-				Main_Form.Items.Add(item);
-				Main_Form.ListViewItemSorter = new ListViewItemSorter(1);
-				Main_Form.Sort();
-                // And lastly add to the TraitsList
-                Trait addTrait = new Trait(name, gen, prof, desc);
+                // Add to the TraitsList
+                Trait addTrait = new Trait(name, custom, gen, prof, desc);
                 try { traitList.Add(name, addTrait); }
                 catch {
                     MessageBox.Show("Can't add two Traits of the same name.", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return null;
                 }
+                // Add into dgv
+                dgv.Rows.Insert(0, name, custom, traitType, gen, prof, desc);
+                
 				return name;
 			}
 			return null;
 		}
 
-		// To change the note and remind the users
-		private void comboBox_TraitName_MouseMove(object sender, MouseEventArgs e) {
-			label_CustMsg.TextAlign = ContentAlignment.MiddleCenter;
-			label_CustMsg.Text = "NOTE: Custom Traits / Names will NOT be recognized by the tool when calculating.\n" +
-				"You can change the Trait name after Generating the sheet.";
+        // Returns the name of the new Trait. If no Trait (or invalid) was selected, return null
+        public string EditDialog(ref DataGridView dgv, ref Dictionary<string, Trait> traitList) {
+            this.Text = "Edit Trait";
+            button_TraitAdd.Text = "Edit";
+            // Load Edit from row
+            string name = dgv.SelectedRows[0].Cells[0].Value.ToString();
+            Trait edit_Trait = traitList[name];
+            comboBox_TraitName.Text = edit_Trait.name;
+            textBox_CustomName.Text = edit_Trait.custom;
+            numericUpDown_TraitGen.Value = edit_Trait.genNum;
+            numericUpDown_TraitProf.Value = edit_Trait.profNum;
+            richTextBox_TraitDesc.Text = edit_Trait.desc;
+            this.ShowDialog();
+            if (button_clicked) {
+                // Remove the item initially from Dictionary
+                traitList.Remove(name);
+                try {
+                    string new_name = comboBox_TraitName.Text;
+                    string new_cust = textBox_CustomName.Text;
+                    int gen = (int)numericUpDown_TraitGen.Value;
+                    int prof = (int)numericUpDown_TraitProf.Value;
+                    string new_desc = richTextBox_TraitDesc.Text;
+                    dgv.SelectedRows[0].Cells[0].Value = new_name;
+                    dgv.SelectedRows[0].Cells[1].Value = new_cust;
+                    dgv.SelectedRows[0].Cells[2].Value = (gen > 0 && prof > 0) ? "General / Professional" :
+                        (prof > 0) ? "Professional" : "General";
+                    dgv.SelectedRows[0].Cells[3].Value = gen;
+                    dgv.SelectedRows[0].Cells[4].Value = prof;
+                    dgv.SelectedRows[0].Cells[5].Value = richTextBox_TraitDesc.Text;
+                    // Add to Dict
+                    Trait new_Trait = new Trait(new_name, new_cust, gen, prof, new_desc);
+                    traitList.Add(new_name, new_Trait);
+                    return new_name;
+                }
+                catch (Exception ex) {
+                    traitList.Add(name, edit_Trait); // Re-Add
+                    dgv.SelectedRows[0].Cells[0].Value = edit_Trait.name;
+                    dgv.SelectedRows[0].Cells[1].Value = edit_Trait.custom;
+                    dgv.SelectedRows[0].Cells[2].Value = (edit_Trait.genNum > 0 && edit_Trait.profNum > 0) 
+                        ? "General / Professional" : (edit_Trait.profNum > 0) ? "Professional" : "General";
+                    dgv.SelectedRows[0].Cells[3].Value = edit_Trait.genNum;
+                    dgv.SelectedRows[0].Cells[4].Value = edit_Trait.profNum;
+                    dgv.SelectedRows[0].Cells[5].Value = edit_Trait.desc;
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+            }
+            return null;
         }
-
-		private void comboBox_TraitName_MouseLeave(object sender, EventArgs e) {
-			label_CustMsg.TextAlign = ContentAlignment.MiddleRight;
-			label_CustMsg.Text = "You can cancel changes by closing the form.";
-		}
 
 		private void comboBox_TraitName_SelectedIndexChanged(object sender, EventArgs e) {
             string traitName = comboBox_TraitName.Text;
@@ -84,16 +108,9 @@ namespace OPRPCharBuild
                 numericUpDown_TraitProf.Value = selTrait.profNum;
                 richTextBox_TraitDesc.Text = selTrait.desc;
             }
-            if (traitName.Contains("SPEC")) {
-				textBox_TraitSpec.Enabled = true;
-			}
-			else {
-				textBox_TraitSpec.Enabled = false;
-				textBox_TraitSpec.Clear();
-			}
 		}
 
-		private void button_TraitAdd_Click(object sender, EventArgs e) {
+        private void button_TraitAdd_Click(object sender, EventArgs e) {
 			if (Traits_Not_Filled()) {
 				MessageBox.Show("Traits information incomplete!", "Trait Error");
 			}
@@ -109,13 +126,11 @@ namespace OPRPCharBuild
 		private bool Traits_Not_Filled() {
 			// Checks if the Name, Type, or Description is filled in.
 			return (string.IsNullOrWhiteSpace(comboBox_TraitName.Text) ||
-				string.IsNullOrWhiteSpace(richTextBox_TraitDesc.Text) ||
-				(textBox_TraitSpec.Enabled && string.IsNullOrWhiteSpace(textBox_TraitSpec.Text)));
+				string.IsNullOrWhiteSpace(richTextBox_TraitDesc.Text));
 		}
 
 		private bool Zero_Traits() {
 			return (numericUpDown_TraitGen.Value == 0 && numericUpDown_TraitProf.Value == 0);
 		}
-
-	}
+    }
 }

@@ -341,17 +341,6 @@ namespace OPRPCharBuild
             { TR_WEATHR, new Trait(TR_WEATHR, 3, 0, "After the learning of skills of weather manipulation and creation, the character may - through the use of tools and gadgets - actively perform feats such as summoning lightning bolts, hail, rain, etc. They require an weapon/item to serve as a conduit for such techniques.") }
         };
 
-        // If any Trait Names has [SPEC], return it WITH [SPEC] (Test?)
-        static public string stringSpec(string name) {
-            if (name.Contains('[') && name.Contains(']')) {
-                int firstIndexSpec = name.IndexOf('[') + 1;
-                string specName = name.Substring(firstIndexSpec,
-                    name.IndexOf(']') - firstIndexSpec);
-                name = name.Replace(specName, "SPEC");
-            }
-            return name;
-        }
-
         // Getter function of the Trait dictionary
         // Assume good input.
         static public Trait getTrait(string traitName) {
@@ -394,10 +383,8 @@ namespace OPRPCharBuild
         };
 
         // Getter function of spTraitDiv dictionary
-        // Take into account of [SPEC] as well
         static public int getSpTraitDiv(string traitName) {
-            string specName = stringSpec(traitName);
-            try { return spTraitDiv[specName]; }
+            try { return spTraitDiv[traitName]; }
             catch { return 0; }
         }
 

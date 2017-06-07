@@ -99,11 +99,35 @@ namespace OPRPCharBuild
 			}
 		}
 
-		// Really don't want to use Microsoft's Click-Once application at this point, so I'll just
-		// implement my own version.
-		// Version now follows the following format:
-		// Major.Minor.Revision (only 3)
-		private void Check_Update() {
+        // To move up or down the selected item in a dataGridView
+        // Requires direction to be "Up" or "Down"
+        private void Move_DGV_Item(ref DataGridView dgv, string direction) {
+            // Up
+            try {
+                int totalRows = dgv.Rows.Count;
+                int rowIndex = dgv.SelectedCells[0].OwningRow.Index;
+                if (rowIndex == 0 && direction == "Up") { return; }
+                if (rowIndex == totalRows - 1 && direction == "Down") { return; }
+                // get index of the column for the selected cell
+                DataGridViewRow selectedRow = dgv.Rows[rowIndex];
+                dgv.Rows.Remove(selectedRow);
+                if (direction == "Up") {
+                    dgv.Rows.Insert(rowIndex - 1, selectedRow);
+                    dgv.Rows[rowIndex - 1].Selected = true;
+                }
+                else {
+                    dgv.Rows.Insert(rowIndex + 1, selectedRow);
+                    dgv.Rows[rowIndex + 1].Selected = true;
+                }
+            }
+            catch { }
+        }
+
+        // Really don't want to use Microsoft's Click-Once application at this point, so I'll just
+        // implement my own version.
+        // Version now follows the following format:
+        // Major.Minor.Revision (only 3)
+        private void Check_Update() {
 			// -------------------------------------
 			// Version Check
 			// -------------------------------------
@@ -801,7 +825,7 @@ namespace OPRPCharBuild
 
 		private void Update_TechNum() {
 			// This will also properly set the Maximum Values of numericupdown_Row
-			int num = listView_Techniques.Items.Count;
+			int num = dgv_Techniques.Rows.Count;
 			label_TechCount.Text = "Total number of Techniques: " + num;
 			if (num > 0) {
 				numericUpDown_RowBegin.Maximum = num - 1;
@@ -831,7 +855,7 @@ namespace OPRPCharBuild
 					break;
 				}
 				if (i == listView_SubCat.Items.Count - 1 && 
-					int.Parse(category.SubItems[1].Text) != listView_Techniques.Items.Count - 1) {
+					int.Parse(category.SubItems[1].Text) != dgv_Techniques.Rows.Count - 1) {
 					loop_break = true;
 					break;
 				}
@@ -875,15 +899,6 @@ namespace OPRPCharBuild
 			// Check for updates of a New Version or Bug Messages
 			//Check_Update();
 
-			// ------ Professions
-			listView_Prof.View = View.Details;
-			listView_Prof.FullRowSelect = true;
-
-			listView_Prof.Columns.Add("Profession", 130);
-			listView_Prof.Columns.Add("Type", 100);
-			listView_Prof.Columns.Add("Description", 265);
-			listView_Prof.Columns.Add("Primary Bonus", 265);
-
 			// ------ Images
 			listView_Images.View = View.Details;
 			listView_Images.FullRowSelect = true;
@@ -894,16 +909,6 @@ namespace OPRPCharBuild
 			listView_Images.Columns.Add("Width", 55);
 			listView_Images.Columns.Add("Height", 55);
 
-			// ------ Traits
-			listView_Traits.View = View.Details;
-			listView_Traits.FullRowSelect = true;
-
-			listView_Traits.Columns.Add("Trait Name", 200);
-			listView_Traits.Columns.Add("Type", 150);
-			listView_Traits.Columns.Add("# Gen", 50);
-			listView_Traits.Columns.Add("# Prof", 50);
-			listView_Traits.Columns.Add("Description", 350);
-
 			// ------ Special Techniques
 			listView_SpTP.View = View.Details;
 			listView_SpTP.FullRowSelect = true;
@@ -911,23 +916,7 @@ namespace OPRPCharBuild
 			listView_SpTP.Columns.Add("Sp. Trait Name", 305);
 			listView_SpTP.Columns.Add("Used", 75);
 			listView_SpTP.Columns.Add("Total", 75);
-
-			// ------ Technique Table
-			listView_Techniques.View = View.Details;
-			listView_Techniques.FullRowSelect = true;
-			label_CritAnatQuick.Text = "";
-
-			listView_Techniques.Columns.Add("Tech Name", 160);      // 0
-			listView_Techniques.Columns.Add("Rank", 50);            // 1
-			listView_Techniques.Columns.Add("Reg TP", 50);          // 2
-			listView_Techniques.Columns.Add("Sp. TP", 50);          // 3
-			listView_Techniques.Columns.Add("Sp. Trait", 75);       // 4
-			listView_Techniques.Columns.Add("Branched From", 100);  // 5
-			listView_Techniques.Columns.Add("Type", 75);            // 6
-			listView_Techniques.Columns.Add("Range", 75);           // 7
-			listView_Techniques.Columns.Add("Stats", 75);           // 8
-			listView_Techniques.Columns.Add("Power", 50);           // 9
-
+            
 			// ------ Tech Category Table
 			label_SubCatMsg.Text = "No Valid Category Selected";
 			listView_SubCat.View = View.Details;
@@ -1096,31 +1085,34 @@ namespace OPRPCharBuild
 		private void button4_ProfAdd_Click(object sender, EventArgs e) {
 			// Profession "Add" button from the MainForm
 			Add_Profession ProfessionWin = new Add_Profession();
-			ProfessionWin.NewDialog(ref listView_Prof, ref profList);
+			ProfessionWin.NewDialog(ref dgv_Professions, ref profList);
 		}
 
 		private void button_ProfEdit_Click(object sender, EventArgs e) {
-			// Profession "Edit" button from the MainForm
-			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
-			try {
-				if (listView_Prof.SelectedItems.Count == 1) {
-					Add_Profession ProfessionWin = new Add_Profession();
-					ProfessionWin.EditDialog(ref listView_Prof, ref profList);
-				}
-			}
-			catch (Exception ex) {
-				MessageBox.Show("Error in editing Profession.\nReason: " + ex.Message);
-			}
+            // Profession "Edit" button from the MainForm
+            // This is completely assuming that only one row can be selected (which we set MultiSelect = false)
+            try {
+                Add_Profession ProfessionWin = new Add_Profession();
+                ProfessionWin.EditDialog(ref dgv_Professions, ref profList);
+            }
+            catch (Exception ex) {
+                MessageBox.Show("Error in editing Profession.\nReason: " + ex.Message);
+            }
 		}
 
 		private void button5_ProfDelete_Click(object sender, EventArgs e) {
 			// Profession "Delete" button from the MainForm
 			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
 			try {
-				string Prof = Delete_ListViewItem(ref listView_Prof);
-				if (!string.IsNullOrWhiteSpace(Prof)) {
-					profList.Remove(Prof);
-				}
+                if (dgv_Professions.SelectedCells.Count > 0) {
+                    // Remove from Dict
+                    string prof = dgv_Professions.SelectedRows[0].Cells[0].Value.ToString();
+                    profList.Remove(prof);
+                    // Remove from dgv
+                    int remove_index = dgv_Professions.SelectedRows[0].Index;
+                    dgv_Professions.Rows.RemoveAt(remove_index);
+                    dgv_Professions.Refresh();
+                }
             }
 			catch (Exception ex) {
 				MessageBox.Show("Error in deleting Profession.\nReason: " + ex.Message, "Exception Thrown");
@@ -1128,11 +1120,11 @@ namespace OPRPCharBuild
 		}
 
 		private void button_UpProf_Click(object sender, EventArgs e) {
-			Move_List_Item(ref listView_Prof, "Up");
+			Move_DGV_Item(ref dgv_Professions, "Up");
 		}
 
 		private void button_DownProf_Click(object sender, EventArgs e) {
-			Move_List_Item(ref listView_Prof, "Down");
+            Move_DGV_Item(ref dgv_Professions, "Down");
 		}
 
 		#endregion
@@ -1328,15 +1320,12 @@ namespace OPRPCharBuild
 				}
 				// Apply beli trait / professional boosts (do not stack)
 				bool perc_20 = false;
-				// Look for Traits bonus of 20%
-				foreach (ListViewItem eachitem in listView_Traits.Items) {
-					if (eachitem.SubItems[0].Text == "Pickpocket" || eachitem.SubItems[0].Text == "Tough Bargainer") {
-						beli = (uint)(beli * 1.2);
-						message += "\n+ " + Commas_To_Value((uint)(beli * 0.2)) + " (20% beli Trait Bonus)";
-						perc_20 = true;
-						break;
-					}
-				}
+                // Look for Traits bonus of 20%
+                if (traitList.ContainsKey("Pickpocket") || traitList.ContainsKey("Tough Bargainer")) {
+                    beli = (uint)(beli * 1.2);
+                    message += "\n+ " + Commas_To_Value((uint)(beli * 0.2)) + " (20% beli Trait Bonus)";
+                    perc_20 = true;
+                }
 				if (!perc_20) {
 					// Look for Thief primary bonus of 10%
 					if (Is_Prof_Primary("Thief")) {
@@ -1450,10 +1439,10 @@ namespace OPRPCharBuild
 			Update_CritAnatQuick_Msg();
 		}
 
-		private void button11_TraitAdd_Click(object sender, EventArgs e) {
-			// Traits "Add" button from the MainForm
+        // Traits "Add" button from the MainForm
+        private void button11_TraitAdd_Click(object sender, EventArgs e) {
 			Add_Trait TraitWin = new Add_Trait();
-			string name = TraitWin.NewDialog(ref listView_Traits, ref traitList);
+			string name = TraitWin.NewDialog(ref dgv_Traits, ref traitList);
 			// And lastly all Update functions
 			if (name != null) {
                 All_Update_Functions_Traits();
@@ -1461,27 +1450,77 @@ namespace OPRPCharBuild
             }
 		}
 
-		private void button10_TraitsDelete_Click(object sender, EventArgs e) {
-			// Traits "Delete" button from the MainForm
+        // Traits "Edit" button from the MainForm
+        private void button_EditTrait_Click(object sender, EventArgs e) {
+            if (dgv_Traits.SelectedRows.Count == 0) { return; }
+            Add_Trait TraitWin = new Add_Trait();
+            string oldName = dgv_Traits.SelectedRows[0].Cells[0].Value.ToString();
+            string newName = TraitWin.EditDialog(ref dgv_Traits, ref traitList);
+            if (newName != null) {
+                All_Update_Functions_Traits();
+                Remove_SpTrait(oldName);
+                Add_SpTrait(newName);
+            }
+        }
+
+        // Traits "Delete" button from the MainForm
+        private void button10_TraitsDelete_Click(object sender, EventArgs e) {
 			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
-			if (listView_Traits.SelectedItems.Count == 0) { return; }
-			string name = Delete_ListViewItem(ref listView_Traits);
-            // Remove trait from traitList
-            traitList.Remove(name);
+			if (dgv_Traits.SelectedRows.Count == 0) { return; }
+            // Remove from Dict
+            string traitName = dgv_Traits.SelectedRows[0].Cells[0].Value.ToString();
+            try {
+                if (dgv_Traits.SelectedRows.Count > 0) {
+                    traitList.Remove(traitName);
+                    // Remove from dgv
+                    int remove_index = dgv_Traits.SelectedRows[0].Index;
+                    dgv_Traits.Rows.RemoveAt(remove_index);
+                    dgv_Traits.Refresh();
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show("Error in deleting Profession.\nReason: " + ex.Message, "Exception Thrown");
+            }
 			// All update Functions
 			All_Update_Functions_Traits();
-            Remove_SpTrait(name);
+            Remove_SpTrait(traitName);
 		}
 
-		#endregion
+        // Move Trait row up
+        private void button_TraitsUp_Click(object sender, EventArgs e) {
+            Move_DGV_Item(ref dgv_Traits, "Up");
+        }
 
-		// --------------------------------------------------------------------------------------------
-		// "TECHNIQUES" Tab
-		// --------------------------------------------------------------------------------------------
+        // Move Trait row down
+        private void button_TraitsDown_Click(object sender, EventArgs e) {
+            Move_DGV_Item(ref dgv_Traits, "Down");
+        }
 
-		#region Techniques Tab
+        // Sort by Trait Type
+        private void dgv_Traits_SortCompare(object sender, DataGridViewSortCompareEventArgs e) {
+            if (e.Column.Index == 1) {
+                e.Handled = true;
+                e.SortResult = compareTraitTypes(e.CellValue1, e.CellValue2);
+            }
+        }
 
-		private void All_Update_Functions_Techs(string traitName) {
+        private int compareTraitTypes(object o1, object o2) {
+            int o1Worth = (o1.ToString() == "General") ? 1 :
+                (o1.ToString() == "General / Professional") ? 0 : -1;
+            int o2Worth = (o2.ToString() == "General") ? 1 :
+                (o2.ToString() == "General / Professional") ? 0 : -1;
+            return o1Worth.CompareTo(o2Worth);
+        }
+
+        #endregion
+
+        // --------------------------------------------------------------------------------------------
+        // "TECHNIQUES" Tab
+        // --------------------------------------------------------------------------------------------
+
+        #region Techniques Tab
+
+        private void All_Update_Functions_Techs(string traitName) {
             Update_SpTraitTableAndDict_Used(traitName);
 			Update_Used_RegTP();
 			Update_CritAnatQuick_Msg();
@@ -1803,7 +1842,8 @@ namespace OPRPCharBuild
         private void button_AddSource_Click(object sender, EventArgs e) {
             // Add Windows Dialog and check if confirmed
             Add_Source source_Win = new Add_Source();
-            source_Win.new_Dialog(ref dgv_Sources, ref sourceList, radioButton_DateNA.Checked);
+            source_Win.new_Dialog(ref dgv_Sources, ref sourceList, 
+                radioButton_DateNA.Checked, ref timeStampBool);
             // Update current SD if checked
             update_All_Sources();
         }
@@ -1812,7 +1852,8 @@ namespace OPRPCharBuild
         private void dataGridView_Sources_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
             if (dgv_Sources.SelectedRows.Count > 0 && e.ColumnIndex != 0) {
                 Add_Source source_Win = new Add_Source();
-                source_Win.edit_Dialog(ref dgv_Sources, ref sourceList, radioButton_DateNA.Checked);
+                source_Win.edit_Dialog(ref dgv_Sources, ref sourceList, 
+                    radioButton_DateNA.Checked, ref timeStampBool);
             }
             // Update current SD if checked
             update_All_Sources();
@@ -1838,7 +1879,6 @@ namespace OPRPCharBuild
         }
 
         private const string DEVH_KEY = "OPRPdevHMay2017";
-
         // Loads the devh file, overriding the dgv and sourceList
         private void button_LoadDevH_Click(object sender, EventArgs e) {
             if (MessageBox.Show("Are you sure you want to overwrite the current existing Sources?", "Load DevH",
@@ -1894,6 +1934,7 @@ namespace OPRPCharBuild
             update_SD_Sources();
         }
 
+        // Change Beli numericupdown value when True
         private void checkBox_CalcBeli_CheckedChanged(object sender, EventArgs e) {
             update_Beli_Sources();
         }
@@ -1928,31 +1969,12 @@ namespace OPRPCharBuild
 
         // Moves Row up
         private void button_UpSource_Click(object sender, EventArgs e) {
-            try {
-                int rowIndex = dgv_Sources.SelectedCells[0].OwningRow.Index;
-                if (rowIndex == 0) { return; }
-                // get index of the column for the selected cell
-                DataGridViewRow selectedRow = dgv_Sources.Rows[rowIndex];
-                dgv_Sources.Rows.Remove(selectedRow);
-                dgv_Sources.Rows.Insert(rowIndex - 1, selectedRow);
-                dgv_Sources.Rows[rowIndex - 1].Selected = true;
-            }
-            catch { }
+            Move_DGV_Item(ref dgv_Sources, "Up");
         }
 
         // Moves Row down
         private void button_DownSource_Click(object sender, EventArgs e) {
-            try {
-                int totalRows = dgv_Sources.Rows.Count;
-                int rowIndex = dgv_Sources.SelectedCells[0].OwningRow.Index;
-                if (rowIndex == totalRows - 1) { return; }
-                // get index of the column for the selected cell
-                DataGridViewRow selectedRow = dgv_Sources.Rows[rowIndex];
-                dgv_Sources.Rows.Remove(selectedRow);
-                dgv_Sources.Rows.Insert(rowIndex + 1, selectedRow);
-                dgv_Sources.Rows[rowIndex + 1].Selected = true;
-            }
-            catch { }
+            Move_DGV_Item(ref dgv_Sources, "Down");
         }
 
         // Sorts all the rows by date
@@ -2004,7 +2026,8 @@ namespace OPRPCharBuild
 			comboBox_MarineRank.SelectedIndex = -1;
 			textBox_Threat.Clear();
 			listBox_Achieve.Items.Clear();
-			listView_Prof.Items.Clear();
+			dgv_Professions.Rows.Clear();
+            dgv_Professions.Refresh();
 			profList.Clear();
 			// Physical Appearance
 			textBox_Height.Clear();
@@ -2046,7 +2069,7 @@ namespace OPRPCharBuild
 			numericUpDown_StaminaBase.Value = 1;
 			numericUpDown_AccuracyBase.Value = 1;
 			// Traits
-			listView_Traits.Items.Clear();
+			dgv_Traits.Rows.Clear();
 			traitList.Clear();
             // Techniques
 			listView_SpTP.Items.Clear();
@@ -2162,7 +2185,7 @@ namespace OPRPCharBuild
 			  ref comboBox_MarineRank,
 			  ref textBox_Threat,
 			  ref listBox_Achieve,
-			  ref listView_Prof,
+			  ref dgv_Professions,
               ref profList
 			  );
 			}
@@ -2219,12 +2242,10 @@ namespace OPRPCharBuild
             try {
                 profile.loadCharTraits(
                     ref traitList,
-                    ref listView_Traits,
+                    ref dgv_Traits,
                     ref spTraitList,
                     int.Parse(textBox_Fortune.Text)
                     );
-                listView_Traits.ListViewItemSorter = new ListViewItemSorter(1);
-                listView_Traits.Sort();
             }
 			catch (Exception ex) { MessageBox.Show("Load Traits Error.\nReason: " + ex.Message); }
             try {
