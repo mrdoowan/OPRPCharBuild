@@ -657,24 +657,25 @@ namespace OPRPCharBuild
             spTraits.Clear();
             foreach (Trait trait in traits.Values) {
                 string traitName = trait.name;
+                string customName = trait.getTraitName();
                 int divisor = Database.getSpTraitDiv(traitName);
                 if (divisor > 0) {
                     int traitNum = trait.getTotalTraits();
-                    spTraits.Add(trait.name, new SpTrait(traitName, 
+                    spTraits.Add(trait.name, new SpTrait(traitName, customName,
                         (fortune / divisor) * traitNum));
                 }
             }
         }
         
         public void loadCharTechs(ref Dictionary<string, Technique> techs,
-            ref ListView techTbl,
+            ref DataGridView techTbl,
             ref Dictionary<string, SpTrait> spTraits,
             ref ListView spTraitTbl,
             ref ListView catTbl) {
             string techStr = getParse(TAG_STA_TECH, TAG_END_TECH);
             string[] techArr = splitStringbyString(techStr, SPLIT2);
             techs.Clear();
-            techTbl.Items.Clear();
+            techTbl.Rows.Clear();
             for (int i = 0; i < techArr.Length; ++i) {
                 string name = getParse(TECH_NAME, SPLIT1, techArr[i]);
                 string rokuName = getParse(TECH_ROKU, SPLIT1, techArr[i]);
@@ -739,18 +740,8 @@ namespace OPRPCharBuild
                     cyborgList, note,
                     cust, desc));
                 // Jokes on you, now you gotta do the TechTbl
-                ListViewItem item = new ListViewItem();
-                item.SubItems[0].Text = name;
-                item.SubItems.Add(rank.ToString());
-                item.SubItems.Add(regTP.ToString());
-                item.SubItems.Add(spTP.ToString());
-                item.SubItems.Add(specTr);
-                item.SubItems.Add(brTech);
-                item.SubItems.Add(type);
-                item.SubItems.Add(range);
-                item.SubItems.Add(techStats.getTechString());
-                item.SubItems.Add(power);
-                techTbl.Items.Add(item);
+                techTbl.Rows.Add(name, rank, regTP, spTP, specTr, brTech,
+                    type, range, techStats.getTechString(), power);
             }
             // Update the SpTrait dictionary
             foreach (Technique tech in techs.Values) {

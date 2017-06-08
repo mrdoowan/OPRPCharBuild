@@ -139,7 +139,7 @@ namespace OPRPCharBuild
             CheckedListBox AP,
             Dictionary<string, Trait> traitList,
             Dictionary<string, SpTrait> spTraitList,
-            ListView Techs, 
+            DataGridView Techs, 
             ListView Categories,
             DataGridView Sources) {
 			// ------- Step 1) 
@@ -203,7 +203,7 @@ namespace OPRPCharBuild
 			}
 			if (Template.Contains("<Technique>") && Template.Contains("</Technique>")) {
 				if (Categories.Items.Count == 0) {  // 0 (or 1) Categories pretty much mean list out all the Techniques
-					int end_row = Techs.Items.Count - 1;
+					int end_row = Techs.Rows.Count - 1;
 					Template = Repeat_Casting(Template, "Technique", Techs, 0, end_row);
 				}
 				else {
@@ -258,7 +258,7 @@ namespace OPRPCharBuild
 				case "Profession":
                     Dictionary<string, Profession> Profs = (Dictionary<string, Profession>)List;
 					foreach (Profession Prof in Profs.Values) {
-						RepeatTags.Add(13, Prof.name);  // Load Dictionary
+						RepeatTags.Add(13, Prof.getProfName());  // Load Dictionary
                         string profPri = (Prof.primary) ? "Primary" : "Secondary";
 						RepeatTags.Add(85, profPri);
 						RepeatTags.Add(86, Prof.desc);
@@ -336,7 +336,7 @@ namespace OPRPCharBuild
                     Dictionary<string, Trait> Traits_G = (Dictionary<string, Trait>)List;
 					foreach (Trait trait in Traits_G.Values) {
 						if (trait.genNum > 0) {
-							RepeatTags.Add(50, trait.name);
+							RepeatTags.Add(50, trait.getTraitName());
 							RepeatTags.Add(79, trait.genNum.ToString());
 							RepeatTags.Add(81, trait.profNum.ToString());
 							RepeatTags.Add(80, trait.desc);
@@ -349,7 +349,7 @@ namespace OPRPCharBuild
                     Dictionary<string, Trait> Traits_P = (Dictionary<string, Trait>)List;
 					foreach (Trait trait in Traits_P.Values) {
 						if (trait.profNum > 0 && trait.genNum == 0) {
-							RepeatTags.Add(51, trait.name);
+							RepeatTags.Add(51, trait.getTraitName());
 							RepeatTags.Add(81, trait.profNum.ToString());
 							RepeatTags.Add(82, trait.desc);
 							Repeat_String(old_str, ref new_str);
@@ -381,9 +381,9 @@ namespace OPRPCharBuild
 					}
 					break;
 				case "Technique":
-					ListView Techniques = (ListView)List;
+					DataGridView Techniques = (DataGridView)List;
 					for (int i = beg_row; i < end_row + 1; ++i) {
-						string TechName = Techniques.Items[i].SubItems[0].Text;
+						string TechName = Techniques.Rows[i].Cells[0].Value.ToString();
 						Technique tech = techDict[TechName];
 						// Load Dictionary
 						RepeatTags.Add(64, TechName);

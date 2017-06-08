@@ -30,18 +30,22 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label_Title = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_Basic = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dgv_Professions = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_DownProf = new System.Windows.Forms.Button();
             this.button_ProfEdit = new System.Windows.Forms.Button();
             this.button_UpProf = new System.Windows.Forms.Button();
@@ -200,12 +204,6 @@
             this.tabPage_Traits = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.dgv_Traits = new System.Windows.Forms.DataGridView();
-            this.Trait_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Trait_Custom = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Trait_Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Trait_GenNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Trait_ProfNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Trait_Desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_TraitsDown = new System.Windows.Forms.Button();
             this.button_TraitsUp = new System.Windows.Forms.Button();
             this.button_EditTrait = new System.Windows.Forms.Button();
@@ -262,13 +260,6 @@
             this.checkBox_CalcSD = new System.Windows.Forms.CheckBox();
             this.button_SaveDevH = new System.Windows.Forms.Button();
             this.dgv_Sources = new System.Windows.Forms.DataGridView();
-            this.deleteRow = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.sourceDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceURL = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceSD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceBeli = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_DownSource = new System.Windows.Forms.Button();
             this.button_UpSource = new System.Windows.Forms.Button();
             this.tabPage_Template = new System.Windows.Forms.TabPage();
@@ -296,6 +287,13 @@
             this.toolStripButton_Open = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_SaveAs = new System.Windows.Forms.ToolStripButton();
+            this.deleteRow = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.sourceDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceURL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceSD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceBeli = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvRow_TechName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvRow_TechRank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvRow_TechRegTP = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -306,6 +304,17 @@
             this.dgvRow_TechRange = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvRow_TechStats = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvRow_TechPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_Custom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_GenNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_ProfNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_Desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage_Basic.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -435,40 +444,6 @@
             this.dgv_Professions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_Professions.Size = new System.Drawing.Size(757, 147);
             this.dgv_Professions.TabIndex = 42;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Profession";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Custom";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Type";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Description";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 201;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "Bonus";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 202;
             // 
             // button_DownProf
             // 
@@ -2375,48 +2350,6 @@
             this.dgv_Traits.TabIndex = 43;
             this.dgv_Traits.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgv_Traits_SortCompare);
             // 
-            // Trait_Name
-            // 
-            this.Trait_Name.HeaderText = "Trait";
-            this.Trait_Name.Name = "Trait_Name";
-            this.Trait_Name.ReadOnly = true;
-            this.Trait_Name.Width = 150;
-            // 
-            // Trait_Custom
-            // 
-            this.Trait_Custom.HeaderText = "Custom";
-            this.Trait_Custom.Name = "Trait_Custom";
-            this.Trait_Custom.ReadOnly = true;
-            this.Trait_Custom.Width = 150;
-            // 
-            // Trait_Type
-            // 
-            this.Trait_Type.HeaderText = "Type";
-            this.Trait_Type.Name = "Trait_Type";
-            this.Trait_Type.ReadOnly = true;
-            this.Trait_Type.Width = 120;
-            // 
-            // Trait_GenNum
-            // 
-            this.Trait_GenNum.HeaderText = "# Gen";
-            this.Trait_GenNum.Name = "Trait_GenNum";
-            this.Trait_GenNum.ReadOnly = true;
-            this.Trait_GenNum.Width = 55;
-            // 
-            // Trait_ProfNum
-            // 
-            this.Trait_ProfNum.HeaderText = "# Prof";
-            this.Trait_ProfNum.Name = "Trait_ProfNum";
-            this.Trait_ProfNum.ReadOnly = true;
-            this.Trait_ProfNum.Width = 55;
-            // 
-            // Trait_Desc
-            // 
-            this.Trait_Desc.HeaderText = "Description";
-            this.Trait_Desc.Name = "Trait_Desc";
-            this.Trait_Desc.ReadOnly = true;
-            this.Trait_Desc.Width = 244;
-            // 
             // button_TraitsDown
             // 
             this.button_TraitsDown.Image = ((System.Drawing.Image)(resources.GetObject("button_TraitsDown.Image")));
@@ -2749,14 +2682,6 @@
             this.dgv_Techniques.MultiSelect = false;
             this.dgv_Techniques.Name = "dgv_Techniques";
             this.dgv_Techniques.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_Techniques.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgv_Techniques.RowHeadersVisible = false;
             this.dgv_Techniques.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_Techniques.Size = new System.Drawing.Size(757, 199);
@@ -3087,14 +3012,14 @@
             this.dgv_Sources.AllowUserToDeleteRows = false;
             this.dgv_Sources.AllowUserToResizeRows = false;
             this.dgv_Sources.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_Sources.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_Sources.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dgv_Sources.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Sources.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.deleteRow,
@@ -3115,54 +3040,6 @@
             this.dgv_Sources.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Sources_CellContentClick);
             this.dgv_Sources.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Sources_CellDoubleClick);
             this.dgv_Sources.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridView_Sources_SortCompare);
-            // 
-            // deleteRow
-            // 
-            this.deleteRow.HeaderText = "X";
-            this.deleteRow.Name = "deleteRow";
-            this.deleteRow.ReadOnly = true;
-            this.deleteRow.Width = 20;
-            // 
-            // sourceDate
-            // 
-            this.sourceDate.HeaderText = "Date";
-            this.sourceDate.Name = "sourceDate";
-            this.sourceDate.ReadOnly = true;
-            // 
-            // sourceTitle
-            // 
-            this.sourceTitle.HeaderText = "Title";
-            this.sourceTitle.Name = "sourceTitle";
-            this.sourceTitle.ReadOnly = true;
-            this.sourceTitle.Width = 175;
-            // 
-            // sourceURL
-            // 
-            this.sourceURL.HeaderText = "URL";
-            this.sourceURL.Name = "sourceURL";
-            this.sourceURL.ReadOnly = true;
-            this.sourceURL.Width = 150;
-            // 
-            // sourceSD
-            // 
-            this.sourceSD.HeaderText = "SD";
-            this.sourceSD.Name = "sourceSD";
-            this.sourceSD.ReadOnly = true;
-            this.sourceSD.Width = 50;
-            // 
-            // sourceBeli
-            // 
-            this.sourceBeli.HeaderText = "Beli";
-            this.sourceBeli.Name = "sourceBeli";
-            this.sourceBeli.ReadOnly = true;
-            this.sourceBeli.Width = 120;
-            // 
-            // sourceNotes
-            // 
-            this.sourceNotes.HeaderText = "Notes";
-            this.sourceNotes.Name = "sourceNotes";
-            this.sourceNotes.ReadOnly = true;
-            this.sourceNotes.Width = 165;
             // 
             // button_DownSource
             // 
@@ -3442,74 +3319,267 @@
             this.toolStripButton_SaveAs.ToolTipText = "Save As";
             this.toolStripButton_SaveAs.Click += new System.EventHandler(this.toolStripButton_SaveAs_Click);
             // 
+            // deleteRow
+            // 
+            this.deleteRow.HeaderText = "X";
+            this.deleteRow.MinimumWidth = 20;
+            this.deleteRow.Name = "deleteRow";
+            this.deleteRow.ReadOnly = true;
+            this.deleteRow.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.deleteRow.Width = 20;
+            // 
+            // sourceDate
+            // 
+            this.sourceDate.HeaderText = "Date";
+            this.sourceDate.MinimumWidth = 100;
+            this.sourceDate.Name = "sourceDate";
+            this.sourceDate.ReadOnly = true;
+            // 
+            // sourceTitle
+            // 
+            this.sourceTitle.HeaderText = "Title";
+            this.sourceTitle.MinimumWidth = 175;
+            this.sourceTitle.Name = "sourceTitle";
+            this.sourceTitle.ReadOnly = true;
+            this.sourceTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.sourceTitle.Width = 175;
+            // 
+            // sourceURL
+            // 
+            this.sourceURL.HeaderText = "URL";
+            this.sourceURL.MinimumWidth = 150;
+            this.sourceURL.Name = "sourceURL";
+            this.sourceURL.ReadOnly = true;
+            this.sourceURL.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.sourceURL.Width = 150;
+            // 
+            // sourceSD
+            // 
+            this.sourceSD.HeaderText = "SD";
+            this.sourceSD.MinimumWidth = 50;
+            this.sourceSD.Name = "sourceSD";
+            this.sourceSD.ReadOnly = true;
+            this.sourceSD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.sourceSD.Width = 50;
+            // 
+            // sourceBeli
+            // 
+            this.sourceBeli.HeaderText = "Beli";
+            this.sourceBeli.MinimumWidth = 120;
+            this.sourceBeli.Name = "sourceBeli";
+            this.sourceBeli.ReadOnly = true;
+            this.sourceBeli.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.sourceBeli.Width = 120;
+            // 
+            // sourceNotes
+            // 
+            this.sourceNotes.HeaderText = "Notes";
+            this.sourceNotes.MinimumWidth = 165;
+            this.sourceNotes.Name = "sourceNotes";
+            this.sourceNotes.ReadOnly = true;
+            this.sourceNotes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.sourceNotes.Width = 165;
+            // 
             // dgvRow_TechName
             // 
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRow_TechName.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgvRow_TechName.HeaderText = "Tech Name";
+            this.dgvRow_TechName.MinimumWidth = 153;
             this.dgvRow_TechName.Name = "dgvRow_TechName";
             this.dgvRow_TechName.ReadOnly = true;
+            this.dgvRow_TechName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dgvRow_TechName.Width = 153;
             // 
             // dgvRow_TechRank
             // 
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRow_TechRank.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvRow_TechRank.HeaderText = "Rank";
+            this.dgvRow_TechRank.MinimumWidth = 50;
             this.dgvRow_TechRank.Name = "dgvRow_TechRank";
             this.dgvRow_TechRank.ReadOnly = true;
+            this.dgvRow_TechRank.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dgvRow_TechRank.Width = 50;
             // 
             // dgvRow_TechRegTP
             // 
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRow_TechRegTP.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvRow_TechRegTP.HeaderText = "Reg TP";
+            this.dgvRow_TechRegTP.MinimumWidth = 50;
             this.dgvRow_TechRegTP.Name = "dgvRow_TechRegTP";
             this.dgvRow_TechRegTP.ReadOnly = true;
+            this.dgvRow_TechRegTP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dgvRow_TechRegTP.Width = 50;
             // 
             // dgvRow_TechSpTP
             // 
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRow_TechSpTP.DefaultCellStyle = dataGridViewCellStyle7;
             this.dgvRow_TechSpTP.HeaderText = "Sp. TP";
+            this.dgvRow_TechSpTP.MinimumWidth = 50;
             this.dgvRow_TechSpTP.Name = "dgvRow_TechSpTP";
             this.dgvRow_TechSpTP.ReadOnly = true;
+            this.dgvRow_TechSpTP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dgvRow_TechSpTP.Width = 50;
             // 
             // dgvRow_TechSpTrait
             // 
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechSpTrait.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvRow_TechSpTrait.HeaderText = "Sp. Trait";
+            this.dgvRow_TechSpTrait.MinimumWidth = 75;
             this.dgvRow_TechSpTrait.Name = "dgvRow_TechSpTrait";
             this.dgvRow_TechSpTrait.ReadOnly = true;
+            this.dgvRow_TechSpTrait.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dgvRow_TechSpTrait.Width = 75;
             // 
             // dgvRow_TechBranch
             // 
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechBranch.DefaultCellStyle = dataGridViewCellStyle9;
             this.dgvRow_TechBranch.HeaderText = "Branched From";
+            this.dgvRow_TechBranch.MinimumWidth = 100;
             this.dgvRow_TechBranch.Name = "dgvRow_TechBranch";
             this.dgvRow_TechBranch.ReadOnly = true;
+            this.dgvRow_TechBranch.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // dgvRow_TechType
             // 
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechType.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvRow_TechType.HeaderText = "Type";
+            this.dgvRow_TechType.MinimumWidth = 75;
             this.dgvRow_TechType.Name = "dgvRow_TechType";
             this.dgvRow_TechType.ReadOnly = true;
+            this.dgvRow_TechType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dgvRow_TechType.Width = 75;
             // 
             // dgvRow_TechRange
             // 
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechRange.DefaultCellStyle = dataGridViewCellStyle11;
             this.dgvRow_TechRange.HeaderText = "Range";
+            this.dgvRow_TechRange.MinimumWidth = 75;
             this.dgvRow_TechRange.Name = "dgvRow_TechRange";
             this.dgvRow_TechRange.ReadOnly = true;
+            this.dgvRow_TechRange.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dgvRow_TechRange.Width = 75;
             // 
             // dgvRow_TechStats
             // 
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechStats.DefaultCellStyle = dataGridViewCellStyle12;
             this.dgvRow_TechStats.HeaderText = "Stats";
+            this.dgvRow_TechStats.MinimumWidth = 75;
             this.dgvRow_TechStats.Name = "dgvRow_TechStats";
             this.dgvRow_TechStats.ReadOnly = true;
+            this.dgvRow_TechStats.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dgvRow_TechStats.Width = 75;
             // 
             // dgvRow_TechPower
             // 
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechPower.DefaultCellStyle = dataGridViewCellStyle13;
             this.dgvRow_TechPower.HeaderText = "Power";
+            this.dgvRow_TechPower.MinimumWidth = 51;
             this.dgvRow_TechPower.Name = "dgvRow_TechPower";
             this.dgvRow_TechPower.ReadOnly = true;
-            this.dgvRow_TechPower.Width = 50;
+            this.dgvRow_TechPower.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgvRow_TechPower.Width = 51;
+            // 
+            // Trait_Name
+            // 
+            this.Trait_Name.HeaderText = "Trait";
+            this.Trait_Name.MinimumWidth = 150;
+            this.Trait_Name.Name = "Trait_Name";
+            this.Trait_Name.ReadOnly = true;
+            this.Trait_Name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Trait_Name.Width = 150;
+            // 
+            // Trait_Custom
+            // 
+            this.Trait_Custom.HeaderText = "Custom";
+            this.Trait_Custom.MinimumWidth = 150;
+            this.Trait_Custom.Name = "Trait_Custom";
+            this.Trait_Custom.ReadOnly = true;
+            this.Trait_Custom.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Trait_Custom.Width = 150;
+            // 
+            // Trait_Type
+            // 
+            this.Trait_Type.HeaderText = "Type";
+            this.Trait_Type.MinimumWidth = 120;
+            this.Trait_Type.Name = "Trait_Type";
+            this.Trait_Type.ReadOnly = true;
+            this.Trait_Type.Width = 120;
+            // 
+            // Trait_GenNum
+            // 
+            this.Trait_GenNum.HeaderText = "# Gen";
+            this.Trait_GenNum.MinimumWidth = 55;
+            this.Trait_GenNum.Name = "Trait_GenNum";
+            this.Trait_GenNum.ReadOnly = true;
+            this.Trait_GenNum.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Trait_GenNum.Width = 55;
+            // 
+            // Trait_ProfNum
+            // 
+            this.Trait_ProfNum.HeaderText = "# Prof";
+            this.Trait_ProfNum.MinimumWidth = 55;
+            this.Trait_ProfNum.Name = "Trait_ProfNum";
+            this.Trait_ProfNum.ReadOnly = true;
+            this.Trait_ProfNum.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Trait_ProfNum.Width = 55;
+            // 
+            // Trait_Desc
+            // 
+            this.Trait_Desc.HeaderText = "Description";
+            this.Trait_Desc.MinimumWidth = 246;
+            this.Trait_Desc.Name = "Trait_Desc";
+            this.Trait_Desc.ReadOnly = true;
+            this.Trait_Desc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Trait_Desc.Width = 246;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Profession";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 125;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Custom";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 125;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Type";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 100;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 201;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 201;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "Bonus";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 203;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 203;
             // 
             // MainForm
             // 
@@ -3832,6 +3902,12 @@
         private System.Windows.Forms.RadioButton radioButton_DateNA;
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.CheckBox checkBox_CalcBeli;
+        private System.Windows.Forms.Button button_EditTrait;
+        private System.Windows.Forms.DataGridView dgv_Professions;
+        private System.Windows.Forms.DataGridView dgv_Traits;
+        private System.Windows.Forms.Button button_TraitsDown;
+        private System.Windows.Forms.Button button_TraitsUp;
+        private System.Windows.Forms.DataGridView dgv_Techniques;
         private System.Windows.Forms.DataGridViewButtonColumn deleteRow;
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceTitle;
@@ -3839,23 +3915,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceSD;
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceBeli;
         private System.Windows.Forms.DataGridViewTextBoxColumn sourceNotes;
-        private System.Windows.Forms.Button button_EditTrait;
-        private System.Windows.Forms.DataGridView dgv_Professions;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridView dgv_Traits;
-        private System.Windows.Forms.Button button_TraitsDown;
-        private System.Windows.Forms.Button button_TraitsUp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_Name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_Custom;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_Type;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_GenNum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_ProfNum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_Desc;
-        private System.Windows.Forms.DataGridView dgv_Techniques;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechName;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechRank;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechRegTP;
@@ -3866,6 +3925,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechRange;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechStats;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_TechPower;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_Name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_Custom;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_Type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_GenNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_ProfNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Trait_Desc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
     }
 }
 

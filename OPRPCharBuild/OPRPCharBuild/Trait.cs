@@ -51,18 +51,21 @@ namespace OPRPCharBuild
     public class SpTrait
     {
         public string name;
+        public string custom;
         public int usedTP;
         public int totalTP;
 
-        public SpTrait(string name_, int used_, int tot_) {
+        public SpTrait(string name_, string custom_, int used_, int tot_) {
             name = name_;
+            custom = custom_;
             usedTP = used_;
             totalTP = tot_;
         }
 
         // For the Character.cs
-        public SpTrait(string name_, int tot_) {
+        public SpTrait(string name_, string custom_, int tot_) {
             name = name_;
+            custom = custom_;
             usedTP = 0;
             totalTP = tot_;
         }

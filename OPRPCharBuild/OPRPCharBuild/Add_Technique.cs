@@ -253,7 +253,7 @@ namespace OPRPCharBuild
 
 		#region Dialog Functions for Prompting Form
 
-		public string NewDialog(ref ListView Main_Form, ref Dictionary<string, Technique> techList, int index) {
+		public string NewDialog(ref DataGridView dgv_Techs, ref Dictionary<string, Technique> techList, int index) {
             // Save names of TechNames
             techNames.AddRange(techList.Keys.ToArray());
 			this.ShowDialog();      // This calls the Add_Technique_Load function
@@ -262,25 +262,31 @@ namespace OPRPCharBuild
 				Add_Form_to_Dictionary(ref techList);
 				// Now add into ListView for display
 				ListViewItem item = new ListViewItem();
-				item.SubItems[0].Text = textBox_Name.Text;              // Column 0: Tech Name
-				item.SubItems.Add(numericUpDown_Rank.Value.ToString()); // Column 1: Rank
-				item.SubItems.Add(numericUpDown_RegTP.Value.ToString());// Column 2: Reg TP
-				item.SubItems.Add(numericUpDown_SpTP.Value.ToString()); // Column 3: Sp. TP
-				item.SubItems.Add(comboBox_SpTrait.Text);               // Column 4: Sp. Trait
-				item.SubItems.Add(textBox_TechBranched.Text);           // Column 5: Branched From
-				item.SubItems.Add(comboBox_Type.Text);                  // Column 6: Type
-				item.SubItems.Add(comboBox_Range.Text);                 // Column 7: Range
-				item.SubItems.Add(textBox_Stats.Text);                  // Column 8: Stats
-				item.SubItems.Add(textBox_Power.Text);                  // Column 9: Power
-				if (Main_Form.Items.Count - 1 == index || Main_Form.Items.Count == 0) { Main_Form.Items.Add(item); } // That means we're inserting at the very end of the index
-				else { Main_Form.Items.Insert(index + 1, item); }           // Add the entire damn thing
-                return textBox_Name.Text;
+				string techName = textBox_Name.Text;            // Column 0: Tech Name
+				int techRank = (int)numericUpDown_Rank.Value;   // Column 1: Rank
+				int regTP = (int)numericUpDown_RegTP.Value;     // Column 2: Reg TP
+				int spTP = (int)numericUpDown_SpTP.Value;       // Column 3: Sp. TP
+				string spTrait = comboBox_SpTrait.Text;         // Column 4: Sp. Trait
+				string branched = textBox_TechBranched.Text;    // Column 5: Branched From
+				string techType = comboBox_Type.Text;           // Column 6: Type
+				string techRange = comboBox_Range.Text;         // Column 7: Range
+				string techStats = textBox_Stats.Text;          // Column 8: Stats
+				string techPower = textBox_Power.Text;          // Column 9: Power
+				if (dgv_Techs.Rows.Count - 1 == index || dgv_Techs.Rows.Count == 0) {
+                    dgv_Techs.Rows.Add(techName, techRank, regTP, spTP, spTrait,
+                        branched, techType, techRange, techStats, techPower);
+                } // That means we're inserting at the very end of the index
+				else {
+                    dgv_Techs.Rows.Insert(index + 1, techName, techRank, regTP, spTP, spTrait,
+                        branched, techType, techRange, techStats, techPower);
+                } // Add the entire damn thing
+                return techName;
 			}
             return null;
 		}
 
 		// You can customize Rokushiki by Editing a Technique
-		public string EditDialog(ref ListView Main_Form, ref Dictionary<string, Technique> techList) {
+		public string EditDialog(ref DataGridView dgv_Techs, ref Dictionary<string, Technique> techList) {
 			button_AddTech.Text = "Edit";
 			// Save copy of Technique
 			Technique techInfo = techList[replicating.name];
@@ -295,24 +301,24 @@ namespace OPRPCharBuild
             if (button_clicked) {
 				// Now re-add the same item into the Dictionary
 				Add_Form_to_Dictionary(ref techList);
-				// Add into ListView for display
-				Main_Form.SelectedItems[0].SubItems[0].Text = textBox_Name.Text;					// Column 0: Tech Name
-				Main_Form.SelectedItems[0].SubItems[1].Text = numericUpDown_Rank.Value.ToString();	// Column 1: Rank
-				Main_Form.SelectedItems[0].SubItems[2].Text = numericUpDown_RegTP.Value.ToString(); // Column 2: Reg TP
-				Main_Form.SelectedItems[0].SubItems[3].Text = numericUpDown_SpTP.Value.ToString();  // Column 3: Sp. TP
-				Main_Form.SelectedItems[0].SubItems[4].Text = comboBox_SpTrait.Text;                // Column 4: Sp. Trait
-				Main_Form.SelectedItems[0].SubItems[5].Text = textBox_TechBranched.Text;            // Column 5: Branched From
-				Main_Form.SelectedItems[0].SubItems[6].Text = comboBox_Type.Text;                   // Column 6: Type
-				Main_Form.SelectedItems[0].SubItems[7].Text = comboBox_Range.Text;                  // Column 7: Range
-				Main_Form.SelectedItems[0].SubItems[8].Text = textBox_Stats.Text;					// Column 8: Stats
-				Main_Form.SelectedItems[0].SubItems[9].Text = textBox_Power.Text;					// Column 9: Power
+				// Add into dgv for display
+				dgv_Techs.SelectedRows[0].Cells[0].Value = textBox_Name.Text;					// Column 0: Tech Name
+				dgv_Techs.SelectedRows[0].Cells[1].Value = numericUpDown_Rank.Value.ToString();	// Column 1: Rank
+				dgv_Techs.SelectedRows[0].Cells[2].Value = numericUpDown_RegTP.Value.ToString(); // Column 2: Reg TP
+				dgv_Techs.SelectedRows[0].Cells[3].Value = numericUpDown_SpTP.Value.ToString();  // Column 3: Sp. TP
+				dgv_Techs.SelectedRows[0].Cells[4].Value = comboBox_SpTrait.Text;                // Column 4: Sp. Trait
+				dgv_Techs.SelectedRows[0].Cells[5].Value = textBox_TechBranched.Text;            // Column 5: Branched From
+				dgv_Techs.SelectedRows[0].Cells[6].Value = comboBox_Type.Text;                   // Column 6: Type
+				dgv_Techs.SelectedRows[0].Cells[7].Value = comboBox_Range.Text;                  // Column 7: Range
+				dgv_Techs.SelectedRows[0].Cells[8].Value = textBox_Stats.Text;					// Column 8: Stats
+				dgv_Techs.SelectedRows[0].Cells[9].Value = textBox_Power.Text;					// Column 9: Power
                 return textBox_Name.Text;
 			}
 			else {
 				// This means we canceled changes, so add the Technique back.
 				techList.Add(replicating.name, techInfo);
-			}
-            return null;
+                return null;
+            }
 		}
 
 		#endregion
@@ -851,6 +857,8 @@ namespace OPRPCharBuild
 			else { numericUpDown_RegTP.Value = val; }
 			if (checkBox_DFRank4.Checked) { numericUpDown_RegTP.Value -= 4; }
 			numericUpDown_RankBranch.Maximum = numericUpDown_Rank.Value - 1; // This is hella important
+            // #TODO: Change Focus
+
 		}
 
 		private void numericUpDown_SpTP_ValueChanged(object sender, EventArgs e) {

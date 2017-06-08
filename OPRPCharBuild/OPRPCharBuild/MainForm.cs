@@ -688,13 +688,15 @@ namespace OPRPCharBuild
             int divisor = Database.getSpTraitDiv(traitName);
             if (divisor > 0) {
                 // Add Sp. Trait to the Dict
-                int traitNum = traitList[traitName].getTotalTraits();
+                Trait sel_Trait = traitList[traitName];
+                int traitNum = sel_Trait.getTotalTraits();
+                string customName = sel_Trait.getTraitName();
                 int totTP = (fortune / divisor) * traitNum;
-                SpTrait addTrait = new SpTrait(traitName, 0, totTP);
+                SpTrait addTrait = new SpTrait(traitName, customName, 0, totTP);
                 spTraitList.Add(traitName, addTrait);
                 // Add Sp. Trait to the ListView of SpTraits
                 ListViewItem item = new ListViewItem();
-                item.SubItems[0].Text = traitName;      // 1st column: Trait Name
+                item.SubItems[0].Text = customName;     // 1st column: Trait Name
                 item.SubItems.Add("0");                 // 2nd column: Used Sp. TP
                 item.SubItems.Add(totTP.ToString());    // 3rd column: Total Sp. TP
                 listView_SpTP.Items.Add(item);
@@ -1470,16 +1472,14 @@ namespace OPRPCharBuild
             // Remove from Dict
             string traitName = dgv_Traits.SelectedRows[0].Cells[0].Value.ToString();
             try {
-                if (dgv_Traits.SelectedRows.Count > 0) {
-                    traitList.Remove(traitName);
-                    // Remove from dgv
-                    int remove_index = dgv_Traits.SelectedRows[0].Index;
-                    dgv_Traits.Rows.RemoveAt(remove_index);
-                    dgv_Traits.Refresh();
-                }
+                traitList.Remove(traitName);
+                // Remove from dgv
+                int remove_index = dgv_Traits.SelectedRows[0].Index;
+                dgv_Traits.Rows.RemoveAt(remove_index);
+                dgv_Traits.Refresh();
             }
             catch (Exception ex) {
-                MessageBox.Show("Error in deleting Profession.\nReason: " + ex.Message, "Exception Thrown");
+                MessageBox.Show("Error in deleting Trait.\nReason: " + ex.Message, "Exception Thrown");
             }
 			// All update Functions
 			All_Update_Functions_Traits();
@@ -1498,7 +1498,7 @@ namespace OPRPCharBuild
 
         // Sort by Trait Type
         private void dgv_Traits_SortCompare(object sender, DataGridViewSortCompareEventArgs e) {
-            if (e.Column.Index == 1) {
+            if (e.Column.Index == 2) {
                 e.Handled = true;
                 e.SortResult = compareTraitTypes(e.CellValue1, e.CellValue2);
             }
@@ -1536,11 +1536,11 @@ namespace OPRPCharBuild
 		private void button14_TechAdd_Click(object sender, EventArgs e) {
 			// Technique "Add" button from the MainForm
 			int max_rank = int.Parse(textBox_Fortune.Text) / 2;
-			int num_items = listView_Techniques.Items.Count;
+			int num_items = dgv_Techniques.Rows.Count;
 			if (num_items == 0) { num_items++; } // What if empty?
 			Add_Technique TechniqueWin = new Add_Technique(max_rank, profList, 
                 traitList, spTraitList, makeDFClass(), false, false, null);
-			string newName = TechniqueWin.NewDialog(ref listView_Techniques, ref techList, num_items - 1);
+			string newName = TechniqueWin.NewDialog(ref dgv_Techniques, ref techList, num_items - 1);
             // Update functions go below
             if (!string.IsNullOrWhiteSpace(newName)) {
                 string spTrait = techList[newName].specialTrait;
@@ -1550,9 +1550,9 @@ namespace OPRPCharBuild
 
 		private void button_TechBranch_Click(object sender, EventArgs e) {
 			// Technique "Branch" button from the MainForm
-			if (listView_Techniques.SelectedItems.Count == 0) { return; }
-			string TechName = listView_Techniques.SelectedItems[0].SubItems[0].Text;
-			int index = listView_Techniques.SelectedIndices[0];
+			if (dgv_Techniques.SelectedRows.Count == 0) { return; }
+            string TechName = dgv_Techniques.SelectedRows[0].Cells[0].Value.ToString();
+			int index = dgv_Techniques.SelectedRows[0].Index;
 			if (!string.IsNullOrWhiteSpace(TechName)) {
 				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
 				Technique selTech = techList[TechName];
@@ -1571,7 +1571,7 @@ namespace OPRPCharBuild
 				else {
 					Add_Technique TechniqueWin = new Add_Technique(max_rank, profList, traitList, 
                         spTraitList, makeDFClass(), true, false, selTech);
-                    string newName = TechniqueWin.NewDialog(ref listView_Techniques, ref techList, index);
+                    string newName = TechniqueWin.NewDialog(ref dgv_Techniques, ref techList, index);
                     // Update functions go below
                     if (!string.IsNullOrWhiteSpace(newName)) {
                         string spTrait = techList[newName].specialTrait;
@@ -1583,9 +1583,9 @@ namespace OPRPCharBuild
 
 		private void button_TechEdit_Click(object sender, EventArgs e) {
 			// Technique "Edit" button from the MainForm
-			if (listView_Techniques.SelectedItems.Count == 0) { return; }
-			string TechName = listView_Techniques.SelectedItems[0].SubItems[0].Text;
-			if (!string.IsNullOrWhiteSpace(TechName)) {
+			if (dgv_Techniques.SelectedRows.Count == 0) { return; }
+			string TechName = dgv_Techniques.SelectedRows[0].Cells[0].Value.ToString();
+            if (!string.IsNullOrWhiteSpace(TechName)) {
 				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
                 Technique selTech = techList[TechName];
                 if (selTech.rokuName != Database.ROKU_NON &&
@@ -1597,7 +1597,7 @@ namespace OPRPCharBuild
 				else {
                     Add_Technique TechniqueWin = new Add_Technique(max_rank, profList, traitList,
                         spTraitList, makeDFClass(), false, true, selTech);
-                    string newName = TechniqueWin.EditDialog(ref listView_Techniques, ref techList);
+                    string newName = TechniqueWin.EditDialog(ref dgv_Techniques, ref techList);
                     // Update functions go below
                     if (!string.IsNullOrWhiteSpace(newName)) {
                         string spTrait = techList[newName].specialTrait;
@@ -1609,33 +1609,41 @@ namespace OPRPCharBuild
 
 		private void button13_TechDelete_Click(object sender, EventArgs e) {
 			// Technique "Delete" button from the MainForm
-			if (listView_Techniques.SelectedItems.Count == 0) { return; }
-			DialogResult result = MessageBox.Show("Are you sure you want to delete \"" + 
-				listView_Techniques.SelectedItems[0].SubItems[0].Text + "\"?", "Remove Tech",
+			if (dgv_Techniques.SelectedRows.Count == 0) { return; }
+			DialogResult result = MessageBox.Show("Are you sure you want to delete \"" +
+                dgv_Techniques.SelectedRows[0].Cells[0].Value.ToString() + "\"?", "Remove Tech",
 				MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 			if (result == DialogResult.Yes) {
-				try {
-					string TechName = Delete_ListViewItem(ref listView_Techniques);
+                // Remove from Dict
+                string techName = dgv_Techniques.SelectedRows[0].Cells[0].Value.ToString();
+                try {
+                    // Remove from Dict
+                    techList.Remove(techName);
+                    // Remove from dgv
+                    int remove_index = dgv_Traits.SelectedRows[0].Index;
+                    dgv_Traits.Rows.RemoveAt(remove_index);
+                    dgv_Traits.Refresh();
                     string spTrait = "";
-					if (!string.IsNullOrWhiteSpace(TechName)) {
-                        spTrait = techList[TechName].specialTrait;
-                        techList.Remove(TechName);
-					}
-					// Update functions go below
-					All_Update_Functions_Techs(spTrait);
-				}
-				catch (Exception ex) {
-					MessageBox.Show("Error in Deleting Technique\nReason: " + ex.Message, "Exception Thrown");
-				}
+                    if (!string.IsNullOrWhiteSpace(techName)) {
+                        spTrait = techList[techName].specialTrait;
+                        techList.Remove(techName);
+                    }
+                    // Update functions go below
+                    All_Update_Functions_Techs(spTrait);
+                    
+                }
+                catch (Exception ex) {
+                    MessageBox.Show("Error in deleting Technique.\nReason: " + ex.Message, "Exception Thrown");
+                }
 			}
 		}
 
 		private void button_UpTech_Click(object sender, EventArgs e) {
-			Move_List_Item(ref listView_Techniques, "Up");
+			Move_DGV_Item(ref dgv_Techniques, "Up");
 		}
 
 		private void button_DownTech_Click(object sender, EventArgs e) {
-			Move_List_Item(ref listView_Techniques, "Down");
+            Move_DGV_Item(ref dgv_Techniques, "Down");
 		}
 
 		private void textBox_RegTPUsed_TextChanged(object sender, EventArgs e) {
@@ -1660,9 +1668,9 @@ namespace OPRPCharBuild
 			Update_CritAnatQuick_Msg();
 		}
 
-		private void listView_Techniques_SelectedIndexChanged(object sender, EventArgs e) {
+		private void dgv_Techniques_SelectedIndexChanged(object sender, EventArgs e) {
 			try {
-				int row = listView_Techniques.SelectedIndices[0];
+				int row = dgv_Techniques.SelectedRows[0].Index;
 				label_RowNum.Text = "Row " + row + " Selected";
 			}
 			catch {
@@ -1692,7 +1700,7 @@ namespace OPRPCharBuild
 				MessageBox.Show("Category needs a name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
-			else if (listView_Techniques.Items.Count < 1) {
+			else if (dgv_Techniques.Rows.Count < 1) {
 				MessageBox.Show("You have no Techniques.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
@@ -1752,8 +1760,8 @@ namespace OPRPCharBuild
 				try {
 					int begin_ind = int.Parse(listView_SubCat.SelectedItems[0].SubItems[0].Text);
 					int end_ind = int.Parse(listView_SubCat.SelectedItems[0].SubItems[1].Text);
-					string begin_str = listView_Techniques.Items[begin_ind].SubItems[0].Text;
-					string end_str = listView_Techniques.Items[end_ind].SubItems[0].Text;
+					string begin_str = dgv_Techniques.Rows[begin_ind].Cells[0].Value.ToString();
+					string end_str = dgv_Techniques.Rows[end_ind].Cells[0].Value.ToString();
 					string name = listView_SubCat.SelectedItems[0].SubItems[2].Text;
 					label_SubCatMsg.Text = "Selected Category: (" + name + ")\n" +
 						"FROM [" + begin_str + "] TO [" + end_str + ']';
@@ -2070,12 +2078,14 @@ namespace OPRPCharBuild
 			numericUpDown_AccuracyBase.Value = 1;
 			// Traits
 			dgv_Traits.Rows.Clear();
+            dgv_Traits.Refresh();
 			traitList.Clear();
             // Techniques
 			listView_SpTP.Items.Clear();
             spTraitList.Clear();
             label_CritAnatQuick.Text = "";
-			listView_Techniques.Items.Clear();
+			dgv_Techniques.Rows.Clear();
+            dgv_Techniques.Refresh();
 			Update_TechNum();
 			techList.Clear();
 			listView_SubCat.Items.Clear();
@@ -2251,7 +2261,7 @@ namespace OPRPCharBuild
             try {
                 profile.loadCharTechs(
                     ref techList,
-                    ref listView_Techniques,
+                    ref dgv_Techniques,
                     ref spTraitList,
                     ref listView_SpTP,
                     ref listView_SubCat
@@ -2498,7 +2508,7 @@ namespace OPRPCharBuild
                 checkedListBox1_AP,
 				traitList, 
                 spTraitList, 
-                listView_Techniques, 
+                dgv_Techniques, 
                 listView_SubCat,
                 dgv_Sources);
 			sheet.ShowDialog();
