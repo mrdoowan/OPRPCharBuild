@@ -19,11 +19,19 @@ Based on OPRP usernames
 Version History
 ---------------
 
+### v1.6.0
+* Development History for Sources and Gains/Losses added
+* AE added onto Techniques
+* Traits can now be edited
+* Appearance overhaul for a few tables and a bigger window
+* Custom names for Traits and Professions
+* AP can now be stacked appropriately
+
 ### v1.5.0
 * Updated from April 2017 update
 
 ### v1.4.0
-* Character Template, Categories, 
+* Character Template, Categories all saveable
 * New implementation for saving .oprp files that no longer requires importing from older versions. That does mean v1.3.0 .oprp files no longer work.
 * Code completely refactored
 * Updated from February 2017 update

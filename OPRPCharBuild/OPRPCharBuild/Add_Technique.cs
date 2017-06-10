@@ -27,9 +27,10 @@ namespace OPRPCharBuild
 		private const string EFFECT_LABEL_STRING = "Effect Encyclopedia\n" + 
 			"- Weathermancy Effects require Weathermancy Trait\n" + 
 			"- Pop Greens Effects require Horticultural Warfare Trait\n" +
-			"- Stealth Effects require Assassin/Thief primary.\n" + 
+			"- Stealth Effects (R8+) require Assassin/Thief primary.\n" + 
             "- Doctor Effects require Doctor primary.\n" + 
-            "- Carpenter Effects require Carpenter primary.";
+            "- Carpenter Effects (except Traps) require Carpenter primary.\n\n" + 
+            "All Custom Effects will be treated as General";
 		private int gen_effects;    // To keep track how many General Effects there currently are for Secondary Gen Effects
 									// Updated when an Effect is added
 									// Updated when an Effect is removed
@@ -92,13 +93,14 @@ namespace OPRPCharBuild
 				    checkBox_DFEffect.Checked
 				};
 				List<bool> Cyborg = new List<bool>() {
-				    checkBox_Fuel1.Checked,
-				    checkBox_Fuel2.Checked,
-				    checkBox_Fuel3.Checked
+				    radioButton_Fuel1.Checked,
+				    radioButton_Fuel2.Checked,
+				    radioButton_Fuel3.Checked
 				};
 				// Now initialize TechInfo and add into TechList
 				Technique techInfo = new Technique(name, Roku.name, 
                     (int)numericUpDown_Rank.Value,
+                    (int)numericUpDown_AE.Value,
 					(int)numericUpDown_RegTP.Value, 
                     (int)numericUpDown_SpTP.Value,
 					comboBox_AffectRank.Text, 
@@ -142,6 +144,7 @@ namespace OPRPCharBuild
 			}
 			textBox_Name.Text = Tech.name;
 			numericUpDown_Rank.Value = Tech.rank;
+            numericUpDown_AE.Value = Tech.AE;
 			numericUpDown_RegTP.Value = Tech.regTP;
 			numericUpDown_SpTP.Value = Tech.spTP;
 			comboBox_SpTrait.Text = Tech.specialTrait;
@@ -208,9 +211,9 @@ namespace OPRPCharBuild
 			checkBox_Hybrid.Checked = Tech.checkBoxDF[3];
 			checkBox_DFEffect.Checked = Tech.checkBoxDF[4];
 			// Cyborg options
-			checkBox_Fuel1.Checked = Tech.cyborgBoosts[0];
-			checkBox_Fuel2.Checked = Tech.cyborgBoosts[1];
-			checkBox_Fuel3.Checked = Tech.cyborgBoosts[2];
+			radioButton_Fuel1.Checked = Tech.cyborgBoosts[0];
+			radioButton_Fuel2.Checked = Tech.cyborgBoosts[1];
+			radioButton_Fuel3.Checked = Tech.cyborgBoosts[2];
             // Checkboxes for the Signature Traits
             if (Tech.sigTech && checkBox_SigTech.Enabled) { checkBox_SigTech.Checked = true; }
             // Now put in the Tech.note
@@ -386,13 +389,17 @@ namespace OPRPCharBuild
                 message += "- " + duration + " Post Duration\n";
             }
 			// Cyborg message
-			if (checkBox_Fuel3.Checked) { message += "- [i]Cyborg Technique[/i] - uses 3 Fuel Charges (+12 Rank)\n"; }
-			else if (checkBox_Fuel2.Checked) { message += "- [i]Cyborg Technique[/i] - uses 2 Fuel Charges (+8 Rank)\n"; }
-			else if (checkBox_Fuel1.Checked) { message += "- [i]Cyborg Technique[/i] - uses 1 Fuel Charge (+4 Rank)\n"; }
+			if (radioButton_Fuel3.Checked) { message += "- [i]Cyborg Technique[/i] - uses 3 Fuel Charges (+12 Rank)\n"; }
+			else if (radioButton_Fuel2.Checked) { message += "- [i]Cyborg Technique[/i] - uses 2 Fuel Charges (+8 Rank)\n"; }
+			else if (radioButton_Fuel1.Checked) { message += "- [i]Cyborg Technique[/i] - uses 1 Fuel Charge (+4 Rank)\n"; }
 			// Treated 4 Ranks higher
 			if (!string.IsNullOrWhiteSpace(comboBox_AffectRank.Text)) { message += "- [i]" + comboBox_AffectRank.Text + " Technique*[/i]\n"; }
-			// Special TP usage.
-			if (numericUpDown_SpTP.Value > 0) { message += "- Special TP from [i]" + comboBox_SpTrait.Text + "[/i]\n"; }
+            // Special TP usage.
+            try {
+                SpTrait spTrait = spTraitsList[comboBox_SpTrait.Text];
+                if (numericUpDown_SpTP.Value > 0) { message += "- Special TP from [i]" + spTrait.getTraitName() + "[/i]\n"; }
+            }
+            catch { }
 			message = message.TrimEnd('\n'); // Remove the last \n
 			richTextBox_Note.Text = message;
 			// Used in every application above
@@ -404,16 +411,16 @@ namespace OPRPCharBuild
                 if (Roku.name == Database.ROKU_NON) {
                     // No Rokushiki
                     power = (int)numericUpDown_Rank.Value;
-                    if (isAffectRankTrait(comboBox_AffectRank.Text)) {
+                    if (comboBox_AffectRank.SelectedIndex > 0) {
                         power += 4;
                     }
-                    if (checkBox_Fuel3.Checked) {
+                    if (radioButton_Fuel3.Checked) {
                         power += 12;
                     }
-                    else if (checkBox_Fuel2.Checked) {
+                    else if (radioButton_Fuel2.Checked) {
                         power += 8;
                     }
-                    else if (checkBox_Fuel1.Checked) {
+                    else if (radioButton_Fuel1.Checked) {
                         power += 4;
                     }
                 }
@@ -452,6 +459,20 @@ namespace OPRPCharBuild
 			// Used when an Effect is Removed
 		}
 
+        // Based on the ranking, Update the AE
+        private void Update_AE() {
+            int rank = (int)numericUpDown_Rank.Value;
+            int AE = 0;
+            if (rank <= 16) { AE = 1; }
+            else if (rank <= 30) { AE = 2; }
+            else if (rank <= 40) { AE = 3; }
+            else if (rank <= 52) { AE = 4; }
+            else if (rank <= 60) { AE = 5; }
+            else if (rank <= 66) { AE = 6; }
+            else { AE = 7; }
+            numericUpDown_AE.Value = AE;
+        }
+
 		private void Update_DFRank4() {
             int rank = (int)numericUpDown_Rank.Value;
             if (checkBox_DFRank4.Checked) {
@@ -489,7 +510,7 @@ namespace OPRPCharBuild
 			}
 			label_MinRank.Text = label + ']' ;
 			int curr_rank = (int)numericUpDown_Rank.Value;
-			if (isAffectRankTrait(comboBox_AffectRank.Text)) {
+			if (comboBox_AffectRank.SelectedIndex > 0) {
 				curr_rank += 4;
 			}
 			if (min_rank > curr_rank || min_cost > curr_rank) {
@@ -537,9 +558,10 @@ namespace OPRPCharBuild
 			numericUpDown_RankBranch.Maximum = max_rank - 1;
 
 			// Add Traits Affecting the Rank
+            // Add the custom TraitName instead
             foreach (string traitName in traitsList.Keys) {
                 if (isAffectRankTrait(traitName)) {
-                    comboBox_AffectRank.Items.Add(traitName);
+                    comboBox_AffectRank.Items.Add(traitsList[traitName].getTraitName());
                 }
             }
 			comboBox_AffectRank.SelectedIndex = -1;
@@ -681,18 +703,18 @@ namespace OPRPCharBuild
 			try {
 				if (traitsList.ContainsKey(Database.TR_BASCYB)) {
 					label_Cyborg.Text = "[Basic Cyborg]";
-                    checkBox_Fuel1.Enabled = true;
+                    radioButton_Fuel1.Enabled = true;
 				}
 				else if (traitsList.ContainsKey(Database.TR_ADVCYB)) {
 					label_Cyborg.Text = "[Advanced Cyborg]";
-					checkBox_Fuel1.Enabled = true;
-					checkBox_Fuel2.Enabled = true;
+					radioButton_Fuel1.Enabled = true;
+					radioButton_Fuel2.Enabled = true;
 				}
 				else if (traitsList.ContainsKey(Database.TR_NEWCYB)) {
 					label_Cyborg.Text = "[New World Cyborg]";
-					checkBox_Fuel1.Enabled = true;
-					checkBox_Fuel2.Enabled = true;
-					checkBox_Fuel3.Enabled = true;
+					radioButton_Fuel1.Enabled = true;
+					radioButton_Fuel2.Enabled = true;
+					radioButton_Fuel3.Enabled = true;
 				}
 			}
 			catch (Exception ex) {
@@ -819,9 +841,9 @@ namespace OPRPCharBuild
                 checkBox_Hybrid.Enabled = false;
                 checkBox_ZoanSig.Enabled = false;
                 // App Traits
-                checkBox_Fuel1.Checked = false;
-                checkBox_Fuel2.Checked = false;
-                checkBox_Fuel3.Checked = false;
+                radioButton_Fuel1.Checked = false;
+                radioButton_Fuel2.Checked = false;
+                radioButton_Fuel3.Checked = false;
                 checkBox_SigTech.Checked = false;
                 // The rest
                 richTextBox_Note.Clear();
@@ -857,8 +879,8 @@ namespace OPRPCharBuild
 			else { numericUpDown_RegTP.Value = val; }
 			if (checkBox_DFRank4.Checked) { numericUpDown_RegTP.Value -= 4; }
 			numericUpDown_RankBranch.Maximum = numericUpDown_Rank.Value - 1; // This is hella important
-            // #TODO: Change Focus
-
+            // Change AE value
+            Update_AE();
 		}
 
 		private void numericUpDown_SpTP_ValueChanged(object sender, EventArgs e) {
@@ -1031,17 +1053,17 @@ namespace OPRPCharBuild
 			Update_Note();
 		}
 
-		private void checkBox_Fuel1_CheckedChanged(object sender, EventArgs e) {
+		private void radioButton_Fuel1_CheckedChanged(object sender, EventArgs e) {
 			Update_Power_Value();
 			Update_Note();
 		}
 
-		private void checkBox_Fuel2_CheckedChanged(object sender, EventArgs e) {
+		private void radioButton_Fuel2_CheckedChanged(object sender, EventArgs e) {
 			Update_Power_Value();
 			Update_Note();
 		}
 
-		private void checkBox_Fuel3_CheckedChanged(object sender, EventArgs e) {
+		private void radioButton_Fuel3_CheckedChanged(object sender, EventArgs e) {
 			Update_Power_Value();
 			Update_Note();
 		}
@@ -1077,10 +1099,12 @@ namespace OPRPCharBuild
 				Effect effect = getEffect(comboBox_Effect.Text);
                 if (effect == null) {
                     // Custom Effect: Add it in. Initialize everything
-                    effect.name = comboBox_Effect.Text;
-                    effect.minRank = (int)numericUpDown_Cost.Value;
-                    effect.general = true;
-                    effect.desc = "Custom";
+                    string custom_Name = comboBox_Effect.Text;
+                    int custom_Cost = (int)numericUpDown_Cost.Value;
+                    bool custom_General = true;
+                    string custom_Desc = "Custom";
+                    effect = new Effect(custom_Name, custom_General,
+                        custom_Cost, custom_Cost, custom_Desc);
                 }
                 effect.cost = (int)numericUpDown_Cost.Value;
 				effList.Add(effect);
@@ -1259,9 +1283,9 @@ namespace OPRPCharBuild
 							checkBox_NA.Checked = false;
 							checkBox_Branched.Checked = false;
 							checkBox_DFTechEnable.Checked = false;
-							checkBox_Fuel1.Checked = false;
-							checkBox_Fuel2.Checked = false;
-							checkBox_Fuel3.Checked = false;
+							radioButton_Fuel1.Checked = false;
+							radioButton_Fuel2.Checked = false;
+							radioButton_Fuel3.Checked = false;
 							checkBox_SigTech.Checked = false;
 							effList.Clear();
 							listView_Effects.Items.Clear();

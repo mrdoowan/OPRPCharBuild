@@ -69,5 +69,9 @@ namespace OPRPCharBuild
             usedTP = 0;
             totalTP = tot_;
         }
+
+        public string getTraitName() {
+            return (string.IsNullOrWhiteSpace(custom)) ? name : custom;
+        }
     };
 }

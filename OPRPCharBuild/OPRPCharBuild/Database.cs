@@ -773,7 +773,8 @@ namespace OPRPCharBuild
                 EFF_SMOKE,
                 EFF_CROWD,
                 EFF_DISGU,
-                EFF_PICKP
+                EFF_PICKP,
+                EFF_TRAPS
             };
             return effList;
         }
@@ -832,7 +833,6 @@ namespace OPRPCharBuild
         // Excluding "Battle Suits"
         static public List<string> getCarpenterEffects() {
             List<string> effList = new List<string>() {
-                EFF_TRAPS,
                 EFF_STRUC,
                 EFF_WDEFC,
                 EFF_SIEGE,

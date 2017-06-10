@@ -26,31 +26,60 @@
 		/// </summary>
 		private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label_Title = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_Basic = new System.Windows.Forms.TabPage();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.button_ImageEdit = new System.Windows.Forms.Button();
+            this.button_ImageDelete = new System.Windows.Forms.Button();
+            this.button_ImageAdd = new System.Windows.Forms.Button();
+            this.textBox_ImageLabel = new System.Windows.Forms.TextBox();
+            this.label80 = new System.Windows.Forms.Label();
+            this.label82 = new System.Windows.Forms.Label();
+            this.button_ImageDown = new System.Windows.Forms.Button();
+            this.button_ImageUp = new System.Windows.Forms.Button();
+            this.listView_Images = new System.Windows.Forms.ListView();
+            this.numericUpDown_Height = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_Width = new System.Windows.Forms.NumericUpDown();
+            this.checkBox_FullRes = new System.Windows.Forms.CheckBox();
+            this.label83 = new System.Windows.Forms.Label();
+            this.label84 = new System.Windows.Forms.Label();
+            this.textBox_ImageURL = new System.Windows.Forms.TextBox();
+            this.label85 = new System.Windows.Forms.Label();
+            this.richTextBox_GeneralAppear = new System.Windows.Forms.RichTextBox();
+            this.label86 = new System.Windows.Forms.Label();
+            this.richTextBox_Clothing = new System.Windows.Forms.RichTextBox();
+            this.label87 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.dgv_Professions = new System.Windows.Forms.DataGridView();
-            this.button_DownProf = new System.Windows.Forms.Button();
-            this.button_ProfEdit = new System.Windows.Forms.Button();
-            this.button_UpProf = new System.Windows.Forms.Button();
-            this.button_ProfDelete = new System.Windows.Forms.Button();
-            this.button_ProfAdd = new System.Windows.Forms.Button();
+            this.richTextBox_Eye = new System.Windows.Forms.RichTextBox();
+            this.richTextBox_Hair = new System.Windows.Forms.RichTextBox();
+            this.textBox_Weight = new System.Windows.Forms.TextBox();
+            this.textBox_Height = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label65 = new System.Windows.Forms.Label();
+            this.label73 = new System.Windows.Forms.Label();
+            this.label76 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button_DownAchieve = new System.Windows.Forms.Button();
             this.button_AchieveEdit = new System.Windows.Forms.Button();
@@ -81,37 +110,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.tabPage_Appear = new System.Windows.Forms.TabPage();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.button_ImageEdit = new System.Windows.Forms.Button();
-            this.button_ImageDelete = new System.Windows.Forms.Button();
-            this.button_ImageAdd = new System.Windows.Forms.Button();
-            this.textBox_ImageLabel = new System.Windows.Forms.TextBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.button_ImageDown = new System.Windows.Forms.Button();
-            this.button_ImageUp = new System.Windows.Forms.Button();
-            this.listView_Images = new System.Windows.Forms.ListView();
-            this.numericUpDown_Height = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown_Width = new System.Windows.Forms.NumericUpDown();
-            this.checkBox_FullRes = new System.Windows.Forms.CheckBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.textBox_ImageURL = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.richTextBox_GeneralAppear = new System.Windows.Forms.RichTextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.richTextBox_Clothing = new System.Windows.Forms.RichTextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.richTextBox_Eye = new System.Windows.Forms.RichTextBox();
-            this.richTextBox_Hair = new System.Windows.Forms.RichTextBox();
-            this.textBox_Weight = new System.Windows.Forms.TextBox();
-            this.textBox_Height = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.tabPage_Background = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.richTextBox_History = new System.Windows.Forms.RichTextBox();
@@ -137,7 +135,6 @@
             this.label50 = new System.Windows.Forms.Label();
             this.textBox_DFName = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.button_Standardize = new System.Windows.Forms.Button();
             this.button_DownItem = new System.Windows.Forms.Button();
             this.button_UpItem = new System.Windows.Forms.Button();
             this.button_DownWeapon = new System.Windows.Forms.Button();
@@ -146,8 +143,6 @@
             this.button_WeaponEdit = new System.Windows.Forms.Button();
             this.listView_Items = new System.Windows.Forms.ListView();
             this.listView_Weaponry = new System.Windows.Forms.ListView();
-            this.textBox_Beli = new System.Windows.Forms.TextBox();
-            this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.button_ItemsAdd = new System.Windows.Forms.Button();
             this.button_ItemsDelete = new System.Windows.Forms.Button();
@@ -156,14 +151,44 @@
             this.button_WeaponDelete = new System.Windows.Forms.Button();
             this.richTextBox_Combat = new System.Windows.Forms.RichTextBox();
             this.label26 = new System.Windows.Forms.Label();
-            this.tabPage_Stats = new System.Windows.Forms.TabPage();
+            this.tabPage_RP = new System.Windows.Forms.TabPage();
+            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.dgv_Professions = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button_DownProf = new System.Windows.Forms.Button();
+            this.button_EditProf = new System.Windows.Forms.Button();
+            this.button_UpProf = new System.Windows.Forms.Button();
+            this.button_DeleteProf = new System.Windows.Forms.Button();
+            this.button_AddProf = new System.Windows.Forms.Button();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.button_Standardize = new System.Windows.Forms.Button();
+            this.textBox_Beli = new System.Windows.Forms.TextBox();
+            this.label60 = new System.Windows.Forms.Label();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.label59 = new System.Windows.Forms.Label();
+            this.textBox_AP = new System.Windows.Forms.TextBox();
+            this.checkBox_APDF = new System.Windows.Forms.CheckBox();
+            this.checkBox_APHaki = new System.Windows.Forms.CheckBox();
+            this.numericUpDown_APNPC = new System.Windows.Forms.NumericUpDown();
+            this.label58 = new System.Windows.Forms.Label();
+            this.numericUpDown_APMulti = new System.Windows.Forms.NumericUpDown();
+            this.label57 = new System.Windows.Forms.Label();
+            this.numericUpDown_APPrime = new System.Windows.Forms.NumericUpDown();
+            this.label56 = new System.Windows.Forms.Label();
+            this.numericUpDown_APTrait = new System.Windows.Forms.NumericUpDown();
+            this.label55 = new System.Windows.Forms.Label();
+            this.numericUpDown_APTech = new System.Windows.Forms.NumericUpDown();
+            this.label54 = new System.Windows.Forms.Label();
+            this.label_SDonAP = new System.Windows.Forms.Label();
             this.textBox_SDtoSPCalc = new System.Windows.Forms.TextBox();
             this.textBox_Focus = new System.Windows.Forms.TextBox();
             this.label39 = new System.Windows.Forms.Label();
             this.textBox_TotalSD = new System.Windows.Forms.TextBox();
             this.label_TotalSD = new System.Windows.Forms.Label();
-            this.textBox_AP = new System.Windows.Forms.TextBox();
             this.label_FortuneCalc = new System.Windows.Forms.Label();
             this.label_GenerateCheck = new System.Windows.Forms.Label();
             this.label_AccuracyCalc = new System.Windows.Forms.Label();
@@ -186,7 +211,6 @@
             this.label70 = new System.Windows.Forms.Label();
             this.label71 = new System.Windows.Forms.Label();
             this.label72 = new System.Windows.Forms.Label();
-            this.label37_SDonAP = new System.Windows.Forms.Label();
             this.numericUpDown_UsedForFort = new System.Windows.Forms.NumericUpDown();
             this.textBox_UsedForStats = new System.Windows.Forms.TextBox();
             this.label74 = new System.Windows.Forms.Label();
@@ -198,12 +222,16 @@
             this.textBox_SDRemain = new System.Windows.Forms.TextBox();
             this.label79 = new System.Windows.Forms.Label();
             this.numericUpDown_SDEarned = new System.Windows.Forms.NumericUpDown();
-            this.checkedListBox1_AP = new System.Windows.Forms.CheckedListBox();
-            this.label80 = new System.Windows.Forms.Label();
             this.label81 = new System.Windows.Forms.Label();
             this.tabPage_Traits = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.dgv_Traits = new System.Windows.Forms.DataGridView();
+            this.Trait_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_Custom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_GenNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_ProfNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trait_Desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_TraitsDown = new System.Windows.Forms.Button();
             this.button_TraitsUp = new System.Windows.Forms.Button();
             this.button_EditTrait = new System.Windows.Forms.Button();
@@ -229,7 +257,21 @@
             this.label36 = new System.Windows.Forms.Label();
             this.listView_SubCat = new System.Windows.Forms.ListView();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.dgv_SpTraits = new System.Windows.Forms.DataGridView();
+            this.dgvRow_SpTraitName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_SpUsed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_SpTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgv_Techniques = new System.Windows.Forms.DataGridView();
+            this.dgvRow_TechName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechRank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechRegTP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechSpTP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechSpTrait = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechBranch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechRange = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechStats = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvRow_TechPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label_CritAnatQuick = new System.Windows.Forms.Label();
             this.label_TechCount = new System.Windows.Forms.Label();
             this.button_TechBranch = new System.Windows.Forms.Button();
@@ -242,7 +284,6 @@
             this.button_TechDelete = new System.Windows.Forms.Button();
             this.button_TechAdd = new System.Windows.Forms.Button();
             this.label66 = new System.Windows.Forms.Label();
-            this.listView_SpTP = new System.Windows.Forms.ListView();
             this.label64 = new System.Windows.Forms.Label();
             this.label_RegTPCalc = new System.Windows.Forms.Label();
             this.textBox_RegTPTotal = new System.Windows.Forms.TextBox();
@@ -260,6 +301,13 @@
             this.checkBox_CalcSD = new System.Windows.Forms.CheckBox();
             this.button_SaveDevH = new System.Windows.Forms.Button();
             this.dgv_Sources = new System.Windows.Forms.DataGridView();
+            this.deleteRow = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.sourceDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceURL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceSD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceBeli = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sourceNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button_DownSource = new System.Windows.Forms.Button();
             this.button_UpSource = new System.Windows.Forms.Button();
             this.tabPage_Template = new System.Windows.Forms.TabPage();
@@ -287,54 +335,31 @@
             this.toolStripButton_Open = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_SaveAs = new System.Windows.Forms.ToolStripButton();
-            this.deleteRow = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.sourceDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceURL = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceSD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceBeli = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvRow_TechName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvRow_TechRank = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvRow_TechRegTP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvRow_TechSpTP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvRow_TechSpTrait = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvRow_TechBranch = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvRow_TechType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvRow_TechRange = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvRow_TechStats = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvRow_TechPower = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Trait_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Trait_Custom = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Trait_Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Trait_GenNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Trait_ProfNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Trait_Desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage_Basic.SuspendLayout();
+            this.groupBox16.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Height)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Width)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Professions)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Comm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Age)).BeginInit();
-            this.tabPage_Appear.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Height)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Width)).BeginInit();
-            this.groupBox4.SuspendLayout();
             this.tabPage_Background.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tabPage_Abilities.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox7.SuspendLayout();
-            this.tabPage_Stats.SuspendLayout();
+            this.tabPage_RP.SuspendLayout();
+            this.groupBox15.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Professions)).BeginInit();
             this.groupBox12.SuspendLayout();
+            this.groupBox14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APNPC)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APMulti)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APPrime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APTrait)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APTech)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_AccuracyBase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_StaminaBase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SpeedBase)).BeginInit();
@@ -350,6 +375,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowBegin)).BeginInit();
             this.groupBox11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_SpTraits)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Techniques)).BeginInit();
             this.tabPage_Sources.SuspendLayout();
             this.groupBox13.SuspendLayout();
@@ -371,10 +397,9 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage_Basic);
-            this.tabControl1.Controls.Add(this.tabPage_Appear);
             this.tabControl1.Controls.Add(this.tabPage_Background);
             this.tabControl1.Controls.Add(this.tabPage_Abilities);
-            this.tabControl1.Controls.Add(this.tabPage_Stats);
+            this.tabControl1.Controls.Add(this.tabPage_RP);
             this.tabControl1.Controls.Add(this.tabPage_Traits);
             this.tabControl1.Controls.Add(this.tabPage_Techniques);
             this.tabControl1.Controls.Add(this.tabPage_Sources);
@@ -388,6 +413,7 @@
             // tabPage_Basic
             // 
             this.tabPage_Basic.AutoScroll = true;
+            this.tabPage_Basic.Controls.Add(this.groupBox16);
             this.tabPage_Basic.Controls.Add(this.groupBox3);
             this.tabPage_Basic.Controls.Add(this.groupBox2);
             this.tabPage_Basic.Controls.Add(this.groupBox1);
@@ -396,104 +422,353 @@
             this.tabPage_Basic.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_Basic.Size = new System.Drawing.Size(835, 478);
             this.tabPage_Basic.TabIndex = 0;
-            this.tabPage_Basic.Text = "Basic Info";
+            this.tabPage_Basic.Text = "Basic Information";
             this.tabPage_Basic.UseVisualStyleBackColor = true;
+            // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.button_ImageEdit);
+            this.groupBox16.Controls.Add(this.button_ImageDelete);
+            this.groupBox16.Controls.Add(this.button_ImageAdd);
+            this.groupBox16.Controls.Add(this.textBox_ImageLabel);
+            this.groupBox16.Controls.Add(this.label80);
+            this.groupBox16.Controls.Add(this.label82);
+            this.groupBox16.Controls.Add(this.button_ImageDown);
+            this.groupBox16.Controls.Add(this.button_ImageUp);
+            this.groupBox16.Controls.Add(this.listView_Images);
+            this.groupBox16.Controls.Add(this.numericUpDown_Height);
+            this.groupBox16.Controls.Add(this.numericUpDown_Width);
+            this.groupBox16.Controls.Add(this.checkBox_FullRes);
+            this.groupBox16.Controls.Add(this.label83);
+            this.groupBox16.Controls.Add(this.label84);
+            this.groupBox16.Controls.Add(this.textBox_ImageURL);
+            this.groupBox16.Controls.Add(this.label85);
+            this.groupBox16.Controls.Add(this.richTextBox_GeneralAppear);
+            this.groupBox16.Controls.Add(this.label86);
+            this.groupBox16.Controls.Add(this.richTextBox_Clothing);
+            this.groupBox16.Controls.Add(this.label87);
+            this.groupBox16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox16.Location = new System.Drawing.Point(6, 566);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(806, 468);
+            this.groupBox16.TabIndex = 3;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Appearance";
+            // 
+            // button_ImageEdit
+            // 
+            this.button_ImageEdit.Location = new System.Drawing.Point(660, 425);
+            this.button_ImageEdit.Name = "button_ImageEdit";
+            this.button_ImageEdit.Size = new System.Drawing.Size(67, 23);
+            this.button_ImageEdit.TabIndex = 29;
+            this.button_ImageEdit.Text = "Edit";
+            this.button_ImageEdit.UseVisualStyleBackColor = true;
+            // 
+            // button_ImageDelete
+            // 
+            this.button_ImageDelete.Location = new System.Drawing.Point(733, 425);
+            this.button_ImageDelete.Name = "button_ImageDelete";
+            this.button_ImageDelete.Size = new System.Drawing.Size(67, 23);
+            this.button_ImageDelete.TabIndex = 28;
+            this.button_ImageDelete.Text = "Delete";
+            this.button_ImageDelete.UseVisualStyleBackColor = true;
+            // 
+            // button_ImageAdd
+            // 
+            this.button_ImageAdd.Location = new System.Drawing.Point(587, 425);
+            this.button_ImageAdd.Name = "button_ImageAdd";
+            this.button_ImageAdd.Size = new System.Drawing.Size(67, 23);
+            this.button_ImageAdd.TabIndex = 27;
+            this.button_ImageAdd.Text = "Add";
+            this.button_ImageAdd.UseVisualStyleBackColor = true;
+            this.button_ImageAdd.Click += new System.EventHandler(this.button_ImageAdd_Click);
+            // 
+            // textBox_ImageLabel
+            // 
+            this.textBox_ImageLabel.Location = new System.Drawing.Point(459, 396);
+            this.textBox_ImageLabel.Name = "textBox_ImageLabel";
+            this.textBox_ImageLabel.Size = new System.Drawing.Size(341, 23);
+            this.textBox_ImageLabel.TabIndex = 25;
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label80.Location = new System.Drawing.Point(417, 401);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(36, 13);
+            this.label80.TabIndex = 26;
+            this.label80.Text = "Label:";
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label82.Location = new System.Drawing.Point(78, 244);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(44, 13);
+            this.label82.TabIndex = 24;
+            this.label82.Text = "Images:";
+            // 
+            // button_ImageDown
+            // 
+            this.button_ImageDown.Image = ((System.Drawing.Image)(resources.GetObject("button_ImageDown.Image")));
+            this.button_ImageDown.Location = new System.Drawing.Point(93, 298);
+            this.button_ImageDown.Name = "button_ImageDown";
+            this.button_ImageDown.Size = new System.Drawing.Size(26, 26);
+            this.button_ImageDown.TabIndex = 23;
+            this.button_ImageDown.UseVisualStyleBackColor = true;
+            this.button_ImageDown.Click += new System.EventHandler(this.button_ImageDown_Click);
+            // 
+            // button_ImageUp
+            // 
+            this.button_ImageUp.Image = ((System.Drawing.Image)(resources.GetObject("button_ImageUp.Image")));
+            this.button_ImageUp.Location = new System.Drawing.Point(93, 266);
+            this.button_ImageUp.Name = "button_ImageUp";
+            this.button_ImageUp.Size = new System.Drawing.Size(26, 26);
+            this.button_ImageUp.TabIndex = 22;
+            this.button_ImageUp.UseVisualStyleBackColor = true;
+            this.button_ImageUp.Click += new System.EventHandler(this.button_ImageUp_Click);
+            // 
+            // listView_Images
+            // 
+            this.listView_Images.AllowColumnReorder = true;
+            this.listView_Images.AutoArrange = false;
+            this.listView_Images.FullRowSelect = true;
+            this.listView_Images.GridLines = true;
+            this.listView_Images.LabelWrap = false;
+            this.listView_Images.Location = new System.Drawing.Point(128, 238);
+            this.listView_Images.MultiSelect = false;
+            this.listView_Images.Name = "listView_Images";
+            this.listView_Images.Size = new System.Drawing.Size(672, 146);
+            this.listView_Images.TabIndex = 21;
+            this.listView_Images.UseCompatibleStateImageBehavior = false;
+            // 
+            // numericUpDown_Height
+            // 
+            this.numericUpDown_Height.Enabled = false;
+            this.numericUpDown_Height.Location = new System.Drawing.Point(358, 425);
+            this.numericUpDown_Height.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDown_Height.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown_Height.Name = "numericUpDown_Height";
+            this.numericUpDown_Height.Size = new System.Drawing.Size(53, 23);
+            this.numericUpDown_Height.TabIndex = 20;
+            this.numericUpDown_Height.Value = new decimal(new int[] {
+            480,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDown_Width
+            // 
+            this.numericUpDown_Width.Enabled = false;
+            this.numericUpDown_Width.Location = new System.Drawing.Point(252, 425);
+            this.numericUpDown_Width.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDown_Width.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown_Width.Name = "numericUpDown_Width";
+            this.numericUpDown_Width.Size = new System.Drawing.Size(53, 23);
+            this.numericUpDown_Width.TabIndex = 19;
+            this.numericUpDown_Width.Value = new decimal(new int[] {
+            640,
+            0,
+            0,
+            0});
+            // 
+            // checkBox_FullRes
+            // 
+            this.checkBox_FullRes.AutoSize = true;
+            this.checkBox_FullRes.Checked = true;
+            this.checkBox_FullRes.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_FullRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.checkBox_FullRes.Location = new System.Drawing.Point(102, 428);
+            this.checkBox_FullRes.Name = "checkBox_FullRes";
+            this.checkBox_FullRes.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox_FullRes.Size = new System.Drawing.Size(95, 17);
+            this.checkBox_FullRes.TabIndex = 18;
+            this.checkBox_FullRes.Text = "Full Resolution";
+            this.checkBox_FullRes.UseVisualStyleBackColor = true;
+            this.checkBox_FullRes.CheckedChanged += new System.EventHandler(this.checkBox_FullRes_CheckedChanged);
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label83.Location = new System.Drawing.Point(311, 429);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(41, 13);
+            this.label83.TabIndex = 17;
+            this.label83.Text = "Height:";
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label84.Location = new System.Drawing.Point(208, 429);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(38, 13);
+            this.label84.TabIndex = 11;
+            this.label84.Text = "Width:";
+            // 
+            // textBox_ImageURL
+            // 
+            this.textBox_ImageURL.Location = new System.Drawing.Point(128, 396);
+            this.textBox_ImageURL.Name = "textBox_ImageURL";
+            this.textBox_ImageURL.Size = new System.Drawing.Size(283, 23);
+            this.textBox_ImageURL.TabIndex = 11;
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label85.Location = new System.Drawing.Point(58, 401);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(64, 13);
+            this.label85.TabIndex = 14;
+            this.label85.Text = "Image URL:";
+            // 
+            // richTextBox_GeneralAppear
+            // 
+            this.richTextBox_GeneralAppear.Location = new System.Drawing.Point(128, 130);
+            this.richTextBox_GeneralAppear.Name = "richTextBox_GeneralAppear";
+            this.richTextBox_GeneralAppear.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richTextBox_GeneralAppear.Size = new System.Drawing.Size(672, 102);
+            this.richTextBox_GeneralAppear.TabIndex = 13;
+            this.richTextBox_GeneralAppear.Text = "";
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label86.Location = new System.Drawing.Point(14, 136);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(108, 13);
+            this.label86.TabIndex = 12;
+            this.label86.Text = "General Appearance:";
+            // 
+            // richTextBox_Clothing
+            // 
+            this.richTextBox_Clothing.Location = new System.Drawing.Point(128, 22);
+            this.richTextBox_Clothing.Name = "richTextBox_Clothing";
+            this.richTextBox_Clothing.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richTextBox_Clothing.Size = new System.Drawing.Size(672, 102);
+            this.richTextBox_Clothing.TabIndex = 11;
+            this.richTextBox_Clothing.Text = "";
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label87.Location = new System.Drawing.Point(6, 28);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(116, 13);
+            this.label87.TabIndex = 11;
+            this.label87.Text = "Clothing / Accessories:";
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.dgv_Professions);
-            this.groupBox3.Controls.Add(this.button_DownProf);
-            this.groupBox3.Controls.Add(this.button_ProfEdit);
-            this.groupBox3.Controls.Add(this.button_UpProf);
-            this.groupBox3.Controls.Add(this.button_ProfDelete);
-            this.groupBox3.Controls.Add(this.button_ProfAdd);
+            this.groupBox3.Controls.Add(this.richTextBox_Eye);
+            this.groupBox3.Controls.Add(this.richTextBox_Hair);
+            this.groupBox3.Controls.Add(this.textBox_Weight);
+            this.groupBox3.Controls.Add(this.textBox_Height);
+            this.groupBox3.Controls.Add(this.label29);
+            this.groupBox3.Controls.Add(this.label65);
+            this.groupBox3.Controls.Add(this.label73);
+            this.groupBox3.Controls.Add(this.label76);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox3.Location = new System.Drawing.Point(6, 357);
+            this.groupBox3.Location = new System.Drawing.Point(6, 403);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(806, 205);
+            this.groupBox3.Size = new System.Drawing.Size(806, 157);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Professions";
+            this.groupBox3.Text = "Features";
             // 
-            // dgv_Professions
+            // richTextBox_Eye
             // 
-            this.dgv_Professions.AllowUserToAddRows = false;
-            this.dgv_Professions.AllowUserToDeleteRows = false;
-            this.dgv_Professions.AllowUserToResizeRows = false;
-            this.dgv_Professions.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_Professions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgv_Professions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Professions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5});
-            this.dgv_Professions.Location = new System.Drawing.Point(11, 23);
-            this.dgv_Professions.MultiSelect = false;
-            this.dgv_Professions.Name = "dgv_Professions";
-            this.dgv_Professions.ReadOnly = true;
-            this.dgv_Professions.RowHeadersVisible = false;
-            this.dgv_Professions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_Professions.Size = new System.Drawing.Size(757, 147);
-            this.dgv_Professions.TabIndex = 42;
+            this.richTextBox_Eye.Location = new System.Drawing.Point(459, 60);
+            this.richTextBox_Eye.Name = "richTextBox_Eye";
+            this.richTextBox_Eye.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richTextBox_Eye.Size = new System.Drawing.Size(341, 90);
+            this.richTextBox_Eye.TabIndex = 10;
+            this.richTextBox_Eye.Text = "";
             // 
-            // button_DownProf
+            // richTextBox_Hair
             // 
-            this.button_DownProf.Image = ((System.Drawing.Image)(resources.GetObject("button_DownProf.Image")));
-            this.button_DownProf.Location = new System.Drawing.Point(774, 55);
-            this.button_DownProf.Name = "button_DownProf";
-            this.button_DownProf.Size = new System.Drawing.Size(26, 26);
-            this.button_DownProf.TabIndex = 13;
-            this.button_DownProf.UseVisualStyleBackColor = true;
-            this.button_DownProf.Click += new System.EventHandler(this.button_DownProf_Click);
+            this.richTextBox_Hair.Location = new System.Drawing.Point(74, 60);
+            this.richTextBox_Hair.Name = "richTextBox_Hair";
+            this.richTextBox_Hair.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richTextBox_Hair.Size = new System.Drawing.Size(337, 90);
+            this.richTextBox_Hair.TabIndex = 9;
+            this.richTextBox_Hair.Text = "";
             // 
-            // button_ProfEdit
+            // textBox_Weight
             // 
-            this.button_ProfEdit.Location = new System.Drawing.Point(644, 176);
-            this.button_ProfEdit.Name = "button_ProfEdit";
-            this.button_ProfEdit.Size = new System.Drawing.Size(75, 23);
-            this.button_ProfEdit.TabIndex = 4;
-            this.button_ProfEdit.Text = "Edit";
-            this.button_ProfEdit.UseVisualStyleBackColor = true;
-            this.button_ProfEdit.Click += new System.EventHandler(this.button_ProfEdit_Click);
+            this.textBox_Weight.Location = new System.Drawing.Point(459, 25);
+            this.textBox_Weight.Name = "textBox_Weight";
+            this.textBox_Weight.Size = new System.Drawing.Size(206, 23);
+            this.textBox_Weight.TabIndex = 8;
             // 
-            // button_UpProf
+            // textBox_Height
             // 
-            this.button_UpProf.Image = ((System.Drawing.Image)(resources.GetObject("button_UpProf.Image")));
-            this.button_UpProf.Location = new System.Drawing.Point(774, 23);
-            this.button_UpProf.Name = "button_UpProf";
-            this.button_UpProf.Size = new System.Drawing.Size(26, 26);
-            this.button_UpProf.TabIndex = 12;
-            this.button_UpProf.UseVisualStyleBackColor = true;
-            this.button_UpProf.Click += new System.EventHandler(this.button_UpProf_Click);
+            this.textBox_Height.Location = new System.Drawing.Point(74, 25);
+            this.textBox_Height.Name = "textBox_Height";
+            this.textBox_Height.Size = new System.Drawing.Size(172, 23);
+            this.textBox_Height.TabIndex = 7;
             // 
-            // button_ProfDelete
+            // label29
             // 
-            this.button_ProfDelete.Location = new System.Drawing.Point(725, 176);
-            this.button_ProfDelete.Name = "button_ProfDelete";
-            this.button_ProfDelete.Size = new System.Drawing.Size(75, 23);
-            this.button_ProfDelete.TabIndex = 3;
-            this.button_ProfDelete.Text = "Delete";
-            this.button_ProfDelete.UseVisualStyleBackColor = true;
-            this.button_ProfDelete.Click += new System.EventHandler(this.button5_ProfDelete_Click);
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label29.Location = new System.Drawing.Point(420, 55);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(33, 13);
+            this.label29.TabIndex = 6;
+            this.label29.Text = "Eyes:";
             // 
-            // button_ProfAdd
+            // label65
             // 
-            this.button_ProfAdd.Location = new System.Drawing.Point(563, 176);
-            this.button_ProfAdd.Name = "button_ProfAdd";
-            this.button_ProfAdd.Size = new System.Drawing.Size(75, 23);
-            this.button_ProfAdd.TabIndex = 3;
-            this.button_ProfAdd.Text = "Add";
-            this.button_ProfAdd.UseVisualStyleBackColor = true;
-            this.button_ProfAdd.Click += new System.EventHandler(this.button4_ProfAdd_Click);
+            this.label65.AutoSize = true;
+            this.label65.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label65.Location = new System.Drawing.Point(39, 60);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(29, 13);
+            this.label65.TabIndex = 5;
+            this.label65.Text = "Hair:";
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label73.Location = new System.Drawing.Point(409, 25);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(44, 13);
+            this.label73.TabIndex = 4;
+            this.label73.Text = "Weight:";
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label76.Location = new System.Drawing.Point(27, 30);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(41, 13);
+            this.label76.TabIndex = 3;
+            this.label76.Text = "Height:";
             // 
             // groupBox2
             // 
@@ -506,7 +781,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox2.Location = new System.Drawing.Point(6, 190);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(806, 161);
+            this.groupBox2.Size = new System.Drawing.Size(806, 207);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Achievements";
@@ -523,7 +798,7 @@
             // 
             // button_AchieveEdit
             // 
-            this.button_AchieveEdit.Location = new System.Drawing.Point(644, 132);
+            this.button_AchieveEdit.Location = new System.Drawing.Point(644, 176);
             this.button_AchieveEdit.Name = "button_AchieveEdit";
             this.button_AchieveEdit.Size = new System.Drawing.Size(75, 23);
             this.button_AchieveEdit.TabIndex = 3;
@@ -543,7 +818,7 @@
             // 
             // button_AchieveAdd
             // 
-            this.button_AchieveAdd.Location = new System.Drawing.Point(563, 132);
+            this.button_AchieveAdd.Location = new System.Drawing.Point(563, 176);
             this.button_AchieveAdd.Name = "button_AchieveAdd";
             this.button_AchieveAdd.Size = new System.Drawing.Size(75, 23);
             this.button_AchieveAdd.TabIndex = 2;
@@ -553,7 +828,7 @@
             // 
             // button_AchieveDelete
             // 
-            this.button_AchieveDelete.Location = new System.Drawing.Point(725, 132);
+            this.button_AchieveDelete.Location = new System.Drawing.Point(725, 176);
             this.button_AchieveDelete.Name = "button_AchieveDelete";
             this.button_AchieveDelete.Size = new System.Drawing.Size(75, 23);
             this.button_AchieveDelete.TabIndex = 1;
@@ -567,7 +842,7 @@
             this.listBox_Achieve.ItemHeight = 16;
             this.listBox_Achieve.Location = new System.Drawing.Point(6, 22);
             this.listBox_Achieve.Name = "listBox_Achieve";
-            this.listBox_Achieve.Size = new System.Drawing.Size(762, 100);
+            this.listBox_Achieve.Size = new System.Drawing.Size(762, 148);
             this.listBox_Achieve.TabIndex = 0;
             // 
             // groupBox1
@@ -604,6 +879,7 @@
             // 
             // numericUpDown_Comm
             // 
+            this.numericUpDown_Comm.Enabled = false;
             this.numericUpDown_Comm.Location = new System.Drawing.Point(446, 117);
             this.numericUpDown_Comm.Maximum = new decimal(new int[] {
             1000,
@@ -611,7 +887,7 @@
             0,
             0});
             this.numericUpDown_Comm.Name = "numericUpDown_Comm";
-            this.numericUpDown_Comm.Size = new System.Drawing.Size(42, 23);
+            this.numericUpDown_Comm.Size = new System.Drawing.Size(56, 23);
             this.numericUpDown_Comm.TabIndex = 23;
             this.numericUpDown_Comm.ValueChanged += new System.EventHandler(this.numericUpDown_Comm_ValueChanged);
             // 
@@ -641,7 +917,7 @@
             "Vice Admiral",
             "Admiral",
             "Fleet Admiral"});
-            this.comboBox_MarineRank.Location = new System.Drawing.Point(536, 116);
+            this.comboBox_MarineRank.Location = new System.Drawing.Point(573, 116);
             this.comboBox_MarineRank.Name = "comboBox_MarineRank";
             this.comboBox_MarineRank.Size = new System.Drawing.Size(167, 24);
             this.comboBox_MarineRank.TabIndex = 22;
@@ -650,7 +926,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label12.Location = new System.Drawing.Point(494, 121);
+            this.label12.Location = new System.Drawing.Point(531, 121);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(36, 13);
             this.label12.TabIndex = 21;
@@ -661,7 +937,7 @@
             this.textBox_Threat.Enabled = false;
             this.textBox_Threat.Location = new System.Drawing.Point(446, 146);
             this.textBox_Threat.Name = "textBox_Threat";
-            this.textBox_Threat.Size = new System.Drawing.Size(42, 23);
+            this.textBox_Threat.Size = new System.Drawing.Size(56, 23);
             this.textBox_Threat.TabIndex = 20;
             // 
             // textBox_Bounty
@@ -849,366 +1125,6 @@
             this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Name:";
-            // 
-            // tabPage_Appear
-            // 
-            this.tabPage_Appear.AutoScroll = true;
-            this.tabPage_Appear.Controls.Add(this.groupBox5);
-            this.tabPage_Appear.Controls.Add(this.groupBox4);
-            this.tabPage_Appear.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_Appear.Name = "tabPage_Appear";
-            this.tabPage_Appear.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Appear.Size = new System.Drawing.Size(835, 478);
-            this.tabPage_Appear.TabIndex = 1;
-            this.tabPage_Appear.Text = "Appearance";
-            this.tabPage_Appear.UseVisualStyleBackColor = true;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.button_ImageEdit);
-            this.groupBox5.Controls.Add(this.button_ImageDelete);
-            this.groupBox5.Controls.Add(this.button_ImageAdd);
-            this.groupBox5.Controls.Add(this.textBox_ImageLabel);
-            this.groupBox5.Controls.Add(this.label31);
-            this.groupBox5.Controls.Add(this.label30);
-            this.groupBox5.Controls.Add(this.button_ImageDown);
-            this.groupBox5.Controls.Add(this.button_ImageUp);
-            this.groupBox5.Controls.Add(this.listView_Images);
-            this.groupBox5.Controls.Add(this.numericUpDown_Height);
-            this.groupBox5.Controls.Add(this.numericUpDown_Width);
-            this.groupBox5.Controls.Add(this.checkBox_FullRes);
-            this.groupBox5.Controls.Add(this.label21);
-            this.groupBox5.Controls.Add(this.label20);
-            this.groupBox5.Controls.Add(this.textBox_ImageURL);
-            this.groupBox5.Controls.Add(this.label19);
-            this.groupBox5.Controls.Add(this.richTextBox_GeneralAppear);
-            this.groupBox5.Controls.Add(this.label18);
-            this.groupBox5.Controls.Add(this.richTextBox_Clothing);
-            this.groupBox5.Controls.Add(this.label17);
-            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox5.Location = new System.Drawing.Point(6, 169);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(806, 468);
-            this.groupBox5.TabIndex = 2;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Appearance";
-            // 
-            // button_ImageEdit
-            // 
-            this.button_ImageEdit.Location = new System.Drawing.Point(660, 425);
-            this.button_ImageEdit.Name = "button_ImageEdit";
-            this.button_ImageEdit.Size = new System.Drawing.Size(67, 23);
-            this.button_ImageEdit.TabIndex = 29;
-            this.button_ImageEdit.Text = "Edit";
-            this.button_ImageEdit.UseVisualStyleBackColor = true;
-            this.button_ImageEdit.Click += new System.EventHandler(this.button_ImageEdit_Click);
-            // 
-            // button_ImageDelete
-            // 
-            this.button_ImageDelete.Location = new System.Drawing.Point(733, 425);
-            this.button_ImageDelete.Name = "button_ImageDelete";
-            this.button_ImageDelete.Size = new System.Drawing.Size(67, 23);
-            this.button_ImageDelete.TabIndex = 28;
-            this.button_ImageDelete.Text = "Delete";
-            this.button_ImageDelete.UseVisualStyleBackColor = true;
-            this.button_ImageDelete.Click += new System.EventHandler(this.button_ImageDelete_Click);
-            // 
-            // button_ImageAdd
-            // 
-            this.button_ImageAdd.Location = new System.Drawing.Point(587, 425);
-            this.button_ImageAdd.Name = "button_ImageAdd";
-            this.button_ImageAdd.Size = new System.Drawing.Size(67, 23);
-            this.button_ImageAdd.TabIndex = 27;
-            this.button_ImageAdd.Text = "Add";
-            this.button_ImageAdd.UseVisualStyleBackColor = true;
-            this.button_ImageAdd.Click += new System.EventHandler(this.button_ImageAdd_Click);
-            // 
-            // textBox_ImageLabel
-            // 
-            this.textBox_ImageLabel.Location = new System.Drawing.Point(459, 396);
-            this.textBox_ImageLabel.Name = "textBox_ImageLabel";
-            this.textBox_ImageLabel.Size = new System.Drawing.Size(341, 23);
-            this.textBox_ImageLabel.TabIndex = 25;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label31.Location = new System.Drawing.Point(417, 401);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(36, 13);
-            this.label31.TabIndex = 26;
-            this.label31.Text = "Label:";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label30.Location = new System.Drawing.Point(78, 244);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(44, 13);
-            this.label30.TabIndex = 24;
-            this.label30.Text = "Images:";
-            // 
-            // button_ImageDown
-            // 
-            this.button_ImageDown.Image = ((System.Drawing.Image)(resources.GetObject("button_ImageDown.Image")));
-            this.button_ImageDown.Location = new System.Drawing.Point(93, 298);
-            this.button_ImageDown.Name = "button_ImageDown";
-            this.button_ImageDown.Size = new System.Drawing.Size(26, 26);
-            this.button_ImageDown.TabIndex = 23;
-            this.button_ImageDown.UseVisualStyleBackColor = true;
-            this.button_ImageDown.Click += new System.EventHandler(this.button_ImageDown_Click);
-            // 
-            // button_ImageUp
-            // 
-            this.button_ImageUp.Image = ((System.Drawing.Image)(resources.GetObject("button_ImageUp.Image")));
-            this.button_ImageUp.Location = new System.Drawing.Point(93, 266);
-            this.button_ImageUp.Name = "button_ImageUp";
-            this.button_ImageUp.Size = new System.Drawing.Size(26, 26);
-            this.button_ImageUp.TabIndex = 22;
-            this.button_ImageUp.UseVisualStyleBackColor = true;
-            this.button_ImageUp.Click += new System.EventHandler(this.button_ImageUp_Click);
-            // 
-            // listView_Images
-            // 
-            this.listView_Images.AllowColumnReorder = true;
-            this.listView_Images.AutoArrange = false;
-            this.listView_Images.FullRowSelect = true;
-            this.listView_Images.GridLines = true;
-            this.listView_Images.LabelWrap = false;
-            this.listView_Images.Location = new System.Drawing.Point(128, 238);
-            this.listView_Images.MultiSelect = false;
-            this.listView_Images.Name = "listView_Images";
-            this.listView_Images.Size = new System.Drawing.Size(672, 146);
-            this.listView_Images.TabIndex = 21;
-            this.listView_Images.UseCompatibleStateImageBehavior = false;
-            // 
-            // numericUpDown_Height
-            // 
-            this.numericUpDown_Height.Enabled = false;
-            this.numericUpDown_Height.Location = new System.Drawing.Point(358, 425);
-            this.numericUpDown_Height.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDown_Height.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown_Height.Name = "numericUpDown_Height";
-            this.numericUpDown_Height.Size = new System.Drawing.Size(53, 23);
-            this.numericUpDown_Height.TabIndex = 20;
-            this.numericUpDown_Height.Value = new decimal(new int[] {
-            480,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDown_Width
-            // 
-            this.numericUpDown_Width.Enabled = false;
-            this.numericUpDown_Width.Location = new System.Drawing.Point(252, 425);
-            this.numericUpDown_Width.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDown_Width.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown_Width.Name = "numericUpDown_Width";
-            this.numericUpDown_Width.Size = new System.Drawing.Size(53, 23);
-            this.numericUpDown_Width.TabIndex = 19;
-            this.numericUpDown_Width.Value = new decimal(new int[] {
-            640,
-            0,
-            0,
-            0});
-            // 
-            // checkBox_FullRes
-            // 
-            this.checkBox_FullRes.AutoSize = true;
-            this.checkBox_FullRes.Checked = true;
-            this.checkBox_FullRes.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_FullRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.checkBox_FullRes.Location = new System.Drawing.Point(102, 428);
-            this.checkBox_FullRes.Name = "checkBox_FullRes";
-            this.checkBox_FullRes.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox_FullRes.Size = new System.Drawing.Size(95, 17);
-            this.checkBox_FullRes.TabIndex = 18;
-            this.checkBox_FullRes.Text = "Full Resolution";
-            this.checkBox_FullRes.UseVisualStyleBackColor = true;
-            this.checkBox_FullRes.CheckedChanged += new System.EventHandler(this.checkBox1_FullRes_CheckedChanged);
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label21.Location = new System.Drawing.Point(311, 429);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(41, 13);
-            this.label21.TabIndex = 17;
-            this.label21.Text = "Height:";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label20.Location = new System.Drawing.Point(208, 429);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(38, 13);
-            this.label20.TabIndex = 11;
-            this.label20.Text = "Width:";
-            // 
-            // textBox_ImageURL
-            // 
-            this.textBox_ImageURL.Location = new System.Drawing.Point(128, 396);
-            this.textBox_ImageURL.Name = "textBox_ImageURL";
-            this.textBox_ImageURL.Size = new System.Drawing.Size(283, 23);
-            this.textBox_ImageURL.TabIndex = 11;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label19.Location = new System.Drawing.Point(58, 401);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(64, 13);
-            this.label19.TabIndex = 14;
-            this.label19.Text = "Image URL:";
-            // 
-            // richTextBox_GeneralAppear
-            // 
-            this.richTextBox_GeneralAppear.Location = new System.Drawing.Point(128, 130);
-            this.richTextBox_GeneralAppear.Name = "richTextBox_GeneralAppear";
-            this.richTextBox_GeneralAppear.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_GeneralAppear.Size = new System.Drawing.Size(672, 102);
-            this.richTextBox_GeneralAppear.TabIndex = 13;
-            this.richTextBox_GeneralAppear.Text = "";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label18.Location = new System.Drawing.Point(14, 136);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(108, 13);
-            this.label18.TabIndex = 12;
-            this.label18.Text = "General Appearance:";
-            // 
-            // richTextBox_Clothing
-            // 
-            this.richTextBox_Clothing.Location = new System.Drawing.Point(128, 22);
-            this.richTextBox_Clothing.Name = "richTextBox_Clothing";
-            this.richTextBox_Clothing.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_Clothing.Size = new System.Drawing.Size(672, 102);
-            this.richTextBox_Clothing.TabIndex = 11;
-            this.richTextBox_Clothing.Text = "";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label17.Location = new System.Drawing.Point(6, 28);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(116, 13);
-            this.label17.TabIndex = 11;
-            this.label17.Text = "Clothing / Accessories:";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.richTextBox_Eye);
-            this.groupBox4.Controls.Add(this.richTextBox_Hair);
-            this.groupBox4.Controls.Add(this.textBox_Weight);
-            this.groupBox4.Controls.Add(this.textBox_Height);
-            this.groupBox4.Controls.Add(this.label16);
-            this.groupBox4.Controls.Add(this.label15);
-            this.groupBox4.Controls.Add(this.label13);
-            this.groupBox4.Controls.Add(this.label14);
-            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox4.Location = new System.Drawing.Point(6, 6);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(806, 157);
-            this.groupBox4.TabIndex = 1;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Features";
-            // 
-            // richTextBox_Eye
-            // 
-            this.richTextBox_Eye.Location = new System.Drawing.Point(459, 60);
-            this.richTextBox_Eye.Name = "richTextBox_Eye";
-            this.richTextBox_Eye.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_Eye.Size = new System.Drawing.Size(341, 90);
-            this.richTextBox_Eye.TabIndex = 10;
-            this.richTextBox_Eye.Text = "";
-            // 
-            // richTextBox_Hair
-            // 
-            this.richTextBox_Hair.Location = new System.Drawing.Point(74, 60);
-            this.richTextBox_Hair.Name = "richTextBox_Hair";
-            this.richTextBox_Hair.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_Hair.Size = new System.Drawing.Size(337, 90);
-            this.richTextBox_Hair.TabIndex = 9;
-            this.richTextBox_Hair.Text = "";
-            // 
-            // textBox_Weight
-            // 
-            this.textBox_Weight.Location = new System.Drawing.Point(459, 25);
-            this.textBox_Weight.Name = "textBox_Weight";
-            this.textBox_Weight.Size = new System.Drawing.Size(206, 23);
-            this.textBox_Weight.TabIndex = 8;
-            // 
-            // textBox_Height
-            // 
-            this.textBox_Height.Location = new System.Drawing.Point(74, 25);
-            this.textBox_Height.Name = "textBox_Height";
-            this.textBox_Height.Size = new System.Drawing.Size(172, 23);
-            this.textBox_Height.TabIndex = 7;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label16.Location = new System.Drawing.Point(420, 55);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(33, 13);
-            this.label16.TabIndex = 6;
-            this.label16.Text = "Eyes:";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label15.Location = new System.Drawing.Point(39, 60);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(29, 13);
-            this.label15.TabIndex = 5;
-            this.label15.Text = "Hair:";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label13.Location = new System.Drawing.Point(409, 25);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(44, 13);
-            this.label13.TabIndex = 4;
-            this.label13.Text = "Weight:";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label14.Location = new System.Drawing.Point(27, 30);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(41, 13);
-            this.label14.TabIndex = 3;
-            this.label14.Text = "Height:";
             // 
             // tabPage_Background
             // 
@@ -1485,7 +1401,6 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.button_Standardize);
             this.groupBox7.Controls.Add(this.button_DownItem);
             this.groupBox7.Controls.Add(this.button_UpItem);
             this.groupBox7.Controls.Add(this.button_DownWeapon);
@@ -1494,8 +1409,6 @@
             this.groupBox7.Controls.Add(this.button_WeaponEdit);
             this.groupBox7.Controls.Add(this.listView_Items);
             this.groupBox7.Controls.Add(this.listView_Weaponry);
-            this.groupBox7.Controls.Add(this.textBox_Beli);
-            this.groupBox7.Controls.Add(this.label29);
             this.groupBox7.Controls.Add(this.label28);
             this.groupBox7.Controls.Add(this.button_ItemsAdd);
             this.groupBox7.Controls.Add(this.button_ItemsDelete);
@@ -1511,18 +1424,6 @@
             this.groupBox7.TabIndex = 2;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Fighting Methods and Equipment";
-            // 
-            // button_Standardize
-            // 
-            this.button_Standardize.Location = new System.Drawing.Point(238, 482);
-            this.button_Standardize.Name = "button_Standardize";
-            this.button_Standardize.Size = new System.Drawing.Size(92, 23);
-            this.button_Standardize.TabIndex = 23;
-            this.button_Standardize.Text = "Standardize";
-            this.toolTips.SetToolTip(this.button_Standardize, "Press this if you are scooping to calculate an undeducted Beli Standardized value" +
-        "");
-            this.button_Standardize.UseVisualStyleBackColor = true;
-            this.button_Standardize.Click += new System.EventHandler(this.button_Standardize_Click);
             // 
             // button_DownItem
             // 
@@ -1612,24 +1513,6 @@
             this.listView_Weaponry.TabIndex = 15;
             this.listView_Weaponry.UseCompatibleStateImageBehavior = false;
             // 
-            // textBox_Beli
-            // 
-            this.textBox_Beli.Location = new System.Drawing.Point(70, 482);
-            this.textBox_Beli.Name = "textBox_Beli";
-            this.textBox_Beli.Size = new System.Drawing.Size(162, 23);
-            this.textBox_Beli.TabIndex = 14;
-            this.textBox_Beli.Text = "500,000";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label29.Location = new System.Drawing.Point(37, 487);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(27, 13);
-            this.label29.TabIndex = 13;
-            this.label29.Text = "Beli:";
-            // 
             // label28
             // 
             this.label28.AutoSize = true;
@@ -1708,24 +1591,168 @@
             this.label26.TabIndex = 3;
             this.label26.Text = "Combat:";
             // 
-            // tabPage_Stats
+            // tabPage_RP
             // 
-            this.tabPage_Stats.Controls.Add(this.groupBox12);
-            this.tabPage_Stats.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_Stats.Name = "tabPage_Stats";
-            this.tabPage_Stats.Size = new System.Drawing.Size(835, 478);
-            this.tabPage_Stats.TabIndex = 6;
-            this.tabPage_Stats.Text = "Stats";
-            this.tabPage_Stats.UseVisualStyleBackColor = true;
+            this.tabPage_RP.AutoScroll = true;
+            this.tabPage_RP.Controls.Add(this.groupBox15);
+            this.tabPage_RP.Controls.Add(this.groupBox12);
+            this.tabPage_RP.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_RP.Name = "tabPage_RP";
+            this.tabPage_RP.Size = new System.Drawing.Size(835, 478);
+            this.tabPage_RP.TabIndex = 6;
+            this.tabPage_RP.Text = "RP Elements";
+            this.tabPage_RP.UseVisualStyleBackColor = true;
+            // 
+            // groupBox15
+            // 
+            this.groupBox15.Controls.Add(this.dgv_Professions);
+            this.groupBox15.Controls.Add(this.button_DownProf);
+            this.groupBox15.Controls.Add(this.button_EditProf);
+            this.groupBox15.Controls.Add(this.button_UpProf);
+            this.groupBox15.Controls.Add(this.button_DeleteProf);
+            this.groupBox15.Controls.Add(this.button_AddProf);
+            this.groupBox15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox15.Location = new System.Drawing.Point(3, 418);
+            this.groupBox15.Name = "groupBox15";
+            this.groupBox15.Size = new System.Drawing.Size(806, 205);
+            this.groupBox15.TabIndex = 15;
+            this.groupBox15.TabStop = false;
+            this.groupBox15.Text = "Professions";
+            // 
+            // dgv_Professions
+            // 
+            this.dgv_Professions.AllowUserToAddRows = false;
+            this.dgv_Professions.AllowUserToDeleteRows = false;
+            this.dgv_Professions.AllowUserToResizeRows = false;
+            this.dgv_Professions.BackgroundColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_Professions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv_Professions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Professions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn9,
+            this.dataGridViewTextBoxColumn10});
+            this.dgv_Professions.Location = new System.Drawing.Point(11, 23);
+            this.dgv_Professions.MultiSelect = false;
+            this.dgv_Professions.Name = "dgv_Professions";
+            this.dgv_Professions.ReadOnly = true;
+            this.dgv_Professions.RowHeadersVisible = false;
+            this.dgv_Professions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_Professions.Size = new System.Drawing.Size(757, 147);
+            this.dgv_Professions.TabIndex = 42;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.HeaderText = "Profession";
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 125;
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn6.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.HeaderText = "Custom";
+            this.dataGridViewTextBoxColumn7.MinimumWidth = 125;
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn7.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "Type";
+            this.dataGridViewTextBoxColumn8.MinimumWidth = 100;
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn9.MinimumWidth = 201;
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn9.Width = 201;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.HeaderText = "Bonus";
+            this.dataGridViewTextBoxColumn10.MinimumWidth = 203;
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn10.Width = 203;
+            // 
+            // button_DownProf
+            // 
+            this.button_DownProf.Image = ((System.Drawing.Image)(resources.GetObject("button_DownProf.Image")));
+            this.button_DownProf.Location = new System.Drawing.Point(774, 55);
+            this.button_DownProf.Name = "button_DownProf";
+            this.button_DownProf.Size = new System.Drawing.Size(26, 26);
+            this.button_DownProf.TabIndex = 13;
+            this.button_DownProf.UseVisualStyleBackColor = true;
+            this.button_DownProf.Click += new System.EventHandler(this.button_DownProf_Click);
+            // 
+            // button_EditProf
+            // 
+            this.button_EditProf.Location = new System.Drawing.Point(644, 176);
+            this.button_EditProf.Name = "button_EditProf";
+            this.button_EditProf.Size = new System.Drawing.Size(75, 23);
+            this.button_EditProf.TabIndex = 4;
+            this.button_EditProf.Text = "Edit";
+            this.button_EditProf.UseVisualStyleBackColor = true;
+            this.button_EditProf.Click += new System.EventHandler(this.button_EditProf_Click);
+            // 
+            // button_UpProf
+            // 
+            this.button_UpProf.Image = ((System.Drawing.Image)(resources.GetObject("button_UpProf.Image")));
+            this.button_UpProf.Location = new System.Drawing.Point(774, 23);
+            this.button_UpProf.Name = "button_UpProf";
+            this.button_UpProf.Size = new System.Drawing.Size(26, 26);
+            this.button_UpProf.TabIndex = 12;
+            this.button_UpProf.UseVisualStyleBackColor = true;
+            this.button_UpProf.Click += new System.EventHandler(this.button_UpProf_Click);
+            // 
+            // button_DeleteProf
+            // 
+            this.button_DeleteProf.Location = new System.Drawing.Point(725, 176);
+            this.button_DeleteProf.Name = "button_DeleteProf";
+            this.button_DeleteProf.Size = new System.Drawing.Size(75, 23);
+            this.button_DeleteProf.TabIndex = 3;
+            this.button_DeleteProf.Text = "Delete";
+            this.button_DeleteProf.UseVisualStyleBackColor = true;
+            this.button_DeleteProf.Click += new System.EventHandler(this.button_DeleteProf_Click);
+            // 
+            // button_AddProf
+            // 
+            this.button_AddProf.Location = new System.Drawing.Point(563, 176);
+            this.button_AddProf.Name = "button_AddProf";
+            this.button_AddProf.Size = new System.Drawing.Size(75, 23);
+            this.button_AddProf.TabIndex = 3;
+            this.button_AddProf.Text = "Add";
+            this.button_AddProf.UseVisualStyleBackColor = true;
+            this.button_AddProf.Click += new System.EventHandler(this.button_AddProf_Click);
             // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.button_Standardize);
+            this.groupBox12.Controls.Add(this.textBox_Beli);
+            this.groupBox12.Controls.Add(this.label60);
+            this.groupBox12.Controls.Add(this.groupBox14);
             this.groupBox12.Controls.Add(this.textBox_SDtoSPCalc);
             this.groupBox12.Controls.Add(this.textBox_Focus);
             this.groupBox12.Controls.Add(this.label39);
             this.groupBox12.Controls.Add(this.textBox_TotalSD);
             this.groupBox12.Controls.Add(this.label_TotalSD);
-            this.groupBox12.Controls.Add(this.textBox_AP);
             this.groupBox12.Controls.Add(this.label_FortuneCalc);
             this.groupBox12.Controls.Add(this.label_GenerateCheck);
             this.groupBox12.Controls.Add(this.label_AccuracyCalc);
@@ -1748,7 +1775,6 @@
             this.groupBox12.Controls.Add(this.label70);
             this.groupBox12.Controls.Add(this.label71);
             this.groupBox12.Controls.Add(this.label72);
-            this.groupBox12.Controls.Add(this.label37_SDonAP);
             this.groupBox12.Controls.Add(this.numericUpDown_UsedForFort);
             this.groupBox12.Controls.Add(this.textBox_UsedForStats);
             this.groupBox12.Controls.Add(this.label74);
@@ -1760,34 +1786,254 @@
             this.groupBox12.Controls.Add(this.textBox_SDRemain);
             this.groupBox12.Controls.Add(this.label79);
             this.groupBox12.Controls.Add(this.numericUpDown_SDEarned);
-            this.groupBox12.Controls.Add(this.checkedListBox1_AP);
-            this.groupBox12.Controls.Add(this.label80);
             this.groupBox12.Controls.Add(this.label81);
             this.groupBox12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox12.Location = new System.Drawing.Point(3, 3);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(829, 409);
+            this.groupBox12.Size = new System.Drawing.Size(806, 409);
             this.groupBox12.TabIndex = 14;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Statistics";
+            // 
+            // button_Standardize
+            // 
+            this.button_Standardize.Location = new System.Drawing.Point(704, 226);
+            this.button_Standardize.Name = "button_Standardize";
+            this.button_Standardize.Size = new System.Drawing.Size(92, 23);
+            this.button_Standardize.TabIndex = 61;
+            this.button_Standardize.Text = "Standardize";
+            this.toolTips.SetToolTip(this.button_Standardize, "Press this if you are scooping to calculate an undeducted Beli Standardized value" +
+        "");
+            this.button_Standardize.UseVisualStyleBackColor = true;
+            this.button_Standardize.Click += new System.EventHandler(this.button_Standardize_Click);
+            // 
+            // textBox_Beli
+            // 
+            this.textBox_Beli.Location = new System.Drawing.Point(536, 226);
+            this.textBox_Beli.Name = "textBox_Beli";
+            this.textBox_Beli.Size = new System.Drawing.Size(162, 23);
+            this.textBox_Beli.TabIndex = 60;
+            this.textBox_Beli.Text = "500,000";
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label60.Location = new System.Drawing.Point(503, 231);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(27, 13);
+            this.label60.TabIndex = 59;
+            this.label60.Text = "Beli:";
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.label59);
+            this.groupBox14.Controls.Add(this.textBox_AP);
+            this.groupBox14.Controls.Add(this.checkBox_APDF);
+            this.groupBox14.Controls.Add(this.checkBox_APHaki);
+            this.groupBox14.Controls.Add(this.numericUpDown_APNPC);
+            this.groupBox14.Controls.Add(this.label58);
+            this.groupBox14.Controls.Add(this.numericUpDown_APMulti);
+            this.groupBox14.Controls.Add(this.label57);
+            this.groupBox14.Controls.Add(this.numericUpDown_APPrime);
+            this.groupBox14.Controls.Add(this.label56);
+            this.groupBox14.Controls.Add(this.numericUpDown_APTrait);
+            this.groupBox14.Controls.Add(this.label55);
+            this.groupBox14.Controls.Add(this.numericUpDown_APTech);
+            this.groupBox14.Controls.Add(this.label54);
+            this.groupBox14.Controls.Add(this.label_SDonAP);
+            this.groupBox14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox14.Location = new System.Drawing.Point(180, 22);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(616, 149);
+            this.groupBox14.TabIndex = 58;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "Advancement Points";
+            // 
+            // label59
+            // 
+            this.label59.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label59.Location = new System.Drawing.Point(340, 16);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(21, 20);
+            this.label59.TabIndex = 69;
+            this.label59.Text = "AP";
+            this.label59.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textBox_AP
+            // 
+            this.textBox_AP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.textBox_AP.Location = new System.Drawing.Point(317, 17);
+            this.textBox_AP.Name = "textBox_AP";
+            this.textBox_AP.ReadOnly = true;
+            this.textBox_AP.Size = new System.Drawing.Size(22, 20);
+            this.textBox_AP.TabIndex = 68;
+            this.textBox_AP.Text = "0";
+            // 
+            // checkBox_APDF
+            // 
+            this.checkBox_APDF.AutoSize = true;
+            this.checkBox_APDF.Location = new System.Drawing.Point(317, 98);
+            this.checkBox_APDF.Name = "checkBox_APDF";
+            this.checkBox_APDF.Size = new System.Drawing.Size(225, 17);
+            this.checkBox_APDF.TabIndex = 67;
+            this.checkBox_APDF.Text = "[1AP] Devil Fruit - Scoop into a Myth Zoan";
+            this.checkBox_APDF.UseVisualStyleBackColor = true;
+            this.checkBox_APDF.CheckedChanged += new System.EventHandler(this.checkBox_APDF_CheckedChanged);
+            // 
+            // checkBox_APHaki
+            // 
+            this.checkBox_APHaki.AutoSize = true;
+            this.checkBox_APHaki.Location = new System.Drawing.Point(317, 74);
+            this.checkBox_APHaki.Name = "checkBox_APHaki";
+            this.checkBox_APHaki.Size = new System.Drawing.Size(269, 17);
+            this.checkBox_APHaki.TabIndex = 66;
+            this.checkBox_APHaki.Text = "[2AP] Haki - Take an additional Color Specialization";
+            this.checkBox_APHaki.UseVisualStyleBackColor = true;
+            this.checkBox_APHaki.CheckedChanged += new System.EventHandler(this.checkBox_APHaki_CheckedChanged);
+            // 
+            // numericUpDown_APNPC
+            // 
+            this.numericUpDown_APNPC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.numericUpDown_APNPC.Location = new System.Drawing.Point(317, 47);
+            this.numericUpDown_APNPC.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDown_APNPC.Name = "numericUpDown_APNPC";
+            this.numericUpDown_APNPC.Size = new System.Drawing.Size(34, 20);
+            this.numericUpDown_APNPC.TabIndex = 62;
+            this.numericUpDown_APNPC.ValueChanged += new System.EventHandler(this.numericUpDown_APNPC_ValueChanged);
+            // 
+            // label58
+            // 
+            this.label58.Location = new System.Drawing.Point(357, 47);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(270, 20);
+            this.label58.TabIndex = 61;
+            this.label58.Text = "[1AP] NPC - Have 1 more additional trait NPC in a SL";
+            this.label58.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // numericUpDown_APMulti
+            // 
+            this.numericUpDown_APMulti.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.numericUpDown_APMulti.Location = new System.Drawing.Point(6, 123);
+            this.numericUpDown_APMulti.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDown_APMulti.Name = "numericUpDown_APMulti";
+            this.numericUpDown_APMulti.Size = new System.Drawing.Size(34, 20);
+            this.numericUpDown_APMulti.TabIndex = 60;
+            this.numericUpDown_APMulti.ValueChanged += new System.EventHandler(this.numericUpDown_APMulti_ValueChanged);
+            // 
+            // label57
+            // 
+            this.label57.Location = new System.Drawing.Point(46, 123);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(248, 20);
+            this.label57.TabIndex = 59;
+            this.label57.Text = "[1AP] Multi Prof - May take two more secondaries";
+            this.label57.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // numericUpDown_APPrime
+            // 
+            this.numericUpDown_APPrime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.numericUpDown_APPrime.Location = new System.Drawing.Point(6, 97);
+            this.numericUpDown_APPrime.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDown_APPrime.Name = "numericUpDown_APPrime";
+            this.numericUpDown_APPrime.Size = new System.Drawing.Size(34, 20);
+            this.numericUpDown_APPrime.TabIndex = 58;
+            this.numericUpDown_APPrime.ValueChanged += new System.EventHandler(this.numericUpDown_APPrime_ValueChanged);
+            // 
+            // label56
+            // 
+            this.label56.Location = new System.Drawing.Point(46, 97);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(248, 20);
+            this.label56.TabIndex = 57;
+            this.label56.Text = "[1AP] Prime Prof - Upgrade secondary to primary";
+            this.label56.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // numericUpDown_APTrait
+            // 
+            this.numericUpDown_APTrait.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.numericUpDown_APTrait.Location = new System.Drawing.Point(6, 71);
+            this.numericUpDown_APTrait.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDown_APTrait.Name = "numericUpDown_APTrait";
+            this.numericUpDown_APTrait.Size = new System.Drawing.Size(34, 20);
+            this.numericUpDown_APTrait.TabIndex = 56;
+            this.numericUpDown_APTrait.ValueChanged += new System.EventHandler(this.numericUpDown_APTrait_ValueChanged);
+            // 
+            // label55
+            // 
+            this.label55.Location = new System.Drawing.Point(46, 71);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(248, 20);
+            this.label55.TabIndex = 55;
+            this.label55.Text = "[2AP] Trait - General Trait cap raised by 1";
+            this.label55.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // numericUpDown_APTech
+            // 
+            this.numericUpDown_APTech.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.numericUpDown_APTech.Location = new System.Drawing.Point(6, 45);
+            this.numericUpDown_APTech.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDown_APTech.Name = "numericUpDown_APTech";
+            this.numericUpDown_APTech.Size = new System.Drawing.Size(34, 20);
+            this.numericUpDown_APTech.TabIndex = 54;
+            this.numericUpDown_APTech.ValueChanged += new System.EventHandler(this.numericUpDown_APTech_ValueChanged);
+            // 
+            // label54
+            // 
+            this.label54.Location = new System.Drawing.Point(46, 45);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(265, 20);
+            this.label54.TabIndex = 53;
+            this.label54.Text = "[1AP] Technique - Increase tech point multiplier by 0.5";
+            this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label_SDonAP
+            // 
+            this.label_SDonAP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label_SDonAP.Location = new System.Drawing.Point(193, 16);
+            this.label_SDonAP.Name = "label_SDonAP";
+            this.label_SDonAP.Size = new System.Drawing.Size(123, 20);
+            this.label_SDonAP.TabIndex = 30;
+            this.label_SDonAP.Text = "0 SD spent on";
+            this.label_SDonAP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textBox_SDtoSPCalc
             // 
             this.textBox_SDtoSPCalc.BackColor = System.Drawing.SystemColors.Window;
             this.textBox_SDtoSPCalc.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox_SDtoSPCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox_SDtoSPCalc.Location = new System.Drawing.Point(193, 197);
+            this.textBox_SDtoSPCalc.Location = new System.Drawing.Point(183, 193);
             this.textBox_SDtoSPCalc.Multiline = true;
             this.textBox_SDtoSPCalc.Name = "textBox_SDtoSPCalc";
             this.textBox_SDtoSPCalc.ReadOnly = true;
-            this.textBox_SDtoSPCalc.Size = new System.Drawing.Size(359, 16);
+            this.textBox_SDtoSPCalc.Size = new System.Drawing.Size(613, 20);
             this.textBox_SDtoSPCalc.TabIndex = 57;
             this.textBox_SDtoSPCalc.Text = "[32 + 0]";
             // 
             // textBox_Focus
             // 
             this.textBox_Focus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_Focus.Location = new System.Drawing.Point(129, 130);
+            this.textBox_Focus.Location = new System.Drawing.Point(119, 126);
             this.textBox_Focus.Name = "textBox_Focus";
             this.textBox_Focus.ReadOnly = true;
             this.textBox_Focus.Size = new System.Drawing.Size(55, 20);
@@ -1797,9 +2043,9 @@
             // label39
             // 
             this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label39.Location = new System.Drawing.Point(9, 129);
+            this.label39.Location = new System.Drawing.Point(11, 125);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(114, 20);
+            this.label39.Size = new System.Drawing.Size(102, 20);
             this.label39.TabIndex = 56;
             this.label39.Text = "Focus:";
             this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1807,7 +2053,7 @@
             // textBox_TotalSD
             // 
             this.textBox_TotalSD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_TotalSD.Location = new System.Drawing.Point(129, 26);
+            this.textBox_TotalSD.Location = new System.Drawing.Point(119, 22);
             this.textBox_TotalSD.Name = "textBox_TotalSD";
             this.textBox_TotalSD.ReadOnly = true;
             this.textBox_TotalSD.Size = new System.Drawing.Size(55, 20);
@@ -1817,28 +2063,18 @@
             // label_TotalSD
             // 
             this.label_TotalSD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_TotalSD.Location = new System.Drawing.Point(19, 28);
+            this.label_TotalSD.Location = new System.Drawing.Point(9, 24);
             this.label_TotalSD.Name = "label_TotalSD";
             this.label_TotalSD.Size = new System.Drawing.Size(104, 15);
             this.label_TotalSD.TabIndex = 53;
             this.label_TotalSD.Text = "Total SD Amount:";
             this.label_TotalSD.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textBox_AP
-            // 
-            this.textBox_AP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_AP.Location = new System.Drawing.Point(304, 26);
-            this.textBox_AP.Name = "textBox_AP";
-            this.textBox_AP.ReadOnly = true;
-            this.textBox_AP.Size = new System.Drawing.Size(25, 20);
-            this.textBox_AP.TabIndex = 52;
-            this.textBox_AP.Text = "0";
-            // 
             // label_FortuneCalc
             // 
             this.label_FortuneCalc.AutoSize = true;
             this.label_FortuneCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_FortuneCalc.Location = new System.Drawing.Point(354, 384);
+            this.label_FortuneCalc.Location = new System.Drawing.Point(354, 379);
             this.label_FortuneCalc.Name = "label_FortuneCalc";
             this.label_FortuneCalc.Size = new System.Drawing.Size(42, 13);
             this.label_FortuneCalc.TabIndex = 51;
@@ -1846,10 +2082,11 @@
             // 
             // label_GenerateCheck
             // 
+            this.label_GenerateCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_GenerateCheck.ForeColor = System.Drawing.Color.Red;
-            this.label_GenerateCheck.Location = new System.Drawing.Point(15, 315);
+            this.label_GenerateCheck.Location = new System.Drawing.Point(537, 252);
             this.label_GenerateCheck.Name = "label_GenerateCheck";
-            this.label_GenerateCheck.Size = new System.Drawing.Size(209, 60);
+            this.label_GenerateCheck.Size = new System.Drawing.Size(263, 147);
             this.label_GenerateCheck.TabIndex = 6;
             this.label_GenerateCheck.Text = "Base Stat values do not add up!\n1 + 1 + 1 + 1 = 4";
             this.label_GenerateCheck.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1858,7 +2095,7 @@
             // 
             this.label_AccuracyCalc.AutoSize = true;
             this.label_AccuracyCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_AccuracyCalc.Location = new System.Drawing.Point(418, 357);
+            this.label_AccuracyCalc.Location = new System.Drawing.Point(418, 352);
             this.label_AccuracyCalc.Name = "label_AccuracyCalc";
             this.label_AccuracyCalc.Size = new System.Drawing.Size(19, 13);
             this.label_AccuracyCalc.TabIndex = 50;
@@ -1868,7 +2105,7 @@
             // 
             this.label_StaminaCalc.AutoSize = true;
             this.label_StaminaCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_StaminaCalc.Location = new System.Drawing.Point(418, 327);
+            this.label_StaminaCalc.Location = new System.Drawing.Point(418, 322);
             this.label_StaminaCalc.Name = "label_StaminaCalc";
             this.label_StaminaCalc.Size = new System.Drawing.Size(19, 13);
             this.label_StaminaCalc.TabIndex = 49;
@@ -1878,7 +2115,7 @@
             // 
             this.label_SpeedCalc.AutoSize = true;
             this.label_SpeedCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_SpeedCalc.Location = new System.Drawing.Point(418, 298);
+            this.label_SpeedCalc.Location = new System.Drawing.Point(418, 293);
             this.label_SpeedCalc.Name = "label_SpeedCalc";
             this.label_SpeedCalc.Size = new System.Drawing.Size(19, 13);
             this.label_SpeedCalc.TabIndex = 48;
@@ -1888,7 +2125,7 @@
             // 
             this.label_StrengthCalc.AutoSize = true;
             this.label_StrengthCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_StrengthCalc.Location = new System.Drawing.Point(418, 267);
+            this.label_StrengthCalc.Location = new System.Drawing.Point(418, 262);
             this.label_StrengthCalc.Name = "label_StrengthCalc";
             this.label_StrengthCalc.Size = new System.Drawing.Size(19, 13);
             this.label_StrengthCalc.TabIndex = 47;
@@ -1896,18 +2133,18 @@
             // 
             // label63
             // 
-            this.label63.AutoSize = true;
             this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label63.Location = new System.Drawing.Point(366, 239);
+            this.label63.Location = new System.Drawing.Point(354, 233);
             this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(38, 17);
+            this.label63.Size = new System.Drawing.Size(58, 24);
             this.label63.TabIndex = 46;
             this.label63.Text = "Final";
+            this.label63.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBox_AccuracyFinal
             // 
             this.textBox_AccuracyFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_AccuracyFinal.Location = new System.Drawing.Point(357, 355);
+            this.textBox_AccuracyFinal.Location = new System.Drawing.Point(357, 350);
             this.textBox_AccuracyFinal.Name = "textBox_AccuracyFinal";
             this.textBox_AccuracyFinal.ReadOnly = true;
             this.textBox_AccuracyFinal.Size = new System.Drawing.Size(55, 20);
@@ -1917,7 +2154,7 @@
             // textBox_StaminaFinal
             // 
             this.textBox_StaminaFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_StaminaFinal.Location = new System.Drawing.Point(357, 325);
+            this.textBox_StaminaFinal.Location = new System.Drawing.Point(357, 320);
             this.textBox_StaminaFinal.Name = "textBox_StaminaFinal";
             this.textBox_StaminaFinal.ReadOnly = true;
             this.textBox_StaminaFinal.Size = new System.Drawing.Size(55, 20);
@@ -1927,7 +2164,7 @@
             // textBox_SpeedFinal
             // 
             this.textBox_SpeedFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_SpeedFinal.Location = new System.Drawing.Point(357, 295);
+            this.textBox_SpeedFinal.Location = new System.Drawing.Point(357, 290);
             this.textBox_SpeedFinal.Name = "textBox_SpeedFinal";
             this.textBox_SpeedFinal.ReadOnly = true;
             this.textBox_SpeedFinal.Size = new System.Drawing.Size(55, 20);
@@ -1937,7 +2174,7 @@
             // textBox_StrengthFinal
             // 
             this.textBox_StrengthFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_StrengthFinal.Location = new System.Drawing.Point(357, 265);
+            this.textBox_StrengthFinal.Location = new System.Drawing.Point(357, 260);
             this.textBox_StrengthFinal.Name = "textBox_StrengthFinal";
             this.textBox_StrengthFinal.ReadOnly = true;
             this.textBox_StrengthFinal.Size = new System.Drawing.Size(55, 20);
@@ -1947,7 +2184,7 @@
             // textBox_Fortune
             // 
             this.textBox_Fortune.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_Fortune.Location = new System.Drawing.Point(284, 384);
+            this.textBox_Fortune.Location = new System.Drawing.Point(284, 379);
             this.textBox_Fortune.Name = "textBox_Fortune";
             this.textBox_Fortune.ReadOnly = true;
             this.textBox_Fortune.Size = new System.Drawing.Size(55, 20);
@@ -1958,7 +2195,7 @@
             // numericUpDown_AccuracyBase
             // 
             this.numericUpDown_AccuracyBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.numericUpDown_AccuracyBase.Location = new System.Drawing.Point(284, 355);
+            this.numericUpDown_AccuracyBase.Location = new System.Drawing.Point(284, 350);
             this.numericUpDown_AccuracyBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1982,7 +2219,7 @@
             // numericUpDown_StaminaBase
             // 
             this.numericUpDown_StaminaBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.numericUpDown_StaminaBase.Location = new System.Drawing.Point(284, 325);
+            this.numericUpDown_StaminaBase.Location = new System.Drawing.Point(284, 320);
             this.numericUpDown_StaminaBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -2006,7 +2243,7 @@
             // numericUpDown_SpeedBase
             // 
             this.numericUpDown_SpeedBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.numericUpDown_SpeedBase.Location = new System.Drawing.Point(284, 295);
+            this.numericUpDown_SpeedBase.Location = new System.Drawing.Point(284, 290);
             this.numericUpDown_SpeedBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -2030,7 +2267,7 @@
             // numericUpDown_StrengthBase
             // 
             this.numericUpDown_StrengthBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.numericUpDown_StrengthBase.Location = new System.Drawing.Point(284, 265);
+            this.numericUpDown_StrengthBase.Location = new System.Drawing.Point(284, 260);
             this.numericUpDown_StrengthBase.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -2053,19 +2290,19 @@
             // 
             // label67
             // 
-            this.label67.AutoSize = true;
             this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label67.Location = new System.Drawing.Point(289, 238);
+            this.label67.Location = new System.Drawing.Point(284, 233);
             this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(40, 17);
+            this.label67.Size = new System.Drawing.Size(55, 24);
             this.label67.TabIndex = 36;
             this.label67.Text = "Base";
+            this.label67.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label68
             // 
             this.label68.AutoSize = true;
             this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label68.Location = new System.Drawing.Point(232, 387);
+            this.label68.Location = new System.Drawing.Point(232, 382);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(46, 13);
             this.label68.TabIndex = 35;
@@ -2075,7 +2312,7 @@
             // 
             this.label69.AutoSize = true;
             this.label69.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label69.Location = new System.Drawing.Point(223, 357);
+            this.label69.Location = new System.Drawing.Point(223, 352);
             this.label69.Name = "label69";
             this.label69.Size = new System.Drawing.Size(55, 13);
             this.label69.TabIndex = 34;
@@ -2085,7 +2322,7 @@
             // 
             this.label70.AutoSize = true;
             this.label70.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label70.Location = new System.Drawing.Point(230, 327);
+            this.label70.Location = new System.Drawing.Point(230, 322);
             this.label70.Name = "label70";
             this.label70.Size = new System.Drawing.Size(48, 13);
             this.label70.TabIndex = 33;
@@ -2095,7 +2332,7 @@
             // 
             this.label71.AutoSize = true;
             this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label71.Location = new System.Drawing.Point(237, 297);
+            this.label71.Location = new System.Drawing.Point(237, 292);
             this.label71.Name = "label71";
             this.label71.Size = new System.Drawing.Size(41, 13);
             this.label71.TabIndex = 32;
@@ -2105,21 +2342,11 @@
             // 
             this.label72.AutoSize = true;
             this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label72.Location = new System.Drawing.Point(228, 267);
+            this.label72.Location = new System.Drawing.Point(228, 262);
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(50, 13);
             this.label72.TabIndex = 31;
             this.label72.Text = "Strength:";
-            // 
-            // label37_SDonAP
-            // 
-            this.label37_SDonAP.AutoSize = true;
-            this.label37_SDonAP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label37_SDonAP.Location = new System.Drawing.Point(335, 29);
-            this.label37_SDonAP.Name = "label37_SDonAP";
-            this.label37_SDonAP.Size = new System.Drawing.Size(92, 13);
-            this.label37_SDonAP.TabIndex = 30;
-            this.label37_SDonAP.Text = "0 SD spent on AP";
             // 
             // numericUpDown_UsedForFort
             // 
@@ -2129,7 +2356,7 @@
             0,
             0,
             0});
-            this.numericUpDown_UsedForFort.Location = new System.Drawing.Point(129, 278);
+            this.numericUpDown_UsedForFort.Location = new System.Drawing.Point(119, 274);
             this.numericUpDown_UsedForFort.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -2143,7 +2370,7 @@
             // textBox_UsedForStats
             // 
             this.textBox_UsedForStats.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_UsedForStats.Location = new System.Drawing.Point(129, 237);
+            this.textBox_UsedForStats.Location = new System.Drawing.Point(119, 233);
             this.textBox_UsedForStats.Name = "textBox_UsedForStats";
             this.textBox_UsedForStats.ReadOnly = true;
             this.textBox_UsedForStats.Size = new System.Drawing.Size(55, 20);
@@ -2155,7 +2382,7 @@
             // 
             this.label74.AutoSize = true;
             this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label74.Location = new System.Drawing.Point(34, 280);
+            this.label74.Location = new System.Drawing.Point(24, 276);
             this.label74.Name = "label74";
             this.label74.Size = new System.Drawing.Size(89, 13);
             this.label74.TabIndex = 27;
@@ -2165,7 +2392,7 @@
             // 
             this.label75.AutoSize = true;
             this.label75.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label75.Location = new System.Drawing.Point(46, 240);
+            this.label75.Location = new System.Drawing.Point(36, 236);
             this.label75.Name = "label75";
             this.label75.Size = new System.Drawing.Size(77, 13);
             this.label75.TabIndex = 26;
@@ -2174,7 +2401,7 @@
             // textBox_StatPoints
             // 
             this.textBox_StatPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_StatPoints.Location = new System.Drawing.Point(129, 197);
+            this.textBox_StatPoints.Location = new System.Drawing.Point(119, 193);
             this.textBox_StatPoints.Name = "textBox_StatPoints";
             this.textBox_StatPoints.ReadOnly = true;
             this.textBox_StatPoints.Size = new System.Drawing.Size(55, 20);
@@ -2186,7 +2413,7 @@
             // 
             this.label77.AutoSize = true;
             this.label77.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label77.Location = new System.Drawing.Point(62, 200);
+            this.label77.Location = new System.Drawing.Point(52, 196);
             this.label77.Name = "label77";
             this.label77.Size = new System.Drawing.Size(61, 13);
             this.label77.TabIndex = 22;
@@ -2195,7 +2422,7 @@
             // numericUpDown_SDintoStats
             // 
             this.numericUpDown_SDintoStats.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.numericUpDown_SDintoStats.Location = new System.Drawing.Point(129, 78);
+            this.numericUpDown_SDintoStats.Location = new System.Drawing.Point(119, 74);
             this.numericUpDown_SDintoStats.Maximum = new decimal(new int[] {
             0,
             0,
@@ -2209,9 +2436,9 @@
             // label78
             // 
             this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label78.Location = new System.Drawing.Point(6, 77);
+            this.label78.Location = new System.Drawing.Point(5, 73);
             this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(117, 18);
+            this.label78.Size = new System.Drawing.Size(108, 18);
             this.label78.TabIndex = 20;
             this.label78.Text = "SD Spent Into SP:";
             this.label78.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -2219,7 +2446,7 @@
             // textBox_SDRemain
             // 
             this.textBox_SDRemain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.textBox_SDRemain.Location = new System.Drawing.Point(129, 104);
+            this.textBox_SDRemain.Location = new System.Drawing.Point(119, 100);
             this.textBox_SDRemain.Name = "textBox_SDRemain";
             this.textBox_SDRemain.ReadOnly = true;
             this.textBox_SDRemain.Size = new System.Drawing.Size(55, 20);
@@ -2229,9 +2456,9 @@
             // label79
             // 
             this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label79.Location = new System.Drawing.Point(9, 103);
+            this.label79.Location = new System.Drawing.Point(8, 99);
             this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(114, 20);
+            this.label79.Size = new System.Drawing.Size(105, 20);
             this.label79.TabIndex = 19;
             this.label79.Text = "SD Remaining:";
             this.label79.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -2239,7 +2466,7 @@
             // numericUpDown_SDEarned
             // 
             this.numericUpDown_SDEarned.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.numericUpDown_SDEarned.Location = new System.Drawing.Point(129, 52);
+            this.numericUpDown_SDEarned.Location = new System.Drawing.Point(119, 48);
             this.numericUpDown_SDEarned.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -2250,41 +2477,12 @@
             this.numericUpDown_SDEarned.TabIndex = 18;
             this.numericUpDown_SDEarned.ValueChanged += new System.EventHandler(this.numericUpDown_SDEarned_ValueChanged);
             // 
-            // checkedListBox1_AP
-            // 
-            this.checkedListBox1_AP.CheckOnClick = true;
-            this.checkedListBox1_AP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.checkedListBox1_AP.FormattingEnabled = true;
-            this.checkedListBox1_AP.Items.AddRange(new object[] {
-            "Technique - Permanently increase tech point multiplier by 0.5",
-            "Trait - Trait cap raised by 1, can take Legacy Traits without training",
-            "Prime Professional - May upgrade secondary profession to primary",
-            "Multiskilled Professional - May take two more secondary professions",
-            "NPC - May have an additional trait NPC active in their topics",
-            "Haki - May take an additional Haki Color Specialization",
-            "Devil Fruit - Choose a Myth Zoan, gained without DF SL"});
-            this.checkedListBox1_AP.Location = new System.Drawing.Point(193, 52);
-            this.checkedListBox1_AP.Name = "checkedListBox1_AP";
-            this.checkedListBox1_AP.Size = new System.Drawing.Size(359, 109);
-            this.checkedListBox1_AP.TabIndex = 8;
-            this.checkedListBox1_AP.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_AP_SelectedIndexChanged);
-            // 
-            // label80
-            // 
-            this.label80.AutoSize = true;
-            this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label80.Location = new System.Drawing.Point(190, 29);
-            this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(108, 13);
-            this.label80.TabIndex = 16;
-            this.label80.Text = "Advancement Points:";
-            // 
             // label81
             // 
             this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label81.Location = new System.Drawing.Point(6, 51);
+            this.label81.Location = new System.Drawing.Point(2, 47);
             this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(117, 18);
+            this.label81.Size = new System.Drawing.Size(111, 18);
             this.label81.TabIndex = 15;
             this.label81.Text = "SD Earned (w/o AP):";
             this.label81.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -2350,6 +2548,59 @@
             this.dgv_Traits.TabIndex = 43;
             this.dgv_Traits.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgv_Traits_SortCompare);
             // 
+            // Trait_Name
+            // 
+            this.Trait_Name.HeaderText = "Trait";
+            this.Trait_Name.MinimumWidth = 150;
+            this.Trait_Name.Name = "Trait_Name";
+            this.Trait_Name.ReadOnly = true;
+            this.Trait_Name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Trait_Name.Width = 150;
+            // 
+            // Trait_Custom
+            // 
+            this.Trait_Custom.HeaderText = "Custom";
+            this.Trait_Custom.MinimumWidth = 150;
+            this.Trait_Custom.Name = "Trait_Custom";
+            this.Trait_Custom.ReadOnly = true;
+            this.Trait_Custom.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Trait_Custom.Width = 150;
+            // 
+            // Trait_Type
+            // 
+            this.Trait_Type.HeaderText = "Type";
+            this.Trait_Type.MinimumWidth = 120;
+            this.Trait_Type.Name = "Trait_Type";
+            this.Trait_Type.ReadOnly = true;
+            this.Trait_Type.Width = 120;
+            // 
+            // Trait_GenNum
+            // 
+            this.Trait_GenNum.HeaderText = "# Gen";
+            this.Trait_GenNum.MinimumWidth = 55;
+            this.Trait_GenNum.Name = "Trait_GenNum";
+            this.Trait_GenNum.ReadOnly = true;
+            this.Trait_GenNum.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Trait_GenNum.Width = 55;
+            // 
+            // Trait_ProfNum
+            // 
+            this.Trait_ProfNum.HeaderText = "# Prof";
+            this.Trait_ProfNum.MinimumWidth = 55;
+            this.Trait_ProfNum.Name = "Trait_ProfNum";
+            this.Trait_ProfNum.ReadOnly = true;
+            this.Trait_ProfNum.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Trait_ProfNum.Width = 55;
+            // 
+            // Trait_Desc
+            // 
+            this.Trait_Desc.HeaderText = "Description";
+            this.Trait_Desc.MinimumWidth = 246;
+            this.Trait_Desc.Name = "Trait_Desc";
+            this.Trait_Desc.ReadOnly = true;
+            this.Trait_Desc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Trait_Desc.Width = 246;
+            // 
             // button_TraitsDown
             // 
             this.button_TraitsDown.Image = ((System.Drawing.Image)(resources.GetObject("button_TraitsDown.Image")));
@@ -2382,15 +2633,16 @@
             // 
             // label32
             // 
-            this.label32.AutoSize = true;
             this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.ForeColor = System.Drawing.Color.Green;
-            this.label32.Location = new System.Drawing.Point(6, 363);
+            this.label32.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.label32.Location = new System.Drawing.Point(6, 327);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(247, 16);
+            this.label32.Size = new System.Drawing.Size(414, 139);
             this.label32.TabIndex = 28;
-            this.label32.Text = "You can click on \"Type\" to sort the Traits";
-            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label32.Text = "You can click on \"Type\" for the column Header to sort the Traits\r\nThere should no" +
+    "t be two of the same Traits. \r\nYou can use Custom names to treat a Trait as a se" +
+    "parate Trait";
+            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label59_TraitsCalc
             // 
@@ -2474,16 +2726,16 @@
             // 
             this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label41.ForeColor = System.Drawing.Color.Indigo;
-            this.label41.Location = new System.Drawing.Point(676, 99);
+            this.label41.Location = new System.Drawing.Point(559, 19);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(124, 52);
+            this.label41.Size = new System.Drawing.Size(241, 42);
             this.label41.TabIndex = 51;
             this.label41.Text = "Finish all your Techniques first, and then make categories.";
             this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button_SubCatEdit
             // 
-            this.button_SubCatEdit.Location = new System.Drawing.Point(595, 99);
+            this.button_SubCatEdit.Location = new System.Drawing.Point(564, 96);
             this.button_SubCatEdit.Name = "button_SubCatEdit";
             this.button_SubCatEdit.Size = new System.Drawing.Size(75, 23);
             this.button_SubCatEdit.TabIndex = 50;
@@ -2496,7 +2748,7 @@
             this.label_RowNum.AutoSize = true;
             this.label_RowNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label_RowNum.ForeColor = System.Drawing.Color.Blue;
-            this.label_RowNum.Location = new System.Drawing.Point(425, 17);
+            this.label_RowNum.Location = new System.Drawing.Point(308, 19);
             this.label_RowNum.Name = "label_RowNum";
             this.label_RowNum.Size = new System.Drawing.Size(220, 13);
             this.label_RowNum.TabIndex = 42;
@@ -2506,9 +2758,9 @@
             // 
             this.label_SubCatWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label_SubCatWarning.ForeColor = System.Drawing.Color.OrangeRed;
-            this.label_SubCatWarning.Location = new System.Drawing.Point(425, 154);
+            this.label_SubCatWarning.Location = new System.Drawing.Point(312, 127);
             this.label_SubCatWarning.Name = "label_SubCatWarning";
-            this.label_SubCatWarning.Size = new System.Drawing.Size(375, 39);
+            this.label_SubCatWarning.Size = new System.Drawing.Size(488, 39);
             this.label_SubCatWarning.TabIndex = 49;
             this.label_SubCatWarning.Text = "Note: Adding no Categories will automatically put all Techniques into one table.\r" +
     "\n";
@@ -2516,7 +2768,7 @@
             // 
             // numericUpDown_RowEnd
             // 
-            this.numericUpDown_RowEnd.Location = new System.Drawing.Point(627, 36);
+            this.numericUpDown_RowEnd.Location = new System.Drawing.Point(510, 38);
             this.numericUpDown_RowEnd.Maximum = new decimal(new int[] {
             0,
             0,
@@ -2528,7 +2780,7 @@
             // 
             // numericUpDown_RowBegin
             // 
-            this.numericUpDown_RowBegin.Location = new System.Drawing.Point(514, 36);
+            this.numericUpDown_RowBegin.Location = new System.Drawing.Point(397, 38);
             this.numericUpDown_RowBegin.Maximum = new decimal(new int[] {
             0,
             0,
@@ -2540,7 +2792,7 @@
             // 
             // textBox_SubCat
             // 
-            this.textBox_SubCat.Location = new System.Drawing.Point(514, 65);
+            this.textBox_SubCat.Location = new System.Drawing.Point(397, 67);
             this.textBox_SubCat.Name = "textBox_SubCat";
             this.textBox_SubCat.Size = new System.Drawing.Size(286, 23);
             this.textBox_SubCat.TabIndex = 47;
@@ -2548,7 +2800,7 @@
             // label40
             // 
             this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label40.Location = new System.Drawing.Point(424, 62);
+            this.label40.Location = new System.Drawing.Point(307, 64);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(84, 28);
             this.label40.TabIndex = 46;
@@ -2557,7 +2809,7 @@
             // 
             // button_SubCatAdd
             // 
-            this.button_SubCatAdd.Location = new System.Drawing.Point(514, 99);
+            this.button_SubCatAdd.Location = new System.Drawing.Point(483, 96);
             this.button_SubCatAdd.Name = "button_SubCatAdd";
             this.button_SubCatAdd.Size = new System.Drawing.Size(75, 23);
             this.button_SubCatAdd.TabIndex = 45;
@@ -2567,7 +2819,7 @@
             // 
             // button_SubCatClear
             // 
-            this.button_SubCatClear.Location = new System.Drawing.Point(428, 99);
+            this.button_SubCatClear.Location = new System.Drawing.Point(397, 96);
             this.button_SubCatClear.Name = "button_SubCatClear";
             this.button_SubCatClear.Size = new System.Drawing.Size(75, 23);
             this.button_SubCatClear.TabIndex = 43;
@@ -2581,7 +2833,7 @@
             this.label_SubCatMsg.ForeColor = System.Drawing.Color.Blue;
             this.label_SubCatMsg.Location = new System.Drawing.Point(6, 154);
             this.label_SubCatMsg.Name = "label_SubCatMsg";
-            this.label_SubCatMsg.Size = new System.Drawing.Size(300, 39);
+            this.label_SubCatMsg.Size = new System.Drawing.Size(790, 39);
             this.label_SubCatMsg.TabIndex = 43;
             this.label_SubCatMsg.Text = "Selected Category [NAME]";
             this.label_SubCatMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2590,7 +2842,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label38.Location = new System.Drawing.Point(567, 40);
+            this.label38.Location = new System.Drawing.Point(450, 42);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(54, 13);
             this.label38.TabIndex = 44;
@@ -2600,7 +2852,7 @@
             // 
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label36.Location = new System.Drawing.Point(446, 40);
+            this.label36.Location = new System.Drawing.Point(329, 42);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(62, 13);
             this.label36.TabIndex = 43;
@@ -2617,7 +2869,7 @@
             this.listView_SubCat.Location = new System.Drawing.Point(6, 22);
             this.listView_SubCat.MultiSelect = false;
             this.listView_SubCat.Name = "listView_SubCat";
-            this.listView_SubCat.Size = new System.Drawing.Size(412, 129);
+            this.listView_SubCat.Size = new System.Drawing.Size(270, 129);
             this.listView_SubCat.TabIndex = 43;
             this.listView_SubCat.UseCompatibleStateImageBehavior = false;
             this.listView_SubCat.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.listView_SubCat_ColumnWidthChanging);
@@ -2625,6 +2877,7 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.dgv_SpTraits);
             this.groupBox11.Controls.Add(this.dgv_Techniques);
             this.groupBox11.Controls.Add(this.label_CritAnatQuick);
             this.groupBox11.Controls.Add(this.label_TechCount);
@@ -2638,14 +2891,13 @@
             this.groupBox11.Controls.Add(this.button_TechDelete);
             this.groupBox11.Controls.Add(this.button_TechAdd);
             this.groupBox11.Controls.Add(this.label66);
-            this.groupBox11.Controls.Add(this.listView_SpTP);
             this.groupBox11.Controls.Add(this.label64);
             this.groupBox11.Controls.Add(this.label_RegTPCalc);
             this.groupBox11.Controls.Add(this.textBox_RegTPTotal);
             this.groupBox11.Controls.Add(this.label62);
             this.groupBox11.Controls.Add(this.textBox_RegTPUsed);
             this.groupBox11.Controls.Add(this.label61);
-            this.groupBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox11.Location = new System.Drawing.Point(6, 6);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(806, 407);
@@ -2653,19 +2905,99 @@
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Techniques";
             // 
+            // dgv_SpTraits
+            // 
+            this.dgv_SpTraits.AllowUserToAddRows = false;
+            this.dgv_SpTraits.AllowUserToDeleteRows = false;
+            this.dgv_SpTraits.AllowUserToResizeColumns = false;
+            this.dgv_SpTraits.AllowUserToResizeRows = false;
+            this.dgv_SpTraits.BackgroundColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dgv_SpTraits.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgv_SpTraits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_SpTraits.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvRow_SpTraitName,
+            this.dgvRow_SpUsed,
+            this.dgvRow_SpTotal});
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_SpTraits.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dgv_SpTraits.Location = new System.Drawing.Point(311, 61);
+            this.dgv_SpTraits.MultiSelect = false;
+            this.dgv_SpTraits.Name = "dgv_SpTraits";
+            this.dgv_SpTraits.ReadOnly = true;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_SpTraits.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            this.dgv_SpTraits.RowHeadersVisible = false;
+            this.dgv_SpTraits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_SpTraits.Size = new System.Drawing.Size(455, 106);
+            this.dgv_SpTraits.TabIndex = 45;
+            // 
+            // dgvRow_SpTraitName
+            // 
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRow_SpTraitName.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvRow_SpTraitName.HeaderText = "Sp. Trait Name";
+            this.dgvRow_SpTraitName.MinimumWidth = 301;
+            this.dgvRow_SpTraitName.Name = "dgvRow_SpTraitName";
+            this.dgvRow_SpTraitName.ReadOnly = true;
+            this.dgvRow_SpTraitName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRow_SpTraitName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgvRow_SpTraitName.Width = 301;
+            // 
+            // dgvRow_SpUsed
+            // 
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRow_SpUsed.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvRow_SpUsed.HeaderText = "Used";
+            this.dgvRow_SpUsed.MinimumWidth = 75;
+            this.dgvRow_SpUsed.Name = "dgvRow_SpUsed";
+            this.dgvRow_SpUsed.ReadOnly = true;
+            this.dgvRow_SpUsed.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRow_SpUsed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgvRow_SpUsed.Width = 75;
+            // 
+            // dgvRow_SpTotal
+            // 
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRow_SpTotal.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvRow_SpTotal.HeaderText = "Total";
+            this.dgvRow_SpTotal.MinimumWidth = 75;
+            this.dgvRow_SpTotal.Name = "dgvRow_SpTotal";
+            this.dgvRow_SpTotal.ReadOnly = true;
+            this.dgvRow_SpTotal.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRow_SpTotal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgvRow_SpTotal.Width = 75;
+            // 
             // dgv_Techniques
             // 
             this.dgv_Techniques.AllowUserToAddRows = false;
             this.dgv_Techniques.AllowUserToDeleteRows = false;
             this.dgv_Techniques.AllowUserToResizeRows = false;
             this.dgv_Techniques.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dgv_Techniques.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dgv_Techniques.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgv_Techniques.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Techniques.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgvRow_TechName,
@@ -2686,6 +3018,116 @@
             this.dgv_Techniques.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_Techniques.Size = new System.Drawing.Size(757, 199);
             this.dgv_Techniques.TabIndex = 44;
+            this.dgv_Techniques.SelectionChanged += new System.EventHandler(this.dgv_Techniques_SelectionChanged);
+            // 
+            // dgvRow_TechName
+            // 
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRow_TechName.DefaultCellStyle = dataGridViewCellStyle10;
+            this.dgvRow_TechName.HeaderText = "Tech Name";
+            this.dgvRow_TechName.MinimumWidth = 153;
+            this.dgvRow_TechName.Name = "dgvRow_TechName";
+            this.dgvRow_TechName.ReadOnly = true;
+            this.dgvRow_TechName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgvRow_TechName.Width = 153;
+            // 
+            // dgvRow_TechRank
+            // 
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRow_TechRank.DefaultCellStyle = dataGridViewCellStyle11;
+            this.dgvRow_TechRank.HeaderText = "Rank";
+            this.dgvRow_TechRank.MinimumWidth = 50;
+            this.dgvRow_TechRank.Name = "dgvRow_TechRank";
+            this.dgvRow_TechRank.ReadOnly = true;
+            this.dgvRow_TechRank.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgvRow_TechRank.Width = 50;
+            // 
+            // dgvRow_TechRegTP
+            // 
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRow_TechRegTP.DefaultCellStyle = dataGridViewCellStyle12;
+            this.dgvRow_TechRegTP.HeaderText = "Reg TP";
+            this.dgvRow_TechRegTP.MinimumWidth = 50;
+            this.dgvRow_TechRegTP.Name = "dgvRow_TechRegTP";
+            this.dgvRow_TechRegTP.ReadOnly = true;
+            this.dgvRow_TechRegTP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgvRow_TechRegTP.Width = 50;
+            // 
+            // dgvRow_TechSpTP
+            // 
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRow_TechSpTP.DefaultCellStyle = dataGridViewCellStyle13;
+            this.dgvRow_TechSpTP.HeaderText = "Sp. TP";
+            this.dgvRow_TechSpTP.MinimumWidth = 50;
+            this.dgvRow_TechSpTP.Name = "dgvRow_TechSpTP";
+            this.dgvRow_TechSpTP.ReadOnly = true;
+            this.dgvRow_TechSpTP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgvRow_TechSpTP.Width = 50;
+            // 
+            // dgvRow_TechSpTrait
+            // 
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechSpTrait.DefaultCellStyle = dataGridViewCellStyle14;
+            this.dgvRow_TechSpTrait.HeaderText = "Sp. Trait";
+            this.dgvRow_TechSpTrait.MinimumWidth = 75;
+            this.dgvRow_TechSpTrait.Name = "dgvRow_TechSpTrait";
+            this.dgvRow_TechSpTrait.ReadOnly = true;
+            this.dgvRow_TechSpTrait.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgvRow_TechSpTrait.Width = 75;
+            // 
+            // dgvRow_TechBranch
+            // 
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechBranch.DefaultCellStyle = dataGridViewCellStyle15;
+            this.dgvRow_TechBranch.HeaderText = "Branched From";
+            this.dgvRow_TechBranch.MinimumWidth = 100;
+            this.dgvRow_TechBranch.Name = "dgvRow_TechBranch";
+            this.dgvRow_TechBranch.ReadOnly = true;
+            this.dgvRow_TechBranch.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dgvRow_TechType
+            // 
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechType.DefaultCellStyle = dataGridViewCellStyle16;
+            this.dgvRow_TechType.HeaderText = "Type";
+            this.dgvRow_TechType.MinimumWidth = 75;
+            this.dgvRow_TechType.Name = "dgvRow_TechType";
+            this.dgvRow_TechType.ReadOnly = true;
+            this.dgvRow_TechType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgvRow_TechType.Width = 75;
+            // 
+            // dgvRow_TechRange
+            // 
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechRange.DefaultCellStyle = dataGridViewCellStyle17;
+            this.dgvRow_TechRange.HeaderText = "Range";
+            this.dgvRow_TechRange.MinimumWidth = 75;
+            this.dgvRow_TechRange.Name = "dgvRow_TechRange";
+            this.dgvRow_TechRange.ReadOnly = true;
+            this.dgvRow_TechRange.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgvRow_TechRange.Width = 75;
+            // 
+            // dgvRow_TechStats
+            // 
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechStats.DefaultCellStyle = dataGridViewCellStyle18;
+            this.dgvRow_TechStats.HeaderText = "Stats";
+            this.dgvRow_TechStats.MinimumWidth = 75;
+            this.dgvRow_TechStats.Name = "dgvRow_TechStats";
+            this.dgvRow_TechStats.ReadOnly = true;
+            this.dgvRow_TechStats.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgvRow_TechStats.Width = 75;
+            // 
+            // dgvRow_TechPower
+            // 
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechPower.DefaultCellStyle = dataGridViewCellStyle19;
+            this.dgvRow_TechPower.HeaderText = "Power";
+            this.dgvRow_TechPower.MinimumWidth = 51;
+            this.dgvRow_TechPower.Name = "dgvRow_TechPower";
+            this.dgvRow_TechPower.ReadOnly = true;
+            this.dgvRow_TechPower.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgvRow_TechPower.Width = 51;
             // 
             // label_CritAnatQuick
             // 
@@ -2712,6 +3154,7 @@
             // 
             // button_TechBranch
             // 
+            this.button_TechBranch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_TechBranch.Location = new System.Drawing.Point(559, 378);
             this.button_TechBranch.Name = "button_TechBranch";
             this.button_TechBranch.Size = new System.Drawing.Size(75, 23);
@@ -2742,10 +3185,11 @@
             // 
             // textBox_SpTPTotal
             // 
+            this.textBox_SpTPTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox_SpTPTotal.Location = new System.Drawing.Point(270, 61);
             this.textBox_SpTPTotal.Name = "textBox_SpTPTotal";
             this.textBox_SpTPTotal.ReadOnly = true;
-            this.textBox_SpTPTotal.Size = new System.Drawing.Size(32, 23);
+            this.textBox_SpTPTotal.Size = new System.Drawing.Size(32, 22);
             this.textBox_SpTPTotal.TabIndex = 35;
             this.textBox_SpTPTotal.Text = "0";
             // 
@@ -2761,16 +3205,18 @@
             // 
             // textBox_SpTPUsed
             // 
+            this.textBox_SpTPUsed.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox_SpTPUsed.Location = new System.Drawing.Point(208, 61);
             this.textBox_SpTPUsed.Name = "textBox_SpTPUsed";
             this.textBox_SpTPUsed.ReadOnly = true;
-            this.textBox_SpTPUsed.Size = new System.Drawing.Size(32, 23);
+            this.textBox_SpTPUsed.Size = new System.Drawing.Size(32, 22);
             this.textBox_SpTPUsed.TabIndex = 33;
             this.textBox_SpTPUsed.Text = "0";
             this.textBox_SpTPUsed.TextChanged += new System.EventHandler(this.textBox_SpTPUsed_TextChanged);
             // 
             // button_TechEdit
             // 
+            this.button_TechEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_TechEdit.Location = new System.Drawing.Point(640, 378);
             this.button_TechEdit.Name = "button_TechEdit";
             this.button_TechEdit.Size = new System.Drawing.Size(75, 23);
@@ -2781,6 +3227,7 @@
             // 
             // button_TechDelete
             // 
+            this.button_TechDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_TechDelete.Location = new System.Drawing.Point(721, 378);
             this.button_TechDelete.Name = "button_TechDelete";
             this.button_TechDelete.Size = new System.Drawing.Size(75, 23);
@@ -2791,6 +3238,7 @@
             // 
             // button_TechAdd
             // 
+            this.button_TechAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_TechAdd.Location = new System.Drawing.Point(478, 378);
             this.button_TechAdd.Name = "button_TechAdd";
             this.button_TechAdd.Size = new System.Drawing.Size(75, 23);
@@ -2809,22 +3257,6 @@
             this.label66.TabIndex = 28;
             this.label66.Text = "List of Techniques";
             // 
-            // listView_SpTP
-            // 
-            this.listView_SpTP.AllowColumnReorder = true;
-            this.listView_SpTP.AutoArrange = false;
-            this.listView_SpTP.FullRowSelect = true;
-            this.listView_SpTP.GridLines = true;
-            this.listView_SpTP.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView_SpTP.LabelWrap = false;
-            this.listView_SpTP.Location = new System.Drawing.Point(311, 61);
-            this.listView_SpTP.MultiSelect = false;
-            this.listView_SpTP.Name = "listView_SpTP";
-            this.listView_SpTP.Size = new System.Drawing.Size(455, 105);
-            this.listView_SpTP.TabIndex = 27;
-            this.listView_SpTP.UseCompatibleStateImageBehavior = false;
-            this.listView_SpTP.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.listView3_SpTP_ColumnWidthChanging);
-            // 
             // label64
             // 
             this.label64.AutoSize = true;
@@ -2838,19 +3270,20 @@
             // label_RegTPCalc
             // 
             this.label_RegTPCalc.AutoSize = true;
-            this.label_RegTPCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_RegTPCalc.Location = new System.Drawing.Point(308, 34);
+            this.label_RegTPCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_RegTPCalc.Location = new System.Drawing.Point(308, 30);
             this.label_RegTPCalc.Name = "label_RegTPCalc";
-            this.label_RegTPCalc.Size = new System.Drawing.Size(35, 13);
+            this.label_RegTPCalc.Size = new System.Drawing.Size(41, 16);
             this.label_RegTPCalc.TabIndex = 25;
             this.label_RegTPCalc.Text = "[8 * 2]";
             // 
             // textBox_RegTPTotal
             // 
+            this.textBox_RegTPTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox_RegTPTotal.Location = new System.Drawing.Point(270, 29);
             this.textBox_RegTPTotal.Name = "textBox_RegTPTotal";
             this.textBox_RegTPTotal.ReadOnly = true;
-            this.textBox_RegTPTotal.Size = new System.Drawing.Size(32, 23);
+            this.textBox_RegTPTotal.Size = new System.Drawing.Size(32, 22);
             this.textBox_RegTPTotal.TabIndex = 4;
             this.textBox_RegTPTotal.Text = "16";
             this.textBox_RegTPTotal.TextChanged += new System.EventHandler(this.textBox_RegTPTotal_TextChanged);
@@ -2868,10 +3301,11 @@
             // textBox_RegTPUsed
             // 
             this.textBox_RegTPUsed.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_RegTPUsed.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox_RegTPUsed.Location = new System.Drawing.Point(208, 29);
             this.textBox_RegTPUsed.Name = "textBox_RegTPUsed";
             this.textBox_RegTPUsed.ReadOnly = true;
-            this.textBox_RegTPUsed.Size = new System.Drawing.Size(32, 23);
+            this.textBox_RegTPUsed.Size = new System.Drawing.Size(32, 22);
             this.textBox_RegTPUsed.TabIndex = 1;
             this.textBox_RegTPUsed.Text = "0";
             this.textBox_RegTPUsed.TextChanged += new System.EventHandler(this.textBox_RegTPUsed_TextChanged);
@@ -3012,14 +3446,14 @@
             this.dgv_Sources.AllowUserToDeleteRows = false;
             this.dgv_Sources.AllowUserToResizeRows = false;
             this.dgv_Sources.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_Sources.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_Sources.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle20;
             this.dgv_Sources.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Sources.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.deleteRow,
@@ -3040,6 +3474,67 @@
             this.dgv_Sources.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Sources_CellContentClick);
             this.dgv_Sources.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Sources_CellDoubleClick);
             this.dgv_Sources.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dataGridView_Sources_SortCompare);
+            // 
+            // deleteRow
+            // 
+            this.deleteRow.HeaderText = "X";
+            this.deleteRow.MinimumWidth = 20;
+            this.deleteRow.Name = "deleteRow";
+            this.deleteRow.ReadOnly = true;
+            this.deleteRow.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.deleteRow.Width = 20;
+            // 
+            // sourceDate
+            // 
+            this.sourceDate.HeaderText = "Date";
+            this.sourceDate.MinimumWidth = 100;
+            this.sourceDate.Name = "sourceDate";
+            this.sourceDate.ReadOnly = true;
+            // 
+            // sourceTitle
+            // 
+            this.sourceTitle.HeaderText = "Title";
+            this.sourceTitle.MinimumWidth = 175;
+            this.sourceTitle.Name = "sourceTitle";
+            this.sourceTitle.ReadOnly = true;
+            this.sourceTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.sourceTitle.Width = 175;
+            // 
+            // sourceURL
+            // 
+            this.sourceURL.HeaderText = "URL";
+            this.sourceURL.MinimumWidth = 150;
+            this.sourceURL.Name = "sourceURL";
+            this.sourceURL.ReadOnly = true;
+            this.sourceURL.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.sourceURL.Width = 150;
+            // 
+            // sourceSD
+            // 
+            this.sourceSD.HeaderText = "SD";
+            this.sourceSD.MinimumWidth = 50;
+            this.sourceSD.Name = "sourceSD";
+            this.sourceSD.ReadOnly = true;
+            this.sourceSD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.sourceSD.Width = 50;
+            // 
+            // sourceBeli
+            // 
+            this.sourceBeli.HeaderText = "Beli";
+            this.sourceBeli.MinimumWidth = 120;
+            this.sourceBeli.Name = "sourceBeli";
+            this.sourceBeli.ReadOnly = true;
+            this.sourceBeli.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.sourceBeli.Width = 120;
+            // 
+            // sourceNotes
+            // 
+            this.sourceNotes.HeaderText = "Notes";
+            this.sourceNotes.MinimumWidth = 165;
+            this.sourceNotes.Name = "sourceNotes";
+            this.sourceNotes.ReadOnly = true;
+            this.sourceNotes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.sourceNotes.Width = 165;
             // 
             // button_DownSource
             // 
@@ -3319,268 +3814,6 @@
             this.toolStripButton_SaveAs.ToolTipText = "Save As";
             this.toolStripButton_SaveAs.Click += new System.EventHandler(this.toolStripButton_SaveAs_Click);
             // 
-            // deleteRow
-            // 
-            this.deleteRow.HeaderText = "X";
-            this.deleteRow.MinimumWidth = 20;
-            this.deleteRow.Name = "deleteRow";
-            this.deleteRow.ReadOnly = true;
-            this.deleteRow.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.deleteRow.Width = 20;
-            // 
-            // sourceDate
-            // 
-            this.sourceDate.HeaderText = "Date";
-            this.sourceDate.MinimumWidth = 100;
-            this.sourceDate.Name = "sourceDate";
-            this.sourceDate.ReadOnly = true;
-            // 
-            // sourceTitle
-            // 
-            this.sourceTitle.HeaderText = "Title";
-            this.sourceTitle.MinimumWidth = 175;
-            this.sourceTitle.Name = "sourceTitle";
-            this.sourceTitle.ReadOnly = true;
-            this.sourceTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.sourceTitle.Width = 175;
-            // 
-            // sourceURL
-            // 
-            this.sourceURL.HeaderText = "URL";
-            this.sourceURL.MinimumWidth = 150;
-            this.sourceURL.Name = "sourceURL";
-            this.sourceURL.ReadOnly = true;
-            this.sourceURL.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.sourceURL.Width = 150;
-            // 
-            // sourceSD
-            // 
-            this.sourceSD.HeaderText = "SD";
-            this.sourceSD.MinimumWidth = 50;
-            this.sourceSD.Name = "sourceSD";
-            this.sourceSD.ReadOnly = true;
-            this.sourceSD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.sourceSD.Width = 50;
-            // 
-            // sourceBeli
-            // 
-            this.sourceBeli.HeaderText = "Beli";
-            this.sourceBeli.MinimumWidth = 120;
-            this.sourceBeli.Name = "sourceBeli";
-            this.sourceBeli.ReadOnly = true;
-            this.sourceBeli.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.sourceBeli.Width = 120;
-            // 
-            // sourceNotes
-            // 
-            this.sourceNotes.HeaderText = "Notes";
-            this.sourceNotes.MinimumWidth = 165;
-            this.sourceNotes.Name = "sourceNotes";
-            this.sourceNotes.ReadOnly = true;
-            this.sourceNotes.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.sourceNotes.Width = 165;
-            // 
-            // dgvRow_TechName
-            // 
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvRow_TechName.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvRow_TechName.HeaderText = "Tech Name";
-            this.dgvRow_TechName.MinimumWidth = 153;
-            this.dgvRow_TechName.Name = "dgvRow_TechName";
-            this.dgvRow_TechName.ReadOnly = true;
-            this.dgvRow_TechName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgvRow_TechName.Width = 153;
-            // 
-            // dgvRow_TechRank
-            // 
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvRow_TechRank.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dgvRow_TechRank.HeaderText = "Rank";
-            this.dgvRow_TechRank.MinimumWidth = 50;
-            this.dgvRow_TechRank.Name = "dgvRow_TechRank";
-            this.dgvRow_TechRank.ReadOnly = true;
-            this.dgvRow_TechRank.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgvRow_TechRank.Width = 50;
-            // 
-            // dgvRow_TechRegTP
-            // 
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvRow_TechRegTP.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dgvRow_TechRegTP.HeaderText = "Reg TP";
-            this.dgvRow_TechRegTP.MinimumWidth = 50;
-            this.dgvRow_TechRegTP.Name = "dgvRow_TechRegTP";
-            this.dgvRow_TechRegTP.ReadOnly = true;
-            this.dgvRow_TechRegTP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgvRow_TechRegTP.Width = 50;
-            // 
-            // dgvRow_TechSpTP
-            // 
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvRow_TechSpTP.DefaultCellStyle = dataGridViewCellStyle7;
-            this.dgvRow_TechSpTP.HeaderText = "Sp. TP";
-            this.dgvRow_TechSpTP.MinimumWidth = 50;
-            this.dgvRow_TechSpTP.Name = "dgvRow_TechSpTP";
-            this.dgvRow_TechSpTP.ReadOnly = true;
-            this.dgvRow_TechSpTP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgvRow_TechSpTP.Width = 50;
-            // 
-            // dgvRow_TechSpTrait
-            // 
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.dgvRow_TechSpTrait.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dgvRow_TechSpTrait.HeaderText = "Sp. Trait";
-            this.dgvRow_TechSpTrait.MinimumWidth = 75;
-            this.dgvRow_TechSpTrait.Name = "dgvRow_TechSpTrait";
-            this.dgvRow_TechSpTrait.ReadOnly = true;
-            this.dgvRow_TechSpTrait.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgvRow_TechSpTrait.Width = 75;
-            // 
-            // dgvRow_TechBranch
-            // 
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.dgvRow_TechBranch.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dgvRow_TechBranch.HeaderText = "Branched From";
-            this.dgvRow_TechBranch.MinimumWidth = 100;
-            this.dgvRow_TechBranch.Name = "dgvRow_TechBranch";
-            this.dgvRow_TechBranch.ReadOnly = true;
-            this.dgvRow_TechBranch.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // dgvRow_TechType
-            // 
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.dgvRow_TechType.DefaultCellStyle = dataGridViewCellStyle10;
-            this.dgvRow_TechType.HeaderText = "Type";
-            this.dgvRow_TechType.MinimumWidth = 75;
-            this.dgvRow_TechType.Name = "dgvRow_TechType";
-            this.dgvRow_TechType.ReadOnly = true;
-            this.dgvRow_TechType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgvRow_TechType.Width = 75;
-            // 
-            // dgvRow_TechRange
-            // 
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.dgvRow_TechRange.DefaultCellStyle = dataGridViewCellStyle11;
-            this.dgvRow_TechRange.HeaderText = "Range";
-            this.dgvRow_TechRange.MinimumWidth = 75;
-            this.dgvRow_TechRange.Name = "dgvRow_TechRange";
-            this.dgvRow_TechRange.ReadOnly = true;
-            this.dgvRow_TechRange.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgvRow_TechRange.Width = 75;
-            // 
-            // dgvRow_TechStats
-            // 
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.dgvRow_TechStats.DefaultCellStyle = dataGridViewCellStyle12;
-            this.dgvRow_TechStats.HeaderText = "Stats";
-            this.dgvRow_TechStats.MinimumWidth = 75;
-            this.dgvRow_TechStats.Name = "dgvRow_TechStats";
-            this.dgvRow_TechStats.ReadOnly = true;
-            this.dgvRow_TechStats.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgvRow_TechStats.Width = 75;
-            // 
-            // dgvRow_TechPower
-            // 
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.dgvRow_TechPower.DefaultCellStyle = dataGridViewCellStyle13;
-            this.dgvRow_TechPower.HeaderText = "Power";
-            this.dgvRow_TechPower.MinimumWidth = 51;
-            this.dgvRow_TechPower.Name = "dgvRow_TechPower";
-            this.dgvRow_TechPower.ReadOnly = true;
-            this.dgvRow_TechPower.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgvRow_TechPower.Width = 51;
-            // 
-            // Trait_Name
-            // 
-            this.Trait_Name.HeaderText = "Trait";
-            this.Trait_Name.MinimumWidth = 150;
-            this.Trait_Name.Name = "Trait_Name";
-            this.Trait_Name.ReadOnly = true;
-            this.Trait_Name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Trait_Name.Width = 150;
-            // 
-            // Trait_Custom
-            // 
-            this.Trait_Custom.HeaderText = "Custom";
-            this.Trait_Custom.MinimumWidth = 150;
-            this.Trait_Custom.Name = "Trait_Custom";
-            this.Trait_Custom.ReadOnly = true;
-            this.Trait_Custom.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Trait_Custom.Width = 150;
-            // 
-            // Trait_Type
-            // 
-            this.Trait_Type.HeaderText = "Type";
-            this.Trait_Type.MinimumWidth = 120;
-            this.Trait_Type.Name = "Trait_Type";
-            this.Trait_Type.ReadOnly = true;
-            this.Trait_Type.Width = 120;
-            // 
-            // Trait_GenNum
-            // 
-            this.Trait_GenNum.HeaderText = "# Gen";
-            this.Trait_GenNum.MinimumWidth = 55;
-            this.Trait_GenNum.Name = "Trait_GenNum";
-            this.Trait_GenNum.ReadOnly = true;
-            this.Trait_GenNum.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Trait_GenNum.Width = 55;
-            // 
-            // Trait_ProfNum
-            // 
-            this.Trait_ProfNum.HeaderText = "# Prof";
-            this.Trait_ProfNum.MinimumWidth = 55;
-            this.Trait_ProfNum.Name = "Trait_ProfNum";
-            this.Trait_ProfNum.ReadOnly = true;
-            this.Trait_ProfNum.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Trait_ProfNum.Width = 55;
-            // 
-            // Trait_Desc
-            // 
-            this.Trait_Desc.HeaderText = "Description";
-            this.Trait_Desc.MinimumWidth = 246;
-            this.Trait_Desc.Name = "Trait_Desc";
-            this.Trait_Desc.ReadOnly = true;
-            this.Trait_Desc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Trait_Desc.Width = 246;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Profession";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 125;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Custom";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 125;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Type";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 100;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Description";
-            this.dataGridViewTextBoxColumn4.MinimumWidth = 201;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 201;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "Bonus";
-            this.dataGridViewTextBoxColumn5.MinimumWidth = 203;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 203;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3603,20 +3836,17 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage_Basic.ResumeLayout(false);
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox16.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Height)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Width)).EndInit();
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Professions)).EndInit();
+            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Comm)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Age)).EndInit();
-            this.tabPage_Appear.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Height)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Width)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.tabPage_Background.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
@@ -3625,9 +3855,18 @@
             this.groupBox9.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
-            this.tabPage_Stats.ResumeLayout(false);
+            this.tabPage_RP.ResumeLayout(false);
+            this.groupBox15.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Professions)).EndInit();
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
+            this.groupBox14.ResumeLayout(false);
+            this.groupBox14.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APNPC)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APMulti)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APPrime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APTrait)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APTech)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_AccuracyBase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_StaminaBase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SpeedBase)).EndInit();
@@ -3646,6 +3885,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowBegin)).EndInit();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_SpTraits)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Techniques)).EndInit();
             this.tabPage_Sources.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
@@ -3665,7 +3905,6 @@
 		private System.Windows.Forms.Label label_Title;
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage_Basic;
-		private System.Windows.Forms.TabPage tabPage_Appear;
 		private System.Windows.Forms.TabPage tabPage_Background;
 		private System.Windows.Forms.TabPage tabPage_Abilities;
 		private System.Windows.Forms.TabPage tabPage_Traits;
@@ -3695,32 +3934,10 @@
 		private System.Windows.Forms.TextBox textBox_CharacterName;
 		private System.Windows.Forms.ComboBox comboBox_MarineRank;
 		private System.Windows.Forms.GroupBox groupBox2;
-		private System.Windows.Forms.GroupBox groupBox3;
 		private System.Windows.Forms.ListBox listBox_Achieve;
 		private System.Windows.Forms.Button button_AchieveAdd;
 		private System.Windows.Forms.Button button_AchieveDelete;
-		private System.Windows.Forms.Button button_ProfDelete;
-		private System.Windows.Forms.Button button_ProfAdd;
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-		private System.Windows.Forms.GroupBox groupBox4;
-		private System.Windows.Forms.GroupBox groupBox5;
-		private System.Windows.Forms.RichTextBox richTextBox_Eye;
-		private System.Windows.Forms.RichTextBox richTextBox_Hair;
-		private System.Windows.Forms.TextBox textBox_Weight;
-		private System.Windows.Forms.TextBox textBox_Height;
-		private System.Windows.Forms.Label label16;
-		private System.Windows.Forms.Label label15;
-		private System.Windows.Forms.Label label13;
-		private System.Windows.Forms.Label label14;
-		private System.Windows.Forms.TextBox textBox_ImageURL;
-		private System.Windows.Forms.Label label19;
-		private System.Windows.Forms.RichTextBox richTextBox_GeneralAppear;
-		private System.Windows.Forms.Label label18;
-		private System.Windows.Forms.RichTextBox richTextBox_Clothing;
-		private System.Windows.Forms.Label label17;
-		private System.Windows.Forms.Label label21;
-		private System.Windows.Forms.Label label20;
-		private System.Windows.Forms.CheckBox checkBox_FullRes;
 		private System.Windows.Forms.GroupBox groupBox6;
 		private System.Windows.Forms.ComboBox comboBox_Region;
 		private System.Windows.Forms.TextBox textBox_Island;
@@ -3739,8 +3956,6 @@
 		private System.Windows.Forms.Button button_ItemsAdd;
 		private System.Windows.Forms.Button button_ItemsDelete;
 		private System.Windows.Forms.Label label27;
-		private System.Windows.Forms.TextBox textBox_Beli;
-		private System.Windows.Forms.Label label29;
 		private System.Windows.Forms.GroupBox groupBox9;
 		private System.Windows.Forms.RichTextBox richTextBox_DFDesc;
 		private System.Windows.Forms.Label label52;
@@ -3754,7 +3969,6 @@
 		private System.Windows.Forms.Label label59_TraitsCalc;
 		private System.Windows.Forms.Label label58_TraitsCurrent;
 		private System.Windows.Forms.GroupBox groupBox11;
-		private System.Windows.Forms.ListView listView_SpTP;
 		private System.Windows.Forms.Label label64;
 		private System.Windows.Forms.Label label_RegTPCalc;
 		private System.Windows.Forms.TextBox textBox_RegTPTotal;
@@ -3767,20 +3981,16 @@
 		private System.Windows.Forms.ListView listView_Items;
 		private System.Windows.Forms.ListView listView_Weaponry;
 		private System.Windows.Forms.Button button_AchieveEdit;
-		private System.Windows.Forms.Button button_ProfEdit;
 		private System.Windows.Forms.Button button_ItemsEdit;
 		private System.Windows.Forms.Button button_WeaponEdit;
 		private System.Windows.Forms.Button button_TechEdit;
 		private System.Windows.Forms.Button button_ResetChar;
-		private System.Windows.Forms.NumericUpDown numericUpDown_Height;
-		private System.Windows.Forms.NumericUpDown numericUpDown_Width;
 		private System.Windows.Forms.Label label37;
 		private System.Windows.Forms.TextBox textBox_SpTPTotal;
 		private System.Windows.Forms.Label label45;
 		private System.Windows.Forms.TextBox textBox_SpTPUsed;
-		private System.Windows.Forms.TabPage tabPage_Stats;
+		private System.Windows.Forms.TabPage tabPage_RP;
 		private System.Windows.Forms.GroupBox groupBox12;
-		private System.Windows.Forms.TextBox textBox_AP;
 		private System.Windows.Forms.Label label_FortuneCalc;
 		private System.Windows.Forms.Label label_GenerateCheck;
 		private System.Windows.Forms.Label label_AccuracyCalc;
@@ -3803,7 +4013,7 @@
 		private System.Windows.Forms.Label label70;
 		private System.Windows.Forms.Label label71;
 		private System.Windows.Forms.Label label72;
-		private System.Windows.Forms.Label label37_SDonAP;
+		private System.Windows.Forms.Label label_SDonAP;
 		private System.Windows.Forms.NumericUpDown numericUpDown_UsedForFort;
 		private System.Windows.Forms.TextBox textBox_UsedForStats;
 		private System.Windows.Forms.Label label74;
@@ -3815,11 +4025,7 @@
 		private System.Windows.Forms.TextBox textBox_SDRemain;
 		private System.Windows.Forms.Label label79;
 		private System.Windows.Forms.NumericUpDown numericUpDown_SDEarned;
-		private System.Windows.Forms.CheckedListBox checkedListBox1_AP;
-		private System.Windows.Forms.Label label80;
 		private System.Windows.Forms.Label label81;
-		private System.Windows.Forms.Button button_DownProf;
-		private System.Windows.Forms.Button button_UpProf;
 		private System.Windows.Forms.Button button_DownAchieve;
 		private System.Windows.Forms.Button button_UpAchieve;
 		private System.Windows.Forms.Button button_DownItem;
@@ -3829,17 +4035,7 @@
 		private System.Windows.Forms.Button button_DownTech;
 		private System.Windows.Forms.Button button_UpTech;
 		private System.Windows.Forms.ToolTip toolTips;
-		private System.Windows.Forms.Button button_Standardize;
 		private System.Windows.Forms.Button button_TechBranch;
-		private System.Windows.Forms.Button button_ImageDelete;
-		private System.Windows.Forms.Button button_ImageAdd;
-		private System.Windows.Forms.TextBox textBox_ImageLabel;
-		private System.Windows.Forms.Label label31;
-		private System.Windows.Forms.Label label30;
-		private System.Windows.Forms.Button button_ImageDown;
-		private System.Windows.Forms.Button button_ImageUp;
-		private System.Windows.Forms.ListView listView_Images;
-		private System.Windows.Forms.Button button_ImageEdit;
 		private System.Windows.Forms.Label label32;
 		private System.Windows.Forms.Label label34;
 		private System.Windows.Forms.Label label33;
@@ -3903,7 +4099,6 @@
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.CheckBox checkBox_CalcBeli;
         private System.Windows.Forms.Button button_EditTrait;
-        private System.Windows.Forms.DataGridView dgv_Professions;
         private System.Windows.Forms.DataGridView dgv_Traits;
         private System.Windows.Forms.Button button_TraitsDown;
         private System.Windows.Forms.Button button_TraitsUp;
@@ -3931,11 +4126,70 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Trait_GenNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn Trait_ProfNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn Trait_Desc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.GroupBox groupBox14;
+        private System.Windows.Forms.NumericUpDown numericUpDown_APTech;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.NumericUpDown numericUpDown_APNPC;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.NumericUpDown numericUpDown_APMulti;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.NumericUpDown numericUpDown_APPrime;
+        private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.NumericUpDown numericUpDown_APTrait;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.CheckBox checkBox_APDF;
+        private System.Windows.Forms.CheckBox checkBox_APHaki;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.TextBox textBox_AP;
+        private System.Windows.Forms.GroupBox groupBox15;
+        private System.Windows.Forms.DataGridView dgv_Professions;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.Button button_DownProf;
+        private System.Windows.Forms.Button button_EditProf;
+        private System.Windows.Forms.Button button_UpProf;
+        private System.Windows.Forms.Button button_DeleteProf;
+        private System.Windows.Forms.Button button_AddProf;
+        private System.Windows.Forms.Button button_Standardize;
+        private System.Windows.Forms.TextBox textBox_Beli;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.GroupBox groupBox16;
+        private System.Windows.Forms.Button button_ImageEdit;
+        private System.Windows.Forms.Button button_ImageDelete;
+        private System.Windows.Forms.Button button_ImageAdd;
+        private System.Windows.Forms.TextBox textBox_ImageLabel;
+        private System.Windows.Forms.Label label80;
+        private System.Windows.Forms.Label label82;
+        private System.Windows.Forms.Button button_ImageDown;
+        private System.Windows.Forms.Button button_ImageUp;
+        private System.Windows.Forms.ListView listView_Images;
+        private System.Windows.Forms.NumericUpDown numericUpDown_Height;
+        private System.Windows.Forms.NumericUpDown numericUpDown_Width;
+        private System.Windows.Forms.CheckBox checkBox_FullRes;
+        private System.Windows.Forms.Label label83;
+        private System.Windows.Forms.Label label84;
+        private System.Windows.Forms.TextBox textBox_ImageURL;
+        private System.Windows.Forms.Label label85;
+        private System.Windows.Forms.RichTextBox richTextBox_GeneralAppear;
+        private System.Windows.Forms.Label label86;
+        private System.Windows.Forms.RichTextBox richTextBox_Clothing;
+        private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RichTextBox richTextBox_Eye;
+        private System.Windows.Forms.RichTextBox richTextBox_Hair;
+        private System.Windows.Forms.TextBox textBox_Weight;
+        private System.Windows.Forms.TextBox textBox_Height;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.Label label73;
+        private System.Windows.Forms.Label label76;
+        private System.Windows.Forms.DataGridView dgv_SpTraits;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_SpTraitName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_SpUsed;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_SpTotal;
     }
 }
 

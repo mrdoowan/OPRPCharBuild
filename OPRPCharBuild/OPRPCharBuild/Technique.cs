@@ -11,6 +11,7 @@ namespace OPRPCharBuild
         public string name;
         public string rokuName;
         public int rank;
+        public int AE;
         public int regTP;
         public int spTP;
         public string rankTrait;
@@ -35,6 +36,7 @@ namespace OPRPCharBuild
         public Technique(string name_, 
             string roku_, 
             int rank_, 
+            int AE_,
             int reg_, 
             int sp_,
             string rankTr_, 
@@ -58,6 +60,7 @@ namespace OPRPCharBuild
             name = name_;
             rokuName = roku_;
             rank = rank_;
+            AE = AE_;
             regTP = reg_;
             spTP = sp_;
             rankTrait = rankTr_;

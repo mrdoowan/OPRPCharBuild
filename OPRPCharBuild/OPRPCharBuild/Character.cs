@@ -83,12 +83,18 @@ namespace OPRPCharBuild
             // Stats Tab
             SDEARNED = "[SDEAR]",
             SDTOSP = "[SD2SP]",
-            APBOOL = "[APBOOL]",            // True,True,False, etc.
             USEDFORTUNE = "[SDFORT]",
             STRENGTH = "[STR]",
             SPEED = "[SPE]",
             STAMINA = "[STA]",
             ACCURACY = "[ACC]",
+            AP_TECH = "[AP_TECH]",
+            AP_TRAIT = "[AP_TRAIT]",
+            AP_PRIME = "[AP_PRIME]",
+            AP_MULTI = "[AP_MULTI]",
+            AP_NPC = "[AP_NPC]",
+            AP_HAKI = "[AP_HAKI]",
+            AP_DF = "[AP_DF]",
             // Traits Tab
             TAG_STA_TRAIT = "<TRAIT>",
             TAG_END_TRAIT = "</TRAIT>",
@@ -103,6 +109,7 @@ namespace OPRPCharBuild
             TECH_NAME = "[TECH_NAME]",
             TECH_ROKU = "[TECH_ROKU]",
             TECH_RANK = "[TECH_RANK]",
+            TECH_AE = "[TECH_AE]",
             TECH_REGTP = "[TECH_REGTP]",
             TECH_SPTP = "[TECH_SPTP]",
             TECH_RANKTRAIT = "[TECH_RKTR]",
@@ -185,6 +192,7 @@ namespace OPRPCharBuild
             string rank_,
             string threat_,
             ListBox achieve_,
+            DataGridView dgvProf_,
             Dictionary<string, Profession> prof_) {
             StringBuilder sb = new StringBuilder();
             sb.Append(CHARNAME + charName_ + SPLIT1);
@@ -205,7 +213,9 @@ namespace OPRPCharBuild
             }
             sb.Append(TAG_END_ACHIEVE);
             sb.Append(TAG_STA_PROF);
-            foreach (Profession prof in prof_.Values) {
+            foreach (DataGridViewRow profRow in dgvProf_.Rows) {
+                string profName = profRow.Cells[0].Value.ToString();
+                Profession prof = prof_[profName];
                 sb.Append(PROF_NAME + prof.name + SPLIT1);
                 sb.Append(PROF_PRIM + prof.primary + SPLIT1);
                 sb.Append(PROF_CUST + prof.custom + SPLIT1);
@@ -298,35 +308,45 @@ namespace OPRPCharBuild
 
         public void saveCharStats(int SDEarn_,
             int SD2SP_,
-            CheckedListBox AP_,
             int usedFort_,
             int str_,
             int spe_,
             int sta_,
-            int acc_) {
+            int acc_,
+            int APTech_,
+            int APTrait_,
+            int APPrime_,
+            int APMulti_,
+            int APNPC_,
+            bool APHaki_,
+            bool APDF_) {
             StringBuilder sb = new StringBuilder();
             sb.Append(SDEARNED + SDEarn_ + SPLIT1);
             sb.Append(SDTOSP + SD2SP_ + SPLIT1);
-            sb.Append(APBOOL);
-            for (int i = 0; i < AP_.Items.Count; ++i) {
-                CheckState chk = AP_.GetItemCheckState(i);
-                sb.Append(chk == CheckState.Checked);
-                sb.Append(',');
-            }
             sb.Append(SPLIT1);
             sb.Append(USEDFORTUNE + usedFort_ + SPLIT1);
             sb.Append(STRENGTH + str_ + SPLIT1);
             sb.Append(SPEED + spe_ + SPLIT1);
             sb.Append(STAMINA + sta_ + SPLIT1);
             sb.Append(ACCURACY + acc_ + SPLIT1);
+            sb.Append(AP_TECH + APTech_ + SPLIT1);
+            sb.Append(AP_TRAIT + APTrait_ + SPLIT1);
+            sb.Append(AP_PRIME + APPrime_ + SPLIT1);
+            sb.Append(AP_MULTI + APMulti_ + SPLIT1);
+            sb.Append(AP_NPC + APNPC_ + SPLIT1);
+            sb.Append(AP_HAKI + APHaki_ + SPLIT1);
+            sb.Append(AP_DF + APDF_ + SPLIT1);
             // Put into String
             data += sb.ToString();
         }
 
-        public void saveCharTraits(Dictionary<string, Trait> traits_) {
+        public void saveCharTraits(DataGridView dgvTraits_,
+            Dictionary<string, Trait> traits_) {
             StringBuilder sb = new StringBuilder();
             sb.Append(TAG_STA_TRAIT);
-            foreach (Trait trait in traits_.Values) {
+            foreach (DataGridViewRow traitRow in dgvTraits_.Rows) {
+                string traitName = traitRow.Cells[0].Value.ToString();
+                Trait trait = traits_[traitName];
                 sb.Append(TRAIT_NAME + trait.name + SPLIT1);
                 sb.Append(TRAIT_CUST + trait.custom + SPLIT1);
                 sb.Append(TRAIT_GENE + trait.genNum + SPLIT1);
@@ -340,13 +360,18 @@ namespace OPRPCharBuild
         }
 
         public void saveCharTechs(Dictionary<string, Technique> techs_,
+            DataGridView dgvTechs_,
             ListView cats_) {
             StringBuilder sb = new StringBuilder();
             sb.Append(TAG_STA_TECH);
-            foreach (Technique tech in techs_.Values) {
+            // We want all the Techniques by order
+            foreach (DataGridViewRow techRow in dgvTechs_.Rows) {
+                string techName = techRow.Cells[0].Value.ToString();
+                Technique tech = techs_[techName];
                 sb.Append(TECH_NAME + tech.name + SPLIT1);
                 sb.Append(TECH_ROKU + tech.rokuName + SPLIT1);
                 sb.Append(TECH_RANK + tech.rank + SPLIT1);
+                sb.Append(TECH_AE + tech.AE + SPLIT1);
                 sb.Append(TECH_REGTP + tech.regTP + SPLIT1);
                 sb.Append(TECH_SPTP + tech.spTP + SPLIT1);
                 sb.Append(TECH_RANKTRAIT + tech.rankTrait + SPLIT1);
@@ -404,13 +429,16 @@ namespace OPRPCharBuild
         }
 
         // bool devH if we're saving on devH instead
-        public string saveCharSources(Dictionary<string, Source> sources_,
+        public string saveCharSources(DataGridView dgvSources_,
+            Dictionary<string, Source> sources_,
             RadioButton NADateFormat_, 
             bool devH) {
             StringBuilder sb = new StringBuilder();
             sb.Append(SOURCE_DATEFORMAT + NADateFormat_.Checked + SPLIT1);
             sb.Append(TAG_STA_SOURCE);
-            foreach (Source source in sources_.Values) {
+            foreach (DataGridViewRow sourceRow in dgvSources_.Rows) {
+                string sourceTitle = sourceRow.Cells[2].Value.ToString();
+                Source source = sources_[sourceTitle];
                 sb.Append(SOURCE_YYYY + source.date.Year + SPLIT1);
                 sb.Append(SOURCE_MM + source.date.Month + SPLIT1);
                 sb.Append(SOURCE_DD + source.date.Day + SPLIT1);
@@ -493,9 +521,7 @@ namespace OPRPCharBuild
             ref NumericUpDown comm,
             ref ComboBox rank,
             ref TextBox threat,
-            ref ListBox achieve,
-            ref DataGridView prof,
-            ref Dictionary<string, Profession> profList) {
+            ref ListBox achieve) {
             charName.Text = getParse(CHARNAME, SPLIT1);
             nickName.Text = getParse(NICKNAME, SPLIT1);
             age.Value = TryParseInt(getParse(AGE, SPLIT1));
@@ -512,22 +538,6 @@ namespace OPRPCharBuild
             achieve.Items.Clear();
             for (int i = 0; i < achievements.Length; ++i) {
                 achieve.Items.Add(achievements[i]);
-            }
-            string profStr = getParse(TAG_STA_PROF, TAG_END_PROF);
-            string[] profArr = splitStringbyString(profStr, SPLIT2);
-            prof.Rows.Clear();
-            prof.Refresh();
-            profList.Clear();
-            for (int i = 0; i < profArr.Length; ++i) {
-                string profName = getParse(PROF_NAME, SPLIT1, profArr[i]);
-                string profPrim = getParse(PROF_PRIM, SPLIT1, profArr[i]);
-                string profCust = getParse(PROF_CUST, SPLIT1, profArr[i]);
-                bool primary = (profPrim == "True") ? true : false;
-                string profDesc = getParse(PROF_DESC, SPLIT1, profArr[i]);
-                string profBonu = getParse(PROF_BONU, SPLIT1, profArr[i]);
-                profList.Add(profName, new Profession(profName, primary, profCust, profDesc, profBonu));
-                string pri_Str = (primary) ? "Primary" : "Secondary";
-                prof.Rows.Insert(0, profName, profCust, pri_Str, profDesc, profBonu);
             }
         }
 
@@ -551,7 +561,7 @@ namespace OPRPCharBuild
                 ListViewItem item = new ListViewItem();
                 item.SubItems[0].Text = getParse(IMAG_URL, SPLIT1, imgArr[i]);
                 item.SubItems.Add(getParse(IMAG_LABEL, SPLIT1, imgArr[i]));
-                item.SubItems.Add(getParse(IMAG_FULLRES, SPLIT1, imgArr[i]));
+                item.SubItems.Add((getParse(IMAG_FULLRES, SPLIT1, imgArr[i]) == "True") ? "Yes" : "No");
                 item.SubItems.Add(getParse(IMAG_IMGWIDTH, SPLIT1, imgArr[i]));
                 item.SubItems.Add(getParse(IMAG_IMGHEIGHT, SPLIT1, imgArr[i]));
                 images.Items.Add(item);
@@ -571,7 +581,6 @@ namespace OPRPCharBuild
         public void loadCharCombat(ref RichTextBox combat,
             ref ListView weapon,
             ref ListView items,
-            ref TextBox beli,
             ref TextBox DFName,
             ref ComboBox DFType,
             ref ComboBox DFTier,
@@ -596,7 +605,6 @@ namespace OPRPCharBuild
                 item.SubItems.Add(getParse(ITEM_DESC, SPLIT1, itemArr[i]));
                 items.Items.Add(item);
             }
-            beli.Text = getParse(BELI, SPLIT1);
             DFName.Text = getParse(DF_NAME, SPLIT1);
             DFType.Text = getParse(DF_TYPE, SPLIT1);
             DFTier.Text = getParse(DF_TIER, SPLIT1);
@@ -604,20 +612,23 @@ namespace OPRPCharBuild
             DFEffe.Text = getParse(DF_EFFE, SPLIT1);
         }
         
-        public void loadCharStats(ref NumericUpDown SDEarn,
+        public void loadCharRPElements(ref NumericUpDown SDEarn,
             ref NumericUpDown SD2SP,
-            ref CheckedListBox AP,
             ref NumericUpDown usedFort,
             ref NumericUpDown str,
             ref NumericUpDown spe,
             ref NumericUpDown sta,
-            ref NumericUpDown acc) {
-            string[] APArr = getParse(APBOOL, SPLIT1).TrimEnd(',').Split(',');
-            for (int i = 0 ; i < AP.Items.Count ; ++i) {
-                try { AP.SetItemChecked(i, TryParseBool(APArr[i])); }
-                catch { AP.SetItemChecked(i, false); }
-                // In case APArr[i] goes out of index
-            }
+            ref NumericUpDown acc,
+            ref NumericUpDown APTech,
+            ref NumericUpDown APTrait,
+            ref NumericUpDown APPrime,
+            ref NumericUpDown APMulti,
+            ref NumericUpDown APNPC,
+            ref CheckBox APHaki,
+            ref CheckBox APDF,
+            ref TextBox beli,
+            ref DataGridView prof,
+            ref Dictionary<string, Profession> profList) {
             SDEarn.Value = TryParseInt(getParse(SDEARNED, SPLIT1));
             SD2SP.Value = TryParseInt(getParse(SDTOSP, SPLIT1));
             usedFort.Value = TryParseInt(getParse(USEDFORTUNE, SPLIT1));
@@ -625,6 +636,30 @@ namespace OPRPCharBuild
             spe.Value = TryParseInt(getParse(SPEED, SPLIT1));
             sta.Value = TryParseInt(getParse(STAMINA, SPLIT1));
             acc.Value = TryParseInt(getParse(ACCURACY, SPLIT1));
+            APTech.Value = TryParseInt(getParse(AP_TECH, SPLIT1));
+            APTrait.Value = TryParseInt(getParse(AP_TRAIT, SPLIT1));
+            APPrime.Value = TryParseInt(getParse(AP_PRIME, SPLIT1));
+            APMulti.Value = TryParseInt(getParse(AP_MULTI, SPLIT1));
+            APNPC.Value = TryParseInt(getParse(AP_NPC, SPLIT1));
+            APHaki.Checked = TryParseBool(getParse(AP_HAKI, SPLIT1));
+            APDF.Checked = TryParseBool(getParse(AP_DF, SPLIT1));
+            beli.Text = getParse(BELI, SPLIT1);
+            string profStr = getParse(TAG_STA_PROF, TAG_END_PROF);
+            string[] profArr = splitStringbyString(profStr, SPLIT2);
+            prof.Rows.Clear();
+            prof.Refresh();
+            profList.Clear();
+            for (int i = 0; i < profArr.Length; ++i) {
+                string profName = getParse(PROF_NAME, SPLIT1, profArr[i]);
+                string profPrim = getParse(PROF_PRIM, SPLIT1, profArr[i]);
+                string profCust = getParse(PROF_CUST, SPLIT1, profArr[i]);
+                bool primary = (profPrim == "True") ? true : false;
+                string profDesc = getParse(PROF_DESC, SPLIT1, profArr[i]);
+                string profBonu = getParse(PROF_BONU, SPLIT1, profArr[i]);
+                profList.Add(profName, new Profession(profName, primary, profCust, profDesc, profBonu));
+                string pri_Str = (primary) ? "Primary" : "Secondary";
+                prof.Rows.Add(profName, profCust, pri_Str, profDesc, profBonu);
+            }
         }
         
         public void loadCharTraits(ref Dictionary<string, Trait> traits,
@@ -650,7 +685,7 @@ namespace OPRPCharBuild
                 item.SubItems.Add(gen.ToString());
                 item.SubItems.Add(prof.ToString());
                 item.SubItems.Add(desc);
-                dgv_traits.Rows.Insert(0, name, custom, type, gen, prof, desc);
+                dgv_traits.Rows.Add(name, custom, type, gen, prof, desc);
             }
             // Only add the Total for Sp Trait.
             // Edit theh Sp Trait later
@@ -670,7 +705,7 @@ namespace OPRPCharBuild
         public void loadCharTechs(ref Dictionary<string, Technique> techs,
             ref DataGridView techTbl,
             ref Dictionary<string, SpTrait> spTraits,
-            ref ListView spTraitTbl,
+            ref DataGridView spTraitTbl,
             ref ListView catTbl) {
             string techStr = getParse(TAG_STA_TECH, TAG_END_TECH);
             string[] techArr = splitStringbyString(techStr, SPLIT2);
@@ -680,6 +715,7 @@ namespace OPRPCharBuild
                 string name = getParse(TECH_NAME, SPLIT1, techArr[i]);
                 string rokuName = getParse(TECH_ROKU, SPLIT1, techArr[i]);
                 int rank = TryParseInt(getParse(TECH_RANK, SPLIT1, techArr[i]));
+                int AE = TryParseInt(getParse(TECH_AE, SPLIT1, techArr[i]));
                 int regTP = TryParseInt(getParse(TECH_REGTP, SPLIT1, techArr[i]));
                 int spTP = TryParseInt(getParse(TECH_SPTP, SPLIT1, techArr[i]));
                 string rankTr = getParse(TECH_RANKTRAIT, SPLIT1, techArr[i]);
@@ -729,7 +765,7 @@ namespace OPRPCharBuild
                 string desc = getParse(TECH_DESC, SPLIT1, techArr[i]);
                 // ADD IT ALL UP. WOW.
                 techs.Add(name, new Technique(name, rokuName, rank,
-                    regTP, spTP,
+                    AE, regTP, spTP,
                     rankTr, specTr, sigTech,
                     brTech, brRank,
                     type, range,
@@ -752,13 +788,9 @@ namespace OPRPCharBuild
                 catch { } // If key doesn't exist, just pass it
             }
             // Now add onto the SpTrait Listview
-            spTraitTbl.Items.Clear();
+            spTraitTbl.Rows.Clear();
             foreach (SpTrait spTrait in spTraits.Values) {
-                ListViewItem item = new ListViewItem();
-                item.SubItems[0].Text = spTrait.name;
-                item.SubItems.Add(spTrait.usedTP.ToString());
-                item.SubItems.Add(spTrait.totalTP.ToString());
-                spTraitTbl.Items.Add(item);
+                spTraitTbl.Rows.Add(spTrait.name, spTrait.usedTP, spTrait.totalTP);
             }
             // Do the CatTbl
             string catStr = getParse(TAG_STA_CAT, TAG_END_CAT);
@@ -771,6 +803,8 @@ namespace OPRPCharBuild
                 item.SubItems.Add(getParse(CAT_NAME, SPLIT1, catArr[i]));
                 catTbl.Items.Add(item);
             }
+            catTbl.ListViewItemSorter = new ListViewItemNumberSort(0);
+            catTbl.Sort();
         }
 
         // bool devH if we're saving on devH instead
@@ -806,9 +840,9 @@ namespace OPRPCharBuild
                 string SD_str = (SD > 0) ? SD.ToString() : "";
                 string beli_str = (beli != 0) ? beli.ToString("N0") : "";
                 DataGridViewButtonColumn button = new DataGridViewButtonColumn();
-                dgv_Sources.Rows.Insert(0, button, date_str, title, URL,
+                dgv_Sources.Rows.Add(button, date_str, title, URL,
                     SD_str, beli_str, notes);
-                dgv_Sources.Rows[0].Cells[0].Value = "X";
+                dgv_Sources.Rows[i].Cells[0].Value = "X";
             }
         }
 

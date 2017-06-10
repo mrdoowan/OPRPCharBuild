@@ -104,6 +104,7 @@ namespace OPRPCharBuild
 		private int option;
 		private string Template;
 		public static string color_hex = "";
+        private const int TOTAL_AP = 7;
 		// This is constantly changing
 		private Dictionary<int, string> RepeatTags = new Dictionary<int, string>();
         private Dictionary<string, Technique> techDict = new Dictionary<string, Technique>();
@@ -136,7 +137,7 @@ namespace OPRPCharBuild
             ListView Images, 
             ListView Weaponry, 
             ListView Items, 
-            CheckedListBox AP,
+            List<int> AP,
             Dictionary<string, Trait> traitList,
             Dictionary<string, SpTrait> spTraitList,
             DataGridView Techs, 
@@ -157,7 +158,7 @@ namespace OPRPCharBuild
 				else { Template = Template.Replace(cast, Image.SubItems[0].Text); }
 				cast = "<IMG" + i + "_LABEL>";
 				if (Template.Contains(cast)) { Template = Template.Replace(cast, Image.SubItems[1].Text); }
-				if (Image.SubItems[2].Text == "False") { // Full Res is No
+				if (Image.SubItems[2].Text == "No") { // Full Res is No
 					cast = "<IMG" + i + "_W>";
 					if (Template.Contains(cast)) { Template = Template.Replace(cast, Image.SubItems[3].Text); }
 					cast = "<IMG" + i + "_H>";
@@ -297,32 +298,43 @@ namespace OPRPCharBuild
 					}
 					break;
 				case "AP":
-					CheckedListBox AP = (CheckedListBox)List;
-					foreach (int index in AP.CheckedIndices) {
-						switch (index) {    // Load Dictionary
+					List<int> AP = (List<int>)List;
+                    for (int i = 0; i < TOTAL_AP; ++i) {
+                        if (AP[i] == 0) { continue; }
+						switch (i) {    // Load Dictionary
 							case 0:
 								RepeatTags.Add(29, "Technique");
-								RepeatTags.Add(78, "1");
+								RepeatTags.Add(78, AP[i].ToString());
 								RepeatTags.Add(99, "Permanently increase tech point multiplier by 0.5");
 								break;
 							case 1:
 								RepeatTags.Add(29, "Trait");
-								RepeatTags.Add(78, "2");
+								RepeatTags.Add(78, AP[i].ToString());
 								RepeatTags.Add(99, "Trait cap raised by 1, can take Legacy Traits without training");
 								break;
 							case 2:
 								RepeatTags.Add(29, "Prime Professional");
-								RepeatTags.Add(78, "1");
+								RepeatTags.Add(78, AP[i].ToString());
 								RepeatTags.Add(99, "May upgrade secondary profession to primary");
 								break;
 							case 3:
 								RepeatTags.Add(29, "Multiskilled Professional");
-								RepeatTags.Add(78, "1");
+								RepeatTags.Add(78, AP[i].ToString());
 								RepeatTags.Add(99, "May take two more secondary professions");
 								break;
-							case 4:
-								RepeatTags.Add(29, "Devil Fruit");
-								RepeatTags.Add(78, "1");
+                            case 4:
+                                RepeatTags.Add(29, "NPC");
+                                RepeatTags.Add(78, AP[i].ToString());
+                                RepeatTags.Add(99, "May have an additional trait NPC active in their topics");
+                                break;
+                            case 5:
+                                RepeatTags.Add(29, "Haki");
+                                RepeatTags.Add(78, AP[i].ToString());
+                                RepeatTags.Add(99, "May take an additional Haki Color Specialization");
+                                break;
+                            case 6:
+								RepeatTags.Add(29, "Myth Zoan");
+								RepeatTags.Add(78, AP[i].ToString());
 								RepeatTags.Add(99, "Choose a Myth Zoan, gained without DF SL");
 								break;
 							default:
@@ -393,6 +405,7 @@ namespace OPRPCharBuild
 						else if (tech.cyborgBoosts[1]) { rank += " + 8"; }
 						else if (tech.cyborgBoosts[0]) { rank += " + 4"; }
 						RepeatTags.Add(65, rank);
+                        RepeatTags.Add(90, tech.AE.ToString());
 						RepeatTags.Add(66, tech.type);
 						RepeatTags.Add(97, tech.range);
 						RepeatTags.Add(67, tech.power);

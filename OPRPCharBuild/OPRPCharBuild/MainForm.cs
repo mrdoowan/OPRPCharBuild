@@ -11,16 +11,21 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Diagnostics;
+using System.ComponentModel;
 using System.Net;
 using System.Reflection;
-using System.Diagnostics;
 
 namespace OPRPCharBuild
 {
 	public partial class MainForm : Form
 	{
 		public MainForm() {
-			InitializeComponent();
+            // Check for updates of a New Version or Bug Messages
+            Check_Update();
+            InitializeComponent();
+            //this.Visible = false;
+            //if (!Loading_Window()) { this.Visible = true; }
 		}
 
 		// --------------------------------------------------------------------------------------------
@@ -30,7 +35,6 @@ namespace OPRPCharBuild
 		#region Member Variables
 
 		public const string VERSION = "1.6.0";
-		public const string VERS_TYPE = "";
 		public const string STD_TEMPLATE_MSG = "Standard Template";
         private const string WEBSITE = "https://github.com/mrdoowan/OPRPCharBuild/releases";
         public static bool template_imported = false;
@@ -123,14 +127,32 @@ namespace OPRPCharBuild
             catch { }
         }
 
+        // Start the Loading Window for cool dots (WORK ON THIS LATER)
+        /*
+        private bool Loading_Window() {
+            // Implement PendingWindow for Coolness
+            PendingWindow pendingWin = new PendingWindow();
+            // Get the Timer loaded
+            BackgroundWorker timerWorker = new BackgroundWorker();
+            timerWorker.DoWork += new DoWorkEventHandler(pendingWin.start_Timer);
+            timerWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(pendingWin.finished_Timer);
+            timerWorker.RunWorkerAsync();
+            // Now check for updates
+            BackgroundWorker updateWorker = new BackgroundWorker();
+            updateWorker.DoWork += new DoWorkEventHandler(Check_Update);
+            return false;
+        }
+        */
+
         // Really don't want to use Microsoft's Click-Once application at this point, so I'll just
         // implement my own version.
         // Version now follows the following format:
         // Major.Minor.Revision (only 3)
+        //private void Check_Update(object sender, DoWorkEventArgs e) {
         private void Check_Update() {
-			// -------------------------------------
-			// Version Check
-			// -------------------------------------
+            // -------------------------------------
+            // Version Check
+            // -------------------------------------
 			WebClient WC = new WebClient();
 			try {
 				string[] current = VERSION.Split('.');
@@ -162,25 +184,8 @@ namespace OPRPCharBuild
 					Application.Exit();
 				}
 			}
-			catch (Exception e) {
-				MessageBox.Show("Error in checking for an update.\nReason: " + e.Message, "OPRP Char Builder", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-			}
-			// -------------------------------------
-			// Displaying any Bug Messages
-			// -------------------------------------
-			try {
-				string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " BugMessage " + Environment.OSVersion;
-				WC.Headers.Add("Content-Type", header_msg);
-				string message = WC.DownloadString("https://raw.githubusercontent.com/mrdoowan/OPRPCharBuild/master/BugMessage.txt");
-				if (!string.IsNullOrWhiteSpace(message)) {
-					MessageBox.Show("Current Bugs:\n\n" + message, "Bug Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				}
-				WC.Dispose();
-			}
-			catch (Exception e) {
-				MessageBox.Show("Error in checking for a bug message\nReason: " + e.Message, "OPRP Char Builder", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-			}
-		}
+			catch { }
+        }
 
 		// Returns true if Prof is in the List and it's Primary
 		// Returns false otherwise
@@ -272,15 +277,14 @@ namespace OPRPCharBuild
 				gen = 11;
 				prof = 6;
 			}
-			// Check if AP checked
-			if (checkedListBox1_AP.CheckedIndices.Contains(1)) {	// [1] is the Trait
-				gen++;
-			}
+            // Check AP Traits
+            gen += (int)numericUpDown_APTrait.Value;
 			// Update label and global variable.
 			genCap = gen;
 			profCap = prof;
 			// Update Focus
 			int focus = 1 + gen / 2;
+            if (focus > 7) { focus = 7; }
 			textBox_Focus.Text = focus.ToString();
 			// Update Traits Message
 			label59_TraitsCalc.Text = "Your current cap is " + gen +
@@ -297,17 +301,18 @@ namespace OPRPCharBuild
 
         #region Update Stats Functions
 
+        // Used when an AP is checked.
         private void Update_AP_Count() {
-			int AP_num = checkedListBox1_AP.CheckedItems.Count;
-			if (checkedListBox1_AP.CheckedIndices.Contains(1) || 
-                checkedListBox1_AP.CheckedIndices.Contains(5)) {
-                // These are 2 AP
-                AP_num++;
-			}
-			textBox_AP.Text = AP_num.ToString();
+            int AP_num = (int)(numericUpDown_APTech.Value +
+                2 * numericUpDown_APTrait.Value +
+                numericUpDown_APPrime.Value +
+                numericUpDown_APMulti.Value +
+                numericUpDown_APNPC.Value);
+            AP_num += (checkBox_APHaki.Checked) ? 2 : 0;
+            AP_num += (checkBox_APDF.Checked) ? 1 : 0;
 			int SD = AP_num * 50;
-			label37_SDonAP.Text = SD + " SD spent on AP";
-			// Used when an AP is checked.
+            textBox_AP.Text = AP_num.ToString();
+            label_SDonAP.Text = SD + " SD spent on ";
 		}
 
 		// Calculating Stat Points
@@ -618,10 +623,8 @@ namespace OPRPCharBuild
             else if (SD_Earned > 800) {
                 multiplier = 5.0;
             }
-			// Check AP
-			if ((checkedListBox1_AP.CheckedIndices.Contains(0))) {
-				multiplier += 0.5;
-			}
+            // Check AP Tech
+            multiplier += 0.5 * (double)(numericUpDown_APTech.Value);
 			int total = (int)((double)fortune * multiplier);
 			calc += multiplier;
 			// Now check if we have any Traits that add to this.
@@ -653,12 +656,12 @@ namespace OPRPCharBuild
         // HELPER FUNCTION
         private void Helper_SpTrait_UsedOverTotal() {
             // After update of those values, we will then check to see if Used > Total
-            foreach (ListViewItem Sp_Trait in listView_SpTP.Items) {
-                if (int.Parse(Sp_Trait.SubItems[1].Text) > int.Parse(Sp_Trait.SubItems[2].Text)) {
-                    Sp_Trait.SubItems[1].BackColor = Color.FromArgb(255, 128, 128);
+            foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
+                if (int.Parse(SpTraitRow.Cells[1].Value.ToString()) > int.Parse(SpTraitRow.Cells[2].Value.ToString())) {
+                    SpTraitRow.Cells[1].Style.BackColor = Color.FromArgb(255, 128, 128);
                 }
                 else {
-                    Sp_Trait.SubItems[1].BackColor = SystemColors.Control;
+                    SpTraitRow.Cells[1].Style.BackColor = SystemColors.Control;
                 }
             }
         }
@@ -694,12 +697,8 @@ namespace OPRPCharBuild
                 int totTP = (fortune / divisor) * traitNum;
                 SpTrait addTrait = new SpTrait(traitName, customName, 0, totTP);
                 spTraitList.Add(traitName, addTrait);
-                // Add Sp. Trait to the ListView of SpTraits
-                ListViewItem item = new ListViewItem();
-                item.SubItems[0].Text = customName;     // 1st column: Trait Name
-                item.SubItems.Add("0");                 // 2nd column: Used Sp. TP
-                item.SubItems.Add(totTP.ToString());    // 3rd column: Total Sp. TP
-                listView_SpTP.Items.Add(item);
+                // Add Sp. Trait to the dgv
+                dgv_SpTraits.Rows.Add(customName, 0, totTP);
             }
 			// Lastly update the Total SpTP
 			Update_Total_SpTP_Textbox();
@@ -710,9 +709,10 @@ namespace OPRPCharBuild
             // Remove from Dict
             spTraitList.Remove(traitName);
             // Remove from ListView
-            foreach (ListViewItem spTrait in listView_SpTP.Items) {
-                if (spTrait.SubItems[0].Text == traitName) {
-                    spTrait.Remove();
+            foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
+                if (SpTraitRow.Cells[0].Value.ToString() == traitName) {
+                    dgv_SpTraits.Rows.Remove(SpTraitRow);
+                    dgv_SpTraits.Refresh();
                     break;
                 }
             }
@@ -724,15 +724,15 @@ namespace OPRPCharBuild
         private void Update_SpTraitTableAndDict_Total() {
             // This updates all the Total Sp Traits
             int fortune = int.Parse(textBox_Fortune.Text);
-            foreach (ListViewItem spTrait in listView_SpTP.Items) {
-                string name = spTrait.SubItems[0].Text;
+            foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
+                string name = SpTraitRow.Cells[0].Value.ToString();
                 int traitNum = traitList[name].getTotalTraits();
                 int divisor = Database.getSpTraitDiv(name);
                 int totTP = (fortune / divisor) * traitNum;
                 // Edit spTraitList
                 spTraitList[name].totalTP = totTP;
                 // Edit ListView
-                spTrait.SubItems[2].Text = totTP.ToString();
+                SpTraitRow.Cells[2].Value = totTP;
             }
             // Update the Total textboxes
             Update_Total_SpTP_Textbox();
@@ -754,9 +754,9 @@ namespace OPRPCharBuild
             // Edit spTraitList
             spTraitList[traitName].usedTP = used;
             // Edit ListView
-            foreach (ListViewItem spTrait in listView_SpTP.Items) {
-                if (spTrait.SubItems[0].Text == traitName) {
-                    spTrait.SubItems[1].Text = used.ToString();
+            foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
+                if (SpTraitRow.Cells[0].Value.ToString() == traitName) {
+                    SpTraitRow.Cells[1].Value = used.ToString();
                     break;
                 }
             }
@@ -896,10 +896,7 @@ namespace OPRPCharBuild
         private void MainForm_Load(object sender, EventArgs e) {
             this.Text = "OPRP Character Builder";
 			label_Title.Text = "OPRP Character Builder";
-			label1.Text = "OPRP Character Builder v" + VERSION + VERS_TYPE + " designed by Solo";
-
-			// Check for updates of a New Version or Bug Messages
-			//Check_Update();
+			label1.Text = "OPRP Character Builder v" + VERSION + " designed by Solo";
 
 			// ------ Images
 			listView_Images.View = View.Details;
@@ -907,17 +904,12 @@ namespace OPRPCharBuild
             
             listView_Images.Columns.Add("URL", 300);
             listView_Images.Columns.Add("Label", 200);
-			listView_Images.Columns.Add("FullRes", 60);
+			listView_Images.Columns.Add("FullRes", 56);
 			listView_Images.Columns.Add("Width", 55);
-			listView_Images.Columns.Add("Height", 55);
+            listView_Images.Columns.Add("Height", 55);
 
-			// ------ Special Techniques
-			listView_SpTP.View = View.Details;
-			listView_SpTP.FullRowSelect = true;
-
-			listView_SpTP.Columns.Add("Sp. Trait Name", 305);
-			listView_SpTP.Columns.Add("Used", 75);
-			listView_SpTP.Columns.Add("Total", 75);
+            // ------ Traits
+            Update_Traits_Cap();
             
 			// ------ Tech Category Table
 			label_SubCatMsg.Text = "No Valid Category Selected";
@@ -927,21 +919,21 @@ namespace OPRPCharBuild
 
 			listView_SubCat.Columns.Add("Begin", 50);
 			listView_SubCat.Columns.Add("End", 50);
-			listView_SubCat.Columns.Add("Category Name", 170);
+			listView_SubCat.Columns.Add("Category Name", 166);
 
 			// ------ Weaponry Table
 			listView_Weaponry.View = View.Details;
 			listView_Weaponry.FullRowSelect = true;
 
 			listView_Weaponry.Columns.Add("Name", 150);
-			listView_Weaponry.Columns.Add("Description", 550);
+			listView_Weaponry.Columns.Add("Description", 546);
 
 			// ------ Items Table
 			listView_Items.View = View.Details;
 			listView_Items.FullRowSelect = true;
 
 			listView_Items.Columns.Add("Name", 150);
-			listView_Items.Columns.Add("Description", 550);
+			listView_Items.Columns.Add("Description", 546);
 
 			// ------ Template
 			richTextBox_Template.Text = Sheet.BASIC_TEMPLATE;
@@ -949,7 +941,7 @@ namespace OPRPCharBuild
 		}
 
 		// --------------------------------------------------------------------------------------------
-		// "BASIC CHARACTER" Tab
+		// "BASIC INFORMATION" Tab
 		// --------------------------------------------------------------------------------------------
 
 		#region Basic Character Tab
@@ -998,7 +990,7 @@ namespace OPRPCharBuild
         private void numericUpDown_Comm_ValueChanged(object sender, EventArgs e) {
             comboBox_MarineRank.Items.Clear();
             if (numericUpDown_Comm.Value >= 300) {
-                string[] admiral = { "Fleet Admiral", "Admiral", "Vice Admiral" };
+                string[] admiral = { "Vice Admiral", "Admiral", "Fleet Admiral" };
                 comboBox_MarineRank.Items.AddRange(admiral);
             }
             else if (numericUpDown_Comm.Value >= 200) {
@@ -1084,59 +1076,6 @@ namespace OPRPCharBuild
 			MoveListBoxItem(1);
 		}
 
-		private void button4_ProfAdd_Click(object sender, EventArgs e) {
-			// Profession "Add" button from the MainForm
-			Add_Profession ProfessionWin = new Add_Profession();
-			ProfessionWin.NewDialog(ref dgv_Professions, ref profList);
-		}
-
-		private void button_ProfEdit_Click(object sender, EventArgs e) {
-            // Profession "Edit" button from the MainForm
-            // This is completely assuming that only one row can be selected (which we set MultiSelect = false)
-            try {
-                Add_Profession ProfessionWin = new Add_Profession();
-                ProfessionWin.EditDialog(ref dgv_Professions, ref profList);
-            }
-            catch (Exception ex) {
-                MessageBox.Show("Error in editing Profession.\nReason: " + ex.Message);
-            }
-		}
-
-		private void button5_ProfDelete_Click(object sender, EventArgs e) {
-			// Profession "Delete" button from the MainForm
-			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
-			try {
-                if (dgv_Professions.SelectedCells.Count > 0) {
-                    // Remove from Dict
-                    string prof = dgv_Professions.SelectedRows[0].Cells[0].Value.ToString();
-                    profList.Remove(prof);
-                    // Remove from dgv
-                    int remove_index = dgv_Professions.SelectedRows[0].Index;
-                    dgv_Professions.Rows.RemoveAt(remove_index);
-                    dgv_Professions.Refresh();
-                }
-            }
-			catch (Exception ex) {
-				MessageBox.Show("Error in deleting Profession.\nReason: " + ex.Message, "Exception Thrown");
-			}
-		}
-
-		private void button_UpProf_Click(object sender, EventArgs e) {
-			Move_DGV_Item(ref dgv_Professions, "Up");
-		}
-
-		private void button_DownProf_Click(object sender, EventArgs e) {
-            Move_DGV_Item(ref dgv_Professions, "Down");
-		}
-
-		#endregion
-
-		// --------------------------------------------------------------------------------------------
-		// "PHYSICAL APPEARANCE" Tab
-		// --------------------------------------------------------------------------------------------
-
-		#region Physical Appearance 
-
 		private void button_ImageUp_Click(object sender, EventArgs e) {
 			Move_List_Item(ref listView_Images, "Up");
 		}
@@ -1197,7 +1136,7 @@ namespace OPRPCharBuild
 			Delete_ListViewItem(ref listView_Images);
 		}
 
-		private void checkBox1_FullRes_CheckedChanged(object sender, EventArgs e) {
+		private void checkBox_FullRes_CheckedChanged(object sender, EventArgs e) {
 			if (!checkBox_FullRes.Checked) {
 				numericUpDown_Height.Enabled = true;
 				numericUpDown_Width.Enabled = true;
@@ -1217,7 +1156,7 @@ namespace OPRPCharBuild
 		// Nothing
 
 		// --------------------------------------------------------------------------------------------
-		// "COMBAT & STATS" Tab
+		// "COMBAT" Tab
 		// --------------------------------------------------------------------------------------------
 
 		#region Combat Tab
@@ -1280,77 +1219,17 @@ namespace OPRPCharBuild
 			Move_List_Item(ref listView_Items, "Down");
 		}
 
-		private string Commas_To_Value(uint beli) {
-			string val = beli.ToString();
-			for (int i = val.Length - 3; i > 0; i -= 3) {
-				// Inserting from right to left
-				val = val.Insert(i, ",");
-			}
-			return val;
-		}
+        #endregion
 
-		private void button_Standardize_Click(object sender, EventArgs e) {
-			DialogResult result = new DialogResult();
-			result = DialogResult.Yes;
-			result = MessageBox.Show("Is your character scooping in the Grand Line?", "Beli Standardization", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-			if (result != DialogResult.Cancel) {
-				int SD = (int)numericUpDown_SDEarned.Value;
-				uint beli = 500000;
-				string message = "You have " + SD + " SD earned. Calculations:\n+ 500,000 (Starting Beli)";
-				if (SD <= 50) {
-					beli += (uint)(250000 * SD);
-					message += "\n+ " + Commas_To_Value((uint)(250000 * SD)) + " (250,000 / SD for first 50)";
-				}
-				else {
-					beli += 250000 * 50;
-					message += "\n+ " + Commas_To_Value((uint)(250000 * 50)) + " (250,000 / SD for first 50)";
-				}
-				SD -= 50;
-				if (result == DialogResult.Yes) {
-					// In the GL, it's 500,000 per SD
-					if (SD > 0) {
-						beli += (uint)(500000 * SD);
-						message += "\n+ " + Commas_To_Value((uint)(500000 * SD)) + " (500,000 / SD in GL)";
-					}
-				}
-				else {
-					// In the Blues, it's 500,000 per SD
-					if (SD > 0) {
-						beli += (uint)(250000 * SD);
-						message += "\n+ " + Commas_To_Value((uint)(250000 * SD)) + " (250,000 / SD in GL)";
-					}
-				}
-				// Apply beli trait / professional boosts (do not stack)
-				bool perc_20 = false;
-                // Look for Traits bonus of 20%
-                if (traitList.ContainsKey("Pickpocket") || traitList.ContainsKey("Tough Bargainer")) {
-                    beli = (uint)(beli * 1.2);
-                    message += "\n+ " + Commas_To_Value((uint)(beli * 0.2)) + " (20% beli Trait Bonus)";
-                    perc_20 = true;
-                }
-				if (!perc_20) {
-					// Look for Thief primary bonus of 10%
-					if (Is_Prof_Primary("Thief")) {
-						beli = (uint)(beli * 1.1);
-						message += "\n+ " + Commas_To_Value((uint)(beli * 0.1)) + " (10% beli Thief Primary)";
-					}
-				}
-				// Show calculations
-				string final_beli = Commas_To_Value(beli);
-				message += "\n= " + final_beli + " (FINAL undeducted Value)";
-				MessageBox.Show(message, "Beli Standardized");
-				textBox_Beli.Text = final_beli;
-			}
-		}
+        // --------------------------------------------------------------------------------------------
+        // "RP ELEMENTS" Tab
+        // --------------------------------------------------------------------------------------------
 
-		#endregion
+        #region RP Elements Tab
 
-		#region Stats Tab
-
-		private void checkedListBox1_AP_SelectedIndexChanged(object sender, EventArgs e) {
+        private void checkedListBox1_AP_SelectedIndexChanged(object sender, EventArgs e) {
 			// To keep track of AP
 			Update_AP_Count();
-			checkedListBox1_AP.ClearSelected();
 			Update_TotalSD();
 			Update_Traits_Cap(); // For increasing Trait cap
 			Update_Total_RegTP(); // For Tech multiplier
@@ -1421,16 +1300,165 @@ namespace OPRPCharBuild
 			Update_BaseStats_Check();
 		}
 
-		#endregion
+        // Kept track of AP
+        private void numericUpDown_APTech_ValueChanged(object sender, EventArgs e) {
+            Update_AP_Count();
+            Update_TotalSD();
+            Update_Total_RegTP(); // For Tech multiplier
+        }
 
-		// --------------------------------------------------------------------------------------------
-		// "TRAITS" Tab
-		// --------------------------------------------------------------------------------------------
+        private void numericUpDown_APTrait_ValueChanged(object sender, EventArgs e) {
+            Update_AP_Count();
+            Update_TotalSD();
+            Update_Traits_Cap(); // For increasing Trait cap
+        }
 
-		#region Traits Tab
+        private void numericUpDown_APPrime_ValueChanged(object sender, EventArgs e) {
+            Update_AP_Count();
+            Update_TotalSD();
+        }
 
-		// Put name as None if we're deleting
-		private void All_Update_Functions_Traits() {
+        private void numericUpDown_APMulti_ValueChanged(object sender, EventArgs e) {
+            Update_AP_Count();
+            Update_TotalSD();
+        }
+
+        private void numericUpDown_APNPC_ValueChanged(object sender, EventArgs e) {
+            Update_AP_Count();
+            Update_TotalSD();
+        }
+
+        private void checkBox_APHaki_CheckedChanged(object sender, EventArgs e) {
+            Update_AP_Count();
+            Update_TotalSD();
+        }
+
+        private void checkBox_APDF_CheckedChanged(object sender, EventArgs e) {
+            Update_AP_Count();
+            Update_TotalSD();
+        }
+
+        // Helper function to event handler button_Standardize
+        private string Commas_To_Value(uint beli) {
+            string val = beli.ToString();
+            for (int i = val.Length - 3; i > 0; i -= 3) {
+                // Inserting from right to left
+                val = val.Insert(i, ",");
+            }
+            return val;
+        }
+
+        // Standardize beli button
+        private void button_Standardize_Click(object sender, EventArgs e) {
+            DialogResult result = new DialogResult();
+            result = DialogResult.Yes;
+            result = MessageBox.Show("Is your character scooping in the Grand Line?", "Beli Standardization", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (result != DialogResult.Cancel) {
+                int SD = (int)numericUpDown_SDEarned.Value;
+                uint beli = 500000;
+                string message = "You have " + SD + " SD earned. Calculations:\n+ 500,000 (Starting Beli)";
+                if (SD <= 50) {
+                    beli += (uint)(250000 * SD);
+                    message += "\n+ " + Commas_To_Value((uint)(250000 * SD)) + " (250,000 / SD for first 50)";
+                }
+                else {
+                    beli += 250000 * 50;
+                    message += "\n+ " + Commas_To_Value((uint)(250000 * 50)) + " (250,000 / SD for first 50)";
+                }
+                SD -= 50;
+                if (result == DialogResult.Yes) {
+                    // In the GL, it's 500,000 per SD
+                    if (SD > 0) {
+                        beli += (uint)(500000 * SD);
+                        message += "\n+ " + Commas_To_Value((uint)(500000 * SD)) + " (500,000 / SD in GL)";
+                    }
+                }
+                else {
+                    // In the Blues, it's 500,000 per SD
+                    if (SD > 0) {
+                        beli += (uint)(250000 * SD);
+                        message += "\n+ " + Commas_To_Value((uint)(250000 * SD)) + " (250,000 / SD in GL)";
+                    }
+                }
+                // Apply beli trait / professional boosts (do not stack)
+                bool perc_20 = false;
+                // Look for Traits bonus of 20%
+                if (traitList.ContainsKey("Pickpocket") || traitList.ContainsKey("Tough Bargainer")) {
+                    beli = (uint)(beli * 1.2);
+                    message += "\n+ " + Commas_To_Value((uint)(beli * 0.2)) + " (20% beli Trait Bonus)";
+                    perc_20 = true;
+                }
+                if (!perc_20) {
+                    // Look for Thief primary bonus of 10%
+                    if (Is_Prof_Primary("Thief")) {
+                        beli = (uint)(beli * 1.1);
+                        message += "\n+ " + Commas_To_Value((uint)(beli * 0.1)) + " (10% beli Thief Primary)";
+                    }
+                }
+                // Show calculations
+                string final_beli = Commas_To_Value(beli);
+                message += "\n= " + final_beli + " (FINAL undeducted Value)";
+                MessageBox.Show(message, "Beli Standardized");
+                textBox_Beli.Text = final_beli;
+            }
+        }
+
+        // Move a Profession up a row
+        private void button_UpProf_Click(object sender, EventArgs e) {
+            Move_DGV_Item(ref dgv_Professions, "Up");
+        }
+
+        // Move a Profession down a row
+        private void button_DownProf_Click(object sender, EventArgs e) {
+            Move_DGV_Item(ref dgv_Professions, "Down");
+        }
+
+        // Profession "Add" button from the MainForm
+        private void button_AddProf_Click(object sender, EventArgs e) {
+            Add_Profession ProfessionWin = new Add_Profession();
+            ProfessionWin.NewDialog(ref dgv_Professions, ref profList);
+        }
+
+        // Profession "Edit" button from the MainForm
+        // This is completely assuming that only one row can be selected (which we set MultiSelect = false)
+        private void button_EditProf_Click(object sender, EventArgs e) {
+            try {
+                Add_Profession ProfessionWin = new Add_Profession();
+                ProfessionWin.EditDialog(ref dgv_Professions, ref profList);
+            }
+            catch (Exception ex) {
+                MessageBox.Show("Error in editing Profession.\nReason: " + ex.Message);
+            }
+        }
+
+        // Profession "Delete" button from the MainForm
+        private void button_DeleteProf_Click(object sender, EventArgs e) {
+            try {
+                if (dgv_Professions.SelectedCells.Count > 0) {
+                    // Remove from Dict
+                    string prof = dgv_Professions.SelectedRows[0].Cells[0].Value.ToString();
+                    profList.Remove(prof);
+                    // Remove from dgv
+                    int remove_index = dgv_Professions.SelectedRows[0].Index;
+                    dgv_Professions.Rows.RemoveAt(remove_index);
+                    dgv_Professions.Refresh();
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show("Error in deleting Profession.\nReason: " + ex.Message, "Exception Thrown");
+            }
+        }
+
+        #endregion
+
+        // --------------------------------------------------------------------------------------------
+        // "TRAITS" Tab
+        // --------------------------------------------------------------------------------------------
+
+        #region Traits Tab
+
+        // Put name as None if we're deleting
+        private void All_Update_Functions_Traits() {
 			Update_Traits_Count_Label();
             Update_Fortune();
 			Update_Strength_Final();
@@ -1530,7 +1558,7 @@ namespace OPRPCharBuild
 		private void listView3_SpTP_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e) {
 			// Prevents users from changing column width
 			e.Cancel = true;
-			e.NewWidth = listView_SpTP.Columns[e.ColumnIndex].Width;
+			e.NewWidth = dgv_SpTraits.Columns[e.ColumnIndex].Width;
 		}
 
 		private void button14_TechAdd_Click(object sender, EventArgs e) {
@@ -1668,15 +1696,16 @@ namespace OPRPCharBuild
 			Update_CritAnatQuick_Msg();
 		}
 
-		private void dgv_Techniques_SelectedIndexChanged(object sender, EventArgs e) {
-			try {
-				int row = dgv_Techniques.SelectedRows[0].Index;
-				label_RowNum.Text = "Row " + row + " Selected";
-			}
-			catch {
-				label_RowNum.Text = "Select a Technique to see which Row it is in.";
-			}
-		}
+        // To indicate which Row is selected for Categories
+        private void dgv_Techniques_SelectionChanged(object sender, EventArgs e) {
+            try {
+                int row = dgv_Techniques.SelectedRows[0].Index;
+                label_RowNum.Text = "Row " + row + " Selected";
+            }
+            catch {
+                label_RowNum.Text = "Select a Technique to see which Row it is in.";
+            }
+        }
 
 		// Returns the Index of the listview_SubCat if the row is between any Row Begin and Row End
 		// Returns -1 if the row is not between any Row Begin and Row End
@@ -1779,34 +1808,7 @@ namespace OPRPCharBuild
 		}
 
         #endregion
-
-        #region Template Tab
-
-        private void button_LoadTemp_Click(object sender, EventArgs e) {
-            Import_Template();
-        }
-
-        private void button_ResetTemp_Click(object sender, EventArgs e) {
-			template_imported = false;
-			label_TemplateType.Text = STD_TEMPLATE_MSG;
-			label_TemplateType.ForeColor = Color.Green;
-			richTextBox_Template.Text = Sheet.BASIC_TEMPLATE;
-		}
-
-		private void button_MoreTemplate_Click(object sender, EventArgs e) {
-			try {
-				if (MessageBox.Show("Would you like to open a browser to the Zetaboard page?", "Custom Templates",
-					MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
-					Process.Start("http://s1.zetaboards.com/One_Piece_RP/topic/6153426/1/");
-                }
-            }
-			catch (Exception ex) {
-				MessageBox.Show("Error in opening up Zetaboards site.\nReason: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-		}
-
-        #endregion
-
+        
         // --------------------------------------------------------------------------------------------
         // "SOURCES" Tab
         // --------------------------------------------------------------------------------------------
@@ -1921,7 +1923,7 @@ namespace OPRPCharBuild
             fileDialogSaveProject.OverwritePrompt = true;
             if (fileDialogSaveProject.ShowDialog() == DialogResult.OK) {
                 try {
-                    string data = profile.saveCharSources(sourceList, radioButton_DateNA, true);
+                    string data = profile.saveCharSources(dgv_Sources, sourceList, radioButton_DateNA, true);
                     string path = fileDialogSaveProject.FileName;
                     string saveData = Serialize.encryptData(data, DEVH_KEY);
                     using (StreamWriter newTask = new StreamWriter(path, false)) {
@@ -1996,6 +1998,8 @@ namespace OPRPCharBuild
         // Comparator function for the sorting
         private int compareDates(object o1, object o2) {
             // Need to sort based on either NA or EU date
+            if (string.IsNullOrWhiteSpace(o1.ToString())) { return -1; }
+            if (string.IsNullOrWhiteSpace(o2.ToString())) { return 1; }
             int[] dateFormat = (radioButton_DateNA.Checked) ? new int[3] { 2, 0, 1 } : new int[3] { 2, 1, 0 };
             string[] date1 = o1.ToString().Split('/');
             string[] date2 = o2.ToString().Split('/');
@@ -2010,6 +2014,37 @@ namespace OPRPCharBuild
             }
             return result;
         }
+
+        #endregion
+
+        // --------------------------------------------------------------------------------------------
+        // "TEMPLATE" Tab
+        // --------------------------------------------------------------------------------------------
+
+        #region Template Tab
+
+        private void button_LoadTemp_Click(object sender, EventArgs e) {
+            Import_Template();
+        }
+
+        private void button_ResetTemp_Click(object sender, EventArgs e) {
+			template_imported = false;
+			label_TemplateType.Text = STD_TEMPLATE_MSG;
+			label_TemplateType.ForeColor = Color.Green;
+			richTextBox_Template.Text = Sheet.BASIC_TEMPLATE;
+		}
+
+		private void button_MoreTemplate_Click(object sender, EventArgs e) {
+			try {
+				if (MessageBox.Show("Would you like to open a browser to the Zetaboard page?", "Custom Templates",
+					MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
+					Process.Start("http://s1.zetaboards.com/One_Piece_RP/topic/6153426/1/");
+                }
+            }
+			catch (Exception ex) {
+				MessageBox.Show("Error in opening up Zetaboards site.\nReason: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
 
         #endregion
 
@@ -2037,7 +2072,6 @@ namespace OPRPCharBuild
 			dgv_Professions.Rows.Clear();
             dgv_Professions.Refresh();
 			profList.Clear();
-			// Physical Appearance
 			textBox_Height.Clear();
 			textBox_Weight.Clear();
 			richTextBox_Hair.Clear();
@@ -2048,6 +2082,8 @@ namespace OPRPCharBuild
 			textBox_ImageURL.Clear();
 			textBox_ImageLabel.Clear();
 			checkBox_FullRes.Checked = true;
+            numericUpDown_Width.Value = 640;
+            numericUpDown_Height.Value = 480;
 			// Background
 			textBox_Island.Clear();
 			comboBox_Region.SelectedIndex = -1;
@@ -2066,9 +2102,13 @@ namespace OPRPCharBuild
 			// Stats
 			numericUpDown_SDEarned.Value = 0;
 			numericUpDown_SDintoStats.Value = 0;
-			for (int i = 0; i < checkedListBox1_AP.Items.Count; ++i) {
-				checkedListBox1_AP.SetItemChecked(i, false);
-			}
+            numericUpDown_APTech.Value = 0;
+            numericUpDown_APTrait.Value = 0;
+            numericUpDown_APPrime.Value = 0;
+            numericUpDown_APMulti.Value = 0;
+            numericUpDown_APNPC.Value = 0;
+            checkBox_APHaki.Checked = false;
+            checkBox_APDF.Checked = false;
 			textBox_AP.Text = "0";
             textBox_Focus.Text = "0";
 			numericUpDown_UsedForFort.Value = 0;
@@ -2081,7 +2121,8 @@ namespace OPRPCharBuild
             dgv_Traits.Refresh();
 			traitList.Clear();
             // Techniques
-			listView_SpTP.Items.Clear();
+			dgv_SpTraits.Rows.Clear();
+            dgv_SpTraits.Refresh();
             spTraitList.Clear();
             label_CritAnatQuick.Text = "";
 			dgv_Techniques.Rows.Clear();
@@ -2106,8 +2147,8 @@ namespace OPRPCharBuild
 			Update_Speed_Final();
 			Update_Stamina_Final();
 			Update_Accuracy_Final();
-			Update_Traits_Count_Label();
-			Update_Traits_Cap();
+            Update_Traits_Cap();
+            Update_Traits_Count_Label();
 			Update_Total_RegTP();
 			Update_Used_RegTP();
             textBox_SpTPTotal.Text = "0";
@@ -2130,6 +2171,7 @@ namespace OPRPCharBuild
 				comboBox_MarineRank.Text,
 				textBox_Threat.Text,
 				listBox_Achieve,
+                dgv_Professions,
 				profList
 				);
 			profile.saveCharAppearance(
@@ -2161,16 +2203,22 @@ namespace OPRPCharBuild
 			profile.saveCharStats(
 				(int)numericUpDown_SDEarned.Value,
 				(int)numericUpDown_SDintoStats.Value,
-				checkedListBox1_AP,
 				(int)numericUpDown_UsedForFort.Value,
 				(int)numericUpDown_StrengthBase.Value,
 				(int)numericUpDown_SpeedBase.Value,
 				(int)numericUpDown_StaminaBase.Value,
-				(int)numericUpDown_AccuracyBase.Value
+				(int)numericUpDown_AccuracyBase.Value,
+                (int)numericUpDown_APTech.Value,
+                (int)numericUpDown_APTrait.Value,
+                (int)numericUpDown_APPrime.Value,
+                (int)numericUpDown_APMulti.Value,
+                (int)numericUpDown_APNPC.Value,
+                checkBox_APHaki.Checked,
+                checkBox_APDF.Checked
 				);
-			profile.saveCharTraits(traitList);
-			profile.saveCharTechs(techList, listView_SubCat);
-            profile.saveCharSources(sourceList, radioButton_DateNA, false);
+			profile.saveCharTraits(dgv_Traits, traitList);
+			profile.saveCharTechs(techList, dgv_Techniques, listView_SubCat);
+            profile.saveCharSources(dgv_Sources, sourceList, radioButton_DateNA, false);
             profile.saveCharTemplate(
                 label_TemplateType.Text,
                 richTextBox_Template.Text,
@@ -2194,9 +2242,7 @@ namespace OPRPCharBuild
 			  ref numericUpDown_Comm,
 			  ref comboBox_MarineRank,
 			  ref textBox_Threat,
-			  ref listBox_Achieve,
-			  ref dgv_Professions,
-              ref profList
+			  ref listBox_Achieve
 			  );
 			}
 			catch (Exception ex) { MessageBox.Show("Load Basic Character Error.\nReason: " + ex.Message); }
@@ -2226,7 +2272,6 @@ namespace OPRPCharBuild
 			  ref richTextBox_Combat,
 			  ref listView_Weaponry,
 			  ref listView_Items,
-			  ref textBox_Beli,
 			  ref textBox_DFName,
 			  ref comboBox_DFType,
               ref comboBox_DFTier,
@@ -2237,15 +2282,24 @@ namespace OPRPCharBuild
 
 			catch (Exception ex) { MessageBox.Show("Load Combat and Abilities Error.\nReason: " + ex.Message); }
             try {
-                profile.loadCharStats(
+                profile.loadCharRPElements(
                 ref numericUpDown_SDEarned,
                 ref numericUpDown_SDintoStats,
-                ref checkedListBox1_AP,
                 ref numericUpDown_UsedForFort,
                 ref numericUpDown_StrengthBase,
                 ref numericUpDown_SpeedBase,
                 ref numericUpDown_StaminaBase,
-                ref numericUpDown_AccuracyBase
+                ref numericUpDown_AccuracyBase,
+                ref numericUpDown_APTech,
+                ref numericUpDown_APTrait,
+                ref numericUpDown_APPrime,
+                ref numericUpDown_APMulti,
+                ref numericUpDown_APNPC,
+                ref checkBox_APHaki,
+                ref checkBox_APDF,
+                ref textBox_Beli,
+                ref dgv_Professions,
+                ref profList
                 );
             }
             catch (Exception ex) { MessageBox.Show("Load Stats Error.\nReason: " + ex.Message); }
@@ -2263,7 +2317,7 @@ namespace OPRPCharBuild
                     ref techList,
                     ref dgv_Techniques,
                     ref spTraitList,
-                    ref listView_SpTP,
+                    ref dgv_SpTraits,
                     ref listView_SubCat
                     );
             }
@@ -2500,12 +2554,20 @@ namespace OPRPCharBuild
 			Sheet sheet = new Sheet(1, richTextBox_Template.Text, techList);
 			Load_CustomTags_Dict();
 			Sheet.color_hex = textBox_Color.Text;
+            List<int> AP_Numbers = new List<int>();
+            AP_Numbers.Add((int)numericUpDown_APTech.Value);
+            AP_Numbers.Add((int)numericUpDown_APTrait.Value * 2);
+            AP_Numbers.Add((int)numericUpDown_APPrime.Value);
+            AP_Numbers.Add((int)numericUpDown_APMulti.Value);
+            AP_Numbers.Add((int)numericUpDown_APNPC.Value);
+            AP_Numbers.Add((checkBox_APHaki.Checked) ? 2 : 0);
+            AP_Numbers.Add((checkBox_APDF.Checked) ? 1 : 0);
 			sheet.Generate_Template(listBox_Achieve, 
                 profList, 
                 listView_Images, 
                 listView_Weaponry, 
                 listView_Items, 
-                checkedListBox1_AP,
+                AP_Numbers,
 				traitList, 
                 spTraitList, 
                 dgv_Techniques, 

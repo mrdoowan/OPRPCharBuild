@@ -58,6 +58,8 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label_MaxRank = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.numericUpDown_AE = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
             this.button_Rokushiki = new System.Windows.Forms.Button();
             this.textBox_StaticRokuMsg = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -95,20 +97,20 @@
             this.checkBox_ZoanSig = new System.Windows.Forms.CheckBox();
             this.checkBox_DFRank4 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkBox_Fuel3 = new System.Windows.Forms.CheckBox();
-            this.checkBox_Fuel2 = new System.Windows.Forms.CheckBox();
             this.label_Cyborg = new System.Windows.Forms.Label();
             this.toolTips = new System.Windows.Forms.ToolTip(this.components);
             this.label_TechFormMsg = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.checkBox_Fuel1 = new System.Windows.Forms.CheckBox();
             this.toolTip_Roku = new System.Windows.Forms.ToolTip(this.components);
-            this.label_Focus = new System.Windows.Forms.Label();
+            this.radioButton_Fuel1 = new System.Windows.Forms.RadioButton();
+            this.radioButton_Fuel2 = new System.Windows.Forms.RadioButton();
+            this.radioButton_Fuel3 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SpTP)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_AE)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -161,6 +163,7 @@
             this.numericUpDown_Rank.Name = "numericUpDown_Rank";
             this.numericUpDown_Rank.Size = new System.Drawing.Size(42, 20);
             this.numericUpDown_Rank.TabIndex = 30;
+            this.numericUpDown_Rank.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown_Rank.Value = new decimal(new int[] {
             1,
             0,
@@ -172,7 +175,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label2.Location = new System.Drawing.Point(169, 47);
+            this.label2.Location = new System.Drawing.Point(171, 47);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(102, 13);
             this.label2.TabIndex = 31;
@@ -245,6 +248,7 @@
             this.numericUpDown_RankBranch.Name = "numericUpDown_RankBranch";
             this.numericUpDown_RankBranch.Size = new System.Drawing.Size(42, 20);
             this.numericUpDown_RankBranch.TabIndex = 38;
+            this.numericUpDown_RankBranch.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown_RankBranch.ValueChanged += new System.EventHandler(this.numericUpDown_RankBranch_ValueChanged);
             // 
             // label6
@@ -269,6 +273,7 @@
             this.numericUpDown_RegTP.Name = "numericUpDown_RegTP";
             this.numericUpDown_RegTP.Size = new System.Drawing.Size(42, 20);
             this.numericUpDown_RegTP.TabIndex = 40;
+            this.numericUpDown_RegTP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label7
             // 
@@ -293,6 +298,7 @@
             this.numericUpDown_SpTP.Name = "numericUpDown_SpTP";
             this.numericUpDown_SpTP.Size = new System.Drawing.Size(42, 20);
             this.numericUpDown_SpTP.TabIndex = 42;
+            this.numericUpDown_SpTP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown_SpTP.ValueChanged += new System.EventHandler(this.numericUpDown_SpTP_ValueChanged);
             // 
             // label_SpTraitUsed
@@ -453,16 +459,17 @@
             // 
             // label_MaxRank
             // 
-            this.label_MaxRank.Location = new System.Drawing.Point(93, 18);
+            this.label_MaxRank.Location = new System.Drawing.Point(176, 19);
             this.label_MaxRank.Name = "label_MaxRank";
             this.label_MaxRank.Size = new System.Drawing.Size(97, 19);
             this.label_MaxRank.TabIndex = 65;
             this.label_MaxRank.Text = "[Max Rank: 0]";
-            this.label_MaxRank.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_MaxRank.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label_Focus);
+            this.groupBox1.Controls.Add(this.numericUpDown_AE);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.button_Rokushiki);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.numericUpDown_Rank);
@@ -484,6 +491,40 @@
             this.groupBox1.TabIndex = 69;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "TP and Rank";
+            // 
+            // numericUpDown_AE
+            // 
+            this.numericUpDown_AE.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericUpDown_AE.Location = new System.Drawing.Point(93, 19);
+            this.numericUpDown_AE.Maximum = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            this.numericUpDown_AE.Name = "numericUpDown_AE";
+            this.numericUpDown_AE.Size = new System.Drawing.Size(42, 20);
+            this.numericUpDown_AE.TabIndex = 79;
+            this.numericUpDown_AE.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDown_AE.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label8.Location = new System.Drawing.Point(141, 21);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(21, 13);
+            this.label8.TabIndex = 78;
+            this.label8.Text = "AE";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // button_Rokushiki
             // 
@@ -666,6 +707,7 @@
             this.textBox_Power.Size = new System.Drawing.Size(27, 20);
             this.textBox_Power.TabIndex = 112;
             this.textBox_Power.Text = "0";
+            this.textBox_Power.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolTip_Roku.SetToolTip(this.textBox_Power, "Power has been calculated to the best of its ability. Only edit if you\'re sure it" +
         "\'s incorrect.");
             this.toolTips.SetToolTip(this.textBox_Power, "Power has been calculated to the best of its ability. Only edit if you\'re sure it" +
@@ -706,7 +748,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label17.Location = new System.Drawing.Point(215, 18);
+            this.label17.Location = new System.Drawing.Point(209, 18);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(28, 13);
             this.label17.TabIndex = 109;
@@ -724,6 +766,7 @@
             this.numericUpDown_Cost.Name = "numericUpDown_Cost";
             this.numericUpDown_Cost.Size = new System.Drawing.Size(45, 20);
             this.numericUpDown_Cost.TabIndex = 108;
+            this.numericUpDown_Cost.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolTips.SetToolTip(this.numericUpDown_Cost, "REMINDER: Only change this value if different Tiers or utilizing Rokushiki Master" +
         "");
             // 
@@ -944,36 +987,12 @@
             this.label3.TabIndex = 82;
             this.label3.Text = "______________________";
             // 
-            // checkBox_Fuel3
-            // 
-            this.checkBox_Fuel3.AutoSize = true;
-            this.checkBox_Fuel3.Enabled = false;
-            this.checkBox_Fuel3.Location = new System.Drawing.Point(328, 23);
-            this.checkBox_Fuel3.Name = "checkBox_Fuel3";
-            this.checkBox_Fuel3.Size = new System.Drawing.Size(91, 17);
-            this.checkBox_Fuel3.TabIndex = 114;
-            this.checkBox_Fuel3.Text = "3 Fuel Stacks";
-            this.checkBox_Fuel3.UseVisualStyleBackColor = true;
-            this.checkBox_Fuel3.CheckedChanged += new System.EventHandler(this.checkBox_Fuel3_CheckedChanged);
-            // 
-            // checkBox_Fuel2
-            // 
-            this.checkBox_Fuel2.AutoSize = true;
-            this.checkBox_Fuel2.Enabled = false;
-            this.checkBox_Fuel2.Location = new System.Drawing.Point(218, 23);
-            this.checkBox_Fuel2.Name = "checkBox_Fuel2";
-            this.checkBox_Fuel2.Size = new System.Drawing.Size(91, 17);
-            this.checkBox_Fuel2.TabIndex = 113;
-            this.checkBox_Fuel2.Text = "2 Fuel Stacks";
-            this.checkBox_Fuel2.UseVisualStyleBackColor = true;
-            this.checkBox_Fuel2.CheckedChanged += new System.EventHandler(this.checkBox_Fuel2_CheckedChanged);
-            // 
             // label_Cyborg
             // 
             this.label_Cyborg.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_Cyborg.Location = new System.Drawing.Point(8, 14);
+            this.label_Cyborg.Location = new System.Drawing.Point(6, 16);
             this.label_Cyborg.Name = "label_Cyborg";
-            this.label_Cyborg.Size = new System.Drawing.Size(92, 32);
+            this.label_Cyborg.Size = new System.Drawing.Size(140, 24);
             this.label_Cyborg.TabIndex = 112;
             this.label_Cyborg.Text = "[No Cyborg Trait]";
             this.label_Cyborg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -998,27 +1017,16 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.checkBox_Fuel1);
-            this.groupBox7.Controls.Add(this.checkBox_Fuel3);
-            this.groupBox7.Controls.Add(this.checkBox_Fuel2);
             this.groupBox7.Controls.Add(this.label_Cyborg);
+            this.groupBox7.Controls.Add(this.radioButton_Fuel3);
+            this.groupBox7.Controls.Add(this.radioButton_Fuel2);
+            this.groupBox7.Controls.Add(this.radioButton_Fuel1);
             this.groupBox7.Location = new System.Drawing.Point(453, 245);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(435, 48);
             this.groupBox7.TabIndex = 76;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Cyborg Traits";
-            // 
-            // checkBox_Fuel1
-            // 
-            this.checkBox_Fuel1.AutoSize = true;
-            this.checkBox_Fuel1.Enabled = false;
-            this.checkBox_Fuel1.Location = new System.Drawing.Point(106, 23);
-            this.checkBox_Fuel1.Name = "checkBox_Fuel1";
-            this.checkBox_Fuel1.Size = new System.Drawing.Size(86, 17);
-            this.checkBox_Fuel1.TabIndex = 115;
-            this.checkBox_Fuel1.Text = "1 Fuel Stack";
-            this.checkBox_Fuel1.UseVisualStyleBackColor = true;
             // 
             // toolTip_Roku
             // 
@@ -1027,14 +1035,44 @@
             this.toolTip_Roku.InitialDelay = 50;
             this.toolTip_Roku.ReshowDelay = 100;
             // 
-            // label_Focus
+            // radioButton_Fuel1
             // 
-            this.label_Focus.Location = new System.Drawing.Point(196, 18);
-            this.label_Focus.Name = "label_Focus";
-            this.label_Focus.Size = new System.Drawing.Size(75, 19);
-            this.label_Focus.TabIndex = 77;
-            this.label_Focus.Text = "[Focus: 0]";
-            this.label_Focus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.radioButton_Fuel1.AutoSize = true;
+            this.radioButton_Fuel1.Enabled = false;
+            this.radioButton_Fuel1.Location = new System.Drawing.Point(152, 20);
+            this.radioButton_Fuel1.Name = "radioButton_Fuel1";
+            this.radioButton_Fuel1.Size = new System.Drawing.Size(85, 17);
+            this.radioButton_Fuel1.TabIndex = 116;
+            this.radioButton_Fuel1.TabStop = true;
+            this.radioButton_Fuel1.Text = "1 Fuel Stack";
+            this.radioButton_Fuel1.UseVisualStyleBackColor = true;
+            this.radioButton_Fuel1.CheckedChanged += new System.EventHandler(this.radioButton_Fuel1_CheckedChanged);
+            // 
+            // radioButton_Fuel2
+            // 
+            this.radioButton_Fuel2.AutoSize = true;
+            this.radioButton_Fuel2.Enabled = false;
+            this.radioButton_Fuel2.Location = new System.Drawing.Point(243, 20);
+            this.radioButton_Fuel2.Name = "radioButton_Fuel2";
+            this.radioButton_Fuel2.Size = new System.Drawing.Size(90, 17);
+            this.radioButton_Fuel2.TabIndex = 117;
+            this.radioButton_Fuel2.TabStop = true;
+            this.radioButton_Fuel2.Text = "2 Fuel Stacks";
+            this.radioButton_Fuel2.UseVisualStyleBackColor = true;
+            this.radioButton_Fuel2.CheckedChanged += new System.EventHandler(this.radioButton_Fuel2_CheckedChanged);
+            // 
+            // radioButton_Fuel3
+            // 
+            this.radioButton_Fuel3.AutoSize = true;
+            this.radioButton_Fuel3.Enabled = false;
+            this.radioButton_Fuel3.Location = new System.Drawing.Point(339, 20);
+            this.radioButton_Fuel3.Name = "radioButton_Fuel3";
+            this.radioButton_Fuel3.Size = new System.Drawing.Size(90, 17);
+            this.radioButton_Fuel3.TabIndex = 118;
+            this.radioButton_Fuel3.TabStop = true;
+            this.radioButton_Fuel3.Text = "3 Fuel Stacks";
+            this.radioButton_Fuel3.UseVisualStyleBackColor = true;
+            this.radioButton_Fuel3.CheckedChanged += new System.EventHandler(this.radioButton_Fuel3_CheckedChanged);
             // 
             // Add_Technique
             // 
@@ -1066,6 +1104,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SpTP)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_AE)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -1140,8 +1179,6 @@
 		private System.Windows.Forms.CheckBox checkBox_DFEffect;
 		private System.Windows.Forms.CheckBox checkBox_DFTechEnable;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.CheckBox checkBox_Fuel3;
-		private System.Windows.Forms.CheckBox checkBox_Fuel2;
 		private System.Windows.Forms.Label label_Cyborg;
 		private System.Windows.Forms.CheckBox checkBox_SigTech;
 		private System.Windows.Forms.TextBox textBox_Power;
@@ -1149,7 +1186,6 @@
 		private System.Windows.Forms.Button button_Rokushiki;
 		private System.Windows.Forms.Label label_TechFormMsg;
 		private System.Windows.Forms.GroupBox groupBox7;
-		private System.Windows.Forms.CheckBox checkBox_Fuel1;
 		private System.Windows.Forms.ToolTip toolTip_Roku;
 		private System.Windows.Forms.TextBox textBox_StaticRokuMsg;
 		private System.Windows.Forms.RichTextBox richTextBox_DF;
@@ -1162,6 +1198,10 @@
         private System.Windows.Forms.ComboBox comboBox_StatOpt;
         private System.Windows.Forms.TextBox textBox_Stats;
         private System.Windows.Forms.Button button_ResetStats;
-        private System.Windows.Forms.Label label_Focus;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown numericUpDown_AE;
+        private System.Windows.Forms.RadioButton radioButton_Fuel3;
+        private System.Windows.Forms.RadioButton radioButton_Fuel2;
+        private System.Windows.Forms.RadioButton radioButton_Fuel1;
     }
 }
