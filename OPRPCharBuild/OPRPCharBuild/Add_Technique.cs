@@ -1147,9 +1147,21 @@ namespace OPRPCharBuild
 			}
 		}
 
-		// Remember this requirement: Secondary Elite Effect is ALWAYS below a General Effect
-		// Also remember: EffectList.Remove(key) ONLY
-		private void button_EffectRemove_Click(object sender, EventArgs e) {
+        // Helper function to delete a ListViewItem
+        public string Delete_ListViewItem(ref ListView list) {
+            if (list.SelectedItems.Count == 1) {
+                string key = list.SelectedItems[0].SubItems[0].Text;    // Typically the key value is always the name
+                foreach (ListViewItem eachItem in list.SelectedItems) {
+                    list.Items.Remove(eachItem);
+                }
+                return key;
+            }
+            return null;
+        }
+
+        // Remember this requirement: Secondary Elite Effect is ALWAYS below a General Effect
+        // Also remember: EffectList.Remove(key) ONLY
+        private void button_EffectRemove_Click(object sender, EventArgs e) {
 			// "Remove" an Effect
 			if (listView_Effects.SelectedIndices.Count > 0) {
 				if (listView_Effects.SelectedItems[0].SubItems[0].Text == Database.EFF_SECON) {
@@ -1157,7 +1169,7 @@ namespace OPRPCharBuild
 						MessageBoxButtons.OK, MessageBoxIcon.Error);
 					return;
 				}
-				string effect = MainForm.Delete_ListViewItem(ref listView_Effects);
+				string effect = Delete_ListViewItem(ref listView_Effects);
 				if (!string.IsNullOrWhiteSpace(effect)) {
                     // That means we deleted an Effect from the ListView. 
                     // Now we must 1) Check for General and 2) Remove Effect from Dict.

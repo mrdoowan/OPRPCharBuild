@@ -31,10 +31,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -46,11 +46,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label_Title = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControl_Tech = new System.Windows.Forms.TabControl();
             this.tabPage_Basic = new System.Windows.Forms.TabPage();
-            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.groupBox_Appearance = new System.Windows.Forms.GroupBox();
             this.button_ImageEdit = new System.Windows.Forms.Button();
             this.button_ImageDelete = new System.Windows.Forms.Button();
             this.button_ImageAdd = new System.Windows.Forms.Button();
@@ -71,7 +70,7 @@
             this.label86 = new System.Windows.Forms.Label();
             this.richTextBox_Clothing = new System.Windows.Forms.RichTextBox();
             this.label87 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox_Features = new System.Windows.Forms.GroupBox();
             this.richTextBox_Eye = new System.Windows.Forms.RichTextBox();
             this.richTextBox_Hair = new System.Windows.Forms.RichTextBox();
             this.textBox_Weight = new System.Windows.Forms.TextBox();
@@ -80,14 +79,14 @@
             this.label65 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label76 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox_Achieve = new System.Windows.Forms.GroupBox();
             this.button_DownAchieve = new System.Windows.Forms.Button();
             this.button_AchieveEdit = new System.Windows.Forms.Button();
             this.button_UpAchieve = new System.Windows.Forms.Button();
             this.button_AchieveAdd = new System.Windows.Forms.Button();
             this.button_AchieveDelete = new System.Windows.Forms.Button();
             this.listBox_Achieve = new System.Windows.Forms.ListBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox_BasicInfo = new System.Windows.Forms.GroupBox();
             this.numericUpDown_Comm = new System.Windows.Forms.NumericUpDown();
             this.comboBox_MarineRank = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -111,7 +110,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage_Background = new System.Windows.Forms.TabPage();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.groupBox_Background = new System.Windows.Forms.GroupBox();
             this.richTextBox_History = new System.Windows.Forms.RichTextBox();
             this.richTextBox_Personality = new System.Windows.Forms.RichTextBox();
             this.label24 = new System.Windows.Forms.Label();
@@ -121,7 +120,7 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.tabPage_Abilities = new System.Windows.Forms.TabPage();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.groupBox_DevilFruit = new System.Windows.Forms.GroupBox();
             this.comboBox_DFTier = new System.Windows.Forms.ComboBox();
             this.label42 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
@@ -134,7 +133,7 @@
             this.label51 = new System.Windows.Forms.Label();
             this.label50 = new System.Windows.Forms.Label();
             this.textBox_DFName = new System.Windows.Forms.TextBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.groupBox_Combat = new System.Windows.Forms.GroupBox();
             this.button_DownItem = new System.Windows.Forms.Button();
             this.button_UpItem = new System.Windows.Forms.Button();
             this.button_DownWeapon = new System.Windows.Forms.Button();
@@ -152,7 +151,7 @@
             this.richTextBox_Combat = new System.Windows.Forms.RichTextBox();
             this.label26 = new System.Windows.Forms.Label();
             this.tabPage_RP = new System.Windows.Forms.TabPage();
-            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.groupBox_Profession = new System.Windows.Forms.GroupBox();
             this.dgv_Professions = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -164,11 +163,11 @@
             this.button_UpProf = new System.Windows.Forms.Button();
             this.button_DeleteProf = new System.Windows.Forms.Button();
             this.button_AddProf = new System.Windows.Forms.Button();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.groupBox_Stats = new System.Windows.Forms.GroupBox();
             this.button_Standardize = new System.Windows.Forms.Button();
             this.textBox_Beli = new System.Windows.Forms.TextBox();
             this.label60 = new System.Windows.Forms.Label();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.groupBox_AP = new System.Windows.Forms.GroupBox();
             this.label59 = new System.Windows.Forms.Label();
             this.textBox_AP = new System.Windows.Forms.TextBox();
             this.checkBox_APDF = new System.Windows.Forms.CheckBox();
@@ -224,7 +223,7 @@
             this.numericUpDown_SDEarned = new System.Windows.Forms.NumericUpDown();
             this.label81 = new System.Windows.Forms.Label();
             this.tabPage_Traits = new System.Windows.Forms.TabPage();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.groupBox_Traits = new System.Windows.Forms.GroupBox();
             this.dgv_Traits = new System.Windows.Forms.DataGridView();
             this.Trait_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Trait_Custom = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -241,7 +240,7 @@
             this.button_TraitsDelete = new System.Windows.Forms.Button();
             this.button_TraitAdd = new System.Windows.Forms.Button();
             this.tabPage_Techniques = new System.Windows.Forms.TabPage();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.groupBox_Categories = new System.Windows.Forms.GroupBox();
             this.label41 = new System.Windows.Forms.Label();
             this.button_SubCatEdit = new System.Windows.Forms.Button();
             this.label_RowNum = new System.Windows.Forms.Label();
@@ -291,7 +290,7 @@
             this.textBox_RegTPUsed = new System.Windows.Forms.TextBox();
             this.label61 = new System.Windows.Forms.Label();
             this.tabPage_Sources = new System.Windows.Forms.TabPage();
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.groupBox_Sources = new System.Windows.Forms.GroupBox();
             this.checkBox_CalcBeli = new System.Windows.Forms.CheckBox();
             this.label44 = new System.Windows.Forms.Label();
             this.radioButton_DateEU = new System.Windows.Forms.RadioButton();
@@ -313,17 +312,18 @@
             this.tabPage_Template = new System.Windows.Forms.TabPage();
             this.button_LoadTemp = new System.Windows.Forms.Button();
             this.button_MoreTemplate = new System.Windows.Forms.Button();
-            this.label49 = new System.Windows.Forms.Label();
             this.textBox_MasteryMsg = new System.Windows.Forms.TextBox();
             this.label53 = new System.Windows.Forms.Label();
             this.button_ResetTemp = new System.Windows.Forms.Button();
-            this.label48 = new System.Windows.Forms.Label();
             this.textBox_Color = new System.Windows.Forms.TextBox();
             this.label47 = new System.Windows.Forms.Label();
             this.richTextBox_Template = new System.Windows.Forms.RichTextBox();
-            this.label46 = new System.Windows.Forms.Label();
+            this.groupBox_Template = new System.Windows.Forms.GroupBox();
             this.label_TemplateType = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
+            this.label48 = new System.Windows.Forms.Label();
             this.button_Generate = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -335,26 +335,26 @@
             this.toolStripButton_Open = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_Save = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_SaveAs = new System.Windows.Forms.ToolStripButton();
-            this.tabControl1.SuspendLayout();
+            this.tabControl_Tech.SuspendLayout();
             this.tabPage_Basic.SuspendLayout();
-            this.groupBox16.SuspendLayout();
+            this.groupBox_Appearance.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Height)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Width)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBox_Features.SuspendLayout();
+            this.groupBox_Achieve.SuspendLayout();
+            this.groupBox_BasicInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Comm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Age)).BeginInit();
             this.tabPage_Background.SuspendLayout();
-            this.groupBox6.SuspendLayout();
+            this.groupBox_Background.SuspendLayout();
             this.tabPage_Abilities.SuspendLayout();
-            this.groupBox9.SuspendLayout();
-            this.groupBox7.SuspendLayout();
+            this.groupBox_DevilFruit.SuspendLayout();
+            this.groupBox_Combat.SuspendLayout();
             this.tabPage_RP.SuspendLayout();
-            this.groupBox15.SuspendLayout();
+            this.groupBox_Profession.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Professions)).BeginInit();
-            this.groupBox12.SuspendLayout();
-            this.groupBox14.SuspendLayout();
+            this.groupBox_Stats.SuspendLayout();
+            this.groupBox_AP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APNPC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APMulti)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APPrime)).BeginInit();
@@ -368,19 +368,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SDintoStats)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SDEarned)).BeginInit();
             this.tabPage_Traits.SuspendLayout();
-            this.groupBox10.SuspendLayout();
+            this.groupBox_Traits.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Traits)).BeginInit();
             this.tabPage_Techniques.SuspendLayout();
-            this.groupBox8.SuspendLayout();
+            this.groupBox_Categories.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowBegin)).BeginInit();
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_SpTraits)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Techniques)).BeginInit();
             this.tabPage_Sources.SuspendLayout();
-            this.groupBox13.SuspendLayout();
+            this.groupBox_Sources.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Sources)).BeginInit();
             this.tabPage_Template.SuspendLayout();
+            this.groupBox_Template.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -394,29 +395,29 @@
             this.label_Title.Text = "Title";
             this.label_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tabControl1
+            // tabControl_Tech
             // 
-            this.tabControl1.Controls.Add(this.tabPage_Basic);
-            this.tabControl1.Controls.Add(this.tabPage_Background);
-            this.tabControl1.Controls.Add(this.tabPage_Abilities);
-            this.tabControl1.Controls.Add(this.tabPage_RP);
-            this.tabControl1.Controls.Add(this.tabPage_Traits);
-            this.tabControl1.Controls.Add(this.tabPage_Techniques);
-            this.tabControl1.Controls.Add(this.tabPage_Sources);
-            this.tabControl1.Controls.Add(this.tabPage_Template);
-            this.tabControl1.Location = new System.Drawing.Point(12, 130);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(843, 504);
-            this.tabControl1.TabIndex = 4;
+            this.tabControl_Tech.Controls.Add(this.tabPage_Basic);
+            this.tabControl_Tech.Controls.Add(this.tabPage_Background);
+            this.tabControl_Tech.Controls.Add(this.tabPage_Abilities);
+            this.tabControl_Tech.Controls.Add(this.tabPage_RP);
+            this.tabControl_Tech.Controls.Add(this.tabPage_Traits);
+            this.tabControl_Tech.Controls.Add(this.tabPage_Techniques);
+            this.tabControl_Tech.Controls.Add(this.tabPage_Sources);
+            this.tabControl_Tech.Controls.Add(this.tabPage_Template);
+            this.tabControl_Tech.Location = new System.Drawing.Point(12, 130);
+            this.tabControl_Tech.Name = "tabControl_Tech";
+            this.tabControl_Tech.SelectedIndex = 0;
+            this.tabControl_Tech.Size = new System.Drawing.Size(843, 504);
+            this.tabControl_Tech.TabIndex = 4;
             // 
             // tabPage_Basic
             // 
             this.tabPage_Basic.AutoScroll = true;
-            this.tabPage_Basic.Controls.Add(this.groupBox16);
-            this.tabPage_Basic.Controls.Add(this.groupBox3);
-            this.tabPage_Basic.Controls.Add(this.groupBox2);
-            this.tabPage_Basic.Controls.Add(this.groupBox1);
+            this.tabPage_Basic.Controls.Add(this.groupBox_Appearance);
+            this.tabPage_Basic.Controls.Add(this.groupBox_Features);
+            this.tabPage_Basic.Controls.Add(this.groupBox_Achieve);
+            this.tabPage_Basic.Controls.Add(this.groupBox_BasicInfo);
             this.tabPage_Basic.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Basic.Name = "tabPage_Basic";
             this.tabPage_Basic.Padding = new System.Windows.Forms.Padding(3);
@@ -425,35 +426,35 @@
             this.tabPage_Basic.Text = "Basic Information";
             this.tabPage_Basic.UseVisualStyleBackColor = true;
             // 
-            // groupBox16
+            // groupBox_Appearance
             // 
-            this.groupBox16.Controls.Add(this.button_ImageEdit);
-            this.groupBox16.Controls.Add(this.button_ImageDelete);
-            this.groupBox16.Controls.Add(this.button_ImageAdd);
-            this.groupBox16.Controls.Add(this.textBox_ImageLabel);
-            this.groupBox16.Controls.Add(this.label80);
-            this.groupBox16.Controls.Add(this.label82);
-            this.groupBox16.Controls.Add(this.button_ImageDown);
-            this.groupBox16.Controls.Add(this.button_ImageUp);
-            this.groupBox16.Controls.Add(this.listView_Images);
-            this.groupBox16.Controls.Add(this.numericUpDown_Height);
-            this.groupBox16.Controls.Add(this.numericUpDown_Width);
-            this.groupBox16.Controls.Add(this.checkBox_FullRes);
-            this.groupBox16.Controls.Add(this.label83);
-            this.groupBox16.Controls.Add(this.label84);
-            this.groupBox16.Controls.Add(this.textBox_ImageURL);
-            this.groupBox16.Controls.Add(this.label85);
-            this.groupBox16.Controls.Add(this.richTextBox_GeneralAppear);
-            this.groupBox16.Controls.Add(this.label86);
-            this.groupBox16.Controls.Add(this.richTextBox_Clothing);
-            this.groupBox16.Controls.Add(this.label87);
-            this.groupBox16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox16.Location = new System.Drawing.Point(6, 566);
-            this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(806, 468);
-            this.groupBox16.TabIndex = 3;
-            this.groupBox16.TabStop = false;
-            this.groupBox16.Text = "Appearance";
+            this.groupBox_Appearance.Controls.Add(this.button_ImageEdit);
+            this.groupBox_Appearance.Controls.Add(this.button_ImageDelete);
+            this.groupBox_Appearance.Controls.Add(this.button_ImageAdd);
+            this.groupBox_Appearance.Controls.Add(this.textBox_ImageLabel);
+            this.groupBox_Appearance.Controls.Add(this.label80);
+            this.groupBox_Appearance.Controls.Add(this.label82);
+            this.groupBox_Appearance.Controls.Add(this.button_ImageDown);
+            this.groupBox_Appearance.Controls.Add(this.button_ImageUp);
+            this.groupBox_Appearance.Controls.Add(this.listView_Images);
+            this.groupBox_Appearance.Controls.Add(this.numericUpDown_Height);
+            this.groupBox_Appearance.Controls.Add(this.numericUpDown_Width);
+            this.groupBox_Appearance.Controls.Add(this.checkBox_FullRes);
+            this.groupBox_Appearance.Controls.Add(this.label83);
+            this.groupBox_Appearance.Controls.Add(this.label84);
+            this.groupBox_Appearance.Controls.Add(this.textBox_ImageURL);
+            this.groupBox_Appearance.Controls.Add(this.label85);
+            this.groupBox_Appearance.Controls.Add(this.richTextBox_GeneralAppear);
+            this.groupBox_Appearance.Controls.Add(this.label86);
+            this.groupBox_Appearance.Controls.Add(this.richTextBox_Clothing);
+            this.groupBox_Appearance.Controls.Add(this.label87);
+            this.groupBox_Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox_Appearance.Location = new System.Drawing.Point(6, 566);
+            this.groupBox_Appearance.Name = "groupBox_Appearance";
+            this.groupBox_Appearance.Size = new System.Drawing.Size(806, 468);
+            this.groupBox_Appearance.TabIndex = 3;
+            this.groupBox_Appearance.TabStop = false;
+            this.groupBox_Appearance.Text = "Appearance";
             // 
             // button_ImageEdit
             // 
@@ -680,23 +681,23 @@
             this.label87.TabIndex = 11;
             this.label87.Text = "Clothing / Accessories:";
             // 
-            // groupBox3
+            // groupBox_Features
             // 
-            this.groupBox3.Controls.Add(this.richTextBox_Eye);
-            this.groupBox3.Controls.Add(this.richTextBox_Hair);
-            this.groupBox3.Controls.Add(this.textBox_Weight);
-            this.groupBox3.Controls.Add(this.textBox_Height);
-            this.groupBox3.Controls.Add(this.label29);
-            this.groupBox3.Controls.Add(this.label65);
-            this.groupBox3.Controls.Add(this.label73);
-            this.groupBox3.Controls.Add(this.label76);
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox3.Location = new System.Drawing.Point(6, 403);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(806, 157);
-            this.groupBox3.TabIndex = 2;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Features";
+            this.groupBox_Features.Controls.Add(this.richTextBox_Eye);
+            this.groupBox_Features.Controls.Add(this.richTextBox_Hair);
+            this.groupBox_Features.Controls.Add(this.textBox_Weight);
+            this.groupBox_Features.Controls.Add(this.textBox_Height);
+            this.groupBox_Features.Controls.Add(this.label29);
+            this.groupBox_Features.Controls.Add(this.label65);
+            this.groupBox_Features.Controls.Add(this.label73);
+            this.groupBox_Features.Controls.Add(this.label76);
+            this.groupBox_Features.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox_Features.Location = new System.Drawing.Point(6, 403);
+            this.groupBox_Features.Name = "groupBox_Features";
+            this.groupBox_Features.Size = new System.Drawing.Size(806, 157);
+            this.groupBox_Features.TabIndex = 2;
+            this.groupBox_Features.TabStop = false;
+            this.groupBox_Features.Text = "Features";
             // 
             // richTextBox_Eye
             // 
@@ -770,21 +771,21 @@
             this.label76.TabIndex = 3;
             this.label76.Text = "Height:";
             // 
-            // groupBox2
+            // groupBox_Achieve
             // 
-            this.groupBox2.Controls.Add(this.button_DownAchieve);
-            this.groupBox2.Controls.Add(this.button_AchieveEdit);
-            this.groupBox2.Controls.Add(this.button_UpAchieve);
-            this.groupBox2.Controls.Add(this.button_AchieveAdd);
-            this.groupBox2.Controls.Add(this.button_AchieveDelete);
-            this.groupBox2.Controls.Add(this.listBox_Achieve);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox2.Location = new System.Drawing.Point(6, 190);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(806, 207);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Achievements";
+            this.groupBox_Achieve.Controls.Add(this.button_DownAchieve);
+            this.groupBox_Achieve.Controls.Add(this.button_AchieveEdit);
+            this.groupBox_Achieve.Controls.Add(this.button_UpAchieve);
+            this.groupBox_Achieve.Controls.Add(this.button_AchieveAdd);
+            this.groupBox_Achieve.Controls.Add(this.button_AchieveDelete);
+            this.groupBox_Achieve.Controls.Add(this.listBox_Achieve);
+            this.groupBox_Achieve.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox_Achieve.Location = new System.Drawing.Point(6, 190);
+            this.groupBox_Achieve.Name = "groupBox_Achieve";
+            this.groupBox_Achieve.Size = new System.Drawing.Size(806, 207);
+            this.groupBox_Achieve.TabIndex = 1;
+            this.groupBox_Achieve.TabStop = false;
+            this.groupBox_Achieve.Text = "Achievements";
             // 
             // button_DownAchieve
             // 
@@ -845,37 +846,37 @@
             this.listBox_Achieve.Size = new System.Drawing.Size(762, 148);
             this.listBox_Achieve.TabIndex = 0;
             // 
-            // groupBox1
+            // groupBox_BasicInfo
             // 
-            this.groupBox1.Controls.Add(this.numericUpDown_Comm);
-            this.groupBox1.Controls.Add(this.comboBox_MarineRank);
-            this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.textBox_Threat);
-            this.groupBox1.Controls.Add(this.textBox_Bounty);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.textBox_Position);
-            this.groupBox1.Controls.Add(this.comboBox_Affiliation);
-            this.groupBox1.Controls.Add(this.comboBox_Gender);
-            this.groupBox1.Controls.Add(this.numericUpDown_Age);
-            this.groupBox1.Controls.Add(this.textBox_Race);
-            this.groupBox1.Controls.Add(this.textBox_Nickname);
-            this.groupBox1.Controls.Add(this.textBox_CharacterName);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(806, 178);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Basic Information";
+            this.groupBox_BasicInfo.Controls.Add(this.numericUpDown_Comm);
+            this.groupBox_BasicInfo.Controls.Add(this.comboBox_MarineRank);
+            this.groupBox_BasicInfo.Controls.Add(this.label12);
+            this.groupBox_BasicInfo.Controls.Add(this.textBox_Threat);
+            this.groupBox_BasicInfo.Controls.Add(this.textBox_Bounty);
+            this.groupBox_BasicInfo.Controls.Add(this.label11);
+            this.groupBox_BasicInfo.Controls.Add(this.label10);
+            this.groupBox_BasicInfo.Controls.Add(this.label9);
+            this.groupBox_BasicInfo.Controls.Add(this.textBox_Position);
+            this.groupBox_BasicInfo.Controls.Add(this.comboBox_Affiliation);
+            this.groupBox_BasicInfo.Controls.Add(this.comboBox_Gender);
+            this.groupBox_BasicInfo.Controls.Add(this.numericUpDown_Age);
+            this.groupBox_BasicInfo.Controls.Add(this.textBox_Race);
+            this.groupBox_BasicInfo.Controls.Add(this.textBox_Nickname);
+            this.groupBox_BasicInfo.Controls.Add(this.textBox_CharacterName);
+            this.groupBox_BasicInfo.Controls.Add(this.label8);
+            this.groupBox_BasicInfo.Controls.Add(this.label7);
+            this.groupBox_BasicInfo.Controls.Add(this.label6);
+            this.groupBox_BasicInfo.Controls.Add(this.label5);
+            this.groupBox_BasicInfo.Controls.Add(this.label4);
+            this.groupBox_BasicInfo.Controls.Add(this.label3);
+            this.groupBox_BasicInfo.Controls.Add(this.label2);
+            this.groupBox_BasicInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox_BasicInfo.Location = new System.Drawing.Point(6, 6);
+            this.groupBox_BasicInfo.Name = "groupBox_BasicInfo";
+            this.groupBox_BasicInfo.Size = new System.Drawing.Size(806, 178);
+            this.groupBox_BasicInfo.TabIndex = 0;
+            this.groupBox_BasicInfo.TabStop = false;
+            this.groupBox_BasicInfo.Text = "Basic Information";
             // 
             // numericUpDown_Comm
             // 
@@ -1128,7 +1129,7 @@
             // 
             // tabPage_Background
             // 
-            this.tabPage_Background.Controls.Add(this.groupBox6);
+            this.tabPage_Background.Controls.Add(this.groupBox_Background);
             this.tabPage_Background.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Background.Name = "tabPage_Background";
             this.tabPage_Background.Padding = new System.Windows.Forms.Padding(3);
@@ -1137,23 +1138,23 @@
             this.tabPage_Background.Text = "Background";
             this.tabPage_Background.UseVisualStyleBackColor = true;
             // 
-            // groupBox6
+            // groupBox_Background
             // 
-            this.groupBox6.Controls.Add(this.richTextBox_History);
-            this.groupBox6.Controls.Add(this.richTextBox_Personality);
-            this.groupBox6.Controls.Add(this.label24);
-            this.groupBox6.Controls.Add(this.comboBox_Region);
-            this.groupBox6.Controls.Add(this.textBox_Island);
-            this.groupBox6.Controls.Add(this.label25);
-            this.groupBox6.Controls.Add(this.label22);
-            this.groupBox6.Controls.Add(this.label23);
-            this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox6.Location = new System.Drawing.Point(6, 6);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(823, 469);
-            this.groupBox6.TabIndex = 0;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "The Character";
+            this.groupBox_Background.Controls.Add(this.richTextBox_History);
+            this.groupBox_Background.Controls.Add(this.richTextBox_Personality);
+            this.groupBox_Background.Controls.Add(this.label24);
+            this.groupBox_Background.Controls.Add(this.comboBox_Region);
+            this.groupBox_Background.Controls.Add(this.textBox_Island);
+            this.groupBox_Background.Controls.Add(this.label25);
+            this.groupBox_Background.Controls.Add(this.label22);
+            this.groupBox_Background.Controls.Add(this.label23);
+            this.groupBox_Background.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox_Background.Location = new System.Drawing.Point(6, 6);
+            this.groupBox_Background.Name = "groupBox_Background";
+            this.groupBox_Background.Size = new System.Drawing.Size(823, 469);
+            this.groupBox_Background.TabIndex = 0;
+            this.groupBox_Background.TabStop = false;
+            this.groupBox_Background.Text = "Background";
             // 
             // richTextBox_History
             // 
@@ -1240,8 +1241,8 @@
             // tabPage_Abilities
             // 
             this.tabPage_Abilities.AutoScroll = true;
-            this.tabPage_Abilities.Controls.Add(this.groupBox9);
-            this.tabPage_Abilities.Controls.Add(this.groupBox7);
+            this.tabPage_Abilities.Controls.Add(this.groupBox_DevilFruit);
+            this.tabPage_Abilities.Controls.Add(this.groupBox_Combat);
             this.tabPage_Abilities.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Abilities.Name = "tabPage_Abilities";
             this.tabPage_Abilities.Padding = new System.Windows.Forms.Padding(3);
@@ -1250,27 +1251,27 @@
             this.tabPage_Abilities.Text = "Abilities";
             this.tabPage_Abilities.UseVisualStyleBackColor = true;
             // 
-            // groupBox9
+            // groupBox_DevilFruit
             // 
-            this.groupBox9.Controls.Add(this.comboBox_DFTier);
-            this.groupBox9.Controls.Add(this.label42);
-            this.groupBox9.Controls.Add(this.label35);
-            this.groupBox9.Controls.Add(this.label34);
-            this.groupBox9.Controls.Add(this.label33);
-            this.groupBox9.Controls.Add(this.textBox_DFEffect);
-            this.groupBox9.Controls.Add(this.richTextBox_DFDesc);
-            this.groupBox9.Controls.Add(this.label52);
-            this.groupBox9.Controls.Add(this.comboBox_DFType);
-            this.groupBox9.Controls.Add(this.label51);
-            this.groupBox9.Controls.Add(this.label50);
-            this.groupBox9.Controls.Add(this.textBox_DFName);
-            this.groupBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox9.Location = new System.Drawing.Point(6, 526);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(806, 226);
-            this.groupBox9.TabIndex = 14;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Devil Fruit";
+            this.groupBox_DevilFruit.Controls.Add(this.comboBox_DFTier);
+            this.groupBox_DevilFruit.Controls.Add(this.label42);
+            this.groupBox_DevilFruit.Controls.Add(this.label35);
+            this.groupBox_DevilFruit.Controls.Add(this.label34);
+            this.groupBox_DevilFruit.Controls.Add(this.label33);
+            this.groupBox_DevilFruit.Controls.Add(this.textBox_DFEffect);
+            this.groupBox_DevilFruit.Controls.Add(this.richTextBox_DFDesc);
+            this.groupBox_DevilFruit.Controls.Add(this.label52);
+            this.groupBox_DevilFruit.Controls.Add(this.comboBox_DFType);
+            this.groupBox_DevilFruit.Controls.Add(this.label51);
+            this.groupBox_DevilFruit.Controls.Add(this.label50);
+            this.groupBox_DevilFruit.Controls.Add(this.textBox_DFName);
+            this.groupBox_DevilFruit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox_DevilFruit.Location = new System.Drawing.Point(6, 526);
+            this.groupBox_DevilFruit.Name = "groupBox_DevilFruit";
+            this.groupBox_DevilFruit.Size = new System.Drawing.Size(806, 226);
+            this.groupBox_DevilFruit.TabIndex = 14;
+            this.groupBox_DevilFruit.TabStop = false;
+            this.groupBox_DevilFruit.Text = "Devil Fruit";
             // 
             // comboBox_DFTier
             // 
@@ -1399,31 +1400,31 @@
             this.textBox_DFName.Size = new System.Drawing.Size(542, 23);
             this.textBox_DFName.TabIndex = 8;
             // 
-            // groupBox7
+            // groupBox_Combat
             // 
-            this.groupBox7.Controls.Add(this.button_DownItem);
-            this.groupBox7.Controls.Add(this.button_UpItem);
-            this.groupBox7.Controls.Add(this.button_DownWeapon);
-            this.groupBox7.Controls.Add(this.button_UpWeapon);
-            this.groupBox7.Controls.Add(this.button_ItemsEdit);
-            this.groupBox7.Controls.Add(this.button_WeaponEdit);
-            this.groupBox7.Controls.Add(this.listView_Items);
-            this.groupBox7.Controls.Add(this.listView_Weaponry);
-            this.groupBox7.Controls.Add(this.label28);
-            this.groupBox7.Controls.Add(this.button_ItemsAdd);
-            this.groupBox7.Controls.Add(this.button_ItemsDelete);
-            this.groupBox7.Controls.Add(this.label27);
-            this.groupBox7.Controls.Add(this.button_WeaponAdd);
-            this.groupBox7.Controls.Add(this.button_WeaponDelete);
-            this.groupBox7.Controls.Add(this.richTextBox_Combat);
-            this.groupBox7.Controls.Add(this.label26);
-            this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox7.Location = new System.Drawing.Point(6, 6);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(806, 514);
-            this.groupBox7.TabIndex = 2;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Fighting Methods and Equipment";
+            this.groupBox_Combat.Controls.Add(this.button_DownItem);
+            this.groupBox_Combat.Controls.Add(this.button_UpItem);
+            this.groupBox_Combat.Controls.Add(this.button_DownWeapon);
+            this.groupBox_Combat.Controls.Add(this.button_UpWeapon);
+            this.groupBox_Combat.Controls.Add(this.button_ItemsEdit);
+            this.groupBox_Combat.Controls.Add(this.button_WeaponEdit);
+            this.groupBox_Combat.Controls.Add(this.listView_Items);
+            this.groupBox_Combat.Controls.Add(this.listView_Weaponry);
+            this.groupBox_Combat.Controls.Add(this.label28);
+            this.groupBox_Combat.Controls.Add(this.button_ItemsAdd);
+            this.groupBox_Combat.Controls.Add(this.button_ItemsDelete);
+            this.groupBox_Combat.Controls.Add(this.label27);
+            this.groupBox_Combat.Controls.Add(this.button_WeaponAdd);
+            this.groupBox_Combat.Controls.Add(this.button_WeaponDelete);
+            this.groupBox_Combat.Controls.Add(this.richTextBox_Combat);
+            this.groupBox_Combat.Controls.Add(this.label26);
+            this.groupBox_Combat.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox_Combat.Location = new System.Drawing.Point(6, 6);
+            this.groupBox_Combat.Name = "groupBox_Combat";
+            this.groupBox_Combat.Size = new System.Drawing.Size(806, 514);
+            this.groupBox_Combat.TabIndex = 2;
+            this.groupBox_Combat.TabStop = false;
+            this.groupBox_Combat.Text = "Combat";
             // 
             // button_DownItem
             // 
@@ -1594,8 +1595,8 @@
             // tabPage_RP
             // 
             this.tabPage_RP.AutoScroll = true;
-            this.tabPage_RP.Controls.Add(this.groupBox15);
-            this.tabPage_RP.Controls.Add(this.groupBox12);
+            this.tabPage_RP.Controls.Add(this.groupBox_Profession);
+            this.tabPage_RP.Controls.Add(this.groupBox_Stats);
             this.tabPage_RP.Location = new System.Drawing.Point(4, 22);
             this.tabPage_RP.Name = "tabPage_RP";
             this.tabPage_RP.Size = new System.Drawing.Size(835, 478);
@@ -1603,21 +1604,21 @@
             this.tabPage_RP.Text = "RP Elements";
             this.tabPage_RP.UseVisualStyleBackColor = true;
             // 
-            // groupBox15
+            // groupBox_Profession
             // 
-            this.groupBox15.Controls.Add(this.dgv_Professions);
-            this.groupBox15.Controls.Add(this.button_DownProf);
-            this.groupBox15.Controls.Add(this.button_EditProf);
-            this.groupBox15.Controls.Add(this.button_UpProf);
-            this.groupBox15.Controls.Add(this.button_DeleteProf);
-            this.groupBox15.Controls.Add(this.button_AddProf);
-            this.groupBox15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox15.Location = new System.Drawing.Point(3, 418);
-            this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(806, 205);
-            this.groupBox15.TabIndex = 15;
-            this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "Professions";
+            this.groupBox_Profession.Controls.Add(this.dgv_Professions);
+            this.groupBox_Profession.Controls.Add(this.button_DownProf);
+            this.groupBox_Profession.Controls.Add(this.button_EditProf);
+            this.groupBox_Profession.Controls.Add(this.button_UpProf);
+            this.groupBox_Profession.Controls.Add(this.button_DeleteProf);
+            this.groupBox_Profession.Controls.Add(this.button_AddProf);
+            this.groupBox_Profession.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox_Profession.Location = new System.Drawing.Point(3, 418);
+            this.groupBox_Profession.Name = "groupBox_Profession";
+            this.groupBox_Profession.Size = new System.Drawing.Size(806, 205);
+            this.groupBox_Profession.TabIndex = 15;
+            this.groupBox_Profession.TabStop = false;
+            this.groupBox_Profession.Text = "Professions";
             // 
             // dgv_Professions
             // 
@@ -1742,58 +1743,58 @@
             this.button_AddProf.UseVisualStyleBackColor = true;
             this.button_AddProf.Click += new System.EventHandler(this.button_AddProf_Click);
             // 
-            // groupBox12
+            // groupBox_Stats
             // 
-            this.groupBox12.Controls.Add(this.button_Standardize);
-            this.groupBox12.Controls.Add(this.textBox_Beli);
-            this.groupBox12.Controls.Add(this.label60);
-            this.groupBox12.Controls.Add(this.groupBox14);
-            this.groupBox12.Controls.Add(this.textBox_SDtoSPCalc);
-            this.groupBox12.Controls.Add(this.textBox_Focus);
-            this.groupBox12.Controls.Add(this.label39);
-            this.groupBox12.Controls.Add(this.textBox_TotalSD);
-            this.groupBox12.Controls.Add(this.label_TotalSD);
-            this.groupBox12.Controls.Add(this.label_FortuneCalc);
-            this.groupBox12.Controls.Add(this.label_GenerateCheck);
-            this.groupBox12.Controls.Add(this.label_AccuracyCalc);
-            this.groupBox12.Controls.Add(this.label_StaminaCalc);
-            this.groupBox12.Controls.Add(this.label_SpeedCalc);
-            this.groupBox12.Controls.Add(this.label_StrengthCalc);
-            this.groupBox12.Controls.Add(this.label63);
-            this.groupBox12.Controls.Add(this.textBox_AccuracyFinal);
-            this.groupBox12.Controls.Add(this.textBox_StaminaFinal);
-            this.groupBox12.Controls.Add(this.textBox_SpeedFinal);
-            this.groupBox12.Controls.Add(this.textBox_StrengthFinal);
-            this.groupBox12.Controls.Add(this.textBox_Fortune);
-            this.groupBox12.Controls.Add(this.numericUpDown_AccuracyBase);
-            this.groupBox12.Controls.Add(this.numericUpDown_StaminaBase);
-            this.groupBox12.Controls.Add(this.numericUpDown_SpeedBase);
-            this.groupBox12.Controls.Add(this.numericUpDown_StrengthBase);
-            this.groupBox12.Controls.Add(this.label67);
-            this.groupBox12.Controls.Add(this.label68);
-            this.groupBox12.Controls.Add(this.label69);
-            this.groupBox12.Controls.Add(this.label70);
-            this.groupBox12.Controls.Add(this.label71);
-            this.groupBox12.Controls.Add(this.label72);
-            this.groupBox12.Controls.Add(this.numericUpDown_UsedForFort);
-            this.groupBox12.Controls.Add(this.textBox_UsedForStats);
-            this.groupBox12.Controls.Add(this.label74);
-            this.groupBox12.Controls.Add(this.label75);
-            this.groupBox12.Controls.Add(this.textBox_StatPoints);
-            this.groupBox12.Controls.Add(this.label77);
-            this.groupBox12.Controls.Add(this.numericUpDown_SDintoStats);
-            this.groupBox12.Controls.Add(this.label78);
-            this.groupBox12.Controls.Add(this.textBox_SDRemain);
-            this.groupBox12.Controls.Add(this.label79);
-            this.groupBox12.Controls.Add(this.numericUpDown_SDEarned);
-            this.groupBox12.Controls.Add(this.label81);
-            this.groupBox12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox12.Location = new System.Drawing.Point(3, 3);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(806, 409);
-            this.groupBox12.TabIndex = 14;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Statistics";
+            this.groupBox_Stats.Controls.Add(this.button_Standardize);
+            this.groupBox_Stats.Controls.Add(this.textBox_Beli);
+            this.groupBox_Stats.Controls.Add(this.label60);
+            this.groupBox_Stats.Controls.Add(this.groupBox_AP);
+            this.groupBox_Stats.Controls.Add(this.textBox_SDtoSPCalc);
+            this.groupBox_Stats.Controls.Add(this.textBox_Focus);
+            this.groupBox_Stats.Controls.Add(this.label39);
+            this.groupBox_Stats.Controls.Add(this.textBox_TotalSD);
+            this.groupBox_Stats.Controls.Add(this.label_TotalSD);
+            this.groupBox_Stats.Controls.Add(this.label_FortuneCalc);
+            this.groupBox_Stats.Controls.Add(this.label_GenerateCheck);
+            this.groupBox_Stats.Controls.Add(this.label_AccuracyCalc);
+            this.groupBox_Stats.Controls.Add(this.label_StaminaCalc);
+            this.groupBox_Stats.Controls.Add(this.label_SpeedCalc);
+            this.groupBox_Stats.Controls.Add(this.label_StrengthCalc);
+            this.groupBox_Stats.Controls.Add(this.label63);
+            this.groupBox_Stats.Controls.Add(this.textBox_AccuracyFinal);
+            this.groupBox_Stats.Controls.Add(this.textBox_StaminaFinal);
+            this.groupBox_Stats.Controls.Add(this.textBox_SpeedFinal);
+            this.groupBox_Stats.Controls.Add(this.textBox_StrengthFinal);
+            this.groupBox_Stats.Controls.Add(this.textBox_Fortune);
+            this.groupBox_Stats.Controls.Add(this.numericUpDown_AccuracyBase);
+            this.groupBox_Stats.Controls.Add(this.numericUpDown_StaminaBase);
+            this.groupBox_Stats.Controls.Add(this.numericUpDown_SpeedBase);
+            this.groupBox_Stats.Controls.Add(this.numericUpDown_StrengthBase);
+            this.groupBox_Stats.Controls.Add(this.label67);
+            this.groupBox_Stats.Controls.Add(this.label68);
+            this.groupBox_Stats.Controls.Add(this.label69);
+            this.groupBox_Stats.Controls.Add(this.label70);
+            this.groupBox_Stats.Controls.Add(this.label71);
+            this.groupBox_Stats.Controls.Add(this.label72);
+            this.groupBox_Stats.Controls.Add(this.numericUpDown_UsedForFort);
+            this.groupBox_Stats.Controls.Add(this.textBox_UsedForStats);
+            this.groupBox_Stats.Controls.Add(this.label74);
+            this.groupBox_Stats.Controls.Add(this.label75);
+            this.groupBox_Stats.Controls.Add(this.textBox_StatPoints);
+            this.groupBox_Stats.Controls.Add(this.label77);
+            this.groupBox_Stats.Controls.Add(this.numericUpDown_SDintoStats);
+            this.groupBox_Stats.Controls.Add(this.label78);
+            this.groupBox_Stats.Controls.Add(this.textBox_SDRemain);
+            this.groupBox_Stats.Controls.Add(this.label79);
+            this.groupBox_Stats.Controls.Add(this.numericUpDown_SDEarned);
+            this.groupBox_Stats.Controls.Add(this.label81);
+            this.groupBox_Stats.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox_Stats.Location = new System.Drawing.Point(3, 3);
+            this.groupBox_Stats.Name = "groupBox_Stats";
+            this.groupBox_Stats.Size = new System.Drawing.Size(806, 409);
+            this.groupBox_Stats.TabIndex = 14;
+            this.groupBox_Stats.TabStop = false;
+            this.groupBox_Stats.Text = "Statistics";
             // 
             // button_Standardize
             // 
@@ -1825,30 +1826,30 @@
             this.label60.TabIndex = 59;
             this.label60.Text = "Beli:";
             // 
-            // groupBox14
+            // groupBox_AP
             // 
-            this.groupBox14.Controls.Add(this.label59);
-            this.groupBox14.Controls.Add(this.textBox_AP);
-            this.groupBox14.Controls.Add(this.checkBox_APDF);
-            this.groupBox14.Controls.Add(this.checkBox_APHaki);
-            this.groupBox14.Controls.Add(this.numericUpDown_APNPC);
-            this.groupBox14.Controls.Add(this.label58);
-            this.groupBox14.Controls.Add(this.numericUpDown_APMulti);
-            this.groupBox14.Controls.Add(this.label57);
-            this.groupBox14.Controls.Add(this.numericUpDown_APPrime);
-            this.groupBox14.Controls.Add(this.label56);
-            this.groupBox14.Controls.Add(this.numericUpDown_APTrait);
-            this.groupBox14.Controls.Add(this.label55);
-            this.groupBox14.Controls.Add(this.numericUpDown_APTech);
-            this.groupBox14.Controls.Add(this.label54);
-            this.groupBox14.Controls.Add(this.label_SDonAP);
-            this.groupBox14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox14.Location = new System.Drawing.Point(180, 22);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(616, 149);
-            this.groupBox14.TabIndex = 58;
-            this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "Advancement Points";
+            this.groupBox_AP.Controls.Add(this.label59);
+            this.groupBox_AP.Controls.Add(this.textBox_AP);
+            this.groupBox_AP.Controls.Add(this.checkBox_APDF);
+            this.groupBox_AP.Controls.Add(this.checkBox_APHaki);
+            this.groupBox_AP.Controls.Add(this.numericUpDown_APNPC);
+            this.groupBox_AP.Controls.Add(this.label58);
+            this.groupBox_AP.Controls.Add(this.numericUpDown_APMulti);
+            this.groupBox_AP.Controls.Add(this.label57);
+            this.groupBox_AP.Controls.Add(this.numericUpDown_APPrime);
+            this.groupBox_AP.Controls.Add(this.label56);
+            this.groupBox_AP.Controls.Add(this.numericUpDown_APTrait);
+            this.groupBox_AP.Controls.Add(this.label55);
+            this.groupBox_AP.Controls.Add(this.numericUpDown_APTech);
+            this.groupBox_AP.Controls.Add(this.label54);
+            this.groupBox_AP.Controls.Add(this.label_SDonAP);
+            this.groupBox_AP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_AP.Location = new System.Drawing.Point(180, 22);
+            this.groupBox_AP.Name = "groupBox_AP";
+            this.groupBox_AP.Size = new System.Drawing.Size(616, 149);
+            this.groupBox_AP.TabIndex = 58;
+            this.groupBox_AP.TabStop = false;
+            this.groupBox_AP.Text = "Advancement Points";
             // 
             // label59
             // 
@@ -2489,7 +2490,7 @@
             // 
             // tabPage_Traits
             // 
-            this.tabPage_Traits.Controls.Add(this.groupBox10);
+            this.tabPage_Traits.Controls.Add(this.groupBox_Traits);
             this.tabPage_Traits.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Traits.Name = "tabPage_Traits";
             this.tabPage_Traits.Padding = new System.Windows.Forms.Padding(3);
@@ -2498,24 +2499,24 @@
             this.tabPage_Traits.Text = "Traits";
             this.tabPage_Traits.UseVisualStyleBackColor = true;
             // 
-            // groupBox10
+            // groupBox_Traits
             // 
-            this.groupBox10.Controls.Add(this.dgv_Traits);
-            this.groupBox10.Controls.Add(this.button_TraitsDown);
-            this.groupBox10.Controls.Add(this.button_TraitsUp);
-            this.groupBox10.Controls.Add(this.button_EditTrait);
-            this.groupBox10.Controls.Add(this.label32);
-            this.groupBox10.Controls.Add(this.label59_TraitsCalc);
-            this.groupBox10.Controls.Add(this.label58_TraitsCurrent);
-            this.groupBox10.Controls.Add(this.button_TraitsDelete);
-            this.groupBox10.Controls.Add(this.button_TraitAdd);
-            this.groupBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox10.Location = new System.Drawing.Point(6, 6);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(823, 469);
-            this.groupBox10.TabIndex = 3;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Traits";
+            this.groupBox_Traits.Controls.Add(this.dgv_Traits);
+            this.groupBox_Traits.Controls.Add(this.button_TraitsDown);
+            this.groupBox_Traits.Controls.Add(this.button_TraitsUp);
+            this.groupBox_Traits.Controls.Add(this.button_EditTrait);
+            this.groupBox_Traits.Controls.Add(this.label32);
+            this.groupBox_Traits.Controls.Add(this.label59_TraitsCalc);
+            this.groupBox_Traits.Controls.Add(this.label58_TraitsCurrent);
+            this.groupBox_Traits.Controls.Add(this.button_TraitsDelete);
+            this.groupBox_Traits.Controls.Add(this.button_TraitAdd);
+            this.groupBox_Traits.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox_Traits.Location = new System.Drawing.Point(6, 6);
+            this.groupBox_Traits.Name = "groupBox_Traits";
+            this.groupBox_Traits.Size = new System.Drawing.Size(823, 469);
+            this.groupBox_Traits.TabIndex = 3;
+            this.groupBox_Traits.TabStop = false;
+            this.groupBox_Traits.Text = "Traits";
             // 
             // dgv_Traits
             // 
@@ -2688,7 +2689,7 @@
             // tabPage_Techniques
             // 
             this.tabPage_Techniques.AutoScroll = true;
-            this.tabPage_Techniques.Controls.Add(this.groupBox8);
+            this.tabPage_Techniques.Controls.Add(this.groupBox_Categories);
             this.tabPage_Techniques.Controls.Add(this.groupBox11);
             this.tabPage_Techniques.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Techniques.Name = "tabPage_Techniques";
@@ -2698,29 +2699,29 @@
             this.tabPage_Techniques.Text = "Techniques";
             this.tabPage_Techniques.UseVisualStyleBackColor = true;
             // 
-            // groupBox8
+            // groupBox_Categories
             // 
-            this.groupBox8.Controls.Add(this.label41);
-            this.groupBox8.Controls.Add(this.button_SubCatEdit);
-            this.groupBox8.Controls.Add(this.label_RowNum);
-            this.groupBox8.Controls.Add(this.label_SubCatWarning);
-            this.groupBox8.Controls.Add(this.numericUpDown_RowEnd);
-            this.groupBox8.Controls.Add(this.numericUpDown_RowBegin);
-            this.groupBox8.Controls.Add(this.textBox_SubCat);
-            this.groupBox8.Controls.Add(this.label40);
-            this.groupBox8.Controls.Add(this.button_SubCatAdd);
-            this.groupBox8.Controls.Add(this.button_SubCatClear);
-            this.groupBox8.Controls.Add(this.label_SubCatMsg);
-            this.groupBox8.Controls.Add(this.label38);
-            this.groupBox8.Controls.Add(this.label36);
-            this.groupBox8.Controls.Add(this.listView_SubCat);
-            this.groupBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox8.Location = new System.Drawing.Point(6, 419);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(806, 196);
-            this.groupBox8.TabIndex = 41;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Categories";
+            this.groupBox_Categories.Controls.Add(this.label41);
+            this.groupBox_Categories.Controls.Add(this.button_SubCatEdit);
+            this.groupBox_Categories.Controls.Add(this.label_RowNum);
+            this.groupBox_Categories.Controls.Add(this.label_SubCatWarning);
+            this.groupBox_Categories.Controls.Add(this.numericUpDown_RowEnd);
+            this.groupBox_Categories.Controls.Add(this.numericUpDown_RowBegin);
+            this.groupBox_Categories.Controls.Add(this.textBox_SubCat);
+            this.groupBox_Categories.Controls.Add(this.label40);
+            this.groupBox_Categories.Controls.Add(this.button_SubCatAdd);
+            this.groupBox_Categories.Controls.Add(this.button_SubCatClear);
+            this.groupBox_Categories.Controls.Add(this.label_SubCatMsg);
+            this.groupBox_Categories.Controls.Add(this.label38);
+            this.groupBox_Categories.Controls.Add(this.label36);
+            this.groupBox_Categories.Controls.Add(this.listView_SubCat);
+            this.groupBox_Categories.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox_Categories.Location = new System.Drawing.Point(6, 419);
+            this.groupBox_Categories.Name = "groupBox_Categories";
+            this.groupBox_Categories.Size = new System.Drawing.Size(806, 196);
+            this.groupBox_Categories.TabIndex = 41;
+            this.groupBox_Categories.TabStop = false;
+            this.groupBox_Categories.Text = "Categories";
             // 
             // label41
             // 
@@ -2914,7 +2915,7 @@
             this.dgv_SpTraits.BackgroundColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -2936,14 +2937,6 @@
             this.dgv_SpTraits.MultiSelect = false;
             this.dgv_SpTraits.Name = "dgv_SpTraits";
             this.dgv_SpTraits.ReadOnly = true;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_SpTraits.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dgv_SpTraits.RowHeadersVisible = false;
             this.dgv_SpTraits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_SpTraits.Size = new System.Drawing.Size(455, 106);
@@ -2991,13 +2984,13 @@
             this.dgv_Techniques.AllowUserToDeleteRows = false;
             this.dgv_Techniques.AllowUserToResizeRows = false;
             this.dgv_Techniques.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dgv_Techniques.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dgv_Techniques.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dgv_Techniques.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Techniques.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgvRow_TechName,
@@ -3022,8 +3015,8 @@
             // 
             // dgvRow_TechName
             // 
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvRow_TechName.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRow_TechName.DefaultCellStyle = dataGridViewCellStyle9;
             this.dgvRow_TechName.HeaderText = "Tech Name";
             this.dgvRow_TechName.MinimumWidth = 153;
             this.dgvRow_TechName.Name = "dgvRow_TechName";
@@ -3033,8 +3026,8 @@
             // 
             // dgvRow_TechRank
             // 
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvRow_TechRank.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRow_TechRank.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvRow_TechRank.HeaderText = "Rank";
             this.dgvRow_TechRank.MinimumWidth = 50;
             this.dgvRow_TechRank.Name = "dgvRow_TechRank";
@@ -3044,8 +3037,8 @@
             // 
             // dgvRow_TechRegTP
             // 
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvRow_TechRegTP.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRow_TechRegTP.DefaultCellStyle = dataGridViewCellStyle11;
             this.dgvRow_TechRegTP.HeaderText = "Reg TP";
             this.dgvRow_TechRegTP.MinimumWidth = 50;
             this.dgvRow_TechRegTP.Name = "dgvRow_TechRegTP";
@@ -3055,8 +3048,8 @@
             // 
             // dgvRow_TechSpTP
             // 
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvRow_TechSpTP.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRow_TechSpTP.DefaultCellStyle = dataGridViewCellStyle12;
             this.dgvRow_TechSpTP.HeaderText = "Sp. TP";
             this.dgvRow_TechSpTP.MinimumWidth = 50;
             this.dgvRow_TechSpTP.Name = "dgvRow_TechSpTP";
@@ -3066,8 +3059,8 @@
             // 
             // dgvRow_TechSpTrait
             // 
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.dgvRow_TechSpTrait.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechSpTrait.DefaultCellStyle = dataGridViewCellStyle13;
             this.dgvRow_TechSpTrait.HeaderText = "Sp. Trait";
             this.dgvRow_TechSpTrait.MinimumWidth = 75;
             this.dgvRow_TechSpTrait.Name = "dgvRow_TechSpTrait";
@@ -3077,8 +3070,8 @@
             // 
             // dgvRow_TechBranch
             // 
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.dgvRow_TechBranch.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechBranch.DefaultCellStyle = dataGridViewCellStyle14;
             this.dgvRow_TechBranch.HeaderText = "Branched From";
             this.dgvRow_TechBranch.MinimumWidth = 100;
             this.dgvRow_TechBranch.Name = "dgvRow_TechBranch";
@@ -3087,8 +3080,8 @@
             // 
             // dgvRow_TechType
             // 
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.dgvRow_TechType.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechType.DefaultCellStyle = dataGridViewCellStyle15;
             this.dgvRow_TechType.HeaderText = "Type";
             this.dgvRow_TechType.MinimumWidth = 75;
             this.dgvRow_TechType.Name = "dgvRow_TechType";
@@ -3098,8 +3091,8 @@
             // 
             // dgvRow_TechRange
             // 
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.dgvRow_TechRange.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechRange.DefaultCellStyle = dataGridViewCellStyle16;
             this.dgvRow_TechRange.HeaderText = "Range";
             this.dgvRow_TechRange.MinimumWidth = 75;
             this.dgvRow_TechRange.Name = "dgvRow_TechRange";
@@ -3109,8 +3102,8 @@
             // 
             // dgvRow_TechStats
             // 
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.dgvRow_TechStats.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechStats.DefaultCellStyle = dataGridViewCellStyle17;
             this.dgvRow_TechStats.HeaderText = "Stats";
             this.dgvRow_TechStats.MinimumWidth = 75;
             this.dgvRow_TechStats.Name = "dgvRow_TechStats";
@@ -3120,8 +3113,8 @@
             // 
             // dgvRow_TechPower
             // 
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.dgvRow_TechPower.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dgvRow_TechPower.DefaultCellStyle = dataGridViewCellStyle18;
             this.dgvRow_TechPower.HeaderText = "Power";
             this.dgvRow_TechPower.MinimumWidth = 51;
             this.dgvRow_TechPower.Name = "dgvRow_TechPower";
@@ -3322,7 +3315,7 @@
             // 
             // tabPage_Sources
             // 
-            this.tabPage_Sources.Controls.Add(this.groupBox13);
+            this.tabPage_Sources.Controls.Add(this.groupBox_Sources);
             this.tabPage_Sources.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Sources.Name = "tabPage_Sources";
             this.tabPage_Sources.Size = new System.Drawing.Size(835, 478);
@@ -3330,26 +3323,26 @@
             this.tabPage_Sources.Text = "Sources";
             this.tabPage_Sources.UseVisualStyleBackColor = true;
             // 
-            // groupBox13
+            // groupBox_Sources
             // 
-            this.groupBox13.Controls.Add(this.checkBox_CalcBeli);
-            this.groupBox13.Controls.Add(this.label44);
-            this.groupBox13.Controls.Add(this.radioButton_DateEU);
-            this.groupBox13.Controls.Add(this.radioButton_DateNA);
-            this.groupBox13.Controls.Add(this.button_LoadDevH);
-            this.groupBox13.Controls.Add(this.button_AddSource);
-            this.groupBox13.Controls.Add(this.checkBox_CalcSD);
-            this.groupBox13.Controls.Add(this.button_SaveDevH);
-            this.groupBox13.Controls.Add(this.dgv_Sources);
-            this.groupBox13.Controls.Add(this.button_DownSource);
-            this.groupBox13.Controls.Add(this.button_UpSource);
-            this.groupBox13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox13.Location = new System.Drawing.Point(3, 3);
-            this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(829, 472);
-            this.groupBox13.TabIndex = 0;
-            this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "Development History";
+            this.groupBox_Sources.Controls.Add(this.checkBox_CalcBeli);
+            this.groupBox_Sources.Controls.Add(this.label44);
+            this.groupBox_Sources.Controls.Add(this.radioButton_DateEU);
+            this.groupBox_Sources.Controls.Add(this.radioButton_DateNA);
+            this.groupBox_Sources.Controls.Add(this.button_LoadDevH);
+            this.groupBox_Sources.Controls.Add(this.button_AddSource);
+            this.groupBox_Sources.Controls.Add(this.checkBox_CalcSD);
+            this.groupBox_Sources.Controls.Add(this.button_SaveDevH);
+            this.groupBox_Sources.Controls.Add(this.dgv_Sources);
+            this.groupBox_Sources.Controls.Add(this.button_DownSource);
+            this.groupBox_Sources.Controls.Add(this.button_UpSource);
+            this.groupBox_Sources.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupBox_Sources.Location = new System.Drawing.Point(3, 3);
+            this.groupBox_Sources.Name = "groupBox_Sources";
+            this.groupBox_Sources.Size = new System.Drawing.Size(829, 472);
+            this.groupBox_Sources.TabIndex = 0;
+            this.groupBox_Sources.TabStop = false;
+            this.groupBox_Sources.Text = "Development History";
             // 
             // checkBox_CalcBeli
             // 
@@ -3446,14 +3439,14 @@
             this.dgv_Sources.AllowUserToDeleteRows = false;
             this.dgv_Sources.AllowUserToResizeRows = false;
             this.dgv_Sources.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_Sources.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_Sources.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.dgv_Sources.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Sources.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.deleteRow,
@@ -3560,17 +3553,13 @@
             // 
             this.tabPage_Template.Controls.Add(this.button_LoadTemp);
             this.tabPage_Template.Controls.Add(this.button_MoreTemplate);
-            this.tabPage_Template.Controls.Add(this.label49);
             this.tabPage_Template.Controls.Add(this.textBox_MasteryMsg);
             this.tabPage_Template.Controls.Add(this.label53);
             this.tabPage_Template.Controls.Add(this.button_ResetTemp);
-            this.tabPage_Template.Controls.Add(this.label48);
             this.tabPage_Template.Controls.Add(this.textBox_Color);
             this.tabPage_Template.Controls.Add(this.label47);
             this.tabPage_Template.Controls.Add(this.richTextBox_Template);
-            this.tabPage_Template.Controls.Add(this.label46);
-            this.tabPage_Template.Controls.Add(this.label_TemplateType);
-            this.tabPage_Template.Controls.Add(this.label43);
+            this.tabPage_Template.Controls.Add(this.groupBox_Template);
             this.tabPage_Template.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.tabPage_Template.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Template.Name = "tabPage_Template";
@@ -3600,21 +3589,12 @@
             this.button_MoreTemplate.UseVisualStyleBackColor = true;
             this.button_MoreTemplate.Click += new System.EventHandler(this.button_MoreTemplate_Click);
             // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(475, 443);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(327, 17);
-            this.label49.TabIndex = 17;
-            this.label49.Text = "(Leave blank if no Traits that increase by 4 Ranks)";
-            // 
             // textBox_MasteryMsg
             // 
             this.textBox_MasteryMsg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.textBox_MasteryMsg.Location = new System.Drawing.Point(118, 440);
             this.textBox_MasteryMsg.Name = "textBox_MasteryMsg";
-            this.textBox_MasteryMsg.Size = new System.Drawing.Size(351, 23);
+            this.textBox_MasteryMsg.Size = new System.Drawing.Size(204, 23);
             this.textBox_MasteryMsg.TabIndex = 16;
             this.textBox_MasteryMsg.Text = "* denotes +4 Rank Mastery";
             this.textBox_MasteryMsg.WordWrap = false;
@@ -3638,21 +3618,12 @@
             this.button_ResetTemp.UseVisualStyleBackColor = true;
             this.button_ResetTemp.Click += new System.EventHandler(this.button_ResetTemp_Click);
             // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(475, 414);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(357, 17);
-            this.label48.TabIndex = 14;
-            this.label48.Text = "(Leave blank if not using a color. Include # if using Hex)";
-            // 
             // textBox_Color
             // 
             this.textBox_Color.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.textBox_Color.Location = new System.Drawing.Point(118, 411);
             this.textBox_Color.Name = "textBox_Color";
-            this.textBox_Color.Size = new System.Drawing.Size(351, 23);
+            this.textBox_Color.Size = new System.Drawing.Size(204, 23);
             this.textBox_Color.TabIndex = 13;
             this.textBox_Color.WordWrap = false;
             // 
@@ -3668,27 +3639,32 @@
             // richTextBox_Template
             // 
             this.richTextBox_Template.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.richTextBox_Template.Location = new System.Drawing.Point(6, 83);
+            this.richTextBox_Template.Location = new System.Drawing.Point(9, 83);
             this.richTextBox_Template.Name = "richTextBox_Template";
             this.richTextBox_Template.ReadOnly = true;
-            this.richTextBox_Template.Size = new System.Drawing.Size(818, 322);
+            this.richTextBox_Template.Size = new System.Drawing.Size(815, 322);
             this.richTextBox_Template.TabIndex = 11;
             this.richTextBox_Template.Text = "";
             // 
-            // label46
+            // groupBox_Template
             // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(3, 63);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(153, 17);
-            this.label46.TabIndex = 3;
-            this.label46.Text = "Template Source Code";
+            this.groupBox_Template.Controls.Add(this.label_TemplateType);
+            this.groupBox_Template.Controls.Add(this.label43);
+            this.groupBox_Template.Controls.Add(this.label49);
+            this.groupBox_Template.Controls.Add(this.label46);
+            this.groupBox_Template.Controls.Add(this.label48);
+            this.groupBox_Template.Location = new System.Drawing.Point(3, 3);
+            this.groupBox_Template.Name = "groupBox_Template";
+            this.groupBox_Template.Size = new System.Drawing.Size(829, 472);
+            this.groupBox_Template.TabIndex = 20;
+            this.groupBox_Template.TabStop = false;
+            this.groupBox_Template.Text = "Template";
             // 
             // label_TemplateType
             // 
             this.label_TemplateType.AutoSize = true;
             this.label_TemplateType.ForeColor = System.Drawing.Color.Green;
-            this.label_TemplateType.Location = new System.Drawing.Point(187, 9);
+            this.label_TemplateType.Location = new System.Drawing.Point(190, 32);
             this.label_TemplateType.Name = "label_TemplateType";
             this.label_TemplateType.Size = new System.Drawing.Size(129, 17);
             this.label_TemplateType.TabIndex = 1;
@@ -3697,11 +3673,38 @@
             // label43
             // 
             this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(3, 9);
+            this.label43.Location = new System.Drawing.Point(6, 32);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(178, 17);
             this.label43.TabIndex = 0;
             this.label43.Text = "Current Template Loaded: ";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(325, 440);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(327, 17);
+            this.label49.TabIndex = 17;
+            this.label49.Text = "(Leave blank if no Traits that increase by 4 Ranks)";
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(6, 60);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(153, 17);
+            this.label46.TabIndex = 3;
+            this.label46.Text = "Template Source Code";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(325, 411);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(357, 17);
+            this.label48.TabIndex = 14;
+            this.label48.Text = "(Leave blank if not using a color. Include # if using Hex)";
             // 
             // button_Generate
             // 
@@ -3824,7 +3827,7 @@
             this.Controls.Add(this.button_ResetChar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_Generate);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControl_Tech);
             this.Controls.Add(this.label_Title);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -3834,34 +3837,34 @@
             this.Text = "OPRP Character Builder";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.tabControl1.ResumeLayout(false);
+            this.tabControl_Tech.ResumeLayout(false);
             this.tabPage_Basic.ResumeLayout(false);
-            this.groupBox16.ResumeLayout(false);
-            this.groupBox16.PerformLayout();
+            this.groupBox_Appearance.ResumeLayout(false);
+            this.groupBox_Appearance.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Height)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Width)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBox_Features.ResumeLayout(false);
+            this.groupBox_Features.PerformLayout();
+            this.groupBox_Achieve.ResumeLayout(false);
+            this.groupBox_BasicInfo.ResumeLayout(false);
+            this.groupBox_BasicInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Comm)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Age)).EndInit();
             this.tabPage_Background.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
+            this.groupBox_Background.ResumeLayout(false);
+            this.groupBox_Background.PerformLayout();
             this.tabPage_Abilities.ResumeLayout(false);
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
+            this.groupBox_DevilFruit.ResumeLayout(false);
+            this.groupBox_DevilFruit.PerformLayout();
+            this.groupBox_Combat.ResumeLayout(false);
+            this.groupBox_Combat.PerformLayout();
             this.tabPage_RP.ResumeLayout(false);
-            this.groupBox15.ResumeLayout(false);
+            this.groupBox_Profession.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Professions)).EndInit();
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
-            this.groupBox14.ResumeLayout(false);
-            this.groupBox14.PerformLayout();
+            this.groupBox_Stats.ResumeLayout(false);
+            this.groupBox_Stats.PerformLayout();
+            this.groupBox_AP.ResumeLayout(false);
+            this.groupBox_AP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APNPC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APMulti)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_APPrime)).EndInit();
@@ -3875,12 +3878,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SDintoStats)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_SDEarned)).EndInit();
             this.tabPage_Traits.ResumeLayout(false);
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
+            this.groupBox_Traits.ResumeLayout(false);
+            this.groupBox_Traits.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Traits)).EndInit();
             this.tabPage_Techniques.ResumeLayout(false);
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
+            this.groupBox_Categories.ResumeLayout(false);
+            this.groupBox_Categories.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowEnd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RowBegin)).EndInit();
             this.groupBox11.ResumeLayout(false);
@@ -3888,11 +3891,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_SpTraits)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Techniques)).EndInit();
             this.tabPage_Sources.ResumeLayout(false);
-            this.groupBox13.ResumeLayout(false);
-            this.groupBox13.PerformLayout();
+            this.groupBox_Sources.ResumeLayout(false);
+            this.groupBox_Sources.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Sources)).EndInit();
             this.tabPage_Template.ResumeLayout(false);
             this.tabPage_Template.PerformLayout();
+            this.groupBox_Template.ResumeLayout(false);
+            this.groupBox_Template.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -3903,7 +3908,7 @@
 		#endregion
 
 		private System.Windows.Forms.Label label_Title;
-		private System.Windows.Forms.TabControl tabControl1;
+		private System.Windows.Forms.TabControl tabControl_Tech;
 		private System.Windows.Forms.TabPage tabPage_Basic;
 		private System.Windows.Forms.TabPage tabPage_Background;
 		private System.Windows.Forms.TabPage tabPage_Abilities;
@@ -3911,7 +3916,7 @@
 		private System.Windows.Forms.TabPage tabPage_Techniques;
 		private System.Windows.Forms.Button button_Generate;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.GroupBox groupBox_BasicInfo;
 		private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.Label label6;
@@ -3933,12 +3938,12 @@
 		private System.Windows.Forms.TextBox textBox_Nickname;
 		private System.Windows.Forms.TextBox textBox_CharacterName;
 		private System.Windows.Forms.ComboBox comboBox_MarineRank;
-		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.GroupBox groupBox_Achieve;
 		private System.Windows.Forms.ListBox listBox_Achieve;
 		private System.Windows.Forms.Button button_AchieveAdd;
 		private System.Windows.Forms.Button button_AchieveDelete;
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-		private System.Windows.Forms.GroupBox groupBox6;
+		private System.Windows.Forms.GroupBox groupBox_Background;
 		private System.Windows.Forms.ComboBox comboBox_Region;
 		private System.Windows.Forms.TextBox textBox_Island;
 		private System.Windows.Forms.Label label25;
@@ -3947,7 +3952,7 @@
 		private System.Windows.Forms.RichTextBox richTextBox_History;
 		private System.Windows.Forms.RichTextBox richTextBox_Personality;
 		private System.Windows.Forms.Label label24;
-		private System.Windows.Forms.GroupBox groupBox7;
+		private System.Windows.Forms.GroupBox groupBox_Combat;
 		private System.Windows.Forms.Button button_WeaponAdd;
 		private System.Windows.Forms.Button button_WeaponDelete;
 		private System.Windows.Forms.RichTextBox richTextBox_Combat;
@@ -3956,14 +3961,14 @@
 		private System.Windows.Forms.Button button_ItemsAdd;
 		private System.Windows.Forms.Button button_ItemsDelete;
 		private System.Windows.Forms.Label label27;
-		private System.Windows.Forms.GroupBox groupBox9;
+		private System.Windows.Forms.GroupBox groupBox_DevilFruit;
 		private System.Windows.Forms.RichTextBox richTextBox_DFDesc;
 		private System.Windows.Forms.Label label52;
 		private System.Windows.Forms.ComboBox comboBox_DFType;
 		private System.Windows.Forms.Label label51;
 		private System.Windows.Forms.Label label50;
 		private System.Windows.Forms.TextBox textBox_DFName;
-		private System.Windows.Forms.GroupBox groupBox10;
+		private System.Windows.Forms.GroupBox groupBox_Traits;
 		private System.Windows.Forms.Button button_TraitsDelete;
 		private System.Windows.Forms.Button button_TraitAdd;
 		private System.Windows.Forms.Label label59_TraitsCalc;
@@ -3990,7 +3995,7 @@
 		private System.Windows.Forms.Label label45;
 		private System.Windows.Forms.TextBox textBox_SpTPUsed;
 		private System.Windows.Forms.TabPage tabPage_RP;
-		private System.Windows.Forms.GroupBox groupBox12;
+		private System.Windows.Forms.GroupBox groupBox_Stats;
 		private System.Windows.Forms.Label label_FortuneCalc;
 		private System.Windows.Forms.Label label_GenerateCheck;
 		private System.Windows.Forms.Label label_AccuracyCalc;
@@ -4047,7 +4052,7 @@
 		private System.Windows.Forms.ToolStripButton toolStripButton_Open;
 		private System.Windows.Forms.ToolStripButton toolStripButton_Save;
 		private System.Windows.Forms.Label label_TotalSD;
-		private System.Windows.Forms.GroupBox groupBox8;
+		private System.Windows.Forms.GroupBox groupBox_Categories;
 		private System.Windows.Forms.Label label_RowNum;
 		private System.Windows.Forms.ListView listView_SubCat;
 		private System.Windows.Forms.Label label38;
@@ -4086,7 +4091,7 @@
         private System.Windows.Forms.Button button_LoadTemp;
         private System.Windows.Forms.ToolStripButton toolStripButton_SaveAs;
         private System.Windows.Forms.TabPage tabPage_Sources;
-        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.GroupBox groupBox_Sources;
         private System.Windows.Forms.Button button_DownSource;
         private System.Windows.Forms.Button button_UpSource;
         private System.Windows.Forms.DataGridView dgv_Sources;
@@ -4126,7 +4131,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Trait_GenNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn Trait_ProfNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn Trait_Desc;
-        private System.Windows.Forms.GroupBox groupBox14;
+        private System.Windows.Forms.GroupBox groupBox_AP;
         private System.Windows.Forms.NumericUpDown numericUpDown_APTech;
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.NumericUpDown numericUpDown_APNPC;
@@ -4141,7 +4146,7 @@
         private System.Windows.Forms.CheckBox checkBox_APHaki;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.TextBox textBox_AP;
-        private System.Windows.Forms.GroupBox groupBox15;
+        private System.Windows.Forms.GroupBox groupBox_Profession;
         private System.Windows.Forms.DataGridView dgv_Professions;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
@@ -4156,7 +4161,7 @@
         private System.Windows.Forms.Button button_Standardize;
         private System.Windows.Forms.TextBox textBox_Beli;
         private System.Windows.Forms.Label label60;
-        private System.Windows.Forms.GroupBox groupBox16;
+        private System.Windows.Forms.GroupBox groupBox_Appearance;
         private System.Windows.Forms.Button button_ImageEdit;
         private System.Windows.Forms.Button button_ImageDelete;
         private System.Windows.Forms.Button button_ImageAdd;
@@ -4177,7 +4182,7 @@
         private System.Windows.Forms.Label label86;
         private System.Windows.Forms.RichTextBox richTextBox_Clothing;
         private System.Windows.Forms.Label label87;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox_Features;
         private System.Windows.Forms.RichTextBox richTextBox_Eye;
         private System.Windows.Forms.RichTextBox richTextBox_Hair;
         private System.Windows.Forms.TextBox textBox_Weight;
@@ -4190,6 +4195,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_SpTraitName;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_SpUsed;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvRow_SpTotal;
+        private System.Windows.Forms.GroupBox groupBox_Template;
     }
 }
 

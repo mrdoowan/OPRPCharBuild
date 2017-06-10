@@ -34,11 +34,11 @@ namespace OPRPCharBuild
 
 		#region Member Variables
 
-		public const string VERSION = "1.6.0";
+		public const string VERSION = "1.6.1";
 		public const string STD_TEMPLATE_MSG = "Standard Template";
         private const string WEBSITE = "https://github.com/mrdoowan/OPRPCharBuild/releases";
         public static bool template_imported = false;
-        private static bool upgrading = false;             // Used when upgrading
+        private static bool saved = true;       // Used to keep track if saved
         // Character Class
         // The following will update the Character Class at real-time:
         // Professions, Traits, and Techniques
@@ -61,12 +61,13 @@ namespace OPRPCharBuild
 
         // General function for Deleting an Item from ListView
         // Returns the string Name of the Item, specifically for finding Key values in Dictionary
-        public static string Delete_ListViewItem(ref ListView list) {
+        public string Delete_ListViewItem(ref ListView list) {
 			if (list.SelectedItems.Count == 1) {
 				string key = list.SelectedItems[0].SubItems[0].Text;	// Typically the key value is always the name
 				foreach (ListViewItem eachItem in list.SelectedItems) {
 					list.Items.Remove(eachItem);
 				}
+                notSavedStatus();
 				return key;
 			}
 			return null;
@@ -87,6 +88,7 @@ namespace OPRPCharBuild
 						list.Items.Insert(curr_ind - 1, item);
 						// Maintain selection
 						list.Items[curr_ind - 1].Selected = true;
+                        notSavedStatus();
 					}
 				}
 				else if (direction == "Down") {
@@ -95,6 +97,7 @@ namespace OPRPCharBuild
 						list.Items.Insert(curr_ind + 1, item);
 						// Maintain selection
 						list.Items[curr_ind + 1].Selected = true;
+                        notSavedStatus();
 					}
 				}
 				else {
@@ -123,6 +126,7 @@ namespace OPRPCharBuild
                     dgv.Rows.Insert(rowIndex + 1, selectedRow);
                     dgv.Rows[rowIndex + 1].Selected = true;
                 }
+                notSavedStatus();
             }
             catch { }
         }
@@ -180,7 +184,7 @@ namespace OPRPCharBuild
 					MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
 					Process.Start(WEBSITE);
 					Process.Start("http://s1.zetaboards.com/One_Piece_RP/topic/6060583/1/");
-					upgrading = true;
+					saved = true;
 					Application.Exit();
 				}
 			}
@@ -892,6 +896,8 @@ namespace OPRPCharBuild
 
         #endregion
 
+        #region Main Form Loading
+
         // This only occurs once before the form is displayed for the first time.
         private void MainForm_Load(object sender, EventArgs e) {
             this.Text = "OPRP Character Builder";
@@ -938,15 +944,89 @@ namespace OPRPCharBuild
 			// ------ Template
 			richTextBox_Template.Text = Sheet.BASIC_TEMPLATE;
 
-		}
+            // ------ Adding Save Changes Controls
+            // --- tabPage: Basic Information
+            foreach (Control c in groupBox_BasicInfo.Controls) {
+                addAnySaveEvent(c);
+            }
+            foreach (Control c in groupBox_Features.Controls) {
+                addAnySaveEvent(c);
+            }
+            richTextBox_Clothing.TextChanged += notSavedEvent;
+            richTextBox_GeneralAppear.TextChanged += notSavedEvent;
+            // --- tabPage: Background
+            foreach (Control c in groupBox_Background.Controls) {
+                addAnySaveEvent(c);
+            }
+            // --- tabPage: Abilities
+            richTextBox_Combat.TextChanged += notSavedEvent;
+            foreach (Control c in groupBox_DevilFruit.Controls) {
+                addAnySaveEvent(c);
+            }
+            // --- tabPage: RP Elements
+            foreach (Control c in groupBox_Stats.Controls) {
+                addAnySaveEvent(c);
+            }
+            foreach (Control c in groupBox_AP.Controls) {
+                addAnySaveEvent(c);
+            }
+            // --- tabPage: Traits
+            // --- tabPage: Techniques
+            // --- tabPage: Sources
+            // --- tabPage: Template
+            textBox_Color.TextChanged += notSavedEvent;
+            textBox_MasteryMsg.TextChanged += notSavedEvent;
+        }
 
-		// --------------------------------------------------------------------------------------------
-		// "BASIC INFORMATION" Tab
-		// --------------------------------------------------------------------------------------------
+        // Helper Function: for TextBox, RichTextBox, ComboBox, NumericUpDown, CheckBox
+        private void addAnySaveEvent(Control c) {
+            if (c is TextBox) {
+                if (((TextBox)c).ReadOnly) { return; }
+                c.TextChanged += notSavedEvent;
+            }
+            else if (c is RichTextBox) {
+                if (((RichTextBox)c).ReadOnly) { return; }
+                c.TextChanged += notSavedEvent;
+            }
+            else if (c is ComboBox) {
+                ((ComboBox)c).TextChanged += notSavedEvent;
+                ((ComboBox)c).SelectedIndexChanged += notSavedEvent;
+            }
+            else if (c is NumericUpDown) {
+                ((NumericUpDown)c).ValueChanged += notSavedEvent;
+            }
+            else if (c is CheckBox) {
+                ((CheckBox)c).CheckedChanged += notSavedEvent;
+            }
+        }
 
-		#region Basic Character Tab
+        // The event firing for notSavedStatus()
+        private void notSavedEvent(object sender, EventArgs e) {
+            notSavedStatus();
+        }
 
-		private void comboBox2_SelectedIndexChanged(object sender, EventArgs e) {
+        // To indicate that the Form is not saved. Happens when something changes
+        private void notSavedStatus() {
+            this.Text = this.Text.TrimEnd('*');
+            this.Text += "*";
+            saved = false;
+        }
+
+        // To indicate that the Form is saved. Only happens when Save or Save As is pressed
+        private void isSavedStatus() {
+            this.Text = this.Text.TrimEnd('*');
+            saved = true;
+        }
+
+        #endregion
+
+        // --------------------------------------------------------------------------------------------
+        // "BASIC INFORMATION" Tab
+        // --------------------------------------------------------------------------------------------
+
+        #region Basic Character Tab
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e) {
 			// This is when we change the Affiliation ComboBox. Exception should only happen when we change.
 			string affiliation = comboBox_Affiliation.Text;
 			if (affiliation == "Pirate") {
@@ -1031,7 +1111,7 @@ namespace OPRPCharBuild
         private void button3_AchieveAdd_Click(object sender, EventArgs e) {
 			// Achievement "Add" button from the MainForm
 			Add_Achievement AchievementWin = new Add_Achievement();
-			AchievementWin.NewDialog(ref listBox_Achieve);
+			if (AchievementWin.NewDialog(ref listBox_Achieve)) { notSavedStatus(); }
 			// Look above to show how to transfer data between forms. This uses references quite well.
 		}
 
@@ -1040,7 +1120,7 @@ namespace OPRPCharBuild
 			int index = listBox_Achieve.SelectedIndex;
 			if (index != -1) {
 				Add_Achievement AchievementWin = new Add_Achievement();
-				AchievementWin.EditDialogue(ref listBox_Achieve, index);
+				if (AchievementWin.EditDialogue(ref listBox_Achieve, index)) { notSavedStatus(); }
 			}
 		}
 
@@ -1049,6 +1129,7 @@ namespace OPRPCharBuild
 			int index = listBox_Achieve.SelectedIndex;
 			if (index != -1) {
 				listBox_Achieve.Items.RemoveAt(index);
+                notSavedStatus();
 			}
 		}
 
@@ -1066,6 +1147,7 @@ namespace OPRPCharBuild
 			listBox_Achieve.Items.Remove(selected);
 			listBox_Achieve.Items.Insert(newIndex, selected);
 			listBox_Achieve.SetSelected(newIndex, true);
+            notSavedStatus();
 		}
 
 		private void button_UpAchieve_Click(object sender, EventArgs e) {
@@ -1109,6 +1191,7 @@ namespace OPRPCharBuild
 				textBox_ImageLabel.Clear();
 				textBox_ImageURL.Clear();
 				checkBox_FullRes.Checked = true;
+                notSavedStatus();
 			}
 		}
 
@@ -1128,6 +1211,7 @@ namespace OPRPCharBuild
 				}
                 // Delete from ListView
 				Delete_ListViewItem(ref listView_Images);
+                notSavedStatus();
 			}
 		}
 
@@ -1164,7 +1248,7 @@ namespace OPRPCharBuild
 		private void button6_WeaponAdd_Click(object sender, EventArgs e) {
 			// Weapon "Add" button from the MainForm
 			Add_Equipment EquipmentWin = new Add_Equipment();
-			EquipmentWin.Add_Weapon(ref listView_Weaponry);
+			if (EquipmentWin.Add_Weapon(ref listView_Weaponry)) { notSavedStatus(); }
 		}
 
 		private void button_WeaponEdit_Click(object sender, EventArgs e) {
@@ -1172,7 +1256,7 @@ namespace OPRPCharBuild
 			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
 			if (listView_Weaponry.SelectedItems.Count == 1) {
 				Add_Equipment EquipmentWin = new Add_Equipment();
-				EquipmentWin.Edit_Weapon(ref listView_Weaponry);
+				if (EquipmentWin.Edit_Weapon(ref listView_Weaponry)) { notSavedStatus(); }
 			}
 		}
 
@@ -1193,7 +1277,7 @@ namespace OPRPCharBuild
 		private void button8_ItemsAdd_Click(object sender, EventArgs e) {
 			// Item "Add" button from the MainForm
 			Add_Equipment EquipmentWin = new Add_Equipment();
-			EquipmentWin.Add_Item(ref listView_Items);
+            if (EquipmentWin.Add_Item(ref listView_Items)) { notSavedStatus(); }
 		}
 
 		private void button_ItemsEdit_Click(object sender, EventArgs e) {
@@ -1201,7 +1285,7 @@ namespace OPRPCharBuild
 			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
 			if (listView_Items.SelectedItems.Count == 1) {
 				Add_Equipment EquipmentWin = new Add_Equipment();
-				EquipmentWin.Edit_Item(ref listView_Items);
+				if (EquipmentWin.Edit_Item(ref listView_Items)) { notSavedStatus(); }
 			}
 		}
 
@@ -1416,7 +1500,7 @@ namespace OPRPCharBuild
         // Profession "Add" button from the MainForm
         private void button_AddProf_Click(object sender, EventArgs e) {
             Add_Profession ProfessionWin = new Add_Profession();
-            ProfessionWin.NewDialog(ref dgv_Professions, ref profList);
+            if (ProfessionWin.NewDialog(ref dgv_Professions, ref profList)) { notSavedStatus(); }
         }
 
         // Profession "Edit" button from the MainForm
@@ -1424,7 +1508,7 @@ namespace OPRPCharBuild
         private void button_EditProf_Click(object sender, EventArgs e) {
             try {
                 Add_Profession ProfessionWin = new Add_Profession();
-                ProfessionWin.EditDialog(ref dgv_Professions, ref profList);
+                if (ProfessionWin.EditDialog(ref dgv_Professions, ref profList)) { notSavedStatus(); }
             }
             catch (Exception ex) {
                 MessageBox.Show("Error in editing Profession.\nReason: " + ex.Message);
@@ -1442,6 +1526,7 @@ namespace OPRPCharBuild
                     int remove_index = dgv_Professions.SelectedRows[0].Index;
                     dgv_Professions.Rows.RemoveAt(remove_index);
                     dgv_Professions.Refresh();
+                    notSavedStatus();
                 }
             }
             catch (Exception ex) {
@@ -1467,6 +1552,7 @@ namespace OPRPCharBuild
 			Update_Accuracy_Final();
 			Update_Total_RegTP();
 			Update_CritAnatQuick_Msg();
+            notSavedStatus();
 		}
 
         // Traits "Add" button from the MainForm
@@ -1505,13 +1591,13 @@ namespace OPRPCharBuild
                 int remove_index = dgv_Traits.SelectedRows[0].Index;
                 dgv_Traits.Rows.RemoveAt(remove_index);
                 dgv_Traits.Refresh();
+                // All update Functions
+                All_Update_Functions_Traits();
+                Remove_SpTrait(traitName);
             }
             catch (Exception ex) {
                 MessageBox.Show("Error in deleting Trait.\nReason: " + ex.Message, "Exception Thrown");
             }
-			// All update Functions
-			All_Update_Functions_Traits();
-            Remove_SpTrait(traitName);
 		}
 
         // Move Trait row up
@@ -1553,6 +1639,7 @@ namespace OPRPCharBuild
 			Update_Used_RegTP();
 			Update_CritAnatQuick_Msg();
 			Update_TechNum();
+            notSavedStatus();
         }
 
 		private void listView3_SpTP_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e) {
@@ -1755,6 +1842,7 @@ namespace OPRPCharBuild
 			listView_SubCat.ListViewItemSorter = new ListViewItemNumberSort(0);
 			listView_SubCat.Sort();
 			Update_SubCatWarning();
+            notSavedStatus();
 		}
 
 		private void button_SubCatEdit_Click(object sender, EventArgs e) {
@@ -1769,6 +1857,7 @@ namespace OPRPCharBuild
 					textBox_SubCat.Text = listView_SubCat.SelectedItems[0].SubItems[2].Text;
 					Delete_ListViewItem(ref listView_SubCat);
 					Update_SubCatWarning();
+                    notSavedStatus();
 				}
 				catch {
 					MessageBox.Show("Error in editing Category.", "Exception Thrown", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1781,6 +1870,7 @@ namespace OPRPCharBuild
 				MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
 				listView_SubCat.Items.Clear();
 				Update_SubCatWarning();
+                notSavedStatus();
 			}
 		}
 
@@ -1843,6 +1933,7 @@ namespace OPRPCharBuild
         private void update_All_Sources() {
             update_SD_Sources();
             update_Beli_Sources();
+            notSavedStatus();
         }
 
         // Remembering the state of the dateTimeStamp check
@@ -1907,6 +1998,7 @@ namespace OPRPCharBuild
                     devH_data = Serialize.decryptData(encrypted, DEVH_KEY);
                     profile.loadCharSources(ref sourceList, ref dgv_Sources,
                         ref radioButton_DateNA, true, devH_data);
+                    notSavedStatus();
                 }
                 catch (Exception ex) {
                     MessageBox.Show("Failed to load.\nReason: " + ex.Message,
@@ -1960,6 +2052,7 @@ namespace OPRPCharBuild
                     date[1] = temp;
                     row.Cells[1].Value = string.Join("/", date);
                 }
+                notSavedStatus();
             }
         }
 
@@ -1974,6 +2067,7 @@ namespace OPRPCharBuild
                     date[1] = temp;
                     row.Cells[1].Value = string.Join("/", date);
                 }
+                notSavedStatus();
             }
         }
 
@@ -2028,6 +2122,7 @@ namespace OPRPCharBuild
         }
 
         private void button_ResetTemp_Click(object sender, EventArgs e) {
+            if (template_imported) { notSavedStatus(); }
 			template_imported = false;
 			label_TemplateType.Text = STD_TEMPLATE_MSG;
 			label_TemplateType.ForeColor = Color.Green;
@@ -2153,6 +2248,8 @@ namespace OPRPCharBuild
 			Update_Used_RegTP();
             textBox_SpTPTotal.Text = "0";
             textBox_SpTPUsed.Text = "0";
+            // Reset save status
+            isSavedStatus();
 		}
 
 		// Saves the form into a serialized object so that only the tool recognizes the Saved Form
@@ -2371,11 +2468,14 @@ namespace OPRPCharBuild
 		private void newCharacter() {
 			DialogResult result = new DialogResult();
 			result = DialogResult.No;
-			result = MessageBox.Show("Save your current work before making a New Character?", "Make New Project",
-				MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-			if (result == DialogResult.Yes) {
-				saveCharacter();
-			}
+            if (!saved) {
+                result = MessageBox.Show("Save your current work before making a New Character?", "Make New Project",
+                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes) {
+                    saveCharacter();
+                }
+            }
+            // Make a new Character
 			if (result != DialogResult.Cancel) {
 				this.Text = "OPRP Character Builder";
 				profile.filename = null;
@@ -2403,7 +2503,8 @@ namespace OPRPCharBuild
 				saveFormToCharacter();
 				try {
 					saveCharactertoData();
-				}
+                    isSavedStatus();
+                }
 				catch (Exception e) {
 					MessageBox.Show("Failed to save.\nReason: " + e.Message);
 				}
@@ -2413,11 +2514,15 @@ namespace OPRPCharBuild
 		private void openCharacter() {
 			DialogResult result = new DialogResult();
 			result = DialogResult.No;
-			result = MessageBox.Show("Save your current work before opening a Character?", "Open Project",
-				MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-			if (result == DialogResult.Yes) {
-				saveCharacter();
-			}
+            // Check if it's saved
+            if (!saved) {
+                result = MessageBox.Show("Save your current work before opening a Character?", "Open Project",
+                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes) {
+                    saveCharacter();
+                }
+            }
+            // Open the Character
 			if (result != DialogResult.Cancel) {
 				OpenFileDialog dlgFileOpen = new OpenFileDialog();
 				dlgFileOpen.Filter = "OPRP files (*.oprp)|*.oprp";
@@ -2431,7 +2536,8 @@ namespace OPRPCharBuild
 						resetForm();
 						loadCharacterToForm();
 						this.Text = profile.filename;
-					}
+                        isSavedStatus();
+                    }
 					catch (Exception e) {
 						MessageBox.Show("Failed to deserialize.\nReason: " + e.Message, 
 							"Failed to Open", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -2610,6 +2716,7 @@ namespace OPRPCharBuild
                 saveFormToCharacter();
                 saveCharactertoData();
                 this.Text = profile.filename;
+                isSavedStatus();
             }
         }
 
@@ -2627,6 +2734,7 @@ namespace OPRPCharBuild
 					richTextBox_Template.Text = sr.ReadToEnd();
 					template_imported = true;
 					MessageBox.Show("Template \"" + label_TemplateType.Text + "\" imported successfully.", "Imported", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    notSavedStatus();
 					return true;
 				}
 				catch {
@@ -2641,7 +2749,7 @@ namespace OPRPCharBuild
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
 			// Check to save before closing the program
-			if (!upgrading) {
+			if (!saved) {
 				DialogResult result = new DialogResult();
 				result = DialogResult.No;
 				result = MessageBox.Show("Save changes before closing the tool?", "Save Changes",

@@ -58,7 +58,8 @@ namespace OPRPCharBuild
 			}
 		}
 
-		public void NewDialog(ref DataGridView dgv, ref Dictionary<string, Profession> profDict) {
+        // Returns true if a new Profession is added
+		public bool NewDialog(ref DataGridView dgv, ref Dictionary<string, Profession> profDict) {
 			this.ShowDialog();
 			if (button_clicked) {
 				try {
@@ -71,14 +72,17 @@ namespace OPRPCharBuild
                     string bool_str = (primary) ? "Primary" : "Secondary";
                     dgv.Rows.Insert(0, name, textBox_Custom.Text, bool_str,
                         richTextBox1_Desc.Text, richTextBox2_Primary.Text);
+                    return true;
 				}
 				catch (Exception e) {
 					MessageBox.Show("Can't add the same profession twice.\nReason: " + e.Message, "Exception Thrown");
 				}
 			}
+            return false;
 		}
 
-		public void EditDialog(ref DataGridView dgv, ref Dictionary<string, Profession> profDict) {
+        // Returns true if a new Profession is edited
+        public bool EditDialog(ref DataGridView dgv, ref Dictionary<string, Profession> profDict) {
 			this.Text = "Edit Profession";
 			button_Add.Text = "Edit";
             // Put what's Edited into the Dialog Box first.
@@ -107,6 +111,7 @@ namespace OPRPCharBuild
                     Profession editProf = new Profession(name, primary, textBox_Custom.Text,
                         richTextBox1_Desc.Text, richTextBox2_Primary.Text);
                     profDict.Add(name, editProf);
+                    return true;
                 }
                 catch (Exception e) {
                     profDict.Add(prof_name, sel_prof); // Re-Add
@@ -116,9 +121,9 @@ namespace OPRPCharBuild
                     dgv.SelectedRows[0].Cells[3].Value = sel_prof.desc;
                     dgv.SelectedRows[0].Cells[4].Value = sel_prof.bonus;
                     MessageBox.Show("Can't add the same profession twice.\nReason: " + e.Message, "Exception Thrown");
-                    return;
                 }
             }
+            return false;
 		}
 
 		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {

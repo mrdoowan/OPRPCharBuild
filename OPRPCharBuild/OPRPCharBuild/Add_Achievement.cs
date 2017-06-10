@@ -35,14 +35,18 @@ namespace OPRPCharBuild
 			}
 		}
 
-		public void NewDialog(ref ListBox Main_Form) {
+        // Adds a new item. Returns true if added, otherwise false
+		public bool NewDialog(ref ListBox Main_Form) {
 			this.ShowDialog();
 			if (button_clicked) {
 				Main_Form.Items.Add(richTextBox1.Text);
+                return true;
 			}
+            return false;
 		}
 
-		public void EditDialogue(ref ListBox Main_Form, int index) {
+        // Edits a new item. Returns true if edited, otherwise false
+        public bool EditDialogue(ref ListBox Main_Form, int index) {
 			this.Text = "Edit Achievement";
 			button1.Text = "Edit";
             string oldAch = Main_Form.Items[index].ToString();
@@ -50,7 +54,9 @@ namespace OPRPCharBuild
 			this.ShowDialog();
 			if (button_clicked) {
 				Main_Form.Items[index] = richTextBox1.Text;
+                return true;
 			}
+            return false;
 		}
 
 		private void richTextBox1_TextChanged(object sender, EventArgs e) {

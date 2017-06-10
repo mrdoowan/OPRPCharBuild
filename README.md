@@ -18,6 +18,8 @@ Based on OPRP usernames
 
 Version History
 ---------------
+### v1.6.1
+* Now keeps track of a Saved state
 
 ### v1.6.0
 * Development History for Sources and Gains/Losses added

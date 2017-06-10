@@ -49,17 +49,21 @@ namespace OPRPCharBuild
 			}
 		}
 
-		private void Add_ListItem(ref ListView Main_Form) {
+        // Returns true if item is added
+		private bool Add_ListItem(ref ListView Main_Form) {
 			this.ShowDialog();
 			if (button_clicked) {
 				ListViewItem item = new ListViewItem();
 				item.SubItems[0].Text = textBox1.Text;      // First column: Name of Weapon/Item
 				item.SubItems.Add(richTextBox1.Text);       // Second column: Description
 				Main_Form.Items.Add(item);
+                return true;
 			}
+            return false;
 		}
 
-		private void Edit_ListItem(ref ListView Main_Form) {
+        // Returns true if item is edited
+		private bool Edit_ListItem(ref ListView Main_Form) {
 			button1.Text = "Edit";
 			// Put what we're editing into the Dialog
 			textBox1.Text = Main_Form.SelectedItems[0].SubItems[0].Text;
@@ -69,27 +73,29 @@ namespace OPRPCharBuild
 			if (button_clicked) {
 				Main_Form.SelectedItems[0].SubItems[0].Text = textBox1.Text;
 				Main_Form.SelectedItems[0].SubItems[1].Text = richTextBox1.Text;
+                return true;
 			}
+            return false;
 		}
 
-		public void Add_Weapon(ref ListView Main_Form) {
+		public bool Add_Weapon(ref ListView Main_Form) {
 			this.Text = "Add Weapon";
-			Add_ListItem(ref Main_Form);
+			return Add_ListItem(ref Main_Form);
 		}
 
-		public void Add_Item(ref ListView Main_Form) {
+		public bool Add_Item(ref ListView Main_Form) {
 			this.Text = "Add Item";
-			Add_ListItem(ref Main_Form);
+            return Add_ListItem(ref Main_Form);
 		}
 
-		public void Edit_Weapon(ref ListView Main_Form) {
+		public bool Edit_Weapon(ref ListView Main_Form) {
 			this.Text = "Edit Weapon";
-			Edit_ListItem(ref Main_Form);
+            return Edit_ListItem(ref Main_Form);
 		}
 
-		public void Edit_Item(ref ListView Main_Form) {
+		public bool Edit_Item(ref ListView Main_Form) {
 			this.Text = "Edit Item";
-			Edit_ListItem(ref Main_Form);
+            return Edit_ListItem(ref Main_Form);
 		}
 
 		private void textBox1_TextChanged(object sender, EventArgs e) {
