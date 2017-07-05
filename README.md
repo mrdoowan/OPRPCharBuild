@@ -18,6 +18,9 @@ Based on OPRP usernames
 
 Version History
 ---------------
+### v1.6.2
+* Hotfixed Bug: Fixed broken "Edit" and "Delete" button for Images
+
 ### v1.6.1
 * Now keeps track of a Saved state
 

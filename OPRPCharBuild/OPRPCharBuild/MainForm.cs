@@ -34,7 +34,7 @@ namespace OPRPCharBuild
 
 		#region Member Variables
 
-		public const string VERSION = "1.6.1";
+		public const string VERSION = "1.6.2";
 		public const string STD_TEMPLATE_MSG = "Standard Template";
         private const string WEBSITE = "https://github.com/mrdoowan/OPRPCharBuild/releases";
         public static bool template_imported = false;
@@ -1203,8 +1203,10 @@ namespace OPRPCharBuild
 				textBox_ImageLabel.Text = listView_Images.SelectedItems[0].SubItems[1].Text;
 				if (listView_Images.SelectedItems[0].SubItems[2].Text == "No") {
 					checkBox_FullRes.Checked = false;
-					numericUpDown_Width.Value = int.Parse(listView_Images.SelectedItems[0].SubItems[3].Text);
-					numericUpDown_Height.Value = int.Parse(listView_Images.SelectedItems[0].SubItems[4].Text);
+                    try { numericUpDown_Width.Value = int.Parse(listView_Images.SelectedItems[0].SubItems[3].Text); }
+                    catch { }
+                    try { numericUpDown_Height.Value = int.Parse(listView_Images.SelectedItems[0].SubItems[4].Text); }
+                    catch { }
 				}
 				else {
 					checkBox_FullRes.Checked = true;
@@ -2704,7 +2706,7 @@ namespace OPRPCharBuild
 		private void toolStripButton_Save_Click(object sender, EventArgs e) {
 			saveCharacter();
 		}
-
+        
         private void toolStripButton_SaveAs_Click(object sender, EventArgs e) {
             SaveFileDialog fileDialogSaveProject = new SaveFileDialog();
             fileDialogSaveProject.Filter = "OPRP files (*.oprp)|*.oprp";
