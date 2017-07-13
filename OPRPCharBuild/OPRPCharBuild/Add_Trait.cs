@@ -43,7 +43,7 @@ namespace OPRPCharBuild
                     return null;
                 }
                 // Add into dgv
-                dgv.Rows.Insert(0, name, custom, traitType, gen, prof, desc);
+                dgv.Rows.Insert(dgv.Rows.Count, name, custom, traitType, gen, prof, desc);
                 
 				return name;
 			}

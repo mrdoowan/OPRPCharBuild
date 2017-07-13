@@ -22,11 +22,10 @@ namespace OPRPCharBuild
 	{
 		public MainForm() {
             // Check for updates of a New Version or Bug Messages
-            Check_Update();
             InitializeComponent();
             //this.Visible = false;
             //if (!Loading_Window()) { this.Visible = true; }
-		}
+        }
 
 		// --------------------------------------------------------------------------------------------
 		// MEMBER VARIABLES
@@ -900,6 +899,8 @@ namespace OPRPCharBuild
 
         // This only occurs once before the form is displayed for the first time.
         private void MainForm_Load(object sender, EventArgs e) {
+            Check_Update();
+
             this.Text = "OPRP Character Builder";
 			label_Title.Text = "OPRP Character Builder";
 			label1.Text = "OPRP Character Builder v" + VERSION + " designed by Solo";
@@ -1731,23 +1732,20 @@ namespace OPRPCharBuild
                 dgv_Techniques.SelectedRows[0].Cells[0].Value.ToString() + "\"?", "Remove Tech",
 				MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 			if (result == DialogResult.Yes) {
-                // Remove from Dict
                 string techName = dgv_Techniques.SelectedRows[0].Cells[0].Value.ToString();
                 try {
                     // Remove from Dict
-                    techList.Remove(techName);
-                    // Remove from dgv
-                    int remove_index = dgv_Traits.SelectedRows[0].Index;
-                    dgv_Traits.Rows.RemoveAt(remove_index);
-                    dgv_Traits.Refresh();
                     string spTrait = "";
                     if (!string.IsNullOrWhiteSpace(techName)) {
                         spTrait = techList[techName].specialTrait;
                         techList.Remove(techName);
                     }
+                    // Remove from dgv
+                    int remove_index = dgv_Techniques.SelectedRows[0].Index;
+                    dgv_Techniques.Rows.RemoveAt(remove_index);
+                    dgv_Techniques.Refresh();
                     // Update functions go below
                     All_Update_Functions_Techs(spTrait);
-                    
                 }
                 catch (Exception ex) {
                     MessageBox.Show("Error in deleting Technique.\nReason: " + ex.Message, "Exception Thrown");

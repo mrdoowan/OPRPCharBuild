@@ -557,8 +557,7 @@ namespace OPRPCharBuild
 			numericUpDown_SpTP.Maximum = max_rank;
 			numericUpDown_RankBranch.Maximum = max_rank - 1;
 
-			// Add Traits Affecting the Rank
-            // Add the custom TraitName instead
+			// Add Traits Affecting the Rank: Add the custom TraitName instead
             foreach (string traitName in traitsList.Keys) {
                 if (isAffectRankTrait(traitName)) {
                     comboBox_AffectRank.Items.Add(traitsList[traitName].getTraitName());

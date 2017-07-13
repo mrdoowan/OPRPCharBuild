@@ -404,11 +404,11 @@ namespace OPRPCharBuild
 
         static private Dictionary<string, Rokushiki> rokuDict = new Dictionary<string, Rokushiki>() {
             #region Rokushiki Database
-            { ROKU_SHI, new Rokushiki(ROKU_SHI, 22, "Offensive", "Melee", 4, 0, 0, 0, 0,
+            { ROKU_SHI, new Rokushiki(ROKU_SHI, 20, "Offensive", "Melee", 4, 0, 0, 0, 0,
                 "This technique is an improved melee strike. The damage done by the user's finger (or other small appendage) is treated as both blunt and piercing, generally using the more favourable of the two damage types when the other would not be as effective. Additionally, the attack is quick and difficult to track, executed at bullet-like speeds. (Damage Type Change, Piercing, Quick)") },
             { ROKU_RAN, new Rokushiki(ROKU_RAN, 22, "Offensive", "Long", 8, 0, 0, 0, 0,
                 "By kicking fast enough, the user literally \"cuts\" their air with their foot. The projectile is different from standard ranged melee, possessing a keen cutting edge and unusual longevity. A Rankyaku shockwave will continue moving until it reaches the edge of it's range or impacts with an obstacle harder than stone. (Damage Type Change, Piercing, Shockwave, Long Range)") },
-            { ROKU_SOR, new Rokushiki(ROKU_SOR, 28, "Support", "Self", 0, 0, 0, 0, 0,
+            { ROKU_SOR, new Rokushiki(ROKU_SOR, 28, "Support", "Self", 20, 0, 0, 0, 0,
                 "Once per post, an individual can use this technique to put on momentary bursts of speed. The user may move to any location that they could normally move to in a single post, but they do so near-instantaneously. During this movement, they cannot be seen by anybody who's accuracy is less than double this technique's rank, appearing as a blurred streak to anybody who's accuracy is above that point. If attacked while moving by a foe who's speed is less than this technique's rank, the attack can be passively dodged without any expenditure of Focus. Attacks cannot be made while moving with Soru. (Quick, Perception Formula)") },
             { ROKU_KAM, new Rokushiki(ROKU_KAM, 32, "Defensive", "Self", 20, 0, 0, 0, 0,
                 "Using instinct-driven, reflexive movements and loosening up all of their muscles, the user dodges an attack much the way a piece of paper in the breeze does. While in use, this technique reduces the effective accuracy of any targeted attack made against the user by a value equal to this technique's power. If this would reduce the accuracy of that attack to 0, the attack can be passively dodged without any expenditure of Focus. Attacks can not be made while using Kami-E. (Paperlike, Fullbody, Dodging Formula)") },

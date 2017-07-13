@@ -70,7 +70,7 @@ namespace OPRPCharBuild
 					profDict.Add(name, addProf);
                     // Add into dgv
                     string bool_str = (primary) ? "Primary" : "Secondary";
-                    dgv.Rows.Insert(0, name, textBox_Custom.Text, bool_str,
+                    dgv.Rows.Insert(dgv.Rows.Count, name, textBox_Custom.Text, bool_str,
                         richTextBox1_Desc.Text, richTextBox2_Primary.Text);
                     return true;
 				}
