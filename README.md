@@ -18,6 +18,9 @@ Based on OPRP usernames
 
 Version History
 ---------------
+### v1.6.3
+* Hotfixed Bug: Fixed broken "Delete" on Techniques
+
 ### v1.6.2
 * Hotfixed Bug: Fixed broken "Edit" and "Delete" button for Images
 
