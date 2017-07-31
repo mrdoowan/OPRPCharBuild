@@ -171,10 +171,12 @@ namespace OPRPCharBuild
 			}
 			comboBox_Type.Text = Tech.type;
 			comboBox_Range.Text = Tech.range;
-            // Stats
-            techStats = Tech.stats;
-            comboBox_StatOpt.Text = Tech.stats.statsName;
-            textBox_Stats.Text = Tech.stats.getTechString();
+            // Stats: Make a deep copy of Stats
+            Stats copyStats = Tech.stats;
+            techStats = new Stats(copyStats.statsName, copyStats.duration,
+                copyStats.strength, copyStats.speed, copyStats.stamina, copyStats.accuracy);
+            comboBox_StatOpt.Text = techStats.statsName;
+            textBox_Stats.Text = techStats.getTechString();
             // Power/Effects
             checkBox_NA.Checked = Tech.NApower;
             checkBox_AutoCalc.Checked = Tech.autoCalc;
@@ -588,7 +590,7 @@ namespace OPRPCharBuild
             // Add Stats into comboBox based on character
             comboBox_StatOpt.Items.Add(Database.BUF_WILLPO);
             if ((profList.ContainsKey(Database.PROF_WA) && profList[Database.PROF_WA].primary) ||
-                (profList.ContainsKey(Database.PROF_MS) && profList[Database.PROF_MS].primary)) {
+                (profList.ContainsKey(Database.PROF_MA) && profList[Database.PROF_MA].primary)) {
                 comboBox_StatOpt.Items.Add(Database.BUF_STANCE);
             }
             if (traitsList.ContainsKey(Database.TR_LIFRET)) {

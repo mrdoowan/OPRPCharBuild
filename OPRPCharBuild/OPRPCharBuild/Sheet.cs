@@ -400,7 +400,7 @@ namespace OPRPCharBuild
 						// Load Dictionary
 						RepeatTags.Add(64, TechName);
 						string rank = tech.rank.ToString();
-						if (If_Treat_Rank4(tech.rankTrait)) { rank += "*"; }
+						if (!string.IsNullOrWhiteSpace(tech.rankTrait)) { rank += "*"; }
 						if (tech.cyborgBoosts[2]) { rank += " + 12"; }
 						else if (tech.cyborgBoosts[1]) { rank += " + 8"; }
 						else if (tech.cyborgBoosts[0]) { rank += " + 4"; }
@@ -656,16 +656,6 @@ namespace OPRPCharBuild
 				return data;
 			}
 		}
-
-        private bool If_Treat_Rank4(string techTrait) {
-            if (techTrait == Database.TR_MASTER || techTrait == Database.TR_ADVMAS ||
-                techTrait == Database.TR_ADVCLA || techTrait == Database.TR_STAMAS ||
-                techTrait == Database.TR_ADVSTA || techTrait == Database.TR_ARTSTE ||
-                techTrait == Database.TR_ANTIST || techTrait == Database.TR_DWARF) {
-                return true;
-            }
-            return false;
-        }
         
 
 		private string TechEffects_Into_String(List<Effect> Effects) {

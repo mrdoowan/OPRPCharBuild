@@ -33,7 +33,7 @@ namespace OPRPCharBuild
 
 		#region Member Variables
 
-		public const string VERSION = "1.6.3";
+		public const string VERSION = "1.7.0";
 		public const string STD_TEMPLATE_MSG = "Standard Template";
         private const string WEBSITE = "https://github.com/mrdoowan/OPRPCharBuild/releases";
         public static bool template_imported = false;
