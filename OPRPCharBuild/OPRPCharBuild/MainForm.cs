@@ -362,7 +362,7 @@ namespace OPRPCharBuild
                 int remain = SD_in - 150 - 100 - 100 - 450 - 400;
                 int convert = remain / 5;
                 SP += 150 + 66 + 50 + 150 + 100 + convert;
-                calc += " + 150 + 66 (100/1.5) + 50 (100/2) + 150 (450/3) + 100 (400/4) " + convert + " (" + remain + "/5)";
+                calc += " + 150 + 66 (100/1.5) + 50 (100/2) + 150 (450/3) + 100 (400/4) + " + convert + " (" + remain + "/5)";
             }
 			calc += ']';
 			textBox_StatPoints.Text = SP.ToString();
@@ -1314,14 +1314,6 @@ namespace OPRPCharBuild
 
         #region RP Elements Tab
 
-        private void checkedListBox1_AP_SelectedIndexChanged(object sender, EventArgs e) {
-			// To keep track of AP
-			Update_AP_Count();
-			Update_TotalSD();
-			Update_Traits_Cap(); // For increasing Trait cap
-			Update_Total_RegTP(); // For Tech multiplier
-		}
-
 		private void numericUpDown_SDEarned_ValueChanged(object sender, EventArgs e) {
 			// We have to adjust the max value of SD Earned into AP.
 			numericUpDown_SDintoStats.Maximum = numericUpDown_SDEarned.Value;
@@ -1464,23 +1456,19 @@ namespace OPRPCharBuild
                     // In the Blues, it's 500,000 per SD
                     if (SD > 0) {
                         beli += (uint)(250000 * SD);
-                        message += "\n+ " + Commas_To_Value((uint)(250000 * SD)) + " (250,000 / SD in GL)";
+                        message += "\n+ " + Commas_To_Value((uint)(250000 * SD)) + " (250,000 / SD in Blues)";
                     }
                 }
                 // Apply beli trait / professional boosts (do not stack)
-                bool perc_20 = false;
                 // Look for Traits bonus of 20%
                 if (traitList.ContainsKey("Pickpocket") || traitList.ContainsKey("Tough Bargainer")) {
                     beli = (uint)(beli * 1.2);
                     message += "\n+ " + Commas_To_Value((uint)(beli * 0.2)) + " (20% beli Trait Bonus)";
-                    perc_20 = true;
                 }
-                if (!perc_20) {
-                    // Look for Thief primary bonus of 10%
-                    if (Is_Prof_Primary("Thief")) {
-                        beli = (uint)(beli * 1.1);
-                        message += "\n+ " + Commas_To_Value((uint)(beli * 0.1)) + " (10% beli Thief Primary)";
-                    }
+                // Look for Thief primary bonus of 10%
+                else if (Is_Prof_Primary("Thief")) {
+                    beli = (uint)(beli * 1.1);
+                    message += "\n+ " + Commas_To_Value((uint)(beli * 0.1)) + " (10% beli Thief Primary)";
                 }
                 // Show calculations
                 string final_beli = Commas_To_Value(beli);
