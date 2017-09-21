@@ -89,8 +89,7 @@ namespace OPRPCharBuild
 				    checkBox_DFRank4.Checked,
 				    checkBox_ZoanSig.Checked,
 				    checkBox_Full.Checked,
-				    checkBox_Hybrid.Checked,
-				    checkBox_DFEffect.Checked
+				    checkBox_Hybrid.Checked
 				};
 				List<bool> Cyborg = new List<bool>() {
 				    radioButton_Fuel1.Checked,
@@ -211,7 +210,6 @@ namespace OPRPCharBuild
 			checkBox_ZoanSig.Checked = Tech.checkBoxDF[1];
 			checkBox_Full.Checked = Tech.checkBoxDF[2];
 			checkBox_Hybrid.Checked = Tech.checkBoxDF[3];
-			checkBox_DFEffect.Checked = Tech.checkBoxDF[4];
 			// Cyborg options
 			radioButton_Fuel1.Checked = Tech.cyborgBoosts[0];
 			radioButton_Fuel2.Checked = Tech.cyborgBoosts[1];
@@ -361,7 +359,6 @@ namespace OPRPCharBuild
 				if (checkBox_ZoanSig.Checked) { message += " - [bgcolor=gray][color=black][b]Zoan Signature[/b][/color][/bgcolor]"; }
 				if (checkBox_Hybrid.Checked) { message += " - [b]Hybrid Transformation[/b]"; }
 				if (checkBox_Full.Checked) { message += " - [b]Full Transformation[/b]"; }
-				if (checkBox_DFEffect.Checked) { message += " - [b]Free DF Effect applied[/b]"; }
 				message += "\n";
 			}
             // Stats names
@@ -554,7 +551,7 @@ namespace OPRPCharBuild
 		private void Add_Technique_Load(object sender, EventArgs e) {
 			// Set Maximum Values of NumericUpDown
 			numericUpDown_Rank.Maximum = max_rank;
-			label_MaxRank.Text = "[Max Rank: " + max_rank + ']';
+			textBox_MaxRankCap.Text = "[Max Rank: " + max_rank + ']';
 			numericUpDown_RegTP.Maximum = max_rank;
 			numericUpDown_SpTP.Maximum = max_rank;
 			numericUpDown_RankBranch.Maximum = max_rank - 1;
@@ -905,14 +902,14 @@ namespace OPRPCharBuild
 		}
 
 		private void comboBox_AffectRank_SelectedIndexChanged(object sender, EventArgs e) {
-			if (!string.IsNullOrWhiteSpace(comboBox_AffectRank.Text) && !label_MaxRank.Text.Contains('*')) {
-				label_MaxRank.Text = label_MaxRank.Text.TrimEnd(']');
-				label_MaxRank.Text += "*]";
+			if (!string.IsNullOrWhiteSpace(comboBox_AffectRank.Text) && !textBox_MaxRankCap.Text.Contains('*')) {
+				textBox_MaxRankCap.Text = textBox_MaxRankCap.Text.TrimEnd(']');
+				textBox_MaxRankCap.Text += "*]";
 			}
 			else if (string.IsNullOrWhiteSpace(comboBox_AffectRank.Text)) {
 				// Nothing selected.
-				label_MaxRank.Text = label_MaxRank.Text.TrimEnd('*', ']');
-				label_MaxRank.Text += ']';
+				textBox_MaxRankCap.Text = textBox_MaxRankCap.Text.TrimEnd('*', ']');
+				textBox_MaxRankCap.Text += ']';
 			}
 			// Update power from Mastery
 			Update_Power_Value();
@@ -1015,19 +1012,16 @@ namespace OPRPCharBuild
 					checkBox_Full.Enabled = true;
 					checkBox_Hybrid.Enabled = true;
 				}
-				if (!string.IsNullOrWhiteSpace(DF.freeEffect)) { checkBox_DFEffect.Enabled = true; }
 			}
 			else {
 				checkBox_DFRank4.Enabled = false;
 				checkBox_ZoanSig.Enabled = false;
 				checkBox_Full.Enabled = false;
 				checkBox_Hybrid.Enabled = false;
-				checkBox_DFEffect.Enabled = false;
 				checkBox_DFRank4.Checked = false;
 				checkBox_ZoanSig.Checked = false;
 				checkBox_Full.Checked = false;
 				checkBox_Hybrid.Checked = false;
-				checkBox_DFEffect.Checked = false;
 			}
 			Update_Note();
 		}

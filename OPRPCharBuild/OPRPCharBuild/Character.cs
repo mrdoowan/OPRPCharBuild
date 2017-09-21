@@ -79,7 +79,6 @@ namespace OPRPCharBuild
             DF_TYPE = "[DF_TYPE]",
             DF_TIER = "[DF_TIER]",
             DF_DESC = "[DF_DESC]",
-            DF_EFFE = "[DF_EFFE]",
             // Stats Tab
             SDEARNED = "[SDEAR]",
             SDTOSP = "[SD2SP]",
@@ -301,7 +300,6 @@ namespace OPRPCharBuild
             sb.Append(DF_TYPE + DFType_ + SPLIT1);
             sb.Append(DF_TIER + DFTier_ + SPLIT1);
             sb.Append(DF_DESC + DFDesc_ + SPLIT1);
-            sb.Append(DF_EFFE + DFEffe_ + SPLIT1);
             // Put into String
             data += sb.ToString();
         }
@@ -609,7 +607,6 @@ namespace OPRPCharBuild
             DFType.Text = getParse(DF_TYPE, SPLIT1);
             DFTier.Text = getParse(DF_TIER, SPLIT1);
             DFDesc.Text = getParse(DF_DESC, SPLIT1);
-            DFEffe.Text = getParse(DF_EFFE, SPLIT1);
         }
         
         public void loadCharRPElements(ref NumericUpDown SDEarn,

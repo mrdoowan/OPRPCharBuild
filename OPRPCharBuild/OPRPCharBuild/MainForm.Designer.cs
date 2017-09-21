@@ -2718,7 +2718,7 @@
             this.groupBox_Categories.Controls.Add(this.label36);
             this.groupBox_Categories.Controls.Add(this.listView_SubCat);
             this.groupBox_Categories.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupBox_Categories.Location = new System.Drawing.Point(6, 419);
+            this.groupBox_Categories.Location = new System.Drawing.Point(6, 481);
             this.groupBox_Categories.Name = "groupBox_Categories";
             this.groupBox_Categories.Size = new System.Drawing.Size(806, 196);
             this.groupBox_Categories.TabIndex = 41;
@@ -2903,7 +2903,7 @@
             this.groupBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox11.Location = new System.Drawing.Point(6, 6);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(806, 407);
+            this.groupBox11.Size = new System.Drawing.Size(806, 469);
             this.groupBox11.TabIndex = 3;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Techniques";
@@ -3011,7 +3011,7 @@
             this.dgv_Techniques.ReadOnly = true;
             this.dgv_Techniques.RowHeadersVisible = false;
             this.dgv_Techniques.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_Techniques.Size = new System.Drawing.Size(757, 199);
+            this.dgv_Techniques.Size = new System.Drawing.Size(757, 261);
             this.dgv_Techniques.TabIndex = 44;
             this.dgv_Techniques.SelectionChanged += new System.EventHandler(this.dgv_Techniques_SelectionChanged);
             // 
@@ -3141,7 +3141,7 @@
             this.label_TechCount.AutoSize = true;
             this.label_TechCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label_TechCount.ForeColor = System.Drawing.Color.DarkCyan;
-            this.label_TechCount.Location = new System.Drawing.Point(6, 383);
+            this.label_TechCount.Location = new System.Drawing.Point(10, 445);
             this.label_TechCount.Name = "label_TechCount";
             this.label_TechCount.Size = new System.Drawing.Size(152, 13);
             this.label_TechCount.TabIndex = 43;
@@ -3150,7 +3150,7 @@
             // button_TechBranch
             // 
             this.button_TechBranch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_TechBranch.Location = new System.Drawing.Point(559, 378);
+            this.button_TechBranch.Location = new System.Drawing.Point(563, 440);
             this.button_TechBranch.Name = "button_TechBranch";
             this.button_TechBranch.Size = new System.Drawing.Size(75, 23);
             this.button_TechBranch.TabIndex = 39;
@@ -3212,7 +3212,7 @@
             // button_TechEdit
             // 
             this.button_TechEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_TechEdit.Location = new System.Drawing.Point(640, 378);
+            this.button_TechEdit.Location = new System.Drawing.Point(644, 440);
             this.button_TechEdit.Name = "button_TechEdit";
             this.button_TechEdit.Size = new System.Drawing.Size(75, 23);
             this.button_TechEdit.TabIndex = 32;
@@ -3223,7 +3223,7 @@
             // button_TechDelete
             // 
             this.button_TechDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_TechDelete.Location = new System.Drawing.Point(721, 378);
+            this.button_TechDelete.Location = new System.Drawing.Point(725, 440);
             this.button_TechDelete.Name = "button_TechDelete";
             this.button_TechDelete.Size = new System.Drawing.Size(75, 23);
             this.button_TechDelete.TabIndex = 30;
@@ -3234,7 +3234,7 @@
             // button_TechAdd
             // 
             this.button_TechAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_TechAdd.Location = new System.Drawing.Point(478, 378);
+            this.button_TechAdd.Location = new System.Drawing.Point(482, 440);
             this.button_TechAdd.Name = "button_TechAdd";
             this.button_TechAdd.Size = new System.Drawing.Size(75, 23);
             this.button_TechAdd.TabIndex = 31;

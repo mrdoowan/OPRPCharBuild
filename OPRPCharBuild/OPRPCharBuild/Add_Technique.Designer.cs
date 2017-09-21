@@ -56,7 +56,6 @@
             this.button_ClearTech = new System.Windows.Forms.Button();
             this.button_AddTech = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
-            this.label_MaxRank = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.numericUpDown_AE = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
@@ -74,7 +73,6 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.checkBox_AutoCalc = new System.Windows.Forms.CheckBox();
             this.textBox_Power = new System.Windows.Forms.TextBox();
-            this.label_EffectType = new System.Windows.Forms.Label();
             this.label_MinRank = new System.Windows.Forms.Label();
             this.button_AddEffect = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
@@ -90,7 +88,6 @@
             this.richTextBox_Note = new System.Windows.Forms.RichTextBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.richTextBox_DF = new System.Windows.Forms.RichTextBox();
-            this.checkBox_DFEffect = new System.Windows.Forms.CheckBox();
             this.checkBox_DFTechEnable = new System.Windows.Forms.CheckBox();
             this.checkBox_Hybrid = new System.Windows.Forms.CheckBox();
             this.checkBox_Full = new System.Windows.Forms.CheckBox();
@@ -101,10 +98,15 @@
             this.toolTips = new System.Windows.Forms.ToolTip(this.components);
             this.label_TechFormMsg = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.toolTip_Roku = new System.Windows.Forms.ToolTip(this.components);
-            this.radioButton_Fuel1 = new System.Windows.Forms.RadioButton();
-            this.radioButton_Fuel2 = new System.Windows.Forms.RadioButton();
             this.radioButton_Fuel3 = new System.Windows.Forms.RadioButton();
+            this.radioButton_Fuel2 = new System.Windows.Forms.RadioButton();
+            this.radioButton_Fuel1 = new System.Windows.Forms.RadioButton();
+            this.toolTip_Roku = new System.Windows.Forms.ToolTip(this.components);
+            this.textBox_MaxRankCap = new System.Windows.Forms.TextBox();
+            this.button_UpgradeEff = new System.Windows.Forms.Button();
+            this.button_DownAchieve = new System.Windows.Forms.Button();
+            this.button_UpAchieve = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
@@ -141,7 +143,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label1.Location = new System.Drawing.Point(54, 21);
+            this.label1.Location = new System.Drawing.Point(54, 70);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(33, 13);
             this.label1.TabIndex = 29;
@@ -149,7 +151,7 @@
             // 
             // numericUpDown_Rank
             // 
-            this.numericUpDown_Rank.Location = new System.Drawing.Point(6, 19);
+            this.numericUpDown_Rank.Location = new System.Drawing.Point(6, 68);
             this.numericUpDown_Rank.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -175,7 +177,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label2.Location = new System.Drawing.Point(171, 47);
+            this.label2.Location = new System.Drawing.Point(171, 96);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(102, 13);
             this.label2.TabIndex = 31;
@@ -187,7 +189,7 @@
             this.comboBox_AffectRank.FormattingEnabled = true;
             this.comboBox_AffectRank.Items.AddRange(new object[] {
             ""});
-            this.comboBox_AffectRank.Location = new System.Drawing.Point(276, 44);
+            this.comboBox_AffectRank.Location = new System.Drawing.Point(276, 93);
             this.comboBox_AffectRank.Name = "comboBox_AffectRank";
             this.comboBox_AffectRank.Size = new System.Drawing.Size(153, 21);
             this.comboBox_AffectRank.Sorted = true;
@@ -255,7 +257,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label6.Location = new System.Drawing.Point(54, 47);
+            this.label6.Location = new System.Drawing.Point(54, 96);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(89, 13);
             this.label6.TabIndex = 39;
@@ -264,7 +266,7 @@
             // 
             // numericUpDown_RegTP
             // 
-            this.numericUpDown_RegTP.Location = new System.Drawing.Point(6, 45);
+            this.numericUpDown_RegTP.Location = new System.Drawing.Point(6, 94);
             this.numericUpDown_RegTP.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -279,7 +281,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label7.Location = new System.Drawing.Point(54, 73);
+            this.label7.Location = new System.Drawing.Point(54, 122);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 13);
             this.label7.TabIndex = 41;
@@ -289,7 +291,7 @@
             // numericUpDown_SpTP
             // 
             this.numericUpDown_SpTP.Enabled = false;
-            this.numericUpDown_SpTP.Location = new System.Drawing.Point(6, 71);
+            this.numericUpDown_SpTP.Location = new System.Drawing.Point(6, 120);
             this.numericUpDown_SpTP.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -305,7 +307,7 @@
             // 
             this.label_SpTraitUsed.AutoSize = true;
             this.label_SpTraitUsed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_SpTraitUsed.Location = new System.Drawing.Point(209, 71);
+            this.label_SpTraitUsed.Location = new System.Drawing.Point(209, 120);
             this.label_SpTraitUsed.Name = "label_SpTraitUsed";
             this.label_SpTraitUsed.Size = new System.Drawing.Size(64, 13);
             this.label_SpTraitUsed.TabIndex = 43;
@@ -319,7 +321,7 @@
             this.comboBox_SpTrait.FormattingEnabled = true;
             this.comboBox_SpTrait.Items.AddRange(new object[] {
             ""});
-            this.comboBox_SpTrait.Location = new System.Drawing.Point(276, 71);
+            this.comboBox_SpTrait.Location = new System.Drawing.Point(276, 120);
             this.comboBox_SpTrait.Name = "comboBox_SpTrait";
             this.comboBox_SpTrait.Size = new System.Drawing.Size(153, 21);
             this.comboBox_SpTrait.Sorted = true;
@@ -412,7 +414,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label16.Location = new System.Drawing.Point(8, 146);
+            this.label16.Location = new System.Drawing.Point(8, 158);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(63, 13);
             this.label16.TabIndex = 59;
@@ -421,16 +423,16 @@
             // richTextBox_Desc
             // 
             this.richTextBox_Desc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.richTextBox_Desc.Location = new System.Drawing.Point(72, 146);
+            this.richTextBox_Desc.Location = new System.Drawing.Point(72, 158);
             this.richTextBox_Desc.Name = "richTextBox_Desc";
             this.richTextBox_Desc.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_Desc.Size = new System.Drawing.Size(357, 119);
+            this.richTextBox_Desc.Size = new System.Drawing.Size(357, 159);
             this.richTextBox_Desc.TabIndex = 60;
             this.richTextBox_Desc.Text = "";
             // 
             // button_ClearTech
             // 
-            this.button_ClearTech.Location = new System.Drawing.Point(732, 571);
+            this.button_ClearTech.Location = new System.Drawing.Point(726, 612);
             this.button_ClearTech.Name = "button_ClearTech";
             this.button_ClearTech.Size = new System.Drawing.Size(75, 23);
             this.button_ClearTech.TabIndex = 62;
@@ -440,7 +442,7 @@
             // 
             // button_AddTech
             // 
-            this.button_AddTech.Location = new System.Drawing.Point(813, 571);
+            this.button_AddTech.Location = new System.Drawing.Point(807, 612);
             this.button_AddTech.Name = "button_AddTech";
             this.button_AddTech.Size = new System.Drawing.Size(75, 23);
             this.button_AddTech.TabIndex = 61;
@@ -451,30 +453,21 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(506, 576);
+            this.label18.Location = new System.Drawing.Point(500, 617);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(220, 13);
             this.label18.TabIndex = 64;
             this.label18.Text = "You can cancel changes by closing the form.";
             // 
-            // label_MaxRank
-            // 
-            this.label_MaxRank.Location = new System.Drawing.Point(176, 19);
-            this.label_MaxRank.Name = "label_MaxRank";
-            this.label_MaxRank.Size = new System.Drawing.Size(97, 19);
-            this.label_MaxRank.TabIndex = 65;
-            this.label_MaxRank.Text = "[Max Rank: 0]";
-            this.label_MaxRank.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox_MaxRankCap);
             this.groupBox1.Controls.Add(this.numericUpDown_AE);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.button_Rokushiki);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.numericUpDown_Rank);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label_MaxRank);
             this.groupBox1.Controls.Add(this.numericUpDown_RegTP);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.numericUpDown_SpTP);
@@ -487,7 +480,7 @@
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox1.Location = new System.Drawing.Point(12, 32);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(435, 105);
+            this.groupBox1.Size = new System.Drawing.Size(435, 150);
             this.groupBox1.TabIndex = 69;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "TP and Rank";
@@ -499,7 +492,7 @@
             0,
             0,
             65536});
-            this.numericUpDown_AE.Location = new System.Drawing.Point(93, 19);
+            this.numericUpDown_AE.Location = new System.Drawing.Point(93, 68);
             this.numericUpDown_AE.Maximum = new decimal(new int[] {
             7,
             0,
@@ -519,7 +512,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label8.Location = new System.Drawing.Point(141, 21);
+            this.label8.Location = new System.Drawing.Point(141, 70);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(21, 13);
             this.label8.TabIndex = 78;
@@ -528,7 +521,7 @@
             // 
             // button_Rokushiki
             // 
-            this.button_Rokushiki.Location = new System.Drawing.Point(276, 16);
+            this.button_Rokushiki.Location = new System.Drawing.Point(276, 65);
             this.button_Rokushiki.Name = "button_Rokushiki";
             this.button_Rokushiki.Size = new System.Drawing.Size(153, 23);
             this.button_Rokushiki.TabIndex = 75;
@@ -539,7 +532,7 @@
             // 
             // textBox_StaticRokuMsg
             // 
-            this.textBox_StaticRokuMsg.Location = new System.Drawing.Point(277, 45);
+            this.textBox_StaticRokuMsg.Location = new System.Drawing.Point(277, 94);
             this.textBox_StaticRokuMsg.Name = "textBox_StaticRokuMsg";
             this.textBox_StaticRokuMsg.ReadOnly = true;
             this.textBox_StaticRokuMsg.Size = new System.Drawing.Size(152, 20);
@@ -574,7 +567,7 @@
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.comboBox_Range);
             this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Location = new System.Drawing.Point(12, 143);
+            this.groupBox3.Location = new System.Drawing.Point(12, 188);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(435, 142);
             this.groupBox3.TabIndex = 71;
@@ -667,9 +660,12 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.checkBox1);
+            this.groupBox4.Controls.Add(this.button_DownAchieve);
+            this.groupBox4.Controls.Add(this.button_UpAchieve);
+            this.groupBox4.Controls.Add(this.button_UpgradeEff);
             this.groupBox4.Controls.Add(this.checkBox_AutoCalc);
             this.groupBox4.Controls.Add(this.textBox_Power);
-            this.groupBox4.Controls.Add(this.label_EffectType);
             this.groupBox4.Controls.Add(this.label_MinRank);
             this.groupBox4.Controls.Add(this.button_AddEffect);
             this.groupBox4.Controls.Add(this.label17);
@@ -680,7 +676,7 @@
             this.groupBox4.Controls.Add(this.checkBox_NA);
             this.groupBox4.Controls.Add(this.listView_Effects);
             this.groupBox4.Controls.Add(this.label11);
-            this.groupBox4.Location = new System.Drawing.Point(12, 286);
+            this.groupBox4.Location = new System.Drawing.Point(12, 331);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(435, 279);
             this.groupBox4.TabIndex = 72;
@@ -714,16 +710,6 @@
         "\'s incorrect.");
             this.textBox_Power.TextChanged += new System.EventHandler(this.textBox_Power_TextChanged);
             // 
-            // label_EffectType
-            // 
-            this.label_EffectType.Location = new System.Drawing.Point(289, 250);
-            this.label_EffectType.Name = "label_EffectType";
-            this.label_EffectType.Size = new System.Drawing.Size(138, 23);
-            this.label_EffectType.TabIndex = 75;
-            this.label_EffectType.Text = "General Effect";
-            this.label_EffectType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label_EffectType.Visible = false;
-            // 
             // label_MinRank
             // 
             this.label_MinRank.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -736,9 +722,9 @@
             // 
             // button_AddEffect
             // 
-            this.button_AddEffect.Location = new System.Drawing.Point(208, 250);
+            this.button_AddEffect.Location = new System.Drawing.Point(283, 250);
             this.button_AddEffect.Name = "button_AddEffect";
-            this.button_AddEffect.Size = new System.Drawing.Size(75, 23);
+            this.button_AddEffect.Size = new System.Drawing.Size(69, 23);
             this.button_AddEffect.TabIndex = 106;
             this.button_AddEffect.Text = "Add Effect";
             this.button_AddEffect.UseVisualStyleBackColor = true;
@@ -748,7 +734,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label17.Location = new System.Drawing.Point(209, 18);
+            this.label17.Location = new System.Drawing.Point(218, 40);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(28, 13);
             this.label17.TabIndex = 109;
@@ -757,7 +743,7 @@
             // 
             // numericUpDown_Cost
             // 
-            this.numericUpDown_Cost.Location = new System.Drawing.Point(208, 33);
+            this.numericUpDown_Cost.Location = new System.Drawing.Point(209, 14);
             this.numericUpDown_Cost.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -786,7 +772,7 @@
             this.comboBox_Effect.FormattingEnabled = true;
             this.comboBox_Effect.Items.AddRange(new object[] {
             ""});
-            this.comboBox_Effect.Location = new System.Drawing.Point(259, 32);
+            this.comboBox_Effect.Location = new System.Drawing.Point(260, 13);
             this.comboBox_Effect.Name = "comboBox_Effect";
             this.comboBox_Effect.Size = new System.Drawing.Size(169, 21);
             this.comboBox_Effect.TabIndex = 105;
@@ -798,9 +784,9 @@
             // 
             // button_EffectRemove
             // 
-            this.button_EffectRemove.Location = new System.Drawing.Point(130, 250);
+            this.button_EffectRemove.Location = new System.Drawing.Point(208, 250);
             this.button_EffectRemove.Name = "button_EffectRemove";
-            this.button_EffectRemove.Size = new System.Drawing.Size(75, 23);
+            this.button_EffectRemove.Size = new System.Drawing.Size(69, 23);
             this.button_EffectRemove.TabIndex = 104;
             this.button_EffectRemove.Text = "Remove";
             this.button_EffectRemove.UseVisualStyleBackColor = true;
@@ -837,9 +823,9 @@
             this.groupBox5.Controls.Add(this.label15);
             this.groupBox5.Controls.Add(this.label16);
             this.groupBox5.Controls.Add(this.richTextBox_Desc);
-            this.groupBox5.Location = new System.Drawing.Point(453, 294);
+            this.groupBox5.Location = new System.Drawing.Point(453, 284);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(435, 271);
+            this.groupBox5.Size = new System.Drawing.Size(435, 326);
             this.groupBox5.TabIndex = 73;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Text";
@@ -851,7 +837,7 @@
             this.richTextBox_CustNotes.Location = new System.Drawing.Point(72, 90);
             this.richTextBox_CustNotes.Name = "richTextBox_CustNotes";
             this.richTextBox_CustNotes.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_CustNotes.Size = new System.Drawing.Size(357, 50);
+            this.richTextBox_CustNotes.Size = new System.Drawing.Size(357, 62);
             this.richTextBox_CustNotes.TabIndex = 63;
             this.richTextBox_CustNotes.Text = "";
             // 
@@ -880,7 +866,6 @@
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.richTextBox_DF);
-            this.groupBox6.Controls.Add(this.checkBox_DFEffect);
             this.groupBox6.Controls.Add(this.checkBox_DFTechEnable);
             this.groupBox6.Controls.Add(this.checkBox_Hybrid);
             this.groupBox6.Controls.Add(this.checkBox_Full);
@@ -889,7 +874,7 @@
             this.groupBox6.Controls.Add(this.label3);
             this.groupBox6.Location = new System.Drawing.Point(453, 85);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(435, 158);
+            this.groupBox6.Size = new System.Drawing.Size(435, 139);
             this.groupBox6.TabIndex = 74;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Devil Fruit";
@@ -897,25 +882,14 @@
             // richTextBox_DF
             // 
             this.richTextBox_DF.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.richTextBox_DF.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox_DF.Location = new System.Drawing.Point(142, 14);
             this.richTextBox_DF.Name = "richTextBox_DF";
             this.richTextBox_DF.ReadOnly = true;
             this.richTextBox_DF.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_DF.Size = new System.Drawing.Size(287, 138);
+            this.richTextBox_DF.Size = new System.Drawing.Size(287, 117);
             this.richTextBox_DF.TabIndex = 83;
             this.richTextBox_DF.Text = "No Specific Devil Fruit Trait\nNo Devil Fruit Options";
-            // 
-            // checkBox_DFEffect
-            // 
-            this.checkBox_DFEffect.AutoSize = true;
-            this.checkBox_DFEffect.Enabled = false;
-            this.checkBox_DFEffect.Location = new System.Drawing.Point(6, 137);
-            this.checkBox_DFEffect.Name = "checkBox_DFEffect";
-            this.checkBox_DFEffect.Size = new System.Drawing.Size(117, 17);
-            this.checkBox_DFEffect.TabIndex = 81;
-            this.checkBox_DFEffect.Text = "High Tier DF Effect";
-            this.checkBox_DFEffect.UseVisualStyleBackColor = true;
-            this.checkBox_DFEffect.CheckedChanged += new System.EventHandler(this.checkBox_DFEffect_CheckedChanged);
             // 
             // checkBox_DFTechEnable
             // 
@@ -1007,7 +981,7 @@
             // 
             this.label_TechFormMsg.AutoSize = true;
             this.label_TechFormMsg.ForeColor = System.Drawing.Color.Green;
-            this.label_TechFormMsg.Location = new System.Drawing.Point(9, 576);
+            this.label_TechFormMsg.Location = new System.Drawing.Point(12, 617);
             this.label_TechFormMsg.Name = "label_TechFormMsg";
             this.label_TechFormMsg.Size = new System.Drawing.Size(431, 13);
             this.label_TechFormMsg.TabIndex = 75;
@@ -1021,45 +995,12 @@
             this.groupBox7.Controls.Add(this.radioButton_Fuel3);
             this.groupBox7.Controls.Add(this.radioButton_Fuel2);
             this.groupBox7.Controls.Add(this.radioButton_Fuel1);
-            this.groupBox7.Location = new System.Drawing.Point(453, 245);
+            this.groupBox7.Location = new System.Drawing.Point(453, 230);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(435, 48);
             this.groupBox7.TabIndex = 76;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Cyborg Traits";
-            // 
-            // toolTip_Roku
-            // 
-            this.toolTip_Roku.Active = false;
-            this.toolTip_Roku.AutoPopDelay = 10000;
-            this.toolTip_Roku.InitialDelay = 50;
-            this.toolTip_Roku.ReshowDelay = 100;
-            // 
-            // radioButton_Fuel1
-            // 
-            this.radioButton_Fuel1.AutoSize = true;
-            this.radioButton_Fuel1.Enabled = false;
-            this.radioButton_Fuel1.Location = new System.Drawing.Point(152, 20);
-            this.radioButton_Fuel1.Name = "radioButton_Fuel1";
-            this.radioButton_Fuel1.Size = new System.Drawing.Size(85, 17);
-            this.radioButton_Fuel1.TabIndex = 116;
-            this.radioButton_Fuel1.TabStop = true;
-            this.radioButton_Fuel1.Text = "1 Fuel Stack";
-            this.radioButton_Fuel1.UseVisualStyleBackColor = true;
-            this.radioButton_Fuel1.CheckedChanged += new System.EventHandler(this.radioButton_Fuel1_CheckedChanged);
-            // 
-            // radioButton_Fuel2
-            // 
-            this.radioButton_Fuel2.AutoSize = true;
-            this.radioButton_Fuel2.Enabled = false;
-            this.radioButton_Fuel2.Location = new System.Drawing.Point(243, 20);
-            this.radioButton_Fuel2.Name = "radioButton_Fuel2";
-            this.radioButton_Fuel2.Size = new System.Drawing.Size(90, 17);
-            this.radioButton_Fuel2.TabIndex = 117;
-            this.radioButton_Fuel2.TabStop = true;
-            this.radioButton_Fuel2.Text = "2 Fuel Stacks";
-            this.radioButton_Fuel2.UseVisualStyleBackColor = true;
-            this.radioButton_Fuel2.CheckedChanged += new System.EventHandler(this.radioButton_Fuel2_CheckedChanged);
             // 
             // radioButton_Fuel3
             // 
@@ -1074,12 +1015,97 @@
             this.radioButton_Fuel3.UseVisualStyleBackColor = true;
             this.radioButton_Fuel3.CheckedChanged += new System.EventHandler(this.radioButton_Fuel3_CheckedChanged);
             // 
+            // radioButton_Fuel2
+            // 
+            this.radioButton_Fuel2.AutoSize = true;
+            this.radioButton_Fuel2.Enabled = false;
+            this.radioButton_Fuel2.Location = new System.Drawing.Point(243, 20);
+            this.radioButton_Fuel2.Name = "radioButton_Fuel2";
+            this.radioButton_Fuel2.Size = new System.Drawing.Size(90, 17);
+            this.radioButton_Fuel2.TabIndex = 117;
+            this.radioButton_Fuel2.TabStop = true;
+            this.radioButton_Fuel2.Text = "2 Fuel Stacks";
+            this.radioButton_Fuel2.UseVisualStyleBackColor = true;
+            this.radioButton_Fuel2.CheckedChanged += new System.EventHandler(this.radioButton_Fuel2_CheckedChanged);
+            // 
+            // radioButton_Fuel1
+            // 
+            this.radioButton_Fuel1.AutoSize = true;
+            this.radioButton_Fuel1.Enabled = false;
+            this.radioButton_Fuel1.Location = new System.Drawing.Point(152, 20);
+            this.radioButton_Fuel1.Name = "radioButton_Fuel1";
+            this.radioButton_Fuel1.Size = new System.Drawing.Size(85, 17);
+            this.radioButton_Fuel1.TabIndex = 116;
+            this.radioButton_Fuel1.TabStop = true;
+            this.radioButton_Fuel1.Text = "1 Fuel Stack";
+            this.radioButton_Fuel1.UseVisualStyleBackColor = true;
+            this.radioButton_Fuel1.CheckedChanged += new System.EventHandler(this.radioButton_Fuel1_CheckedChanged);
+            // 
+            // toolTip_Roku
+            // 
+            this.toolTip_Roku.Active = false;
+            this.toolTip_Roku.AutoPopDelay = 10000;
+            this.toolTip_Roku.InitialDelay = 50;
+            this.toolTip_Roku.ReshowDelay = 100;
+            // 
+            // textBox_MaxRankCap
+            // 
+            this.textBox_MaxRankCap.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_MaxRankCap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox_MaxRankCap.Location = new System.Drawing.Point(6, 14);
+            this.textBox_MaxRankCap.Multiline = true;
+            this.textBox_MaxRankCap.Name = "textBox_MaxRankCap";
+            this.textBox_MaxRankCap.ReadOnly = true;
+            this.textBox_MaxRankCap.Size = new System.Drawing.Size(423, 48);
+            this.textBox_MaxRankCap.TabIndex = 119;
+            this.textBox_MaxRankCap.Text = "[Max Rank: #]";
+            this.textBox_MaxRankCap.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // button_UpgradeEff
+            // 
+            this.button_UpgradeEff.Location = new System.Drawing.Point(358, 250);
+            this.button_UpgradeEff.Name = "button_UpgradeEff";
+            this.button_UpgradeEff.Size = new System.Drawing.Size(69, 23);
+            this.button_UpgradeEff.TabIndex = 114;
+            this.button_UpgradeEff.Text = "Upgrade";
+            this.button_UpgradeEff.UseVisualStyleBackColor = true;
+            // 
+            // button_DownAchieve
+            // 
+            this.button_DownAchieve.Image = ((System.Drawing.Image)(resources.GetObject("button_DownAchieve.Image")));
+            this.button_DownAchieve.Location = new System.Drawing.Point(162, 248);
+            this.button_DownAchieve.Name = "button_DownAchieve";
+            this.button_DownAchieve.Size = new System.Drawing.Size(26, 26);
+            this.button_DownAchieve.TabIndex = 116;
+            this.button_DownAchieve.UseVisualStyleBackColor = true;
+            // 
+            // button_UpAchieve
+            // 
+            this.button_UpAchieve.Image = ((System.Drawing.Image)(resources.GetObject("button_UpAchieve.Image")));
+            this.button_UpAchieve.Location = new System.Drawing.Point(130, 248);
+            this.button_UpAchieve.Name = "button_UpAchieve";
+            this.button_UpAchieve.Size = new System.Drawing.Size(26, 26);
+            this.button_UpAchieve.TabIndex = 115;
+            this.button_UpAchieve.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(260, 39);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(94, 17);
+            this.checkBox1.TabIndex = 64;
+            this.checkBox1.Text = "General Effect";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Add_Technique
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(894, 603);
+            this.ClientSize = new System.Drawing.Size(894, 647);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.label_TechFormMsg);
             this.Controls.Add(this.groupBox6);
@@ -1154,7 +1180,6 @@
 		private System.Windows.Forms.Button button_ClearTech;
 		private System.Windows.Forms.Button button_AddTech;
 		private System.Windows.Forms.Label label18;
-		private System.Windows.Forms.Label label_MaxRank;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.GroupBox groupBox3;
@@ -1175,8 +1200,6 @@
 		private System.Windows.Forms.ComboBox comboBox_Effect;
 		private System.Windows.Forms.ToolTip toolTips;
 		private System.Windows.Forms.Label label_MinRank;
-		private System.Windows.Forms.Label label_EffectType;
-		private System.Windows.Forms.CheckBox checkBox_DFEffect;
 		private System.Windows.Forms.CheckBox checkBox_DFTechEnable;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label_Cyborg;
@@ -1203,5 +1226,10 @@
         private System.Windows.Forms.RadioButton radioButton_Fuel3;
         private System.Windows.Forms.RadioButton radioButton_Fuel2;
         private System.Windows.Forms.RadioButton radioButton_Fuel1;
+        private System.Windows.Forms.TextBox textBox_MaxRankCap;
+        private System.Windows.Forms.Button button_UpgradeEff;
+        private System.Windows.Forms.Button button_DownAchieve;
+        private System.Windows.Forms.Button button_UpAchieve;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
