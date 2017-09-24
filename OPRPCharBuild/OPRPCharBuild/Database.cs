@@ -17,9 +17,9 @@ namespace OPRPCharBuild
         // PROFESSION
         // -------------------------------------------------------------------
         #region Profession String Consts
-        public const string PROF_WA = "Weapon Specialist",
+        public const string PROF_WS = "Weapon Specialist",
             PROF_MA = "Martial Artist",
-            PROF_MS = "Marksman",
+            PROF_MM = "Marksman",
             PROF_SM = "Smith",
             PROF_CA = "Carpenter",
             PROF_IN = "Inventor",
@@ -32,7 +32,7 @@ namespace OPRPCharBuild
         #endregion
 
         static private Dictionary<string, Profession> profDict = new Dictionary<string, Profession>() {
-			{PROF_WA, new Profession(PROF_WA,
+			{PROF_WS, new Profession(PROF_WS,
                 "A much more general fighter-type profession, a Weapon Specialist" +
                 " is someone who has to a large or small degree devoted his/her life to the mastery of a single weapon " +
                 "or weapon type, such as Swords, Axes or Whips. This profession applies generally to melee weapons.",
@@ -43,7 +43,7 @@ namespace OPRPCharBuild
                 "or very close to unarmed. They usually have good insight in the aspects of weight, balance and movement of the body.",
                 "Characters with this profession have access to certain additional traits" +
                 " and may create \"Stance\" techniques.")},
-            {PROF_MS, new Profession(PROF_MS,
+            {PROF_MM, new Profession(PROF_MM,
                 "The profession of Marksman provides sound experience and insight in calculating range," +
                 " distance and wind elements and their impact on the path of a projectile. It is a general trait that applies to guns, " +
                 "slingshots, cannons, rifles and the like. People without this profession will have little to no luck in firing cannonballs " +

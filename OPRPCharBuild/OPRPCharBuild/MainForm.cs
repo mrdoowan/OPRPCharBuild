@@ -1640,11 +1640,11 @@ namespace OPRPCharBuild
 		}
 
 		private void button14_TechAdd_Click(object sender, EventArgs e) {
-			// Technique "Add" button from the MainForm
-			int max_rank = int.Parse(textBox_Fortune.Text) / 2;
+            // Technique "Add" button from the MainForm
+            int fortune = int.Parse(textBox_Fortune.Text);
 			int num_items = dgv_Techniques.Rows.Count;
 			if (num_items == 0) { num_items++; } // What if empty?
-			Add_Technique TechniqueWin = new Add_Technique(max_rank, profList, 
+			Add_Technique TechniqueWin = new Add_Technique(fortune, profList, 
                 traitList, spTraitList, makeDFClass(), false, false, null);
 			string newName = TechniqueWin.NewDialog(ref dgv_Techniques, ref techList, num_items - 1);
             // Update functions go below
@@ -1660,7 +1660,8 @@ namespace OPRPCharBuild
             string TechName = dgv_Techniques.SelectedRows[0].Cells[0].Value.ToString();
 			int index = dgv_Techniques.SelectedRows[0].Index;
 			if (!string.IsNullOrWhiteSpace(TechName)) {
-				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
+                int fortune = int.Parse(textBox_Fortune.Text);
+                int max_rank = fortune / 2;
 				Technique selTech = techList[TechName];
 				if (selTech.rokuName != Database.ROKU_NON && 
                     !traitList.ContainsKey(Database.TR_ROKUMA)) {
@@ -1675,7 +1676,7 @@ namespace OPRPCharBuild
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 				else {
-					Add_Technique TechniqueWin = new Add_Technique(max_rank, profList, traitList, 
+					Add_Technique TechniqueWin = new Add_Technique(fortune, profList, traitList, 
                         spTraitList, makeDFClass(), true, false, selTech);
                     string newName = TechniqueWin.NewDialog(ref dgv_Techniques, ref techList, index);
                     // Update functions go below
@@ -1692,7 +1693,7 @@ namespace OPRPCharBuild
 			if (dgv_Techniques.SelectedRows.Count == 0) { return; }
 			string TechName = dgv_Techniques.SelectedRows[0].Cells[0].Value.ToString();
             if (!string.IsNullOrWhiteSpace(TechName)) {
-				int max_rank = int.Parse(textBox_Fortune.Text) / 2;
+                int fortune = int.Parse(textBox_Fortune.Text);
                 Technique selTech = techList[TechName];
                 if (selTech.rokuName != Database.ROKU_NON &&
                     !traitList.ContainsKey(Database.TR_ROKUMA)) {
@@ -1701,7 +1702,7 @@ namespace OPRPCharBuild
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 				else {
-                    Add_Technique TechniqueWin = new Add_Technique(max_rank, profList, traitList,
+                    Add_Technique TechniqueWin = new Add_Technique(fortune, profList, traitList,
                         spTraitList, makeDFClass(), false, true, selTech);
                     string newName = TechniqueWin.EditDialog(ref dgv_Techniques, ref techList);
                     // Update functions go below

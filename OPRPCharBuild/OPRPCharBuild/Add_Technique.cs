@@ -19,6 +19,7 @@ namespace OPRPCharBuild
 		#region All Private/Public Member Variables
 
 		private bool button_clicked;
+        private int fortune;
 		private int max_rank;
 		private int min_rank;
 		private Dictionary<string, Trait> traitsList;
@@ -31,6 +32,7 @@ namespace OPRPCharBuild
             "- Doctor Effects require Doctor primary.\n" + 
             "- Carpenter Effects (except Traps) require Carpenter primary.\n\n" + 
             "All Custom Effects will be treated as General";
+        private const int NON_SPEC_CAP_HAKI = 28;
 		private int gen_effects;    // To keep track how many General Effects there currently are for Secondary Gen Effects
 									// Updated when an Effect is added
 									// Updated when an Effect is removed
@@ -57,11 +59,12 @@ namespace OPRPCharBuild
         private int basePower = 0;
 		private bool Has_RokuMaster = false;
 
-		public Add_Technique(int MaxRank, Dictionary<string, Profession> pList, Dictionary<string, Trait> tList,
+		public Add_Technique(int fortune_, Dictionary<string, Profession> pList, Dictionary<string, Trait> tList,
             Dictionary<string, SpTrait> SpList, DevilFruit DF_, bool branch_, bool edit_, Technique repl_) {
 			InitializeComponent();
 			button_clicked = false;
-			max_rank = MaxRank;
+            fortune = fortune_;
+			max_rank = fortune / 2;
 			min_rank = 1;
 			traitsList = tList;
 			spTraitsList = SpList;
@@ -553,8 +556,57 @@ namespace OPRPCharBuild
 		// Copy Data to Form should be called after everything is loaded
 		private void Add_Technique_Load(object sender, EventArgs e) {
             // Update maxRank textbox
-            textBox_MaxRankCap.Text = "[Max Rank: " + max_rank + ']';
-
+            string maxRankText = "[Max Rank: " + max_rank + "]\n";
+            if (!profList.ContainsKey(Database.PROF_MA)) {
+                maxRankText += "Rank 14 cap on Martial\n";
+            }
+            if (!profList.ContainsKey(Database.PROF_WS)) {
+                maxRankText += "Rank 14 cap on Weapons\n";
+            }
+            if (!profList.ContainsKey(Database.PROF_MM)) {
+                maxRankText += "Rank 14 cap on Firearms\n";
+            }
+            if (profList.ContainsKey(Database.PROF_SM) &&
+                profList[Database.PROF_SM].primary) {
+                maxRankText += "No rank cap on Smith weapon\n";
+            }
+            if (profList.ContainsKey(Database.PROF_CA) &&
+                profList[Database.PROF_CA].primary) {
+                maxRankText += "No rank cap on Carpenter tool\n";
+            }
+            if (profList.ContainsKey(Database.PROF_AS) && profList[Database.PROF_AS].primary) {
+                maxRankText += "No rank cap on Assassin weapons\n";
+            }
+            if ((profList.ContainsKey(Database.PROF_AS) && profList[Database.PROF_AS].primary) ||
+                (profList.ContainsKey(Database.PROF_TH) && profList[Database.PROF_TH].primary)) {
+                maxRankText += "No rank cap on Stealth\n";
+            }
+            else {
+                maxRankText += "Rank 8 cap on Stealth\n";
+            }
+            if (traitsList.ContainsKey(Database.TR_TRHAKI)) {
+                // Bypass
+            }
+            else if (traitsList.ContainsKey(Database.TR_DIHAKI)) {
+                maxRankText += "Rank " + (fortune / 3) + " cap on secondary Haki\n";
+            }
+            else if (traitsList.ContainsKey(Database.TR_AWHAKI)) {
+                int nonSpecCap = (fortune / 4 > NON_SPEC_CAP_HAKI) ? NON_SPEC_CAP_HAKI : fortune / 4;
+                maxRankText += "Rank " + nonSpecCap + " cap on secondary Haki. Rank 44 cap on main Haki\n";
+            }
+            if (traitsList.ContainsKey(Database.TR_ADVMAS)) {
+                // Bypass
+            }
+            else if (traitsList.ContainsKey(Database.TR_MASTER)) {
+                maxRankText += "Rank 28 cap on Mastery benefit\n";
+            }
+            if (traitsList.ContainsKey(Database.TR_COOKFI)) {
+                maxRankText += "No rank cap on cookware\n";
+            }
+            if (traitsList.ContainsKey(Database.TR_PROPPE)) {
+                maxRankText += "No rank cap on performance props\n";
+            }
+            textBox_MaxRankCap.Text = maxRankText.TrimEnd('\n');
 
             // Set Maximum Values of NumericUpDown
             numericUpDown_Rank.Maximum = max_rank;
@@ -583,7 +635,7 @@ namespace OPRPCharBuild
 			}
 
             // Enable Marksman primary or Inventor primary
-            if (profList.ContainsKey(Database.PROF_MS) && profList[Database.PROF_MS].primary) {
+            if (profList.ContainsKey(Database.PROF_MM) && profList[Database.PROF_MM].primary) {
                 checkBox_Marksman.Enabled = true;
             }
             if (profList.ContainsKey(Database.PROF_IN) && profList[Database.PROF_IN].primary) {
@@ -592,7 +644,7 @@ namespace OPRPCharBuild
 
             // Add Stats into comboBox based on character
             comboBox_StatOpt.Items.Add(Database.BUF_WILLPO);
-            if ((profList.ContainsKey(Database.PROF_WA) && profList[Database.PROF_WA].primary) ||
+            if ((profList.ContainsKey(Database.PROF_WS) && profList[Database.PROF_WS].primary) ||
                 (profList.ContainsKey(Database.PROF_MA) && profList[Database.PROF_MA].primary)) {
                 comboBox_StatOpt.Items.Add(Database.BUF_STANCE);
             }
