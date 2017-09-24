@@ -236,10 +236,13 @@ namespace OPRPCharBuild
             return false;
         }
 
-        // This is to simplify the function from the Database
+        // This is to simplify the function from the Database. 
+        // Cost is adjusted based on the bonus checks
         private Effect getEffect(string effName) {
-            return Database.getEffect(effName, checkBox_Marksman.Checked,
-                checkBox_Inventor.Checked, traitsList.ContainsKey(Database.TR_MASMIS));
+            bool rangeDiscount = checkBox_Marksman.Checked || checkBox_DFTechEnable.Checked;
+            bool aoeDiscount = checkBox_Inventor.Checked || checkBox_DFTechEnable.Checked;
+            return Database.getEffect(effName, rangeDiscount,
+                aoeDiscount, traitsList.ContainsKey(Database.TR_MASMIS));
         }
 
         // Returns an Effect if inside the List
@@ -549,9 +552,12 @@ namespace OPRPCharBuild
         // The form Loading should only enable, initialize text, and add items into comboboxes!
 		// Copy Data to Form should be called after everything is loaded
 		private void Add_Technique_Load(object sender, EventArgs e) {
-			// Set Maximum Values of NumericUpDown
-			numericUpDown_Rank.Maximum = max_rank;
-			textBox_MaxRankCap.Text = "[Max Rank: " + max_rank + ']';
+            // Update maxRank textbox
+            textBox_MaxRankCap.Text = "[Max Rank: " + max_rank + ']';
+
+
+            // Set Maximum Values of NumericUpDown
+            numericUpDown_Rank.Maximum = max_rank;
 			numericUpDown_RegTP.Maximum = max_rank;
 			numericUpDown_SpTP.Maximum = max_rank;
 			numericUpDown_RankBranch.Maximum = max_rank - 1;
@@ -788,68 +794,6 @@ namespace OPRPCharBuild
 			}
 		}
 
-		private void button_ClearTech_Click(object sender, EventArgs e) {
-			// "Clear" button
-			DialogResult result = new DialogResult();
-			result = DialogResult.No;
-			result = MessageBox.Show("Are you sure you want to clear the technique?", "Clear Technique",
-				MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-			if (result == DialogResult.Yes) {
-				// Absolutely Undo all the Rokushiki things.
-				this.Text = "Technique Creator";
-                Roku = new Rokushiki();
-				toolTip_Roku.Active = false;
-				toolTips.Active = true;
-				label_TechFormMsg.Visible = false;
-				basePower = 0;
-				comboBox_AffectRank.Enabled = true;
-				// Basic Character
-				textBox_Name.Clear();
-				numericUpDown_Rank.Value = 1;
-				comboBox_AffectRank.SelectedIndex = -1;
-				checkBox_Branched.Checked = false;
-				textBox_TechBranched.Clear();
-				numericUpDown_RankBranch.Value = 0;
-				numericUpDown_RegTP.Value = 0;
-				numericUpDown_SpTP.Value = 0;
-				comboBox_SpTrait.SelectedIndex = -1;
-				comboBox_Type.SelectedIndex = -1;
-				comboBox_Range.SelectedIndex = -1;
-                // Stats
-                techStats = new Stats();
-                comboBox_StatOpt.SelectedIndex = -1;
-                textBox_Stats.Text = "N/A";
-				// Effects
-				checkBox_NA.Checked = false;
-				textBox_Power.Text = "0";
-				listView_Effects.Items.Clear();
-				effList.Clear();
-				label_MinRank.Text = "Min Rank: 0";
-				numericUpDown_Cost.Value = 0;
-				comboBox_Effect.Text = "Effect";
-				label_EffectDesc.Text = EFFECT_LABEL_STRING;
-				label_EffectType.Visible = false;
-				// Devil Fruit
-				checkBox_DFRank4.Checked = false;
-				checkBox_Full.Checked = false;
-				checkBox_Hybrid.Checked = false;
-				checkBox_Full.Checked = false;
-                checkBox_DFRank4.Enabled = false;
-                checkBox_Full.Enabled = false;
-                checkBox_Hybrid.Enabled = false;
-                checkBox_ZoanSig.Enabled = false;
-                // App Traits
-                radioButton_Fuel1.Checked = false;
-                radioButton_Fuel2.Checked = false;
-                radioButton_Fuel3.Checked = false;
-                checkBox_SigTech.Checked = false;
-                // The rest
-                richTextBox_Note.Clear();
-                richTextBox_CustNotes.Clear();
-				richTextBox_Desc.Clear();
-			}
-		}
-
 		private void checkBox_Branched_CheckedChanged(object sender, EventArgs e) {
 			if (checkBox_Branched.Checked == false) {
 				numericUpDown_RankBranch.Value = 0;
@@ -886,6 +830,8 @@ namespace OPRPCharBuild
 			int val = (int)(numericUpDown_Rank.Value - numericUpDown_RankBranch.Value - numericUpDown_SpTP.Value);
 			if (val < 0) { numericUpDown_RegTP.Value = 0; }
 			else { numericUpDown_RegTP.Value = val; }
+            // Deselect Sp Trait combobox
+            if (val <= 0) { comboBox_SpTrait.SelectedIndex = -1; }
 			Update_Note();
 		}
 
@@ -976,6 +922,7 @@ namespace OPRPCharBuild
 				button_EffectRemove.Enabled = false;
 				button_AddEffect.Enabled = false;
 				numericUpDown_Cost.Enabled = false;
+                checkBox_EffectType.Enabled = false;
 				comboBox_Effect.Enabled = false;
 				textBox_Power.Text = "";
 				textBox_Power.Enabled = false;
@@ -983,7 +930,6 @@ namespace OPRPCharBuild
 				//textBox_Power.BackColor = SystemColors.Window;
 				label_MinRank.Text = "[Min Rank: 0]";
 				min_rank = 0;
-				label_EffectType.Visible = false;
 				label_EffectDesc.Text = "(Effect Encyclopedia)";
 			}
 			else {
@@ -996,15 +942,15 @@ namespace OPRPCharBuild
 				button_EffectRemove.Enabled = true;
 				button_AddEffect.Enabled = true;
 				numericUpDown_Cost.Enabled = true;
-				comboBox_Effect.Enabled = true;
-				label_EffectType.Visible = true;
+                checkBox_EffectType.Enabled = true;
+                comboBox_Effect.Enabled = true;
                 // Reset Effects
                 comboBox_Effect.Text = "Effects";
 				label_EffectDesc.Text = EFFECT_LABEL_STRING;
 			}
 		}
 
-		private void checkBox_DFTechEnable_CheckedChanged(object sender, EventArgs e) {
+        private void checkBox_DFTechEnable_CheckedChanged(object sender, EventArgs e) {
 			if (checkBox_DFTechEnable.Checked) {
 				checkBox_DFRank4.Enabled = true;
 				if (DF.type == "Zoan" || DF.type == "Ancient Zoan" || DF.type == "Myth Zoan") {
@@ -1023,6 +969,8 @@ namespace OPRPCharBuild
 				checkBox_Full.Checked = false;
 				checkBox_Hybrid.Checked = false;
 			}
+            Check_Range_Discount();
+            Check_AOE_Discount();
 			Update_Note();
 		}
 
@@ -1063,8 +1011,8 @@ namespace OPRPCharBuild
 			Update_Note();
 		}
 
-        private void checkBox_Marksman_CheckedChanged(object sender, EventArgs e) {
-            // Checks if there's a Range loaded. Only adjust Cost
+        // If Marksman Primary checked or DF Technique, adjust cost. getEffect() does the adjust.
+        private void Check_Range_Discount() {
             Effect effect = getEffect(comboBox_Effect.Text);
             if (effect != null) {
                 if (effect.name == Database.EFF_SHORT || effect.name == Database.EFF_MEDIU ||
@@ -1072,10 +1020,14 @@ namespace OPRPCharBuild
                     numericUpDown_Cost.Value = effect.cost;
                 }
             }
+        }
+
+        private void checkBox_Marksman_CheckedChanged(object sender, EventArgs e) {
+            Check_Range_Discount();
 		}
 
-		private void checkBox_Inventor_CheckedChanged(object sender, EventArgs e) {
-            // Checks if there's a AoE loaded. Only adjust Cost
+        // If Marksman Inventor checked or DF Technique, adjust cost. getEffect() does the adjust.
+        private void Check_AOE_Discount() {
             Effect effect = getEffect(comboBox_Effect.Text);
             if (effect != null) {
                 if (effect.name == Database.EFF_SHAOE || effect.name == Database.EFF_MDAOE ||
@@ -1083,6 +1035,10 @@ namespace OPRPCharBuild
                     numericUpDown_Cost.Value = effect.cost;
                 }
             }
+        }
+
+        private void checkBox_Inventor_CheckedChanged(object sender, EventArgs e) {
+            Check_AOE_Discount();
         }
         
 
@@ -1096,7 +1052,7 @@ namespace OPRPCharBuild
                     // Custom Effect: Add it in. Initialize everything
                     string custom_Name = comboBox_Effect.Text;
                     int custom_Cost = (int)numericUpDown_Cost.Value;
-                    bool custom_General = true;
+                    bool custom_General = checkBox_EffectType.Checked;
                     string custom_Desc = "Custom";
                     effect = new Effect(custom_Name, custom_General,
                         custom_Cost, custom_Cost, custom_Desc);
@@ -1131,7 +1087,7 @@ namespace OPRPCharBuild
 				numericUpDown_Cost.Value = 0;
 				comboBox_Effect.Text = "Effect";
 				label_EffectDesc.Text = EFFECT_LABEL_STRING;
-				label_EffectType.Visible = false;
+				checkBox_EffectType.Checked = true;
 				// Update functions
 				Update_MinRank();
 				Update_Power_Value();
@@ -1195,7 +1151,81 @@ namespace OPRPCharBuild
             Update_Note();
 		}
 
-		private void comboBox_Effect_SelectedIndexChanged(object sender, EventArgs e) {
+        // Upgrades an Effect if applicable
+        private void button_UpgradeEff_Click(object sender, EventArgs e) {
+            if (listView_Effects.SelectedIndices.Count > 0) {
+                string effName = listView_Effects.SelectedItems[0].SubItems[0].Text;
+                string upgName = (effName == Database.EFF_SHORT) ? Database.EFF_MEDIU :
+                    (effName == Database.EFF_MEDIU) ? Database.EFF_LONG :
+                    (effName == Database.EFF_LONG) ? Database.EFF_VLONG :
+                    (effName == Database.EFF_SHAOE) ? Database.EFF_MDAOE :
+                    (effName == Database.EFF_MDAOE) ? Database.EFF_LOAOE :
+                    (effName == Database.EFF_STBRE) ? Database.EFF_MIBRE :
+                    (effName == Database.EFF_MIBRE) ? Database.EFF_HIBRE :
+                    (effName == Database.EFF_STDEF) ? Database.EFF_MIDEF :
+                    (effName == Database.EFF_MIDEF) ? Database.EFF_HIDEF :
+                    "";
+                // This is an upgrade: Make changes on LV and effList
+                if (upgName != "") {
+                    Effect upgEffect = getEffect(upgName);
+                    effList.Remove(getEffInList(effName));
+                    effList.Add(upgEffect);
+                    listView_Effects.SelectedItems[0].SubItems[0].Text = upgEffect.name;
+                    listView_Effects.SelectedItems[0].SubItems[1].Text = upgEffect.cost.ToString();
+                    listView_Effects.SelectedItems[0].SubItems[2].Text = (upgEffect.general) ? "Yes" : "No";
+                    // Update functions
+                    Update_MinRank();
+                    Update_Power_Value();
+                    Update_Note();
+                }
+                else {
+                    label_EffectDesc.Text = "Can't upgrade this Effect.";
+                }
+            }
+        }
+
+        // To move up or down the item in a ListView (taken from MainForm)
+        private void Move_List_Item(ref ListView list, string direction) {
+            if (list.SelectedItems.Count == 0) { return; }
+            int curr_ind = list.SelectedItems[0].Index;
+            if (curr_ind < 0) {
+                return;
+            }
+            else {
+                ListViewItem item = list.Items[curr_ind];
+                if (direction == "Up") {
+                    if (curr_ind > 0) {
+                        list.Items.RemoveAt(curr_ind);
+                        list.Items.Insert(curr_ind - 1, item);
+                        // Maintain selection
+                        list.Items[curr_ind - 1].Selected = true;
+                    }
+                }
+                else if (direction == "Down") {
+                    if (curr_ind < list.Items.Count - 1) {
+                        list.Items.RemoveAt(curr_ind);
+                        list.Items.Insert(curr_ind + 1, item);
+                        // Maintain selection
+                        list.Items[curr_ind + 1].Selected = true;
+                    }
+                }
+                else {
+                    MessageBox.Show("There is a bug with this button!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+        }
+
+        // Moves item up
+        private void button_UpEffect_Click(object sender, EventArgs e) {
+            Move_List_Item(ref listView_Effects, "Up");
+        }
+
+        // Moves item down
+        private void button_DownEffect_Click(object sender, EventArgs e) {
+            Move_List_Item(ref listView_Effects, "Down");
+        }
+
+        private void comboBox_Effect_SelectedIndexChanged(object sender, EventArgs e) {
 			// Due to selecting from a set List, we're going to assume everything is fine
 			Effect effect = getEffect(comboBox_Effect.Text);
             if (effect != null) {
@@ -1209,12 +1239,10 @@ namespace OPRPCharBuild
             numericUpDown_Cost.Value = effect.cost;
 			label_EffectDesc.ForeColor = SystemColors.ControlText;
 			if (effect.general) {
-				label_EffectType.Visible = true;
-				label_EffectType.Text = "General Effect";
+                checkBox_EffectType.Checked = true;
 			}
 			else {
-				label_EffectType.Visible = true;
-				label_EffectType.Text = "Effect requires Power";
+                checkBox_EffectType.Checked = false;
 			}
 
 		}
@@ -1229,8 +1257,7 @@ namespace OPRPCharBuild
 				comboBox_Effect.Text = rangeEff.name;
 				numericUpDown_Cost.Value = rangeEff.cost;
 				label_EffectDesc.Text = rangeEff.desc;
-				label_EffectType.Visible = true;
-				label_EffectType.Text = "Effect requires Power";
+                checkBox_EffectType.Checked = false;
 			}
 		}
 

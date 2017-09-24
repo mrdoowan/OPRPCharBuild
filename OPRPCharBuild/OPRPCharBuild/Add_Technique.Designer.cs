@@ -53,14 +53,13 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.richTextBox_Desc = new System.Windows.Forms.RichTextBox();
-            this.button_ClearTech = new System.Windows.Forms.Button();
             this.button_AddTech = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox_MaxRankCap = new System.Windows.Forms.TextBox();
             this.numericUpDown_AE = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.button_Rokushiki = new System.Windows.Forms.Button();
-            this.textBox_StaticRokuMsg = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button_ResetStats = new System.Windows.Forms.Button();
@@ -71,6 +70,10 @@
             this.checkBox_Marksman = new System.Windows.Forms.CheckBox();
             this.checkBox_SigTech = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkBox_EffectType = new System.Windows.Forms.CheckBox();
+            this.button_DownEffect = new System.Windows.Forms.Button();
+            this.button_UpEffect = new System.Windows.Forms.Button();
+            this.button_UpgradeEff = new System.Windows.Forms.Button();
             this.checkBox_AutoCalc = new System.Windows.Forms.CheckBox();
             this.textBox_Power = new System.Windows.Forms.TextBox();
             this.label_MinRank = new System.Windows.Forms.Label();
@@ -102,11 +105,6 @@
             this.radioButton_Fuel2 = new System.Windows.Forms.RadioButton();
             this.radioButton_Fuel1 = new System.Windows.Forms.RadioButton();
             this.toolTip_Roku = new System.Windows.Forms.ToolTip(this.components);
-            this.textBox_MaxRankCap = new System.Windows.Forms.TextBox();
-            this.button_UpgradeEff = new System.Windows.Forms.Button();
-            this.button_DownAchieve = new System.Windows.Forms.Button();
-            this.button_UpAchieve = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
@@ -143,7 +141,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label1.Location = new System.Drawing.Point(54, 70);
+            this.label1.Location = new System.Drawing.Point(324, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(33, 13);
             this.label1.TabIndex = 29;
@@ -151,7 +149,7 @@
             // 
             // numericUpDown_Rank
             // 
-            this.numericUpDown_Rank.Location = new System.Drawing.Point(6, 68);
+            this.numericUpDown_Rank.Location = new System.Drawing.Point(276, 43);
             this.numericUpDown_Rank.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -177,7 +175,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label2.Location = new System.Drawing.Point(171, 96);
+            this.label2.Location = new System.Drawing.Point(165, 73);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(102, 13);
             this.label2.TabIndex = 31;
@@ -189,7 +187,7 @@
             this.comboBox_AffectRank.FormattingEnabled = true;
             this.comboBox_AffectRank.Items.AddRange(new object[] {
             ""});
-            this.comboBox_AffectRank.Location = new System.Drawing.Point(276, 93);
+            this.comboBox_AffectRank.Location = new System.Drawing.Point(6, 68);
             this.comboBox_AffectRank.Name = "comboBox_AffectRank";
             this.comboBox_AffectRank.Size = new System.Drawing.Size(153, 21);
             this.comboBox_AffectRank.Sorted = true;
@@ -257,7 +255,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label6.Location = new System.Drawing.Point(54, 96);
+            this.label6.Location = new System.Drawing.Point(324, 71);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(89, 13);
             this.label6.TabIndex = 39;
@@ -266,7 +264,7 @@
             // 
             // numericUpDown_RegTP
             // 
-            this.numericUpDown_RegTP.Location = new System.Drawing.Point(6, 94);
+            this.numericUpDown_RegTP.Location = new System.Drawing.Point(276, 69);
             this.numericUpDown_RegTP.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -281,7 +279,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label7.Location = new System.Drawing.Point(54, 122);
+            this.label7.Location = new System.Drawing.Point(324, 97);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 13);
             this.label7.TabIndex = 41;
@@ -291,7 +289,7 @@
             // numericUpDown_SpTP
             // 
             this.numericUpDown_SpTP.Enabled = false;
-            this.numericUpDown_SpTP.Location = new System.Drawing.Point(6, 120);
+            this.numericUpDown_SpTP.Location = new System.Drawing.Point(276, 95);
             this.numericUpDown_SpTP.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -307,7 +305,7 @@
             // 
             this.label_SpTraitUsed.AutoSize = true;
             this.label_SpTraitUsed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label_SpTraitUsed.Location = new System.Drawing.Point(209, 120);
+            this.label_SpTraitUsed.Location = new System.Drawing.Point(165, 99);
             this.label_SpTraitUsed.Name = "label_SpTraitUsed";
             this.label_SpTraitUsed.Size = new System.Drawing.Size(64, 13);
             this.label_SpTraitUsed.TabIndex = 43;
@@ -321,7 +319,7 @@
             this.comboBox_SpTrait.FormattingEnabled = true;
             this.comboBox_SpTrait.Items.AddRange(new object[] {
             ""});
-            this.comboBox_SpTrait.Location = new System.Drawing.Point(276, 120);
+            this.comboBox_SpTrait.Location = new System.Drawing.Point(6, 95);
             this.comboBox_SpTrait.Name = "comboBox_SpTrait";
             this.comboBox_SpTrait.Size = new System.Drawing.Size(153, 21);
             this.comboBox_SpTrait.Sorted = true;
@@ -414,7 +412,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label16.Location = new System.Drawing.Point(8, 158);
+            this.label16.Location = new System.Drawing.Point(8, 147);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(63, 13);
             this.label16.TabIndex = 59;
@@ -423,26 +421,16 @@
             // richTextBox_Desc
             // 
             this.richTextBox_Desc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.richTextBox_Desc.Location = new System.Drawing.Point(72, 158);
+            this.richTextBox_Desc.Location = new System.Drawing.Point(72, 147);
             this.richTextBox_Desc.Name = "richTextBox_Desc";
             this.richTextBox_Desc.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_Desc.Size = new System.Drawing.Size(357, 159);
+            this.richTextBox_Desc.Size = new System.Drawing.Size(357, 150);
             this.richTextBox_Desc.TabIndex = 60;
             this.richTextBox_Desc.Text = "";
             // 
-            // button_ClearTech
-            // 
-            this.button_ClearTech.Location = new System.Drawing.Point(726, 612);
-            this.button_ClearTech.Name = "button_ClearTech";
-            this.button_ClearTech.Size = new System.Drawing.Size(75, 23);
-            this.button_ClearTech.TabIndex = 62;
-            this.button_ClearTech.Text = "Clear";
-            this.button_ClearTech.UseVisualStyleBackColor = true;
-            this.button_ClearTech.Click += new System.EventHandler(this.button_ClearTech_Click);
-            // 
             // button_AddTech
             // 
-            this.button_AddTech.Location = new System.Drawing.Point(807, 612);
+            this.button_AddTech.Location = new System.Drawing.Point(807, 593);
             this.button_AddTech.Name = "button_AddTech";
             this.button_AddTech.Size = new System.Drawing.Size(75, 23);
             this.button_AddTech.TabIndex = 61;
@@ -453,7 +441,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(500, 617);
+            this.label18.Location = new System.Drawing.Point(581, 598);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(220, 13);
             this.label18.TabIndex = 64;
@@ -461,29 +449,41 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.numericUpDown_RegTP);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.numericUpDown_SpTP);
             this.groupBox1.Controls.Add(this.textBox_MaxRankCap);
             this.groupBox1.Controls.Add(this.numericUpDown_AE);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.button_Rokushiki);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.numericUpDown_Rank);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.numericUpDown_RegTP);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.numericUpDown_SpTP);
             this.groupBox1.Controls.Add(this.label_SpTraitUsed);
             this.groupBox1.Controls.Add(this.comboBox_SpTrait);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.comboBox_AffectRank);
-            this.groupBox1.Controls.Add(this.textBox_StaticRokuMsg);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox1.Location = new System.Drawing.Point(12, 32);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(435, 150);
+            this.groupBox1.Size = new System.Drawing.Size(435, 127);
             this.groupBox1.TabIndex = 69;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "TP and Rank";
+            // 
+            // textBox_MaxRankCap
+            // 
+            this.textBox_MaxRankCap.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_MaxRankCap.Location = new System.Drawing.Point(6, 14);
+            this.textBox_MaxRankCap.Multiline = true;
+            this.textBox_MaxRankCap.Name = "textBox_MaxRankCap";
+            this.textBox_MaxRankCap.ReadOnly = true;
+            this.textBox_MaxRankCap.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox_MaxRankCap.Size = new System.Drawing.Size(264, 48);
+            this.textBox_MaxRankCap.TabIndex = 119;
+            this.textBox_MaxRankCap.Text = "[Max Rank: #]";
+            this.textBox_MaxRankCap.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // numericUpDown_AE
             // 
@@ -492,7 +492,7 @@
             0,
             0,
             65536});
-            this.numericUpDown_AE.Location = new System.Drawing.Point(93, 68);
+            this.numericUpDown_AE.Location = new System.Drawing.Point(363, 43);
             this.numericUpDown_AE.Maximum = new decimal(new int[] {
             7,
             0,
@@ -512,7 +512,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label8.Location = new System.Drawing.Point(141, 70);
+            this.label8.Location = new System.Drawing.Point(410, 45);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(21, 13);
             this.label8.TabIndex = 78;
@@ -521,7 +521,7 @@
             // 
             // button_Rokushiki
             // 
-            this.button_Rokushiki.Location = new System.Drawing.Point(276, 65);
+            this.button_Rokushiki.Location = new System.Drawing.Point(276, 14);
             this.button_Rokushiki.Name = "button_Rokushiki";
             this.button_Rokushiki.Size = new System.Drawing.Size(153, 23);
             this.button_Rokushiki.TabIndex = 75;
@@ -529,15 +529,6 @@
             this.toolTips.SetToolTip(this.button_Rokushiki, "Rokushiki Techs require a Minimum Rank 22");
             this.button_Rokushiki.UseVisualStyleBackColor = true;
             this.button_Rokushiki.Click += new System.EventHandler(this.button_Rokushiki_Click);
-            // 
-            // textBox_StaticRokuMsg
-            // 
-            this.textBox_StaticRokuMsg.Location = new System.Drawing.Point(277, 94);
-            this.textBox_StaticRokuMsg.Name = "textBox_StaticRokuMsg";
-            this.textBox_StaticRokuMsg.ReadOnly = true;
-            this.textBox_StaticRokuMsg.Size = new System.Drawing.Size(152, 20);
-            this.textBox_StaticRokuMsg.TabIndex = 76;
-            this.textBox_StaticRokuMsg.Text = "Rokushiki Master";
             // 
             // groupBox2
             // 
@@ -567,7 +558,7 @@
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.comboBox_Range);
             this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Location = new System.Drawing.Point(12, 188);
+            this.groupBox3.Location = new System.Drawing.Point(12, 165);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(435, 142);
             this.groupBox3.TabIndex = 71;
@@ -660,9 +651,9 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.checkBox1);
-            this.groupBox4.Controls.Add(this.button_DownAchieve);
-            this.groupBox4.Controls.Add(this.button_UpAchieve);
+            this.groupBox4.Controls.Add(this.checkBox_EffectType);
+            this.groupBox4.Controls.Add(this.button_DownEffect);
+            this.groupBox4.Controls.Add(this.button_UpEffect);
             this.groupBox4.Controls.Add(this.button_UpgradeEff);
             this.groupBox4.Controls.Add(this.checkBox_AutoCalc);
             this.groupBox4.Controls.Add(this.textBox_Power);
@@ -676,12 +667,54 @@
             this.groupBox4.Controls.Add(this.checkBox_NA);
             this.groupBox4.Controls.Add(this.listView_Effects);
             this.groupBox4.Controls.Add(this.label11);
-            this.groupBox4.Location = new System.Drawing.Point(12, 331);
+            this.groupBox4.Location = new System.Drawing.Point(12, 308);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(435, 279);
             this.groupBox4.TabIndex = 72;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Effects";
+            // 
+            // checkBox_EffectType
+            // 
+            this.checkBox_EffectType.AutoSize = true;
+            this.checkBox_EffectType.Checked = true;
+            this.checkBox_EffectType.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_EffectType.Location = new System.Drawing.Point(260, 39);
+            this.checkBox_EffectType.Name = "checkBox_EffectType";
+            this.checkBox_EffectType.Size = new System.Drawing.Size(94, 17);
+            this.checkBox_EffectType.TabIndex = 64;
+            this.checkBox_EffectType.Text = "General Effect";
+            this.checkBox_EffectType.UseVisualStyleBackColor = true;
+            // 
+            // button_DownEffect
+            // 
+            this.button_DownEffect.Image = ((System.Drawing.Image)(resources.GetObject("button_DownEffect.Image")));
+            this.button_DownEffect.Location = new System.Drawing.Point(162, 248);
+            this.button_DownEffect.Name = "button_DownEffect";
+            this.button_DownEffect.Size = new System.Drawing.Size(26, 26);
+            this.button_DownEffect.TabIndex = 116;
+            this.button_DownEffect.UseVisualStyleBackColor = true;
+            this.button_DownEffect.Click += new System.EventHandler(this.button_DownEffect_Click);
+            // 
+            // button_UpEffect
+            // 
+            this.button_UpEffect.Image = ((System.Drawing.Image)(resources.GetObject("button_UpEffect.Image")));
+            this.button_UpEffect.Location = new System.Drawing.Point(130, 248);
+            this.button_UpEffect.Name = "button_UpEffect";
+            this.button_UpEffect.Size = new System.Drawing.Size(26, 26);
+            this.button_UpEffect.TabIndex = 115;
+            this.button_UpEffect.UseVisualStyleBackColor = true;
+            this.button_UpEffect.Click += new System.EventHandler(this.button_UpEffect_Click);
+            // 
+            // button_UpgradeEff
+            // 
+            this.button_UpgradeEff.Location = new System.Drawing.Point(358, 250);
+            this.button_UpgradeEff.Name = "button_UpgradeEff";
+            this.button_UpgradeEff.Size = new System.Drawing.Size(69, 23);
+            this.button_UpgradeEff.TabIndex = 114;
+            this.button_UpgradeEff.Text = "Upgrade";
+            this.button_UpgradeEff.UseVisualStyleBackColor = true;
+            this.button_UpgradeEff.Click += new System.EventHandler(this.button_UpgradeEff_Click);
             // 
             // checkBox_AutoCalc
             // 
@@ -825,7 +858,7 @@
             this.groupBox5.Controls.Add(this.richTextBox_Desc);
             this.groupBox5.Location = new System.Drawing.Point(453, 284);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(435, 326);
+            this.groupBox5.Size = new System.Drawing.Size(435, 303);
             this.groupBox5.TabIndex = 73;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Text";
@@ -834,7 +867,7 @@
             // 
             this.richTextBox_CustNotes.BackColor = System.Drawing.SystemColors.Window;
             this.richTextBox_CustNotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.richTextBox_CustNotes.Location = new System.Drawing.Point(72, 90);
+            this.richTextBox_CustNotes.Location = new System.Drawing.Point(72, 79);
             this.richTextBox_CustNotes.Name = "richTextBox_CustNotes";
             this.richTextBox_CustNotes.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.richTextBox_CustNotes.Size = new System.Drawing.Size(357, 62);
@@ -845,7 +878,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label20.Location = new System.Drawing.Point(8, 90);
+            this.label20.Location = new System.Drawing.Point(8, 79);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(63, 13);
             this.label20.TabIndex = 62;
@@ -859,7 +892,7 @@
             this.richTextBox_Note.Name = "richTextBox_Note";
             this.richTextBox_Note.ReadOnly = true;
             this.richTextBox_Note.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_Note.Size = new System.Drawing.Size(357, 67);
+            this.richTextBox_Note.Size = new System.Drawing.Size(357, 56);
             this.richTextBox_Note.TabIndex = 61;
             this.richTextBox_Note.Text = "";
             // 
@@ -981,7 +1014,7 @@
             // 
             this.label_TechFormMsg.AutoSize = true;
             this.label_TechFormMsg.ForeColor = System.Drawing.Color.Green;
-            this.label_TechFormMsg.Location = new System.Drawing.Point(12, 617);
+            this.label_TechFormMsg.Location = new System.Drawing.Point(12, 598);
             this.label_TechFormMsg.Name = "label_TechFormMsg";
             this.label_TechFormMsg.Size = new System.Drawing.Size(431, 13);
             this.label_TechFormMsg.TabIndex = 75;
@@ -1048,64 +1081,12 @@
             this.toolTip_Roku.InitialDelay = 50;
             this.toolTip_Roku.ReshowDelay = 100;
             // 
-            // textBox_MaxRankCap
-            // 
-            this.textBox_MaxRankCap.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox_MaxRankCap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox_MaxRankCap.Location = new System.Drawing.Point(6, 14);
-            this.textBox_MaxRankCap.Multiline = true;
-            this.textBox_MaxRankCap.Name = "textBox_MaxRankCap";
-            this.textBox_MaxRankCap.ReadOnly = true;
-            this.textBox_MaxRankCap.Size = new System.Drawing.Size(423, 48);
-            this.textBox_MaxRankCap.TabIndex = 119;
-            this.textBox_MaxRankCap.Text = "[Max Rank: #]";
-            this.textBox_MaxRankCap.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // button_UpgradeEff
-            // 
-            this.button_UpgradeEff.Location = new System.Drawing.Point(358, 250);
-            this.button_UpgradeEff.Name = "button_UpgradeEff";
-            this.button_UpgradeEff.Size = new System.Drawing.Size(69, 23);
-            this.button_UpgradeEff.TabIndex = 114;
-            this.button_UpgradeEff.Text = "Upgrade";
-            this.button_UpgradeEff.UseVisualStyleBackColor = true;
-            // 
-            // button_DownAchieve
-            // 
-            this.button_DownAchieve.Image = ((System.Drawing.Image)(resources.GetObject("button_DownAchieve.Image")));
-            this.button_DownAchieve.Location = new System.Drawing.Point(162, 248);
-            this.button_DownAchieve.Name = "button_DownAchieve";
-            this.button_DownAchieve.Size = new System.Drawing.Size(26, 26);
-            this.button_DownAchieve.TabIndex = 116;
-            this.button_DownAchieve.UseVisualStyleBackColor = true;
-            // 
-            // button_UpAchieve
-            // 
-            this.button_UpAchieve.Image = ((System.Drawing.Image)(resources.GetObject("button_UpAchieve.Image")));
-            this.button_UpAchieve.Location = new System.Drawing.Point(130, 248);
-            this.button_UpAchieve.Name = "button_UpAchieve";
-            this.button_UpAchieve.Size = new System.Drawing.Size(26, 26);
-            this.button_UpAchieve.TabIndex = 115;
-            this.button_UpAchieve.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(260, 39);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(94, 17);
-            this.checkBox1.TabIndex = 64;
-            this.checkBox1.Text = "General Effect";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // Add_Technique
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(894, 647);
+            this.ClientSize = new System.Drawing.Size(894, 623);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.label_TechFormMsg);
             this.Controls.Add(this.groupBox6);
@@ -1115,7 +1096,6 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label18);
-            this.Controls.Add(this.button_ClearTech);
             this.Controls.Add(this.button_AddTech);
             this.Controls.Add(this.textBox_Name);
             this.Controls.Add(this.label64);
@@ -1177,7 +1157,6 @@
 		private System.Windows.Forms.Label label15;
 		private System.Windows.Forms.Label label16;
 		private System.Windows.Forms.RichTextBox richTextBox_Desc;
-		private System.Windows.Forms.Button button_ClearTech;
 		private System.Windows.Forms.Button button_AddTech;
 		private System.Windows.Forms.Label label18;
 		private System.Windows.Forms.GroupBox groupBox1;
@@ -1210,7 +1189,6 @@
 		private System.Windows.Forms.Label label_TechFormMsg;
 		private System.Windows.Forms.GroupBox groupBox7;
 		private System.Windows.Forms.ToolTip toolTip_Roku;
-		private System.Windows.Forms.TextBox textBox_StaticRokuMsg;
 		private System.Windows.Forms.RichTextBox richTextBox_DF;
 		private System.Windows.Forms.CheckBox checkBox_Inventor;
 		private System.Windows.Forms.CheckBox checkBox_Marksman;
@@ -1228,8 +1206,8 @@
         private System.Windows.Forms.RadioButton radioButton_Fuel1;
         private System.Windows.Forms.TextBox textBox_MaxRankCap;
         private System.Windows.Forms.Button button_UpgradeEff;
-        private System.Windows.Forms.Button button_DownAchieve;
-        private System.Windows.Forms.Button button_UpAchieve;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button_DownEffect;
+        private System.Windows.Forms.Button button_UpEffect;
+        private System.Windows.Forms.CheckBox checkBox_EffectType;
     }
 }
