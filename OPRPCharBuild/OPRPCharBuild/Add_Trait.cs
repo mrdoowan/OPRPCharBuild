@@ -21,7 +21,7 @@ namespace OPRPCharBuild
 		// Now functions
 
         // Returns the name of the new Trait. If no Trait (or invalid) was selected, return null
-		public string NewDialog(ref DataGridView dgv, ref Dictionary<string, Trait> traitList) {
+		public string NewDialog(ref DataGridView dgv, ref List<Trait> traitList) {
 			this.ShowDialog();
 			if (button_clicked) {
 				// All the necessary information is in. We can update the ListView in Main_Form
@@ -35,13 +35,13 @@ namespace OPRPCharBuild
                     (prof > 0) ? "Professional" : "General";
                 string desc = richTextBox_TraitDesc.Text;
                 // Add to the TraitsList
-                Trait addTrait = new Trait(name, custom, gen, prof, desc);
-                try { traitList.Add(name, addTrait); }
-                catch {
-                    MessageBox.Show("Can't add two Traits of the same name.", "Error",
+                if (traitList.Any(x => x.name == name && x.custom == custom)) {
+                    MessageBox.Show("Can't add two Traits of the same custom name.", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return null;
                 }
+                Trait addTrait = new Trait(name, custom, gen, prof, desc);
+                traitList.Add(addTrait);
                 // Add into dgv
                 dgv.Rows.Insert(dgv.Rows.Count, name, custom, traitType, gen, prof, desc);
                 
@@ -51,12 +51,13 @@ namespace OPRPCharBuild
 		}
 
         // Returns the name of the new Trait. If no Trait (or invalid) was selected, return null
-        public string EditDialog(ref DataGridView dgv, ref Dictionary<string, Trait> traitList) {
+        public string EditDialog(ref DataGridView dgv, ref List<Trait> traitList) {
             this.Text = "Edit Trait";
             button_TraitAdd.Text = "Edit";
             // Load Edit from row
             string name = dgv.SelectedRows[0].Cells[0].Value.ToString();
-            Trait edit_Trait = traitList[name];
+            string custom = dgv.SelectedRows[0].Cells[1].Value.ToString();
+            Trait edit_Trait = traitList.Find(x => x.name == name);
             comboBox_TraitName.Text = edit_Trait.name;
             textBox_CustomName.Text = edit_Trait.custom;
             numericUpDown_TraitGen.Value = edit_Trait.genNum;
@@ -64,8 +65,8 @@ namespace OPRPCharBuild
             richTextBox_TraitDesc.Text = edit_Trait.desc;
             this.ShowDialog();
             if (button_clicked) {
-                // Remove the item initially from Dictionary
-                traitList.Remove(name);
+                // Remove the item
+                traitList.Remove(edit_Trait);
                 try {
                     string new_name = comboBox_TraitName.Text;
                     string new_cust = textBox_CustomName.Text;
@@ -81,11 +82,11 @@ namespace OPRPCharBuild
                     dgv.SelectedRows[0].Cells[5].Value = richTextBox_TraitDesc.Text;
                     // Add to Dict
                     Trait new_Trait = new Trait(new_name, new_cust, gen, prof, new_desc);
-                    traitList.Add(new_name, new_Trait);
+                    traitList.Add(new_Trait);
                     return new_name;
                 }
                 catch (Exception ex) {
-                    traitList.Add(name, edit_Trait); // Re-Add
+                    traitList.Add(edit_Trait); // Re-Add
                     dgv.SelectedRows[0].Cells[0].Value = edit_Trait.name;
                     dgv.SelectedRows[0].Cells[1].Value = edit_Trait.custom;
                     dgv.SelectedRows[0].Cells[2].Value = (edit_Trait.genNum > 0 && edit_Trait.profNum > 0) 

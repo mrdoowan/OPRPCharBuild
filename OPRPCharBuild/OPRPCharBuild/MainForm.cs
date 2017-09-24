@@ -11,8 +11,8 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Linq;
 using System.Diagnostics;
-using System.ComponentModel;
 using System.Net;
 using System.Reflection;
 
@@ -47,10 +47,10 @@ namespace OPRPCharBuild
         // Variables that need their data type here instead of in Character
         int genCurr, genCap, profCurr, profCap;
         private Dictionary<string, Profession> profList = new Dictionary<string, Profession>();
-        private Dictionary<string, Trait> traitList = new Dictionary<string, Trait>();
+        private List<Trait> traitList = new List<Trait>();
         private Dictionary<string, Technique> techList = new Dictionary<string, Technique>();
         // Sp Table dictionary that won't be stored in Character
-        private Dictionary<string, SpTrait> spTraitList = new Dictionary<string, SpTrait>();
+        private List<SpTrait> spTraitList = new List<SpTrait>();
         // Sources
         private Dictionary<string, Source> sourceList = new Dictionary<string, Source>();
 
@@ -220,7 +220,7 @@ namespace OPRPCharBuild
         private void Update_Traits_Count_Label() {
 			int gen = 0;    // 2nd Column
 			int prof = 0;   // 3rd Column
-            foreach (Trait trait in traitList.Values) {
+            foreach (Trait trait in traitList) {
                 gen += trait.genNum;
                 prof += trait.profNum;
             }
@@ -402,9 +402,9 @@ namespace OPRPCharBuild
 				calc += " + (" + numericUpDown_UsedForFort.Value + " / 5 * 3)";
 			}
 			// Then Fortune from Fate of Emperor
-			if (traitList.ContainsKey(Database.TR_FATEEM)) {
+			if (traitList.Any(x => x.name == Database.TR_FATEEM)) {
                 // # Gen Traits is Column 2
-                int traits = traitList[Database.TR_FATEEM].genNum;
+                int traits = traitList.Find(x => x.name == Database.TR_FATEEM).genNum;
                 fortune += traits;
 				calc += " + " + traits;
 			}
@@ -470,8 +470,8 @@ namespace OPRPCharBuild
 
 		// This is only for changing stats by Fated
 		private void Add_Fated_Stats(ref int stat, ref string calc, string fated) {
-			if (traitList.ContainsKey(fated)) {
-                int Traits = traitList[fated].genNum;
+			if (traitList.Any(x => x.name == fated)) {
+                int Traits = traitList.Find(x => x.name == fated).genNum;
 				stat += 3 * Traits;
 				calc += " + (3 * " + Traits + ")";
 			}
@@ -483,15 +483,15 @@ namespace OPRPCharBuild
 			int final = base_stat;
 			string calc = "[" + base_stat;
 			// Do the base stats first.
-            if (traitList.ContainsKey(Database.TR_STR3RD)) {
+            if (traitList.Any(x => x.name == Database.TR_STR3RD)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.6);
             }
-            else if (traitList.ContainsKey(Database.TR_STR2ND)) {
+            else if (traitList.Any(x => x.name == Database.TR_STR2ND)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.4);
             }
-			else if (traitList.ContainsKey(Database.TR_STR1ST) || 
-                traitList.ContainsKey(Database.TR_FISHMA) ||
-                traitList.ContainsKey(Database.TR_DWARF)) {
+			else if (traitList.Any(x => x.name == Database.TR_STR1ST) || 
+                traitList.Any(x => x.name == Database.TR_FISHMA) ||
+                traitList.Any(x => x.name == Database.TR_DWARF)) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
 
 			}
@@ -512,14 +512,14 @@ namespace OPRPCharBuild
 			int final = base_stat;
 			string calc = "[" + base_stat;
 			// Do the base stats first.
-            if (traitList.ContainsKey(Database.TR_SPE3RD)) {
+            if (traitList.Any(x => x.name == Database.TR_SPE3RD)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.6);
             }
-            else if (traitList.ContainsKey(Database.TR_SPE2ND)) {
+            else if (traitList.Any(x => x.name == Database.TR_SPE2ND)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.4);
             }
-			else if (traitList.ContainsKey(Database.TR_SPE1ST) ||
-				traitList.ContainsKey(Database.TR_MERFOL)) {
+			else if (traitList.Any(x => x.name == Database.TR_SPE1ST) ||
+				traitList.Any(x => x.name == Database.TR_MERFOL)) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
 
 			}
@@ -540,13 +540,13 @@ namespace OPRPCharBuild
 			int final = base_stat;
 			string calc = "[" + base_stat;
 			// Do the base stats first.
-            if (traitList.ContainsKey(Database.TR_STA3RD)) {
+            if (traitList.Any(x => x.name == Database.TR_STA3RD)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.6);
             }
-			else if (traitList.ContainsKey(Database.TR_STA2ND)) {
+			else if (traitList.Any(x => x.name == Database.TR_STA2ND)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.4);
 			}
-			else if (traitList.ContainsKey(Database.TR_STA1ST)) {
+			else if (traitList.Any(x => x.name == Database.TR_STA1ST)) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
 			}
 			// And then lastly, the Fated Trait.
@@ -566,13 +566,13 @@ namespace OPRPCharBuild
 			int final = base_stat;
 			string calc = "[" + base_stat;
 			// Do the base stats first.
-            if (traitList.ContainsKey(Database.TR_ACC3RD)) {
+            if (traitList.Any(x => x.name == Database.TR_ACC3RD)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.6);
             }
-            else if (traitList.ContainsKey(Database.TR_ACC2ND)) {
+            else if (traitList.Any(x => x.name == Database.TR_ACC2ND)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.4);
             }
-			else if (traitList.ContainsKey(Database.TR_ACC1ST)) {
+			else if (traitList.Any(x => x.name == Database.TR_ACC1ST)) {
 				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
 
 			}
@@ -631,12 +631,12 @@ namespace OPRPCharBuild
 			int total = (int)((double)fortune * multiplier);
 			calc += multiplier;
 			// Now check if we have any Traits that add to this.
-			if (traitList.ContainsKey(Database.TR_TECHMA)) {
+			if (traitList.Any(x => x.name == Database.TR_TECHMA)) {
 				// Increase by 100% of Fortune
 				total += fortune;
 				calc += " + " + fortune;
 			}
-			else if (traitList.ContainsKey(Database.TR_TECHAD)) {
+			else if (traitList.Any(x => x.name == Database.TR_TECHAD)) {
 				// Increase by 40% of Fortune
                 total += (int)((double)fortune * 0.4);
 				calc += " + (" + fortune + " * 0.4)";
@@ -672,7 +672,7 @@ namespace OPRPCharBuild
         private void Update_Used_SpTP_Textbox() {
             // Updates the Used SpTP Textbox
 			int used = 0;
-            foreach (SpTrait spTrait in spTraitList.Values) {
+            foreach (SpTrait spTrait in spTraitList) {
                 used += spTrait.usedTP;
             }
 			textBox_SpTPUsed.Text = used.ToString();
@@ -681,7 +681,7 @@ namespace OPRPCharBuild
         private void Update_Total_SpTP_Textbox() {
             // Updates the Total SpTP Textbox
             int total_SP = 0;
-            foreach (SpTrait spTrait in spTraitList.Values) {
+            foreach (SpTrait spTrait in spTraitList) {
                 total_SP += spTrait.totalTP;
             }
 			textBox_SpTPTotal.Text = total_SP.ToString();
@@ -694,26 +694,26 @@ namespace OPRPCharBuild
             int divisor = Database.getSpTraitDiv(traitName);
             if (divisor > 0) {
                 // Add Sp. Trait to the Dict
-                Trait sel_Trait = traitList[traitName];
-                int traitNum = sel_Trait.getTotalTraits();
-                string customName = sel_Trait.getTraitName();
+                Trait sel_Trait = traitList.Find(x => x.name == traitName);
+                int traitNum = sel_Trait.getTotal();
+                string customName = sel_Trait.getName();
                 int totTP = (fortune / divisor) * traitNum;
-                SpTrait addTrait = new SpTrait(traitName, customName, 0, totTP);
-                spTraitList.Add(traitName, addTrait);
+                SpTrait addSpTrait = new SpTrait(traitName, customName, 0, totTP);
+                spTraitList.Add(addSpTrait);
                 // Add Sp. Trait to the dgv
-                dgv_SpTraits.Rows.Add(customName, 0, totTP);
+                dgv_SpTraits.Rows.Add(addSpTrait.getName(), 0, totTP);
             }
 			// Lastly update the Total SpTP
 			Update_Total_SpTP_Textbox();
 			// Used when a Trait is added.
 		}
 
-        private void Remove_SpTrait(string traitName) {
+        private void Remove_SpTrait(SpTrait removeTrait) {
             // Remove from Dict
-            spTraitList.Remove(traitName);
+            spTraitList.Remove(removeTrait);
             // Remove from ListView
             foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
-                if (SpTraitRow.Cells[0].Value.ToString() == traitName) {
+                if (SpTraitRow.Cells[0].Value.ToString() == removeTrait.getName()) {
                     dgv_SpTraits.Rows.Remove(SpTraitRow);
                     dgv_SpTraits.Refresh();
                     break;
@@ -724,16 +724,16 @@ namespace OPRPCharBuild
             // Used when a Trait is removed.
         }
 
-        private void Update_SpTraitTableAndDict_Total() {
+        private void Update_SpTraitTableAndList_Total() {
             // This updates all the Total Sp Traits
             int fortune = int.Parse(textBox_Fortune.Text);
             foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
-                string name = SpTraitRow.Cells[0].Value.ToString();
-                int traitNum = traitList[name].getTotalTraits();
-                int divisor = Database.getSpTraitDiv(name);
+                string spName = SpTraitRow.Cells[0].Value.ToString(); // This is getting getTraitName()
+                int traitNum = traitList.Find(x => x.getName() == spName).getTotal();
+                int divisor = Database.getSpTraitDiv(spName);
                 int totTP = (fortune / divisor) * traitNum;
                 // Edit spTraitList
-                spTraitList[name].totalTP = totTP;
+                spTraitList.Find(x => x.getName() == spName).totalTP = totTP;
                 // Edit ListView
                 SpTraitRow.Cells[2].Value = totTP;
             }
@@ -744,7 +744,7 @@ namespace OPRPCharBuild
             // Used when Fortune is updated.
         }
 
-        private void Update_SpTraitTableAndDict_Used(string traitName) {
+        private void Update_SpTraitTableAndList_Used(string traitName) {
             // Update values inside the table based on Techniques or Fortune edited.
             // Update SpTraitList first, then the ListView
             if (string.IsNullOrWhiteSpace(traitName)) { return; }
@@ -755,7 +755,7 @@ namespace OPRPCharBuild
                 }
             }
             // Edit spTraitList
-            spTraitList[traitName].usedTP = used;
+            spTraitList.Find(x => x.getName() == traitName).usedTP = used;
             // Edit ListView
             foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
                 if (SpTraitRow.Cells[0].Value.ToString() == traitName) {
@@ -783,8 +783,8 @@ namespace OPRPCharBuild
 			int num = 0;
 			msg += name + ": ";
             // How many Traits of the there are of the same Trait
-			if (traitList.ContainsKey(name)) {
-                num += traitList[name].getTotalTraits();
+			if (traitList.Any(x => x.name == name)) {
+                num += traitList.Find(x => x.name == name).getTotal();
             }
 			int total = num * points;
 			int used = 0;
@@ -799,13 +799,13 @@ namespace OPRPCharBuild
 		// This is only for Critical Hit, Anatomical Strike, and Quickstrike
 		private void Update_CritAnatQuick_Msg() {
 			string msg = "";
-			if (traitList.ContainsKey(Database.TR_CRITHI)) {
+			if (traitList.Any(x => x.name == Database.TR_CRITHI)) {
 				Print_Applied_Msg(ref msg, Database.TR_CRITHI);
 			}
-			if (traitList.ContainsKey(Database.TR_ANASTR)) {
+			if (traitList.Any(x => x.name == Database.TR_ANASTR)) {
 				Print_Applied_Msg(ref msg, Database.TR_ANASTR);
 			}
-			if (traitList.ContainsKey(Database.TR_QUICKS)) {
+			if (traitList.Any(x => x.name == Database.TR_QUICKS)) {
 				Print_Applied_Msg(ref msg, Database.TR_QUICKS);
 			}
 			// Trim the newline
@@ -1372,7 +1372,7 @@ namespace OPRPCharBuild
 
 		private void textBox_Fortune_TextChanged(object sender, EventArgs e) {
 			Update_Total_RegTP();
-			Update_SpTraitTableAndDict_Total();
+			Update_SpTraitTableAndList_Total();
 		}
 
 		private void textBox_UsedForStats_TextChanged(object sender, EventArgs e) {
@@ -1461,7 +1461,7 @@ namespace OPRPCharBuild
                 }
                 // Apply beli trait / professional boosts (do not stack)
                 // Look for Traits bonus of 20%
-                if (traitList.ContainsKey("Pickpocket") || traitList.ContainsKey("Tough Bargainer")) {
+                if (traitList.Any(x => x.name == "Pickpocket") || traitList.Any(x => x.name == "Tough Bargainer")) {
                     beli = (uint)(beli * 1.2);
                     message += "\n+ " + Commas_To_Value((uint)(beli * 0.2)) + " (20% beli Trait Bonus)";
                 }
@@ -1562,10 +1562,12 @@ namespace OPRPCharBuild
             if (dgv_Traits.SelectedRows.Count == 0) { return; }
             Add_Trait TraitWin = new Add_Trait();
             string oldName = dgv_Traits.SelectedRows[0].Cells[0].Value.ToString();
+            string oldCustName = dgv_Traits.SelectedRows[0].Cells[1].Value.ToString();
             string newName = TraitWin.EditDialog(ref dgv_Traits, ref traitList);
             if (newName != null) {
                 All_Update_Functions_Traits();
-                Remove_SpTrait(oldName);
+                SpTrait oldSpTrait = spTraitList.Find(x => x.name == oldName && x.custom == oldCustName);
+                Remove_SpTrait(oldSpTrait);
                 Add_SpTrait(newName);
             }
         }
@@ -1574,17 +1576,20 @@ namespace OPRPCharBuild
         private void button10_TraitsDelete_Click(object sender, EventArgs e) {
 			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
 			if (dgv_Traits.SelectedRows.Count == 0) { return; }
-            // Remove from Dict
+            // Remove from List
             string traitName = dgv_Traits.SelectedRows[0].Cells[0].Value.ToString();
+            string custName = dgv_Traits.SelectedRows[0].Cells[1].Value.ToString();
             try {
-                traitList.Remove(traitName);
+                Trait removeTrait = traitList.Find(x => x.name == traitName && x.custom == custName);
+                traitList.Remove(removeTrait);
                 // Remove from dgv
                 int remove_index = dgv_Traits.SelectedRows[0].Index;
                 dgv_Traits.Rows.RemoveAt(remove_index);
                 dgv_Traits.Refresh();
                 // All update Functions
                 All_Update_Functions_Traits();
-                Remove_SpTrait(traitName);
+                SpTrait removeSpTrait = spTraitList.Find(x => x.name == traitName && x.custom == custName);
+                Remove_SpTrait(removeSpTrait);
             }
             catch (Exception ex) {
                 MessageBox.Show("Error in deleting Trait.\nReason: " + ex.Message, "Exception Thrown");
@@ -1626,7 +1631,7 @@ namespace OPRPCharBuild
         #region Techniques Tab
 
         private void All_Update_Functions_Techs(string traitName) {
-            Update_SpTraitTableAndDict_Used(traitName);
+            Update_SpTraitTableAndList_Used(traitName);
 			Update_Used_RegTP();
 			Update_CritAnatQuick_Msg();
 			Update_TechNum();
@@ -1664,7 +1669,7 @@ namespace OPRPCharBuild
                 int max_rank = fortune / 2;
 				Technique selTech = techList[TechName];
 				if (selTech.rokuName != Database.ROKU_NON && 
-                    !traitList.ContainsKey(Database.TR_ROKUMA)) {
+                    !traitList.Any(x => x.name == Database.TR_ROKUMA)) {
 					// ^If the Selected Technique is Rokushiki and character does not have Rokushiki Master
 					MessageBox.Show("You can't edit a Rokushiki Technique without the Rokushiki Master Trait.", "Error",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1696,7 +1701,7 @@ namespace OPRPCharBuild
                 int fortune = int.Parse(textBox_Fortune.Text);
                 Technique selTech = techList[TechName];
                 if (selTech.rokuName != Database.ROKU_NON &&
-                    !traitList.ContainsKey(Database.TR_ROKUMA)) {
+                    !traitList.Any(x => x.name == Database.TR_ROKUMA)) {
 					// ^If the Selected Technique is Rokushiki and character does not have Rokushiki Master
 					MessageBox.Show("You can't edit a Rokushiki Technique without the Rokushiki Master Trait!", "Error",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);

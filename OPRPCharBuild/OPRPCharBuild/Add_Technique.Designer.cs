@@ -56,7 +56,6 @@
             this.button_AddTech = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox_MaxRankCap = new System.Windows.Forms.TextBox();
             this.numericUpDown_AE = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.button_Rokushiki = new System.Windows.Forms.Button();
@@ -105,6 +104,7 @@
             this.radioButton_Fuel2 = new System.Windows.Forms.RadioButton();
             this.radioButton_Fuel1 = new System.Windows.Forms.RadioButton();
             this.toolTip_Roku = new System.Windows.Forms.ToolTip(this.components);
+            this.richTextBox_MaxRankCap = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
@@ -449,11 +449,11 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.richTextBox_MaxRankCap);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.numericUpDown_RegTP);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.numericUpDown_SpTP);
-            this.groupBox1.Controls.Add(this.textBox_MaxRankCap);
             this.groupBox1.Controls.Add(this.numericUpDown_AE);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.button_Rokushiki);
@@ -471,19 +471,6 @@
             this.groupBox1.TabIndex = 69;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "TP and Rank";
-            // 
-            // textBox_MaxRankCap
-            // 
-            this.textBox_MaxRankCap.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox_MaxRankCap.Location = new System.Drawing.Point(6, 14);
-            this.textBox_MaxRankCap.Multiline = true;
-            this.textBox_MaxRankCap.Name = "textBox_MaxRankCap";
-            this.textBox_MaxRankCap.ReadOnly = true;
-            this.textBox_MaxRankCap.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_MaxRankCap.Size = new System.Drawing.Size(264, 48);
-            this.textBox_MaxRankCap.TabIndex = 119;
-            this.textBox_MaxRankCap.Text = "[Max Rank: #]";
-            this.textBox_MaxRankCap.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // numericUpDown_AE
             // 
@@ -1081,6 +1068,18 @@
             this.toolTip_Roku.InitialDelay = 50;
             this.toolTip_Roku.ReshowDelay = 100;
             // 
+            // richTextBox_MaxRankCap
+            // 
+            this.richTextBox_MaxRankCap.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.richTextBox_MaxRankCap.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox_MaxRankCap.Location = new System.Drawing.Point(6, 14);
+            this.richTextBox_MaxRankCap.Name = "richTextBox_MaxRankCap";
+            this.richTextBox_MaxRankCap.ReadOnly = true;
+            this.richTextBox_MaxRankCap.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richTextBox_MaxRankCap.Size = new System.Drawing.Size(264, 49);
+            this.richTextBox_MaxRankCap.TabIndex = 80;
+            this.richTextBox_MaxRankCap.Text = "";
+            // 
             // Add_Technique
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1204,10 +1203,10 @@
         private System.Windows.Forms.RadioButton radioButton_Fuel3;
         private System.Windows.Forms.RadioButton radioButton_Fuel2;
         private System.Windows.Forms.RadioButton radioButton_Fuel1;
-        private System.Windows.Forms.TextBox textBox_MaxRankCap;
         private System.Windows.Forms.Button button_UpgradeEff;
         private System.Windows.Forms.Button button_DownEffect;
         private System.Windows.Forms.Button button_UpEffect;
         private System.Windows.Forms.CheckBox checkBox_EffectType;
+        private System.Windows.Forms.RichTextBox richTextBox_MaxRankCap;
     }
 }

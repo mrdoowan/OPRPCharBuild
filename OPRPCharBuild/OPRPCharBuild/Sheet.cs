@@ -138,7 +138,7 @@ namespace OPRPCharBuild
             ListView Weaponry, 
             ListView Items, 
             List<int> AP,
-            Dictionary<string, Trait> traitList,
+            List<Trait> traitList,
             Dictionary<string, SpTrait> spTraitList,
             DataGridView Techs, 
             ListView Categories,
@@ -345,10 +345,10 @@ namespace OPRPCharBuild
 					}
 					break;
 				case "Trait_G":
-                    Dictionary<string, Trait> Traits_G = (Dictionary<string, Trait>)List;
-					foreach (Trait trait in Traits_G.Values) {
+                    List<Trait> Traits_G = (List<Trait>)List;
+					foreach (Trait trait in Traits_G) {
 						if (trait.genNum > 0) {
-							RepeatTags.Add(50, trait.getTraitName());
+							RepeatTags.Add(50, trait.getName());
 							RepeatTags.Add(79, trait.genNum.ToString());
 							RepeatTags.Add(81, trait.profNum.ToString());
 							RepeatTags.Add(80, trait.desc);
@@ -358,10 +358,10 @@ namespace OPRPCharBuild
 					}
 					break;
 				case "Trait_P":
-                    Dictionary<string, Trait> Traits_P = (Dictionary<string, Trait>)List;
-					foreach (Trait trait in Traits_P.Values) {
+                    List<Trait> Traits_P = (List<Trait>)List;
+					foreach (Trait trait in Traits_P) {
 						if (trait.profNum > 0 && trait.genNum == 0) {
-							RepeatTags.Add(51, trait.getTraitName());
+							RepeatTags.Add(51, trait.getName());
 							RepeatTags.Add(81, trait.profNum.ToString());
 							RepeatTags.Add(82, trait.desc);
 							Repeat_String(old_str, ref new_str);

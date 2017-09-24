@@ -22,8 +22,8 @@ namespace OPRPCharBuild
         private int fortune;
 		private int max_rank;
 		private int min_rank;
-		private Dictionary<string, Trait> traitsList;
-		private Dictionary<string, SpTrait> spTraitsList;
+		private List<Trait> traitsList;
+		private List<SpTrait> spTraitsList;
         private Dictionary<string, Profession> profList;
 		private const string EFFECT_LABEL_STRING = "Effect Encyclopedia\n" + 
 			"- Weathermancy Effects require Weathermancy Trait\n" + 
@@ -59,8 +59,8 @@ namespace OPRPCharBuild
         private int basePower = 0;
 		private bool Has_RokuMaster = false;
 
-		public Add_Technique(int fortune_, Dictionary<string, Profession> pList, Dictionary<string, Trait> tList,
-            Dictionary<string, SpTrait> SpList, DevilFruit DF_, bool branch_, bool edit_, Technique repl_) {
+		public Add_Technique(int fortune_, Dictionary<string, Profession> pList, List<Trait> tList,
+            List<SpTrait> SpList, DevilFruit DF_, bool branch_, bool edit_, Technique repl_) {
 			InitializeComponent();
 			button_clicked = false;
             fortune = fortune_;
@@ -74,7 +74,7 @@ namespace OPRPCharBuild
             editing = edit_;
             replicating = repl_;
 			gen_effects = 0;
-            if (traitsList.ContainsKey(Database.TR_ROKUMA)) {
+            if (traitsList.Any(x => x.name == Database.TR_ROKUMA)) {
                 Has_RokuMaster = true;
             }
 		}
@@ -108,6 +108,8 @@ namespace OPRPCharBuild
 					comboBox_AffectRank.Text, 
                     comboBox_SpTrait.Text,
                     checkBox_SigTech.Checked,
+                    checkBox_Marksman.Checked,
+                    checkBox_Inventor.Checked,
                     textBox_TechBranched.Text,
                     (int)numericUpDown_RankBranch.Value,
                     comboBox_Type.Text, 
@@ -245,7 +247,7 @@ namespace OPRPCharBuild
             bool rangeDiscount = checkBox_Marksman.Checked || checkBox_DFTechEnable.Checked;
             bool aoeDiscount = checkBox_Inventor.Checked || checkBox_DFTechEnable.Checked;
             return Database.getEffect(effName, rangeDiscount,
-                aoeDiscount, traitsList.ContainsKey(Database.TR_MASMIS));
+                aoeDiscount, traitsList.Any(x => x.name == Database.TR_MASMIS));
         }
 
         // Returns an Effect if inside the List
@@ -370,10 +372,12 @@ namespace OPRPCharBuild
             // Stats names
             if (techStats.statsName == Database.BUF_WILLPO || techStats.statsName == Database.BUF_LIFRET ||
                 techStats.statsName == Database.BUF_DRUG || techStats.statsName == Database.BUF_PERFOR ||
-                techStats.statsName == Database.BUF_FOOD || techStats.statsName == Database.BUF_OBHAKI) {
+                techStats.statsName == Database.BUF_FOOD || techStats.statsName == Database.BUF_OBHAKI ||
+                techStats.statsName == Database.BUF_DFBUFF) {
                 message += "- [i]" + techStats.statsName + " Buff[/i]\n";
             }
-            else if (techStats.statsName == Database.BUF_POISON || techStats.statsName == Database.BUF_CQHAKI) {
+            else if (techStats.statsName == Database.BUF_POISON || techStats.statsName == Database.BUF_CQHAKI ||
+                techStats.statsName == Database.BUF_DFDEBU) {
                 message += "- [i]" + techStats.statsName + " Debuff[/i]\n";
             }
             else if (techStats.statsName == Database.BUF_CRITHI || techStats.statsName == Database.BUF_ANASTR ||
@@ -401,8 +405,8 @@ namespace OPRPCharBuild
 			if (!string.IsNullOrWhiteSpace(comboBox_AffectRank.Text)) { message += "- [i]" + comboBox_AffectRank.Text + " Technique*[/i]\n"; }
             // Special TP usage.
             try {
-                SpTrait spTrait = spTraitsList[comboBox_SpTrait.Text];
-                if (numericUpDown_SpTP.Value > 0) { message += "- Special TP from [i]" + spTrait.getTraitName() + "[/i]\n"; }
+                SpTrait spTrait = spTraitsList.Find(x => x.getName() == comboBox_SpTrait.Text);
+                if (numericUpDown_SpTP.Value > 0) { message += "- Special TP from [i]" + spTrait.getName() + "[/i]\n"; }
             }
             catch { }
 			message = message.TrimEnd('\n'); // Remove the last \n
@@ -584,29 +588,29 @@ namespace OPRPCharBuild
             else {
                 maxRankText += "Rank 8 cap on Stealth\n";
             }
-            if (traitsList.ContainsKey(Database.TR_TRHAKI)) {
+            if (traitsList.Any(x => x.name == Database.TR_TRHAKI)) {
                 // Bypass
             }
-            else if (traitsList.ContainsKey(Database.TR_DIHAKI)) {
+            else if (traitsList.Any(x => x.name == Database.TR_DIHAKI)) {
                 maxRankText += "Rank " + (fortune / 3) + " cap on secondary Haki\n";
             }
-            else if (traitsList.ContainsKey(Database.TR_AWHAKI)) {
+            else if (traitsList.Any(x => x.name == Database.TR_AWHAKI)) {
                 int nonSpecCap = (fortune / 4 > NON_SPEC_CAP_HAKI) ? NON_SPEC_CAP_HAKI : fortune / 4;
                 maxRankText += "Rank " + nonSpecCap + " cap on secondary Haki. Rank 44 cap on main Haki\n";
             }
-            if (traitsList.ContainsKey(Database.TR_ADVMAS)) {
+            if (traitsList.Any(x => x.name == Database.TR_ADVMAS)) {
                 // Bypass
             }
-            else if (traitsList.ContainsKey(Database.TR_MASTER)) {
+            else if (traitsList.Any(x => x.name == Database.TR_MASTER)) {
                 maxRankText += "Rank 28 cap on Mastery benefit\n";
             }
-            if (traitsList.ContainsKey(Database.TR_COOKFI)) {
+            if (traitsList.Any(x => x.name == Database.TR_COOKFI)) {
                 maxRankText += "No rank cap on cookware\n";
             }
-            if (traitsList.ContainsKey(Database.TR_PROPPE)) {
+            if (traitsList.Any(x => x.name == Database.TR_PROPPE)) {
                 maxRankText += "No rank cap on performance props\n";
             }
-            textBox_MaxRankCap.Text = maxRankText.TrimEnd('\n');
+            richTextBox_MaxRankCap.Text = maxRankText.TrimEnd('\n');
 
             // Set Maximum Values of NumericUpDown
             numericUpDown_Rank.Maximum = max_rank;
@@ -615,16 +619,17 @@ namespace OPRPCharBuild
 			numericUpDown_RankBranch.Maximum = max_rank - 1;
 
 			// Add Traits Affecting the Rank: Add the custom TraitName instead
-            foreach (string traitName in traitsList.Keys) {
-                if (isAffectRankTrait(traitName)) {
-                    comboBox_AffectRank.Items.Add(traitsList[traitName].getTraitName());
+            foreach (Trait trait in traitsList) {
+                if (isAffectRankTrait(trait.name)) {
+                    comboBox_AffectRank.Items.Add(
+                        traitsList.Find(x => x.name == trait.name).getName());
                 }
             }
 			comboBox_AffectRank.SelectedIndex = -1;
 
 			// Add Special TP Traits
-			foreach (string traitName in spTraitsList.Keys) {
-                comboBox_SpTrait.Items.Add(traitName);
+			foreach (SpTrait spTrait in spTraitsList) {
+                comboBox_SpTrait.Items.Add(spTrait.getName());
 			}
 			// Check if SpTrait_comboBox is empty (there's always 1 item which is the WhiteSpace)
 			if (comboBox_SpTrait.Items.Count > 1) {
@@ -648,24 +653,24 @@ namespace OPRPCharBuild
                 (profList.ContainsKey(Database.PROF_MA) && profList[Database.PROF_MA].primary)) {
                 comboBox_StatOpt.Items.Add(Database.BUF_STANCE);
             }
-            if (traitsList.ContainsKey(Database.TR_LIFRET)) {
+            if (traitsList.Any(x => x.name == Database.TR_LIFRET)) {
                 comboBox_StatOpt.Items.Add(Database.BUF_LIFRET);
             }
             if ((profList.ContainsKey(Database.PROF_DO) && profList[Database.PROF_DO].primary) ||
                 (profList.ContainsKey(Database.PROF_AS) && profList[Database.PROF_AS].primary) ||
-                traitsList.ContainsKey(Database.TR_BAKBAD)) {
+                traitsList.Any(x => x.name == Database.TR_BAKBAD)) {
                 comboBox_StatOpt.Items.Add(Database.BUF_POISON);
             }
             if (profList.ContainsKey(Database.PROF_DO) && profList[Database.PROF_DO].primary) {
                 comboBox_StatOpt.Items.Add(Database.BUF_DRUG);
             }
-            if (traitsList.ContainsKey(Database.TR_CRITHI)) {
+            if (traitsList.Any(x => x.name == Database.TR_CRITHI)) {
                 comboBox_StatOpt.Items.Add(Database.BUF_CRITHI);
             }
-            if (traitsList.ContainsKey(Database.TR_ANASTR)) {
+            if (traitsList.Any(x => x.name == Database.TR_ANASTR)) {
                 comboBox_StatOpt.Items.Add(Database.BUF_ANASTR);
             }
-            if (traitsList.ContainsKey(Database.TR_QUICKS)) {
+            if (traitsList.Any(x => x.name == Database.TR_QUICKS)) {
                 comboBox_StatOpt.Items.Add(Database.BUF_QUICKS);
             }
             if (profList.ContainsKey(Database.PROF_EN) && profList[Database.PROF_EN].primary) {
@@ -681,10 +686,10 @@ namespace OPRPCharBuild
                 comboBox_StatOpt.Items.Add(Database.BUF_DFBUFF);
                 comboBox_StatOpt.Items.Add(Database.BUF_DFDEBU);
             }
-            if (traitsList.ContainsKey(Database.TR_AWHAKI)) {
+            if (traitsList.Any(x => x.name == Database.TR_AWHAKI)) {
                 comboBox_StatOpt.Items.Add(Database.BUF_OBHAKI);
             }
-            if (traitsList.ContainsKey(Database.TR_CQHAKI)) {
+            if (traitsList.Any(x => x.name == Database.TR_CQHAKI)) {
                 comboBox_StatOpt.Items.Add(Database.BUF_CQHAKI);
             }
 
@@ -715,11 +720,11 @@ namespace OPRPCharBuild
                 }
             }
             // Add Weathermancy
-            if (traitsList.ContainsKey(Database.TR_WEATHR)) {
+            if (traitsList.Any(x => x.name == Database.TR_WEATHR)) {
                 effectsComboList.AddRange(Database.getWeatherEffects());
             }
             // Add Pop Greens
-            if (traitsList.ContainsKey(Database.TR_HORTWA)) {
+            if (traitsList.Any(x => x.name == Database.TR_HORTWA)) {
                 effectsComboList.AddRange(Database.getPopGreensEffects());
             }
             // Add Doctor Effects (Primary or Secondary)
@@ -733,7 +738,7 @@ namespace OPRPCharBuild
                 }
             }
             // Add Battle Suits trait
-            if (traitsList.ContainsKey(Database.TR_BATSUI)) {
+            if (traitsList.Any(x => x.name == Database.TR_BATSUI)) {
                 effectsComboList.Add(Database.EFF_BSUIT);
             }
             // now AddRange into the combobox
@@ -741,7 +746,7 @@ namespace OPRPCharBuild
 
 			// DF Options
 			try {
-				if (traitsList.ContainsKey(Database.TR_SPECDF)) {
+				if (traitsList.Any(x => x.name == Database.TR_SPECDF)) {
 					richTextBox_DF.Text = "";
 					richTextBox_DF.Text += DF.name + " [" + DF.type + "]\n\n";
 					richTextBox_DF.Text += DF.description;
@@ -757,16 +762,16 @@ namespace OPRPCharBuild
 			}
 			// Cyborg Options
 			try {
-				if (traitsList.ContainsKey(Database.TR_BASCYB)) {
+				if (traitsList.Any(x => x.name == Database.TR_BASCYB)) {
 					label_Cyborg.Text = "[Basic Cyborg]";
                     radioButton_Fuel1.Enabled = true;
 				}
-				else if (traitsList.ContainsKey(Database.TR_ADVCYB)) {
+				else if (traitsList.Any(x => x.name == Database.TR_ADVCYB)) {
 					label_Cyborg.Text = "[Advanced Cyborg]";
 					radioButton_Fuel1.Enabled = true;
 					radioButton_Fuel2.Enabled = true;
 				}
-				else if (traitsList.ContainsKey(Database.TR_NEWCYB)) {
+				else if (traitsList.Any(x => x.name == Database.TR_NEWCYB)) {
 					label_Cyborg.Text = "[New World Cyborg]";
 					radioButton_Fuel1.Enabled = true;
 					radioButton_Fuel2.Enabled = true;
@@ -777,7 +782,7 @@ namespace OPRPCharBuild
 				MessageBox.Show("Error in configuring Cyborg Options.\nReason: " + ex.Message, "Error");
 			}
 			// Signature Technique Trait
-			if (traitsList.ContainsKey(Database.TR_SIGTEC)) { checkBox_SigTech.Enabled = true; }
+			if (traitsList.Any(x => x.name == Database.TR_SIGTEC)) { checkBox_SigTech.Enabled = true; }
 
             // Now everything is loaded: We can call Copy_Dict_To_Form
             // If we're branching a Technique, we want to duplicate, and then modify.
@@ -900,15 +905,6 @@ namespace OPRPCharBuild
 		}
 
 		private void comboBox_AffectRank_SelectedIndexChanged(object sender, EventArgs e) {
-			if (!string.IsNullOrWhiteSpace(comboBox_AffectRank.Text) && !textBox_MaxRankCap.Text.Contains('*')) {
-				textBox_MaxRankCap.Text = textBox_MaxRankCap.Text.TrimEnd(']');
-				textBox_MaxRankCap.Text += "*]";
-			}
-			else if (string.IsNullOrWhiteSpace(comboBox_AffectRank.Text)) {
-				// Nothing selected.
-				textBox_MaxRankCap.Text = textBox_MaxRankCap.Text.TrimEnd('*', ']');
-				textBox_MaxRankCap.Text += ']';
-			}
 			// Update power from Mastery
 			Update_Power_Value();
 			Update_MinRank();

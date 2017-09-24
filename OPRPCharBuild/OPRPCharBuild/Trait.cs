@@ -36,13 +36,13 @@ namespace OPRPCharBuild
             desc = desc_;
         }
 
-        public int getTotalTraits() {
+        public int getTotal() {
             return genNum + profNum;
         }
 
         // Return name if custom is blank
         // Return custom otherwise
-        public string getTraitName() {
+        public string getName() {
             return (string.IsNullOrWhiteSpace(custom)) ? name : custom;
         }
     }
@@ -51,7 +51,7 @@ namespace OPRPCharBuild
     public class SpTrait
     {
         public string name;
-        public string custom;
+        public string custom; // Will either be same name or custom
         public int usedTP;
         public int totalTP;
 
@@ -70,7 +70,7 @@ namespace OPRPCharBuild
             totalTP = tot_;
         }
 
-        public string getTraitName() {
+        public string getName() {
             return (string.IsNullOrWhiteSpace(custom)) ? name : custom;
         }
     };

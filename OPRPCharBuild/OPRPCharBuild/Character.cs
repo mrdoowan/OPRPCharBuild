@@ -114,6 +114,8 @@ namespace OPRPCharBuild
             TECH_RANKTRAIT = "[TECH_RKTR]",
             TECH_SPTRAIT = "[TECH_SPTR]",
             TECH_SIGTECH = "[TECH_SIG]",
+            TECH_MMPRIM = "[TECH_MM]",
+            TECH_INPRIM = "[TECH_IN]",
             TECH_BRANCHTECH = "[TECH_BRTECH]",
             TECH_BRANCHRANK = "[TECH_BRRANK]",
             TECH_TYPE = "[TECH_TYPE]",
@@ -339,12 +341,12 @@ namespace OPRPCharBuild
         }
 
         public void saveCharTraits(DataGridView dgvTraits_,
-            Dictionary<string, Trait> traits_) {
+            List<Trait> traits_) {
             StringBuilder sb = new StringBuilder();
             sb.Append(TAG_STA_TRAIT);
             foreach (DataGridViewRow traitRow in dgvTraits_.Rows) {
                 string traitName = traitRow.Cells[0].Value.ToString();
-                Trait trait = traits_[traitName];
+                Trait trait = traits_.Find(x => x.name == traitName);
                 sb.Append(TRAIT_NAME + trait.name + SPLIT1);
                 sb.Append(TRAIT_CUST + trait.custom + SPLIT1);
                 sb.Append(TRAIT_GENE + trait.genNum + SPLIT1);
@@ -375,6 +377,8 @@ namespace OPRPCharBuild
                 sb.Append(TECH_RANKTRAIT + tech.rankTrait + SPLIT1);
                 sb.Append(TECH_SPTRAIT + tech.specialTrait + SPLIT1);
                 sb.Append(TECH_SIGTECH + tech.sigTech + SPLIT1);
+                sb.Append(TECH_MMPRIM + tech.mmPrimary + SPLIT1);
+                sb.Append(TECH_INPRIM + tech.inPrimary + SPLIT1);
                 sb.Append(TECH_BRANCHTECH + tech.branchTech + SPLIT1);
                 sb.Append(TECH_BRANCHRANK + tech.branchRank + SPLIT1);
                 sb.Append(TECH_TYPE + tech.type + SPLIT1);
@@ -659,9 +663,9 @@ namespace OPRPCharBuild
             }
         }
         
-        public void loadCharTraits(ref Dictionary<string, Trait> traits,
+        public void loadCharTraits(ref List<Trait> traits,
             ref DataGridView dgv_traits, 
-            ref Dictionary<string, SpTrait> spTraits,
+            ref List<SpTrait> spTraits,
             int fortune) {
             string traitsStr = getParse(TAG_STA_TRAIT, TAG_END_TRAIT);
             string[] traitsArr = splitStringbyString(traitsStr, SPLIT2);
@@ -673,7 +677,7 @@ namespace OPRPCharBuild
                 int gen = TryParseInt(getParse(TRAIT_GENE, SPLIT1, traitsArr[i]));
                 int prof = TryParseInt(getParse(TRAIT_PROF, SPLIT1, traitsArr[i]));
                 string desc = getParse(TRAIT_DESC, SPLIT1, traitsArr[i]);
-                traits.Add(name, new Trait(name, custom, gen, prof, desc));
+                traits.Add(new Trait(name, custom, gen, prof, desc));
                 ListViewItem item = new ListViewItem();
                 item.SubItems[0].Text = name;
                 string type = (gen > 0 && prof > 0) ? "General / Professional" :
@@ -687,13 +691,13 @@ namespace OPRPCharBuild
             // Only add the Total for Sp Trait.
             // Edit theh Sp Trait later
             spTraits.Clear();
-            foreach (Trait trait in traits.Values) {
+            foreach (Trait trait in traits) {
                 string traitName = trait.name;
-                string customName = trait.getTraitName();
+                string customName = trait.getName();
                 int divisor = Database.getSpTraitDiv(traitName);
                 if (divisor > 0) {
-                    int traitNum = trait.getTotalTraits();
-                    spTraits.Add(trait.name, new SpTrait(traitName, customName,
+                    int traitNum = trait.getTotal();
+                    spTraits.Add(new SpTrait(traitName, customName,
                         (fortune / divisor) * traitNum));
                 }
             }
@@ -701,7 +705,7 @@ namespace OPRPCharBuild
         
         public void loadCharTechs(ref Dictionary<string, Technique> techs,
             ref DataGridView techTbl,
-            ref Dictionary<string, SpTrait> spTraits,
+            ref List<SpTrait> spTraits,
             ref DataGridView spTraitTbl,
             ref ListView catTbl) {
             string techStr = getParse(TAG_STA_TECH, TAG_END_TECH);
@@ -718,6 +722,8 @@ namespace OPRPCharBuild
                 string rankTr = getParse(TECH_RANKTRAIT, SPLIT1, techArr[i]);
                 string specTr = getParse(TECH_SPTRAIT, SPLIT1, techArr[i]);
                 bool sigTech = TryParseBool(getParse(TECH_SIGTECH, SPLIT1, techArr[i]));
+                bool mmPrim = TryParseBool(getParse(TECH_MMPRIM, SPLIT1, techArr[i]));
+                bool inPrim = TryParseBool(getParse(TECH_INPRIM, SPLIT1, techArr[i]));
                 string brTech = getParse(TECH_BRANCHTECH, SPLIT1, techArr[i]);
                 int brRank = TryParseInt(getParse(TECH_BRANCHRANK, SPLIT1, techArr[i]));
                 string type = getParse(TECH_TYPE, SPLIT1, techArr[i]);
@@ -763,7 +769,8 @@ namespace OPRPCharBuild
                 // ADD IT ALL UP. WOW.
                 techs.Add(name, new Technique(name, rokuName, rank,
                     AE, regTP, spTP,
-                    rankTr, specTr, sigTech,
+                    rankTr, specTr,
+                    sigTech, mmPrim, inPrim,
                     brTech, brRank,
                     type, range,
                     techStats,
@@ -779,15 +786,15 @@ namespace OPRPCharBuild
             // Update the SpTrait dictionary
             foreach (Technique tech in techs.Values) {
                 try {
-                    string traitName = tech.specialTrait;
-                    spTraits[traitName].usedTP += tech.spTP;
+                    string spTraitName = tech.specialTrait;
+                    spTraits.Find(x => x.getName() == spTraitName).usedTP += tech.spTP;
                 }
                 catch { } // If key doesn't exist, just pass it
             }
             // Now add onto the SpTrait Listview
             spTraitTbl.Rows.Clear();
-            foreach (SpTrait spTrait in spTraits.Values) {
-                spTraitTbl.Rows.Add(spTrait.name, spTrait.usedTP, spTrait.totalTP);
+            foreach (SpTrait spTrait in spTraits) {
+                spTraitTbl.Rows.Add(spTrait.getName(), spTrait.usedTP, spTrait.totalTP);
             }
             // Do the CatTbl
             string catStr = getParse(TAG_STA_CAT, TAG_END_CAT);

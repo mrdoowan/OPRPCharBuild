@@ -17,6 +17,8 @@ namespace OPRPCharBuild
         public string rankTrait;
         public string specialTrait;
         public bool sigTech;        // Only for checkbox_Sig
+        public bool mmPrimary;      // Marksman primary
+        public bool inPrimary;      // Inventor primary
         public string branchTech;
         public int branchRank;
         public string type;
@@ -42,6 +44,8 @@ namespace OPRPCharBuild
             string rankTr_, 
             string spTr_,
             bool sig_, 
+            bool mmPri_,
+            bool inPri_,
             string brTech_, 
             int brRank_, 
             string type_, 
@@ -66,6 +70,8 @@ namespace OPRPCharBuild
             rankTrait = rankTr_;
             specialTrait = spTr_;
             sigTech = sig_;
+            mmPrimary = mmPri_;
+            inPrimary = inPri_;
             branchTech = brTech_;
             branchRank = brRank_;
             type = type_;
