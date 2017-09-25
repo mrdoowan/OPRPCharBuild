@@ -654,127 +654,6 @@ namespace OPRPCharBuild
 
         #endregion
 
-        #region Update SpTP Functions
-
-        // HELPER FUNCTION
-        private void Helper_SpTrait_UsedOverTotal() {
-            // After update of those values, we will then check to see if Used > Total
-            foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
-                if (int.Parse(SpTraitRow.Cells[1].Value.ToString()) > int.Parse(SpTraitRow.Cells[2].Value.ToString())) {
-                    SpTraitRow.Cells[1].Style.BackColor = Color.FromArgb(255, 128, 128);
-                }
-                else {
-                    SpTraitRow.Cells[1].Style.BackColor = SystemColors.Control;
-                }
-            }
-        }
-        
-        private void Update_Used_SpTP_Textbox() {
-            // Updates the Used SpTP Textbox
-			int used = 0;
-            foreach (SpTrait spTrait in spTraitList) {
-                used += spTrait.usedTP;
-            }
-			textBox_SpTPUsed.Text = used.ToString();
-		}
-        
-        private void Update_Total_SpTP_Textbox() {
-            // Updates the Total SpTP Textbox
-            int total_SP = 0;
-            foreach (SpTrait spTrait in spTraitList) {
-                total_SP += spTrait.totalTP;
-            }
-			textBox_SpTPTotal.Text = total_SP.ToString();
-		}
-
-		private void Add_SpTrait(string traitName) {
-			// First check to see if the Sp. TP Trait is in the list
-			// If so, add the trait into the ListView Special and add correspondingly.
-			int fortune = int.Parse(textBox_Fortune.Text);
-            int divisor = Database.getSpTraitDiv(traitName);
-            if (divisor > 0) {
-                // Add Sp. Trait to the Dict
-                Trait sel_Trait = traitList.Find(x => x.name == traitName);
-                int traitNum = sel_Trait.getTotal();
-                string customName = sel_Trait.getName();
-                int totTP = (fortune / divisor) * traitNum;
-                SpTrait addSpTrait = new SpTrait(traitName, customName, 0, totTP);
-                spTraitList.Add(addSpTrait);
-                // Add Sp. Trait to the dgv
-                dgv_SpTraits.Rows.Add(addSpTrait.getName(), 0, totTP);
-            }
-			// Lastly update the Total SpTP
-			Update_Total_SpTP_Textbox();
-			// Used when a Trait is added.
-		}
-
-        private void Remove_SpTrait(SpTrait removeTrait) {
-            // Remove from Dict
-            spTraitList.Remove(removeTrait);
-            // Remove from ListView
-            foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
-                if (SpTraitRow.Cells[0].Value.ToString() == removeTrait.getName()) {
-                    dgv_SpTraits.Rows.Remove(SpTraitRow);
-                    dgv_SpTraits.Refresh();
-                    break;
-                }
-            }
-            Update_Total_SpTP_Textbox();
-            Update_Used_SpTP_Textbox();
-            // Used when a Trait is removed.
-        }
-
-        private void Update_SpTraitTableAndList_Total() {
-            // This updates all the Total Sp Traits
-            int fortune = int.Parse(textBox_Fortune.Text);
-            foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
-                string spName = SpTraitRow.Cells[0].Value.ToString(); // This is getting getTraitName()
-                int traitNum = traitList.Find(x => x.getName() == spName).getTotal();
-                int divisor = Database.getSpTraitDiv(spName);
-                int totTP = (fortune / divisor) * traitNum;
-                // Edit spTraitList
-                spTraitList.Find(x => x.getName() == spName).totalTP = totTP;
-                // Edit ListView
-                SpTraitRow.Cells[2].Value = totTP;
-            }
-            // Update the Total textboxes
-            Update_Total_SpTP_Textbox();
-            // After update of those values, we will then check to see if Used > Total
-            Helper_SpTrait_UsedOverTotal();
-            // Used when Fortune is updated.
-        }
-
-        private void Update_SpTraitTableAndList_Used(string traitName) {
-            // Update values inside the table based on Techniques or Fortune edited.
-            // Update SpTraitList first, then the ListView
-            if (string.IsNullOrWhiteSpace(traitName)) { return; }
-            int used = 0;
-            foreach (Technique tech in techList.Values) {
-                if (tech.specialTrait == traitName) {
-                    used += tech.spTP;
-                }
-            }
-            // Edit spTraitList
-            spTraitList.Find(x => x.getName() == traitName).usedTP = used;
-            // Edit ListView
-            foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
-                if (SpTraitRow.Cells[0].Value.ToString() == traitName) {
-                    SpTraitRow.Cells[1].Value = used.ToString();
-                    break;
-                }
-            }
-            // Update the Used textboxes
-			Update_Used_SpTP_Textbox();
-            // After update of those values, we will then check to see if Used > Total
-            Helper_SpTrait_UsedOverTotal();
-            // Used when a Technique is added.
-            // Used when a Technique is edited.
-            // Used when a Technique is branched.
-            // Used when a Technique is removed.
-        }
-
-        #endregion
-
         #region Update Tech Misc Functions
 
         // Helper function for Update_CritAnatQuick_Msg()
@@ -1372,7 +1251,7 @@ namespace OPRPCharBuild
 
 		private void textBox_Fortune_TextChanged(object sender, EventArgs e) {
 			Update_Total_RegTP();
-			Update_SpTraitTableAndList_Total();
+			Update_SpTraitDGVAndList_Total();
 		}
 
 		private void textBox_UsedForStats_TextChanged(object sender, EventArgs e) {
@@ -1533,6 +1412,130 @@ namespace OPRPCharBuild
 
         #region Traits Tab
 
+        #region Update SpTP Functions
+
+        // HELPER FUNCTION
+        private void Helper_SpTrait_UsedOverTotal() {
+            // After update of those values, we will then check to see if Used > Total
+            foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
+                if (int.Parse(SpTraitRow.Cells[1].Value.ToString()) > int.Parse(SpTraitRow.Cells[2].Value.ToString())) {
+                    SpTraitRow.Cells[1].Style.BackColor = Color.FromArgb(255, 128, 128);
+                }
+                else {
+                    SpTraitRow.Cells[1].Style.BackColor = SystemColors.Control;
+                }
+            }
+        }
+
+        private void Update_Used_SpTP_Textbox() {
+            // Updates the Used SpTP Textbox
+            int used = 0;
+            foreach (SpTrait spTrait in spTraitList) {
+                used += spTrait.usedTP;
+            }
+            textBox_SpTPUsed.Text = used.ToString();
+        }
+
+        private void Update_Total_SpTP_Textbox() {
+            // Updates the Total SpTP Textbox
+            int total_SP = 0;
+            foreach (SpTrait spTrait in spTraitList) {
+                total_SP += spTrait.totalTP;
+            }
+            textBox_SpTPTotal.Text = total_SP.ToString();
+        }
+
+        private void Add_SpTrait(string traitName) {
+            // First check to see if the Sp. TP Trait is in the list
+            // If so, add the trait into the ListView Special and add correspondingly.
+            int fortune = int.Parse(textBox_Fortune.Text);
+            int divisor = Database.getSpTraitDiv(traitName);
+            string spTraitName = "";
+            if (divisor > 0) {
+                // Add Sp. Trait to the Dict
+                Trait sel_Trait = traitList.Find(x => x.name == traitName);
+                int traitNum = sel_Trait.getTotal();
+                string customName = sel_Trait.getName();
+                int totTP = (fortune / divisor) * traitNum;
+                SpTrait addSpTrait = new SpTrait(traitName, customName, 0, totTP);
+                spTraitName = addSpTrait.getName();
+                spTraitList.Add(addSpTrait);
+                // Add Sp. Trait to the dgv
+                dgv_SpTraits.Rows.Add(addSpTrait.getName(), 0, totTP);
+            }
+            // Lastly update the Total SpTP
+            Update_SpTraitDGVAndList_Total();
+            Update_SpTraitDGVAndList_Used(spTraitName);
+            // Used when a Trait is added.
+        }
+
+        private void Remove_SpTrait(SpTrait removeTrait) {
+            // Remove from Dict
+            spTraitList.Remove(removeTrait);
+            // Remove from ListView
+            foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
+                if (SpTraitRow.Cells[0].Value.ToString() == removeTrait.getName()) {
+                    dgv_SpTraits.Rows.Remove(SpTraitRow);
+                    dgv_SpTraits.Refresh();
+                    break;
+                }
+            }
+            Update_SpTraitDGVAndList_Total();
+            Update_SpTraitDGVAndList_Used(removeTrait.getName());
+            // Used when a Trait is removed.
+        }
+
+        private void Update_SpTraitDGVAndList_Total() {
+            // This updates all the Total Sp Traits
+            int fortune = int.Parse(textBox_Fortune.Text);
+            foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
+                string spName = SpTraitRow.Cells[0].Value.ToString(); // This is getting getTraitName()
+                int traitNum = traitList.Find(x => x.getName() == spName).getTotal();
+                int divisor = Database.getSpTraitDiv(spName); //#TODO: CAN'T USE SPNAME!!!
+                int totTP = (fortune / divisor) * traitNum;
+                // Edit spTraitList
+                spTraitList.Find(x => x.getName() == spName).totalTP = totTP;
+                // Edit ListView
+                SpTraitRow.Cells[2].Value = totTP;
+            }
+            // Update the Total textboxes
+            Update_Total_SpTP_Textbox();
+            // After update of those values, we will then check to see if Used > Total
+            Helper_SpTrait_UsedOverTotal();
+            // Used when Fortune is updated.
+            // Used when Trait is added/edited/removed.
+        }
+
+        // Update values inside the table based on Techniques or Fortune edited.
+        private void Update_SpTraitDGVAndList_Used(string traitName) {
+            // This is using traitName as from Trait.getName()
+            // Update SpTraitList first, then the ListView
+            if (string.IsNullOrWhiteSpace(traitName)) { return; }
+            int used = 0;
+            foreach (Technique tech in techList.Values) {
+                if (tech.specialTrait == traitName) {
+                    used += tech.spTP;
+                }
+            }
+            // Edit spTraitList
+            spTraitList.Find(x => x.getName() == traitName).usedTP = used;
+            // Edit ListView
+            foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
+                if (SpTraitRow.Cells[0].Value.ToString() == traitName) {
+                    SpTraitRow.Cells[1].Value = used.ToString();
+                    break;
+                }
+            }
+            // Update the Used textboxes
+            Update_Used_SpTP_Textbox();
+            // After update of those values, we will then check to see if Used > Total
+            Helper_SpTrait_UsedOverTotal();
+            // Used when a Technique is added/edited/branched/removed.
+            // Used when Trait is added/edited/removed.
+        }
+
+        #endregion
+
         // Put name as None if we're deleting
         private void All_Update_Functions_Traits() {
 			Update_Traits_Count_Label();
@@ -1614,6 +1617,7 @@ namespace OPRPCharBuild
             }
         }
 
+        // Comparator for the above function
         private int compareTraitTypes(object o1, object o2) {
             int o1Worth = (o1.ToString() == "General") ? 1 :
                 (o1.ToString() == "General / Professional") ? 0 : -1;
@@ -1631,7 +1635,7 @@ namespace OPRPCharBuild
         #region Techniques Tab
 
         private void All_Update_Functions_Techs(string traitName) {
-            Update_SpTraitTableAndList_Used(traitName);
+            Update_SpTraitDGVAndList_Used(traitName);
 			Update_Used_RegTP();
 			Update_CritAnatQuick_Msg();
 			Update_TechNum();

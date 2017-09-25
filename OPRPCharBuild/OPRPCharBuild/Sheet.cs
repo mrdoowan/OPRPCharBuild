@@ -139,7 +139,7 @@ namespace OPRPCharBuild
             ListView Items, 
             List<int> AP,
             List<Trait> traitList,
-            Dictionary<string, SpTrait> spTraitList,
+            List<SpTrait> spTraitList,
             DataGridView Techs, 
             ListView Categories,
             DataGridView Sources) {
@@ -370,8 +370,8 @@ namespace OPRPCharBuild
 					}
 					break;
 				case "SpTrait":
-                    Dictionary<string, SpTrait> SpTraits = (Dictionary<string, SpTrait>)List;
-					foreach (SpTrait spTrait in SpTraits.Values) {
+                    List<SpTrait> SpTraits = (List<SpTrait>)List;
+					foreach (SpTrait spTrait in SpTraits) {
 						RepeatTags.Add(61, spTrait.name); // Load Dictionary
 						RepeatTags.Add(83, spTrait.usedTP.ToString());
 						RepeatTags.Add(84, spTrait.totalTP.ToString());

@@ -82,10 +82,13 @@ namespace OPRPCharBuild
                     dgv.SelectedRows[0].Cells[5].Value = richTextBox_TraitDesc.Text;
                     // Add to Dict
                     Trait new_Trait = new Trait(new_name, new_cust, gen, prof, new_desc);
+                    if (traitList.Any(x => x.name == name && x.custom == custom)) {
+                        throw new Exception(); // There is a duplicate
+                    }
                     traitList.Add(new_Trait);
                     return new_name;
                 }
-                catch (Exception ex) {
+                catch {
                     traitList.Add(edit_Trait); // Re-Add
                     dgv.SelectedRows[0].Cells[0].Value = edit_Trait.name;
                     dgv.SelectedRows[0].Cells[1].Value = edit_Trait.custom;
@@ -94,7 +97,8 @@ namespace OPRPCharBuild
                     dgv.SelectedRows[0].Cells[3].Value = edit_Trait.genNum;
                     dgv.SelectedRows[0].Cells[4].Value = edit_Trait.profNum;
                     dgv.SelectedRows[0].Cells[5].Value = edit_Trait.desc;
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Can't add two Traits of the same custom name.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return null;
                 }
             }

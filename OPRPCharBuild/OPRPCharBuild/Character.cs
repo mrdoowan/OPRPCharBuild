@@ -783,7 +783,7 @@ namespace OPRPCharBuild
                 techTbl.Rows.Add(name, rank, regTP, spTP, specTr, brTech,
                     type, range, techStats.getTechString(), power);
             }
-            // Update the SpTrait dictionary
+            // Update the SpTrait List
             foreach (Technique tech in techs.Values) {
                 try {
                     string spTraitName = tech.specialTrait;
