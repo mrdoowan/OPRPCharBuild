@@ -30,8 +30,7 @@ namespace OPRPCharBuild
 			"- Pop Greens Effects require Horticultural Warfare Trait\n" +
 			"- Stealth Effects (R8+) require Assassin/Thief primary.\n" + 
             "- Doctor Effects require Doctor primary.\n" + 
-            "- Carpenter Effects (except Traps) require Carpenter primary.\n\n" + 
-            "All Custom Effects will be treated as General";
+            "- Carpenter Effects (except Traps) require Carpenter primary.";
         private const int NON_SPEC_CAP_HAKI = 28;
 		private int gen_effects;    // To keep track how many General Effects there currently are for Secondary Gen Effects
 									// Updated when an Effect is added
@@ -154,6 +153,7 @@ namespace OPRPCharBuild
 			comboBox_SpTrait.Text = Tech.specialTrait;
 			comboBox_AffectRank.Text = Tech.rankTrait;
 			if (Tech.sigTech) { // Sig Tech
+                checkBox_SigTech.Checked = true;
 				numericUpDown_Rank.Value = max_rank;
 				numericUpDown_Rank.Enabled = false;
 				numericUpDown_RegTP.Value = 0;
@@ -161,6 +161,8 @@ namespace OPRPCharBuild
 				numericUpDown_RegTP.Enabled = false;
 				numericUpDown_SpTP.Enabled = false;
 			}
+            checkBox_Marksman.Checked = Tech.mmPrimary;
+            checkBox_Inventor.Checked = Tech.inPrimary;
 			if (string.IsNullOrWhiteSpace(Tech.branchTech)) {
 				checkBox_Branched.Checked = false;
 				textBox_TechBranched.Enabled = false;
@@ -182,6 +184,7 @@ namespace OPRPCharBuild
             comboBox_StatOpt.Text = techStats.statsName;
             textBox_Stats.Text = techStats.getTechString();
             // Power/Effects
+            string origPower = Tech.power; // Keep original value
             checkBox_NA.Checked = Tech.NApower;
             checkBox_AutoCalc.Checked = Tech.autoCalc;
             if (!Tech.NApower) {
@@ -206,6 +209,7 @@ namespace OPRPCharBuild
                 Update_Power_Value();
                 Update_MinRank();
             }
+            textBox_Power.Text = origPower;
             // DF Options
             if (Tech.note.Contains("Devil Fruit")) {
 				checkBox_DFTechEnable.Enabled = true;
@@ -888,7 +892,7 @@ namespace OPRPCharBuild
 			if (val < 0) { numericUpDown_RegTP.Value = 0; }
 			else { numericUpDown_RegTP.Value = val; }
             // Deselect Sp Trait combobox
-            if (val <= 0) { comboBox_SpTrait.SelectedIndex = -1; }
+            if (numericUpDown_SpTP.Value <= 0) { comboBox_SpTrait.SelectedIndex = -1; }
 			Update_Note();
 		}
 
@@ -1208,16 +1212,20 @@ namespace OPRPCharBuild
                     (effName == Database.EFF_LONG) ? Database.EFF_VLONG :
                     (effName == Database.EFF_SHAOE) ? Database.EFF_MDAOE :
                     (effName == Database.EFF_MDAOE) ? Database.EFF_LOAOE :
+                    (effName == Database.EFF_SENSI) ? Database.EFF_SENMU :
                     (effName == Database.EFF_STBRE) ? Database.EFF_MIBRE :
                     (effName == Database.EFF_MIBRE) ? Database.EFF_HIBRE :
                     (effName == Database.EFF_STDEF) ? Database.EFF_MIDEF :
                     (effName == Database.EFF_MIDEF) ? Database.EFF_HIDEF :
+                    (effName == Database.EFF_STBIN) ? Database.EFF_MIBIN :
+                    (effName == Database.EFF_MIBIN) ? Database.EFF_HIBIN :
                     "";
                 // This is an upgrade: Make changes on LV and effList
                 if (upgName != "") {
                     Effect upgEffect = getEffect(upgName);
-                    effList.Remove(getEffInList(effName));
-                    effList.Add(upgEffect);
+                    int index = effList.IndexOf(getEffInList(effName));
+                    effList.RemoveAt(index);
+                    effList.Insert(index, upgEffect);
                     listView_Effects.SelectedItems[0].SubItems[0].Text = upgEffect.name;
                     listView_Effects.SelectedItems[0].SubItems[1].Text = upgEffect.cost.ToString();
                     listView_Effects.SelectedItems[0].SubItems[2].Text = (upgEffect.general) ? "Yes" : "No";
@@ -1241,8 +1249,11 @@ namespace OPRPCharBuild
             }
             else {
                 ListViewItem item = list.Items[curr_ind];
+                Effect effect = effList[curr_ind];
                 if (direction == "Up") {
                     if (curr_ind > 0) {
+                        effList.RemoveAt(curr_ind);
+                        effList.Insert(curr_ind - 1, effect);
                         list.Items.RemoveAt(curr_ind);
                         list.Items.Insert(curr_ind - 1, item);
                         // Maintain selection
@@ -1251,6 +1262,8 @@ namespace OPRPCharBuild
                 }
                 else if (direction == "Down") {
                     if (curr_ind < list.Items.Count - 1) {
+                        effList.RemoveAt(curr_ind);
+                        effList.Insert(curr_ind + 1, effect);
                         list.Items.RemoveAt(curr_ind);
                         list.Items.Insert(curr_ind + 1, item);
                         // Maintain selection

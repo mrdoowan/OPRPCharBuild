@@ -18,23 +18,22 @@ using System.Reflection;
 
 namespace OPRPCharBuild
 {
-	public partial class MainForm : Form
-	{
-		public MainForm() {
+    public partial class MainForm : Form {
+        public MainForm() {
             // Check for updates of a New Version or Bug Messages
             InitializeComponent();
             //this.Visible = false;
             //if (!Loading_Window()) { this.Visible = true; }
         }
 
-		// --------------------------------------------------------------------------------------------
-		// MEMBER VARIABLES
-		// --------------------------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------------------
+        // MEMBER VARIABLES
+        // --------------------------------------------------------------------------------------------
 
-		#region Member Variables
+        #region Member Variables
 
-		public const string VERSION = "1.7.0";
-		public const string STD_TEMPLATE_MSG = "Standard Template";
+        public const string VERSION = "1.7.0";
+        public const string STD_TEMPLATE_MSG = "Standard Template";
         private const string WEBSITE = "https://github.com/mrdoowan/OPRPCharBuild/releases";
         public static bool template_imported = false;
         private static bool saved = true;       // Used to keep track if saved
@@ -61,49 +60,49 @@ namespace OPRPCharBuild
         // General function for Deleting an Item from ListView
         // Returns the string Name of the Item, specifically for finding Key values in Dictionary
         public string Delete_ListViewItem(ref ListView list) {
-			if (list.SelectedItems.Count == 1) {
-				string key = list.SelectedItems[0].SubItems[0].Text;	// Typically the key value is always the name
-				foreach (ListViewItem eachItem in list.SelectedItems) {
-					list.Items.Remove(eachItem);
-				}
+            if (list.SelectedItems.Count == 1) {
+                string key = list.SelectedItems[0].SubItems[0].Text;    // Typically the key value is always the name
+                foreach (ListViewItem eachItem in list.SelectedItems) {
+                    list.Items.Remove(eachItem);
+                }
                 notSavedStatus();
-				return key;
-			}
-			return null;
-		}
+                return key;
+            }
+            return null;
+        }
 
-		// To move up or down the item in a ListView
-		private void Move_List_Item(ref ListView list, string direction) {
-			if (list.SelectedItems.Count == 0) { return; }
-			int curr_ind = list.SelectedItems[0].Index;
-			if (curr_ind < 0) {
-				return;
-			}
-			else {
-				ListViewItem item = list.Items[curr_ind];
-				if (direction == "Up") {
-					if (curr_ind > 0) {
-						list.Items.RemoveAt(curr_ind);
-						list.Items.Insert(curr_ind - 1, item);
-						// Maintain selection
-						list.Items[curr_ind - 1].Selected = true;
+        // To move up or down the item in a ListView
+        private void Move_List_Item(ref ListView list, string direction) {
+            if (list.SelectedItems.Count == 0) { return; }
+            int curr_ind = list.SelectedItems[0].Index;
+            if (curr_ind < 0) {
+                return;
+            }
+            else {
+                ListViewItem item = list.Items[curr_ind];
+                if (direction == "Up") {
+                    if (curr_ind > 0) {
+                        list.Items.RemoveAt(curr_ind);
+                        list.Items.Insert(curr_ind - 1, item);
+                        // Maintain selection
+                        list.Items[curr_ind - 1].Selected = true;
                         notSavedStatus();
-					}
-				}
-				else if (direction == "Down") {
-					if (curr_ind < list.Items.Count - 1) {
-						list.Items.RemoveAt(curr_ind);
-						list.Items.Insert(curr_ind + 1, item);
-						// Maintain selection
-						list.Items[curr_ind + 1].Selected = true;
+                    }
+                }
+                else if (direction == "Down") {
+                    if (curr_ind < list.Items.Count - 1) {
+                        list.Items.RemoveAt(curr_ind);
+                        list.Items.Insert(curr_ind + 1, item);
+                        // Maintain selection
+                        list.Items[curr_ind + 1].Selected = true;
                         notSavedStatus();
-					}
-				}
-				else {
-					MessageBox.Show("There is a bug with this button!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				}
-			}
-		}
+                    }
+                }
+                else {
+                    MessageBox.Show("There is a bug with this button!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+        }
 
         // To move up or down the selected item in a dataGridView
         // Requires direction to be "Up" or "Down"
@@ -156,50 +155,50 @@ namespace OPRPCharBuild
             // -------------------------------------
             // Version Check
             // -------------------------------------
-			WebClient WC = new WebClient();
-			try {
-				string[] current = VERSION.Split('.');
-				// Get latest version from site
-				string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " UpdateCheck " + Environment.OSVersion;
-				WC.Headers.Add("Content-Type", header_msg);
-				string version_page = WC.DownloadString("https://raw.githubusercontent.com/mrdoowan/OPRPCharBuild/master/CurrentVer.txt");
-				string[] latest = version_page.Split('.');
-				// Since we are looping through Current length, Current should not be bigger than Latest
-				if (current.Length > latest.Length) {
-					MessageBox.Show("The current Length is greater than latest Length.", "Report Bug", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					return;
-				}
-				for (int i = 0; i < current.Length; ++i) {
-					// We do nothing if the current version is greater than latest version
-					if (int.Parse(current[i]) > int.Parse(latest[i])) {
-						return;
-					}
-					else if (i == current.Length - 1 && (int.Parse(current[i]) >= int.Parse(latest[i]))) { // Last number check.
-						return;
-					}
-				}
-				// If we've arrived at this point, that means it needs updating.
-				if (MessageBox.Show("An update to v" + version_page + " is available. Would you like to close this application and download the newest version?", "New Version",
-					MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
-					Process.Start(WEBSITE);
-					Process.Start("http://s1.zetaboards.com/One_Piece_RP/topic/6060583/1/");
-					saved = true;
-					Application.Exit();
-				}
-			}
-			catch { }
+            WebClient WC = new WebClient();
+            try {
+                string[] current = VERSION.Split('.');
+                // Get latest version from site
+                string header_msg = "OPRPCharBuilder " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + " UpdateCheck " + Environment.OSVersion;
+                WC.Headers.Add("Content-Type", header_msg);
+                string version_page = WC.DownloadString("https://raw.githubusercontent.com/mrdoowan/OPRPCharBuild/master/CurrentVer.txt");
+                string[] latest = version_page.Split('.');
+                // Since we are looping through Current length, Current should not be bigger than Latest
+                if (current.Length > latest.Length) {
+                    MessageBox.Show("The current Length is greater than latest Length.", "Report Bug", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                for (int i = 0; i < current.Length; ++i) {
+                    // We do nothing if the current version is greater than latest version
+                    if (int.Parse(current[i]) > int.Parse(latest[i])) {
+                        return;
+                    }
+                    else if (i == current.Length - 1 && (int.Parse(current[i]) >= int.Parse(latest[i]))) { // Last number check.
+                        return;
+                    }
+                }
+                // If we've arrived at this point, that means it needs updating.
+                if (MessageBox.Show("An update to v" + version_page + " is available. Would you like to close this application and download the newest version?", "New Version",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
+                    Process.Start(WEBSITE);
+                    Process.Start("http://s1.zetaboards.com/One_Piece_RP/topic/6060583/1/");
+                    saved = true;
+                    Application.Exit();
+                }
+            }
+            catch { }
         }
 
-		// Returns true if Prof is in the List and it's Primary
-		// Returns false otherwise
-		private bool Is_Prof_Primary(string name) {
-			if (profList.ContainsKey(name)) {
-				if (profList[name].primary) {
-					return true;
-				}
-			}
-			return false;
-		}
+        // Returns true if Prof is in the List and it's Primary
+        // Returns false otherwise
+        private bool Is_Prof_Primary(string name) {
+            if (profList.ContainsKey(name)) {
+                if (profList[name].primary) {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         // Makes the Devil Fruit class based on what's initialized
         private DevilFruit makeDFClass() {
@@ -218,87 +217,87 @@ namespace OPRPCharBuild
 
         // Whenever a trait is added or deleted, we update the displayed number of Traits
         private void Update_Traits_Count_Label() {
-			int gen = 0;    // 2nd Column
-			int prof = 0;   // 3rd Column
+            int gen = 0;    // 2nd Column
+            int prof = 0;   // 3rd Column
             foreach (Trait trait in traitList) {
                 gen += trait.genNum;
                 prof += trait.profNum;
             }
-			genCurr = gen;
-			profCurr = prof;
-			label58_TraitsCurrent.Text = "You currently have " + gen + " General Trait(s) and " +
-				prof + " Professional Trait(s)";
-			if (genCurr == genCap && profCurr == profCap) {
-				label58_TraitsCurrent.ForeColor = Color.Green;
-			}
-			else {
-				label58_TraitsCurrent.ForeColor = Color.Red;
-			}
-		}
+            genCurr = gen;
+            profCurr = prof;
+            label58_TraitsCurrent.Text = "You currently have " + gen + " General Trait(s) and " +
+                prof + " Professional Trait(s)";
+            if (genCurr == genCap && profCurr == profCap) {
+                label58_TraitsCurrent.ForeColor = Color.Green;
+            }
+            else {
+                label58_TraitsCurrent.ForeColor = Color.Red;
+            }
+        }
 
-		// Whenever SD Earned is updated, we have to update the max amount of Traits.
-		private void Update_Traits_Cap() {
-			int gen = 0, prof = 0;
-			int SD_Earned = (int)numericUpDown_SDEarned.Value;
-			if (SD_Earned < 50) {
-				gen = 3;
-				prof = 1;
-			}
-			else if (SD_Earned >= 50 && SD_Earned < 100) {
-				gen = 4;
-				prof = 2;
-			}
-			else if (SD_Earned >= 100 && SD_Earned < 150) {
-				gen = 5;
-				prof = 2;
-			}
-			else if (SD_Earned >= 150 && SD_Earned < 200) {
-				gen = 6;
-				prof = 3;
-			}
-			else if (SD_Earned >= 200 && SD_Earned < 250) {
-				gen = 7;
-				prof = 3;
-			}
-			else if (SD_Earned >= 250 && SD_Earned < 275) {
-				gen = 7;
-				prof = 4;
-			}
-			else if (SD_Earned >= 275 && SD_Earned < 350) {
-				gen = 8;
-				prof = 4;
-			}
-			else if (SD_Earned >= 350 && SD_Earned < 425) {
-				gen = 9;
-				prof = 5;
-			}
-			else if (SD_Earned >= 425 && SD_Earned < 500) {
-				gen = 10;
-				prof = 5;
-			}
-			else {
-				gen = 11;
-				prof = 6;
-			}
+        // Whenever SD Earned is updated, we have to update the max amount of Traits.
+        private void Update_Traits_Cap() {
+            int gen = 0, prof = 0;
+            int SD_Earned = (int)numericUpDown_SDEarned.Value;
+            if (SD_Earned < 50) {
+                gen = 3;
+                prof = 1;
+            }
+            else if (SD_Earned >= 50 && SD_Earned < 100) {
+                gen = 4;
+                prof = 2;
+            }
+            else if (SD_Earned >= 100 && SD_Earned < 150) {
+                gen = 5;
+                prof = 2;
+            }
+            else if (SD_Earned >= 150 && SD_Earned < 200) {
+                gen = 6;
+                prof = 3;
+            }
+            else if (SD_Earned >= 200 && SD_Earned < 250) {
+                gen = 7;
+                prof = 3;
+            }
+            else if (SD_Earned >= 250 && SD_Earned < 275) {
+                gen = 7;
+                prof = 4;
+            }
+            else if (SD_Earned >= 275 && SD_Earned < 350) {
+                gen = 8;
+                prof = 4;
+            }
+            else if (SD_Earned >= 350 && SD_Earned < 425) {
+                gen = 9;
+                prof = 5;
+            }
+            else if (SD_Earned >= 425 && SD_Earned < 500) {
+                gen = 10;
+                prof = 5;
+            }
+            else {
+                gen = 11;
+                prof = 6;
+            }
             // Check AP Traits
             gen += (int)numericUpDown_APTrait.Value;
-			// Update label and global variable.
-			genCap = gen;
-			profCap = prof;
-			// Update Focus
-			int focus = 1 + gen / 2;
+            // Update label and global variable.
+            genCap = gen;
+            profCap = prof;
+            // Update Focus
+            int focus = 1 + gen / 2;
             if (focus > 7) { focus = 7; }
-			textBox_Focus.Text = focus.ToString();
-			// Update Traits Message
-			label59_TraitsCalc.Text = "Your current cap is " + gen +
-				" General Trait(s) and " + prof + " Professional Trait(s)";
-			if (genCurr == genCap && profCurr == profCap) {
-				label58_TraitsCurrent.ForeColor = Color.Green;
-			}
-			else {
-				label58_TraitsCurrent.ForeColor = Color.Red;
-			}
-		}
+            textBox_Focus.Text = focus.ToString();
+            // Update Traits Message
+            label59_TraitsCalc.Text = "Your current cap is " + gen +
+                " General Trait(s) and " + prof + " Professional Trait(s)";
+            if (genCurr == genCap && profCurr == profCap) {
+                label58_TraitsCurrent.ForeColor = Color.Green;
+            }
+            else {
+                label58_TraitsCurrent.ForeColor = Color.Red;
+            }
+        }
 
         #endregion
 
@@ -313,43 +312,43 @@ namespace OPRPCharBuild
                 numericUpDown_APNPC.Value);
             AP_num += (checkBox_APHaki.Checked) ? 2 : 0;
             AP_num += (checkBox_APDF.Checked) ? 1 : 0;
-			int SD = AP_num * 50;
+            int SD = AP_num * 50;
             textBox_AP.Text = AP_num.ToString();
             label_SDonAP.Text = SD + " SD spent on ";
-		}
+        }
 
-		// Calculating Stat Points
-		private void Update_Stat_Points() {
-			int SD_in = (int)numericUpDown_SDintoStats.Value;
-			string calc = "[32";
-			int SP = 32;
-			if (SD_in >= 0 && SD_in <= 150) {
-				// 0-150SD is 1:1
-				SP += SD_in;
-				calc += " + " + SD_in;
-			}
-			else if (SD_in > 150 && SD_in <= 250) {
-				// 151-250SD is 1.5:1
-				int remain = SD_in - 150;
-				int convert = (int)((double)remain / 1.5);
-				SP += 150 + convert;
-				calc += " + 150 + " + convert + " (" + remain + "/1.5)";
-				// i.e. Calculations: 32 + 150 + 66(100/1.5)
-			}
-			else if (SD_in > 250 && SD_in <= 350) {
-				// 251-350SD is 2:1
-				int remain = SD_in - 150 - 100; // this is in SD
-				int convert = remain / 2;
-				SP += 150 + 66 + convert;
-				calc += " + 150 + 66 (100/1.5) + " + convert + " (" + remain + "/2)";
-			}
-			else if (SD_in > 350 && SD_in <= 800) {
-				// 351-800 SD is 3:1
-				int remain = SD_in - 150 - 100 - 100;
-				int convert = remain / 3;
-				SP += 150 + 66 + 50 + convert;
-				calc += " + 150 + 66 (100/1.5) + 50 (100/2) + " + convert + " (" + remain + "/3)";
-			}
+        // Calculating Stat Points
+        private void Update_Stat_Points() {
+            int SD_in = (int)numericUpDown_SDintoStats.Value;
+            string calc = "[32";
+            int SP = 32;
+            if (SD_in >= 0 && SD_in <= 150) {
+                // 0-150SD is 1:1
+                SP += SD_in;
+                calc += " + " + SD_in;
+            }
+            else if (SD_in > 150 && SD_in <= 250) {
+                // 151-250SD is 1.5:1
+                int remain = SD_in - 150;
+                int convert = (int)((double)remain / 1.5);
+                SP += 150 + convert;
+                calc += " + 150 + " + convert + " (" + remain + "/1.5)";
+                // i.e. Calculations: 32 + 150 + 66(100/1.5)
+            }
+            else if (SD_in > 250 && SD_in <= 350) {
+                // 251-350SD is 2:1
+                int remain = SD_in - 150 - 100; // this is in SD
+                int convert = remain / 2;
+                SP += 150 + 66 + convert;
+                calc += " + 150 + 66 (100/1.5) + " + convert + " (" + remain + "/2)";
+            }
+            else if (SD_in > 350 && SD_in <= 800) {
+                // 351-800 SD is 3:1
+                int remain = SD_in - 150 - 100 - 100;
+                int convert = remain / 3;
+                SP += 150 + 66 + 50 + convert;
+                calc += " + 150 + 66 (100/1.5) + 50 (100/2) + " + convert + " (" + remain + "/3)";
+            }
             else if (SD_in > 800 && SD_in <= 1200) {
                 // 801-1200 SD is 4:1
                 int remain = SD_in - 150 - 100 - 100 - 450;
@@ -364,262 +363,262 @@ namespace OPRPCharBuild
                 SP += 150 + 66 + 50 + 150 + 100 + convert;
                 calc += " + 150 + 66 (100/1.5) + 50 (100/2) + 150 (450/3) + 100 (400/4) + " + convert + " (" + remain + "/5)";
             }
-			calc += ']';
-			textBox_StatPoints.Text = SP.ToString();
-			textBox_SDtoSPCalc.Text = calc;
-			// Used when SD into Stats is changed
-		}
+            calc += ']';
+            textBox_StatPoints.Text = SP.ToString();
+            textBox_SDtoSPCalc.Text = calc;
+            // Used when SD into Stats is changed
+        }
 
-		private void Update_TotalSD() {
-			textBox_TotalSD.Text = ((int)numericUpDown_SDEarned.Value + int.Parse(textBox_AP.Text) * 50).ToString();
-			// Used when AP is Checked
-			// Used when SD Earned is Changed
-		}
+        private void Update_TotalSD() {
+            textBox_TotalSD.Text = ((int)numericUpDown_SDEarned.Value + int.Parse(textBox_AP.Text) * 50).ToString();
+            // Used when AP is Checked
+            // Used when SD Earned is Changed
+        }
 
-		// Calculating SD Remaining after remnants of Stat Points
-		private void Update_SD_Remaining() {
-			textBox_SDRemain.Text = (numericUpDown_SDEarned.Value - numericUpDown_SDintoStats.Value).ToString();
-			// Used when SD Earned is changed
-			// Used when SD into Stats is changed
-		}
+        // Calculating SD Remaining after remnants of Stat Points
+        private void Update_SD_Remaining() {
+            textBox_SDRemain.Text = (numericUpDown_SDEarned.Value - numericUpDown_SDintoStats.Value).ToString();
+            // Used when SD Earned is changed
+            // Used when SD into Stats is changed
+        }
 
-		// Calculating Used for Stat Points
-		private void Update_Used_for_Stats() {
-			textBox_UsedForStats.Text = (int.Parse(textBox_StatPoints.Text) - numericUpDown_UsedForFort.Value).ToString();
-			// Used when Stat Points is changed
-			// Used when Used for Fortune is changed
-		}
+        // Calculating Used for Stat Points
+        private void Update_Used_for_Stats() {
+            textBox_UsedForStats.Text = (int.Parse(textBox_StatPoints.Text) - numericUpDown_UsedForFort.Value).ToString();
+            // Used when Stat Points is changed
+            // Used when Used for Fortune is changed
+        }
 
-		private void Update_Fortune() {
-			string calc = "[";
-			// First Stat Points / 4
-			int fortune = int.Parse(textBox_UsedForStats.Text) / 4;
-			calc += textBox_UsedForStats.Text + " / 4";
-			// Then Fortune from Used for Fortune
-			int used_for = (int)numericUpDown_UsedForFort.Value / 5 * 3;
-			if (used_for > 0) {
-				fortune += used_for;
-				calc += " + (" + numericUpDown_UsedForFort.Value + " / 5 * 3)";
-			}
-			// Then Fortune from Fate of Emperor
-			if (traitList.Any(x => x.name == Database.TR_FATEEM)) {
+        private void Update_Fortune() {
+            string calc = "[";
+            // First Stat Points / 4
+            int fortune = int.Parse(textBox_UsedForStats.Text) / 4;
+            calc += textBox_UsedForStats.Text + " / 4";
+            // Then Fortune from Used for Fortune
+            int used_for = (int)numericUpDown_UsedForFort.Value / 5 * 3;
+            if (used_for > 0) {
+                fortune += used_for;
+                calc += " + (" + numericUpDown_UsedForFort.Value + " / 5 * 3)";
+            }
+            // Then Fortune from Fate of Emperor
+            if (traitList.Any(x => x.name == Database.TR_FATEEM)) {
                 // # Gen Traits is Column 2
                 int traits = traitList.Find(x => x.name == Database.TR_FATEEM).genNum;
                 fortune += traits;
-				calc += " + " + traits;
-			}
-			calc += ']';
-			// Total Fortune display along with calculation
-			label_FortuneCalc.Text = calc;
-			textBox_Fortune.Text = fortune.ToString();
-			// Used when Stat Points is changed
-			// Used when Used for Fortune is changed
-			// Used when Traits are added
-			// Used when Traits are edited
-			// Used when Traits are removed
-		}
+                calc += " + " + traits;
+            }
+            calc += ']';
+            // Total Fortune display along with calculation
+            label_FortuneCalc.Text = calc;
+            textBox_Fortune.Text = fortune.ToString();
+            // Used when Stat Points is changed
+            // Used when Used for Fortune is changed
+            // Used when Traits are added
+            // Used when Traits are edited
+            // Used when Traits are removed
+        }
 
-		private void Update_BaseStats_Check() {
-			int total = (int)(numericUpDown_StrengthBase.Value +
-				numericUpDown_SpeedBase.Value +
-				numericUpDown_StaminaBase.Value +
-				numericUpDown_AccuracyBase.Value);
-			if (total == int.Parse(textBox_UsedForStats.Text)) {
-				label_GenerateCheck.Text = "Base stats added correctly!";
-				label_GenerateCheck.ForeColor = Color.Green;
-			}
-			else {
-				label_GenerateCheck.Text = "Base Stat values do not add up!\n";
-				label_GenerateCheck.Text += numericUpDown_StrengthBase.Value + " + ";
-				label_GenerateCheck.Text += numericUpDown_SpeedBase.Value + " + ";
-				label_GenerateCheck.Text += numericUpDown_StaminaBase.Value + " + ";
-				label_GenerateCheck.Text += numericUpDown_AccuracyBase.Value + " = ";
-				label_GenerateCheck.Text += total;
-				label_GenerateCheck.ForeColor = Color.Red;
-			}
-			// Used for when any of the base Stats changes.
-			// Used when Used for Stats is changed
-		}
+        private void Update_BaseStats_Check() {
+            int total = (int)(numericUpDown_StrengthBase.Value +
+                numericUpDown_SpeedBase.Value +
+                numericUpDown_StaminaBase.Value +
+                numericUpDown_AccuracyBase.Value);
+            if (total == int.Parse(textBox_UsedForStats.Text)) {
+                label_GenerateCheck.Text = "Base stats added correctly!";
+                label_GenerateCheck.ForeColor = Color.Green;
+            }
+            else {
+                label_GenerateCheck.Text = "Base Stat values do not add up!\n";
+                label_GenerateCheck.Text += numericUpDown_StrengthBase.Value + " + ";
+                label_GenerateCheck.Text += numericUpDown_SpeedBase.Value + " + ";
+                label_GenerateCheck.Text += numericUpDown_StaminaBase.Value + " + ";
+                label_GenerateCheck.Text += numericUpDown_AccuracyBase.Value + " = ";
+                label_GenerateCheck.Text += total;
+                label_GenerateCheck.ForeColor = Color.Red;
+            }
+            // Used for when any of the base Stats changes.
+            // Used when Used for Stats is changed
+        }
 
-		private void Stat_Multiplier_Trait(ref int base_stat, ref string calc, double multiplier) {
-			if (base_stat <= 75) {
-				base_stat = (int)((double)base_stat * multiplier);
-				calc += " * " + multiplier.ToString();
-			}
-			else {
-				// Maxes out at base stat 75
-				// I can't do arithmetic operations with two doubles or
-				// it screws up by like 9 decimal places >_>
-				if (multiplier == 1.2) {
-					multiplier = 0.2;
-				}
-				else if (multiplier == 1.4) {
-					multiplier = 0.4;
-				}
-				else if (multiplier == 1.6) {
-					multiplier = 0.6;
-				}
-				else {
-					MessageBox.Show("Stat Multipliers screwed up.", "Error");
-				}
-				int base_75 = (int)(75 * multiplier);
-				base_stat += base_75;
-				calc += " + " + base_75;
-			}
-		}
+        private void Stat_Multiplier_Trait(ref int base_stat, ref string calc, double multiplier) {
+            if (base_stat <= 75) {
+                base_stat = (int)((double)base_stat * multiplier);
+                calc += " * " + multiplier.ToString();
+            }
+            else {
+                // Maxes out at base stat 75
+                // I can't do arithmetic operations with two doubles or
+                // it screws up by like 9 decimal places >_>
+                if (multiplier == 1.2) {
+                    multiplier = 0.2;
+                }
+                else if (multiplier == 1.4) {
+                    multiplier = 0.4;
+                }
+                else if (multiplier == 1.6) {
+                    multiplier = 0.6;
+                }
+                else {
+                    MessageBox.Show("Stat Multipliers screwed up.", "Error");
+                }
+                int base_75 = (int)(75 * multiplier);
+                base_stat += base_75;
+                calc += " + " + base_75;
+            }
+        }
 
-		// This is only for changing stats by Fated
-		private void Add_Fated_Stats(ref int stat, ref string calc, string fated) {
-			if (traitList.Any(x => x.name == fated)) {
+        // This is only for changing stats by Fated
+        private void Add_Fated_Stats(ref int stat, ref string calc, string fated) {
+            if (traitList.Any(x => x.name == fated)) {
                 int Traits = traitList.Find(x => x.name == fated).genNum;
-				stat += 3 * Traits;
-				calc += " + (3 * " + Traits + ")";
-			}
-		}
+                stat += 3 * Traits;
+                calc += " + (3 * " + Traits + ")";
+            }
+        }
 
-		// Note: Stat Traits ONLY multiplies the Base Stat. And then you apply any other bonuses.
-		private void Update_Strength_Final() {
-			int base_stat = (int)numericUpDown_StrengthBase.Value;
-			int final = base_stat;
-			string calc = "[" + base_stat;
-			// Do the base stats first.
+        // Note: Stat Traits ONLY multiplies the Base Stat. And then you apply any other bonuses.
+        private void Update_Strength_Final() {
+            int base_stat = (int)numericUpDown_StrengthBase.Value;
+            int final = base_stat;
+            string calc = "[" + base_stat;
+            // Do the base stats first.
             if (traitList.Any(x => x.name == Database.TR_STR3RD)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.6);
             }
             else if (traitList.Any(x => x.name == Database.TR_STR2ND)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.4);
             }
-			else if (traitList.Any(x => x.name == Database.TR_STR1ST) || 
+            else if (traitList.Any(x => x.name == Database.TR_STR1ST) ||
                 traitList.Any(x => x.name == Database.TR_FISHMA) ||
                 traitList.Any(x => x.name == Database.TR_DWARF)) {
-				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
+                Stat_Multiplier_Trait(ref final, ref calc, 1.2);
 
-			}
-			// And then lastly, the Fated Trait.
-			Add_Fated_Stats(ref final, ref calc, Database.TR_FATEST);
-			textBox_StrengthFinal.Text = final.ToString();
-			calc += ']';
-			label_StrengthCalc.Text = calc;
-			// Used when Base Strength changes.
-			// Used when Traits are added.
-			// Used when Traits are edited
-			// Used when Traits are removed.
-		}
+            }
+            // And then lastly, the Fated Trait.
+            Add_Fated_Stats(ref final, ref calc, Database.TR_FATEST);
+            textBox_StrengthFinal.Text = final.ToString();
+            calc += ']';
+            label_StrengthCalc.Text = calc;
+            // Used when Base Strength changes.
+            // Used when Traits are added.
+            // Used when Traits are edited
+            // Used when Traits are removed.
+        }
 
-		private void Update_Speed_Final() {
-			// I hate copying pasting code...
-			int base_stat = (int)numericUpDown_SpeedBase.Value;
-			int final = base_stat;
-			string calc = "[" + base_stat;
-			// Do the base stats first.
+        private void Update_Speed_Final() {
+            // I hate copying pasting code...
+            int base_stat = (int)numericUpDown_SpeedBase.Value;
+            int final = base_stat;
+            string calc = "[" + base_stat;
+            // Do the base stats first.
             if (traitList.Any(x => x.name == Database.TR_SPE3RD)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.6);
             }
             else if (traitList.Any(x => x.name == Database.TR_SPE2ND)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.4);
             }
-			else if (traitList.Any(x => x.name == Database.TR_SPE1ST) ||
-				traitList.Any(x => x.name == Database.TR_MERFOL)) {
-				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
+            else if (traitList.Any(x => x.name == Database.TR_SPE1ST) ||
+                traitList.Any(x => x.name == Database.TR_MERFOL)) {
+                Stat_Multiplier_Trait(ref final, ref calc, 1.2);
 
-			}
-			// And then lastly, the Fated Trait.
-			Add_Fated_Stats(ref final, ref calc, Database.TR_FATESW);
-			textBox_SpeedFinal.Text = final.ToString();
-			calc += ']';
-			label_SpeedCalc.Text = calc;
-			// Used when Base Strength changes.
-			// Used when Traits are added.
-			// Used when Traits are edited
-			// Used when Traits are removed.
-		}
+            }
+            // And then lastly, the Fated Trait.
+            Add_Fated_Stats(ref final, ref calc, Database.TR_FATESW);
+            textBox_SpeedFinal.Text = final.ToString();
+            calc += ']';
+            label_SpeedCalc.Text = calc;
+            // Used when Base Strength changes.
+            // Used when Traits are added.
+            // Used when Traits are edited
+            // Used when Traits are removed.
+        }
 
-		private void Update_Stamina_Final() {
-			// I hate copying pasting code...
-			int base_stat = (int)numericUpDown_StaminaBase.Value;
-			int final = base_stat;
-			string calc = "[" + base_stat;
-			// Do the base stats first.
+        private void Update_Stamina_Final() {
+            // I hate copying pasting code...
+            int base_stat = (int)numericUpDown_StaminaBase.Value;
+            int final = base_stat;
+            string calc = "[" + base_stat;
+            // Do the base stats first.
             if (traitList.Any(x => x.name == Database.TR_STA3RD)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.6);
             }
-			else if (traitList.Any(x => x.name == Database.TR_STA2ND)) {
+            else if (traitList.Any(x => x.name == Database.TR_STA2ND)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.4);
-			}
-			else if (traitList.Any(x => x.name == Database.TR_STA1ST)) {
-				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
-			}
-			// And then lastly, the Fated Trait.
-			Add_Fated_Stats(ref final, ref calc, Database.TR_FATEMI);
-			textBox_StaminaFinal.Text = final.ToString();
-			calc += ']';
-			label_StaminaCalc.Text = calc;
-			// Used when Base Strength changes.
-			// Used when Traits are added.
-			// Used when Traits are edited
-			// Used when Traits are removed.
-		}
+            }
+            else if (traitList.Any(x => x.name == Database.TR_STA1ST)) {
+                Stat_Multiplier_Trait(ref final, ref calc, 1.2);
+            }
+            // And then lastly, the Fated Trait.
+            Add_Fated_Stats(ref final, ref calc, Database.TR_FATEMI);
+            textBox_StaminaFinal.Text = final.ToString();
+            calc += ']';
+            label_StaminaCalc.Text = calc;
+            // Used when Base Strength changes.
+            // Used when Traits are added.
+            // Used when Traits are edited
+            // Used when Traits are removed.
+        }
 
-		private void Update_Accuracy_Final() {
-			// I hate copying pasting code...
-			int base_stat = (int)numericUpDown_AccuracyBase.Value;
-			int final = base_stat;
-			string calc = "[" + base_stat;
-			// Do the base stats first.
+        private void Update_Accuracy_Final() {
+            // I hate copying pasting code...
+            int base_stat = (int)numericUpDown_AccuracyBase.Value;
+            int final = base_stat;
+            string calc = "[" + base_stat;
+            // Do the base stats first.
             if (traitList.Any(x => x.name == Database.TR_ACC3RD)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.6);
             }
             else if (traitList.Any(x => x.name == Database.TR_ACC2ND)) {
                 Stat_Multiplier_Trait(ref final, ref calc, 1.4);
             }
-			else if (traitList.Any(x => x.name == Database.TR_ACC1ST)) {
-				Stat_Multiplier_Trait(ref final, ref calc, 1.2);
+            else if (traitList.Any(x => x.name == Database.TR_ACC1ST)) {
+                Stat_Multiplier_Trait(ref final, ref calc, 1.2);
 
-			}
-			// And then lastly, the Fated Trait.
-			Add_Fated_Stats(ref final, ref calc, Database.TR_FATECU);
-			textBox_AccuracyFinal.Text = final.ToString();
-			calc += ']';
-			label_AccuracyCalc.Text = calc;
-			// Used when Base Strength changes.
-			// Used when Traits are added.
-			// Used when Traits are edited
-			// Used when Traits are removed.
-		}
+            }
+            // And then lastly, the Fated Trait.
+            Add_Fated_Stats(ref final, ref calc, Database.TR_FATECU);
+            textBox_AccuracyFinal.Text = final.ToString();
+            calc += ']';
+            label_AccuracyCalc.Text = calc;
+            // Used when Base Strength changes.
+            // Used when Traits are added.
+            // Used when Traits are edited
+            // Used when Traits are removed.
+        }
 
         #endregion 
 
         #region Update RegTP Functions
 
         private void Update_Used_RegTP() {
-			int used = 0;
+            int used = 0;
             foreach (Technique tech in techList.Values) {
                 used += tech.regTP;
             }
-			textBox_RegTPUsed.Text = used.ToString();
-			// Used when Techniques are added.
-			// Used when Techniques are edited.
-			// Used when Techniques are removed.
-		}
+            textBox_RegTPUsed.Text = used.ToString();
+            // Used when Techniques are added.
+            // Used when Techniques are edited.
+            // Used when Techniques are removed.
+        }
 
-		private void Update_Total_RegTP() {
-			double multiplier = 2.0;
-			int fortune = int.Parse(textBox_Fortune.Text);
-			string calc = "[" + fortune + " * ";
-			// Modify multiplier if SD Earned is changed.
-			int SD_Earned = (int)numericUpDown_SDEarned.Value;
-			if (SD_Earned > 150 && SD_Earned <= 250) {
-				multiplier = 2.5;
-			}
-			else if (SD_Earned > 250 && SD_Earned <= 350) {
-				multiplier = 3.0;
-			}
-			else if (SD_Earned > 350 && SD_Earned <= 450) {
-				multiplier = 3.5;
-			}
-			else if (SD_Earned > 450 && SD_Earned <= 600) {
-				multiplier = 4.0;
-			}
+        private void Update_Total_RegTP() {
+            double multiplier = 2.0;
+            int fortune = int.Parse(textBox_Fortune.Text);
+            string calc = "[" + fortune + " * ";
+            // Modify multiplier if SD Earned is changed.
+            int SD_Earned = (int)numericUpDown_SDEarned.Value;
+            if (SD_Earned > 150 && SD_Earned <= 250) {
+                multiplier = 2.5;
+            }
+            else if (SD_Earned > 250 && SD_Earned <= 350) {
+                multiplier = 3.0;
+            }
+            else if (SD_Earned > 350 && SD_Earned <= 450) {
+                multiplier = 3.5;
+            }
+            else if (SD_Earned > 450 && SD_Earned <= 600) {
+                multiplier = 4.0;
+            }
             else if (SD_Earned > 600 && SD_Earned <= 800) {
                 multiplier = 4.5;
             }
@@ -628,29 +627,29 @@ namespace OPRPCharBuild
             }
             // Check AP Tech
             multiplier += 0.5 * (double)(numericUpDown_APTech.Value);
-			int total = (int)((double)fortune * multiplier);
-			calc += multiplier;
-			// Now check if we have any Traits that add to this.
-			if (traitList.Any(x => x.name == Database.TR_TECHMA)) {
-				// Increase by 100% of Fortune
-				total += fortune;
-				calc += " + " + fortune;
-			}
-			else if (traitList.Any(x => x.name == Database.TR_TECHAD)) {
-				// Increase by 40% of Fortune
+            int total = (int)((double)fortune * multiplier);
+            calc += multiplier;
+            // Now check if we have any Traits that add to this.
+            if (traitList.Any(x => x.name == Database.TR_TECHMA)) {
+                // Increase by 100% of Fortune
+                total += fortune;
+                calc += " + " + fortune;
+            }
+            else if (traitList.Any(x => x.name == Database.TR_TECHAD)) {
+                // Increase by 40% of Fortune
                 total += (int)((double)fortune * 0.4);
-				calc += " + (" + fortune + " * 0.4)";
-			}
-			// Update properly.
-			textBox_RegTPTotal.Text = total.ToString();
-			calc += ']';
-			label_RegTPCalc.Text = calc;
-			// Used when checkbox is listed.
-			// Used when Fortune is updated.
-			// Used when SD Earned is changed
-			// Used when a Trait is added.
-			// Used when a Trait is removed.
-		}
+                calc += " + (" + fortune + " * 0.4)";
+            }
+            // Update properly.
+            textBox_RegTPTotal.Text = total.ToString();
+            calc += ']';
+            label_RegTPCalc.Text = calc;
+            // Used when checkbox is listed.
+            // Used when Fortune is updated.
+            // Used when SD Earned is changed
+            // Used when a Trait is added.
+            // Used when a Trait is removed.
+        }
 
         #endregion
 
@@ -658,72 +657,72 @@ namespace OPRPCharBuild
 
         // Helper function for Update_CritAnatQuick_Msg()
         private void Print_Applied_Msg(ref string msg, string name) {
-			int points = int.Parse(textBox_RegTPTotal.Text) / 4;
-			int num = 0;
-			msg += name + ": ";
+            int points = int.Parse(textBox_RegTPTotal.Text) / 4;
+            int num = 0;
+            msg += name + ": ";
             // How many Traits of the there are of the same Trait
-			if (traitList.Any(x => x.name == name)) {
+            if (traitList.Any(x => x.name == name)) {
                 num += traitList.Find(x => x.name == name).getTotal();
             }
-			int total = num * points;
-			int used = 0;
-			foreach (Technique tech in techList.Values) {
-				if (tech.stats.statsName.Contains(name)) {
-					used += tech.regTP;
-				}
-			}
-			msg += used + " / " + total + '\n';
-		}
+            int total = num * points;
+            int used = 0;
+            foreach (Technique tech in techList.Values) {
+                if (tech.stats.statsName.Contains(name)) {
+                    used += tech.regTP;
+                }
+            }
+            msg += used + " / " + total + '\n';
+        }
 
-		// This is only for Critical Hit, Anatomical Strike, and Quickstrike
-		private void Update_CritAnatQuick_Msg() {
-			string msg = "";
-			if (traitList.Any(x => x.name == Database.TR_CRITHI)) {
-				Print_Applied_Msg(ref msg, Database.TR_CRITHI);
-			}
-			if (traitList.Any(x => x.name == Database.TR_ANASTR)) {
-				Print_Applied_Msg(ref msg, Database.TR_ANASTR);
-			}
-			if (traitList.Any(x => x.name == Database.TR_QUICKS)) {
-				Print_Applied_Msg(ref msg, Database.TR_QUICKS);
-			}
-			// Trim the newline
-			msg = msg.TrimEnd('\n');
-			if (string.IsNullOrWhiteSpace(msg)) {
-				label_CritAnatQuick.Visible = false;
-				label_CritAnatQuick.Text = msg;
-			}
-			else {
-				label_CritAnatQuick.Visible = true;
-				label_CritAnatQuick.Text = msg;
-			}
-			// Updated when Technique is Added
-			// Updated when Technique is Edited
-			// Updated when Technique is Branched
-			// Updated when Technique is Removed
-			// Updated when a Trait is added.
-			// Updated when a Trait is removed.
-			// Updated when Total Reg TP is Changed.
+        // This is only for Critical Hit, Anatomical Strike, and Quickstrike
+        private void Update_CritAnatQuick_Msg() {
+            string msg = "";
+            if (traitList.Any(x => x.name == Database.TR_CRITHI)) {
+                Print_Applied_Msg(ref msg, Database.TR_CRITHI);
+            }
+            if (traitList.Any(x => x.name == Database.TR_ANASTR)) {
+                Print_Applied_Msg(ref msg, Database.TR_ANASTR);
+            }
+            if (traitList.Any(x => x.name == Database.TR_QUICKS)) {
+                Print_Applied_Msg(ref msg, Database.TR_QUICKS);
+            }
+            // Trim the newline
+            msg = msg.TrimEnd('\n');
+            if (string.IsNullOrWhiteSpace(msg)) {
+                label_CritAnatQuick.Visible = false;
+                label_CritAnatQuick.Text = msg;
+            }
+            else {
+                label_CritAnatQuick.Visible = true;
+                label_CritAnatQuick.Text = msg;
+            }
+            // Updated when Technique is Added
+            // Updated when Technique is Edited
+            // Updated when Technique is Branched
+            // Updated when Technique is Removed
+            // Updated when a Trait is added.
+            // Updated when a Trait is removed.
+            // Updated when Total Reg TP is Changed.
 
-		}
+        }
 
-		private void Update_TechNum() {
-			// This will also properly set the Maximum Values of numericupdown_Row
-			int num = dgv_Techniques.Rows.Count;
-			label_TechCount.Text = "Total number of Techniques: " + num;
-			if (num > 0) {
-				numericUpDown_RowBegin.Maximum = num - 1;
-				numericUpDown_RowEnd.Maximum = num - 1;
-			}
-			else if (num == 0) {
-				numericUpDown_RowBegin.Maximum = 0;
-				numericUpDown_RowEnd.Maximum = 0;
-			}
-			// Updated when Technique is Added
-			// Updated when Technique is Edited
-			// Updated when Technique is Branched
-			// Updated when Technique is Removed
-		}
+        private void Update_TechNum() {
+            // This will also properly set the Maximum Values of numericupdown_Row
+            int num = dgv_Techniques.Rows.Count;
+            label_TechCount.Text = "Total number of Techniques: " + num;
+            if (num > 0) {
+                numericUpDown_RowBegin.Maximum = num - 1;
+                numericUpDown_RowEnd.Maximum = num - 1;
+            }
+            else if (num == 0) {
+                numericUpDown_RowBegin.Maximum = 0;
+                numericUpDown_RowEnd.Maximum = 0;
+            }
+            // Updated when Technique is Added
+            // Updated when Technique is Edited
+            // Updated when Technique is Branched
+            // Updated when Technique is Removed
+        }
 
         #endregion
 
@@ -731,44 +730,44 @@ namespace OPRPCharBuild
 
         // Checks to make sure that all Techniques are in Categories
         private void Update_SubCatWarning() {
-			bool loop_break = false;
-			for (int i = 0; i < listView_SubCat.Items.Count; ++i) {
-				ListViewItem category = listView_SubCat.Items[i];
-				if (i == 0 && int.Parse(category.SubItems[0].Text) != 0) {
-					loop_break = true;
-					break;
-				}
-				if (i == listView_SubCat.Items.Count - 1 && 
-					int.Parse(category.SubItems[1].Text) != dgv_Techniques.Rows.Count - 1) {
-					loop_break = true;
-					break;
-				}
-				if (i != listView_SubCat.Items.Count - 1) {
-					if (int.Parse(category.SubItems[1].Text) + 1 !=
-					int.Parse(listView_SubCat.Items[i + 1].SubItems[0].Text)) {
-						// Comparing this category's End Row with the next category's Begin Row
-						loop_break = true;
-						break;
-					}
-				}
-			}
-			if (listView_SubCat.Items.Count == 0) {
-				label_SubCatWarning.Text = "Note: Adding no Categories will automatically put all Techniques into one table.";
-				label_SubCatWarning.ForeColor = Color.OrangeRed;
-			}
-			else if (loop_break) {
-				// Display Warning Message 
-				label_SubCatWarning.Text = "WARNING: Some Techniques aren't in Categories! Uncategorized Techniques will not be generated!";
-				label_SubCatWarning.ForeColor = Color.Red;
-			}
-			else {
-				// All Techniques accounted for!
-				label_SubCatWarning.Text = "All Techniques are in Categories.";
-				label_SubCatWarning.ForeColor = Color.Green;
-			}
-			// Updated when a SubCategory is Added
-			// Updated when a SubCategory is Removed
-		}
+            bool loop_break = false;
+            for (int i = 0; i < listView_SubCat.Items.Count; ++i) {
+                ListViewItem category = listView_SubCat.Items[i];
+                if (i == 0 && int.Parse(category.SubItems[0].Text) != 0) {
+                    loop_break = true;
+                    break;
+                }
+                if (i == listView_SubCat.Items.Count - 1 &&
+                    int.Parse(category.SubItems[1].Text) != dgv_Techniques.Rows.Count - 1) {
+                    loop_break = true;
+                    break;
+                }
+                if (i != listView_SubCat.Items.Count - 1) {
+                    if (int.Parse(category.SubItems[1].Text) + 1 !=
+                    int.Parse(listView_SubCat.Items[i + 1].SubItems[0].Text)) {
+                        // Comparing this category's End Row with the next category's Begin Row
+                        loop_break = true;
+                        break;
+                    }
+                }
+            }
+            if (listView_SubCat.Items.Count == 0) {
+                label_SubCatWarning.Text = "Note: Adding no Categories will automatically put all Techniques into one table.";
+                label_SubCatWarning.ForeColor = Color.OrangeRed;
+            }
+            else if (loop_break) {
+                // Display Warning Message 
+                label_SubCatWarning.Text = "WARNING: Some Techniques aren't in Categories! Uncategorized Techniques will not be generated!";
+                label_SubCatWarning.ForeColor = Color.Red;
+            }
+            else {
+                // All Techniques accounted for!
+                label_SubCatWarning.Text = "All Techniques are in Categories.";
+                label_SubCatWarning.ForeColor = Color.Green;
+            }
+            // Updated when a SubCategory is Added
+            // Updated when a SubCategory is Removed
+        }
 
         #endregion
 
@@ -781,48 +780,48 @@ namespace OPRPCharBuild
             Check_Update();
 
             this.Text = "OPRP Character Builder";
-			label_Title.Text = "OPRP Character Builder";
-			label1.Text = "OPRP Character Builder v" + VERSION + " designed by Solo";
+            label_Title.Text = "OPRP Character Builder";
+            label1.Text = "OPRP Character Builder v" + VERSION + " designed by Solo";
 
-			// ------ Images
-			listView_Images.View = View.Details;
-			listView_Images.FullRowSelect = true;
-            
+            // ------ Images
+            listView_Images.View = View.Details;
+            listView_Images.FullRowSelect = true;
+
             listView_Images.Columns.Add("URL", 300);
             listView_Images.Columns.Add("Label", 200);
-			listView_Images.Columns.Add("FullRes", 56);
-			listView_Images.Columns.Add("Width", 55);
+            listView_Images.Columns.Add("FullRes", 56);
+            listView_Images.Columns.Add("Width", 55);
             listView_Images.Columns.Add("Height", 55);
 
             // ------ Traits
             Update_Traits_Cap();
-            
-			// ------ Tech Category Table
-			label_SubCatMsg.Text = "No Valid Category Selected";
-			listView_SubCat.View = View.Details;
-			listView_SubCat.FullRowSelect = true;
-			listView_SubCat.Sorting = SortOrder.Ascending;
 
-			listView_SubCat.Columns.Add("Begin", 50);
-			listView_SubCat.Columns.Add("End", 50);
-			listView_SubCat.Columns.Add("Category Name", 166);
+            // ------ Tech Category Table
+            label_SubCatMsg.Text = "No Valid Category Selected";
+            listView_SubCat.View = View.Details;
+            listView_SubCat.FullRowSelect = true;
+            listView_SubCat.Sorting = SortOrder.Ascending;
 
-			// ------ Weaponry Table
-			listView_Weaponry.View = View.Details;
-			listView_Weaponry.FullRowSelect = true;
+            listView_SubCat.Columns.Add("Begin", 50);
+            listView_SubCat.Columns.Add("End", 50);
+            listView_SubCat.Columns.Add("Category Name", 166);
 
-			listView_Weaponry.Columns.Add("Name", 150);
-			listView_Weaponry.Columns.Add("Description", 546);
+            // ------ Weaponry Table
+            listView_Weaponry.View = View.Details;
+            listView_Weaponry.FullRowSelect = true;
 
-			// ------ Items Table
-			listView_Items.View = View.Details;
-			listView_Items.FullRowSelect = true;
+            listView_Weaponry.Columns.Add("Name", 150);
+            listView_Weaponry.Columns.Add("Description", 546);
 
-			listView_Items.Columns.Add("Name", 150);
-			listView_Items.Columns.Add("Description", 546);
+            // ------ Items Table
+            listView_Items.View = View.Details;
+            listView_Items.FullRowSelect = true;
 
-			// ------ Template
-			richTextBox_Template.Text = Sheet.BASIC_TEMPLATE;
+            listView_Items.Columns.Add("Name", 150);
+            listView_Items.Columns.Add("Description", 546);
+
+            // ------ Template
+            richTextBox_Template.Text = Sheet.BASIC_TEMPLATE;
 
             // ------ Adding Save Changes Controls
             // --- tabPage: Basic Information
@@ -907,45 +906,45 @@ namespace OPRPCharBuild
         #region Basic Character Tab
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e) {
-			// This is when we change the Affiliation ComboBox. Exception should only happen when we change.
-			string affiliation = comboBox_Affiliation.Text;
-			if (affiliation == "Pirate") {
-				textBox_Bounty.Enabled = true;
-				numericUpDown_Comm.Enabled = false;
+            // This is when we change the Affiliation ComboBox. Exception should only happen when we change.
+            string affiliation = comboBox_Affiliation.Text;
+            if (affiliation == "Pirate") {
+                textBox_Bounty.Enabled = true;
+                numericUpDown_Comm.Enabled = false;
                 numericUpDown_Comm.Value = 0;
-				comboBox_MarineRank.Enabled = false;
-				comboBox_MarineRank.SelectedIndex = -1;
-				textBox_Threat.Enabled = false;
-				textBox_Threat.Clear();
-			}
-			else if (affiliation == "Marine") {
-				textBox_Bounty.Enabled = false;
-				textBox_Bounty.Clear();
-				numericUpDown_Comm.Enabled = true;
-				comboBox_MarineRank.Enabled = true;
-				textBox_Threat.Enabled = false;
-				textBox_Threat.Clear();
-			}
-			else if (affiliation == "Bounty Hunter" || affiliation == "Other") {
-				textBox_Bounty.Enabled = false;
-				textBox_Bounty.Clear();
-				numericUpDown_Comm.Enabled = false;
+                comboBox_MarineRank.Enabled = false;
+                comboBox_MarineRank.SelectedIndex = -1;
+                textBox_Threat.Enabled = false;
+                textBox_Threat.Clear();
+            }
+            else if (affiliation == "Marine") {
+                textBox_Bounty.Enabled = false;
+                textBox_Bounty.Clear();
+                numericUpDown_Comm.Enabled = true;
+                comboBox_MarineRank.Enabled = true;
+                textBox_Threat.Enabled = false;
+                textBox_Threat.Clear();
+            }
+            else if (affiliation == "Bounty Hunter" || affiliation == "Other") {
+                textBox_Bounty.Enabled = false;
+                textBox_Bounty.Clear();
+                numericUpDown_Comm.Enabled = false;
                 numericUpDown_Comm.Value = 0;
-				comboBox_MarineRank.Enabled = false;
-				comboBox_MarineRank.SelectedIndex = -1;
-				textBox_Threat.Enabled = true;
-			}
-			else {
-				textBox_Bounty.Enabled = false;
-				textBox_Bounty.Clear();
-				numericUpDown_Comm.Enabled = false;
+                comboBox_MarineRank.Enabled = false;
+                comboBox_MarineRank.SelectedIndex = -1;
+                textBox_Threat.Enabled = true;
+            }
+            else {
+                textBox_Bounty.Enabled = false;
+                textBox_Bounty.Clear();
+                numericUpDown_Comm.Enabled = false;
                 numericUpDown_Comm.Value = 0;
-				comboBox_MarineRank.Enabled = false;
-				comboBox_MarineRank.SelectedIndex = -1;
-				textBox_Threat.Enabled = false;
-				textBox_Threat.Clear();
-			}
-		}
+                comboBox_MarineRank.Enabled = false;
+                comboBox_MarineRank.SelectedIndex = -1;
+                textBox_Threat.Enabled = false;
+                textBox_Threat.Clear();
+            }
+        }
 
         private void numericUpDown_Comm_ValueChanged(object sender, EventArgs e) {
             comboBox_MarineRank.Items.Clear();
@@ -989,201 +988,201 @@ namespace OPRPCharBuild
         }
 
         private void button3_AchieveAdd_Click(object sender, EventArgs e) {
-			// Achievement "Add" button from the MainForm
-			Add_Achievement AchievementWin = new Add_Achievement();
-			if (AchievementWin.NewDialog(ref listBox_Achieve)) { notSavedStatus(); }
-			// Look above to show how to transfer data between forms. This uses references quite well.
-		}
+            // Achievement "Add" button from the MainForm
+            Add_Achievement AchievementWin = new Add_Achievement();
+            if (AchievementWin.NewDialog(ref listBox_Achieve)) { notSavedStatus(); }
+            // Look above to show how to transfer data between forms. This uses references quite well.
+        }
 
-		private void button_AchieveEdit_Click(object sender, EventArgs e) {
-			// Achievement "Edit" button from the MainForm
-			int index = listBox_Achieve.SelectedIndex;
-			if (index != -1) {
-				Add_Achievement AchievementWin = new Add_Achievement();
-				if (AchievementWin.EditDialogue(ref listBox_Achieve, index)) { notSavedStatus(); }
-			}
-		}
+        private void button_AchieveEdit_Click(object sender, EventArgs e) {
+            // Achievement "Edit" button from the MainForm
+            int index = listBox_Achieve.SelectedIndex;
+            if (index != -1) {
+                Add_Achievement AchievementWin = new Add_Achievement();
+                if (AchievementWin.EditDialogue(ref listBox_Achieve, index)) { notSavedStatus(); }
+            }
+        }
 
-		private void button2_AchieveDelete_Click(object sender, EventArgs e) {
-			// Achievement "Delete" button from the MainForm
-			int index = listBox_Achieve.SelectedIndex;
-			if (index != -1) {
-				listBox_Achieve.Items.RemoveAt(index);
+        private void button2_AchieveDelete_Click(object sender, EventArgs e) {
+            // Achievement "Delete" button from the MainForm
+            int index = listBox_Achieve.SelectedIndex;
+            if (index != -1) {
+                listBox_Achieve.Items.RemoveAt(index);
                 notSavedStatus();
-			}
-		}
+            }
+        }
 
-		private void MoveListBoxItem(int direction) {
-			// Check selected item
-			if (listBox_Achieve.SelectedItem == null || listBox_Achieve.SelectedIndex < 0) {
-				return;
-			}
-			int newIndex = listBox_Achieve.SelectedIndex + direction;
-			// Check bounds
-			if (newIndex < 0 || newIndex >= listBox_Achieve.Items.Count) {
-				return;
-			}
-			object selected = listBox_Achieve.SelectedItem;
-			listBox_Achieve.Items.Remove(selected);
-			listBox_Achieve.Items.Insert(newIndex, selected);
-			listBox_Achieve.SetSelected(newIndex, true);
+        private void MoveListBoxItem(int direction) {
+            // Check selected item
+            if (listBox_Achieve.SelectedItem == null || listBox_Achieve.SelectedIndex < 0) {
+                return;
+            }
+            int newIndex = listBox_Achieve.SelectedIndex + direction;
+            // Check bounds
+            if (newIndex < 0 || newIndex >= listBox_Achieve.Items.Count) {
+                return;
+            }
+            object selected = listBox_Achieve.SelectedItem;
+            listBox_Achieve.Items.Remove(selected);
+            listBox_Achieve.Items.Insert(newIndex, selected);
+            listBox_Achieve.SetSelected(newIndex, true);
             notSavedStatus();
-		}
+        }
 
-		private void button_UpAchieve_Click(object sender, EventArgs e) {
-			MoveListBoxItem(-1);
-		}
+        private void button_UpAchieve_Click(object sender, EventArgs e) {
+            MoveListBoxItem(-1);
+        }
 
-		private void button_DownAchieve_Click(object sender, EventArgs e) {
-			MoveListBoxItem(1);
-		}
+        private void button_DownAchieve_Click(object sender, EventArgs e) {
+            MoveListBoxItem(1);
+        }
 
-		private void button_ImageUp_Click(object sender, EventArgs e) {
-			Move_List_Item(ref listView_Images, "Up");
-		}
+        private void button_ImageUp_Click(object sender, EventArgs e) {
+            Move_List_Item(ref listView_Images, "Up");
+        }
 
-		private void button_ImageDown_Click(object sender, EventArgs e) {
-			Move_List_Item(ref listView_Images, "Down");
-		}
+        private void button_ImageDown_Click(object sender, EventArgs e) {
+            Move_List_Item(ref listView_Images, "Down");
+        }
 
-		private void button_ImageAdd_Click(object sender, EventArgs e) {
-			// Image "Add" button from the MainForm
-			if (string.IsNullOrWhiteSpace(textBox_ImageURL.Text)) {
-				MessageBox.Show("Image needs URL", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-			else {
-				ListViewItem image = new ListViewItem();
-				image.SubItems[0].Text = textBox_ImageURL.Text;
-				image.SubItems.Add(textBox_ImageLabel.Text);
-				if (checkBox_FullRes.Checked) {
-					image.SubItems.Add("Yes");
-					image.SubItems.Add("");
-					image.SubItems.Add("");
-				}
-				else {
-					image.SubItems.Add("No");
-					image.SubItems.Add(numericUpDown_Width.Value.ToString());
-					image.SubItems.Add(numericUpDown_Height.Value.ToString());
-				}
+        private void button_ImageAdd_Click(object sender, EventArgs e) {
+            // Image "Add" button from the MainForm
+            if (string.IsNullOrWhiteSpace(textBox_ImageURL.Text)) {
+                MessageBox.Show("Image needs URL", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else {
+                ListViewItem image = new ListViewItem();
+                image.SubItems[0].Text = textBox_ImageURL.Text;
+                image.SubItems.Add(textBox_ImageLabel.Text);
+                if (checkBox_FullRes.Checked) {
+                    image.SubItems.Add("Yes");
+                    image.SubItems.Add("");
+                    image.SubItems.Add("");
+                }
+                else {
+                    image.SubItems.Add("No");
+                    image.SubItems.Add(numericUpDown_Width.Value.ToString());
+                    image.SubItems.Add(numericUpDown_Height.Value.ToString());
+                }
                 // Add to ListView
-				listView_Images.Items.Add(image);
-				// Clear the information
-				textBox_ImageLabel.Clear();
-				textBox_ImageURL.Clear();
-				checkBox_FullRes.Checked = true;
+                listView_Images.Items.Add(image);
+                // Clear the information
+                textBox_ImageLabel.Clear();
+                textBox_ImageURL.Clear();
+                checkBox_FullRes.Checked = true;
                 notSavedStatus();
-			}
-		}
+            }
+        }
 
-		private void button_ImageEdit_Click(object sender, EventArgs e) {
-			// Traits "Edit" button from the MainForm
-			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
-			if (listView_Images.SelectedItems.Count == 1) {
-				textBox_ImageURL.Text = listView_Images.SelectedItems[0].SubItems[0].Text;
-				textBox_ImageLabel.Text = listView_Images.SelectedItems[0].SubItems[1].Text;
-				if (listView_Images.SelectedItems[0].SubItems[2].Text == "No") {
-					checkBox_FullRes.Checked = false;
+        private void button_ImageEdit_Click(object sender, EventArgs e) {
+            // Traits "Edit" button from the MainForm
+            // This is completely assuming that only one row can be selected (which we set MultiSelect = false)
+            if (listView_Images.SelectedItems.Count == 1) {
+                textBox_ImageURL.Text = listView_Images.SelectedItems[0].SubItems[0].Text;
+                textBox_ImageLabel.Text = listView_Images.SelectedItems[0].SubItems[1].Text;
+                if (listView_Images.SelectedItems[0].SubItems[2].Text == "No") {
+                    checkBox_FullRes.Checked = false;
                     try { numericUpDown_Width.Value = int.Parse(listView_Images.SelectedItems[0].SubItems[3].Text); }
                     catch { }
                     try { numericUpDown_Height.Value = int.Parse(listView_Images.SelectedItems[0].SubItems[4].Text); }
                     catch { }
-				}
-				else {
-					checkBox_FullRes.Checked = true;
-				}
+                }
+                else {
+                    checkBox_FullRes.Checked = true;
+                }
                 // Delete from ListView
-				Delete_ListViewItem(ref listView_Images);
+                Delete_ListViewItem(ref listView_Images);
                 notSavedStatus();
-			}
-		}
+            }
+        }
 
-		private void button_ImageDelete_Click(object sender, EventArgs e) {
-			// Image "Delete" button
-			Delete_ListViewItem(ref listView_Images);
-		}
+        private void button_ImageDelete_Click(object sender, EventArgs e) {
+            // Image "Delete" button
+            Delete_ListViewItem(ref listView_Images);
+        }
 
-		private void checkBox_FullRes_CheckedChanged(object sender, EventArgs e) {
-			if (!checkBox_FullRes.Checked) {
-				numericUpDown_Height.Enabled = true;
-				numericUpDown_Width.Enabled = true;
-			}
-			else {
-				numericUpDown_Height.Enabled = false;
-				numericUpDown_Width.Enabled = false;
-			}
-		}
+        private void checkBox_FullRes_CheckedChanged(object sender, EventArgs e) {
+            if (!checkBox_FullRes.Checked) {
+                numericUpDown_Height.Enabled = true;
+                numericUpDown_Width.Enabled = true;
+            }
+            else {
+                numericUpDown_Height.Enabled = false;
+                numericUpDown_Width.Enabled = false;
+            }
+        }
 
-		#endregion
+        #endregion
 
-		// --------------------------------------------------------------------------------------------
-		// "BACKGROUND" Tab
-		// --------------------------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------------------
+        // "BACKGROUND" Tab
+        // --------------------------------------------------------------------------------------------
 
-		// Nothing
+        // Nothing
 
-		// --------------------------------------------------------------------------------------------
-		// "COMBAT" Tab
-		// --------------------------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------------------
+        // "COMBAT" Tab
+        // --------------------------------------------------------------------------------------------
 
-		#region Combat Tab
+        #region Combat Tab
 
-		private void button6_WeaponAdd_Click(object sender, EventArgs e) {
-			// Weapon "Add" button from the MainForm
-			Add_Equipment EquipmentWin = new Add_Equipment();
-			if (EquipmentWin.Add_Weapon(ref listView_Weaponry)) { notSavedStatus(); }
-		}
+        private void button6_WeaponAdd_Click(object sender, EventArgs e) {
+            // Weapon "Add" button from the MainForm
+            Add_Equipment EquipmentWin = new Add_Equipment();
+            if (EquipmentWin.Add_Weapon(ref listView_Weaponry)) { notSavedStatus(); }
+        }
 
-		private void button_WeaponEdit_Click(object sender, EventArgs e) {
-			// Weapon "Edit" button from the MainForm
-			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
-			if (listView_Weaponry.SelectedItems.Count == 1) {
-				Add_Equipment EquipmentWin = new Add_Equipment();
-				if (EquipmentWin.Edit_Weapon(ref listView_Weaponry)) { notSavedStatus(); }
-			}
-		}
+        private void button_WeaponEdit_Click(object sender, EventArgs e) {
+            // Weapon "Edit" button from the MainForm
+            // This is completely assuming that only one row can be selected (which we set MultiSelect = false)
+            if (listView_Weaponry.SelectedItems.Count == 1) {
+                Add_Equipment EquipmentWin = new Add_Equipment();
+                if (EquipmentWin.Edit_Weapon(ref listView_Weaponry)) { notSavedStatus(); }
+            }
+        }
 
-		private void button7_WeaponDelete_Click(object sender, EventArgs e) {
-			// Weapon "Delete" button from the MainForm
-			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
-			Delete_ListViewItem(ref listView_Weaponry);
-		}
+        private void button7_WeaponDelete_Click(object sender, EventArgs e) {
+            // Weapon "Delete" button from the MainForm
+            // This is completely assuming that only one row can be selected (which we set MultiSelect = false)
+            Delete_ListViewItem(ref listView_Weaponry);
+        }
 
-		private void button_UpWeapon_Click(object sender, EventArgs e) {
-			Move_List_Item(ref listView_Weaponry, "Up");
-		}
+        private void button_UpWeapon_Click(object sender, EventArgs e) {
+            Move_List_Item(ref listView_Weaponry, "Up");
+        }
 
-		private void button_DownWeapon_Click(object sender, EventArgs e) {
-			Move_List_Item(ref listView_Weaponry, "Down");
-		}
+        private void button_DownWeapon_Click(object sender, EventArgs e) {
+            Move_List_Item(ref listView_Weaponry, "Down");
+        }
 
-		private void button8_ItemsAdd_Click(object sender, EventArgs e) {
-			// Item "Add" button from the MainForm
-			Add_Equipment EquipmentWin = new Add_Equipment();
+        private void button8_ItemsAdd_Click(object sender, EventArgs e) {
+            // Item "Add" button from the MainForm
+            Add_Equipment EquipmentWin = new Add_Equipment();
             if (EquipmentWin.Add_Item(ref listView_Items)) { notSavedStatus(); }
-		}
+        }
 
-		private void button_ItemsEdit_Click(object sender, EventArgs e) {
-			// Item "Edit" button from the MainForm
-			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
-			if (listView_Items.SelectedItems.Count == 1) {
-				Add_Equipment EquipmentWin = new Add_Equipment();
-				if (EquipmentWin.Edit_Item(ref listView_Items)) { notSavedStatus(); }
-			}
-		}
+        private void button_ItemsEdit_Click(object sender, EventArgs e) {
+            // Item "Edit" button from the MainForm
+            // This is completely assuming that only one row can be selected (which we set MultiSelect = false)
+            if (listView_Items.SelectedItems.Count == 1) {
+                Add_Equipment EquipmentWin = new Add_Equipment();
+                if (EquipmentWin.Edit_Item(ref listView_Items)) { notSavedStatus(); }
+            }
+        }
 
-		private void button9_ItemsDelete_Click(object sender, EventArgs e) {
-			// Item "Delete" button from the MainForm
-			// This is completely assuming that only one row can be selected (which we set MultiSelect = false)
-			Delete_ListViewItem(ref listView_Items);
-		}
+        private void button9_ItemsDelete_Click(object sender, EventArgs e) {
+            // Item "Delete" button from the MainForm
+            // This is completely assuming that only one row can be selected (which we set MultiSelect = false)
+            Delete_ListViewItem(ref listView_Items);
+        }
 
-		private void button_UpItem_Click(object sender, EventArgs e) {
-			Move_List_Item(ref listView_Items, "Up");
-		}
+        private void button_UpItem_Click(object sender, EventArgs e) {
+            Move_List_Item(ref listView_Items, "Up");
+        }
 
-		private void button_DownItem_Click(object sender, EventArgs e) {
-			Move_List_Item(ref listView_Items, "Down");
-		}
+        private void button_DownItem_Click(object sender, EventArgs e) {
+            Move_List_Item(ref listView_Items, "Down");
+        }
 
         #endregion
 
@@ -1193,70 +1192,70 @@ namespace OPRPCharBuild
 
         #region RP Elements Tab
 
-		private void numericUpDown_SDEarned_ValueChanged(object sender, EventArgs e) {
-			// We have to adjust the max value of SD Earned into AP.
-			numericUpDown_SDintoStats.Maximum = numericUpDown_SDEarned.Value;
-			numericUpDown_SDintoStats.Value = numericUpDown_SDEarned.Value;
-			Update_Traits_Cap(); // Trait Cap is based on SD Earned
-			Update_SD_Remaining();
-			Update_Total_RegTP();
-			Update_TotalSD();
-		}
+        private void numericUpDown_SDEarned_ValueChanged(object sender, EventArgs e) {
+            // We have to adjust the max value of SD Earned into AP.
+            numericUpDown_SDintoStats.Maximum = numericUpDown_SDEarned.Value;
+            numericUpDown_SDintoStats.Value = numericUpDown_SDEarned.Value;
+            Update_Traits_Cap(); // Trait Cap is based on SD Earned
+            Update_SD_Remaining();
+            Update_Total_RegTP();
+            Update_TotalSD();
+        }
 
-		private void numericUpDown_SDintoStats_ValueChanged(object sender, EventArgs e) {
-			Update_Stat_Points();
-			Update_SD_Remaining();
-		}
+        private void numericUpDown_SDintoStats_ValueChanged(object sender, EventArgs e) {
+            Update_Stat_Points();
+            Update_SD_Remaining();
+        }
 
-		private void textBox_StatPoints_TextChanged(object sender, EventArgs e) {
-			Update_Used_for_Stats();
-			// Also set the maximum value of Used for Fortune = Stat Points / 4
-			numericUpDown_UsedForFort.Maximum = int.Parse(textBox_StatPoints.Text) / 4;
-			Update_Fortune();
-			// Also set the maximum value of all Base Stats = Stat Points / 2
-			numericUpDown_StrengthBase.Maximum = int.Parse(textBox_StatPoints.Text) / 2;
-			numericUpDown_SpeedBase.Maximum = int.Parse(textBox_StatPoints.Text) / 2;
-			numericUpDown_StaminaBase.Maximum = int.Parse(textBox_StatPoints.Text) / 2;
-			numericUpDown_AccuracyBase.Maximum = int.Parse(textBox_StatPoints.Text) / 2;
-		}
+        private void textBox_StatPoints_TextChanged(object sender, EventArgs e) {
+            Update_Used_for_Stats();
+            // Also set the maximum value of Used for Fortune = Stat Points / 4
+            numericUpDown_UsedForFort.Maximum = int.Parse(textBox_StatPoints.Text) / 4;
+            Update_Fortune();
+            // Also set the maximum value of all Base Stats = Stat Points / 2
+            numericUpDown_StrengthBase.Maximum = int.Parse(textBox_StatPoints.Text) / 2;
+            numericUpDown_SpeedBase.Maximum = int.Parse(textBox_StatPoints.Text) / 2;
+            numericUpDown_StaminaBase.Maximum = int.Parse(textBox_StatPoints.Text) / 2;
+            numericUpDown_AccuracyBase.Maximum = int.Parse(textBox_StatPoints.Text) / 2;
+        }
 
-		private void numericUpDown_UsedForFort_ValueChanged(object sender, EventArgs e) {
-			// Turn current value into divisible by 5.
-			int val = (int)numericUpDown_UsedForFort.Value;
-			val = (val / 5) * 5;
-			numericUpDown_UsedForFort.Value = val;
-			Update_Used_for_Stats();
-			Update_Fortune();
-		}
+        private void numericUpDown_UsedForFort_ValueChanged(object sender, EventArgs e) {
+            // Turn current value into divisible by 5.
+            int val = (int)numericUpDown_UsedForFort.Value;
+            val = (val / 5) * 5;
+            numericUpDown_UsedForFort.Value = val;
+            Update_Used_for_Stats();
+            Update_Fortune();
+        }
 
-		private void numericUpDown_StrengthBase_ValueChanged(object sender, EventArgs e) {
-			Update_Strength_Final();
-			Update_BaseStats_Check();
-		}
+        private void numericUpDown_StrengthBase_ValueChanged(object sender, EventArgs e) {
+            Update_Strength_Final();
+            Update_BaseStats_Check();
+        }
 
-		private void numericUpDown_SpeedBase_ValueChanged(object sender, EventArgs e) {
-			Update_Speed_Final();
-			Update_BaseStats_Check();
-		}
+        private void numericUpDown_SpeedBase_ValueChanged(object sender, EventArgs e) {
+            Update_Speed_Final();
+            Update_BaseStats_Check();
+        }
 
-		private void numericUpDown_StaminaBase_ValueChanged(object sender, EventArgs e) {
-			Update_Stamina_Final();
-			Update_BaseStats_Check();
-		}
+        private void numericUpDown_StaminaBase_ValueChanged(object sender, EventArgs e) {
+            Update_Stamina_Final();
+            Update_BaseStats_Check();
+        }
 
-		private void numericUpDown_AccuracyBase_ValueChanged(object sender, EventArgs e) {
-			Update_Accuracy_Final();
-			Update_BaseStats_Check();
-		}
+        private void numericUpDown_AccuracyBase_ValueChanged(object sender, EventArgs e) {
+            Update_Accuracy_Final();
+            Update_BaseStats_Check();
+        }
 
-		private void textBox_Fortune_TextChanged(object sender, EventArgs e) {
-			Update_Total_RegTP();
-			Update_SpTraitDGVAndList_Total();
-		}
+        private void textBox_Fortune_TextChanged(object sender, EventArgs e) {
+            Update_Total_RegTP();
+            Update_SpTraitDGVAndList_Total();
+        }
 
-		private void textBox_UsedForStats_TextChanged(object sender, EventArgs e) {
-			Update_BaseStats_Check();
-		}
+        private void textBox_UsedForStats_TextChanged(object sender, EventArgs e) {
+            Update_BaseStats_Check();
+        }
 
         // Kept track of AP
         private void numericUpDown_APTech_ValueChanged(object sender, EventArgs e) {
@@ -1341,13 +1340,15 @@ namespace OPRPCharBuild
                 // Apply beli trait / professional boosts (do not stack)
                 // Look for Traits bonus of 20%
                 if (traitList.Any(x => x.name == "Pickpocket") || traitList.Any(x => x.name == "Tough Bargainer")) {
-                    beli = (uint)(beli * 1.2);
-                    message += "\n+ " + Commas_To_Value((uint)(beli * 0.2)) + " (20% beli Trait Bonus)";
+                    uint addBeli = beli / 5;
+                    beli += addBeli;
+                    message += "\n+ " + Commas_To_Value(addBeli) + " (20% beli Trait Bonus)";
                 }
                 // Look for Thief primary bonus of 10%
                 else if (Is_Prof_Primary("Thief")) {
-                    beli = (uint)(beli * 1.1);
-                    message += "\n+ " + Commas_To_Value((uint)(beli * 0.1)) + " (10% beli Thief Primary)";
+                    uint addBeli = beli / 10;
+                    beli += addBeli;
+                    message += "\n+ " + Commas_To_Value(addBeli) + " (10% beli Thief Primary)";
                 }
                 // Show calculations
                 string final_beli = Commas_To_Value(beli);
@@ -1445,15 +1446,17 @@ namespace OPRPCharBuild
             textBox_SpTPTotal.Text = total_SP.ToString();
         }
 
+        // Adds the Sp Trait into the list. 
+        // param traitName is for all getName() purposes
         private void Add_SpTrait(string traitName) {
             // First check to see if the Sp. TP Trait is in the list
             // If so, add the trait into the ListView Special and add correspondingly.
             int fortune = int.Parse(textBox_Fortune.Text);
-            int divisor = Database.getSpTraitDiv(traitName);
+            Trait sel_Trait = traitList.Find(x => x.getName() == traitName);
+            int divisor = Database.getSpTraitDiv(sel_Trait.name);
             string spTraitName = "";
             if (divisor > 0) {
                 // Add Sp. Trait to the Dict
-                Trait sel_Trait = traitList.Find(x => x.name == traitName);
                 int traitNum = sel_Trait.getTotal();
                 string customName = sel_Trait.getName();
                 int totTP = (fortune / divisor) * traitNum;
@@ -1470,6 +1473,7 @@ namespace OPRPCharBuild
         }
 
         private void Remove_SpTrait(SpTrait removeTrait) {
+            if (removeTrait == null) { return; }
             // Remove from Dict
             spTraitList.Remove(removeTrait);
             // Remove from ListView
@@ -1482,6 +1486,7 @@ namespace OPRPCharBuild
             }
             Update_SpTraitDGVAndList_Total();
             Update_SpTraitDGVAndList_Used(removeTrait.getName());
+
             // Used when a Trait is removed.
         }
 
@@ -1490,8 +1495,9 @@ namespace OPRPCharBuild
             int fortune = int.Parse(textBox_Fortune.Text);
             foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
                 string spName = SpTraitRow.Cells[0].Value.ToString(); // This is getting getTraitName()
-                int traitNum = traitList.Find(x => x.getName() == spName).getTotal();
-                int divisor = Database.getSpTraitDiv(spName); //#TODO: CAN'T USE SPNAME!!!
+                Trait traitName = traitList.Find(x => x.getName() == spName);
+                int traitNum = traitName.getTotal();
+                int divisor = Database.getSpTraitDiv(traitName.name); //#TODO: CAN'T USE SPNAME!!!
                 int totTP = (fortune / divisor) * traitNum;
                 // Edit spTraitList
                 spTraitList.Find(x => x.getName() == spName).totalTP = totTP;
@@ -1517,15 +1523,18 @@ namespace OPRPCharBuild
                     used += tech.spTP;
                 }
             }
-            // Edit spTraitList
-            spTraitList.Find(x => x.getName() == traitName).usedTP = used;
-            // Edit ListView
-            foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
-                if (SpTraitRow.Cells[0].Value.ToString() == traitName) {
-                    SpTraitRow.Cells[1].Value = used.ToString();
-                    break;
+            // Edit spTraitList, if it still exists
+            try {
+                spTraitList.Find(x => x.getName() == traitName).usedTP = used;
+                // Edit ListView
+                foreach (DataGridViewRow SpTraitRow in dgv_SpTraits.Rows) {
+                    if (SpTraitRow.Cells[0].Value.ToString() == traitName) {
+                        SpTraitRow.Cells[1].Value = used.ToString();
+                        break;
+                    }
                 }
             }
+            catch { }
             // Update the Used textboxes
             Update_Used_SpTP_Textbox();
             // After update of those values, we will then check to see if Used > Total
@@ -1792,19 +1801,6 @@ namespace OPRPCharBuild
             }
         }
 
-		// Returns the Index of the listview_SubCat if the row is between any Row Begin and Row End
-		// Returns -1 if the row is not between any Row Begin and Row End
-		private int Is_Row_In_SubCatTable(int row) {
-			foreach (ListViewItem item in listView_SubCat.Items) {
-				int begin = int.Parse(item.SubItems[0].Text);
-				int end = int.Parse(item.SubItems[1].Text);
-				if (row >= begin && row <= end) {
-					return item.Index;
-				}
-			}
-			return -1;
-		}
-
 		private void button_SubCatAdd_Click(object sender, EventArgs e) {
 			if (numericUpDown_RowEnd.Value < numericUpDown_RowBegin.Value) {
 				MessageBox.Show("Row Begin must be a lower value (or equal to) than Row End.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1818,17 +1814,11 @@ namespace OPRPCharBuild
 				MessageBox.Show("You have no Techniques.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
-			else if (Is_Row_In_SubCatTable((int)numericUpDown_RowBegin.Value) != -1) {
-				MessageBox.Show("Row Begin overlaps with another Category", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				return;
-			}
-			else if (Is_Row_In_SubCatTable((int)numericUpDown_RowEnd.Value) != -1) {
-				MessageBox.Show("Row End overlaps with another Category", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				return;
-			}
-			ListViewItem item = new ListViewItem();
-			item.SubItems[0].Text = numericUpDown_RowBegin.Value.ToString();
-			item.SubItems.Add(numericUpDown_RowEnd.Value.ToString());
+            var rowBeg = numericUpDown_RowBegin.Value;
+            var rowEnd = numericUpDown_RowEnd.Value;
+            ListViewItem item = new ListViewItem();
+			item.SubItems[0].Text = rowBeg.ToString();
+			item.SubItems.Add(rowEnd.ToString());
 			item.SubItems.Add(textBox_SubCat.Text);
 			// Reset options
 			numericUpDown_RowBegin.Value = 0;
@@ -1839,6 +1829,14 @@ namespace OPRPCharBuild
 			listView_SubCat.Items.Add(item);
 			listView_SubCat.ListViewItemSorter = new ListViewItemNumberSort(0);
 			listView_SubCat.Sort();
+            // Locate where it is, and then adjust numbers above & below row.
+            int newIndex = listView_SubCat.Items.IndexOf(item);
+            if (newIndex > 0) {
+                listView_SubCat.Items[newIndex - 1].SubItems[1].Text = (rowBeg - 1).ToString();
+            }
+            if (newIndex < listView_SubCat.Items.Count - 1) {
+                listView_SubCat.Items[newIndex + 1].SubItems[0].Text = (rowEnd + 1).ToString();
+            }
 			Update_SubCatWarning();
             notSavedStatus();
 		}
@@ -1912,7 +1910,8 @@ namespace OPRPCharBuild
                 foreach (Source source in sourceList.Values) {
                     totalSD += source.SD;
                 }
-                numericUpDown_SDEarned.Value = totalSD;
+                int AP_num = int.Parse(textBox_AP.Text);
+                numericUpDown_SDEarned.Value = totalSD - (AP_num * 50);
             }
         }
 
@@ -2138,6 +2137,11 @@ namespace OPRPCharBuild
 				MessageBox.Show("Error in opening up Zetaboards site.\nReason: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
+
+
+        private void richTextBox_Template_TextChanged(object sender, EventArgs e) {
+            notSavedStatus();
+        }
 
         #endregion
 
@@ -2702,7 +2706,7 @@ namespace OPRPCharBuild
 		private void toolStripButton_Save_Click(object sender, EventArgs e) {
 			saveCharacter();
 		}
-        
+
         private void toolStripButton_SaveAs_Click(object sender, EventArgs e) {
             SaveFileDialog fileDialogSaveProject = new SaveFileDialog();
             fileDialogSaveProject.Filter = "OPRP files (*.oprp)|*.oprp";

@@ -126,6 +126,11 @@
             0,
             0,
             0});
+            this.numericUpDown_SDSource.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            -2147483648});
             this.numericUpDown_SDSource.Name = "numericUpDown_SDSource";
             this.numericUpDown_SDSource.Size = new System.Drawing.Size(57, 23);
             this.numericUpDown_SDSource.TabIndex = 101;

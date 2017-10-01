@@ -20,7 +20,7 @@ namespace OPRPCharBuild
 
 		// Now functions
 
-        // Returns the name of the new Trait. If no Trait (or invalid) was selected, return null
+        // Returns the getName() of the new Trait. If no Trait (or invalid) was selected, return null
 		public string NewDialog(ref DataGridView dgv, ref List<Trait> traitList) {
 			this.ShowDialog();
 			if (button_clicked) {
@@ -44,8 +44,7 @@ namespace OPRPCharBuild
                 traitList.Add(addTrait);
                 // Add into dgv
                 dgv.Rows.Insert(dgv.Rows.Count, name, custom, traitType, gen, prof, desc);
-                
-				return name;
+				return addTrait.getName();
 			}
 			return null;
 		}
@@ -86,7 +85,7 @@ namespace OPRPCharBuild
                         throw new Exception(); // There is a duplicate
                     }
                     traitList.Add(new_Trait);
-                    return new_name;
+                    return new_Trait.getName();
                 }
                 catch {
                     traitList.Add(edit_Trait); // Re-Add

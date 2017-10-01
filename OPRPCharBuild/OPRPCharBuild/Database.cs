@@ -382,7 +382,7 @@ namespace OPRPCharBuild
             { TR_GURU, 2 }
         };
 
-        // Getter function of spTraitDiv dictionary
+        // Getter function of spTraitDiv dictionary. traitName has to be a non-custom name!
         static public int getSpTraitDiv(string traitName) {
             try { return spTraitDiv[traitName]; }
             catch { return 0; }
@@ -445,7 +445,6 @@ namespace OPRPCharBuild
             EFF_OMNID = "Omni-Directional",
             EFF_HAKEN = "Haki Enhancement",
             EFF_ELDMG = "Elemental Damage",
-            EFF_FLAVR = "Flavor",
             EFF_SPRIT = "Spirit Generated Illusions",
             EFF_SECON = "Secondary",
             EFF_QUICK = "Quick",
@@ -470,6 +469,9 @@ namespace OPRPCharBuild
             EFF_STDEF = "Starter Tier Defense",
             EFF_MIDEF = "Mid Tier Defense",
             EFF_HIDEF = "High Tier Defense",
+            EFF_STBIN = "Starter Tier Bind",
+            EFF_MIBIN = "Mid Tier Bind",
+            EFF_HIBIN = "High Tier Bind",
             EFF_MELEE = "Melee",
             EFF_SHORT = "Short",
             EFF_MEDIU = "Medium",
@@ -515,8 +517,8 @@ namespace OPRPCharBuild
             LONG_DESC = "Range of an entire sport's stadium.",
             VLONG_DESC = "Range of a small city.",
             SHAOE_DESC = "A few meters in diameter.",
-            MDAOE_DESC = "Half of a sport's stadium in diameter.",
-            LOAOE_DESC = "An entire sport's stadium in diameter.";
+            MDAOE_DESC = "Half of a sport's pitch in diameter.",
+            LOAOE_DESC = "An entire sport's pitch in diameter.";
         #endregion
 
         static private Dictionary<string, Effect> effectDict = new Dictionary<string, Effect>() {
@@ -554,8 +556,6 @@ namespace OPRPCharBuild
                 "User coats an invisible suit of armour around a pair of limbs or a weapon. When added to techniques at Rank 28 and beyond, they gain the ability to strike a devil fruit user's real body.") },
             { EFF_ELDMG, new Effect(EFF_ELDMG, true, 14, 14,
                 "Adds the benefits of a single element to a technique. If created through practical means (ie Inventions, Matches etc), the minimum rank is Rank 14. If created by shonen science or will, minimum rank is Rank 28. Can be generated in greater volumes at higher ranks.") },
-            { EFF_FLAVR, new Effect(EFF_FLAVR, true, 0, 0,
-                "Technique flair that does not grant any advantage other than making things look fancier. The higher the rank, the more exotic.") },
             { EFF_SPRIT, new Effect(EFF_SPRIT, true, 14, 28,
                 "Eye catching illusions that have significance, lasting only momentarily in battle but can shock or intimidate foes. Asura is a good example for these effects.") },
             { EFF_QUICK, new Effect(EFF_QUICK, false, 8, 8,
@@ -602,6 +602,12 @@ namespace OPRPCharBuild
                 "Reduces damage of Rank 27 and below techniques. NOTE THAT 1) Tier Defenses may require some special abilities, 2) Wearable armor requires Techniques with this Effect, and 3) Legendary Tier offers the defensive properties of High Tier (still unbreakable). Please refer to the Rules for more details.") },
             { EFF_HIDEF, new Effect(EFF_HIDEF, false, 24, 24,
                 "Reduces damage of Rank 43 and below techniques. NOTE THAT 1) Tier Defenses may require some special abilities, 2) Wearable armor requires Techniques with this Effect, and 3) Legendary Tier offers the defensive properties of High Tier (still unbreakable). Please refer to the Rules for more details.") },
+            { EFF_STBIN, new Effect(EFF_STBIN, false, 4, 4,
+                "Any attempt to restrain an opponent through a bind or adhesive. All characters caught in binds or adhesives in combat can escape from them with the effort/AE cost of 1. This effect is generally STANDALONE.") },
+            { EFF_MIBIN, new Effect(EFF_MIBIN, false, 12, 12,
+                "Any attempt to restrain an opponent through a bind or adhesive. All characters caught in binds or adhesives in combat can escape from them with the effort/AE cost of 2. This effect is generally STANDALONE.") },
+            { EFF_HIBIN, new Effect(EFF_HIBIN, false, 24, 24,
+                "Any attempt to restrain an opponent through a bind or adhesive. All characters caught in binds or adhesives in combat can escape from them with the effort/AE cost of 4. This effect is generally STANDALONE.") },
             { EFF_DOPIN, new Effect(EFF_DOPIN, false, 4, 14,
                 "(DOCTOR) - Doping allows characters to use pills, injections, or other similar means to effectively ignore injury for a set duration in order to allow their bodies to fight at full strength while they are in effect. As this is very taxing on the body, doping techs have a cool down equal to duration. The effectiveness of doping on a target halves after each use within the same topic regardless of the rank or source of the original doping technique used.") },
             { EFF_BANDA, new Effect(EFF_BANDA, true, 4, 4,
@@ -746,7 +752,6 @@ namespace OPRPCharBuild
                 EFF_OMNID,
                 EFF_HAKEN,
                 EFF_ELDMG,
-                EFF_FLAVR,
                 EFF_SPRIT,
                 EFF_QUICK,
                 EFF_PIERC,
@@ -770,6 +775,9 @@ namespace OPRPCharBuild
                 EFF_STDEF,
                 EFF_MIDEF,
                 EFF_HIDEF,
+                EFF_STBIN,
+                EFF_MIBIN,
+                EFF_HIBIN,
                 EFF_SMOKE,
                 EFF_CROWD,
                 EFF_DISGU,

@@ -56,6 +56,7 @@
             this.button_AddTech = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.richTextBox_MaxRankCap = new System.Windows.Forms.RichTextBox();
             this.numericUpDown_AE = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.button_Rokushiki = new System.Windows.Forms.Button();
@@ -69,12 +70,12 @@
             this.checkBox_Marksman = new System.Windows.Forms.CheckBox();
             this.checkBox_SigTech = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.textBox_Power = new System.Windows.Forms.TextBox();
             this.checkBox_EffectType = new System.Windows.Forms.CheckBox();
             this.button_DownEffect = new System.Windows.Forms.Button();
             this.button_UpEffect = new System.Windows.Forms.Button();
             this.button_UpgradeEff = new System.Windows.Forms.Button();
             this.checkBox_AutoCalc = new System.Windows.Forms.CheckBox();
-            this.textBox_Power = new System.Windows.Forms.TextBox();
             this.label_MinRank = new System.Windows.Forms.Label();
             this.button_AddEffect = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
@@ -104,7 +105,6 @@
             this.radioButton_Fuel2 = new System.Windows.Forms.RadioButton();
             this.radioButton_Fuel1 = new System.Windows.Forms.RadioButton();
             this.toolTip_Roku = new System.Windows.Forms.ToolTip(this.components);
-            this.richTextBox_MaxRankCap = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Rank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RankBranch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_RegTP)).BeginInit();
@@ -382,7 +382,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label11.Location = new System.Drawing.Point(153, 36);
+            this.label11.Location = new System.Drawing.Point(168, 36);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(37, 13);
             this.label11.TabIndex = 49;
@@ -471,6 +471,18 @@
             this.groupBox1.TabIndex = 69;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "TP and Rank";
+            // 
+            // richTextBox_MaxRankCap
+            // 
+            this.richTextBox_MaxRankCap.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.richTextBox_MaxRankCap.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox_MaxRankCap.Location = new System.Drawing.Point(6, 14);
+            this.richTextBox_MaxRankCap.Name = "richTextBox_MaxRankCap";
+            this.richTextBox_MaxRankCap.ReadOnly = true;
+            this.richTextBox_MaxRankCap.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richTextBox_MaxRankCap.Size = new System.Drawing.Size(264, 49);
+            this.richTextBox_MaxRankCap.TabIndex = 80;
+            this.richTextBox_MaxRankCap.Text = "";
             // 
             // numericUpDown_AE
             // 
@@ -638,12 +650,13 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.textBox_Power);
+            this.groupBox4.Controls.Add(this.label11);
             this.groupBox4.Controls.Add(this.checkBox_EffectType);
             this.groupBox4.Controls.Add(this.button_DownEffect);
             this.groupBox4.Controls.Add(this.button_UpEffect);
             this.groupBox4.Controls.Add(this.button_UpgradeEff);
             this.groupBox4.Controls.Add(this.checkBox_AutoCalc);
-            this.groupBox4.Controls.Add(this.textBox_Power);
             this.groupBox4.Controls.Add(this.label_MinRank);
             this.groupBox4.Controls.Add(this.button_AddEffect);
             this.groupBox4.Controls.Add(this.label17);
@@ -653,13 +666,26 @@
             this.groupBox4.Controls.Add(this.button_EffectRemove);
             this.groupBox4.Controls.Add(this.checkBox_NA);
             this.groupBox4.Controls.Add(this.listView_Effects);
-            this.groupBox4.Controls.Add(this.label11);
             this.groupBox4.Location = new System.Drawing.Point(12, 308);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(435, 279);
             this.groupBox4.TabIndex = 72;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Effects";
+            // 
+            // textBox_Power
+            // 
+            this.textBox_Power.Location = new System.Drawing.Point(135, 33);
+            this.textBox_Power.Name = "textBox_Power";
+            this.textBox_Power.Size = new System.Drawing.Size(27, 20);
+            this.textBox_Power.TabIndex = 112;
+            this.textBox_Power.Text = "0";
+            this.textBox_Power.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolTip_Roku.SetToolTip(this.textBox_Power, "Power has been calculated to the best of its ability. Only edit if you\'re sure it" +
+        "\'s incorrect.");
+            this.toolTips.SetToolTip(this.textBox_Power, "Power has been calculated to the best of its ability. Only edit if you\'re sure it" +
+        "\'s incorrect.");
+            this.textBox_Power.TextChanged += new System.EventHandler(this.textBox_Power_TextChanged);
             // 
             // checkBox_EffectType
             // 
@@ -676,7 +702,7 @@
             // button_DownEffect
             // 
             this.button_DownEffect.Image = ((System.Drawing.Image)(resources.GetObject("button_DownEffect.Image")));
-            this.button_DownEffect.Location = new System.Drawing.Point(162, 248);
+            this.button_DownEffect.Location = new System.Drawing.Point(94, 248);
             this.button_DownEffect.Name = "button_DownEffect";
             this.button_DownEffect.Size = new System.Drawing.Size(26, 26);
             this.button_DownEffect.TabIndex = 116;
@@ -686,7 +712,7 @@
             // button_UpEffect
             // 
             this.button_UpEffect.Image = ((System.Drawing.Image)(resources.GetObject("button_UpEffect.Image")));
-            this.button_UpEffect.Location = new System.Drawing.Point(130, 248);
+            this.button_UpEffect.Location = new System.Drawing.Point(62, 248);
             this.button_UpEffect.Name = "button_UpEffect";
             this.button_UpEffect.Size = new System.Drawing.Size(26, 26);
             this.button_UpEffect.TabIndex = 115;
@@ -695,7 +721,7 @@
             // 
             // button_UpgradeEff
             // 
-            this.button_UpgradeEff.Location = new System.Drawing.Point(358, 250);
+            this.button_UpgradeEff.Location = new System.Drawing.Point(285, 250);
             this.button_UpgradeEff.Name = "button_UpgradeEff";
             this.button_UpgradeEff.Size = new System.Drawing.Size(69, 23);
             this.button_UpgradeEff.TabIndex = 114;
@@ -710,39 +736,25 @@
             this.checkBox_AutoCalc.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox_AutoCalc.Location = new System.Drawing.Point(11, 17);
             this.checkBox_AutoCalc.Name = "checkBox_AutoCalc";
-            this.checkBox_AutoCalc.Size = new System.Drawing.Size(95, 17);
+            this.checkBox_AutoCalc.Size = new System.Drawing.Size(128, 17);
             this.checkBox_AutoCalc.TabIndex = 113;
-            this.checkBox_AutoCalc.Text = "Auto Calculate";
+            this.checkBox_AutoCalc.Text = "Auto Calculate Power";
             this.toolTips.SetToolTip(this.checkBox_AutoCalc, "WARNING: Checking this will clear all Effects.");
             this.checkBox_AutoCalc.UseVisualStyleBackColor = true;
-            // 
-            // textBox_Power
-            // 
-            this.textBox_Power.Location = new System.Drawing.Point(120, 33);
-            this.textBox_Power.Name = "textBox_Power";
-            this.textBox_Power.Size = new System.Drawing.Size(27, 20);
-            this.textBox_Power.TabIndex = 112;
-            this.textBox_Power.Text = "0";
-            this.textBox_Power.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip_Roku.SetToolTip(this.textBox_Power, "Power has been calculated to the best of its ability. Only edit if you\'re sure it" +
-        "\'s incorrect.");
-            this.toolTips.SetToolTip(this.textBox_Power, "Power has been calculated to the best of its ability. Only edit if you\'re sure it" +
-        "\'s incorrect.");
-            this.textBox_Power.TextChanged += new System.EventHandler(this.textBox_Power_TextChanged);
             // 
             // label_MinRank
             // 
             this.label_MinRank.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label_MinRank.Location = new System.Drawing.Point(4, 252);
+            this.label_MinRank.Location = new System.Drawing.Point(205, 252);
             this.label_MinRank.Name = "label_MinRank";
-            this.label_MinRank.Size = new System.Drawing.Size(120, 18);
+            this.label_MinRank.Size = new System.Drawing.Size(79, 18);
             this.label_MinRank.TabIndex = 111;
             this.label_MinRank.Text = "[Min Rank: 0]";
             this.label_MinRank.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // button_AddEffect
             // 
-            this.button_AddEffect.Location = new System.Drawing.Point(283, 250);
+            this.button_AddEffect.Location = new System.Drawing.Point(359, 250);
             this.button_AddEffect.Name = "button_AddEffect";
             this.button_AddEffect.Size = new System.Drawing.Size(69, 23);
             this.button_AddEffect.TabIndex = 106;
@@ -804,7 +816,7 @@
             // 
             // button_EffectRemove
             // 
-            this.button_EffectRemove.Location = new System.Drawing.Point(208, 250);
+            this.button_EffectRemove.Location = new System.Drawing.Point(126, 250);
             this.button_EffectRemove.Name = "button_EffectRemove";
             this.button_EffectRemove.Size = new System.Drawing.Size(69, 23);
             this.button_EffectRemove.TabIndex = 104;
@@ -1067,18 +1079,6 @@
             this.toolTip_Roku.AutoPopDelay = 10000;
             this.toolTip_Roku.InitialDelay = 50;
             this.toolTip_Roku.ReshowDelay = 100;
-            // 
-            // richTextBox_MaxRankCap
-            // 
-            this.richTextBox_MaxRankCap.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.richTextBox_MaxRankCap.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox_MaxRankCap.Location = new System.Drawing.Point(6, 14);
-            this.richTextBox_MaxRankCap.Name = "richTextBox_MaxRankCap";
-            this.richTextBox_MaxRankCap.ReadOnly = true;
-            this.richTextBox_MaxRankCap.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_MaxRankCap.Size = new System.Drawing.Size(264, 49);
-            this.richTextBox_MaxRankCap.TabIndex = 80;
-            this.richTextBox_MaxRankCap.Text = "";
             // 
             // Add_Technique
             // 

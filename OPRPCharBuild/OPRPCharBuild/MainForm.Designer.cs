@@ -3640,13 +3640,14 @@
             // 
             // richTextBox_Template
             // 
+            this.richTextBox_Template.BackColor = System.Drawing.SystemColors.Window;
             this.richTextBox_Template.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.richTextBox_Template.Location = new System.Drawing.Point(9, 83);
             this.richTextBox_Template.Name = "richTextBox_Template";
-            this.richTextBox_Template.ReadOnly = true;
             this.richTextBox_Template.Size = new System.Drawing.Size(815, 322);
             this.richTextBox_Template.TabIndex = 11;
             this.richTextBox_Template.Text = "";
+            this.richTextBox_Template.TextChanged += new System.EventHandler(this.richTextBox_Template_TextChanged);
             // 
             // groupBox_Template
             // 
