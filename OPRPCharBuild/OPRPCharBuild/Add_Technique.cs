@@ -754,10 +754,6 @@ namespace OPRPCharBuild
 					richTextBox_DF.Text = "";
 					richTextBox_DF.Text += DF.name + " [" + DF.type + "]\n\n";
 					richTextBox_DF.Text += DF.description;
-					if (!string.IsNullOrWhiteSpace(DF.freeEffect)) {
-                        richTextBox_DF.Text += "\n\nEffect: (" + DF.freeEffect + ")";
-                    }
-					else { richTextBox_DF.Text += "(No T1/T2 Free Effect)"; }
 					checkBox_DFTechEnable.Enabled = true;
 				}
 			}

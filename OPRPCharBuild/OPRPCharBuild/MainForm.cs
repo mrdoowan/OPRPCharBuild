@@ -205,8 +205,7 @@ namespace OPRPCharBuild
             return new DevilFruit(textBox_DFName.Text,
                 comboBox_DFType.Text,
                 comboBox_DFTier.Text,
-                richTextBox_DFDesc.Text,
-                textBox_DFEffect.Text);
+                richTextBox_DFDesc.Text);
         }
 
         #endregion
@@ -2195,7 +2194,6 @@ namespace OPRPCharBuild
 			comboBox_DFType.SelectedIndex = -1;
             comboBox_DFTier.SelectedIndex = -1;
 			richTextBox_DFDesc.Clear();
-			textBox_DFEffect.Clear();
 			// Stats
 			numericUpDown_SDEarned.Value = 0;
 			numericUpDown_SDintoStats.Value = 0;
@@ -2293,11 +2291,7 @@ namespace OPRPCharBuild
 				listView_Weaponry,
 				listView_Items,
 				textBox_Beli.Text,
-				textBox_DFName.Text,
-				comboBox_DFType.Text,
-                comboBox_DFTier.Text,
-				richTextBox_DFDesc.Text,
-				textBox_DFEffect.Text
+                makeDFClass()
 				);
 			profile.saveCharStats(
 				(int)numericUpDown_SDEarned.Value,
@@ -2374,8 +2368,7 @@ namespace OPRPCharBuild
 			  ref textBox_DFName,
 			  ref comboBox_DFType,
               ref comboBox_DFTier,
-			  ref richTextBox_DFDesc,
-			  ref textBox_DFEffect
+			  ref richTextBox_DFDesc
 			  );
 			}
 
@@ -2604,7 +2597,7 @@ namespace OPRPCharBuild
 			CustomTags.Add(52, textBox_DFName.Text);
 			CustomTags.Add(53, comboBox_DFType.Text);
 			CustomTags.Add(54, richTextBox_DFDesc.Text);
-			CustomTags.Add(55, textBox_DFEffect.Text);
+			// 55 is Devil Fruit Free Effect [LEGACY]
 			CustomTags.Add(56, textBox_RegTPUsed.Text);
 			CustomTags.Add(57, textBox_RegTPTotal.Text);
 			CustomTags.Add(58, label_RegTPCalc.Text);

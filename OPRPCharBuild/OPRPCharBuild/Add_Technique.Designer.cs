@@ -135,7 +135,7 @@
             this.textBox_Name.Location = new System.Drawing.Point(122, 6);
             this.textBox_Name.Name = "textBox_Name";
             this.textBox_Name.Size = new System.Drawing.Size(325, 20);
-            this.textBox_Name.TabIndex = 28;
+            this.textBox_Name.TabIndex = 0;
             // 
             // label1
             // 
@@ -162,7 +162,7 @@
             0});
             this.numericUpDown_Rank.Name = "numericUpDown_Rank";
             this.numericUpDown_Rank.Size = new System.Drawing.Size(42, 20);
-            this.numericUpDown_Rank.TabIndex = 30;
+            this.numericUpDown_Rank.TabIndex = 3;
             this.numericUpDown_Rank.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown_Rank.Value = new decimal(new int[] {
             1,
@@ -191,7 +191,7 @@
             this.comboBox_AffectRank.Name = "comboBox_AffectRank";
             this.comboBox_AffectRank.Size = new System.Drawing.Size(153, 21);
             this.comboBox_AffectRank.Sorted = true;
-            this.comboBox_AffectRank.TabIndex = 32;
+            this.comboBox_AffectRank.TabIndex = 0;
             this.toolTip_Roku.SetToolTip(this.comboBox_AffectRank, "You can\'t use any Mastery Trait with a Rokushiki Technique.");
             this.comboBox_AffectRank.SelectedIndexChanged += new System.EventHandler(this.comboBox_AffectRank_SelectedIndexChanged);
             // 
@@ -200,7 +200,7 @@
             this.checkBox_Branched.Location = new System.Drawing.Point(6, 18);
             this.checkBox_Branched.Name = "checkBox_Branched";
             this.checkBox_Branched.Size = new System.Drawing.Size(72, 46);
-            this.checkBox_Branched.TabIndex = 34;
+            this.checkBox_Branched.TabIndex = 0;
             this.checkBox_Branched.Text = "Tech Branched";
             this.checkBox_Branched.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.toolTip_Roku.SetToolTip(this.checkBox_Branched, "Unchecking this box signifies this is a Base Rokushiki Technique.");
@@ -223,7 +223,7 @@
             this.textBox_TechBranched.Location = new System.Drawing.Point(187, 44);
             this.textBox_TechBranched.Name = "textBox_TechBranched";
             this.textBox_TechBranched.Size = new System.Drawing.Size(242, 20);
-            this.textBox_TechBranched.TabIndex = 36;
+            this.textBox_TechBranched.TabIndex = 2;
             this.textBox_TechBranched.TextChanged += new System.EventHandler(this.textBox_TechBranched_TextChanged);
             // 
             // label5
@@ -247,7 +247,7 @@
             0});
             this.numericUpDown_RankBranch.Name = "numericUpDown_RankBranch";
             this.numericUpDown_RankBranch.Size = new System.Drawing.Size(42, 20);
-            this.numericUpDown_RankBranch.TabIndex = 38;
+            this.numericUpDown_RankBranch.TabIndex = 1;
             this.numericUpDown_RankBranch.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown_RankBranch.ValueChanged += new System.EventHandler(this.numericUpDown_RankBranch_ValueChanged);
             // 
@@ -272,7 +272,7 @@
             0});
             this.numericUpDown_RegTP.Name = "numericUpDown_RegTP";
             this.numericUpDown_RegTP.Size = new System.Drawing.Size(42, 20);
-            this.numericUpDown_RegTP.TabIndex = 40;
+            this.numericUpDown_RegTP.TabIndex = 4;
             this.numericUpDown_RegTP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label7
@@ -297,7 +297,7 @@
             0});
             this.numericUpDown_SpTP.Name = "numericUpDown_SpTP";
             this.numericUpDown_SpTP.Size = new System.Drawing.Size(42, 20);
-            this.numericUpDown_SpTP.TabIndex = 42;
+            this.numericUpDown_SpTP.TabIndex = 5;
             this.numericUpDown_SpTP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown_SpTP.ValueChanged += new System.EventHandler(this.numericUpDown_SpTP_ValueChanged);
             // 
@@ -323,7 +323,7 @@
             this.comboBox_SpTrait.Name = "comboBox_SpTrait";
             this.comboBox_SpTrait.Size = new System.Drawing.Size(153, 21);
             this.comboBox_SpTrait.Sorted = true;
-            this.comboBox_SpTrait.TabIndex = 44;
+            this.comboBox_SpTrait.TabIndex = 1;
             this.comboBox_SpTrait.SelectedIndexChanged += new System.EventHandler(this.comboBox_SpTrait_SelectedIndexChanged);
             // 
             // label9
@@ -346,7 +346,7 @@
             this.comboBox_Type.Location = new System.Drawing.Point(52, 42);
             this.comboBox_Type.Name = "comboBox_Type";
             this.comboBox_Type.Size = new System.Drawing.Size(153, 21);
-            this.comboBox_Type.TabIndex = 46;
+            this.comboBox_Type.TabIndex = 3;
             // 
             // comboBox_Range
             // 
@@ -364,7 +364,7 @@
             this.comboBox_Range.Location = new System.Drawing.Point(273, 42);
             this.comboBox_Range.Name = "comboBox_Range";
             this.comboBox_Range.Size = new System.Drawing.Size(153, 21);
-            this.comboBox_Range.TabIndex = 48;
+            this.comboBox_Range.TabIndex = 4;
             this.toolTips.SetToolTip(this.comboBox_Range, "Selecting a Range will load its Effects. Press \"Add\" after selecting.");
             this.comboBox_Range.SelectedIndexChanged += new System.EventHandler(this.comboBox_Range_SelectedIndexChanged);
             // 
@@ -385,7 +385,7 @@
             this.label11.Location = new System.Drawing.Point(168, 36);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(37, 13);
-            this.label11.TabIndex = 49;
+            this.label11.TabIndex = 2;
             this.label11.Text = "Power";
             // 
             // label12
@@ -425,7 +425,7 @@
             this.richTextBox_Desc.Name = "richTextBox_Desc";
             this.richTextBox_Desc.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.richTextBox_Desc.Size = new System.Drawing.Size(357, 150);
-            this.richTextBox_Desc.TabIndex = 60;
+            this.richTextBox_Desc.TabIndex = 2;
             this.richTextBox_Desc.Text = "";
             // 
             // button_AddTech
@@ -433,7 +433,7 @@
             this.button_AddTech.Location = new System.Drawing.Point(807, 593);
             this.button_AddTech.Name = "button_AddTech";
             this.button_AddTech.Size = new System.Drawing.Size(75, 23);
-            this.button_AddTech.TabIndex = 61;
+            this.button_AddTech.TabIndex = 2;
             this.button_AddTech.Text = "Add";
             this.button_AddTech.UseVisualStyleBackColor = true;
             this.button_AddTech.Click += new System.EventHandler(this.button_AddTech_Click);
@@ -444,7 +444,7 @@
             this.label18.Location = new System.Drawing.Point(581, 598);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(220, 13);
-            this.label18.TabIndex = 64;
+            this.label18.TabIndex = 1;
             this.label18.Text = "You can cancel changes by closing the form.";
             // 
             // groupBox1
@@ -523,7 +523,7 @@
             this.button_Rokushiki.Location = new System.Drawing.Point(276, 14);
             this.button_Rokushiki.Name = "button_Rokushiki";
             this.button_Rokushiki.Size = new System.Drawing.Size(153, 23);
-            this.button_Rokushiki.TabIndex = 75;
+            this.button_Rokushiki.TabIndex = 2;
             this.button_Rokushiki.Text = "Load Rokushiki Technique";
             this.toolTips.SetToolTip(this.button_Rokushiki, "Rokushiki Techs require a Minimum Rank 22");
             this.button_Rokushiki.UseVisualStyleBackColor = true;
@@ -569,7 +569,7 @@
             this.button_ResetStats.Location = new System.Drawing.Point(133, 107);
             this.button_ResetStats.Name = "button_ResetStats";
             this.button_ResetStats.Size = new System.Drawing.Size(72, 21);
-            this.button_ResetStats.TabIndex = 119;
+            this.button_ResetStats.TabIndex = 7;
             this.button_ResetStats.Text = "Reset Stats";
             this.button_ResetStats.UseVisualStyleBackColor = true;
             this.button_ResetStats.Click += new System.EventHandler(this.button_ResetStats_Click);
@@ -592,7 +592,7 @@
             this.button_LoadStats.Location = new System.Drawing.Point(52, 107);
             this.button_LoadStats.Name = "button_LoadStats";
             this.button_LoadStats.Size = new System.Drawing.Size(72, 21);
-            this.button_LoadStats.TabIndex = 117;
+            this.button_LoadStats.TabIndex = 6;
             this.button_LoadStats.Text = "Load Stats";
             this.button_LoadStats.UseVisualStyleBackColor = true;
             this.button_LoadStats.Click += new System.EventHandler(this.button_LoadStats_Click);
@@ -606,7 +606,7 @@
             this.comboBox_StatOpt.Location = new System.Drawing.Point(52, 80);
             this.comboBox_StatOpt.Name = "comboBox_StatOpt";
             this.comboBox_StatOpt.Size = new System.Drawing.Size(153, 21);
-            this.comboBox_StatOpt.TabIndex = 116;
+            this.comboBox_StatOpt.TabIndex = 5;
             this.toolTips.SetToolTip(this.comboBox_StatOpt, "Selecting a Range will load its Effects. Press \"Add\" after selecting.");
             // 
             // checkBox_Inventor
@@ -616,7 +616,7 @@
             this.checkBox_Inventor.Location = new System.Drawing.Point(324, 19);
             this.checkBox_Inventor.Name = "checkBox_Inventor";
             this.checkBox_Inventor.Size = new System.Drawing.Size(102, 17);
-            this.checkBox_Inventor.TabIndex = 114;
+            this.checkBox_Inventor.TabIndex = 2;
             this.checkBox_Inventor.Text = "Inventor Primary";
             this.toolTips.SetToolTip(this.checkBox_Inventor, "Check this to lower the AoE costs");
             this.checkBox_Inventor.UseVisualStyleBackColor = true;
@@ -629,7 +629,7 @@
             this.checkBox_Marksman.Location = new System.Drawing.Point(206, 19);
             this.checkBox_Marksman.Name = "checkBox_Marksman";
             this.checkBox_Marksman.Size = new System.Drawing.Size(112, 17);
-            this.checkBox_Marksman.TabIndex = 113;
+            this.checkBox_Marksman.TabIndex = 1;
             this.checkBox_Marksman.Text = "Marksman Primary";
             this.toolTips.SetToolTip(this.checkBox_Marksman, "Check this to lower the Range costs.");
             this.checkBox_Marksman.UseVisualStyleBackColor = true;
@@ -643,7 +643,7 @@
             this.checkBox_SigTech.Location = new System.Drawing.Point(96, 19);
             this.checkBox_SigTech.Name = "checkBox_SigTech";
             this.checkBox_SigTech.Size = new System.Drawing.Size(99, 17);
-            this.checkBox_SigTech.TabIndex = 84;
+            this.checkBox_SigTech.TabIndex = 0;
             this.checkBox_SigTech.Text = "Signature Tech";
             this.checkBox_SigTech.UseVisualStyleBackColor = true;
             this.checkBox_SigTech.CheckedChanged += new System.EventHandler(this.checkBox_SigTech_CheckedChanged);
@@ -695,7 +695,7 @@
             this.checkBox_EffectType.Location = new System.Drawing.Point(260, 39);
             this.checkBox_EffectType.Name = "checkBox_EffectType";
             this.checkBox_EffectType.Size = new System.Drawing.Size(94, 17);
-            this.checkBox_EffectType.TabIndex = 64;
+            this.checkBox_EffectType.TabIndex = 3;
             this.checkBox_EffectType.Text = "General Effect";
             this.checkBox_EffectType.UseVisualStyleBackColor = true;
             // 
@@ -705,7 +705,7 @@
             this.button_DownEffect.Location = new System.Drawing.Point(94, 248);
             this.button_DownEffect.Name = "button_DownEffect";
             this.button_DownEffect.Size = new System.Drawing.Size(26, 26);
-            this.button_DownEffect.TabIndex = 116;
+            this.button_DownEffect.TabIndex = 6;
             this.button_DownEffect.UseVisualStyleBackColor = true;
             this.button_DownEffect.Click += new System.EventHandler(this.button_DownEffect_Click);
             // 
@@ -715,7 +715,7 @@
             this.button_UpEffect.Location = new System.Drawing.Point(62, 248);
             this.button_UpEffect.Name = "button_UpEffect";
             this.button_UpEffect.Size = new System.Drawing.Size(26, 26);
-            this.button_UpEffect.TabIndex = 115;
+            this.button_UpEffect.TabIndex = 5;
             this.button_UpEffect.UseVisualStyleBackColor = true;
             this.button_UpEffect.Click += new System.EventHandler(this.button_UpEffect_Click);
             // 
@@ -724,7 +724,7 @@
             this.button_UpgradeEff.Location = new System.Drawing.Point(285, 250);
             this.button_UpgradeEff.Name = "button_UpgradeEff";
             this.button_UpgradeEff.Size = new System.Drawing.Size(69, 23);
-            this.button_UpgradeEff.TabIndex = 114;
+            this.button_UpgradeEff.TabIndex = 8;
             this.button_UpgradeEff.Text = "Upgrade";
             this.button_UpgradeEff.UseVisualStyleBackColor = true;
             this.button_UpgradeEff.Click += new System.EventHandler(this.button_UpgradeEff_Click);
@@ -737,7 +737,7 @@
             this.checkBox_AutoCalc.Location = new System.Drawing.Point(11, 17);
             this.checkBox_AutoCalc.Name = "checkBox_AutoCalc";
             this.checkBox_AutoCalc.Size = new System.Drawing.Size(128, 17);
-            this.checkBox_AutoCalc.TabIndex = 113;
+            this.checkBox_AutoCalc.TabIndex = 0;
             this.checkBox_AutoCalc.Text = "Auto Calculate Power";
             this.toolTips.SetToolTip(this.checkBox_AutoCalc, "WARNING: Checking this will clear all Effects.");
             this.checkBox_AutoCalc.UseVisualStyleBackColor = true;
@@ -757,7 +757,7 @@
             this.button_AddEffect.Location = new System.Drawing.Point(359, 250);
             this.button_AddEffect.Name = "button_AddEffect";
             this.button_AddEffect.Size = new System.Drawing.Size(69, 23);
-            this.button_AddEffect.TabIndex = 106;
+            this.button_AddEffect.TabIndex = 9;
             this.button_AddEffect.Text = "Add Effect";
             this.button_AddEffect.UseVisualStyleBackColor = true;
             this.button_AddEffect.Click += new System.EventHandler(this.button_AddEffect_Click);
@@ -783,7 +783,7 @@
             0});
             this.numericUpDown_Cost.Name = "numericUpDown_Cost";
             this.numericUpDown_Cost.Size = new System.Drawing.Size(45, 20);
-            this.numericUpDown_Cost.TabIndex = 108;
+            this.numericUpDown_Cost.TabIndex = 3;
             this.numericUpDown_Cost.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolTips.SetToolTip(this.numericUpDown_Cost, "REMINDER: Only change this value if different Tiers or utilizing Rokushiki Master" +
         "");
@@ -807,7 +807,7 @@
             this.comboBox_Effect.Location = new System.Drawing.Point(260, 13);
             this.comboBox_Effect.Name = "comboBox_Effect";
             this.comboBox_Effect.Size = new System.Drawing.Size(169, 21);
-            this.comboBox_Effect.TabIndex = 105;
+            this.comboBox_Effect.TabIndex = 4;
             this.comboBox_Effect.Text = "Effects";
             this.toolTip_Roku.SetToolTip(this.comboBox_Effect, "Do NOT add Effects that the Rokushiki Tech already contains by default. You are a" +
         "ble to upgrade, though.");
@@ -819,7 +819,7 @@
             this.button_EffectRemove.Location = new System.Drawing.Point(126, 250);
             this.button_EffectRemove.Name = "button_EffectRemove";
             this.button_EffectRemove.Size = new System.Drawing.Size(69, 23);
-            this.button_EffectRemove.TabIndex = 104;
+            this.button_EffectRemove.TabIndex = 7;
             this.button_EffectRemove.Text = "Remove";
             this.button_EffectRemove.UseVisualStyleBackColor = true;
             this.button_EffectRemove.Click += new System.EventHandler(this.button_EffectRemove_Click);
@@ -830,7 +830,7 @@
             this.checkBox_NA.Location = new System.Drawing.Point(11, 35);
             this.checkBox_NA.Name = "checkBox_NA";
             this.checkBox_NA.Size = new System.Drawing.Size(79, 17);
-            this.checkBox_NA.TabIndex = 52;
+            this.checkBox_NA.TabIndex = 1;
             this.checkBox_NA.Text = "N/A Power";
             this.toolTips.SetToolTip(this.checkBox_NA, "WARNING: Checking this will clear all Effects.");
             this.checkBox_NA.UseVisualStyleBackColor = true;
@@ -870,7 +870,7 @@
             this.richTextBox_CustNotes.Name = "richTextBox_CustNotes";
             this.richTextBox_CustNotes.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.richTextBox_CustNotes.Size = new System.Drawing.Size(357, 62);
-            this.richTextBox_CustNotes.TabIndex = 63;
+            this.richTextBox_CustNotes.TabIndex = 1;
             this.richTextBox_CustNotes.Text = "";
             // 
             // label20
@@ -892,7 +892,7 @@
             this.richTextBox_Note.ReadOnly = true;
             this.richTextBox_Note.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.richTextBox_Note.Size = new System.Drawing.Size(357, 56);
-            this.richTextBox_Note.TabIndex = 61;
+            this.richTextBox_Note.TabIndex = 0;
             this.richTextBox_Note.Text = "";
             // 
             // groupBox6
@@ -930,7 +930,7 @@
             this.checkBox_DFTechEnable.Location = new System.Drawing.Point(6, 19);
             this.checkBox_DFTechEnable.Name = "checkBox_DFTechEnable";
             this.checkBox_DFTechEnable.Size = new System.Drawing.Size(130, 17);
-            this.checkBox_DFTechEnable.TabIndex = 80;
+            this.checkBox_DFTechEnable.TabIndex = 0;
             this.checkBox_DFTechEnable.Text = "Enable DF Technique";
             this.toolTips.SetToolTip(this.checkBox_DFTechEnable, "Check this box if your Technique uses a DF Power in any way.");
             this.checkBox_DFTechEnable.UseVisualStyleBackColor = true;
@@ -943,7 +943,7 @@
             this.checkBox_Hybrid.Location = new System.Drawing.Point(6, 114);
             this.checkBox_Hybrid.Name = "checkBox_Hybrid";
             this.checkBox_Hybrid.Size = new System.Drawing.Size(106, 17);
-            this.checkBox_Hybrid.TabIndex = 79;
+            this.checkBox_Hybrid.TabIndex = 4;
             this.checkBox_Hybrid.Text = "Hybrid Transform";
             this.checkBox_Hybrid.UseVisualStyleBackColor = true;
             this.checkBox_Hybrid.CheckedChanged += new System.EventHandler(this.checkBox_Hybrid_CheckedChanged);
@@ -955,7 +955,7 @@
             this.checkBox_Full.Location = new System.Drawing.Point(6, 91);
             this.checkBox_Full.Name = "checkBox_Full";
             this.checkBox_Full.Size = new System.Drawing.Size(92, 17);
-            this.checkBox_Full.TabIndex = 78;
+            this.checkBox_Full.TabIndex = 3;
             this.checkBox_Full.Text = "Full Transform";
             this.checkBox_Full.UseVisualStyleBackColor = true;
             this.checkBox_Full.CheckedChanged += new System.EventHandler(this.checkBox_Full_CheckedChanged);
@@ -967,7 +967,7 @@
             this.checkBox_ZoanSig.Location = new System.Drawing.Point(6, 68);
             this.checkBox_ZoanSig.Name = "checkBox_ZoanSig";
             this.checkBox_ZoanSig.Size = new System.Drawing.Size(99, 17);
-            this.checkBox_ZoanSig.TabIndex = 77;
+            this.checkBox_ZoanSig.TabIndex = 2;
             this.checkBox_ZoanSig.Text = "Zoan Signature";
             this.checkBox_ZoanSig.UseVisualStyleBackColor = true;
             this.checkBox_ZoanSig.CheckedChanged += new System.EventHandler(this.checkBox_ZoanSig_CheckedChanged);
@@ -979,7 +979,7 @@
             this.checkBox_DFRank4.Location = new System.Drawing.Point(6, 45);
             this.checkBox_DFRank4.Name = "checkBox_DFRank4";
             this.checkBox_DFRank4.Size = new System.Drawing.Size(85, 17);
-            this.checkBox_DFRank4.TabIndex = 76;
+            this.checkBox_DFRank4.TabIndex = 1;
             this.checkBox_DFRank4.Text = "Free Rank 4";
             this.checkBox_DFRank4.UseVisualStyleBackColor = true;
             this.checkBox_DFRank4.CheckedChanged += new System.EventHandler(this.checkBox_DFRank4_CheckedChanged);
@@ -1041,7 +1041,7 @@
             this.radioButton_Fuel3.Location = new System.Drawing.Point(339, 20);
             this.radioButton_Fuel3.Name = "radioButton_Fuel3";
             this.radioButton_Fuel3.Size = new System.Drawing.Size(90, 17);
-            this.radioButton_Fuel3.TabIndex = 118;
+            this.radioButton_Fuel3.TabIndex = 2;
             this.radioButton_Fuel3.TabStop = true;
             this.radioButton_Fuel3.Text = "3 Fuel Stacks";
             this.radioButton_Fuel3.UseVisualStyleBackColor = true;
@@ -1054,7 +1054,7 @@
             this.radioButton_Fuel2.Location = new System.Drawing.Point(243, 20);
             this.radioButton_Fuel2.Name = "radioButton_Fuel2";
             this.radioButton_Fuel2.Size = new System.Drawing.Size(90, 17);
-            this.radioButton_Fuel2.TabIndex = 117;
+            this.radioButton_Fuel2.TabIndex = 1;
             this.radioButton_Fuel2.TabStop = true;
             this.radioButton_Fuel2.Text = "2 Fuel Stacks";
             this.radioButton_Fuel2.UseVisualStyleBackColor = true;
@@ -1067,7 +1067,7 @@
             this.radioButton_Fuel1.Location = new System.Drawing.Point(152, 20);
             this.radioButton_Fuel1.Name = "radioButton_Fuel1";
             this.radioButton_Fuel1.Size = new System.Drawing.Size(85, 17);
-            this.radioButton_Fuel1.TabIndex = 116;
+            this.radioButton_Fuel1.TabIndex = 0;
             this.radioButton_Fuel1.TabStop = true;
             this.radioButton_Fuel1.Text = "1 Fuel Stack";
             this.radioButton_Fuel1.UseVisualStyleBackColor = true;

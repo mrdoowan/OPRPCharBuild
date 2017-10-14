@@ -276,11 +276,7 @@ namespace OPRPCharBuild
             ListView weapon_,
             ListView items_,
             string beli_,
-            string DFName_,
-            string DFType_,
-            string DFTier_,
-            string DFDesc_,
-            string DFEffe_) {
+            DevilFruit DF_) {
             StringBuilder sb = new StringBuilder();
             sb.Append(COMBAT + comb_ + SPLIT1);
             sb.Append(TAG_STA_WEAPON);
@@ -298,10 +294,10 @@ namespace OPRPCharBuild
             }
             sb.Append(TAG_END_ITEM);
             sb.Append(BELI + beli_ + SPLIT1);
-            sb.Append(DF_NAME + DFName_ + SPLIT1);
-            sb.Append(DF_TYPE + DFType_ + SPLIT1);
-            sb.Append(DF_TIER + DFTier_ + SPLIT1);
-            sb.Append(DF_DESC + DFDesc_ + SPLIT1);
+            sb.Append(DF_NAME + DF_.name + SPLIT1);
+            sb.Append(DF_TYPE + DF_.type + SPLIT1);
+            sb.Append(DF_TIER + DF_.tier + SPLIT1);
+            sb.Append(DF_DESC + DF_.description + SPLIT1);
             // Put into String
             data += sb.ToString();
         }
@@ -586,8 +582,7 @@ namespace OPRPCharBuild
             ref TextBox DFName,
             ref ComboBox DFType,
             ref ComboBox DFTier,
-            ref RichTextBox DFDesc,
-            ref TextBox DFEffe) {
+            ref RichTextBox DFDesc) {
             combat.Text = getParse(COMBAT, SPLIT1);
             string weaponStr = getParse(TAG_STA_WEAPON, TAG_END_WEAPON);
             string[] weaponArr = splitStringbyString(weaponStr, SPLIT2);
