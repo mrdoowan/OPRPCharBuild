@@ -73,7 +73,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
@@ -172,6 +172,7 @@
       <DependentUpon>SelectOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Serialize.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Sheet.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -316,51 +316,41 @@ namespace OPRPCharBuild
             label_SDonAP.Text = SD + " SD spent on ";
         }
 
+        // For below function
+        private const int CONV_CAP_1 = 200;
+        private const int CONV_CAP_2 = 600;
+        private const int CONV_CAP_3 = 1000;
+
         // Calculating Stat Points
         private void Update_Stat_Points() {
             int SD_in = (int)numericUpDown_SDintoStats.Value;
             string calc = "[32";
             int SP = 32;
-            if (SD_in >= 0 && SD_in <= 150) {
-                // 0-150SD is 1:1
+            if (SD_in >= 0 && SD_in <= CONV_CAP_1) {
+                // 1:1
                 SP += SD_in;
                 calc += " + " + SD_in;
             }
-            else if (SD_in > 150 && SD_in <= 250) {
-                // 151-250SD is 1.5:1
-                int remain = SD_in - 150;
-                int convert = (int)((double)remain / 1.5);
-                SP += 150 + convert;
-                calc += " + 150 + " + convert + " (" + remain + "/1.5)";
-                // i.e. Calculations: 32 + 150 + 66(100/1.5)
-            }
-            else if (SD_in > 250 && SD_in <= 350) {
-                // 251-350SD is 2:1
-                int remain = SD_in - 150 - 100; // this is in SD
+            else if (SD_in > CONV_CAP_1 && SD_in <= CONV_CAP_2) {
+                // 2:1
+                int remain = SD_in - CONV_CAP_1; // this is in SD
                 int convert = remain / 2;
-                SP += 150 + 66 + convert;
-                calc += " + 150 + 66 (100/1.5) + " + convert + " (" + remain + "/2)";
+                SP += 200 + convert;
+                calc += " + 200 + " + convert + " (" + remain + "/2)";
             }
-            else if (SD_in > 350 && SD_in <= 800) {
-                // 351-800 SD is 3:1
-                int remain = SD_in - 150 - 100 - 100;
+            else if (SD_in > CONV_CAP_2 && SD_in <= CONV_CAP_3) {
+                // 4:1
+                int remain = SD_in - CONV_CAP_1 - CONV_CAP_2;
                 int convert = remain / 3;
-                SP += 150 + 66 + 50 + convert;
-                calc += " + 150 + 66 (100/1.5) + 50 (100/2) + " + convert + " (" + remain + "/3)";
-            }
-            else if (SD_in > 800 && SD_in <= 1200) {
-                // 801-1200 SD is 4:1
-                int remain = SD_in - 150 - 100 - 100 - 450;
-                int convert = remain / 4;
-                SP += 150 + 66 + 50 + 150 + convert;
-                calc += " + 150 + 66 (100/1.5) + 50 (100/2) + 150 (450/3) + " + convert + " (" + remain + "/4)";
+                SP += 200 + 200 + convert;
+                calc += " + 200 + 200 (400/2) + " + convert + " (" + remain + "/4)";
             }
             else {
-                // 1201+ SD is 5:1
-                int remain = SD_in - 150 - 100 - 100 - 450 - 400;
+                // 5:1
+                int remain = SD_in - CONV_CAP_1 - CONV_CAP_2 - CONV_CAP_3;
                 int convert = remain / 5;
-                SP += 150 + 66 + 50 + 150 + 100 + convert;
-                calc += " + 150 + 66 (100/1.5) + 50 (100/2) + 150 (450/3) + 100 (400/4) + " + convert + " (" + remain + "/5)";
+                SP += 200 + 200 + 100 + convert;
+                calc += " + 200 + 200 (400/2) + 100 (400/4) " + convert + " (" + remain + "/5)";
             }
             calc += ']';
             textBox_StatPoints.Text = SP.ToString();

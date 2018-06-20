@@ -18,6 +18,16 @@ Based on OPRP usernames
 
 Version History
 ---------------
+### v1.8.0
+* Updated to May 2018 patch
+
+### v1.7.0
+* Updated to July 2017 patch
+* Effects are now customizable
+* QoL update on Techniques and Categories
+* Template is now editable
+* Multiple bugfixes
+
 ### v1.6.3
 * Hotfixed Bug: Fixed broken "Delete" on Techniques
 

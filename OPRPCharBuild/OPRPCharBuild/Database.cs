@@ -181,6 +181,7 @@ namespace OPRPCharBuild
             TR_MASMIS = "Master of Misdirection",
             TR_MEDMAL = "Medical Malpractice",
             TR_MERFOL = "Merfolk",
+            TR_MINKMA = "Minkman",
             TR_NATARM = "Natural Armour",
             TR_NEWCYB = "New World Cyborg",
             TR_PERFAS = "Performance Assistant",
@@ -295,6 +296,7 @@ namespace OPRPCharBuild
             { TR_MASMIS, new Trait(TR_MASMIS, 0, 1, "Those who practice stealth to depths far greater than most, becoming far more proficient than even others of their trade. These characters may treat any environment as Natural Camouflage, and the Silent effect becomes a General Effect.") },
             { TR_MEDMAL, new Trait(TR_MEDMAL, 0, 1, "Part of knowing what is required to keep somebody healthy is knowing what will cause others to become unhealthy. Doctors who put this knowledge to practical use may make especially potent poisons. They gain special Technique Points which can only be used on toxins that harm or debuff, of the amount of half their fortune.") },
             { TR_MERFOL, new Trait(TR_MERFOL, 1, 0, "In place of legs these characters have a tail which splits down the middle while they are standing on land (For this RP's purposes, this is the at any age, not just 30+). They may breathe underwater and gain the Great Speed trait whilst submerged, and their movements underwater are completely unhindered. Spending too long out of water can fatigue them somewhat. In addition, merfolk can talk to most types of fish, but not seakings.") },
+            { TR_MINKMA, new Trait(TR_MINKMA, 2, 0, "Minks are humanoids with mammal animal features. Minks gain access to Sulong form and the technique effect Electro. They also gain attributes or natural weapons based on their species.") },
             { TR_NATARM, new Trait(TR_NATARM, 0, 1, "Through all the time spent in the forge, working on weapons, the character’s arms, up to their elbows, and their legs, up to their knees, have gained flesh that is literally as tough as iron, making them much more resistant to physical damage.") },
             { TR_NEWCYB, new Trait(TR_NEWCYB, 5, 0, "These cyborgs represent the very pinnacle of scientific achievement in the world of cybernetics, being by right more machine than human. A character must be in either the Grand Line or New World to access this kind of technology. They can be made of materials up to titanium in strength but may have built-in armor made from custom-materials. Alongside this, these cyborgs are given up to 21M Beli worth of modifications. New World Cyborgs pay 30% to upgrade weaker materials. These Cyborgs are able to create body systems that provide personal flight, self-repair, fire energy projectiles and more.\n" +
                 "[list][*]Appendages - 4.5M Beli/per\n" +
@@ -473,6 +475,7 @@ namespace OPRPCharBuild
             EFF_STBIN = "Starter Tier Bind",
             EFF_MIBIN = "Mid Tier Bind",
             EFF_HIBIN = "High Tier Bind",
+            EFF_ELECT = "Electro",
             EFF_MELEE = "Melee",
             EFF_SHORT = "Short",
             EFF_MEDIU = "Medium",
@@ -594,6 +597,8 @@ namespace OPRPCharBuild
                 "Techniques which bypass Defensive Type Techniques by transferring damage through blocks on contact or creating shockwaves that attack an opponent internally.") },
             { EFF_SPEBL, new Effect(EFF_SPEBL, false, 28, 28,
                 "Block techniques with special properties to defend against a specific type of attack. They significantly reduce damage against the chosen type regardless of the power behind them.") },
+            { EFF_ELECT, new Effect(EFF_ELECT, false, 4, 4, 
+                "Minks can channel electricity through parts of their bodies and objects in order to shock anything they touch. The greater the techique power, the greater the shock.") },
             { EFF_STBRE, new Effect(EFF_STBRE, false, 14, 14,
                 "A technique capable of breaking a single weapon or piece of armour of Starter Tier Material (i.e. Iron).") },
             { EFF_MIBRE, new Effect(EFF_MIBRE, false, 28, 28,
@@ -881,26 +886,28 @@ namespace OPRPCharBuild
             BUF_DFBUFF = "Other DF (Buff)",
             BUF_DFDEBU = "Other DF (Debuff)",
             BUF_OBHAKI = "Observation Haki",
-            BUF_CQHAKI = "King's Haki";
+            BUF_CQHAKI = "King's Haki",
+            BUF_SULONG = "Sulong";
         #endregion
 
         static private Dictionary<string, StatAlter> statDict = new Dictionary<string, StatAlter>() {
-            { BUF_WILLPO, new StatAlter(StatAlter.BUFF, true, false, false) },
-            { BUF_STANCE, new StatAlter(StatAlter.STANCE, false, true, false) },
-            { BUF_LIFRET, new StatAlter(StatAlter.STANCE, false, true, false) },
-            { BUF_POISON, new StatAlter(StatAlter.DEBUFF, false, true, true) },
-            { BUF_DRUG, new StatAlter(StatAlter.BUFF, true, true, true) },
-            { BUF_CRITHI, new StatAlter(StatAlter.DEBUFF, false, true, true) },
-            { BUF_ANASTR, new StatAlter(StatAlter.DEBUFF, false, true, true) },
-            { BUF_QUICKS, new StatAlter(StatAlter.DEBUFF, false, true, true) },
-            { BUF_PERFOR, new StatAlter(StatAlter.BUFF, true, true, false) },
-            { BUF_FOOD, new StatAlter(StatAlter.BUFF, false, true, true) },
-            { BUF_ROKUOG, new StatAlter(StatAlter.DEBUFF, false, true, true) },
-            { BUF_ZOAN, new StatAlter(StatAlter.BUFF, true, false, false) },
-            { BUF_DFBUFF, new StatAlter(StatAlter.BUFF, true, true, true) },
-            { BUF_DFDEBU, new StatAlter(StatAlter.DEBUFF, false, true, true) },
-            { BUF_OBHAKI, new StatAlter(StatAlter.BUFF, true, true, false) },
-            { BUF_CQHAKI, new StatAlter(StatAlter.DEBUFF, false, true, true) }
+            { BUF_WILLPO, new StatAlter(StatAlter.BUFF, true, false) },
+            { BUF_STANCE, new StatAlter(StatAlter.STANCE, false, false) },
+            { BUF_LIFRET, new StatAlter(StatAlter.STANCE, false, false) },
+            { BUF_POISON, new StatAlter(StatAlter.DEBUFF, false, true) },
+            { BUF_DRUG, new StatAlter(StatAlter.BUFF, true, true) },
+            { BUF_CRITHI, new StatAlter(StatAlter.DEBUFF, false, true) },
+            { BUF_ANASTR, new StatAlter(StatAlter.DEBUFF, false, true) },
+            { BUF_QUICKS, new StatAlter(StatAlter.DEBUFF, false, true) },
+            { BUF_PERFOR, new StatAlter(StatAlter.BUFF, true, false) },
+            { BUF_FOOD, new StatAlter(StatAlter.BUFF, false, true) },
+            { BUF_ROKUOG, new StatAlter(StatAlter.DEBUFF, false, true) },
+            { BUF_ZOAN, new StatAlter(StatAlter.BUFF, true, false) },
+            { BUF_DFBUFF, new StatAlter(StatAlter.BUFF, true, true) },
+            { BUF_DFDEBU, new StatAlter(StatAlter.DEBUFF, false, true) },
+            { BUF_OBHAKI, new StatAlter(StatAlter.BUFF, true, false) },
+            { BUF_CQHAKI, new StatAlter(StatAlter.DEBUFF, false, true) },
+            { BUF_SULONG, new StatAlter(StatAlter.BUFF, true, true) }
         };
 
         // Getter function of the StatAlter dictionary

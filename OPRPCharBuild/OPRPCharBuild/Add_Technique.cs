@@ -741,9 +741,12 @@ namespace OPRPCharBuild
                     effectsComboList.AddRange(Database.getCarpenterEffects());
                 }
             }
-            // Add Battle Suits trait
+            // Add Trait specific effects
             if (traitsList.Any(x => x.name == Database.TR_BATSUI)) {
                 effectsComboList.Add(Database.EFF_BSUIT);
+            }
+            if (traitsList.Any(x => x.name == Database.TR_MINKMA)) {
+                effectsComboList.Add(Database.EFF_ELECT);
             }
             // now AddRange into the combobox
             comboBox_Effect.Items.AddRange(effectsComboList.ToArray());
@@ -782,7 +785,9 @@ namespace OPRPCharBuild
 				MessageBox.Show("Error in configuring Cyborg Options.\nReason: " + ex.Message, "Error");
 			}
 			// Signature Technique Trait
-			if (traitsList.Any(x => x.name == Database.TR_SIGTEC)) { checkBox_SigTech.Enabled = true; }
+			if (traitsList.Any(x => x.name == Database.TR_SIGTEC || x.name == Database.TR_MINKMA)) {
+                checkBox_SigTech.Enabled = true;
+            }
 
             // Now everything is loaded: We can call Copy_Dict_To_Form
             // If we're branching a Technique, we want to duplicate, and then modify.

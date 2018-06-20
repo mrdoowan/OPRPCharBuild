@@ -30,6 +30,7 @@ namespace OPRPCharBuild
             InitializeComponent();
             // Set Variables
             statOpt = opt_;
+            this.Text = opt_;
             rank = rank_;
             power = pow_;
             // Add to Combobox
@@ -60,7 +61,7 @@ namespace OPRPCharBuild
             numericUpDown_Sta.Value = techStats.stamina;
             numericUpDown_Acc.Value = techStats.accuracy;
             // Establish Duration
-            if (alterSetting.duration) {
+            if (alterSetting.durTable) {
                 label_PostDur.Visible = true;
                 if (statOpt == Database.BUF_FOOD) {
                     label_PostDur.Text = "24 Hour Duration";
@@ -117,7 +118,10 @@ namespace OPRPCharBuild
                 else { return decRank * 0.70; }
             }
             // Standard Table
-            if (rankBuff >= 44 || statOpt == Database.BUF_ZOAN) { return decRank; }
+            if (rankBuff >= 44 || statOpt == Database.BUF_ZOAN || 
+                statOpt == Database.BUF_SULONG) {
+                return decRank;
+            }
             else if (rankBuff >= 28) { return decRank * 0.85; }
             else if (rankBuff >= 14) { return decRank * 0.70; }
             else { return decRank * 0.60; }
