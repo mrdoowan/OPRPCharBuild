@@ -32,7 +32,7 @@ namespace OPRPCharBuild
 
         #region Member Variables
 
-        public const string VERSION = "1.8.0";
+        public const string VERSION = "1.8.1";
         public const string STD_TEMPLATE_MSG = "Standard Template";
         private const string WEBSITE = "https://github.com/mrdoowan/OPRPCharBuild/releases";
         public static bool template_imported = false;
@@ -169,21 +169,20 @@ namespace OPRPCharBuild
                     return;
                 }
                 for (int i = 0; i < current.Length; ++i) {
-                    // We do nothing if the current version is greater than latest version
-                    if (int.Parse(current[i]) > int.Parse(latest[i])) {
-                        return;
+                    // We ask for update if latest > current
+                    if (int.Parse(latest[i]) != int.Parse(current[i])) {
+                        // Version # does not align
+                        if (int.Parse(latest[i]) > int.Parse(current[i])) {
+                            if (MessageBox.Show("An update to v" + version_page + " is available. Would you like to close this application and download the newest version?", "New Version",
+                                MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
+                                Process.Start(WEBSITE);
+                                Process.Start("http://s1.zetaboards.com/One_Piece_RP/topic/6060583/1/");
+                                saved = true;
+                                Application.Exit();
+                            }
+                            return;
+                        }
                     }
-                    else if (i == current.Length - 1 && (int.Parse(current[i]) >= int.Parse(latest[i]))) { // Last number check.
-                        return;
-                    }
-                }
-                // If we've arrived at this point, that means it needs updating.
-                if (MessageBox.Show("An update to v" + version_page + " is available. Would you like to close this application and download the newest version?", "New Version",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) {
-                    Process.Start(WEBSITE);
-                    Process.Start("http://s1.zetaboards.com/One_Piece_RP/topic/6060583/1/");
-                    saved = true;
-                    Application.Exit();
                 }
             }
             catch { }
