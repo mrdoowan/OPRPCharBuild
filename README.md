@@ -18,6 +18,9 @@ Based on OPRP usernames
 
 Version History
 ---------------
+### v1.8.1
+* Fixed an updater bug
+
 ### v1.8.0
 * Updated to May 2018 patch
 * Fixed a small template error
