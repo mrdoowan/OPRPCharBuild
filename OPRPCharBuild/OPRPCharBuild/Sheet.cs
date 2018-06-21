@@ -70,16 +70,14 @@ namespace OPRPCharBuild
 			"<zero=28><AP><color>[b]<29> (<78> AP)[/b]</color> - <99>\n\n</AP>\n\n</zero>" + 
 			"[quote=Devil Fruit]<color>[b]Devil Fruit Name: [/b]</color> <52>\n" +
 			"<color>[b]Devil Fruit Type:[/b]</color> <53>\n" +
-			"<color>[b]Devil Fruit Ability:[/b]</color> <54>" +
-			"<empty=55>\n<color>[b]Devil Fruit Free Effect:[/b]</color> <55></empty>[/quote]\n\n" +
+			"<color>[b]Devil Fruit Ability:[/b]</color> <54>[/quote]\n\n" +
 			"[center][big][big][i][font=Century Gothic]Techniques[/font][/i][/big][/big][/center]\n" +
 			"<color>[b]Regular Technique Points:[/b]</color> <57> <58>\n" + 
 			"<color>[b]Used Regular Technique Points:[/b]</color> <56>\n" +
 			"<color>[b]Special Technique Points:[/b]</color> <60>\n" +
 			"<color>[b]Used Special Technique Points:[/b]</color> <59> <zero=60>[list]<SpTrait>[*]<61>: <83> / <84>\n</SpTrait>[/list]</zero>\n\n" +
 			"<empty=88><88>\n</empty>" +
-			"<empty=62><62>\n</empty>" +
-			"<empty=55>[u]DF Free Effect:[/u] <55>\n</empty>\n" +
+			"<empty=62><62>\n</empty>\n" +
 			"<TechTable>[table=2, <63>, 1][center]<color>[b][u]Name/Type/Range/Power/Stats/TP[/u][/b]</color>[/center][c]\n" +
 			"[center]<color>[b][u]Description/Notes[/u][/b]</color>[/center]\n" +
 			"<Technique>[c]<color>[b]<64>[/b]</color> (<65>)\n" +

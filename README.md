@@ -20,6 +20,7 @@ Version History
 ---------------
 ### v1.8.0
 * Updated to May 2018 patch
+* Fixed a small template error
 
 ### v1.7.0
 * Updated to July 2017 patch
