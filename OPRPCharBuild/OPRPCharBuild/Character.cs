@@ -19,9 +19,9 @@ namespace OPRPCharBuild
         // --------------------------------------------------------------------
         // MEMBER VARIABLES
         // --------------------------------------------------------------------
-        public string filename;
-        public string path;
-        private string data;
+        public string filename { get; set; }
+        public string path { get; set; }
+        private string data { get; set; }
         #region Const Identifiers
         private const string
             // Basic Information Tab
@@ -175,8 +175,96 @@ namespace OPRPCharBuild
         // For Tags <> inside, use the @@@ to separate
         // For Tags <> inside another <>, use the ^^^ to separate
 
+        // Store everything about the Character in member variables
+        public string charName { get; set; }
+        public string charNickname { get; set; }
+        public int charAge { get; set; }
+        public string charGender { get; set; }
+        public string charRace { get; set; }
+        public string charPosition { get; set; }
+        public string charAffiliation { get; set; }
+        public string charBounty { get; set; }
+        public int charCommend { get; set; }
+        public string charRank { get; set; }
+        public string charThreat { get; set; }
+        public List<string> charAchieves { get; set; }
+        public Dictionary<string, Profession> charName2Profs { get; set; }
+        public string charHeight { get; set; }
+        public string charWeight { get; set; }
+        public string charHair { get; set; }
+        public string charEye { get; set; }
+        public string charClothing { get; set; }
+        public string charAppear { get; set; }
+        public List<Image> charImages { get; set; }
+        public string charIsland { get; set; }
+        public string charRegion { get; set; }
+        public string charPersonality { get; set; }
+        public string charHistory { get; set; }
+        public string charCombat { get; set; }
+        public List<Equipment> charWeapons { get; set; }
+        public List<Equipment> charItems { get; set; }
+        public string charBeli { get; set; }
+        public DevilFruit charDF { get; set; }
+        public int charSDEarned { get; set; }
+        public int charSDConverted { get; set; } // into SP
+        public int charSDUsedFortune { get; set; }
+        public Stats charStats { get; set; }
+        public List<int> charAPs { get; set; }
+        public Dictionary<string, Trait> charName2Traits { get; set; }
+        public Dictionary<string, Technique> charName2Techs { get; set; }
+        public List<Category> charTechCategories { get; set; }
+        public Dictionary<string, Source> charName2Sources { get; set; }
+        public string charTemplateName { get; set; }
+        public string charTemplateStr { get; set; }
+        public string charTemplateColor { get; set; }
+        public string charTemplate4RankMsg { get; set; }
+
+        #region Helper Functions
+        // This takes the string between identifier and split
+        private string getParse(string begStr, string endStr, string parsing = "")
+        {
+            if (parsing == "") { parsing = data; }
+            int pFrom = parsing.IndexOf(begStr) + begStr.Length;
+            if (pFrom == -1) { return ""; }
+            int pTo = parsing.IndexOf(endStr, pFrom);
+            if (pTo == -1) { return ""; }
+            return parsing.Substring(pFrom, pTo - pFrom).TrimEnd('@');
+        }
+
+        // Predicate for RemoveAll.
+        private static bool emptyString(string s)
+        {
+            return s == "";
+        }
+
+        // Splitting into an array of strings
+        private string[] splitStringbyString(string whole, string splitter)
+        {
+            string[] result = whole.Split(new string[] { splitter }, StringSplitOptions.None);
+            List<string> listResult = result.ToList();
+            listResult.RemoveAll(emptyString);
+            return listResult.ToArray();
+        }
+
+        // Our version of int.TryParse that returns zero upon failure of parsing
+        private int TryParseInt(string parsing)
+        {
+            int num = 0;
+            if (!int.TryParse(parsing, out num)) { return 0; }
+            return num;
+        }
+
+        // Our version of bool.TryParse that automatically returns false upon failure
+        private bool TryParseBool(string parsing)
+        {
+            bool boolean = false;
+            if (!bool.TryParse(parsing, out boolean)) { return false; }
+            return boolean;
+        }
+        #endregion
+
         #region Saving Functions
-        
+
         public void saveCharResetData() {
             data = "";
         }
@@ -468,43 +556,6 @@ namespace OPRPCharBuild
         }
 
         #endregion
-        
-        // This takes the string between identifier and split
-        private string getParse(string begStr, string endStr, string parsing = "") {
-            if (parsing == "") { parsing = data; }
-            int pFrom = parsing.IndexOf(begStr) + begStr.Length;
-            if (pFrom == -1) { return ""; }
-            int pTo = parsing.IndexOf(endStr, pFrom);
-            if (pTo == -1) { return ""; }
-            return parsing.Substring(pFrom, pTo - pFrom).TrimEnd('@');
-        }
-
-        // Predicate for RemoveAll.
-        private static bool emptyString(string s) {
-            return s == "";
-        }
-
-        // Splitting into an array of strings
-        private string[] splitStringbyString(string whole, string splitter) {
-            string[] result = whole.Split(new string[] { splitter }, StringSplitOptions.None);
-            List<string> listResult = result.ToList();
-            listResult.RemoveAll(emptyString);
-            return listResult.ToArray();
-        }
-
-        // Our version of int.TryParse that returns zero upon failure of parsing
-        private int TryParseInt(string parsing) {
-            int num = 0;
-            if (!int.TryParse(parsing, out num)) { return 0; }
-            return num;
-        }
-
-        // Our version of bool.TryParse that automatically returns false upon failure
-        private bool TryParseBool(string parsing) {
-            bool boolean = false;
-            if (!bool.TryParse(parsing, out boolean)) { return false; }
-            return boolean;
-        }
 
         #region Load Functions
 
@@ -859,7 +910,7 @@ namespace OPRPCharBuild
 
         #endregion
 
-        // For unique purposes of Character
+        // Use of unique key for Character
         private const string OPRPKEY = "OPRPxddddd2009";
 
         public void saveFile() {
